@@ -45,7 +45,6 @@ export class HttpService {
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      // Add any other necessary headers here, e.g. authentication token
     });
   }
 
