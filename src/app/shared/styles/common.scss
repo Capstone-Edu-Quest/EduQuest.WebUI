@@ -1,0 +1,33 @@
+:root {
+    --linear-text: linear-gradient(to right, var(--brand-hover), var(--brand));
+}
+
+/* Keyframe for linear text animation */
+// @keyframes text-gradient {
+//   0% {
+//     background-position: 0% 50%;
+//   }
+//   50% {
+//     background-position: 100% 50%;
+//   }
+//   100% {
+//     background-position: 0% 50%;
+//   }
+// }
+
+// /* Applying animated gradient text */
+// .text-gradient {
+//   font-size: 2rem; /* Adjust as needed */
+//   font-weight: bold; /* Optional */
+//   background: linear-gradient(
+//     90deg,
+//     var(--brand),
+//     var(--primary-bg),
+//     var(--quaternary-bg),
+//     var(--tertiary-bg)
+//   );
+//   background-size: 300% 300%;
+//   -webkit-background-clip: text;
+//   -webkit-text-fill-color: transparent;
+//   animation: text-gradient 5s infinite linear;
+// }

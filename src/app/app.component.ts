@@ -1,15 +1,19 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { HttpClientModule } from '@angular/common/http'; 
-import { BrowserModule } from '@angular/platform-browser';
+import { TranslateService } from '@ngx-translate/core';
+import { ThemeService } from './core/services/theme.service';
+import { Component, OnInit } from '@angular/core';
+import { defaultLanguage } from './shared/constants/languages.constant';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, HttpClientModule, BrowserModule],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
 })
-export class AppComponent {
-  title = 'EduQuest.WebUI';
+export class AppComponent implements OnInit {
+  constructor(private ThemeService: ThemeService, translate: TranslateService) {
+    translate.setDefaultLang(defaultLanguage);
+    translate.use(defaultLanguage);
+  }
+  ngOnInit(): void {
+    this.ThemeService.onInitTheme();
+  }
 }
