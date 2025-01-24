@@ -1,4 +1,5 @@
 import { NzInputModule } from 'ng-zorro-antd/input';
+import {NzBadgeModule} from 'ng-zorro-antd/badge';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
@@ -18,6 +19,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
 @NgModule({
   declarations: AppDeclarations,
   imports: [
+    NzBadgeModule,
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,

@@ -15,20 +15,28 @@
     </nz-input-group>
 
     <ng-template #suffixIconButton>
-      <nz-icon nzType="search" style="color: var(--secondary-text)"/>
+      <nz-icon nzType="search" style="color: var(--secondary-text)" />
     </ng-template>
   </div>
 
   <!-- Right -->
   <div class="ctn">
-    <a class="routerLink" routerLink="/wishlist"><nz-icon nzType="heart" /></a>
-    <a class="routerLink" routerLink="/cart"
-      ><nz-icon nzType="shopping-cart"
-    /></a>
-    <a class="routerLink" routerLink="/notification"
-      ><nz-icon nzType="bell"
-    /></a>
-    <a class="routerLink" routerLink="/message"><nz-icon nzType="message" /></a>
+    <a class="routerLink" routerLink="/wishlist">
+      <app-badge [count]="1">
+        <nz-icon nzType="heart" />
+      </app-badge>
+    </a>
+    <a class="routerLink" routerLink="/cart">
+      <app-badge [count]="2">
+        <nz-icon nzType="shopping-cart" />
+      </app-badge>
+    </a>
+    <a class="routerLink" routerLink="/notification">
+      <app-badge [count]="1"> <nz-icon nzType="bell" /> </app-badge
+    ></a>
+    <a class="routerLink" routerLink="/message"
+      ><app-badge [count]="2"><nz-icon nzType="message" /></app-badge
+    ></a>
     <div class="level">
       <nz-icon nzType="thunderbolt" />
       {{ "LABEL.LEVEL" | translate : { level: 15 } }}
