@@ -1,7 +1,32 @@
-:root {
-    --linear-text: linear-gradient(to right, var(--brand-hover), var(--brand));
+.text-gradient {
+  background: linear-gradient(
+    to right,
+    var(--brand-hover),
+    var(--brand-focused)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
+.ant-input {
+  outline: none;
+  border: none;
+  color: var(--primary-text);
+  background: var(--tertiary-bg);
+  width: calc(100% - 20px);
+
+  &::placeholder {
+    color: var(--secondary-text);
+  }
+}
+
+nz-input-group {
+  padding: 10px 14px;
+  box-sizing: border-box;
+  border-radius: 14px;
+  background: var(--tertiary-bg);
+  border: 1px solid var(--secondary-bg);
+}
 /* Keyframe for linear text animation */
 // @keyframes text-gradient {
 //   0% {

@@ -1,3 +1,40 @@
-<p>
-  navbar works!
-</p>
+<div class="navbar">
+  <!-- Left -->
+  <div class="ctn">
+    <img class="logo" src="/assets/images/logo.webp" />
+    <div class="name text-gradient">{{ "LABEL.WEB_NAME" | translate }}</div>
+    <a class="routerLink" routerLink="/learning-path">{{
+      "LABEL.LEARNING_PATH" | translate
+    }}</a>
+  </div>
+
+  <!-- Middle -->
+  <div class="ctn">
+    <nz-input-group [nzSuffix]="suffixIconButton" style="width: 32vw">
+      <input nz-input placeholder="{{ 'MESSAGE.SEARCH_COURSE' | translate }}" />
+    </nz-input-group>
+
+    <ng-template #suffixIconButton>
+      <nz-icon nzType="search" style="color: var(--secondary-text)"/>
+    </ng-template>
+  </div>
+
+  <!-- Right -->
+  <div class="ctn">
+    <a class="routerLink" routerLink="/wishlist"><nz-icon nzType="heart" /></a>
+    <a class="routerLink" routerLink="/cart"
+      ><nz-icon nzType="shopping-cart"
+    /></a>
+    <a class="routerLink" routerLink="/notification"
+      ><nz-icon nzType="bell"
+    /></a>
+    <a class="routerLink" routerLink="/message"><nz-icon nzType="message" /></a>
+    <div class="level">
+      <nz-icon nzType="thunderbolt" />
+      {{ "LABEL.LEVEL" | translate : { level: 15 } }}
+    </div>
+    <div class="profile">
+      <nz-icon nzType="user" />
+    </div>
+  </div>
+</div>

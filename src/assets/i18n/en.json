@@ -1,5 +1,13 @@
 {
-    "label": {
-        "hello": "Hello"
-    }
+    "LABEL": {
+        "HELLO": "Hello {{name}}",
+        "WEB_NAME": "Edu Quest",
+        "LEARNING_PATH": "Learning Path",
+        "ACHIEVEMENTS": "Achievements",
+        "LEVEL": "Level {{level}}"
+    },
+    "MESSAGE": {
+        "SEARCH_COURSE": "Search anything"
+    },
+    "BUTTON": {}
 }
