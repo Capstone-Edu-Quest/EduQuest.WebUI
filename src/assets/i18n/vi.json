@@ -1,5 +1,15 @@
 {
-    "label": {
-        "hello": "Xin chao"
+    "LABEL": {
+        "WEB_NAME": "Edu Quest",
+        "LEARNING_PATH": "Lộ trình học",
+        "ACHIEVEMENTS": "Thành tựu",
+        "LEVEL": "Cấp {{level}}"
+    },
+    "MESSAGE": {
+        "SEARCH_COURSE": "Tìm kiếm"
+    },
+    "BUTTON": {},
+    "SIGNATURE": {
+        "MONEY_VALUE": "{{value}}₫"
     }
 }

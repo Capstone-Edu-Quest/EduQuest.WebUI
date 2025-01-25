@@ -1,0 +1,39 @@
+<div class="course-card" *ngIf="course">
+  <div class="image-ctn">
+    <img [src]="course.image" />
+  </div>
+  <div class="info-ctn">
+    <div class="name">{{ course.name }}</div>
+    <div class="author">{{ course.author.name }}</div>
+    <div class="feedback-ctn">
+      <div class="stars-number">{{ course.rating }}</div>
+      <div class="stars-ctn">
+        <fa-icon *ngFor="let starIcon of starsList" [icon]="starIcon"></fa-icon>
+      </div>
+      <div class="feedbacks-number">
+        ({{ course.numberOfRating.toLocaleString() }})
+      </div>
+    </div>
+
+    <div class="price">
+      <div class="final">
+        {{
+          "SIGNATURE.MONEY_VALUE"
+            | translate
+              : { value: (course.price * (1 - discounted) | currencyExchange).toLocaleString() }
+        }}
+      </div>
+      <div class="original">
+        {{
+          "SIGNATURE.MONEY_VALUE"
+            | translate
+              : { value: (course.price | currencyExchange).toLocaleString() }
+        }}
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #progress> </ng-template>
+
+<ng-template #price></ng-template>

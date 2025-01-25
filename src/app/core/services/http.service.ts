@@ -28,6 +28,12 @@ export class HttpService {
       .pipe(catchError(this.handleError));
   }
 
+  getOutside<T>(url: string): Observable<T> {
+    return this.http
+      .get<T>(url, { headers: this.getHeaders() })
+      .pipe(catchError(this.handleError));
+  }
+
   update<T>(endpoint: string, id: string, data: T): Observable<T> {
     const url = `${this.apiUrl}/${endpoint}/${id}`;
     return this.http

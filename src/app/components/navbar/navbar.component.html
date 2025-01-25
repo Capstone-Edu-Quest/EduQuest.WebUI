@@ -21,28 +21,47 @@
 
   <!-- Right -->
   <div class="ctn">
-    <a class="routerLink" routerLink="/wishlist">
-      <app-badge [count]="1">
-        <nz-icon nzType="heart" />
-      </app-badge>
-    </a>
-    <a class="routerLink" routerLink="/cart">
-      <app-badge [count]="2">
-        <nz-icon nzType="shopping-cart" />
-      </app-badge>
-    </a>
-    <a class="routerLink" routerLink="/notification">
-      <app-badge [count]="1"> <nz-icon nzType="bell" /> </app-badge
-    ></a>
-    <a class="routerLink" routerLink="/message"
-      ><app-badge [count]="2"><nz-icon nzType="message" /></app-badge
-    ></a>
+    <app-dropdownMenu
+      *ngFor="let icon of iconItems"
+      [dropdown]="getTemplate(icon.routerLink)"
+    >
+      <a class="routerLink" [routerLink]="icon.routerLink">
+        <app-badge [count]="icon.badge">
+          <nz-icon [nzType]="icon.icon" />
+        </app-badge>
+      </a>
+    </app-dropdownMenu>
     <div class="level">
       <nz-icon nzType="thunderbolt" />
       {{ "LABEL.LEVEL" | translate : { level: 15 } }}
     </div>
-    <div class="profile">
-      <nz-icon nzType="user" />
-    </div>
+    <app-dropdownMenu [dropdown]="getTemplate('profile')" [position]="'left'">
+      <div class="profile">
+        <nz-icon nzType="user" />
+      </div>
+    </app-dropdownMenu>
   </div>
 </div>
+
+<ng-template #wishListDropdown>
+  <div>wishlist</div>
+  >
+</ng-template>
+
+<ng-template #cartDropdown>
+  <div>cart</div>
+  >
+</ng-template>
+
+<ng-template #notificationDropdown>
+  <div>noti</div>
+  >
+</ng-template>
+
+<ng-template #messageDropdown>
+  <div>messmessmessmessmessmessmess</div>
+</ng-template>
+
+<ng-template #profileDropdown>
+  <div>messmessmessmessmessmessmess</div>
+</ng-template>

@@ -1,13 +1,25 @@
 {
     "LABEL": {
-        "HELLO": "Hello {{name}}",
         "WEB_NAME": "Edu Quest",
         "LEARNING_PATH": "Learning Path",
         "ACHIEVEMENTS": "Achievements",
-        "LEVEL": "Level {{level}}"
+        "LEVEL": "Level {{level}}",
+        "STATISTICS": "Statistics",
+        "STREAK_COUNT": "{{streak}} Days Streak!",
+        "LONGEST_STREAK": "Longest streak {{streak}} Days",
+        "DAILY_QUESTS": "Daily Quests",
+        "TOTAL_MINUTES_LEARNED": "Total learned time",
+        "CURRENT_RANK": "Leaderboard Rank",
+        "COURSES_COMPLETED": "Courses Completed",
+        "BOOSTER": "Boosters",
+        "STUDYING": "Studying"
     },
     "MESSAGE": {
-        "SEARCH_COURSE": "Search anything"
+        "SEARCH_COURSE": "Search anything",
+        "WELCOME_BACK": "Welcome back, {{name}}"
     },
-    "BUTTON": {}
+    "BUTTON": {},
+    "SIGNATURE": {
+        "MONEY_VALUE": "${{value}}"
+    }
 }

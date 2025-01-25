@@ -1,7 +1,7 @@
 export const darkTheme = {
   '--backdrop': '#1A1A1A', 
   '--background': '#0A0B0F', 
-  '--primary-bg': '#171513',
+  '--primary-bg': '#141210',
   '--secondary-bg': '#1f1d1b', 
   '--tertiary-bg': '#291a18', 
   '--quaternary-bg': '#694727', 

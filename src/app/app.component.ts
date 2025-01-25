@@ -9,10 +9,11 @@ import { defaultLanguage } from './shared/constants/languages.constant';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
-  constructor(private ThemeService: ThemeService, translate: TranslateService) {
+  constructor(private ThemeService: ThemeService, private translate: TranslateService) {
     translate.setDefaultLang(defaultLanguage);
     translate.use(defaultLanguage);
   }
+
   ngOnInit(): void {
     this.ThemeService.onInitTheme();
   }

@@ -1,0 +1,15 @@
+{
+    "LABEL": {
+        "WEB_NAME": "Edu Quest",
+        "LEARNING_PATH": "学习路径",
+        "ACHIEVEMENTS": "成就",
+        "LEVEL": "等级 {{level}}"
+    },
+    "MESSAGE": {
+        "SEARCH_COURSE": "搜索任何内容"
+    },
+    "BUTTON": {},
+    "SIGNATURE": {
+        "MONEY_VALUE": "¥{{value}}"
+    }
+}

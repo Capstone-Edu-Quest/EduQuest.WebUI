@@ -9,7 +9,7 @@ import { ThemeEnum } from '../../shared/enums/theme.enum';
   providedIn: 'root',
 })
 export class ThemeService {
-  static readonly themes = [
+  public readonly themes = [
     {
       key: ThemeEnum.DARK,
       theme: darkTheme,
@@ -20,8 +20,8 @@ export class ThemeService {
     },
   ];
 
-  static readonly defaultTheme = ThemeService.themes[0];
-  static currentTheme = ThemeService.defaultTheme;
+  public readonly defaultTheme = this.themes[0];
+  public currentTheme = this.defaultTheme;
 
   constructor(private StorageService: StorageService) {}
 
@@ -29,13 +29,13 @@ export class ThemeService {
     const savedThemeKey = this.StorageService.getFromLocalStorage(
       localStorageEnum.THEME
     );
-    this.onUpdateTheme(savedThemeKey || ThemeService.defaultTheme.key);
+    this.onUpdateTheme(savedThemeKey || this.defaultTheme.key);
   }
 
   onUpdateTheme(themeKey: string | null) {
     if (!themeKey) return;
 
-    const themeObj = ThemeService.themes.find(
+    const themeObj = this.themes.find(
       (theme) => theme.key === themeKey
     );
 
