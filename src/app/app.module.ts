@@ -16,6 +16,7 @@ import { ThemeService } from './core/services/theme.service';
 import { PriceService } from './core/services/price.service';
 import { ModalService } from './core/services/modal.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 // Factory function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -27,6 +28,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
   imports: [
     BrowserAnimationsModule,
     PipesModule,
+    FormsModule,
     FontAwesomeModule,
     NzBadgeModule,
     BrowserModule,

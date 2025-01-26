@@ -1,3 +1,4 @@
 export enum localStorageEnum {
-    THEME = 'theme'
+    THEME = 'theme',
+    LANGUAGE = 'lang'
 }

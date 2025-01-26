@@ -3,7 +3,7 @@
     <div class="title text-gradient">
       {{ "LABEL.RECENT_ACHIEVEMENTS" | translate }}
     </div>
-    <div class="view-more">{{'BUTTON.VIEW_ALL' | translate}}  <nz-icon nzType="right"></nz-icon></div>
+    <a routerLink="/" class="view-more">{{'BUTTON.VIEW_ALL' | translate}}  <nz-icon nzType="right"></nz-icon></a>
   </div>
   <app-achievements-list
     [achievements]="demoAchievements"

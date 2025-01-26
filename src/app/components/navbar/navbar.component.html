@@ -1,8 +1,8 @@
 <div class="navbar">
   <!-- Left -->
   <div class="ctn">
-    <img class="logo" src="/assets/images/logo.webp" />
-    <div class="name text-gradient">{{ "LABEL.WEB_NAME" | translate }}</div>
+    <img class="logo" src="/assets/images/logo.webp" (click)="onBackHome()" />
+    <div class="name text-gradient" (click)="onBackHome()">{{ "LABEL.WEB_NAME" | translate }}</div>
     <a class="routerLink" routerLink="/learning-path">{{
       "LABEL.LEARNING_PATH" | translate
     }}</a>
@@ -11,7 +11,7 @@
   <!-- Middle -->
   <div class="ctn">
     <nz-input-group [nzSuffix]="suffixIconButton" style="width: 32vw">
-      <input nz-input placeholder="{{ 'MESSAGE.SEARCH_COURSE' | translate }}" />
+      <input [(ngModel)]="searchText" (keydown)="onConfirmSearchCourse($event)" nz-input placeholder="{{ 'MESSAGE.SEARCH_COURSE' | translate }}" />
     </nz-input-group>
 
     <ng-template #suffixIconButton>

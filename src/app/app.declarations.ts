@@ -42,6 +42,7 @@ import { AchievementCardComponent } from './components/achievements/achievement-
 import { AchievementsListComponent } from './components/achievements/achievements-list/achievements-list.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { LanguageChangerComponent } from './components/language-changer/language-changer.component';
+import { CoursesComponent } from './pages/courses/courses.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -61,7 +62,9 @@ export const AppDeclarations = [
   HomeStatisticsComponent,
   HomeStudyingComponent,
   HomeSuggestedComponent,
-  HomeAchievementsComponent
+  HomeAchievementsComponent,
+  // Courses
+  CoursesComponent,
 ];
 export const NGIcons = [
   SearchOutline,
@@ -89,5 +92,5 @@ export const NGIcons = [
   HeartFill,
   TrophyOutline,
   GlobalOutline,
-  CloseOutline
+  CloseOutline,
 ];

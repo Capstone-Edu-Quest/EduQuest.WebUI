@@ -3,6 +3,7 @@ import { ThemeService } from './core/services/theme.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { defaultLanguage } from './shared/constants/languages.constant';
 import { ModalService } from './core/services/modal.service';
+import { StorageService } from './core/services/storage.service';
 
 @Component({
   selector: 'app-root',
@@ -10,9 +11,12 @@ import { ModalService } from './core/services/modal.service';
   styleUrl: './app.component.scss',
 })
 export class AppComponent implements OnInit {
+  savedTheme: string = '';
+  
   constructor(
     private ThemeService: ThemeService,
     private translate: TranslateService,
+    private storage: StorageService,
     public modal: ModalService
   ) {
     translate.setDefaultLang(defaultLanguage);
@@ -21,5 +25,9 @@ export class AppComponent implements OnInit {
 
   ngOnInit(): void {
     this.ThemeService.onInitTheme();
+  }
+
+  onLoadTheme() {
+    
   }
 }
