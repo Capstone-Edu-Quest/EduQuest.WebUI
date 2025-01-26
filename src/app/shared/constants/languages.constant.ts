@@ -1,2 +1,2 @@
 export const avaiableLanguage = ['vi', 'en', 'jp', 'cn'];
-export const defaultLanguage = 'jp';
+export const defaultLanguage = 'en';

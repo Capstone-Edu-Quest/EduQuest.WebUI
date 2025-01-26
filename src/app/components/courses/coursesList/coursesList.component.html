@@ -1,3 +1,12 @@
-<div class="courses-list">
-    <app-coursesCard *ngFor="let course of courses" [course]="course"></app-coursesCard>
+<div class="course-list-ctn">
+  <nz-icon nzType="left" nzTheme="outline" (click)="updateViewIndex(-1)" />
+  <div class="course-list-wrapper">
+    <div class="courses-list" [ngStyle]="{transform: 'translateX(calc(((100vw - 110px - 45px) / 3 + 20px) * -' + currentViewIndex + '))'}">
+      <app-coursesCard
+        *ngFor="let course of courses"
+        [course]="course"
+      ></app-coursesCard>
+    </div>
+  </div>
+  <nz-icon nzType="right" nzTheme="outline" (click)="updateViewIndex(1)" />
 </div>

@@ -14,26 +14,50 @@
         ({{ course.numberOfRating.toLocaleString() }})
       </div>
     </div>
-
-    <div class="price">
-      <div class="final">
-        {{
-          "SIGNATURE.MONEY_VALUE"
-            | translate
-              : { value: (course.price * (1 - discounted) | currencyExchange).toLocaleString() }
-        }}
-      </div>
-      <div class="original">
-        {{
-          "SIGNATURE.MONEY_VALUE"
-            | translate
-              : { value: (course.price | currencyExchange).toLocaleString() }
-        }}
-      </div>
-    </div>
+    <ng-container
+      *ngTemplateOutlet="!course.progress ? price : progress"
+    ></ng-container>
   </div>
 </div>
 
-<ng-template #progress> </ng-template>
+<ng-template #progress>
+  <div class="progress" *ngIf="course">
+    <div class="header">
+      <div class="label">{{ "LABEL.PROGRESS" | translate }}</div>
+      <div class="percent">{{ course.progress }}%</div>
+    </div>
+    <div class="progress-bar-ctn">
+      <div
+        class="progress-bar text-gradient"
+        [ngStyle]="{ width: course.progress + '%' }"
+      ></div>
+    </div>
+  </div>
 
-<ng-template #price></ng-template>
+  <app-button [type]="'primary'" [style]="{ width: '100%' }">{{
+    "BUTTON.CONTINUE" | translate
+  }}</app-button>
+</ng-template>
+
+<ng-template #price>
+  <div class="price" *ngIf="course">
+    <div class="final">
+      {{
+        "SIGNATURE.MONEY_VALUE"
+          | translate
+            : {
+                value: (
+                  course.price * (1 - discounted) | currencyExchange
+                ).toLocaleString()
+              }
+      }}
+    </div>
+    <div class="original" *ngIf="discounted > 0">
+      {{
+        "SIGNATURE.MONEY_VALUE"
+          | translate
+            : { value: (course.price | currencyExchange).toLocaleString() }
+      }}
+    </div>
+  </div>
+</ng-template>

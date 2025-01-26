@@ -47,6 +47,7 @@ export class HomeStatisticsComponent implements OnInit {
   constructor() {}
 
   ngOnInit() {
+  
   }
 
 }

@@ -14,8 +14,10 @@ import {
   HeartOutline,
   HomeOutline,
   HourglassOutline,
+  LeftOutline,
   MessageOutline,
   NotificationOutline,
+  RightOutline,
   SearchOutline,
   ShoppingCartOutline,
   StarOutline,
@@ -30,6 +32,7 @@ import { CoursesCardComponent } from './components/courses/coursesCard/coursesCa
 import { DropdownMenuComponent } from './components/dropdownMenu/dropdownMenu.component';
 import { BadgeComponent } from './components/badge/badge.component';
 import { CoursesListComponent } from './components/courses/coursesList/coursesList.component';
+import { ButtonComponent } from './components/button/button.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -39,6 +42,7 @@ export const AppDeclarations = [
   CoursesCardComponent,
   DropdownMenuComponent,
   BadgeComponent,
+  ButtonComponent,
   // Home
   HomeComponent,
   HomeStatisticsComponent,
@@ -64,5 +68,7 @@ export const NGIcons = [
   CheckOutline,
   FileExclamationOutline,
   AimOutline,
-  StarOutline
+  StarOutline,
+  RightOutline,
+  LeftOutline
 ];

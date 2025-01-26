@@ -8,8 +8,21 @@ import { ICourse } from '../../../shared/interfaces/CourseInterfaces';
 })
 export class CoursesListComponent implements OnInit {
   @Input('courses') courses: ICourse[] = [];
+  currentViewIndex: number = 0;
 
   constructor() {}
 
   ngOnInit() {}
+
+  updateViewIndex(value: number) {
+    if (this.courses.length <= 3) return;
+
+    const tempIdx = this.currentViewIndex + value;
+    this.currentViewIndex =
+      tempIdx < 0
+        ? this.courses.length - 1 - 2
+        : tempIdx > this.courses.length - 1 - 2
+        ? 0
+        : tempIdx;
+  }
 }

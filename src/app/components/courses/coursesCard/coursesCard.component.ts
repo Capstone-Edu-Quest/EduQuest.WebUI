@@ -15,7 +15,7 @@ import { CurrencyExchangePipe } from '../../../core/pipes/currency.pipe';
 export class CoursesCardComponent implements OnInit {
   @Input('course') course: ICourse | null = null;
 
-  discounted: number = 0.2;
+  discounted: number = 0.7;
   
   star = faStar;
   starNone = faStarRegular;

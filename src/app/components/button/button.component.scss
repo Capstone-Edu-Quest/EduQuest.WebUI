@@ -1,0 +1,20 @@
+.button-component {
+    padding: 7px 10px;
+    outline: none;
+    border: 1px solid var(--brand-light);
+    color: var(--brand-light);
+    background: transparent;
+    border-radius: 10px;
+    transition: all 0.1s linear;
+    cursor: pointer;
+
+    &.primary {
+        color: var(--brand);
+        background: var(--brand-01);
+        border: none;
+
+        &:hover {
+            background: var(--brand-02);
+        }
+    }
+}

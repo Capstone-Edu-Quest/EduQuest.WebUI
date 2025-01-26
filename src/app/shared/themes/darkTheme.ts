@@ -9,6 +9,8 @@ export const darkTheme = {
   '--quaternary-bg-015': 'rgba(255, 154, 60, 0.15)',
 
   '--brand': '#F97316',
+  '--brand-01': 'rgba(249, 117, 22, 0.1)',
+  '--brand-02': 'rgba(249, 117, 22, 0.2)',
 
   '--brand-light': '#d59869',
   '--brand-hover': '#ff8805',

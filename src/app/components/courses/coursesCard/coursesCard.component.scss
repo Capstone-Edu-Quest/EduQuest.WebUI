@@ -1,5 +1,6 @@
 .course-card {
-  width: calc((100vw - 110px) / 3);
+  width: calc((100vw - 110px - 45px) / 3);
+  height: 100%;
   border-radius: 15px;
   overflow: hidden;
   background: var(--primary-bg);
@@ -95,5 +96,77 @@
         font-weight: 400;
       }
     }
+
+    .progress {
+      margin: 8px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+
+        .label {
+          color: var(--secondary-text);
+        }
+
+        .percent {
+          color: var(--brand-hover);
+        }
+      }
+
+      .progress-bar-ctn {
+        height: 12px;
+        border-radius: 12px;
+        overflow: hidden;
+        background: var(--tertiary-bg);
+
+        .progress-bar {
+          height: 100%;
+          width: 100%;
+          background: linear-gradient(
+            to right,
+            var(--brand-hover),
+            var(--brand-focused)
+          );
+          position: relative;
+          overflow: hidden;
+
+          &::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 150%;
+            height: 100%;
+            background: linear-gradient(
+              to right,
+              transparent,
+              rgba(255, 255, 255, 0.55),
+              transparent
+            );
+            animation: glowing 2.5s infinite;
+            pointer-events: none;
+          }
+        }
+      }
+    }
+
+    .completed-label {
+      margin: 15px 0 5px 0;
+      text-align: center;
+      font-weight: 600;
+      color: var(--brand-light)
+    }
+  }
+}
+
+@keyframes glowing {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 150%;
   }
 }

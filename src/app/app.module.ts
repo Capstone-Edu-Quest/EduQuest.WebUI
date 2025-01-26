@@ -14,6 +14,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { StoreModule } from '@ngrx/store';
 import { currencyReducer } from './core/state/currency/currency.reducer';
 import { PipesModule } from './core/pipes/pipes.module';
+import { ThemeService } from './core/services/theme.service';
+import { PriceService } from './core/services/price.service';
 
 // Factory function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -42,7 +44,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
       },
     }),
   ],
-  providers: [HttpClient],
+  providers: [HttpClient, ThemeService, PriceService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

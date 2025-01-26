@@ -3,19 +3,20 @@ import { TranslateService } from '@ngx-translate/core';
 import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
 import { selectExchangeRates } from '../state/currency/currency.selectors';
+import { PriceService } from '../services/price.service';
 
 @Pipe({
   name: 'currencyExchange',
   pure: false, // Ensures it reacts to state changes
 })
 export class CurrencyExchangePipe implements PipeTransform, OnDestroy {
-  private exchangeRates: { [key: string]: number } = {};
+  private exchangeRates: { [key: string]: number } = this.PriceService.exchangeRate;
   private currentLanguage: string;
   private subscription$: Subscription = new Subscription();
 
   constructor(
     private translate: TranslateService,
-    private store: Store<{}>
+    private PriceService: PriceService
   ) {
     // Listen for language changes
     this.subscription$.add(
@@ -26,17 +27,10 @@ export class CurrencyExchangePipe implements PipeTransform, OnDestroy {
 
     // Set initial language
     this.currentLanguage = this.translate.currentLang || 'en';
-
-    // Subscribe to exchange rates from the store
-    this.subscription$.add(
-      this.store.pipe(select(selectExchangeRates)).subscribe((rates) => {
-        this.exchangeRates = rates || {};
-      })
-    );
   }
 
   transform(amount: number): number {
-    if (!amount || !this.exchangeRates) return 0;
+    if (!amount) return 0;
 
     // Map language to currency
     const languageToCurrency: { [key: string]: string } = {

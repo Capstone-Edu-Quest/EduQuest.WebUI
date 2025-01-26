@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import { PriceService } from '../../core/services/price.service';
 
 @Component({
   selector: 'app-home',
@@ -9,10 +7,9 @@ import { PriceService } from '../../core/services/price.service';
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private PriceService: PriceService) { }
+  constructor() { }
   
   ngOnInit() {
-    this.PriceService.onInitExchangeRate();
   }
 
 }
