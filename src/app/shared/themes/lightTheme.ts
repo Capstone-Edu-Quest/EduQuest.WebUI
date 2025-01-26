@@ -9,6 +9,10 @@ export const lightTheme = {
   '--quaternary-bg-015': 'rgba(255, 154, 60, 0.15)', // Same as dark theme for consistency
 
   '--brand': '#F97316', // Keep the brand color consistent
+  '--brand-01': 'rgba(249, 117, 22, 0.1)',
+  '--brand-02': 'rgba(249, 117, 22, 0.2)',
+  '--brand-05': 'rgba(249, 117, 22, 0.5)',
+
   '--brand-light': '#e3a652', // Lightened brand color
   '--brand-hover': '#FFA726', // Slightly darker hover effect
   '--brand-focused': '#FF7F50', // Focused state for brand

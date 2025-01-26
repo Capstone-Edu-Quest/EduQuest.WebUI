@@ -1,0 +1,39 @@
+.achievement {
+  width: calc((100vw - 140px - 45px) / 4);
+  border-radius: 15px;
+  overflow: hidden;
+  background: var(--primary-bg);
+  border: 1px solid var(--brand-02);
+  padding: 12px 15px;
+  box-sizing: border-box;
+
+  .achievement-logo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    nz-icon {
+      color: var(--brand-hover);
+      font-size: 30px;
+      background: var(--brand-02);
+      padding: 13px 15px 7px 15px;
+      border-radius: 50%;
+    }
+  }
+  .achievement-name {
+    margin-top: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .achievement-description {
+    text-align: center;
+    margin-top: 3px;
+    color: var(--secondary-text);
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

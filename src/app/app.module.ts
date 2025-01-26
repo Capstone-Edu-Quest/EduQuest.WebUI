@@ -11,11 +11,11 @@ import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { AppDeclarations, NGIcons } from './app.declarations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
-import { StoreModule } from '@ngrx/store';
-import { currencyReducer } from './core/state/currency/currency.reducer';
 import { PipesModule } from './core/pipes/pipes.module';
 import { ThemeService } from './core/services/theme.service';
 import { PriceService } from './core/services/price.service';
+import { ModalService } from './core/services/modal.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Factory function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -25,6 +25,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
 @NgModule({
   declarations: AppDeclarations,
   imports: [
+    BrowserAnimationsModule,
     PipesModule,
     FontAwesomeModule,
     NzBadgeModule,
@@ -32,9 +33,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
     HttpClientModule,
     AppRoutingModule,
     NzInputModule,
-    StoreModule.forRoot({
-      currency: currencyReducer
-    }),
     NzIconModule.forRoot(NGIcons),
     TranslateModule.forRoot({
       loader: {
@@ -44,7 +42,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
       },
     }),
   ],
-  providers: [HttpClient, ThemeService, PriceService],
+  providers: [HttpClient, ThemeService, PriceService, ModalService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

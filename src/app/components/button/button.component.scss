@@ -1,20 +1,26 @@
 .button-component {
-    padding: 7px 10px;
-    outline: none;
-    border: 1px solid var(--brand-light);
-    color: var(--brand-light);
-    background: transparent;
-    border-radius: 10px;
-    transition: all 0.1s linear;
-    cursor: pointer;
+  padding: 7px 10px;
+  outline: none;
+  color: var(--secondary-text);
+  border: 1px solid var(--secondary-text);
+  background: transparent;
+  border-radius: 10px;
+  transition: all 0.1s linear;
+  cursor: pointer;
 
-    &.primary {
-        color: var(--brand);
-        background: var(--brand-01);
-        border: none;
+  &:hover {
+    color: var(--brand);
+    border: 1px solid var(--brand);
+    // color: var(--primary-text);
+  }
 
-        &:hover {
-            background: var(--brand-02);
-        }
+  &.primary {
+    color: var(--brand);
+    background: var(--brand-01);
+    border: 1px solid var(--brand-01);
+
+    &:hover {
+      background: var(--brand-02);
     }
+  }
 }

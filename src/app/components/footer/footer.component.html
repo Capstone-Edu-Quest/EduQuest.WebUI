@@ -1,3 +1,34 @@
-<p>
-  footer works!
-</p>
+<div class="footer">
+  <div class="become-instructor">
+    <div class="info">
+      <div class="become">{{ "LABEL.BECOME_INSTRUCTOR" | translate }}</div>
+      <div class="become-sub">
+        {{ "LABEL.BECOME_INSTRUCTOR_SUB" | translate }}
+      </div>
+    </div>
+    <app-button [type]="'primary'">{{
+      "BUTTON.START_TEACHING" | translate
+    }}</app-button>
+  </div>
+
+  <div class="web-info-wrapper">
+    <div class="web-info">
+      <div class="web-name text-gradient">
+        {{ "LABEL.WEB_NAME" | translate }}
+      </div>
+      <div class="v-divider"></div>
+      <a
+        class="eqLink"
+        *ngFor="let eq of eduquestLink"
+        routerLink="{{ eq.link }}"
+        >{{ eq.name | translate }}</a
+      >
+    </div>
+    <div class="language" (click)="onShowThemeDialog()">
+      <nz-icon nzType="global"></nz-icon>
+      <label>{{('LANGUAGES.' + currentLanguage.toUpperCase()) | translate}}</label>
+    </div>
+  </div>
+</div>
+
+<ng-template #language><app-language-changer></app-language-changer></ng-template>

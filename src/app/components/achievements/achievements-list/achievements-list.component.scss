@@ -1,0 +1,29 @@
+.achievement-list-ctn {
+    box-sizing: border-box;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+  
+    nz-icon {
+      font-size: 18px;
+      color: var(--secondary-text);
+      cursor: pointer;
+      transition: all 0.1s linear;
+  
+      &:hover {
+        color: var(--brand-light);
+      }
+    }
+  
+    .achievement-list-wrapper {
+      overflow: hidden;
+  
+      .achievements-list {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        transition: all 0.3s ease-in-out;
+      }
+    }
+  }
+  

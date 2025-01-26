@@ -3,12 +3,50 @@
         "WEB_NAME": "Edu Quest",
         "LEARNING_PATH": "Lộ trình học",
         "ACHIEVEMENTS": "Thành tựu",
-        "LEVEL": "Cấp {{level}}"
-    },
-    "MESSAGE": {
-        "SEARCH_COURSE": "Tìm kiếm"
-    },
-    "BUTTON": {},
+        "LEVEL": "Cấp độ {{level}}",
+        "STATISTICS": "Thống kê",
+        "STREAK_COUNT": "Chuỗi học {{streak}} ngày!",
+        "LONGEST_STREAK": "Chuỗi học dài nhất {{streak}} ngày",
+        "DAILY_QUESTS": "Nhiệm vụ hàng ngày",
+        "TOTAL_MINUTES_LEARNED": "Tổng thời gian học",
+        "CURRENT_RANK": "Xếp hạng",
+        "COURSES_COMPLETED": "Khóa học đã hoàn thành",
+        "BOOSTER": "Booster",
+        "STUDYING": "Đang học",
+        "PROGRESS": "Tiến độ",
+        "COMPLETED": "Đã hoàn thành",
+        "SUGGESTED": "Được đề xuất",
+        "RECENT_ACHIEVEMENTS": "Thành tựu gần đây",
+        "BECOME_INSTRUCTOR": "Trở thành giảng viên trên Edu Quest",
+        "BECOME_INSTRUCTOR_SUB": "Tạo khóa học trực tuyến, vươn ra thế giới và kiếm thu nhập",
+        "ABOUT": "Giới thiệu",
+        "PRICING": "Giá cả",
+        "CONTACT": "Liên hệ",
+        "HELP": "Trợ giúp",
+        "PRIVACY": "Chính sách bảo mật",
+        "TERMS": "Điều khoản",
+        "LANGUAGE": "Ngôn ngữ"
+      },
+      "MESSAGE": {
+        "SEARCH_COURSE": "Tìm kiếm khóa học",
+        "WELCOME_BACK": "Chào mừng trở lại, {{name}}"
+      },
+      "BUTTON": {
+        "CONTINUE": "Tiếp tục",
+        "VIEW_CERTIFICATE": "Xem chứng chỉ",
+        "ADD_TO_CART": "Thêm vào giỏ",
+        "GO_TO_CART": "Đi đến giỏ hàng",
+        "VIEW_CERTIFICATE": "Xem chứng chỉ",
+        "VIEW_ALL": "Xem tất cả",
+        "DISCOVER": "Khám phá",
+        "START_TEACHING": "Bắt đầu giảng dạy"
+      },
+      "LANGUAGES": {
+        "EN": "Tiếng Anh",
+        "VI": "Tiếng Việt",
+        "CN": "Tiếng Trung",
+        "JP": "Tiếng Nhật"
+      },
     "SIGNATURE": {
         "MONEY_VALUE": "{{value}}₫"
     }

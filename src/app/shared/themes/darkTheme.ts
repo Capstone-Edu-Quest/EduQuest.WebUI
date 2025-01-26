@@ -11,6 +11,7 @@ export const darkTheme = {
   '--brand': '#F97316',
   '--brand-01': 'rgba(249, 117, 22, 0.1)',
   '--brand-02': 'rgba(249, 117, 22, 0.2)',
+  '--brand-05': 'rgba(249, 117, 22, 0.5)',
 
   '--brand-light': '#d59869',
   '--brand-hover': '#ff8805',

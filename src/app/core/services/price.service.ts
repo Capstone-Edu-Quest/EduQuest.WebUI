@@ -1,8 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpService } from './http.service';
-import { Store } from '@ngrx/store';
-import { setExchangeRates } from '../state/currency/currency.action';
-import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',

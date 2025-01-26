@@ -157,7 +157,34 @@
       margin: 15px 0 5px 0;
       text-align: center;
       font-weight: 600;
-      color: var(--brand-light)
+      color: var(--brand-light);
+    }
+  }
+
+  .add-to-cart-group {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    gap: 10px;
+    margin-top: 12px;
+
+    nz-icon {
+      font-size: 17px;
+      color: var(--secondary-text);
+      cursor: pointer;
+      transition: all 0.1s linear;
+
+      &:hover {
+        color: var(--brand-hover);
+      }
+
+      &.favorited {
+        color: var(--brand-hover);
+
+        &:hover {
+          color: var(--brand-focused);
+        }
+      }
     }
   }
 }

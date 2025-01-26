@@ -9,8 +9,11 @@ import {
   BellOutline,
   CheckOutline,
   ClockCircleOutline,
+  CloseOutline,
   FileExclamationOutline,
   FireOutline,
+  GlobalOutline,
+  HeartFill,
   HeartOutline,
   HomeOutline,
   HourglassOutline,
@@ -33,6 +36,12 @@ import { DropdownMenuComponent } from './components/dropdownMenu/dropdownMenu.co
 import { BadgeComponent } from './components/badge/badge.component';
 import { CoursesListComponent } from './components/courses/coursesList/coursesList.component';
 import { ButtonComponent } from './components/button/button.component';
+import { HomeSuggestedComponent } from './pages/home/home-suggested/home-suggested.component';
+import { HomeAchievementsComponent } from './pages/home/home-achievements/home-achievements.component';
+import { AchievementCardComponent } from './components/achievements/achievement-card/achievement-card.component';
+import { AchievementsListComponent } from './components/achievements/achievements-list/achievements-list.component';
+import { ModalComponent } from './components/modal/modal.component';
+import { LanguageChangerComponent } from './components/language-changer/language-changer.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -43,10 +52,16 @@ export const AppDeclarations = [
   DropdownMenuComponent,
   BadgeComponent,
   ButtonComponent,
+  AchievementCardComponent,
+  AchievementsListComponent,
+  ModalComponent,
+  LanguageChangerComponent,
   // Home
   HomeComponent,
   HomeStatisticsComponent,
-  HomeStudyingComponent
+  HomeStudyingComponent,
+  HomeSuggestedComponent,
+  HomeAchievementsComponent
 ];
 export const NGIcons = [
   SearchOutline,
@@ -70,5 +85,9 @@ export const NGIcons = [
   AimOutline,
   StarOutline,
   RightOutline,
-  LeftOutline
+  LeftOutline,
+  HeartFill,
+  TrophyOutline,
+  GlobalOutline,
+  CloseOutline
 ];

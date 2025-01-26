@@ -3,12 +3,50 @@
         "WEB_NAME": "Edu Quest",
         "LEARNING_PATH": "学习路径",
         "ACHIEVEMENTS": "成就",
-        "LEVEL": "等级 {{level}}"
-    },
-    "MESSAGE": {
-        "SEARCH_COURSE": "搜索任何内容"
-    },
-    "BUTTON": {},
+        "LEVEL": "等级 {{level}}",
+        "STATISTICS": "统计",
+        "STREAK_COUNT": "{{streak}} 天连续学习！",
+        "LONGEST_STREAK": "最长连续学习 {{streak}} 天",
+        "DAILY_QUESTS": "每日任务",
+        "TOTAL_MINUTES_LEARNED": "总学习时间",
+        "CURRENT_RANK": "排行榜排名",
+        "COURSES_COMPLETED": "完成的课程",
+        "BOOSTER": "加速器",
+        "STUDYING": "学习中",
+        "PROGRESS": "进度",
+        "COMPLETED": "完成",
+        "SUGGESTED": "推荐",
+        "RECENT_ACHIEVEMENTS": "最近的成就",
+        "BECOME_INSTRUCTOR": "成为 Edu Quest 的讲师",
+        "BECOME_INSTRUCTOR_SUB": "创建在线课程，走向全球，获得财富",
+        "ABOUT": "关于",
+        "PRICING": "定价",
+        "CONTACT": "联系",
+        "HELP": "帮助",
+        "PRIVACY": "隐私",
+        "TERMS": "条款",
+        "LANGUAGE": "语言"
+      },
+      "MESSAGE": {
+        "SEARCH_COURSE": "搜索课程",
+        "WELCOME_BACK": "欢迎回来，{{name}}"
+      },
+      "BUTTON": {
+        "CONTINUE": "继续",
+        "VIEW_CERTIFICATE": "查看证书",
+        "ADD_TO_CART": "加入购物车",
+        "GO_TO_CART": "前往购物车",
+        "VIEW_CERTIFICATE": "查看证书",
+        "VIEW_ALL": "查看全部",
+        "DISCOVER": "发现",
+        "START_TEACHING": "开始教学"
+      },
+      "LANGUAGES": {
+        "EN": "英语",
+        "VI": "越南语",
+        "CN": "中文",
+        "JP": "日语"
+      },
     "SIGNATURE": {
         "MONEY_VALUE": "¥{{value}}"
     }

@@ -1,8 +1,6 @@
 import { Pipe, PipeTransform, OnDestroy } from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
-import { Store, select } from '@ngrx/store';
 import { Subscription } from 'rxjs';
-import { selectExchangeRates } from '../state/currency/currency.selectors';
 import { PriceService } from '../services/price.service';
 
 @Pipe({

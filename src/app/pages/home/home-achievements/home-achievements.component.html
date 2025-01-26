@@ -1,0 +1,11 @@
+<div class="home-achievements">
+  <div class="header">
+    <div class="title text-gradient">
+      {{ "LABEL.RECENT_ACHIEVEMENTS" | translate }}
+    </div>
+    <div class="view-more">{{'BUTTON.VIEW_ALL' | translate}}  <nz-icon nzType="right"></nz-icon></div>
+  </div>
+  <app-achievements-list
+    [achievements]="demoAchievements"
+  ></app-achievements-list>
+</div>

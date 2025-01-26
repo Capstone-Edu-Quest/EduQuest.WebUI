@@ -8,6 +8,18 @@
   -webkit-text-fill-color: transparent;
 }
 
+.divider {
+  width: calc(100% - 10%);
+  margin: 15px 5%;
+  border-bottom: 1px solid var(--tertiary-bg);
+}
+
+.v-divider {
+  width: 1px;
+  height: 1.5em;
+  border-right: 1px solid var(--quaternary-bg);
+}
+
 .ant-input {
   outline: none;
   border: none;

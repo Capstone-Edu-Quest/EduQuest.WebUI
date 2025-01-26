@@ -15,7 +15,7 @@
       </div>
     </div>
     <ng-container
-      *ngTemplateOutlet="!course.progress ? price : progress"
+      *ngTemplateOutlet="course.progress === -1 ? price : progress"
     ></ng-container>
   </div>
 </div>
@@ -34,8 +34,9 @@
     </div>
   </div>
 
-  <app-button [type]="'primary'" [style]="{ width: '100%' }">{{
-    "BUTTON.CONTINUE" | translate
+  <app-button *ngIf="course" [type]="'primary'" [style]="{ width: '100%' }">{{
+    (course.progress === 100 ? 'BUTTON.VIEW_CERTIFICATE' : "BUTTON.CONTINUE")
+      | translate
   }}</app-button>
 </ng-template>
 
@@ -59,5 +60,23 @@
             : { value: (course.price | currencyExchange).toLocaleString() }
       }}
     </div>
+  </div>
+
+  <div class="add-to-cart-group">
+    <app-button
+      [ngStyle]="{ width: 'calc(100% - 40px)' }"
+      [type]="'primary'"
+      [style]="{ width: '100%' }"
+      (click)="onAddToCart()"
+      >{{
+        (isInCart ? "BUTTON.GO_TO_CART" : "BUTTON.ADD_TO_CART") | translate
+      }}</app-button
+    >
+    <nz-icon
+      nzType="heart"
+      [ngClass]="{ favorited: isFavorite }"
+      [nzTheme]="isFavorite ? 'fill' : 'outline'"
+      (click)="onUpdateFavoriteState()"
+    ></nz-icon>
   </div>
 </ng-template>
