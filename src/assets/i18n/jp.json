@@ -1,0 +1,55 @@
+{
+    "LABEL": {
+        "WEB_NAME": "Edu Quest",
+        "LEARNING_PATH": "学習パス",
+        "ACHIEVEMENTS": "実績",
+        "LEVEL": "レベル {{level}}",
+        "STATISTICS": "統計",
+        "STREAK_COUNT": "{{streak}}日間の連続学習!",
+        "LONGEST_STREAK": "最長連続学習 {{streak}}日",
+        "DAILY_QUESTS": "毎日のクエスト",
+        "TOTAL_MINUTES_LEARNED": "学習時間合計",
+        "CURRENT_RANK": "リーダーボードのランク",
+        "COURSES_COMPLETED": "完了したコース",
+        "BOOSTER": "ブースター",
+        "STUDYING": "学習中",
+        "PROGRESS": "進捗",
+        "COMPLETED": "完了",
+        "SUGGESTED": "おすすめ",
+        "RECENT_ACHIEVEMENTS": "最近の実績",
+        "BECOME_INSTRUCTOR": "Edu Questでインストラクターになる",
+        "BECOME_INSTRUCTOR_SUB": "オンラインコースを作成し、世界中にリーチして富を得る",
+        "ABOUT": "概要",
+        "PRICING": "料金",
+        "CONTACT": "お問い合わせ",
+        "HELP": "ヘルプ",
+        "PRIVACY": "プライバシー",
+        "TERMS": "利用規約",
+        "LANGUAGE": "言語",
+        "REWARDED_AT": "{{time}} に報酬を受け取りました"
+      },
+      "MESSAGE": {
+        "SEARCH_COURSE": "コースを検索",
+        "WELCOME_BACK": "おかえりなさい、{{name}}"
+      },
+      "BUTTON": {
+        "CONTINUE": "続ける",
+        "VIEW_CERTIFICATE": "証明書を表示",
+        "ADD_TO_CART": "カートに追加",
+        "GO_TO_CART": "カートに移動",
+        "VIEW_CERTIFICATE": "証明書を表示",
+        "VIEW_ALL": "すべて表示",
+        "DISCOVER": "発見する",
+        "START_TEACHING": "教え始める"
+      },
+      "LANGUAGES": {
+        "EN": "英語",
+        "VI": "ベトナム語",
+        "CN": "中国語",
+        "JP": "日本語"
+      },
+    "SIGNATURE": {
+        "MONEY_VALUE": "¥{{value}}",
+        "DATE_FORMAT": "{{year}}/{{month}}/{{date}}"
+    }
+}

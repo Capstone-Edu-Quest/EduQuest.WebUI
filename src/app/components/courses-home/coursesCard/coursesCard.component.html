@@ -1,0 +1,82 @@
+<div class="course-card" *ngIf="course">
+  <div class="image-ctn">
+    <img [src]="course.image" />
+  </div>
+  <div class="info-ctn">
+    <div class="name">{{ course.name }}</div>
+    <div class="author">{{ course.author.name }}</div>
+    <div class="feedback-ctn">
+      <div class="stars-number">{{ course.rating }}</div>
+      <div class="stars-ctn">
+        <fa-icon *ngFor="let starIcon of starsList" [icon]="starIcon"></fa-icon>
+      </div>
+      <div class="feedbacks-number">
+        ({{ course.numberOfRating.toLocaleString() }})
+      </div>
+    </div>
+    <ng-container
+      *ngTemplateOutlet="course.progress === -1 ? price : progress"
+    ></ng-container>
+  </div>
+</div>
+
+<ng-template #progress>
+  <div class="progress" *ngIf="course">
+    <div class="header">
+      <div class="label">{{ "LABEL.PROGRESS" | translate }}</div>
+      <div class="percent">{{ course.progress }}%</div>
+    </div>
+    <div class="progress-bar-ctn">
+      <div
+        class="progress-bar text-gradient"
+        [ngStyle]="{ width: course.progress + '%' }"
+      ></div>
+    </div>
+  </div>
+
+  <app-button *ngIf="course" [type]="'primary'" [style]="{ width: '100%' }">{{
+    (course.progress === 100 ? "BUTTON.VIEW_CERTIFICATE" : "BUTTON.CONTINUE")
+      | translate
+  }}</app-button>
+</ng-template>
+
+<ng-template #price>
+  <div class="price" *ngIf="course">
+    <div class="final">
+      {{
+        "SIGNATURE.MONEY_VALUE"
+          | translate
+            : {
+                value: (
+                  course.price * (1 - discounted) | currencyExchange
+                ).toLocaleString()
+              }
+      }}
+    </div>
+    <div class="original" *ngIf="discounted > 0">
+      {{
+        "SIGNATURE.MONEY_VALUE"
+          | translate
+            : { value: (course.price | currencyExchange).toLocaleString() }
+      }}
+    </div>
+  </div>
+
+  <div class="add-to-cart-group">
+    <app-button
+      [ngStyle]="{ width: 'calc(100% - 40px)' }"
+      [type]="'primary'"
+      [style]="{ width: '100%' }"
+      (click)="onAddToCart()"
+      >{{
+        (isInCart ? "BUTTON.GO_TO_CART" : "BUTTON.ADD_TO_CART") | translate
+      }}</app-button
+    >
+    <nz-icon
+      nzType="heart"
+      [ngClass]="{ favorited: isInWishlist }"
+      [nzTheme]="isInWishlist ? 'fill' : 'outline'"
+      (click)="onAddToWishlist()"
+    ></nz-icon>
+  </div>
+</ng-template>

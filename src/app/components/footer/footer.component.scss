@@ -1,0 +1,81 @@
+.footer {
+  padding: 0 3% 30px 3%;
+  box-sizing: border-box;
+
+  .become-instructor {
+    margin-bottom: 22px;
+    display: flex;
+    justify-content: space-between;
+
+    .info {
+      .become {
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--primary-text);
+      }
+
+      .become-sub {
+        margin-top: 3px;
+        font-size: 12px;
+        color: var(--secondary-text);
+      }
+    }
+
+    .start-btn {
+      font-size: 15px;
+    }
+  }
+
+  .web-info-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .web-info {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+
+      .web-name {
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .eqLink {
+        text-decoration: none;
+        color: var(--secondary-text);
+        transition: all 0.1s linear;
+        font-size: 13px;
+        height: 42px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 10px;
+        border-radius: 8px;
+
+        &:hover {
+          //   background: var(--tertiary-bg);
+          color: var(--brand-light);
+        }
+      }
+    }
+
+    .language {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--secondary-text);
+      transition: all 0.1s linear;
+      cursor: pointer;
+
+      nz-icon {
+        transform: translateY(1px);
+        font-size: 15px;
+      }
+
+      &:hover {
+        color: var(--primary-text);
+      }
+    }
+  }
+}

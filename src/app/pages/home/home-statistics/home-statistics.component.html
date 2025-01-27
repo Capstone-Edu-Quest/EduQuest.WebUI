@@ -1,0 +1,44 @@
+<div class="home-statistics">
+  <div class="section-container">
+    <div class="welcome-back text-gradient">
+      {{ "MESSAGE.WELCOME_BACK" | translate : { name: "Khang" } }}
+      <nz-icon nzType="fire" *ngIf="currentStreak >= 5" />
+    </div>
+    <div class="section-label">{{ "LABEL.STATISTICS" | translate }}</div>
+    <!-- Streak -->
+    <div class="streak">
+      <nz-icon nzType="fire" />
+      <div class="info">
+        <div class="current">
+          {{ "LABEL.STREAK_COUNT" | translate : { streak: currentStreak } }}
+        </div>
+        <div class="longest">
+          {{ "LABEL.LONGEST_STREAK" | translate : { streak: 22 } }}
+        </div>
+      </div>
+    </div>
+    <!-- Statistics -->
+    <div class="quest" *ngFor="let stat of statistics">
+      <div class="info-wrapper">
+        <nz-icon nzType="{{ stat.icon }}" />
+        <div class="info">{{ stat.label | translate }}</div>
+      </div>
+      <div class="progress">{{ stat.value }}</div>
+    </div>
+  </div>
+
+  <!-- Daily quest -->
+  <div class="section-container">
+    <div class="section-label">{{ "LABEL.DAILY_QUESTS" | translate }}</div>
+    <div class="quest" *ngFor="let quest of dailyQuests">
+      <div class="info-wrapper">
+        <nz-icon nzType="aim" />
+        <div class="info">{{ quest.quest }}</div>
+      </div>
+      <div class="progress">{{ quest.current }}/{{ quest.max }}</div>
+    </div>
+  </div>
+
+  <!-- Fox -->
+  <div class="section-container">{{numTest}}</div>
+</div>

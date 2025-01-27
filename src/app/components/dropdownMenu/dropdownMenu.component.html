@@ -1,0 +1,15 @@
+<div
+  class="dropdownMenu"
+  (mouseenter)="updateHoverStatus(true)"
+  (mouseleave)="updateHoverStatus(false)"
+>
+  <ng-content></ng-content>
+  <div
+    [ngClass]="position"
+    class="menu-ctn"
+  >
+    <div *ngIf="isHovering && dropdown" class="menu">
+      <ng-container *ngTemplateOutlet="dropdown"></ng-container>
+    </div>
+  </div>
+</div>

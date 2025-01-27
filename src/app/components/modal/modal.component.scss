@@ -1,0 +1,38 @@
+.modal-wrapper {
+    background: rgba(0, 0, 0, 0.5);
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 999;
+
+    .modal {
+        position: absolute;
+        background: var(--quaternary-bg);
+        width: 70vw;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 14px 20px;
+        border-radius: 14px;
+        min-height: 60px;
+
+        .close-btn {
+            position: absolute;
+            right: 18px;
+            top: 18px;
+            color: var(--secondary-text);
+            cursor: pointer;
+            transition: all 0.1s linear;
+
+            &:hover {
+                color: var(--primary-text);
+            }
+        }
+
+        .content {
+            margin-top: 5px;
+        }
+    }
+}

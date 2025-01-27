@@ -1,0 +1,14 @@
+<div class="achievement" *ngIf="achievement">
+  <div class="achievement-logo">
+    <nz-icon nzType="trophy"></nz-icon>
+  </div>
+  <div class="achievement-name">{{ achievement.name }}</div>
+  <div class="achievement-description">{{ achievement.description }}</div>
+  <div class="achievement-rewardedat">
+    {{
+      "LABEL.REWARDED_AT"
+        | translate
+          : { time: "SIGNATURE.DATE_FORMAT" | translate : rewardedTime }
+    }}
+  </div>
+</div>

@@ -1,0 +1,30 @@
+.home-studying {
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .title {
+      font-size: 22px;
+      font-weight: 600;
+      margin-bottom: 12px;
+    }
+    .view-more {
+      font-size: 14px;
+      color: var(--brand);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      transition: all 0.1s linear;
+      text-decoration: none;
+
+      nz-icon {
+        transform: translateY(1px);
+      }
+
+      &:hover {
+        color: var(--brand-hover);
+      }
+    }
+  }
+}

@@ -1,0 +1,84 @@
+.text-gradient {
+  background: linear-gradient(
+    to right,
+    var(--brand-hover),
+    var(--brand-focused)
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.divider {
+  width: calc(100% - 10%);
+  margin: 15px 5%;
+  border-bottom: 1px solid var(--tertiary-bg);
+}
+
+.v-divider {
+  width: 1px;
+  height: 1.5em;
+  border-right: 1px solid var(--quaternary-bg);
+}
+
+.ant-input {
+  outline: none;
+  border: none;
+  color: var(--primary-text);
+  background: var(--tertiary-bg);
+  width: calc(100% - 20px);
+
+  &::placeholder {
+    color: var(--secondary-text);
+  }
+}
+
+nz-input-group {
+  padding: 10px 14px;
+  box-sizing: border-box;
+  border-radius: 14px;
+  background: var(--tertiary-bg);
+  border: 1px solid var(--secondary-bg);
+}
+
+// .star {
+//   width: 20px;
+//   height: 20px;
+  
+//   mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon fill="black" points="12,2 15,9 22,9 17,14 18,22 12,18 6,22 7,14 2,9 9,9"/></svg>')
+//     center/contain no-repeat;
+//   -webkit-mask: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><polygon fill="black" points="12,2 15,9 22,9 17,14 18,22 12,18 6,22 7,14 2,9 9,9"/></svg>')
+//     center/contain no-repeat;
+// }
+
+// .star-half {
+//   background: linear-gradient(to right, var(--brand) 50%, #ddd 50%);
+// }
+/* Keyframe for linear text animation */
+// @keyframes text-gradient {
+//   0% {
+//     background-position: 0% 50%;
+//   }
+//   50% {
+//     background-position: 100% 50%;
+//   }
+//   100% {
+//     background-position: 0% 50%;
+//   }
+// }
+
+// /* Applying animated gradient text */
+// .text-gradient {
+//   font-size: 2rem; /* Adjust as needed */
+//   font-weight: bold; /* Optional */
+//   background: linear-gradient(
+//     90deg,
+//     var(--brand),
+//     var(--primary-bg),
+//     var(--quaternary-bg),
+//     var(--tertiary-bg)
+//   );
+//   background-size: 300% 300%;
+//   -webkit-background-clip: text;
+//   -webkit-text-fill-color: transparent;
+//   animation: text-gradient 5s infinite linear;
+// }

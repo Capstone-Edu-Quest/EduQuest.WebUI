@@ -1,0 +1,61 @@
+{
+    "LABEL": {
+        "WEB_NAME": "Edu Quest",
+        "LEARNING_PATH": "Learning Path",
+        "ACHIEVEMENTS": "Achievements",
+        "LEVEL": "Level {{level}}",
+        "STATISTICS": "Statistics",
+        "STREAK_COUNT": "{{streak}} Days Streak!",
+        "LONGEST_STREAK": "Longest streak {{streak}} Days",
+        "DAILY_QUESTS": "Daily Quests",
+        "TOTAL_MINUTES_LEARNED": "Total learned time",
+        "CURRENT_RANK": "Leaderboard Rank",
+        "COURSES_COMPLETED": "Courses Completed",
+        "BOOSTER": "Boosters",
+        "STUDYING": "Studying",
+        "PROGRESS": "Progress",
+        "COMPLETED": "Completed",
+        "SUGGESTED": "Recommended",
+        "RECENT_ACHIEVEMENTS": "Recent Achievements",
+        "BECOME_INSTRUCTOR": "Become an instructor on Edu Quest",
+        "BECOME_INSTRUCTOR_SUB": "Create online courses, reach over the world and gain wealthy",
+        "ABOUT": "About",
+        "PRICING": "Pricing",
+        "CONTACT": "Contact",
+        "HELP": "Help",
+        "PRIVACY": "Privacy",
+        "TERMS": "Terms",
+        "LANGUAGE": "Language",
+        "FOUND_COURSES": "Found {{courses}} courses with keyword '{{keyword}}'",
+        "NUMBER_OF_COURSES": "{{courses}} courses",
+        "TOTAL_TIME_IN_HOUR": "Total {{hour}} hours",
+        "TOTAL_LESSONS": "{{lesson}} lessons",
+        "REWARDED_AT": "Rewarded at {{time}}"
+
+    },
+    "MESSAGE": {
+        "SEARCH_COURSE": "Search anything",
+        "WELCOME_BACK": "Welcome back, {{name}}"
+    },
+    "BUTTON": {
+        "CONTINUE": "Continue",
+        "VIEW_CERTIFICATE": "View Certificate",
+        "ADD_TO_CART": "Add to cart",
+        "GO_TO_CART": "Go to cart",
+        "VIEW_CERTIFICATE": "View Certificate",
+        "VIEW_ALL": "View All",
+        "DISCOVER": "Discover",
+        "START_TEACHING": "Start Teaching"
+    },
+    "LANGUAGES": {
+        "EN": "English",
+        "VI": "Vietnamese",
+        "CN": "Chinese",
+        "JP": "Japanese"
+    },
+    "SIGNATURE": {
+        "MONEY_VALUE": "${{value}}",
+        "DATE_FORMAT": "{{month}}/{{date}}/{{year}}"
+    }
+
+}

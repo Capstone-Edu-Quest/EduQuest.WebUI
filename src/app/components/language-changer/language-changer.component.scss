@@ -1,0 +1,30 @@
+.language-title {
+    font-size: 15px;
+    font-weight: 600;
+}
+
+.languages {
+    display: flex;
+    list-style: none;
+    margin: 15px 0 0 0;
+    padding: 0;
+    align-items: center;
+    gap: 12px;
+
+    li {
+        cursor: pointer;
+        font-size: 14px;
+        padding: 5px 8px;
+        border-radius: 8px;
+        transition: all 0.1s linear;
+
+        &:hover {
+            color: var(--brand-light);
+        }
+
+        &.selected {
+            background: var(--brand-02);
+            color:  var(--brand-hover)
+        }
+    }
+}

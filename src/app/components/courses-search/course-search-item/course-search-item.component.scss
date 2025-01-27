@@ -1,0 +1,155 @@
+.course {
+  width: 100%;
+  border-radius: 20px;
+  overflow: hidden;
+  background: var(--primary-bg);
+  display: flex;
+  transition: all 0.1s linear;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--secondary-bg);
+  }
+
+  .image-wrapper {
+    aspect-ratio: 16/9;
+    height: 175px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 55%,
+      rgba(0, 0, 0, 0) 100%
+    );
+    -webkit-mask-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 1) 55%,
+      rgba(0, 0, 0, 0) 100%
+    );
+
+    img {
+      height: 100%;
+    }
+  }
+
+  .course-info {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 5px;
+    width: 100%;
+    padding: 12px;
+    box-sizing: border-box;
+
+    .info {
+      grid-column: 1/12;
+
+      .course-name,
+      .description {
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+      .course-name {
+        font-weight: 500;
+        font-size: 14px;
+      }
+
+      .description {
+        font-size: 12px;
+        margin-top: 3px;
+        color: var(--secondary-text);
+      }
+
+      .author {
+        font-size: 12px;
+        color: var(--tertiary-text);
+        margin-top: 8px;
+      }
+
+      .feedback-ctn {
+        display: flex;
+        align-items: center;
+        margin-top: 15px;
+        gap: 10px;
+
+        .stars-number {
+          font-size: 13px;
+          color: var(--brand-light);
+          font-weight: 600;
+        }
+
+        .feedbacks-number {
+          font-size: 12px;
+          color: var(--tertiary-text);
+          font-weight: 400;
+        }
+
+        .stars-ctn {
+          display: flex;
+          gap: 2px;
+          align-items: center;
+          transform: translateY(-1px);
+
+          fa-icon {
+            color: var(--brand-light);
+          }
+        }
+      }
+
+      .others-info {
+        margin-top: 3px;
+        color: var(--tertiary-text);
+        font-size: 12px;
+        display: flex;
+        gap: 5px;
+      }
+      .add-to-cart-group {
+        display: flex;
+        align-items: center;
+        width: 100%;
+        gap: 10px;
+        margin-top: 12px;
+
+        nz-icon {
+          font-size: 17px;
+          color: var(--secondary-text);
+          cursor: pointer;
+          transition: all 0.1s linear;
+
+          &:hover {
+            color: var(--brand-hover);
+          }
+
+          &.favorited {
+            color: var(--brand-hover);
+
+            &:hover {
+              color: var(--brand-focused);
+            }
+          }
+        }
+      }
+    }
+    .price {
+      grid-column: 12/13;
+      width: 100%;
+      text-align: right;
+
+      .final-price {
+        color: var(--brand-hover);
+        font-weight: 600;
+      }
+
+      .current-price {
+        font-size: 12px;
+        color: var(--secondary-text);
+        text-decoration: line-through;
+        margin-top: 5px;
+      }
+    }
+  }
+}

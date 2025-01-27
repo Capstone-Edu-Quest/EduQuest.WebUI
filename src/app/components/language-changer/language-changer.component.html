@@ -1,0 +1,10 @@
+<div class="language-title">{{ "LABEL.LANGUAGE" | translate }}</div>
+<ul class="languages">
+  <li
+    *ngFor="let lang of avaiableLanguage"
+    [ngClass]="{ selected: currentLanguage === lang }"
+    (click)="onChangeLanguage(lang)"
+  >
+    {{ ("LANGUAGES." + lang.toUpperCase()) | translate }}
+  </li>
+</ul>

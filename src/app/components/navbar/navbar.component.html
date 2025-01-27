@@ -1,0 +1,67 @@
+<div class="navbar">
+  <!-- Left -->
+  <div class="ctn">
+    <img class="logo" src="/assets/images/logo.webp" (click)="onBackHome()" />
+    <div class="name text-gradient" (click)="onBackHome()">{{ "LABEL.WEB_NAME" | translate }}</div>
+    <a class="routerLink" routerLink="/learning-path">{{
+      "LABEL.LEARNING_PATH" | translate
+    }}</a>
+  </div>
+
+  <!-- Middle -->
+  <div class="ctn">
+    <nz-input-group [nzSuffix]="suffixIconButton" style="width: 32vw">
+      <input [(ngModel)]="searchText" (keydown)="onConfirmSearchCourse($event)" nz-input placeholder="{{ 'MESSAGE.SEARCH_COURSE' | translate }}" />
+    </nz-input-group>
+
+    <ng-template #suffixIconButton>
+      <nz-icon nzType="search" style="color: var(--secondary-text)" />
+    </ng-template>
+  </div>
+
+  <!-- Right -->
+  <div class="ctn">
+    <app-dropdownMenu
+      *ngFor="let icon of iconItems"
+      [dropdown]="getTemplate(icon.routerLink)"
+    >
+      <a class="routerLink" [routerLink]="icon.routerLink">
+        <app-badge [count]="icon.badge">
+          <nz-icon [nzType]="icon.icon" />
+        </app-badge>
+      </a>
+    </app-dropdownMenu>
+    <div class="level">
+      <nz-icon nzType="thunderbolt" />
+      {{ "LABEL.LEVEL" | translate : { level: 15 } }}
+    </div>
+    <app-dropdownMenu [dropdown]="getTemplate('profile')" [position]="'left'">
+      <div class="profile">
+        <nz-icon nzType="user" />
+      </div>
+    </app-dropdownMenu>
+  </div>
+</div>
+
+<ng-template #wishListDropdown>
+  <div>wishlist</div>
+  >
+</ng-template>
+
+<ng-template #cartDropdown>
+  <div>cart</div>
+  >
+</ng-template>
+
+<ng-template #notificationDropdown>
+  <div>noti</div>
+  >
+</ng-template>
+
+<ng-template #messageDropdown>
+  <div>messmessmessmessmessmessmess</div>
+</ng-template>
+
+<ng-template #profileDropdown>
+  <div>messmessmessmessmessmessmess</div>
+</ng-template>

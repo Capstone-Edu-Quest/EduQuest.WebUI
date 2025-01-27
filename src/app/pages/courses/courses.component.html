@@ -1,0 +1,22 @@
+<div class="courses">
+  <div class="found-course" *ngIf="searchKeyword.trim().length > 0">
+    {{
+      "LABEL.FOUND_COURSES"
+        | translate : { courses: sampleCourses.length, keyword: searchKeyword }
+    }}
+  </div>
+  <div class="courses-search-ctn">
+    <div class="filter">filter</div>
+    <div class="courses-list">
+      <div class="num-courses">
+        {{
+          "LABEL.NUMBER_OF_COURSES"
+            | translate : { courses: sampleCourses.length }
+        }}
+      </div>
+      <div class="courses-list">
+        <app-course-search-item *ngFor="let course of sampleCourses" [course]="course"></app-course-search-item>
+      </div>
+    </div>
+  </div>
+</div>
