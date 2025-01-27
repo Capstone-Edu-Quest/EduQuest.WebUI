@@ -35,7 +35,7 @@
   </div>
 
   <app-button *ngIf="course" [type]="'primary'" [style]="{ width: '100%' }">{{
-    (course.progress === 100 ? 'BUTTON.VIEW_CERTIFICATE' : "BUTTON.CONTINUE")
+    (course.progress === 100 ? "BUTTON.VIEW_CERTIFICATE" : "BUTTON.CONTINUE")
       | translate
   }}</app-button>
 </ng-template>
@@ -74,9 +74,9 @@
     >
     <nz-icon
       nzType="heart"
-      [ngClass]="{ favorited: isFavorite }"
-      [nzTheme]="isFavorite ? 'fill' : 'outline'"
-      (click)="onUpdateFavoriteState()"
+      [ngClass]="{ favorited: isInWishlist }"
+      [nzTheme]="isInWishlist ? 'fill' : 'outline'"
+      (click)="onAddToWishlist()"
     ></nz-icon>
   </div>
 </ng-template>

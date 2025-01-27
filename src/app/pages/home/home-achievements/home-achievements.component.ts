@@ -12,27 +12,32 @@ export class HomeAchievementsComponent implements OnInit {
     {
       id: '1',
       name: 'Quick Learner',
+      description: 'Complete 5 lessons in 1 hour',
+      rewardedAt: new Date().toISOString()
+    },
+    {
+      id: '1',
+      name: 'Quick Learner',
+      description: 'Complete 5 lessons in 1 hour',
+      rewardedAt: new Date().toISOString()
+    },
+    {
+      id: '1',
+      name: 'Quick Learner',
+      description: 'Complete 5 lessons in 1 hour',
+      rewardedAt: new Date().toISOString()
+    },
+    {
+      id: '1',
+      name: 'Quick Learner',
+      rewardedAt: new Date().toISOString(),
       description: 'Complete 5 lessons in 1 hour'
     },
     {
       id: '1',
       name: 'Quick Learner',
-      description: 'Complete 5 lessons in 1 hour'
-    },
-    {
-      id: '1',
-      name: 'Quick Learner',
-      description: 'Complete 5 lessons in 1 hour'
-    },
-    {
-      id: '1',
-      name: 'Quick Learner',
-      description: 'Complete 5 lessons in 1 hour'
-    },
-    {
-      id: '1',
-      name: 'Quick Learner',
-      description: 'Complete 5 lessons in 1 hour'
+      description: 'Complete 5 lessons in 1 hour',
+      rewardedAt: new Date().toISOString()
     },
   ]
 

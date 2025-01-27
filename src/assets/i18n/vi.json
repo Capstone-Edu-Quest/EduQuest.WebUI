@@ -25,7 +25,8 @@
         "HELP": "Trợ giúp",
         "PRIVACY": "Chính sách bảo mật",
         "TERMS": "Điều khoản",
-        "LANGUAGE": "Ngôn ngữ"
+        "LANGUAGE": "Ngôn ngữ",
+        "REWARDED_AT": "Nhận lúc {{time}}"
       },
       "MESSAGE": {
         "SEARCH_COURSE": "Tìm kiếm khóa học",
@@ -48,6 +49,7 @@
         "JP": "Tiếng Nhật"
       },
     "SIGNATURE": {
-        "MONEY_VALUE": "{{value}}₫"
+        "MONEY_VALUE": "{{value}}₫",
+        "DATE_FORMAT": "{{date}}/{{month}}/{{year}}"
     }
 }

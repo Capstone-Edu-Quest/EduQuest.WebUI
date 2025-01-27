@@ -1,4 +1,33 @@
 .courses {
-    padding: 20px 35px;
+    padding: 25px 35px;
     box-sizing: border-box;
+
+    .found-course {
+        color: var(--brand-light);
+        font-weight: 600;
+        font-size: 18px;
+    }
+
+    .courses-search-ctn {
+        display: grid;
+        grid-template-columns: repeat(24, 1fr);
+        gap: 20px;
+        margin-top: 15px;
+
+        .filter {
+            grid-column: 1 / 9;
+        }
+
+        .courses-list {
+            grid-column: 9 / 24;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+
+            .num-courses {
+                text-align: right;
+                color: var(--secondary-text);
+            }
+        }
+    }
 }

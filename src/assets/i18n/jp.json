@@ -25,7 +25,8 @@
         "HELP": "ヘルプ",
         "PRIVACY": "プライバシー",
         "TERMS": "利用規約",
-        "LANGUAGE": "言語"
+        "LANGUAGE": "言語",
+        "REWARDED_AT": "{{time}} に報酬を受け取りました"
       },
       "MESSAGE": {
         "SEARCH_COURSE": "コースを検索",
@@ -48,6 +49,7 @@
         "JP": "日本語"
       },
     "SIGNATURE": {
-        "MONEY_VALUE": "¥{{value}}"
+        "MONEY_VALUE": "¥{{value}}",
+        "DATE_FORMAT": "{{year}}/{{month}}/{{date}}"
     }
 }

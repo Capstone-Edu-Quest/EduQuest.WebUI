@@ -1,0 +1,74 @@
+<div class="course" *ngIf="course">
+  <div class="image-wrapper">
+    <img [src]="course.image" />
+  </div>
+  <div class="course-info">
+    <div class="info">
+      <div class="course-name">
+        {{ course.name }}
+      </div>
+      <div class="description">{{ course.description }}</div>
+      <div class="author">{{ course.author.name }}</div>
+      <div class="feedback-ctn">
+        <div class="stars-number">{{ course.rating }}</div>
+        <div class="stars-ctn">
+          <fa-icon
+            *ngFor="let starIcon of starsList"
+            [icon]="starIcon"
+          ></fa-icon>
+        </div>
+        <div class="feedbacks-number">
+          ({{ course.numberOfRating.toLocaleString() }})
+        </div>
+      </div>
+      <div class="others-info">
+        <div class="time">
+          {{ "LABEL.TOTAL_TIME_IN_HOUR" | translate : { hour: 59.2 } }}
+        </div>
+        <div>·</div>
+        <div class="lesson">
+          {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: 48 } }}
+        </div>
+      </div>
+      <div class="add-to-cart-group">
+        <app-button
+          [ngStyle]="{ width: 'calc(100% - 40px)' }"
+          [type]="'primary'"
+          [style]="{ width: '100%' }"
+          (click)="onAddToCart()"
+          >{{
+            (isInCart ? "BUTTON.GO_TO_CART" : "BUTTON.ADD_TO_CART") | translate
+          }}</app-button
+        >
+        <nz-icon
+          nzType="heart"
+          [ngClass]="{ favorited: isInWishlist }"
+          [nzTheme]="isInWishlist ? 'fill' : 'outline'"
+          (click)="onAddToWishlist()"
+        ></nz-icon>
+      </div>
+    </div>
+    <div class="price">
+      <div class="final-price">
+        {{
+          "SIGNATURE.MONEY_VALUE"
+            | translate
+              : {
+                  value: (
+                    course.price * (1 - 0.7) | currencyExchange
+                  ).toLocaleString()
+                }
+        }}
+      </div>
+      <div class="current-price">
+        {{
+          "SIGNATURE.MONEY_VALUE"
+            | translate
+              : {
+                  value: (course.price | currencyExchange).toLocaleString()
+                }
+        }}
+      </div>
+    </div>
+  </div>
+</div>

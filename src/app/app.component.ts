@@ -4,30 +4,43 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { defaultLanguage } from './shared/constants/languages.constant';
 import { ModalService } from './core/services/modal.service';
 import { StorageService } from './core/services/storage.service';
+import { localStorageEnum } from './shared/enums/localStorage.enum';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss',
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, OnDestroy {
   savedTheme: string = '';
-  
+  subscription$: Subscription = new Subscription();
+
   constructor(
     private ThemeService: ThemeService,
     private translate: TranslateService,
     private storage: StorageService,
     public modal: ModalService
-  ) {
-    translate.setDefaultLang(defaultLanguage);
-    translate.use(defaultLanguage);
-  }
+  ) {}
 
   ngOnInit(): void {
     this.ThemeService.onInitTheme();
+    this.onInitLanguage();
   }
 
-  onLoadTheme() {
-    
+  onInitLanguage() {
+    const savedLanguage =
+      this.storage.getFromLocalStorage(localStorageEnum.LANGUAGE) ??
+      defaultLanguage;
+    this.translate.setDefaultLang(defaultLanguage);
+    this.translate.use(savedLanguage);
+
+    this.translate.onLangChange.subscribe((event) =>
+      this.storage.setToLocalStorage(localStorageEnum.LANGUAGE, event.lang)
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
   }
 }

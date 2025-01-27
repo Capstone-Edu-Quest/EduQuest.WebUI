@@ -25,7 +25,8 @@
         "HELP": "帮助",
         "PRIVACY": "隐私",
         "TERMS": "条款",
-        "LANGUAGE": "语言"
+        "LANGUAGE": "语言",
+        "REWARDED_AT": "奖励时间 {{time}}"
       },
       "MESSAGE": {
         "SEARCH_COURSE": "搜索课程",
@@ -48,6 +49,7 @@
         "JP": "日语"
       },
     "SIGNATURE": {
-        "MONEY_VALUE": "¥{{value}}"
+        "MONEY_VALUE": "¥{{value}}",
+        "DATE_FORMAT": "{{year}}/{{month}}/{{date}}"
     }
 }

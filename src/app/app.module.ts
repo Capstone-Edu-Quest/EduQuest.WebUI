@@ -17,6 +17,10 @@ import { PriceService } from './core/services/price.service';
 import { ModalService } from './core/services/modal.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import { ChatService } from './core/services/chat.service';
+import { CartService } from './core/services/cart.service';
+import { WishlistService } from './core/services/wishlist.service';
+import { NotificationService } from './core/services/notification.service';
 
 // Factory function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -44,7 +48,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
       },
     }),
   ],
-  providers: [HttpClient, ThemeService, PriceService, ModalService],
+  providers: [HttpClient, ThemeService, PriceService, ModalService, ChatService, CartService, WishlistService, NotificationService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

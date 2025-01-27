@@ -20,3 +20,8 @@ export interface ITag {
   name: string;
   description: string;
 }
+
+export interface ICourseCart {
+  courses: ICourse[];
+  total: number;
+}

@@ -10,4 +10,8 @@ export class StorageService {
   getFromLocalStorage(key: localStorageEnum) {
     return localStorage.getItem(key);
   }
+
+  setToLocalStorage(key: localStorageEnum, value: string) {
+    localStorage.setItem(key, value);
+  }
 }

@@ -25,7 +25,13 @@
         "HELP": "Help",
         "PRIVACY": "Privacy",
         "TERMS": "Terms",
-        "LANGUAGE": "Language"
+        "LANGUAGE": "Language",
+        "FOUND_COURSES": "Found {{courses}} courses with keyword '{{keyword}}'",
+        "NUMBER_OF_COURSES": "{{courses}} courses",
+        "TOTAL_TIME_IN_HOUR": "Total {{hour}} hours",
+        "TOTAL_LESSONS": "{{lesson}} lessons",
+        "REWARDED_AT": "Rewarded at {{time}}"
+
     },
     "MESSAGE": {
         "SEARCH_COURSE": "Search anything",
@@ -48,7 +54,8 @@
         "JP": "Japanese"
     },
     "SIGNATURE": {
-        "MONEY_VALUE": "${{value}}"
+        "MONEY_VALUE": "${{value}}",
+        "DATE_FORMAT": "{{month}}/{{date}}/{{year}}"
     }
 
 }

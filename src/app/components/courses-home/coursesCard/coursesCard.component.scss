@@ -4,6 +4,12 @@
   border-radius: 15px;
   overflow: hidden;
   background: var(--primary-bg);
+  transition: all 0.1s linear;
+  cursor: pointer;
+
+  &:hover {
+    background: var(--secondary-bg);
+  }
 
   .image-ctn {
     display: flex;

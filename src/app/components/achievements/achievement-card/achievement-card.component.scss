@@ -36,4 +36,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  .achievement-rewardedat {
+    margin-top: 3px;
+    font-size: 10px;
+    color: var(--tertiary-text);
+    text-align: center;
+  }
 }
