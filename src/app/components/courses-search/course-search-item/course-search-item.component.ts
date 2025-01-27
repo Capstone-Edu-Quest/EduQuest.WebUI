@@ -1,5 +1,8 @@
-import { Component, Input, OnInit } from '@angular/core';
-import { ICourse, ICourseCart } from '../../../shared/interfaces/CourseInterfaces';
+import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import {
+  ICourse,
+  ICourseCart,
+} from '../../../shared/interfaces/CourseInterfaces';
 import { faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
@@ -13,6 +16,8 @@ import { WishlistService } from '../../../core/services/wishlist.service';
 })
 export class CourseSearchItemComponent implements OnInit {
   @Input('course') course: ICourse | null = null;
+
+  @ViewChild('item') item!: ElementRef;
 
   star = faStar;
   starNone = faStarRegular;
@@ -65,6 +70,7 @@ export class CourseSearchItemComponent implements OnInit {
   onAddToCart() {
     if (!this.course || this.isInCart) return;
     this.cart.updateCart(this.course);
+    this.cart.addToCartAnimation(this.item);
   }
 
   onAddToWishlist() {

@@ -2,11 +2,13 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ICourse } from '../../shared/interfaces/CourseInterfaces';
+import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 
 @Component({
   selector: 'app-courses',
   templateUrl: './courses.component.html',
   styleUrls: ['./courses.component.scss'],
+  animations: [fadeInOutAnimation],
 })
 export class CoursesComponent implements OnInit, OnDestroy {
   constructor(private route: ActivatedRoute) {}

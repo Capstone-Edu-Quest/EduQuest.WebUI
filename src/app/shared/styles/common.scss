@@ -40,6 +40,28 @@ nz-input-group {
   border: 1px solid var(--secondary-bg);
 }
 
+@keyframes flyToCart {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0) scale(1);
+  }
+  100% {
+    opacity: 0.2;
+    transform: translate(var(--translate-x), var(--translate-y)) scale(0);
+  }
+}
+
+.flying-component {
+  position: fixed;
+  z-index: 1000;
+  pointer-events: none;
+  animation: flyToCart 1s ease-in-out forwards;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+
 // .star {
 //   width: 20px;
 //   height: 20px;

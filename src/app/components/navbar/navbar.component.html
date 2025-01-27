@@ -25,7 +25,7 @@
       *ngFor="let icon of iconItems"
       [dropdown]="getTemplate(icon.routerLink)"
     >
-      <a class="routerLink" [routerLink]="icon.routerLink">
+      <a class="routerLink" [ngClass]="icon.routerLink" [routerLink]="icon.routerLink">
         <app-badge [count]="icon.badge">
           <nz-icon [nzType]="icon.icon" />
         </app-badge>

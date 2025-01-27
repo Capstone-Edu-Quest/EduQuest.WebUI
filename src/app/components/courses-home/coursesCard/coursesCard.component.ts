@@ -1,4 +1,4 @@
-import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
   ICourse,
   ICourseCart,
@@ -16,6 +16,7 @@ import { WishlistService } from '../../../core/services/wishlist.service';
 })
 export class CoursesCardComponent implements OnInit, OnDestroy {
   @Input('course') course: ICourse | null = null;
+  @ViewChild('item') item!: ElementRef;
 
   discounted: number = 0.7;
 
@@ -70,6 +71,7 @@ export class CoursesCardComponent implements OnInit, OnDestroy {
   onAddToCart() {
     if (!this.course || this.isInCart) return;
     this.cart.updateCart(this.course);
+    this.cart.addToCartAnimation(this.item);
   }
 
   onAddToWishlist() {
