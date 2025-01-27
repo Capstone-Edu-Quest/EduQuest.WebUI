@@ -1,0 +1,40 @@
+.search-pannel {
+  padding: 0 20px;
+  box-sizing: border-box;
+  .section {
+    .title {
+      font-size: 18px;
+      margin-bottom: 8px;
+      font-weight: 600;
+      color: var(--brand-light);
+    }
+  }
+
+  .tags-ctn {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    .tag {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--brand-02);
+      padding: 4px 8px;
+      border-radius: 8px;
+      cursor: pointer;
+
+      &:hover {
+        nz-icon {
+          color: var(--alert) !important;
+        }
+      }
+
+      nz-icon {
+        transform: translateY(2px);
+        transition: all 0.12s linear;
+      }
+    }
+  }
+}

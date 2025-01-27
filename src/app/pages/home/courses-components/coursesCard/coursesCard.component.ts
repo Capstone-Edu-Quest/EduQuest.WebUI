@@ -2,12 +2,12 @@ import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@ang
 import {
   ICourse,
   ICourseCart,
-} from '../../../shared/interfaces/CourseInterfaces';
+} from '../../../../shared/interfaces/CourseInterfaces';
 import { faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
-import { CartService } from '../../../core/services/cart.service';
+import { CartService } from '../../../../core/services/cart.service';
 import { Subscription } from 'rxjs';
-import { WishlistService } from '../../../core/services/wishlist.service';
+import { WishlistService } from '../../../../core/services/wishlist.service';
 
 @Component({
   selector: 'app-coursesCard',

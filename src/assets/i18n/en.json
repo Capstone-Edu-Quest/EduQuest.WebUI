@@ -30,12 +30,20 @@
         "NUMBER_OF_COURSES": "{{courses}} courses",
         "TOTAL_TIME_IN_HOUR": "Total {{hour}} hours",
         "TOTAL_LESSONS": "{{lesson}} lessons",
-        "REWARDED_AT": "Rewarded at {{time}}"
-
+        "REWARDED_AT": "Rewarded at {{time}}",
+        "SORT": "Sort",
+        "SORT_MOST_FEEDBACKS": "Most reviews",
+        "SORT_NEWEST": "Newest courses",
+        "SORT_HIGHEST_RATING": "Highest rated",
+        "REVIEW": "Reviews",
+        "FILTER_STAR": "({{value}}) and above",
+        "TAGS": "Tags",
+        "TOTAL": "Total"
     },
     "MESSAGE": {
         "SEARCH_COURSE": "Search anything",
-        "WELCOME_BACK": "Welcome back, {{name}}"
+        "WELCOME_BACK": "Welcome back, {{name}}",
+        "SEARCH_TAGS": "Enter tags name"
     },
     "BUTTON": {
         "CONTINUE": "Continue",

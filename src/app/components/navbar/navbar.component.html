@@ -2,7 +2,9 @@
   <!-- Left -->
   <div class="ctn">
     <img class="logo" src="/assets/images/logo.webp" (click)="onBackHome()" />
-    <div class="name text-gradient" (click)="onBackHome()">{{ "LABEL.WEB_NAME" | translate }}</div>
+    <div class="name text-gradient" (click)="onBackHome()">
+      {{ "LABEL.WEB_NAME" | translate }}
+    </div>
     <a class="routerLink" routerLink="/learning-path">{{
       "LABEL.LEARNING_PATH" | translate
     }}</a>
@@ -11,7 +13,12 @@
   <!-- Middle -->
   <div class="ctn">
     <nz-input-group [nzSuffix]="suffixIconButton" style="width: 32vw">
-      <input [(ngModel)]="searchText" (keydown)="onConfirmSearchCourse($event)" nz-input placeholder="{{ 'MESSAGE.SEARCH_COURSE' | translate }}" />
+      <input
+        [(ngModel)]="searchText"
+        (keydown)="onConfirmSearchCourse($event)"
+        nz-input
+        placeholder="{{ 'MESSAGE.SEARCH_COURSE' | translate }}"
+      />
     </nz-input-group>
 
     <ng-template #suffixIconButton>
@@ -25,7 +32,11 @@
       *ngFor="let icon of iconItems"
       [dropdown]="getTemplate(icon.routerLink)"
     >
-      <a class="routerLink" [ngClass]="icon.routerLink" [routerLink]="icon.routerLink">
+      <a
+        class="routerLink"
+        [ngClass]="icon.routerLink"
+        [routerLink]="icon.routerLink"
+      >
         <app-badge [count]="icon.badge">
           <nz-icon [nzType]="icon.icon" />
         </app-badge>
@@ -49,8 +60,7 @@
 </ng-template>
 
 <ng-template #cartDropdown>
-  <div>cart</div>
-  >
+  <app-navbar-cart></app-navbar-cart>
 </ng-template>
 
 <ng-template #notificationDropdown>

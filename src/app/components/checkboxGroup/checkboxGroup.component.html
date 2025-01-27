@@ -1,0 +1,19 @@
+<div class="checkbox-group">
+  <label
+    class="custom-radio"
+    *ngFor="let opt of options"
+    (click)="onSelect(opt.value)"
+  >
+    <input
+      type="radio"
+      [name]="name"
+      value="{{ opt.value }}"
+      [checked]="opt.value === value"
+    />
+    <span></span>
+    <div class="stars-ctn" *ngIf="showStar">
+      <fa-icon *ngFor="let starIcon of initStars(opt.value)" [icon]="starIcon"></fa-icon>
+    </div>
+    {{ "LABEL." + opt.label | translate : opt.translateValue }}
+  </label>
+</div>

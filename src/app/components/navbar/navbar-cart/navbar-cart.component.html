@@ -1,0 +1,35 @@
+<div class="navbar-cart-item-ctn">
+  <div class="course-map-ctn">
+    <div *ngFor="let course of _cart.courses" class="navbar-cart-item">
+      <div class="img-wrapper">
+        <img [src]="course.image" />
+      </div>
+      <div class="info">
+        <div class="name">{{ course.name }}</div>
+        <div class="author">{{ course.author.name }}</div>
+        <div class="price">
+          {{
+            "SIGNATURE.MONEY_VALUE"
+              | translate : { value: course.price | currencyExchange }
+          }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+  <div class="total">
+    <div class="total-label">
+      {{ "LABEL.TOTAL" | translate }} ({{ _cart.courses.length }})
+    </div>
+    <div class="money">
+      {{
+        "SIGNATURE.MONEY_VALUE"
+          | translate : { value: _cart.total | currencyExchange }
+      }}
+    </div>
+  </div>
+  <app-button [type]="'primary'" [style]="{ width: '100%' }">{{
+    "BUTTON.GO_TO_CART" | translate
+  }}</app-button>
+</div>

@@ -1,3 +1,48 @@
-<p>
-  courses-search-pannel works!
-</p>
+<div class="search-pannel">
+  <!-- Sort by -->
+  <div class="section">
+    <div class="title">{{ "LABEL.SORT" | translate }}</div>
+    <app-checkboxGroup
+      [name]="'sort'"
+      [options]="sortOptions"
+      [value]="sortBy"
+      (onChange)="handleFilterChange('SORT', $event)"
+    ></app-checkboxGroup>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- Rating -->
+  <div class="section">
+    <div class="title">{{ "LABEL.REVIEW" | translate }}</div>
+    <app-checkboxGroup
+      [showStar]="true"
+      [name]="'rating'"
+      [options]="starOptions"
+      [value]="ratingOpt"
+      (onChange)="handleFilterChange('RATING', $event)"
+    ></app-checkboxGroup>
+  </div>
+
+  <!-- <div class="divider"></div>
+  <div class="section">
+    <div class="title">{{ "LABEL.TAGS" | translate }}</div>
+  </div>
+  <nz-input-group [nzSuffix]="suffixIconButton">
+    <input
+      style="width: 80%; margin: 10px 0 30px 0"
+      nz-input
+      placeholder="{{ 'MESSAGE.SEARCH_TAGS' | translate }}"
+    />
+  </nz-input-group>
+  <ng-template #suffixIconButton>
+    <nz-icon nzType="search" style="color: var(--secondary-text)" />
+  </ng-template>
+
+  <div class="tags-ctn">
+    <div *ngFor="let tag of selectedTags" class="tag">
+      #{{ tag }}
+      <nz-icon nzType="close" style="color: var(--secondary-text)" />
+    </div>
+  </div> -->
+</div>

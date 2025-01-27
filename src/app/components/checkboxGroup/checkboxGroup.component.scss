@@ -1,0 +1,61 @@
+.checkbox-group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .stars-ctn {
+      display: flex;
+      gap: 2px;
+      align-items: center;
+      transform: translateY(-1px);
+      margin-right: 5px;
+
+      fa-icon {
+        color: var(--secondary-text);
+      }
+    }
+
+    input[type="radio"] {
+        display: none;
+      }
+      
+      /* Style the label and custom radio button */
+      .custom-radio {
+        display: inline-flex;
+        align-items: center;
+        cursor: pointer;
+        margin-right: 5px;
+        width: 100%;
+        font-size: 13px;
+      }
+      
+      .custom-radio span {
+        width: 12px;
+        height: 12px;
+        border: 1px solid var(--tertiary-text);
+        background-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 8px;
+        position: relative;
+        transition: border-color 0.3s ease, background-color 0.3s ease;
+      }
+      
+      .custom-radio input:checked + span {
+        // background-color: var(--secondary-text); 
+        // border-color: var(--brand-light);
+      }
+      
+      .custom-radio input:checked + span::after {
+        content: '';
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 9px; /* Inner dot size */
+        height: 9px;
+        background-color: var(--brand-hover); /* Inner dot color */
+        border-radius: 50%;
+        transform: translate(-50%, -50%);
+      }
+}
