@@ -23,11 +23,11 @@
       </div>
       <div class="others-info">
         <div class="time">
-          {{ "LABEL.TOTAL_TIME_IN_HOUR" | translate : { hour: 59.2 } }}
+          {{ "LABEL.TOTAL_TIME_IN_HOUR" | translate : { hour: course.duration } }}
         </div>
         <div>·</div>
         <div class="lesson">
-          {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: 48 } }}
+          {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: course.lessons } }}
         </div>
       </div>
       <div class="add-to-cart-group">

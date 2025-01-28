@@ -51,7 +51,8 @@
         "CODE_IS_APPLIED": "is applied",
         "DISCOUNTED": "Discounted",
         "ENTER_CODE": "Enter coupon code",
-        "NO_COURSE": "No course to display"
+        "NO_COURSE": "No course to display",
+        "WISHLIST": "Wishlist"
     },
     "MESSAGE": {
         "SEARCH_COURSE": "Search anything",

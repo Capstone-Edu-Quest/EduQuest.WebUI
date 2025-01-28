@@ -25,7 +25,8 @@ export class CoursesComponent implements OnInit, OnDestroy {
       },
       description:
         'Learn the fundamentals of JavaScript, the programming language of the web.',
-      duration: 120, // minutes
+      duration: 120, // hours,
+      lessons: 48,
       image: '/assets/images/demo-course-thumb.webp',
       createdDate: '2023-05-01',
       lastUpdated: '2023-12-15',
@@ -49,6 +50,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
       description:
         'Deep dive into TypeScript and learn how to build robust, type-safe applications.',
       duration: 180,
+      lessons: 48,
       image: '/assets/images/demo-course-thumb.webp',
       createdDate: '2023-03-10',
       lastUpdated: '2023-10-05',
@@ -81,6 +83,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
       },
       description: 'Create beautiful, responsive websites with HTML and CSS.',
       duration: 150,
+      lessons: 48,
       image: '/assets/images/demo-course-thumb.webp',
       createdDate: '2022-11-20',
       lastUpdated: '2023-07-18',
@@ -96,6 +99,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
     {
       id: 'course4',
       price: 12.99,
+      lessons: 48,
       name: 'React Fundamentals',
       author: {
         name: 'Maxmilian Dopamine',
@@ -121,6 +125,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
     {
       id: 'course5',
       price: 15.99,
+      lessons: 48,
       author: {
         name: 'Maxmilian Dopamine',
       },

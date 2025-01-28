@@ -4,6 +4,7 @@ export interface ICourse {
   author: any; // TODO: User interface
   description: string;
   duration: number;
+  lessons?: number;
   image: string;
   price: number;
   createdDate: string;

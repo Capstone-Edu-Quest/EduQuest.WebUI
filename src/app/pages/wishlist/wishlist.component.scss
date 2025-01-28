@@ -1,0 +1,16 @@
+.wishlist {
+    padding: 30px;
+    box-sizing: border-box;
+
+    .title {
+        font-size: 22px;
+        font-weight: 600;
+        margin-bottom: 25px;
+    }
+
+    .courses-ctn {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 25px;
+    }
+}

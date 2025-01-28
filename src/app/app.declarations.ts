@@ -36,10 +36,10 @@ import {
 import { HomeComponent } from './pages/home/home.component';
 import { HomeStatisticsComponent } from './pages/home/home-statistics/home-statistics.component';
 import { HomeStudyingComponent } from './pages/home/home-studying/home-studying.component';
-import { CoursesCardComponent } from './pages/home/courses-components/coursesCard/coursesCard.component';
+import { CoursesCardComponent } from './components/courses-components/coursesCard/coursesCard.component';
 import { DropdownMenuComponent } from './components/dropdownMenu/dropdownMenu.component';
 import { BadgeComponent } from './components/badge/badge.component';
-import { CoursesListComponent } from './pages/home/courses-components/coursesList/coursesList.component';
+import { CoursesListComponent } from './components/courses-components/coursesList/coursesList.component';
 import { ButtonComponent } from './components/button/button.component';
 import { HomeSuggestedComponent } from './pages/home/home-suggested/home-suggested.component';
 import { HomeAchievementsComponent } from './pages/home/home-achievements/home-achievements.component';
@@ -56,6 +56,7 @@ import { CartItemComponent } from './pages/cart/cart-item/cart-item.component';
 import { NavbarCartComponent } from './components/navbar/navbar-cart/navbar-cart.component';
 import { MessageComponent } from './components/message/message.component';
 import { WishlistCartComponent } from './components/navbar/wishlist-cart/wishlist-cart.component';
+import { WishlistComponent } from './pages/wishlist/wishlist.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -87,6 +88,8 @@ export const AppDeclarations = [
   // Cart
   CartComponent,
   CartItemComponent,
+  // Wishlist
+  WishlistComponent
 ];
 export const NGIcons = [
   CheckCircleFill,
