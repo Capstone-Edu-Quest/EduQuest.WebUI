@@ -55,6 +55,7 @@ import { CartComponent } from './pages/cart/cart.component';
 import { CartItemComponent } from './pages/cart/cart-item/cart-item.component';
 import { NavbarCartComponent } from './components/navbar/navbar-cart/navbar-cart.component';
 import { MessageComponent } from './components/message/message.component';
+import { WishlistCartComponent } from './components/navbar/wishlist-cart/wishlist-cart.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -72,6 +73,7 @@ export const AppDeclarations = [
   CheckboxGroupComponent,
   NavbarCartComponent,
   MessageComponent,
+  WishlistCartComponent,
   // Home
   HomeComponent,
   HomeStatisticsComponent,

@@ -46,23 +46,44 @@
         }
 
         .price {
-          margin-top: 15px;
+          margin-top: 3px;
           display: flex;
           align-items: center;
           gap: 3px;
 
           .discounted {
-            font-size: 12px;
+            font-size: 10px;
             color: var(--brand-light);
             font-weight: 500;
           }
 
           .original {
-            font-size: 10px;
+            font-size: 8px;
             color: var(--secondary-text);
             font-weight: 400;
             text-decoration: line-through;
           }
+        }
+      }
+
+      .add-to-cart {
+        display: flex;
+        align-items: center;
+        gap: 3px;
+        font-size: 10px;
+        margin-top: 5px;
+        cursor: pointer;
+        transition: all 0.12s linear;
+
+        &:hover {
+            color: var(--brand-hover);
+        }
+
+        label {
+        }
+
+        nz-icon {
+            transform: translateY(1px);
         }
       }
 
@@ -86,30 +107,5 @@
     width: 100%;
     border-bottom: 1px solid var(--tertiary-text);
     background: var(--secondary-bg);
-  }
-
-  .total {
-    margin: 12px 0 15px 0;
-    display: flex;
-    justify-content: space-between;
-    gap: 5px;
-    font-size: 14px;
-
-    .total-label {
-      color: var(--secondary-text);
-    }
-
-    .money {
-      .final {
-        font-weight: 500;
-        color: var(--brand-light);
-      }
-      .original {
-        font-weight: 400;
-        color: var(--secondary-text);
-        text-decoration: line-through;
-        font-size: 11px;
-      }
-    }
   }
 }

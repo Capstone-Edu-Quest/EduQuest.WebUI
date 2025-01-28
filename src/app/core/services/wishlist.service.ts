@@ -27,4 +27,12 @@ export class WishlistService {
     
     this.wishlist$.next(this.courses);
   }
+
+  remove(course: ICourse) {
+    const index = this.courses.findIndex((c) => c.id === course.id);
+    if (index !== -1) {
+      this.courses.splice(index, 1);
+      this.wishlist$.next(this.courses);
+    }
+  }
 }

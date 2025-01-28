@@ -94,6 +94,8 @@ export class CourseSearchItemComponent implements OnInit {
     if (!this.course) return;
     this.cart.updateCart(this.course);
     this.cart.addToCartAnimation(this.item);
+    // Remove from wishlist if exist
+    this.isInWishlist && this.wishlist.updateWishlist(this.course);
   }
 
   onAddToWishlist() {

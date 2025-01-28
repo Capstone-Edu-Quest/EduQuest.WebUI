@@ -50,7 +50,8 @@
         "COUPON": "Coupon",
         "CODE_IS_APPLIED": "is applied",
         "DISCOUNTED": "Discounted",
-        "ENTER_CODE": "Enter coupon code"
+        "ENTER_CODE": "Enter coupon code",
+        "NO_COURSE": "No course to display"
     },
     "MESSAGE": {
         "SEARCH_COURSE": "Search anything",
@@ -70,7 +71,8 @@
         "REMOVE": "Remove",
         "MOVE_TO_WISHLIST": "Move to wish list",
         "PROCEED_PAYMENT": "Proceed to payment",
-        "APPLY": "Apply"
+        "APPLY": "Apply",
+        "GO_TO_WISHLIST": "Go to wishlist"
     },
     "LANGUAGES": {
         "EN": "English",

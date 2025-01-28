@@ -85,8 +85,11 @@ export class CoursesCardComponent implements OnInit, OnDestroy {
       return;
     }
     if (!this.course) return;
+
     this.cart.updateCart(this.course);
     this.cart.addToCartAnimation(this.item);
+    // Remove from wishlist if exist
+    this.isInWishlist && this.wishlist.updateWishlist(this.course);
   }
 
   onAddToWishlist() {

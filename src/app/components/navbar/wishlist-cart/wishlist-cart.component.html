@@ -1,0 +1,45 @@
+<div class="navbar-cart-item-ctn">
+  <div class="course-map-ctn">
+    <div class="no-course" *ngIf="_wishlist.length === 0">{{'LABEL.NO_COURSE' | translate}}</div>
+    <div *ngFor="let course of _wishlist" class="navbar-cart-item">
+      <div class="img-wrapper">
+        <img [src]="course.image" />
+      </div>
+      <div class="info">
+        <div class="name">{{ course.name }}</div>
+        <div class="author">{{ course.author.name }}</div>
+        <div class="price">
+          <div class="discounted">
+            {{
+              "SIGNATURE.MONEY_VALUE"
+                | translate
+                  : {
+                      value:
+                        course.price * (1 - discountAmout / 100)
+                        | currencyExchange : { toString: true }
+                    }
+            }}
+          </div>
+          <div class="original" *ngIf="discountAmout > 0">
+            {{
+              "SIGNATURE.MONEY_VALUE"
+                | translate
+                  : {
+                      value:
+                        course.price | currencyExchange : { toString: true }
+                    }
+            }}
+          </div>
+        </div>
+        <div class="add-to-cart" (click)="onAddToCart(course)">
+          <nz-icon nzType="shopping-cart" />
+          <label>Add to cart</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <app-button [type]="'primary'" [style]="{ width: '100%' }">{{
+    "BUTTON.GO_TO_WISHLIST" | translate
+  }}</app-button>
+</div>

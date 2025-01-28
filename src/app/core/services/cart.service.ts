@@ -1,6 +1,7 @@
 import { ElementRef, Injectable } from '@angular/core';
 import { ICourse, ICourseCart } from '../../shared/interfaces/CourseInterfaces';
 import { BehaviorSubject, Subject } from 'rxjs';
+import { WishlistService } from './wishlist.service';
 
 @Injectable({
   providedIn: 'root',
@@ -73,7 +74,7 @@ export class CartService {
   };
   public cart$: BehaviorSubject<ICourseCart> = new BehaviorSubject(this.cart);
 
-  constructor() {}
+  constructor(private wishlist: WishlistService) {}
 
   initCart() {
     // Call API

@@ -32,7 +32,7 @@
       </div>
       <div class="add-to-cart-group">
         <app-button
-          [ngStyle]="{ width: 'calc(100% - 40px)' }"
+          [ngStyle]="{ width: 'calc(100%)' }"
           [type]="'primary'"
           [style]="{ width: '100%' }"
           (click)="onAddToCart()"
@@ -45,6 +45,7 @@
           [ngClass]="{ favorited: isInWishlist }"
           [nzTheme]="isInWishlist ? 'fill' : 'outline'"
           (click)="onAddToWishlist()"
+          *ngIf="!isInCart"
         ></nz-icon>
       </div>
     </div>
