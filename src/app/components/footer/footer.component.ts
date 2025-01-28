@@ -43,7 +43,7 @@ export class FooterComponent implements OnInit, OnDestroy {
     );
   }
 
-  onShowThemeDialog() {
+  onShowLanguageDialog() {
     this.modal.updateModalContent(this.language);
   }
 

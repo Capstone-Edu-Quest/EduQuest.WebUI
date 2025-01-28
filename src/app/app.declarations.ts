@@ -15,6 +15,7 @@ import {
   CreditCardOutline,
   FileExclamationOutline,
   FireOutline,
+  FormatPainterOutline,
   GiftOutline,
   GlobalOutline,
   HeartFill,
@@ -57,6 +58,9 @@ import { NavbarCartComponent } from './components/navbar/navbar-cart/navbar-cart
 import { MessageComponent } from './components/message/message.component';
 import { WishlistCartComponent } from './components/navbar/wishlist-cart/wishlist-cart.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { NavbarProfileComponent } from './components/navbar/navbar-profile/navbar-profile.component';
+import { AvatarByNameComponent } from './components/avatar-by-name/avatar-by-name.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -75,6 +79,8 @@ export const AppDeclarations = [
   NavbarCartComponent,
   MessageComponent,
   WishlistCartComponent,
+  NavbarProfileComponent,
+  AvatarByNameComponent,
   // Home
   HomeComponent,
   HomeStatisticsComponent,
@@ -89,7 +95,9 @@ export const AppDeclarations = [
   CartComponent,
   CartItemComponent,
   // Wishlist
-  WishlistComponent
+  WishlistComponent,
+  // Profile
+  ProfileComponent
 ];
 export const NGIcons = [
   CheckCircleFill,
@@ -123,4 +131,5 @@ export const NGIcons = [
   TrophyOutline,
   GlobalOutline,
   CloseOutline,
+  FormatPainterOutline
 ];

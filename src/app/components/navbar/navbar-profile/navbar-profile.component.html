@@ -1,0 +1,28 @@
+<div class="navbar-profile">
+  <div class="user-info">
+    <app-avatar-by-name name="Gia Khang" [size]="'45px'"></app-avatar-by-name>
+    <div class="other-info">
+      <div class="name">Truong Nguyen Gia Khang</div>
+      <div class="email">khangtngse171927&#64;fpt.edu.vn</div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <div
+    class="route-item"
+    *ngFor="let item of routeItems"
+    (click)="onRunRouteAction(item.action)"
+  >
+    <div class="divider" *ngIf="!item.name"></div>
+    <div class="item" *ngIf="item.name">
+      <div class="item-label">{{ item.name | translate }}</div>
+      <div class="item-value" *ngIf="item.value">
+        <div class="value-label">{{ item.value.value | translate }}</div>
+        <nz-icon nzType="{{ item.value.icon }}"></nz-icon>
+      </div>
+    </div>
+  </div>
+</div>
+
+<ng-template #language><app-language-changer></app-language-changer></ng-template>

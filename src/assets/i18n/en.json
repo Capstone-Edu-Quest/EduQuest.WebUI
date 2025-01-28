@@ -52,7 +52,19 @@
         "DISCOUNTED": "Discounted",
         "ENTER_CODE": "Enter coupon code",
         "NO_COURSE": "No course to display",
-        "WISHLIST": "Wishlist"
+        "WISHLIST": "Wishlist",
+        "PROFILE": "Profile",
+        "MY_LEARNING": "My Learning",
+        "SETTINGS": "Settings",
+        "TRANSACTIONS": "Transactions history",
+        "LANGUAGE": "Language",
+        "THEME": "Theme",
+        "BECOME_AN_INSTRUCTOR": "Become an instructor",
+        "PRICING":"Pricing",
+        "HELP":"Help",
+        "LOGOUT": "Logout",
+        "DARK_MODE": "Dark Mode",
+        "LIGHT_MODE": "Light Mode"
     },
     "MESSAGE": {
         "SEARCH_COURSE": "Search anything",

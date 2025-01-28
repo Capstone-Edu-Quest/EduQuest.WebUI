@@ -46,8 +46,9 @@
       <nz-icon nzType="thunderbolt" />
       {{ "LABEL.LEVEL" | translate : { level: 15 } }}
     </div>
+
     <app-dropdownMenu [dropdown]="getTemplate('profile')" [position]="'left'">
-      <div class="profile">
+      <div class="profile" (click)="goToProfilePage()">
         <nz-icon nzType="user" />
       </div>
     </app-dropdownMenu>
@@ -72,5 +73,5 @@
 </ng-template>
 
 <ng-template #profileDropdown>
-  <div>messmessmessmessmessmessmess</div>
+  <app-navbar-profile></app-navbar-profile>
 </ng-template>

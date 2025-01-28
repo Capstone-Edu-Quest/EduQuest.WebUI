@@ -75,6 +75,7 @@
     border: 1px solid var(--quaternary-bg);
     position: relative;
     overflow: hidden;
+    cursor: pointer;
     --runner-offset: 1.2px;
 
     &::after {

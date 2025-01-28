@@ -88,6 +88,10 @@ export class NavbarComponent implements OnInit {
     }
   }
 
+  goToProfilePage() {
+    this.router.navigate(['/profile']);
+  }
+
   listenCartItems() {
     this.subscription$.add(
       this.cart.cart$.subscribe((cart: ICourseCart) => {
