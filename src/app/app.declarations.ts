@@ -61,6 +61,8 @@ import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { NavbarProfileComponent } from './components/navbar/navbar-profile/navbar-profile.component';
 import { AvatarByNameComponent } from './components/avatar-by-name/avatar-by-name.component';
+import { InstructorProfileComponent } from './pages/profile/instructor-profile/instructor-profile.component';
+import { LearnerProfileComponent } from './pages/profile/learner-profile/learner-profile.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -97,7 +99,9 @@ export const AppDeclarations = [
   // Wishlist
   WishlistComponent,
   // Profile
-  ProfileComponent
+  ProfileComponent,
+  InstructorProfileComponent,
+  LearnerProfileComponent
 ];
 export const NGIcons = [
   CheckCircleFill,

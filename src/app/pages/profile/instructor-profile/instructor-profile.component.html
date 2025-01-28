@@ -1,0 +1,44 @@
+<div class="instructor-profile">
+  <div class="left">
+    <app-avatar-by-name [name]="'Truong Nguyen Gia Khang'" [size]="'200px'" />
+  </div>
+
+  <div class="right">
+    <div class="instructor-text">
+      {{ ("LABEL.INSTRUCTOR" | translate).toUpperCase() }}
+    </div>
+    <!--  -->
+    <div class="name">Truong Nguyen Gia Khang</div>
+    <div class="headline">Software Engineer &#64;FPT Software</div>
+    <!--  -->
+    <div class="numeric">
+      <div class="part">
+        <div class="title">{{ "LABEL.TOTAL_LEANERS" | translate }}</div>
+        <div class="data">123.456.789</div>
+      </div>
+      <div class="part">
+        <div class="title">{{ "LABEL.TOTAL_REVIEWS" | translate }}</div>
+        <div class="data">654.321</div>
+      </div>
+    </div>
+    <!--  -->
+    <div class="about-me-title">{{ "LABEL.ABOUT_ME" | translate }}</div>
+    <div class="about-me-content">
+      Khang is a skilled Front-End Developer with expertise in HTML, CSS,
+      JavaScript, and TypeScript, specializing in modern frameworks like ReactJS
+      and Angular. With a solid understanding of accessibility and web security,
+      Khang creates secure, efficient, and elegant code tailored to user needs.
+      His keen problem-solving ability, adaptability, and experience in medical
+      software projects reflect his dedication to delivering high-quality,
+      user-focused solutions. Always eager to learn, Khang is currently
+      expanding his knowledge in C#, .NET, and backend development to become a
+      well-rounded software engineer.
+    </div>
+  </div>
+</div>
+
+<div class="courses-title">{{ "LABEL.COURSES" | translate }}</div>
+<div class="courses">
+  <app-coursesCard *ngFor="let course of sampleCourses" [course]="course" />
+</div>
+<!-- Name, email, job title, descript, total leaners, reviews, avg reviews, courses -->

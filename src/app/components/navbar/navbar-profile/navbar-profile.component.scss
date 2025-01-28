@@ -27,6 +27,7 @@
   }
 
   .route-item {
+    user-select: none;
     .item {
       padding: 8px 12px;
       box-sizing: border-box;

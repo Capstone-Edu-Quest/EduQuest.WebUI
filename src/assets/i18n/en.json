@@ -64,7 +64,12 @@
         "HELP":"Help",
         "LOGOUT": "Logout",
         "DARK_MODE": "Dark Mode",
-        "LIGHT_MODE": "Light Mode"
+        "LIGHT_MODE": "Light Mode",
+        "INSTRUCTOR": "Instructor",
+        "TOTAL_LEANERS": "Total Leaners",
+        "TOTAL_REVIEWS": "Total Reviews",
+        "ABOUT_ME": "About me",
+        "COURSES": "Courses"
     },
     "MESSAGE": {
         "SEARCH_COURSE": "Search anything",
