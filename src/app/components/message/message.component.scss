@@ -1,0 +1,23 @@
+.test {
+  position: fixed;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--secondary-bg);
+  border: 1px solid var(--brand-light);
+  min-width: fit-content;
+  height: 20px;
+  padding: 8px 12px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  z-index: 999;
+  transition: all 0.3s ease-in;
+  font-size: 12px;
+  font-weight: 400;
+
+  nz-icon {
+    transform: translateY(2px);
+  }
+}

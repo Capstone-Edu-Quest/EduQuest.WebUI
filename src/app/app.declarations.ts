@@ -7,8 +7,10 @@ import {
   AlertFill,
   AlertOutline,
   BellOutline,
+  CheckCircleFill,
   CheckOutline,
   ClockCircleOutline,
+  CloseCircleFill,
   CloseOutline,
   CreditCardOutline,
   FileExclamationOutline,
@@ -29,6 +31,7 @@ import {
   ThunderboltOutline,
   TrophyOutline,
   UserOutline,
+  WarningFill,
 } from '@ant-design/icons-angular/icons';
 import { HomeComponent } from './pages/home/home.component';
 import { HomeStatisticsComponent } from './pages/home/home-statistics/home-statistics.component';
@@ -51,6 +54,7 @@ import { CheckboxGroupComponent } from './components/checkboxGroup/checkboxGroup
 import { CartComponent } from './pages/cart/cart.component';
 import { CartItemComponent } from './pages/cart/cart-item/cart-item.component';
 import { NavbarCartComponent } from './components/navbar/navbar-cart/navbar-cart.component';
+import { MessageComponent } from './components/message/message.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -67,6 +71,7 @@ export const AppDeclarations = [
   LanguageChangerComponent,
   CheckboxGroupComponent,
   NavbarCartComponent,
+  MessageComponent,
   // Home
   HomeComponent,
   HomeStatisticsComponent,
@@ -79,9 +84,12 @@ export const AppDeclarations = [
   CourseSearchItemComponent,
   // Cart
   CartComponent,
-  CartItemComponent
+  CartItemComponent,
 ];
 export const NGIcons = [
+  CheckCircleFill,
+  WarningFill,
+  CloseCircleFill,
   GiftOutline,
   CreditCardOutline,
   SearchOutline,

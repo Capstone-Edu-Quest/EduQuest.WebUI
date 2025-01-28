@@ -113,7 +113,7 @@
           <label>{{ "LABEL.COUPON" | translate }}</label>
         </div>
 
-        <div class="coupon" *ngIf="_coupon">
+        <div class="coupon" *ngIf="_coupon && _coupon.code !== 'notUse'">
           <div class="info">
             <div class="code">
               <b>{{ _coupon.code }}</b>
@@ -121,15 +121,16 @@
             </div>
             <div class="discount">-{{ _coupon.discount }}%</div>
           </div>
-          <nz-icon nzType="close"></nz-icon>
+          <nz-icon nzType="close" (click)="removeCoupon()"></nz-icon>
         </div>
 
         <div class="input-code">
-          <input placeholder="{{'LABEL.ENTER_CODE' | translate}}" />
+          <input [(ngModel)]="inputCoupon" placeholder="{{'LABEL.ENTER_CODE' | translate}}" (keydown)="onPressEnterCoupon($event)" />
           <app-button
             [type]="'primary'"
             [ngStyle]="{width: '200px'}"
             [style]="{width: '100%'}"
+            (click)="applyNewCoupon()"
             >{{ "BUTTON.APPLY" | translate }}</app-button>
         </div>
       </div>

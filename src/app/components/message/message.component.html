@@ -1,0 +1,32 @@
+<div class="message-container">
+  <div
+    *ngFor="let message of messages; let i = index"
+    [ngStyle]="{
+      top: 20 + i * 50 + 'px'
+    }"
+    [ngClass]="message.type"
+    class="test"
+    @messageAnimation
+  >
+    <ng-container
+      [ngTemplateOutlet]="
+        message.type === 'success'
+          ? success
+          : message.type === 'error'
+          ? error
+          : warn
+      "
+    ></ng-container>
+    {{ message.message }}
+  </div>
+</div>
+
+<ng-template #success>
+  <nz-icon style="color: var(--success)" nzType="check-circle" nzTheme="fill" />
+</ng-template>
+<ng-template #warn>
+  <nz-icon style="color: var(--warning)" nzType="warning" nzTheme="fill" />
+</ng-template>
+<ng-template #error>
+  <nz-icon style="color: var(--alert)" nzType="close-circle" nzTheme="fill" />
+</ng-template>

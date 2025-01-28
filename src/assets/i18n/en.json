@@ -55,7 +55,8 @@
     "MESSAGE": {
         "SEARCH_COURSE": "Search anything",
         "WELCOME_BACK": "Welcome back, {{name}}",
-        "SEARCH_TAGS": "Enter tags name"
+        "SEARCH_TAGS": "Enter tags name",
+        "APPLIED_COUPON": "Coupon applied successfully"
     },
     "BUTTON": {
         "CONTINUE": "Continue",

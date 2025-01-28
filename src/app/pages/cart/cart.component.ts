@@ -1,10 +1,16 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 import { CartService } from '../../core/services/cart.service';
-import { ICoupon, ICourse, ICourseCart } from '../../shared/interfaces/CourseInterfaces';
+import {
+  ICoupon,
+  ICourse,
+  ICourseCart,
+} from '../../shared/interfaces/CourseInterfaces';
 import { Subscription } from 'rxjs';
 import { WishlistService } from '../../core/services/wishlist.service';
 import { CouponService } from '../../core/services/coupon.service';
+import { MessageService } from '../../core/services/message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-cart',
@@ -19,7 +25,15 @@ export class CartComponent implements OnInit, OnDestroy {
   discountAmout: number = 0;
   _coupon: ICoupon | null = null;
 
-  constructor(private cart: CartService, private wishlist: WishlistService, private coupon: CouponService) {}
+  inputCoupon: string = '';
+
+  constructor(
+    private cart: CartService,
+    private wishlist: WishlistService,
+    private coupon: CouponService,
+    private message: MessageService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit() {
     this.listenToCart();
@@ -50,6 +64,22 @@ export class CartComponent implements OnInit, OnDestroy {
         this._wishlist = wishlist;
       })
     );
+  }
+
+  removeCoupon() {
+    this.coupon.useCoupon('notUse');
+  }
+
+  applyNewCoupon() {
+    if (this.inputCoupon.trim() === '') return;
+    this.coupon.useCoupon(this.inputCoupon);
+    this.inputCoupon = '';
+    this.message.addMessage('success', this.translate.instant('MESSAGE.APPLIED_COUPON'));
+  }
+
+  onPressEnterCoupon(e: KeyboardEvent) {
+    if (e.key !== 'Enter') return;
+    this.applyNewCoupon();
   }
 
   ngOnDestroy(): void {

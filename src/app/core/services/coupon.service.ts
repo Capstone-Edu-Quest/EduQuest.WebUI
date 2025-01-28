@@ -21,7 +21,7 @@ export class CouponService {
     expireDate: null,
   };
   public inUseCoupon$: BehaviorSubject<ICoupon> = new BehaviorSubject(
-    this.defaultCoupon
+    this.notUse
   );
   constructor() {}
 
