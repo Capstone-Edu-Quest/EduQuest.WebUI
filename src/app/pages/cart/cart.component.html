@@ -1,3 +1,138 @@
-<p>
-  cart works!
-</p>
+<div @fadeInOut class="cart-page">
+  <div class="title text-gradient">{{ "LABEL.SHOPPING_CART" | translate }}</div>
+  <div class="grid-section">
+    <div class="left">
+      <!-- Cart -->
+      <div class="section">
+        <div class="cart-item-title">
+          <nz-icon nzType="shopping-cart"></nz-icon>
+          <label>{{ "LABEL.CART_ITEM" | translate }}</label>
+        </div>
+        <div class="cart-item-subtitle">
+          {{
+            "LABEL.NUMBER_CART_ITEM"
+              | translate : { value: _cart.courses.length }
+          }}
+        </div>
+        <div class="item-section">
+          <app-cart-item
+            *ngFor="let item of _cart.courses"
+            [course]="item"
+            [isInCart]="true"
+          ></app-cart-item>
+        </div>
+      </div>
+
+      <div class="divider" style="border-bottom: none"></div>
+
+      <!-- Wishlist -->
+      <div class="section">
+        <div class="cart-item-title">
+          <nz-icon nzType="heart"></nz-icon>
+          <label>{{ "LABEL.WISH_LIST_ITEM" | translate }}</label>
+        </div>
+        <div class="cart-item-subtitle">
+          {{
+            "LABEL.NUMBER_WISH_LIST_ITEM"
+              | translate : { value: _wishlist.length }
+          }}
+        </div>
+        <div class="item-section">
+          <app-cart-item
+            *ngFor="let item of _wishlist"
+            [course]="item"
+          ></app-cart-item>
+        </div>
+      </div>
+    </div>
+    <div class="right">
+      <!-- Checkout -->
+      <div class="section">
+        <div class="checkout">
+          <nz-icon nzType="credit-card" nzTheme="outline" />
+          <label>{{ "LABEL.CHECKOUT" | translate }}</label>
+        </div>
+        <div class="checkout-info">
+          <div class="row">
+            <div class="label">{{ "LABEL.ORIGINAL_PRICE" | translate }}</div>
+            <div class="value">
+              {{
+                "SIGNATURE.MONEY_VALUE"
+                  | translate
+                    : {
+                        value:
+                          _cart.total | currencyExchange : { toString: true }
+                      }
+              }}
+            </div>
+          </div>
+          <div class="row">
+            <div class="label">{{ "LABEL.COUPON_DISCOUNT" | translate }}</div>
+            <div class="value">
+              -{{
+                "SIGNATURE.MONEY_VALUE"
+                  | translate
+                    : {
+                        value:
+                          _cart.total * (discountAmout / 100)
+                          | currencyExchange : { toString: true }
+                      }
+              }}
+            </div>
+          </div>
+          <div class="divider"></div>
+          <div class="row">
+            <div class="total-label">
+              {{ "LABEL.TOTAL" | translate }} ({{ _cart.courses.length }})
+            </div>
+            <div class="total">
+              {{
+                "SIGNATURE.MONEY_VALUE"
+                  | translate
+                    : {
+                        value:
+                          _cart.total * (1 - discountAmout / 100)
+                          | currencyExchange : { toString: true }
+                      }
+              }}
+            </div>
+          </div>
+          <app-button
+            [ngStyle]="{ width: '100%', marginTop: '15px' }"
+            [style]="{ width: '100%' }"
+            [type]="'primary'"
+            >{{ "BUTTON.PROCEED_PAYMENT" | translate }}</app-button
+          >
+        </div>
+      </div>
+
+      <!-- Coupon -->
+      <div class="section" style="margin-top: 12px">
+        <div class="checkout">
+          <nz-icon nzType="gift" nzTheme="outline" />
+          <label>{{ "LABEL.COUPON" | translate }}</label>
+        </div>
+
+        <div class="coupon" *ngIf="_coupon">
+          <div class="info">
+            <div class="code">
+              <b>{{ _coupon.code }}</b>
+              {{ "LABEL.CODE_IS_APPLIED" | translate }}
+            </div>
+            <div class="discount">-{{ _coupon.discount }}%</div>
+          </div>
+          <nz-icon nzType="close"></nz-icon>
+        </div>
+
+        <div class="input-code">
+          <input placeholder="{{'LABEL.ENTER_CODE' | translate}}" />
+          <app-button
+            [type]="'primary'"
+            [ngStyle]="{width: '200px'}"
+            [style]="{width: '100%'}"
+            >{{ "BUTTON.APPLY" | translate }}</app-button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

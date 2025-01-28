@@ -1,15 +1,79 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
+import { ICourse } from '../../../shared/interfaces/CourseInterfaces';
+import { faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
+import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
+import { CartService } from '../../../core/services/cart.service';
+import { WishlistService } from '../../../core/services/wishlist.service';
+import { CouponService } from '../../../core/services/coupon.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-cart-item',
   templateUrl: './cart-item.component.html',
-  styleUrls: ['./cart-item.component.scss']
+  styleUrls: ['./cart-item.component.scss'],
 })
-export class CartItemComponent implements OnInit {
+export class CartItemComponent implements OnInit, OnDestroy {
+  @Input('course') course: ICourse | null = null;
+  @Input('isInCart') isInCart: boolean = false;
 
-  constructor() { }
+  star = faStar;
+  starNone = faStarRegular;
+  starHalf = faStarHalfStroke;
+
+  discountValue: number = 0;
+  subsription$: Subscription = new Subscription();
+
+  starsList: any[] = [];
+  constructor(private cart: CartService, private wishlist: WishlistService, private coupon: CouponService) {}
 
   ngOnInit() {
+    this.initStars();
+    this.listenToCoupon();
   }
 
+  listenToCoupon() {
+    this.subsription$.add(
+      this.coupon.inUseCoupon$.subscribe((coupon) => {
+        this.discountValue = coupon.discount;
+      })
+    );
+  }
+
+  initStars() {
+    if (!this.course) return;
+
+    this.starsList = Array(5)
+      .fill(null)
+      .map((_, i) => {
+        const rating = this.course?.rating! - i;
+
+        if (rating >= 1) return this.star;
+        if (rating > 0) return this.starHalf;
+        return this.starNone;
+      });
+  }
+  
+
+  onAddToCart() {
+    if (!this.course) return;
+
+    this.cart.updateCart(this.course);
+  }
+
+  onAddToWishList() {
+    if (!this.course) return;
+
+    this.wishlist.updateWishlist(this.course);
+  }
+
+  onSwap() {
+    if (!this.course) return;
+
+    this.onAddToCart();
+    this.onAddToWishList();
+  }
+
+  ngOnDestroy(): void {
+    this.subsription$.unsubscribe();
+  }
 }

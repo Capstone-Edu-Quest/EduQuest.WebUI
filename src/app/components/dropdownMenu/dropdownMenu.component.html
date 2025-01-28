@@ -8,7 +8,7 @@
     [ngClass]="position"
     class="menu-ctn"
   >
-    <div *ngIf="isHovering && dropdown" class="menu">
+    <div *ngIf="isHovering && dropdown" class="menu" @fadeInOut>
       <ng-container *ngTemplateOutlet="dropdown"></ng-container>
     </div>
   </div>

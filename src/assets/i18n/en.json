@@ -38,7 +38,19 @@
         "REVIEW": "Reviews",
         "FILTER_STAR": "({{value}}) and above",
         "TAGS": "Tags",
-        "TOTAL": "Total"
+        "TOTAL": "Total",
+        "SHOPPING_CART": "Shopping Cart",
+        "CART_ITEM": "Cart Items",
+        "NUMBER_CART_ITEM": "{{value}} courses in cart",
+        "WISH_LIST_ITEM": "Wishlist Items",
+        "NUMBER_WISH_LIST_ITEM": "{{value}} courses in wishlist",
+        "CHECKOUT": "Checkout",
+        "ORIGINAL_PRICE": "Original Price",
+        "COUPON_DISCOUNT": "Coupon Discount",
+        "COUPON": "Coupon",
+        "CODE_IS_APPLIED": "is applied",
+        "DISCOUNTED": "Discounted",
+        "ENTER_CODE": "Enter coupon code"
     },
     "MESSAGE": {
         "SEARCH_COURSE": "Search anything",
@@ -53,7 +65,11 @@
         "VIEW_CERTIFICATE": "View Certificate",
         "VIEW_ALL": "View All",
         "DISCOVER": "Discover",
-        "START_TEACHING": "Start Teaching"
+        "START_TEACHING": "Start Teaching",
+        "REMOVE": "Remove",
+        "MOVE_TO_WISHLIST": "Move to wish list",
+        "PROCEED_PAYMENT": "Proceed to payment",
+        "APPLY": "Apply"
     },
     "LANGUAGES": {
         "EN": "English",

@@ -8,10 +8,27 @@
         <div class="name">{{ course.name }}</div>
         <div class="author">{{ course.author.name }}</div>
         <div class="price">
-          {{
-            "SIGNATURE.MONEY_VALUE"
-              | translate : { value: course.price | currencyExchange }
-          }}
+          <div class="discounted">
+            {{
+              "SIGNATURE.MONEY_VALUE"
+                | translate
+                  : {
+                      value:
+                        course.price * (1 - discountAmout / 100) | currencyExchange : { toString: true }
+                    }
+            }}
+          </div>
+          <div class="original" *ngIf="discountAmout > 0">
+            {{
+              "SIGNATURE.MONEY_VALUE"
+                | translate
+                  : {
+                      value:
+                        course.price
+                        | currencyExchange : { toString: true }
+                    }
+            }}
+          </div>
         </div>
       </div>
     </div>
@@ -23,13 +40,31 @@
       {{ "LABEL.TOTAL" | translate }} ({{ _cart.courses.length }})
     </div>
     <div class="money">
-      {{
-        "SIGNATURE.MONEY_VALUE"
-          | translate : { value: _cart.total | currencyExchange }
-      }}
+      <div class="final">
+        {{
+          "SIGNATURE.MONEY_VALUE"
+            | translate
+              : {
+                  value:
+                    _cart.total * (1 - discountAmout / 100)
+                    | currencyExchange : { toString: true }
+                }
+        }}
+      </div>
+
+      <div class="original" *ngIf="_cart.total > 0 && discountAmout > 0">
+        {{
+          "SIGNATURE.MONEY_VALUE"
+            | translate
+              : { value: _cart.total | currencyExchange : { toString: true } }
+        }}
+      </div>
     </div>
   </div>
-  <app-button [type]="'primary'" [style]="{ width: '100%' }">{{
-    "BUTTON.GO_TO_CART" | translate
-  }}</app-button>
+  <app-button
+    (click)="goToCart()"
+    [type]="'primary'"
+    [style]="{ width: '100%' }"
+    >{{ "BUTTON.GO_TO_CART" | translate }}</app-button
+  >
 </div>

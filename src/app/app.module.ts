@@ -21,6 +21,7 @@ import { ChatService } from './core/services/chat.service';
 import { CartService } from './core/services/cart.service';
 import { WishlistService } from './core/services/wishlist.service';
 import { NotificationService } from './core/services/notification.service';
+import { CouponService } from './core/services/coupon.service';
 
 // Factory function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -48,7 +49,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
       },
     }),
   ],
-  providers: [HttpClient, ThemeService, PriceService, ModalService, ChatService, CartService, WishlistService, NotificationService],
+  providers: [HttpClient, ThemeService, PriceService, ModalService, ChatService, CartService, WishlistService, NotificationService, CouponService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

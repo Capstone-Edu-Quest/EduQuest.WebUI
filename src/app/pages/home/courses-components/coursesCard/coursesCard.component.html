@@ -48,12 +48,12 @@
           | translate
             : {
                 value: (
-                  course.price * (1 - discounted) | currencyExchange
+                  course.price * (1 - discountAmount/100) | currencyExchange
                 ).toLocaleString()
               }
       }}
     </div>
-    <div class="original" *ngIf="discounted > 0">
+    <div class="original" *ngIf="discountAmount > 0">
       {{
         "SIGNATURE.MONEY_VALUE"
           | translate

@@ -8,6 +8,8 @@ import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../../core/services/cart.service';
 import { WishlistService } from '../../../core/services/wishlist.service';
+import { Router } from '@angular/router';
+import { CouponService } from '../../../core/services/coupon.service';
 
 @Component({
   selector: 'app-course-search-item',
@@ -29,12 +31,20 @@ export class CourseSearchItemComponent implements OnInit {
   isInCart: boolean = false;
   isInWishlist: boolean = false;
 
-  constructor(private cart: CartService, private wishlist: WishlistService) {}
+  discountAmount: number = 0;
+
+  constructor(
+    private cart: CartService,
+    private wishlist: WishlistService,
+    private router: Router,
+    private coupon: CouponService
+  ) {}
 
   ngOnInit() {
     this.initStars();
     this.listenToCart();
     this.listenToWishList();
+    this.listenToCoupon();
   }
 
   initStars() {
@@ -49,6 +59,14 @@ export class CourseSearchItemComponent implements OnInit {
         if (rating > 0) return this.starHalf;
         return this.starNone;
       });
+  }
+
+  listenToCoupon() {
+    this.subscription$.add(
+      this.coupon.inUseCoupon$.subscribe((coupon) => {
+        this.discountAmount = coupon.discount;
+      })
+    );
   }
 
   listenToCart() {
@@ -68,7 +86,12 @@ export class CourseSearchItemComponent implements OnInit {
   }
 
   onAddToCart() {
-    if (!this.course || this.isInCart) return;
+    if (this.isInCart) {
+      this.goToCart();
+      return;
+    }
+    
+    if (!this.course) return;
     this.cart.updateCart(this.course);
     this.cart.addToCartAnimation(this.item);
   }
@@ -76,5 +99,9 @@ export class CourseSearchItemComponent implements OnInit {
   onAddToWishlist() {
     if (!this.course) return;
     this.wishlist.updateWishlist(this.course);
+  }
+
+  goToCart() {
+    this.router.navigate(['/cart']);
   }
 }

@@ -7,8 +7,69 @@ import { BehaviorSubject, Subject } from 'rxjs';
 })
 export class CartService {
   private cart: ICourseCart = {
-    courses: [],
-    total: 0,
+    courses: [
+      {
+        id: 'course1',
+        name: 'Introduction to JavaScript',
+        price: 15.99,
+        author: {
+          name: 'Maxmilian Dopamine',
+        },
+        description:
+          'Learn the fundamentals of JavaScript, the programming language of the web.',
+        duration: 120, // minutes
+        image: '/assets/images/demo-course-thumb.webp',
+        createdDate: '2023-05-01',
+        lastUpdated: '2023-12-15',
+        rating: 2.2,
+        numberOfRating: 22531,
+        isCompleted: false,
+        progress: -1, // %
+        tags: [
+          {
+            id: 'tag1',
+            name: 'JavaScript',
+            description: 'Programming language for the web',
+          },
+          {
+            id: 'tag2',
+            name: 'Beginner',
+            description: 'Suitable for beginners',
+          },
+        ],
+      },
+      {
+        id: 'course2',
+        name: 'Mastering TypeScript',
+        price: 15.99,
+        description:
+          'Deep dive into TypeScript and learn how to build robust, type-safe applications.',
+        duration: 180,
+        image: '/assets/images/demo-course-thumb.webp',
+        createdDate: '2023-03-10',
+        lastUpdated: '2023-10-05',
+        author: {
+          name: 'Maxmilian Dopamine',
+        },
+        rating: 3.2,
+        numberOfRating: 11253,
+        isCompleted: true,
+        progress: -1, // %
+        tags: [
+          {
+            id: 'tag3',
+            name: 'TypeScript',
+            description: 'A superset of JavaScript',
+          },
+          {
+            id: 'tag4',
+            name: 'Advanced',
+            description: 'For experienced developers',
+          },
+        ],
+      },
+    ],
+    total: 31.88,
   };
   public cart$: BehaviorSubject<ICourseCart> = new BehaviorSubject(this.cart);
 

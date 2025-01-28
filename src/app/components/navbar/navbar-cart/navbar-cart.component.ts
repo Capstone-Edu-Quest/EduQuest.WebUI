@@ -1,25 +1,51 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CartService } from '../../../core/services/cart.service';
 import { ICourseCart } from '../../../shared/interfaces/CourseInterfaces';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { CouponService } from '../../../core/services/coupon.service';
 
 @Component({
   selector: 'app-navbar-cart',
   templateUrl: './navbar-cart.component.html',
-  styleUrls: ['./navbar-cart.component.scss']
+  styleUrls: ['./navbar-cart.component.scss'],
 })
-export class NavbarCartComponent implements OnInit {
+export class NavbarCartComponent implements OnInit, OnDestroy {
   _cart!: ICourseCart;
+  discountAmout: number = 0;
+  subscription$: Subscription = new Subscription();
 
-  constructor(private cart: CartService) {}
+  constructor(
+    private cart: CartService,
+    private router: Router,
+    private coupon: CouponService
+  ) {}
 
   ngOnInit() {
     this.listenToCart();
+    this.listenToCoupon();
   }
 
   listenToCart() {
+    this.subscription$.add();
     this.cart.cart$.subscribe((cart) => {
       this._cart = cart;
     });
   }
 
+  listenToCoupon() {
+    this.subscription$.add(
+      this.coupon.inUseCoupon$.subscribe((coupon) => {
+        this.discountAmout = coupon.discount;
+      })
+    );
+  }
+
+  goToCart() {
+    this.router.navigate(['/cart']);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
+  }
 }

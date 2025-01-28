@@ -25,3 +25,11 @@ export interface ICourseCart {
   courses: ICourse[];
   total: number;
 }
+
+export interface ICoupon {
+  id: string;
+  code: string;
+  discount: number; // %
+  description: string;
+  expireDate: string | null;
+}

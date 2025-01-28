@@ -1,0 +1,170 @@
+.cart-page {
+  padding: 25px;
+  box-sizing: border-box;
+
+  .title {
+    font-size: 22px;
+    font-weight: 600;
+  }
+
+  .grid-section {
+    display: grid;
+    grid-template-columns: repeat(24, 1fr);
+    margin-top: 12px;
+    gap: 12px;
+
+    .section {
+      background: var(--tertiary-bg);
+      padding: 16px;
+      box-sizing: border-box;
+      border-radius: 20px;
+    }
+
+    .left {
+      grid-column: 1 / 17;
+
+      .cart-item-title {
+        color: var(--brand-light);
+        font-size: 18px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        nz-icon {
+          transform: translateY(2px);
+        }
+      }
+
+      .cart-item-subtitle {
+        color: var(--secondary-text);
+        font-size: 12px;
+      }
+
+      .item-section {
+        margin-top: 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+    }
+    .right {
+      grid-column: 17 / 25;
+
+      .checkout {
+        color: var(--brand-light);
+        font-size: 18px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 5px;
+
+        nz-icon {
+          transform: translateY(2px);
+        }
+      }
+
+      .checkout-info {
+        display: flex;
+        flex-direction: column;
+
+        .row {
+          display: flex;
+          justify-content: space-between;
+          margin-top: 10px;
+
+          .label {
+            color: var(--secondary-text);
+            font-size: 14px;
+          }
+
+          .value {
+            color: var(--primary-text);
+            font-size: 14px;
+          }
+        }
+
+        .divider {
+          margin: 0;
+          width: 100%;
+          border-bottom: 1px solid var(--tertiary-text);
+          background: var(--secondary-bg);
+          margin: 17px 0 0 0;
+        }
+
+        .total-label {
+          font-weight: 500;
+          font-size: 14px;
+        }
+
+        .total {
+          color: var(--brand-light);
+          font-weight: 600;
+          font-size: 14px;
+        }
+      }
+    }
+  }
+  .coupon {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 12px;
+    border-radius: 5px;
+    box-sizing: border-box;
+    border: 1px dashed var(--quaternary-text);
+    margin-top: 8px;
+
+    .info {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+
+      .code {
+        font-size: 10px;
+        color: var(--secondary-text);
+
+        b {
+          font-weight: 500;
+          font-size: 14px;
+        }
+      }
+
+      .discount {
+        font-size: 13px;
+        color: var(--brand-hover);
+        font-weight: 500;
+      }
+    }
+
+    nz-icon {
+      color: var(--tertiary-text);
+      cursor: pointer;
+      transition: all 0.1s linear;
+
+      &:hover {
+        color: var(--alert);
+      }
+    }
+  }
+
+  .input-code {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+
+    input {
+      width: 80%;
+      height: 30px;
+      padding: 2px 8px;
+      border-radius: 5px;
+      box-sizing: border-box;
+      border: 1px solid var(--quaternary-bg);
+      outline: none;
+      background: var(--brand-01);
+      color: var(--primary-text);
+    }
+  }
+}

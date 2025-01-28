@@ -27,7 +27,7 @@ export class CurrencyExchangePipe implements PipeTransform, OnDestroy {
     this.currentLanguage = this.translate.currentLang || 'en';
   }
 
-  transform(amount: number): number {
+  transform(amount: number, options?: {toString?: boolean}): number | string {
     if (!amount) return 0;
 
     // Map language to currency
@@ -40,9 +40,11 @@ export class CurrencyExchangePipe implements PipeTransform, OnDestroy {
 
     const targetCurrency = languageToCurrency[this.currentLanguage] || 'USD';
     const rate = this.exchangeRates[targetCurrency];
+    const isToString = Boolean(options?.toString);
 
-    if (!rate) return amount; // If no rate for the target currency
-    return Number((amount * rate).toFixed(2)); // Convert to target currency
+    if (!rate) return isToString ? amount.toLocaleString() : amount; // If no rate for the target currency
+    
+    return isToString ? Number((amount * rate).toFixed(2)).toLocaleString() : Number((amount * rate).toFixed(2)); // Convert to target currency
   }
 
   ngOnDestroy(): void {

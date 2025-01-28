@@ -23,27 +23,40 @@
       .info {
         box-sizing: border-box;
         .name {
-            font-size: 11px;
-            font-weight: 600;
-            color: var(--primary-text);
-            overflow: hidden;
-            text-wrap: nowrap;
-            text-overflow: ellipsis;
+          font-size: 11px;
+          font-weight: 600;
+          color: var(--primary-text);
+          overflow: hidden;
+          text-wrap: nowrap;
+          text-overflow: ellipsis;
         }
 
         .author {
-            font-size: 10px;
-            color: var(--secondary-text);
-            overflow: hidden;
-            text-wrap: nowrap;
-            text-overflow: ellipsis;
+          font-size: 10px;
+          color: var(--secondary-text);
+          overflow: hidden;
+          text-wrap: nowrap;
+          text-overflow: ellipsis;
         }
 
         .price {
-            margin-top: 15px;
+          margin-top: 15px;
+          display: flex;
+          align-items: center;
+          gap: 3px;
+
+          .discounted {
             font-size: 12px;
             color: var(--brand-light);
             font-weight: 500;
+          }
+
+          .original {
+            font-size: 10px;
+            color: var(--secondary-text);
+            font-weight: 400;
+            text-decoration: line-through;
+          }
         }
       }
 
@@ -81,8 +94,16 @@
     }
 
     .money {
-      color: var(--brand-light);
-      font-weight: 500;
+      .final {
+        font-weight: 500;
+        color: var(--brand-light);
+      }
+      .original {
+        font-weight: 400;
+        color: var(--secondary-text);
+        text-decoration: line-through;
+        font-size: 11px;
+      }
     }
   }
 }

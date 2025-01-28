@@ -8,6 +8,8 @@ import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { CartService } from '../../../../core/services/cart.service';
 import { Subscription } from 'rxjs';
 import { WishlistService } from '../../../../core/services/wishlist.service';
+import { Router } from '@angular/router';
+import { CouponService } from '../../../../core/services/coupon.service';
 
 @Component({
   selector: 'app-coursesCard',
@@ -17,8 +19,6 @@ import { WishlistService } from '../../../../core/services/wishlist.service';
 export class CoursesCardComponent implements OnInit, OnDestroy {
   @Input('course') course: ICourse | null = null;
   @ViewChild('item') item!: ElementRef;
-
-  discounted: number = 0.7;
 
   star = faStar;
   starNone = faStarRegular;
@@ -30,12 +30,15 @@ export class CoursesCardComponent implements OnInit, OnDestroy {
   isInCart: boolean = false;
   isInWishlist: boolean = false;
 
-  constructor(private cart: CartService, private wishlist: WishlistService) {}
+  discountAmount: number = 0;
+
+  constructor(private cart: CartService, private wishlist: WishlistService, private router: Router, private coupon: CouponService) {}
 
   ngOnInit() {
     this.initStars();
     this.listenToCart();
     this.listenToWishList();
+    this.listenToCoupon();
   }
 
   initStars() {
@@ -68,8 +71,20 @@ export class CoursesCardComponent implements OnInit, OnDestroy {
     );
   }
 
+  listenToCoupon() {
+    this.subscription$.add(
+      this.coupon.inUseCoupon$.subscribe((coupon) => {
+        this.discountAmount = coupon.discount;
+      })
+    );
+  }
+
   onAddToCart() {
-    if (!this.course || this.isInCart) return;
+    if(this.isInCart) {
+      this.goToCart();
+      return;
+    }
+    if (!this.course) return;
     this.cart.updateCart(this.course);
     this.cart.addToCartAnimation(this.item);
   }
@@ -77,6 +92,10 @@ export class CoursesCardComponent implements OnInit, OnDestroy {
   onAddToWishlist() {
     if (!this.course) return;
     this.wishlist.updateWishlist(this.course);
+  }
+
+  goToCart() {
+    this.router.navigate(['/cart']);
   }
 
   ngOnDestroy(): void {

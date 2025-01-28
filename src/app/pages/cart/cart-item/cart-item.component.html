@@ -1,4 +1,92 @@
-<div class="cart-ctn">
-  <div class="courses-ctn"></div>
-  <div class="checkout-ctn"></div>
+<div class="course" *ngIf="course">
+  <div class="image-wrapper">
+    <img [src]="course.image" />
+  </div>
+  <div class="course-info">
+    <div class="info">
+      <div class="course-name">
+        {{ course.name }}
+      </div>
+      <div class="description">{{ course.description }}</div>
+      <div class="author">{{ course.author.name }}</div>
+      <div class="feedback-ctn">
+        <div class="stars-number">{{ course.rating }}</div>
+        <div class="stars-ctn">
+          <fa-icon
+            *ngFor="let starIcon of starsList"
+            [icon]="starIcon"
+          ></fa-icon>
+        </div>
+        <div class="feedbacks-number">
+          ({{ course.numberOfRating.toLocaleString() }})
+        </div>
+      </div>
+      <div class="others-info">
+        <div class="time">
+          {{ "LABEL.TOTAL_TIME_IN_HOUR" | translate : { hour: 59.2 } }}
+        </div>
+        <div>·</div>
+        <div class="lesson">
+          {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: 48 } }}
+        </div>
+      </div>
+      <div class="add-to-cart-group">
+        <ng-container [ngTemplateOutlet]="isInCart ? cart : wishlist"></ng-container>
+      </div>
+    </div>
+    <div class="price">
+      <div class="final-price">
+        {{
+          "SIGNATURE.MONEY_VALUE"
+            | translate
+              : {
+                  value: (
+                    course.price * (1 - discountValue/100) | currencyExchange
+                  ).toLocaleString()
+                }
+        }}
+      </div>
+      <div class="current-price" *ngIf="discountValue > 0">
+        {{
+          "SIGNATURE.MONEY_VALUE"
+            | translate
+              : {
+                  value: (course.price | currencyExchange).toLocaleString()
+                }
+        }}
+      </div>
+    </div>
+  </div>
 </div>
+
+<ng-template #cart>
+  <app-button
+    [ngStyle]="{ width: 'calc(50%)' }"
+    [style]="{ width: '100%' }"
+    (click)="onAddToCart()"
+    >{{ "BUTTON.REMOVE" | translate }}</app-button
+  >
+  <app-button
+    [ngStyle]="{ width: 'calc(50%)' }"
+    [type]="'primary'"
+    [style]="{ width: '100%' }"
+    (click)="onSwap()"
+    >{{ "BUTTON.MOVE_TO_WISHLIST" | translate }}</app-button
+  >
+</ng-template>
+
+<ng-template #wishlist>
+  <app-button
+    [ngStyle]="{ width: 'calc(100%/2)' }"
+    [style]="{ width: '100%' }"
+    (click)="onAddToWishList()"
+    >{{ "BUTTON.REMOVE" | translate }}</app-button
+  >
+  <app-button
+    [ngStyle]="{ width: 'calc(100%/2)' }"
+    [type]="'primary'"
+    [style]="{ width: '100%' }"
+    (click)="onSwap()"
+    >{{ "BUTTON.ADD_TO_CART" | translate }}</app-button
+  >
+</ng-template>

@@ -10,8 +10,10 @@ import {
   CheckOutline,
   ClockCircleOutline,
   CloseOutline,
+  CreditCardOutline,
   FileExclamationOutline,
   FireOutline,
+  GiftOutline,
   GlobalOutline,
   HeartFill,
   HeartOutline,
@@ -80,6 +82,8 @@ export const AppDeclarations = [
   CartItemComponent
 ];
 export const NGIcons = [
+  GiftOutline,
+  CreditCardOutline,
   SearchOutline,
   UserOutline,
   AccountBookFill,
