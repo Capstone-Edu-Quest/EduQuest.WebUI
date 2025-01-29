@@ -1,6 +1,11 @@
 <div class="learning-heatmap">
-  <div class="title">
-    <b>22</b> {{ "LABEL.LEARNING_DAYS_THIS_YEAR" | translate }}
+  <div class="header">
+    <div class="title">
+      <b>22</b> {{ "LABEL.LEARNING_DAYS_THIS_YEAR" | translate }}
+    </div>
+    <div class="sub-title">
+      {{ "LABEL.TOTAL" | translate }}: <b>{{'LABEL.MINUTES' | translate:{value: 623} }}</b>
+    </div>
   </div>
 
   <div class="heatmap">
@@ -9,14 +14,23 @@
         <div class="datesCtn" *ngFor="let daysSet of month">
           <div
             [ngClass]="{
-              show: date
+              show: date,
             }"
+            [ngStyle]="onGetColorByTime(date?.time)"
             class="days"
             *ngFor="let date of daysSet"
+            matTooltip="{{
+              date
+                ? ('SIGNATURE.DATE_FORMAT'
+                    | translate : getDateNumber(date.fullDate)) +
+                  ': ' +
+                  ('LABEL.MINUTES' | translate : { value: date.time })
+                : ''
+            }}"
           ></div>
         </div>
       </div>
-      <div class="month-label">{{ getMonthLabel(i) | translate}}</div>
+      <div class="month-label">{{ getMonthLabel(i) | translate }}</div>
     </div>
   </div>
 </div>

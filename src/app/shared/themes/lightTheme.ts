@@ -16,7 +16,7 @@ export const lightTheme = {
   '--brand-light': '#cf9467',
   '--brand-hover': '#FF8805',
   '--brand-focused': '#F44900',
-  '--disabled-text': '#7E6753',
+  '--disabled-text': '#ded0c5',
 
   '--primary-text': ' #20232A',
   '--secondary-text': ' #4F5B6E',

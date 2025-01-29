@@ -6,17 +6,34 @@
   border-radius: 8px;
   box-shadow: 0 0 5px var(--tertiary-bg);
 
-  .title {
+  .header {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 5px;
-    font-size: 13px;
     margin-bottom: 12px;
 
-    b {
-      font-size: 20px;
-      font-weight: 600;
-      color: var(--brand-light);
+    .title {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 13px;
+
+      b {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--brand-light);
+      }
+    }
+
+    .sub-title {
+      font-size: 10px;
+      color: var(--secondary-text);
+
+      b {
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--primary-text);
+      }
     }
   }
 
@@ -35,7 +52,7 @@
         font-size: 13px;
         color: var(--secondary-text);
       }
-      
+
       .weeks {
         display: flex;
         flex-direction: column;

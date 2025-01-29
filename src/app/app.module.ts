@@ -23,6 +23,8 @@ import { WishlistService } from './core/services/wishlist.service';
 import { NotificationService } from './core/services/notification.service';
 import { CouponService } from './core/services/coupon.service';
 import { MessageService } from './core/services/message.service';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 // Factory function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -32,6 +34,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
 @NgModule({
   declarations: AppDeclarations,
   imports: [
+    MatTooltipModule,
     BrowserAnimationsModule,
     PipesModule,
     FormsModule,
@@ -50,7 +53,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
       },
     }),
   ],
-  providers: [HttpClient, MessageService, ThemeService, PriceService, ModalService, ChatService, CartService, WishlistService, NotificationService, CouponService],
+  providers: [HttpClient, MessageService, ThemeService, PriceService, ModalService, ChatService, CartService, WishlistService, NotificationService, CouponService, provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
