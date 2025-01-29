@@ -7,6 +7,7 @@ import {
   AlertFill,
   AlertOutline,
   BellOutline,
+  BookOutline,
   CheckCircleFill,
   CheckOutline,
   ClockCircleOutline,
@@ -63,6 +64,9 @@ import { NavbarProfileComponent } from './components/navbar/navbar-profile/navba
 import { AvatarByNameComponent } from './components/avatar-by-name/avatar-by-name.component';
 import { InstructorProfileComponent } from './pages/profile/instructor-profile/instructor-profile.component';
 import { LearnerProfileComponent } from './pages/profile/learner-profile/learner-profile.component';
+import { LeanerProfileInfoComponent } from './pages/profile/learner-profile/leaner-profile-info/leaner-profile-info.component';
+import { LeanerAchievementsComponent } from './pages/profile/learner-profile/leaner-achievements/leaner-achievements.component';
+import { LearningHeatmapComponent } from './pages/profile/learner-profile/learning-heatmap/learning-heatmap.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -101,9 +105,13 @@ export const AppDeclarations = [
   // Profile
   ProfileComponent,
   InstructorProfileComponent,
-  LearnerProfileComponent
+  LearnerProfileComponent,
+  LeanerProfileInfoComponent,
+  LeanerAchievementsComponent,
+  LearningHeatmapComponent
 ];
 export const NGIcons = [
+  BookOutline,
   CheckCircleFill,
   WarningFill,
   CloseCircleFill,

@@ -69,7 +69,17 @@
         "TOTAL_LEANERS": "Total Leaners",
         "TOTAL_REVIEWS": "Total Reviews",
         "ABOUT_ME": "About me",
-        "COURSES": "Courses"
+        "COURSES": "Courses",
+        "AVERAGE_REVIEWS": "Average Reviews",
+        "EDIT_PROFILE": "Edit Profile",
+        "STATISTICS": "Statistics",
+        "RANK" : "Rank",
+        "TOTAL_LEARNING_TIME": "Total Learning Time",
+        "HIGHEST_LEARNING_STREAK": "Highest Learning Streak",
+        "TOTAL_LEARNING_COURSES": "Total Learning Courses",
+        "FAVOURITE_TOPICS": "Favourite Topics",
+        "CHARACTER": "Character",
+        "LEARNING_DAYS_THIS_YEAR": "learning days this year"
     },
     "MESSAGE": {
         "SEARCH_COURSE": "Search anything",

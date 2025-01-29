@@ -1,0 +1,22 @@
+.learning-heatmap {
+    width: 100%;
+    background: var(--secondary-bg);
+    padding: 16px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    box-shadow: 0 0 5px var(--tertiary-bg);
+
+    .title {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 13px;
+        margin-bottom: 12px;
+
+        b {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--brand-light)
+        }
+    }
+}

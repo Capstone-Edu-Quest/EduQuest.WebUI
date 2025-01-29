@@ -1,0 +1,39 @@
+<div class="info-section">
+  <app-avatar-by-name
+    [name]="'Gia Khang'"
+    [size]="'65px'"
+  ></app-avatar-by-name>
+  <div class="info">
+    <div class="name">Truong Nguyen Gia Khang</div>
+    <div class="email">khangtngse171927&#64;fpt.edu.vn</div>
+    <div class="level">
+      <nz-icon nzType="thunderbolt"></nz-icon
+      >{{ "LABEL.LEVEL" | translate : { level: 15 } }}
+    </div>
+  </div>
+</div>
+
+<app-button
+  [type]="'primary'"
+  [ngStyle]="{ width: '100%' }"
+  [style]="{ width: '100%', marginTop: '10px' }"
+  >{{ "LABEL.EDIT_PROFILE" | translate }}</app-button
+>
+
+<!--  -->
+<div class="seperator"></div>
+<div class="statistics-title">{{ "LABEL.STATISTICS" | translate }}</div>
+<div class="stats-list">
+  <div class="stat" *ngFor="let stat of statItems">
+    <div class="stat-label">
+      <nz-icon nzType="{{stat.icon}}"></nz-icon>
+      <div>{{stat.label | translate}}</div>
+    </div>
+    <div class="stat-value">{{stat.value}}</div>
+  </div>
+</div>
+
+<!--  -->
+<div class="seperator"></div>
+<div class="statistics-title">{{ "LABEL.CHARACTER" | translate }}</div>
+<div>con cao...</div>

@@ -50,6 +50,14 @@
           font-size: 22px;
           font-weight: 600;
           color: var(--primary-text);
+          display: flex;
+          align-items: center;
+          gap: 5px;
+
+          fa-icon {
+            font-size: 16px;
+            color: var(--brand-light);
+          }
         }
       }
     }

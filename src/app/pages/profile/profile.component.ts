@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent implements OnInit {
-  isInstructor: boolean = true;
+  isInstructor: boolean = false;
   constructor() { }
 
   ngOnInit() {

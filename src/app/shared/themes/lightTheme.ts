@@ -13,7 +13,7 @@ export const lightTheme = {
   '--brand-02': 'rgba(249, 117, 22, 0.4)',
   '--brand-05': 'rgba(249, 117, 22, 0.6)',
 
-  '--brand-light': '#FFB680',
+  '--brand-light': '#cf9467',
   '--brand-hover': '#FF8805',
   '--brand-focused': '#F44900',
   '--disabled-text': '#7E6753',

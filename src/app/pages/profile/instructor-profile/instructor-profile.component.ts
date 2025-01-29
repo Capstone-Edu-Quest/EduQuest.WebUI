@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ICourse } from '../../../shared/interfaces/CourseInterfaces';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-instructor-profile',
@@ -136,6 +137,7 @@ export class InstructorProfileComponent implements OnInit {
       ],
     },
   ];
+  star = faStar;
   constructor() { }
 
   ngOnInit() {

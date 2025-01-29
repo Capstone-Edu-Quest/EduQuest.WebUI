@@ -26,7 +26,7 @@
     </div>
     <div class="language" (click)="onShowLanguageDialog()">
       <nz-icon nzType="global"></nz-icon>
-      <label>{{('LANGUAGES.' + currentLanguage?.toUpperCase()) | translate}}</label>
+      <label>{{(('LANGUAGES.' + currentLanguage).toUpperCase()) | translate}}</label>
     </div>
   </div>
 </div>

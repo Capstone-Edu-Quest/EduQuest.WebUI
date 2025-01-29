@@ -8,6 +8,7 @@ import { IAchievement } from '../../../shared/interfaces/QuestsInterface';
 })
 export class AchievementsListComponent implements OnInit {
   @Input('achievements') achievements: IAchievement[] = [];
+  @Input('appearPerRow') appearPerRow: number = 4;
   currentViewIndex: number = 0;
 
   constructor() {}
@@ -15,13 +16,13 @@ export class AchievementsListComponent implements OnInit {
   ngOnInit() {}
 
   updateViewIndex(value: number) {
-    if (this.achievements.length <= 4) return;
+    if (this.achievements.length <= this.appearPerRow) return;
 
     const tempIdx = this.currentViewIndex + value;
     this.currentViewIndex =
       tempIdx < 0
-        ? this.achievements.length - 1 - 3
-        : tempIdx > this.achievements.length - 1 - 3
+        ? this.achievements.length - this.appearPerRow
+        : tempIdx > this.achievements.length - this.appearPerRow
         ? 0
         : tempIdx;
   }
