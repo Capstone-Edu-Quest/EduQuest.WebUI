@@ -35,10 +35,10 @@ export const getNumberOfDatesInMonth = (currentYear?: number): number[] => {
 }
 
 export const getDayByDates = (date: number, month: number, year: number): number => {
-    const _date = new Date(year, month - 1, date);
+    const _date = new Date(year, month, date);
 
-    // 7: Sunday, 1: Monday, 2: Tuesday, 3: Wednesday, 4: Thursday, 5: Friday, 6: Saturday
-    return _date.getDay() || 7;
+    // 0: Sunday, 1: Monday, 2: Tuesday, 3: Wednesday, 4: Thursday, 5: Friday, 6: Saturday
+    return _date.getDay();
 };
 
 export const onCorrectTime = (time: string): string => {
@@ -101,3 +101,34 @@ export const onGetLabelByDay = (day: number, isShort: boolean): string => {
 export const onAddZeroToTime = (time: number): string => {
     return time < 10 ? `0${time}` : time.toString();
 }
+
+export const onGetLabelByMonth = (month: number, isShort: boolean): string => {
+    switch (month) {
+        case 0:
+            return isShort ? 'LABEL.JAN' : 'LABEL.JANUARY';
+        case 1:
+            return isShort ? 'LABEL.FEB' : 'LABEL.FEBRUARY';
+        case 2:
+            return isShort ? 'LABEL.MAR' : 'LABEL.MARCH';
+        case 3:
+            return isShort ? 'LABEL.APR' : 'LABEL.APRIL';
+        case 4:
+            return isShort ? 'LABEL.MAY' : 'LABEL.MAY';
+        case 5:
+            return isShort ? 'LABEL.JUN' : 'LABEL.JUNE';
+        case 6:
+            return isShort ? 'LABEL.JUL' : 'LABEL.JULY';
+        case 7:
+            return isShort ? 'LABEL.AUG' : 'LABEL.AUGUST';
+        case 8:
+            return isShort ? 'LABEL.SEP' : 'LABEL.SEPTEMBER';
+        case 9:
+            return isShort ? 'LABEL.OCT' : 'LABEL.OCTOBER';
+        case 10:
+            return isShort ? 'LABEL.NOV' : 'LABEL.NOVEMBER';
+        case 11:
+            return isShort ? 'LABEL.DEC' : 'LABEL.DECEMBER';
+        default:
+            return '';
+    }
+};

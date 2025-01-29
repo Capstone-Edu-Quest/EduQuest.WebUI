@@ -16,7 +16,7 @@ export const darkTheme = {
   '--brand-light': '#d59869',
   '--brand-hover': '#ff8805',
   '--brand-focused': '#f44900',
-  '--disabled-text': '#D0B89A',
+  '--disabled-text': '#362e27',
 
   '--primary-text': '#FFFFFF',
   '--secondary-text': '#9ca2ad',
