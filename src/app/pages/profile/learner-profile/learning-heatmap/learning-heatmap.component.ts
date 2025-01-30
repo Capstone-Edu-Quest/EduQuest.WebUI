@@ -15,7 +15,7 @@ import {
 export class LearningHeatmapComponent implements OnInit {
   heatmapDates: any[] = [];
   learningData = [
-    { date: '10/02/2025', count: 37 },
+    { date: '10/02/2025', count: 95 },
     { date: '15/04/2025', count: 42 },
     { date: '23/03/2025', count: 19 },
     { date: '01/06/2025', count: 27 },
@@ -107,7 +107,7 @@ export class LearningHeatmapComponent implements OnInit {
     }
 
     if (minute < 90) {
-      return { background: 'var(--brand-light)' };
+      return { background: 'var(--brand-05)' };
     }
 
     if (minute < 120) {

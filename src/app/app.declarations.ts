@@ -67,6 +67,7 @@ import { LearnerProfileComponent } from './pages/profile/learner-profile/learner
 import { LeanerProfileInfoComponent } from './pages/profile/learner-profile/leaner-profile-info/leaner-profile-info.component';
 import { LeanerAchievementsComponent } from './pages/profile/learner-profile/leaner-achievements/leaner-achievements.component';
 import { LearningHeatmapComponent } from './pages/profile/learner-profile/learning-heatmap/learning-heatmap.component';
+import { LeanerCoursesComponent } from './pages/profile/learner-profile/leaner-courses/leaner-courses.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -108,7 +109,8 @@ export const AppDeclarations = [
   LearnerProfileComponent,
   LeanerProfileInfoComponent,
   LeanerAchievementsComponent,
-  LearningHeatmapComponent
+  LearningHeatmapComponent,
+  LeanerCoursesComponent
 ];
 export const NGIcons = [
   BookOutline,

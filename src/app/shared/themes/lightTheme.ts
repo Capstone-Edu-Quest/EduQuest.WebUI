@@ -9,9 +9,9 @@ export const lightTheme = {
   '--quaternary-bg-015': 'rgba(249, 117, 22, 0.05)',
 
   '--brand': '#F97316',
-  '--brand-01': 'rgba(249, 117, 22, 0.2)',
-  '--brand-02': 'rgba(249, 117, 22, 0.4)',
-  '--brand-05': 'rgba(249, 117, 22, 0.6)',
+  '--brand-01': 'rgba(249, 117, 22, 0.1)',
+  '--brand-02': 'rgba(249, 117, 22, 0.2)',
+  '--brand-05': 'rgba(249, 117, 22, 0.5)',
 
   '--brand-light': '#cf9467',
   '--brand-hover': '#FF8805',

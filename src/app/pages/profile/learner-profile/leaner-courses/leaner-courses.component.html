@@ -1,0 +1,25 @@
+<div class="leaner-courses">
+  <div class="title">{{ "LABEL.RECENT_COURSES" | translate }}</div>
+
+  <div class="course-scroller">
+    <nz-icon nzType="left" (click)="updateViewIndex(-1)"></nz-icon>
+    <div class="courses-list-wrapper">
+      <div
+        class="courses-list"
+        [ngStyle]="{
+          transform:
+            'translateX(calc((50% + 10px) * -' + currentViewIndex + '))'
+        }"
+      >
+        <div class="course" *ngFor="let course of sampleCourses">
+          <div class="image-wrapper">
+            <img [src]="course.image" />
+          </div>
+          <div class="course-name">{{course.name}}</div>
+          <div class="course-author">{{course.author.name}}</div>
+        </div>
+      </div>
+    </div>
+    <nz-icon nzType="right" (click)="updateViewIndex(1)"></nz-icon>
+  </div>
+</div>

@@ -103,7 +103,8 @@
         "NOVEMBER": "November",
         "DEC": "Dec",
         "DECEMBER": "December",
-        "MINUTES": "{{value}} minutes"
+        "MINUTES": "{{value}} minutes",
+        "RECENT_COURSES": "Recent Courses"
     },
     "MESSAGE": {
         "SEARCH_COURSE": "Search anything",
