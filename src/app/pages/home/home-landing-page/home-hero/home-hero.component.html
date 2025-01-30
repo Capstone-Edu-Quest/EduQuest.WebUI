@@ -1,0 +1,28 @@
+<div class="hero-section">
+  <div>
+    <div class="title text-gradient" data-aos="fade-down">
+      {{ "LABEL.HOME_HERO_TITLE" | translate }}
+    </div>
+    <div class="title text-gradient" data-aos="fade-down" data-aos-delay="200">
+      {{ "LABEL.HOME_HERO_TITLE2" | translate }}
+    </div>
+  </div>
+
+  <!-- Subtitle -->
+  <div class="sub-title" data-aos="fade-down" data-aos-delay="400">
+    {{ "LABEL.HOME_HERO_SUB_TITLE" | translate }}
+  </div>
+
+  <!-- Button -->
+  <div class="btn-ctn">
+    <app-button data-aos="zoom-out" data-aos-delay="600" [type]="'primary'">{{
+      "LABEL.START_JOURNEY" | translate
+    }}</app-button>
+    <app-button data-aos="zoom-out" data-aos-delay="600" (click)="onExploreMore()">{{
+      "LABEL.EXPLORE_MORE" | translate
+    }}</app-button>
+  </div>
+
+  <div class="blur-circle" data-aos="zoom-out"></div>
+</div>
+

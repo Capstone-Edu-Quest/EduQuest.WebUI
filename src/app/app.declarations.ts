@@ -36,15 +36,15 @@ import {
   WarningFill,
 } from '@ant-design/icons-angular/icons';
 import { HomeComponent } from './pages/home/home.component';
-import { HomeStatisticsComponent } from './pages/home/home-statistics/home-statistics.component';
-import { HomeStudyingComponent } from './pages/home/home-studying/home-studying.component';
+import { HomeStatisticsComponent } from './pages/home/home-all-statistics/home-statistics/home-statistics.component';
+import { HomeStudyingComponent } from './pages/home/home-all-statistics/home-studying/home-studying.component';
 import { CoursesCardComponent } from './components/courses-components/coursesCard/coursesCard.component';
 import { DropdownMenuComponent } from './components/dropdownMenu/dropdownMenu.component';
 import { BadgeComponent } from './components/badge/badge.component';
 import { CoursesListComponent } from './components/courses-components/coursesList/coursesList.component';
 import { ButtonComponent } from './components/button/button.component';
-import { HomeSuggestedComponent } from './pages/home/home-suggested/home-suggested.component';
-import { HomeAchievementsComponent } from './pages/home/home-achievements/home-achievements.component';
+import { HomeSuggestedComponent } from './pages/home/home-all-statistics/home-suggested/home-suggested.component';
+import { HomeAchievementsComponent } from './pages/home/home-all-statistics/home-achievements/home-achievements.component';
 import { AchievementCardComponent } from './components/achievements/achievement-card/achievement-card.component';
 import { AchievementsListComponent } from './components/achievements/achievements-list/achievements-list.component';
 import { ModalComponent } from './components/modal/modal.component';
@@ -68,6 +68,11 @@ import { LeanerProfileInfoComponent } from './pages/profile/learner-profile/lean
 import { LeanerAchievementsComponent } from './pages/profile/learner-profile/leaner-achievements/leaner-achievements.component';
 import { LearningHeatmapComponent } from './pages/profile/learner-profile/learning-heatmap/learning-heatmap.component';
 import { LeanerCoursesComponent } from './pages/profile/learner-profile/leaner-courses/leaner-courses.component';
+import { HomeHeroComponent } from './pages/home/home-landing-page/home-hero/home-hero.component';
+import { HomeTrendingCoursesComponent } from './pages/home/home-landing-page/home-trending-courses/home-trending-courses.component';
+import { HomeWebNumericComponent } from './pages/home/home-landing-page/home-web-numeric/home-web-numeric.component';
+import { HomeShowOffComponent } from './pages/home/home-landing-page/home-show-off/home-show-off.component';
+import { HomeWhyChooseUsComponent } from './pages/home/home-landing-page/home-why-choose-us/home-why-choose-us.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -94,6 +99,11 @@ export const AppDeclarations = [
   HomeStudyingComponent,
   HomeSuggestedComponent,
   HomeAchievementsComponent,
+  HomeHeroComponent,
+  HomeTrendingCoursesComponent,
+  HomeWebNumericComponent,
+  HomeShowOffComponent,
+  HomeWhyChooseUsComponent,
   // Courses
   CoursesComponent,
   CoursesSearchPannelComponent,

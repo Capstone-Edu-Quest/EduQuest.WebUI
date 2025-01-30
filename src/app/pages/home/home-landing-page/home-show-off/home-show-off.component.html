@@ -1,0 +1,8 @@
+<div class="show-off-title text-gradient" data-aos="fade-right">{{'LABEL.FEATURES' | translate}}</div>
+<div class="home-showoff" id="home-showoff">
+  <div class="item" *ngFor="let item of items; let i = index" data-aos="fade-up" [attr.data-aos-delay]="100 + 200 * i">
+    <fa-icon [icon]="item.icon"></fa-icon>
+    <div class="item-title">{{ item.title | translate }}</div>
+    <div class="item-content">{{ item.content | translate }}</div>
+  </div>
+</div>

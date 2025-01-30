@@ -4,11 +4,13 @@ import { WishlistService } from '../../core/services/wishlist.service';
 import { Subscription } from 'rxjs';
 import { CouponService } from '../../core/services/coupon.service';
 import { ICourse } from '../../shared/interfaces/CourseInterfaces';
+import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 
 @Component({
   selector: 'app-wishlist',
   templateUrl: './wishlist.component.html',
   styleUrls: ['./wishlist.component.scss'],
+  animations: [fadeInOutAnimation],
 })
 export class WishlistComponent implements OnInit, OnDestroy {
   subscription$: Subscription = new Subscription();

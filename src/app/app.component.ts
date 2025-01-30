@@ -6,6 +6,7 @@ import { ModalService } from './core/services/modal.service';
 import { StorageService } from './core/services/storage.service';
 import { localStorageEnum } from './shared/enums/localStorage.enum';
 import { Subscription } from 'rxjs';
+import AOS from 'aos';
 
 @Component({
   selector: 'app-root',
@@ -26,6 +27,15 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.ThemeService.onInitTheme();
     this.onInitLanguage();
+    this.initAOS();
+  }
+
+  initAOS() {
+    AOS.init({
+      duration: 850, // Animation duration in milliseconds
+      once: true, // Whether animation should only happen once
+      easing: 'ease-in-out', // Easing option
+    });
   }
 
   onInitLanguage() {

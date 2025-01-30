@@ -1,5 +1,6 @@
-<div class="wishlist">
+<div class="wishlist" @fadeInOut>
   <div class="title text-gradient">{{ "LABEL.WISHLIST" | translate }}</div>
+  <div class="no-course">{{'LABEL.NO_COURSE' | translate }}</div>
   <div class="courses-ctn">
     <app-coursesCard *ngFor="let course of _wishlist" [course]="course" [isWishlistView]="true"></app-coursesCard>
   </div>

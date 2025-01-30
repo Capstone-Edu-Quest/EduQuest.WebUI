@@ -19,6 +19,7 @@ import { CouponService } from '../../../core/services/coupon.service';
 export class CoursesCardComponent implements OnInit, OnDestroy {
   @Input('course') course: ICourse | null = null;
   @Input('isWishlistView') isWishlistView: boolean = false;
+  @Input('notShowFooter') notShowFooter: boolean = false;
   @ViewChild('item') item!: ElementRef;
 
   star = faStar;

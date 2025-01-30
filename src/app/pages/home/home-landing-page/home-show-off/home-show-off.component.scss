@@ -1,0 +1,38 @@
+.show-off-title {
+  font-weight: 600;
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+.home-showoff {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 18px;
+  justify-content: center;
+  align-items: center;
+
+  .item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    justify-content: center;
+    align-items: center;
+    width: calc(100% / 3 - 18px);
+
+    fa-icon {
+      color: var(--brand-light);
+      font-size: 25px;
+    }
+
+    .item-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--primary-text);
+    }
+
+    .item-content {
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--secondary-text);
+    }
+  }
+}

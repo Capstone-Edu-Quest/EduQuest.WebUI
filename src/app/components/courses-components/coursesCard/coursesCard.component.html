@@ -15,7 +15,7 @@
         {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: course.lessons } }}
       </div>
     </div>
-    
+
     <div class="feedback-ctn">
       <div class="stars-number">{{ course.rating }}</div>
       <div class="stars-ctn">
@@ -25,9 +25,11 @@
         ({{ course.numberOfRating.toLocaleString() }})
       </div>
     </div>
+    @if(!notShowFooter) {
     <ng-container
       *ngTemplateOutlet="course.progress === -1 ? price : progress"
     ></ng-container>
+    }
   </div>
 </div>
 
@@ -59,7 +61,7 @@
           | translate
             : {
                 value: (
-                  course.price * (1 - discountAmount/100) | currencyExchange
+                  course.price * (1 - discountAmount / 100) | currencyExchange
                 ).toLocaleString()
               }
       }}

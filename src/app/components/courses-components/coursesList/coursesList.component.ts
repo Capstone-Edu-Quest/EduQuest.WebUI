@@ -7,6 +7,7 @@ import { ICourse } from '../../../shared/interfaces/CourseInterfaces';
   styleUrls: ['./coursesList.component.scss'],
 })
 export class CoursesListComponent implements OnInit {
+  @Input('notShowFooter') notShowFooter: boolean = false;
   @Input('courses') courses: ICourse[] = [];
   currentViewIndex: number = 0;
 
