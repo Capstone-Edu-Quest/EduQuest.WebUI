@@ -1,0 +1,26 @@
+<div class="stage" *ngIf="stage" (click)="onExpand()">
+  <nz-icon nzType="{{ isDropDown ? 'down' : 'right' }}"></nz-icon>
+  <div class="info">
+    <div class="stage-name">
+      {{ "LABEL.STAGE_VALUE" | translate : { value: index + 1 } }} -
+      {{ stage.title }}
+    </div>
+    <div class="time">
+      <nz-icon nzType="clock-circle"></nz-icon>
+      {{ "LABEL.MINUTE" | translate : { value: stage.time * 60 } }}
+    </div>
+  </div>
+</div>
+
+<div class="stage-missions-ctn" *ngIf="isDropDown && stage">
+  <div class="mission" *ngFor="let mission of stage.mission; let i = index">
+    <div class="mission-info">
+      <fa-icon [icon]="onGetIcon(mission.type)"></fa-icon>
+      <div class="mission-name">{{i + 1}}.{{ mission.mission }}</div>
+    </div>
+    <div class="mission-time">
+      <nz-icon nzType="clock-circle"></nz-icon>
+      {{ 'LABEL.MINUTES' | translate:{value: mission.time} }}
+    </div>
+  </div>
+</div>

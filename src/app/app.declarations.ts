@@ -13,7 +13,10 @@ import {
   ClockCircleOutline,
   CloseCircleFill,
   CloseOutline,
+  CommentOutline,
   CreditCardOutline,
+  EditOutline,
+  ExclamationCircleOutline,
   FileExclamationOutline,
   FireOutline,
   FormatPainterOutline,
@@ -27,7 +30,9 @@ import {
   LoginOutline,
   MessageOutline,
   NotificationOutline,
+  PlayCircleOutline,
   RightOutline,
+  SafetyCertificateOutline,
   SearchOutline,
   ShoppingCartOutline,
   StarOutline,
@@ -87,6 +92,7 @@ import { CouponService } from './core/services/coupon.service';
 import { AuthGuard } from './core/guards/auth.guards';
 import { CourseDetailsComponent } from './pages/course-details/course-details.component';
 import { CoursesService } from './core/services/courses.service';
+import { CourseSectionComponent } from './pages/course-details/course-section/course-section.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -123,6 +129,7 @@ export const AppDeclarations = [
   CoursesSearchPannelComponent,
   CourseSearchItemComponent,
   CourseDetailsComponent,
+  CourseSectionComponent,
   // Cart
   CartComponent,
   CartItemComponent,
@@ -172,6 +179,11 @@ export const NGIcons = [
   CloseOutline,
   FormatPainterOutline,
   LoginOutline,
+  EditOutline,
+  SafetyCertificateOutline,
+  ExclamationCircleOutline,
+  CommentOutline,
+  PlayCircleOutline
 ];
 
 export const appServices = [

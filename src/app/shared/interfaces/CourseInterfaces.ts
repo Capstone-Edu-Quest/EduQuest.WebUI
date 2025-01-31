@@ -4,7 +4,7 @@ export interface ICourse {
   author: any; // TODO: User interface
   description: string;
   duration: number;
-  lessons?: number;
+  stageCount?: number;
   image: string;
   price: number;
   createdDate: string;
@@ -16,6 +16,27 @@ export interface ICourse {
   tags: ITag[];
 }
 
+export interface ICourseDetails extends ICourse {
+  stages: IStage[];
+  requirements: string[];
+  leanerCount: number;
+  totalTime: number; // hours
+}
+
+export interface IStage {
+  id: string;
+  title: string;
+  time: number; // hour
+  mission: IStageMission[];
+}
+
+export interface IStageMission {
+  id: string;
+  title: string;
+  type: 'video' | 'document' | 'quiz';
+  mission: string;
+  time: number; // minutes
+}
 export interface ITag {
   id: string;
   name: string;

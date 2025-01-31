@@ -8,6 +8,16 @@
   -webkit-text-fill-color: transparent;
 }
 
+a {
+  color: var(--brand);
+  cursor: pointer;
+  transition: all 0.12s linear;
+
+  &:hover {
+    color: var(--brand-hover);
+  }
+}
+
 .divider {
   width: calc(100% - 10%);
   margin: 15px 5%;

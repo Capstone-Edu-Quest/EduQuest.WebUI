@@ -1,0 +1,80 @@
+.stage {
+  background: var(--secondary-bg);
+  padding: 12px 16px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  z-index: 1;
+  position: relative;
+
+  .stage-name {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .time {
+    font-size: 11px;
+    color: var(--secondary-text);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+
+    nz-icon {
+      transform: translateY(1px);
+    }
+  }
+}
+
+.stage-missions-ctn {
+  background: var(--tertiary-bg);
+  transform: translateY(-12px);
+  z-index: -1;
+  padding: 24px 16px 12px 16px;
+  box-sizing: border-box;
+  border-radius: 0 0 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .mission {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .mission-info {
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      gap: 8px;
+      .mission-name {
+        font-weight: 400;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      fa-icon {
+        color: var(--secondary-text);
+        width: 20px;
+      }
+    }
+
+    .mission-time {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 12px;
+        color: var(--secondary-text);
+
+        nz-icon {
+            transform: translateY(1px);
+        }
+    }
+  }
+}

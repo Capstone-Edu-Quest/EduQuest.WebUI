@@ -164,7 +164,21 @@
     "WEB_STATISTICS_LEARNING_STREAK_UNIT": "days",
     "WEB_STATISTICS_COURSE_COMPLETION": "Course Completed",
     "WEB_STATISTICS_COURSE_COMPLETION_UNIT": "courses",
-    "SIGN_IN": "Sign In"
+    "SIGN_IN": "Sign In",
+    "INSTRUCTOR": "Instructor",
+    "REVIEWS_COUNT": "{{value}} Reviews",
+    "LEANERS_COUNT": "{{value}} Learners",
+    "LAST_UPDATED": "Last Updated {{value}}",
+    "CERTIFIED": "Certificate after completed",
+    "DESCRIPTION" : "Description",
+    "REQUIREMENTS" : "Requirements",
+    "TOTAL_COURSES_STATS": "{{value}} Courses",
+    "TOTAL_LEARNER_STATS": "{{value}} Learners",
+    "TOTAL_REVIEWS_STATS": "{{value}} Reviews",
+    "AVERAGE_RATINGS_STATS": "{{value}}",
+    "STAGES": "Stages",
+    "STAGE_VALUE": "Stage {{value}}",
+    "MINUTE": "{{value}} minutes"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search anything",
