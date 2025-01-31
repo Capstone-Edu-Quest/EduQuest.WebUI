@@ -1,10 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { CartService } from '../../core/services/cart.service';
 import { WishlistService } from '../../core/services/wishlist.service';
 import { Subscription } from 'rxjs';
 import { CouponService } from '../../core/services/coupon.service';
 import { ICourse } from '../../shared/interfaces/CourseInterfaces';
 import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-wishlist',
@@ -18,7 +18,6 @@ export class WishlistComponent implements OnInit, OnDestroy {
   _wishlist: ICourse[] = [];
 
   constructor(
-    private cart: CartService,
     private wishlist: WishlistService,
     private coupon: CouponService
   ) {}

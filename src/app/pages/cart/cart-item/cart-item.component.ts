@@ -6,6 +6,7 @@ import { CartService } from '../../../core/services/cart.service';
 import { WishlistService } from '../../../core/services/wishlist.service';
 import { CouponService } from '../../../core/services/coupon.service';
 import { Subscription } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-cart-item',
@@ -24,7 +25,12 @@ export class CartItemComponent implements OnInit, OnDestroy {
   subsription$: Subscription = new Subscription();
 
   starsList: any[] = [];
-  constructor(private cart: CartService, private wishlist: WishlistService, private coupon: CouponService) {}
+  constructor(
+    private cart: CartService,
+    private wishlist: WishlistService,
+    private coupon: CouponService,
+    private router: Router
+  ) {}
 
   ngOnInit() {
     this.initStars();
@@ -52,25 +58,31 @@ export class CartItemComponent implements OnInit, OnDestroy {
         return this.starNone;
       });
   }
-  
 
-  onAddToCart() {
+  onAddToCart(event: Event) {
+    event.stopPropagation();
     if (!this.course) return;
 
     this.cart.updateCart(this.course);
   }
 
-  onAddToWishList() {
+  onAddToWishList(event: Event) {
+    event.stopPropagation();
     if (!this.course) return;
 
     this.wishlist.updateWishlist(this.course);
   }
 
-  onSwap() {
+  onSwap(event: Event) {
     if (!this.course) return;
 
-    this.onAddToCart();
-    this.onAddToWishList();
+    this.onAddToCart(event);
+    this.onAddToWishList(event);
+  }
+
+  onViewCourseDetails() {
+    if (!this.course) return;
+    this.router.navigate(['courses', this.course.id]);
   }
 
   ngOnDestroy(): void {

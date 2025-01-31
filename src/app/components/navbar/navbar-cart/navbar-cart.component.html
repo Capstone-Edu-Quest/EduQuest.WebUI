@@ -1,7 +1,7 @@
 <div class="navbar-cart-item-ctn">
   <div class="course-map-ctn">
     <div class="no-course" *ngIf="_cart.courses.length === 0">{{'LABEL.NO_COURSE' | translate}}</div>
-    <div *ngFor="let course of _cart.courses" class="navbar-cart-item">
+    <div *ngFor="let course of _cart.courses" class="navbar-cart-item" (click)="viewCourseDetails(course.id)">
       <div class="img-wrapper">
         <img [src]="course.image" />
       </div>

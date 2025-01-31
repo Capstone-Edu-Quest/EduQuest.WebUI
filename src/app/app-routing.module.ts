@@ -6,6 +6,7 @@ import { CartComponent } from './pages/cart/cart.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { AuthGuard } from './core/guards/auth.guards';
+import { CourseDetailsComponent } from './pages/course-details/course-details.component';
 
 const routes: Routes = [
   {
@@ -14,8 +15,16 @@ const routes: Routes = [
   },
   {
     path: 'courses',
-    component: CoursesComponent,
-    children: [],
+    children: [
+      {
+        path: '',
+        component: CoursesComponent,
+      },
+      {
+        path: ':courseId',
+        component: CourseDetailsComponent
+      }
+    ],
   },
   {
     path: 'cart',

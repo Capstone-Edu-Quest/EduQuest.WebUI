@@ -81,7 +81,8 @@ export class CoursesCardComponent implements OnInit, OnDestroy {
     );
   }
 
-  onAddToCart() {
+  onAddToCart(event: Event) {
+    event.stopPropagation();
     if(this.isInCart) {
       this.goToCart();
       return;
@@ -94,13 +95,19 @@ export class CoursesCardComponent implements OnInit, OnDestroy {
     this.isInWishlist && this.wishlist.updateWishlist(this.course);
   }
 
-  onAddToWishlist() {
+  onAddToWishlist(event: Event) {
+    event.stopPropagation();
     if (!this.course) return;
     this.wishlist.updateWishlist(this.course);
   }
 
   goToCart() {
     this.router.navigate(['/cart']);
+  }
+
+  viewCourseDetails() {
+    if (!this.course) return;
+    this.router.navigate(['/courses', this.course.id]);
   }
 
   ngOnDestroy(): void {

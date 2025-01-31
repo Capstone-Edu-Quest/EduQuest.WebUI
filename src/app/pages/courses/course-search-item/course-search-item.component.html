@@ -1,4 +1,4 @@
-<div class="course" *ngIf="course" #item>
+<div class="course" *ngIf="course" #item (click)="viewCourseDetails()">
   <div class="image-wrapper">
     <img [src]="course.image" />
   </div>
@@ -35,7 +35,7 @@
           [ngStyle]="{ width: 'calc(100%)' }"
           [type]="'primary'"
           [style]="{ width: '100%' }"
-          (click)="onAddToCart()"
+          (click)="onAddToCart($event)"
           >{{
             (isInCart ? "BUTTON.GO_TO_CART" : "BUTTON.ADD_TO_CART") | translate
           }}</app-button
@@ -44,7 +44,7 @@
           nzType="heart"
           [ngClass]="{ favorited: isInWishlist }"
           [nzTheme]="isInWishlist ? 'fill' : 'outline'"
-          (click)="onAddToWishlist()"
+          (click)="onAddToWishlist($event)"
           *ngIf="!isInCart"
         ></nz-icon>
       </div>

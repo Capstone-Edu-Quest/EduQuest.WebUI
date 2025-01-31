@@ -46,6 +46,12 @@
           background: var(--tertiary-bg);
           padding-bottom: 15px;
           box-sizing: border-box;
+          transition: all 0.2s linear;
+          cursor: pointer;
+
+          &:hover {
+            background: var(--quaternary-bg);
+          }
 
           .image-wrapper {
             width: 100%;

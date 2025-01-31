@@ -1,7 +1,13 @@
 <div class="navbar-cart-item-ctn">
   <div class="course-map-ctn">
-    <div class="no-course" *ngIf="_wishlist.length === 0">{{'LABEL.NO_COURSE' | translate}}</div>
-    <div *ngFor="let course of _wishlist" class="navbar-cart-item">
+    <div class="no-course" *ngIf="_wishlist.length === 0">
+      {{ "LABEL.NO_COURSE" | translate }}
+    </div>
+    <div
+      *ngFor="let course of _wishlist"
+      class="navbar-cart-item"
+      (click)="viewCourseDetails(course.id)"
+    >
       <div class="img-wrapper">
         <img [src]="course.image" />
       </div>
@@ -31,7 +37,7 @@
             }}
           </div>
         </div>
-        <div class="add-to-cart" (click)="onAddToCart(course)">
+        <div class="add-to-cart" (click)="onAddToCart(course, $event)">
           <nz-icon nzType="shopping-cart" />
           <label>Add to cart</label>
         </div>

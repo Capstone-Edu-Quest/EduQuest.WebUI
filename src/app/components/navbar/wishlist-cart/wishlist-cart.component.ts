@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { WishlistService } from '../../../core/services/wishlist.service';
 import { ICourse } from '../../../shared/interfaces/CourseInterfaces';
 import { CartService } from '../../../core/services/cart.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-wishlist-cart',
@@ -18,7 +19,8 @@ export class WishlistCartComponent implements OnInit {
   constructor(
     private wishlist: WishlistService,
     private coupon: CouponService,
-    private cart: CartService
+    private cart: CartService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -41,7 +43,12 @@ export class WishlistCartComponent implements OnInit {
     );
   }
 
-  onAddToCart(course: ICourse) {
+  viewCourseDetails(courseId: string) {
+    this.router.navigate(['/courses', courseId]);
+  }
+
+  onAddToCart(course: ICourse, event: Event) {
+    event.stopPropagation();
     this.cart.updateCart(course);
     this.wishlist.remove(course);
   }

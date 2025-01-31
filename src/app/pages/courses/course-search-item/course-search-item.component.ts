@@ -85,12 +85,19 @@ export class CourseSearchItemComponent implements OnInit {
     );
   }
 
-  onAddToCart() {
+  viewCourseDetails() {
+    if (!this.course) return;
+    this.router.navigate(['/courses', this.course.id]);
+  }
+
+  onAddToCart(event: Event) {
+    event.stopPropagation();
+
     if (this.isInCart) {
       this.goToCart();
       return;
     }
-    
+
     if (!this.course) return;
     this.cart.updateCart(this.course);
     this.cart.addToCartAnimation(this.item);
@@ -98,7 +105,8 @@ export class CourseSearchItemComponent implements OnInit {
     this.isInWishlist && this.wishlist.updateWishlist(this.course);
   }
 
-  onAddToWishlist() {
+  onAddToWishlist(event: Event) {
+    event.stopPropagation();
     if (!this.course) return;
     this.wishlist.updateWishlist(this.course);
   }

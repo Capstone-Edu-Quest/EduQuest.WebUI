@@ -25,6 +25,12 @@
       gap: 8px;
       padding: 5px;
       border: 1px solid var(--quaternary-bg);
+      transition: all 0.12s linear;
+      cursor: pointer;
+
+      &:hover {
+        background: var(--quaternary-bg);
+      }
 
       .info {
         box-sizing: border-box;
@@ -76,14 +82,14 @@
         transition: all 0.12s linear;
 
         &:hover {
-            color: var(--brand-hover);
+          color: var(--brand-hover);
         }
 
         label {
         }
 
         nz-icon {
-            transform: translateY(1px);
+          transform: translateY(1px);
         }
       }
 

@@ -25,6 +25,12 @@
       gap: 8px;
       padding: 5px;
       border: 1px solid var(--quaternary-bg);
+      cursor: pointer;
+      transition: all 0.12s linear;
+
+        &:hover {
+        background: var(--quaternary-bg);
+      }
 
       .info {
         box-sizing: border-box;

@@ -11,7 +11,7 @@
             'translateX(calc((50% + 10px) * -' + currentViewIndex + '))'
         }"
       >
-        <div class="course" *ngFor="let course of sampleCourses">
+        <div class="course" *ngFor="let course of sampleCourses" (click)="viewCourseDetails(course.id)">
           <div class="image-wrapper">
             <img [src]="course.image" />
           </div>

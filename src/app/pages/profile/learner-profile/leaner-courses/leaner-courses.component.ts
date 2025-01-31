@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ICourse } from '../../../../shared/interfaces/CourseInterfaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-leaner-courses',
@@ -143,7 +144,7 @@ export class LeanerCoursesComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private router: Router) {}
 
   ngOnInit() {}
 
@@ -157,5 +158,9 @@ export class LeanerCoursesComponent implements OnInit {
         : tempIdx > this.sampleCourses.length - 2
         ? 0
         : tempIdx;
+  }
+
+  viewCourseDetails(courseId: string) {
+    this.router.navigate(['/courses', courseId]);
   }
 }

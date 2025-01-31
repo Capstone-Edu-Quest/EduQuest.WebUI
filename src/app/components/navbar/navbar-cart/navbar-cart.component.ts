@@ -45,6 +45,10 @@ export class NavbarCartComponent implements OnInit, OnDestroy {
     this.router.navigate(['/cart']);
   }
 
+  viewCourseDetails(courseId: string) {
+    this.router.navigate(['/courses', courseId]);
+  }
+
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();
   }

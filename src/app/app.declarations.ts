@@ -85,6 +85,8 @@ import { WishlistService } from './core/services/wishlist.service';
 import { NotificationService } from './core/services/notification.service';
 import { CouponService } from './core/services/coupon.service';
 import { AuthGuard } from './core/guards/auth.guards';
+import { CourseDetailsComponent } from './pages/course-details/course-details.component';
+import { CoursesService } from './core/services/courses.service';
 
 export const AppDeclarations = [
   AppComponent,
@@ -120,6 +122,7 @@ export const AppDeclarations = [
   CoursesComponent,
   CoursesSearchPannelComponent,
   CourseSearchItemComponent,
+  CourseDetailsComponent,
   // Cart
   CartComponent,
   CartItemComponent,
@@ -182,6 +185,7 @@ export const appServices = [
   WishlistService,
   NotificationService,
   CouponService,
+  CoursesService
 ];
 
 export const appGuards = [

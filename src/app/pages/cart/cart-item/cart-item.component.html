@@ -1,4 +1,4 @@
-<div class="course" *ngIf="course">
+<div class="course" *ngIf="course" (click)="onViewCourseDetails()">
   <div class="image-wrapper">
     <img [src]="course.image" />
   </div>
@@ -31,7 +31,9 @@
         </div>
       </div>
       <div class="add-to-cart-group">
-        <ng-container [ngTemplateOutlet]="isInCart ? cart : wishlist"></ng-container>
+        <ng-container
+          [ngTemplateOutlet]="isInCart ? cart : wishlist"
+        ></ng-container>
       </div>
     </div>
     <div class="price">
@@ -41,7 +43,7 @@
             | translate
               : {
                   value: (
-                    course.price * (1 - discountValue/100) | currencyExchange
+                    course.price * (1 - discountValue / 100) | currencyExchange
                   ).toLocaleString()
                 }
         }}
@@ -63,14 +65,14 @@
   <app-button
     [ngStyle]="{ width: 'calc(50%)' }"
     [style]="{ width: '100%' }"
-    (click)="onAddToCart()"
+    (click)="onAddToCart($event)"
     >{{ "BUTTON.REMOVE" | translate }}</app-button
   >
   <app-button
     [ngStyle]="{ width: 'calc(50%)' }"
     [type]="'primary'"
     [style]="{ width: '100%' }"
-    (click)="onSwap()"
+    (click)="onSwap($event)"
     >{{ "BUTTON.MOVE_TO_WISHLIST" | translate }}</app-button
   >
 </ng-template>
@@ -79,14 +81,14 @@
   <app-button
     [ngStyle]="{ width: 'calc(100%/2)' }"
     [style]="{ width: '100%' }"
-    (click)="onAddToWishList()"
+    (click)="onAddToWishList($event)"
     >{{ "BUTTON.REMOVE" | translate }}</app-button
   >
   <app-button
     [ngStyle]="{ width: 'calc(100%/2)' }"
     [type]="'primary'"
     [style]="{ width: '100%' }"
-    (click)="onSwap()"
+    (click)="onSwap($event)"
     >{{ "BUTTON.ADD_TO_CART" | translate }}</app-button
   >
 </ng-template>
