@@ -170,15 +170,20 @@
     "LEANERS_COUNT": "{{value}} Learners",
     "LAST_UPDATED": "Last Updated {{value}}",
     "CERTIFIED": "Certificate after completed",
-    "DESCRIPTION" : "Description",
-    "REQUIREMENTS" : "Requirements",
+    "DESCRIPTION": "Description",
+    "REQUIREMENTS": "Requirements",
     "TOTAL_COURSES_STATS": "{{value}} Courses",
     "TOTAL_LEARNER_STATS": "{{value}} Learners",
     "TOTAL_REVIEWS_STATS": "{{value}} Reviews",
     "AVERAGE_RATINGS_STATS": "{{value}}",
     "STAGES": "Stages",
     "STAGE_VALUE": "Stage {{value}}",
-    "MINUTE": "{{value}} minutes"
+    "MINUTE": "{{value}} minutes",
+    "COURSE_INCLUDED": "This course also included",
+    "TOTAL_HOUR": "Total {{value}} hours",
+    "LIFE_TIME_ACCESS": "Life time access",
+    "CERTIFICATE_OF_COMPLETEION": "Certificate of Completion",
+    "REFUND_WITHIN_PERCENT": "Refund within {{value}} days"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search anything",

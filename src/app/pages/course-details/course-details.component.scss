@@ -1,9 +1,10 @@
 .course-details {
   padding: 30px 10vw;
   box-sizing: border-box;
+  position: relative;
 
   .course-info {
-    width: 50%;
+    width: 60%;
 
     .course-name {
       font-size: 25px;
@@ -109,8 +110,8 @@
     }
 
     .instructor-description {
-        margin-top: 8px;
-        font-size: 12px;
+      margin-top: 8px;
+      font-size: 12px;
     }
 
     .description-title {
@@ -156,5 +157,191 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+  }
+
+  .rating-stat {
+    margin-top: 2px;
+    display: flex;
+    gap: 5px;
+
+    .rating {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+
+      fa-icon {
+        color: var(--brand-light);
+      }
+    }
+  }
+}
+
+.floating-course-details {
+  position: absolute;
+  right: 0;
+  top: 25px;
+  width: 40%;
+  padding: 0 40px;
+  box-sizing: border-box;
+  transition: all 0.3s ease-out;
+
+  .info-card {
+    padding: 12px 18px;
+    box-sizing: border-box;
+    border-radius: 18px;
+    background: var(--secondary-bg);
+    border: 1px solid var(--brand-05);
+    width: 60%;
+    min-width: 400px;
+    box-shadow: 0 0 10px var(--quaternary-bg);
+
+    .image-wrapper {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      aspect-ratio: 16/9;
+      border-radius: 12px;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+        overflow: hidden;
+      }
+    }
+
+    .price {
+      margin-top: 8px;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+
+      .final {
+        font-size: 20px;
+        font-weight: 600;
+        color: var(--brand-hover);
+      }
+
+      .original {
+        font-size: 14px;
+        color: var(--tertiary-text);
+        text-decoration: line-through;
+      }
+    }
+
+    .add-to-cart-group {
+      display: flex;
+      align-items: center;
+      width: 100%;
+      gap: 10px;
+      margin-top: 12px;
+
+      nz-icon {
+        font-size: 17px;
+        color: var(--secondary-text);
+        cursor: pointer;
+        transition: all 0.1s linear;
+
+        &:hover {
+          color: var(--brand-hover);
+        }
+
+        &.favorited {
+          color: var(--brand-hover);
+
+          &:hover {
+            color: var(--brand-focused);
+          }
+        }
+      }
+    }
+
+    .included-title {
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--brand-light);
+      margin-top: 25px;
+    }
+
+    .guarantees-ctn {
+      margin-top: 8px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+
+      .guarantee {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+
+        nz-icon {
+          color: var(--secondary-text);
+          transform: translateY(1px);
+        }
+      }
+    }
+
+    .input-code {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      margin-top: 5px;
+
+      input {
+        width: 80%;
+        height: 30px;
+        padding: 2px 8px;
+        border-radius: 5px;
+        box-sizing: border-box;
+        border: 1px solid var(--quaternary-bg);
+        outline: none;
+        background: var(--brand-01);
+        color: var(--primary-text);
+      }
+    }
+
+    .coupon {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 12px;
+      border-radius: 5px;
+      box-sizing: border-box;
+      border: 1px dashed var(--quaternary-text);
+      margin-top: 8px;
+
+      .info {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        .code {
+          font-size: 10px;
+          color: var(--secondary-text);
+
+          b {
+            font-weight: 500;
+            font-size: 14px;
+          }
+        }
+
+        .discount {
+          font-size: 13px;
+          color: var(--brand-hover);
+          font-weight: 500;
+        }
+      }
+
+      nz-icon {
+        color: var(--tertiary-text);
+        cursor: pointer;
+        transition: all 0.1s linear;
+
+        &:hover {
+          color: var(--alert);
+        }
+      }
+    }
   }
 }

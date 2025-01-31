@@ -9,6 +9,7 @@
   cursor: pointer;
   z-index: 1;
   position: relative;
+  user-select: none;
 
   .stage-name {
     font-size: 15px;
@@ -42,6 +43,7 @@
   display: flex;
   flex-direction: column;
   gap: 16px;
+  user-select: none;
 
   .mission {
     display: flex;

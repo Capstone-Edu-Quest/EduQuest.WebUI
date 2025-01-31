@@ -17,6 +17,7 @@ import {
   CreditCardOutline,
   EditOutline,
   ExclamationCircleOutline,
+  FieldTimeOutline,
   FileExclamationOutline,
   FireOutline,
   FormatPainterOutline,
@@ -145,6 +146,7 @@ export const AppDeclarations = [
   LeanerCoursesComponent,
 ];
 export const NGIcons = [
+  FieldTimeOutline,
   BookOutline,
   CheckCircleFill,
   WarningFill,

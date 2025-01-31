@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesService } from '../../core/services/courses.service';
 import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 import {
+  ICoupon,
   ICourse,
   ICourseCart,
   ICourseDetails,
@@ -10,10 +11,12 @@ import {
 import { CouponService } from '../../core/services/coupon.service';
 import { CartService } from '../../core/services/cart.service';
 import { WishlistService } from '../../core/services/wishlist.service';
-import { Subscription } from 'rxjs';
+import { BehaviorSubject, Subscription } from 'rxjs';
 import { faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { handleCastDateString } from '../../core/utils/time.utils';
+import { MessageService } from '../../core/services/message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-course-details',
@@ -48,7 +51,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
       'A complete guide to mastering TypeScript, from basics to advanced concepts.',
     duration: 12,
     stageCount: 3,
-    image: 'https://example.com/course-thumbnail.jpg',
+    image: '/assets/images/demo-course-thumb.webp',
     price: 49.99,
     createdDate: '2024-01-01T00:00:00Z',
     lastUpdated: '2024-01-20T10:00:00Z',
@@ -150,6 +153,27 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
   authorStatsIcon = ['play-circle', 'user', 'comment', 'star'];
 
+  guaranteeItems = [
+    {
+      icon: 'clock-circle',
+      label: 'LABEL.TOTAL_HOUR',
+      value: 21
+    },
+    {
+      icon: 'field-time',
+      label: 'LABEL.LIFE_TIME_ACCESS'
+    },
+    {
+      icon: 'trophy',
+      label: 'LABEL.CERTIFICATE_OF_COMPLETEION'
+    },
+    {
+      icon: 'exclamation-circle',
+      label: 'LABEL.REFUND_WITHIN_PERCENT',
+      value: 10
+    }
+  ]
+
   star = faStar;
   starNone = faStarRegular;
   starHalf = faStarHalfStroke;
@@ -161,12 +185,20 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   isInWishlist: boolean = false;
   discountAmount: number = 0;
 
+  rightPricePosition: number = 25;
+
+  inputCoupon: string = '';
+  _coupon: ICoupon | null = null;
+
   constructor(
     private route: ActivatedRoute,
     private course: CoursesService,
     private cart: CartService,
     private wishlist: WishlistService,
-    private coupon: CouponService
+    private coupon: CouponService,
+    private router: Router,
+    private message: MessageService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
@@ -175,6 +207,15 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     this.listenToCart();
     this.listenToWishList();
     this.listenToCoupon();
+  }
+
+  @HostListener('window:scroll', [])
+  onScroll(event: Event) {
+    const addedValue = window.scrollY < 25 ? 25 : 0
+    this.rightPricePosition = window.scrollY + addedValue;
+    const scrollTimeout = setTimeout(() => {
+      clearTimeout(scrollTimeout);
+    }, 1000);
   }
 
   initCourse() {
@@ -220,6 +261,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   listenToCoupon() {
     this.subscription$.add(
       this.coupon.inUseCoupon$.subscribe((coupon) => {
+        this._coupon = coupon;
         this.discountAmount = coupon.discount;
       })
     );
@@ -229,6 +271,46 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     return handleCastDateString(
       new Date(this.courseDetails.lastUpdated).toLocaleDateString()
     );
+  }
+
+  onAddToCart(event: Event) {
+    event.stopPropagation();
+
+    if (this.isInCart) {
+      this.goToCart();
+      return;
+    }
+
+    if (!this.course) return;
+    this.cart.updateCart(this.courseDetails);
+    // Remove from wishlist if exist
+    this.isInWishlist && this.wishlist.updateWishlist(this.courseDetails);
+  }
+
+  onAddToWishlist(event: Event) {
+    event.stopPropagation();
+    if (!this.course) return;
+    this.wishlist.updateWishlist(this.courseDetails);
+  }
+
+  goToCart() {
+    this.router.navigate(['/cart']);
+  }
+
+  applyNewCoupon() {
+    if (this.inputCoupon.trim() === '') return;
+    this.coupon.useCoupon(this.inputCoupon);
+    this.inputCoupon = '';
+    this.message.addMessage('success', this.translate.instant('MESSAGE.APPLIED_COUPON'));
+  }
+
+  onPressEnterCoupon(e: KeyboardEvent) {
+    if (e.key !== 'Enter') return;
+    this.applyNewCoupon();
+  }
+
+  removeCoupon() {
+    this.coupon.useCoupon('notUse');
   }
 
   ngOnDestroy(): void {
