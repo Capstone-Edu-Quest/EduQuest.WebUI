@@ -74,6 +74,17 @@ import { HomeTrendingCoursesComponent } from './pages/home/home-landing-page/hom
 import { HomeWebNumericComponent } from './pages/home/home-landing-page/home-web-numeric/home-web-numeric.component';
 import { HomeShowOffComponent } from './pages/home/home-landing-page/home-show-off/home-show-off.component';
 import { HomeWhyChooseUsComponent } from './pages/home/home-landing-page/home-why-choose-us/home-why-choose-us.component';
+import { UserService } from './core/services/user.service';
+import { MessageService } from './core/services/message.service';
+import { ThemeService } from './core/services/theme.service';
+import { PriceService } from './core/services/price.service';
+import { ModalService } from './core/services/modal.service';
+import { ChatService } from './core/services/chat.service';
+import { CartService } from './core/services/cart.service';
+import { WishlistService } from './core/services/wishlist.service';
+import { NotificationService } from './core/services/notification.service';
+import { CouponService } from './core/services/coupon.service';
+import { AuthGuard } from './core/guards/auth.guards';
 
 export const AppDeclarations = [
   AppComponent,
@@ -159,3 +170,20 @@ export const NGIcons = [
   FormatPainterOutline,
   LoginOutline,
 ];
+
+export const appServices = [
+  UserService,
+  MessageService,
+  ThemeService,
+  PriceService,
+  ModalService,
+  ChatService,
+  CartService,
+  WishlistService,
+  NotificationService,
+  CouponService,
+];
+
+export const appGuards = [
+  AuthGuard
+]

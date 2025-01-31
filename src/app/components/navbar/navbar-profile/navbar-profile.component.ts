@@ -12,6 +12,7 @@ import { Subscription } from 'rxjs';
 import { ThemeService } from '../../../core/services/theme.service';
 import { ModalService } from '../../../core/services/modal.service';
 import { IUser } from '../../../shared/interfaces/UserInterfaces';
+import { MessageService } from '../../../core/services/message.service';
 
 @Component({
   selector: 'app-navbar-profile',
@@ -30,7 +31,8 @@ export class NavbarProfileComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private theme: ThemeService,
     private modal: ModalService,
-    private UserService: UserService
+    private UserService: UserService,
+    private message: MessageService
   ) {}
 
   ngOnInit() {
@@ -94,6 +96,7 @@ export class NavbarProfileComponent implements OnInit, OnDestroy {
       },
       {
         name: 'LABEL.LOGOUT',
+        action: () => this.UserService.logout()
       },
     ];
   }
@@ -140,7 +143,6 @@ export class NavbarProfileComponent implements OnInit, OnDestroy {
   }
 
   onShowLanguageDialog() {
-    console.log(this.languageTemplate);
     this.modal.updateModalContent(this.languageTemplate);
   }
 

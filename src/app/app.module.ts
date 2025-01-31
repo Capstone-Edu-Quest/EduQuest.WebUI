@@ -1,5 +1,5 @@
 import { NzInputModule } from 'ng-zorro-antd/input';
-import {NzBadgeModule} from 'ng-zorro-antd/badge';
+import { NzBadgeModule } from 'ng-zorro-antd/badge';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
@@ -9,23 +9,18 @@ import { AppRoutingModule } from './app-routing.module';
 import { HttpClient } from '@angular/common/http'; // Make sure HttpClient is imported here
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { AppDeclarations, NGIcons } from './app.declarations';
+import {
+  AppDeclarations,
+  NGIcons,
+  appGuards,
+  appServices,
+} from './app.declarations';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { PipesModule } from './core/pipes/pipes.module';
-import { ThemeService } from './core/services/theme.service';
-import { PriceService } from './core/services/price.service';
-import { ModalService } from './core/services/modal.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
-import { ChatService } from './core/services/chat.service';
-import { CartService } from './core/services/cart.service';
-import { WishlistService } from './core/services/wishlist.service';
-import { NotificationService } from './core/services/notification.service';
-import { CouponService } from './core/services/coupon.service';
-import { MessageService } from './core/services/message.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { UserService } from './core/services/user.service';
 
 // Factory function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -54,7 +49,12 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
       },
     }),
   ],
-  providers: [HttpClient, UserService, MessageService, ThemeService, PriceService, ModalService, ChatService, CartService, WishlistService, NotificationService, CouponService, provideAnimationsAsync()],
+  providers: [
+    HttpClient,
+    provideAnimationsAsync(),
+    ...appServices,
+    ...appGuards,
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

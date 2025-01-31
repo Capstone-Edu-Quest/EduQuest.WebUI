@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { IUser } from '../../shared/interfaces/UserInterfaces';
 import { WebRole } from '../../shared/enums/user.enum';
 import { BehaviorSubject } from 'rxjs';
+import { MessageService } from './message.service';
+import { TranslateService } from '@ngx-translate/core';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -19,11 +22,25 @@ export class UserService {
 
   user$: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(
     this.demoUser
+    // null
   );
 
-  constructor() {}
+  constructor(
+    private message: MessageService,
+    private translate: TranslateService,
+    private router: Router
+  ) {}
 
   updateUser(user: IUser | null) {
     this.user$.next(user);
+  }
+
+  logout() {
+    this.updateUser(null);
+    this.message.addMessage(
+      'success',
+      this.translate.instant('MESSAGE.LOG_OUT_SUCCESS')
+    );
+    this.router.navigate(['/']);
   }
 }
