@@ -24,6 +24,7 @@ import {
   HomeOutline,
   HourglassOutline,
   LeftOutline,
+  LoginOutline,
   MessageOutline,
   NotificationOutline,
   RightOutline,
@@ -120,7 +121,7 @@ export const AppDeclarations = [
   LeanerProfileInfoComponent,
   LeanerAchievementsComponent,
   LearningHeatmapComponent,
-  LeanerCoursesComponent
+  LeanerCoursesComponent,
 ];
 export const NGIcons = [
   BookOutline,
@@ -155,5 +156,6 @@ export const NGIcons = [
   TrophyOutline,
   GlobalOutline,
   CloseOutline,
-  FormatPainterOutline
+  FormatPainterOutline,
+  LoginOutline,
 ];

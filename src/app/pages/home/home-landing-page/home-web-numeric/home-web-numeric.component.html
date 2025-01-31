@@ -1,3 +1,22 @@
-<p>
-  home-web-numeric works!
-</p>
+<div class="web-numeric">
+  <div class="title text-gradient" data-aos="fade-down">
+    {{ "LABEL.WEB_STATISTICS" | translate }}
+  </div>
+  <div class="sub-title" data-aos="fade-down" data-aos-delay="200">
+    {{ "LABEL.WEB_STATISTICS_SUB_TITLE" | translate }}
+  </div>
+
+  <div class="item-ctn">
+    <div
+      class="item"
+      data-aos="fade-up"
+      [attr.data-aos-delay]="200 + 150 * i"
+      *ngFor="let item of items; let i = index"
+    >
+      <div class="label">{{ item.title | translate }}</div>
+
+      <div class="value">{{ item.value }}</div>
+      <div class="unit">{{ item.unit | translate }}</div>
+    </div>
+  </div>
+</div>

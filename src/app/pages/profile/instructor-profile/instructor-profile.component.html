@@ -1,6 +1,6 @@
-<div class="instructor-profile">
+<div class="instructor-profile" *ngIf="user">
   <div class="left">
-    <app-avatar-by-name [name]="'Truong Nguyen Gia Khang'" [size]="'200px'" />
+    <app-avatar-by-name [name]="user.name" [size]="'200px'" />
   </div>
 
   <div class="right">
@@ -8,7 +8,7 @@
       {{ ("LABEL.INSTRUCTOR" | translate).toUpperCase() }}
     </div>
     <!--  -->
-    <div class="name">Truong Nguyen Gia Khang</div>
+    <div class="name">{{user.name}}</div>
     <div class="headline">Software Engineer &#64;FPT Software</div>
     <!--  -->
     <div class="numeric">

@@ -123,7 +123,7 @@
     "EQUIP_LEARNING_TOOLS_TITLE": "Equip Learning Tools",
     "EQUIP_LEARNING_TOOLS_CONTENT": "Unlock items like 'Focus Boosters' and 'XP Multipliers' for better study sessions.",
 
-    "COMPLETE_CHALLENGES_TITLE": "Challenges",
+    "COMPLETE_CHALLENGES_TITLE": "Quests",
     "COMPLETE_CHALLENGES_CONTENT": "Complete daily and weekly quests for extra EXP and rare rewards.",
 
     "LEADERBOARD_ACHIEVEMENTS_TITLE": "Leaderboard & Achievements",
@@ -131,7 +131,40 @@
 
     "STREAK_REWARDS_TITLE": "Streak Rewards",
     "STREAK_REWARDS_CONTENT": "Keep your streak to earn EXP boosts and Gold multipliers.",
-    "FEATURES": "Features"
+    "FEATURES": "Features",
+    "FEATURES_SUB_TITLE": "Edu Quest provides innovative tools and gamification to enhance your learning.",
+    "TRENDING_COURSES_SUB_TITLE": "Explore the latest and most popular courses to stay ahead",
+
+    "PERSONALIZED_LEARNING_TITLE": "Tailored Learning Journeys",
+    "PERSONALIZED_LEARNING_CONTENT": "Unlock a personalized learning experience with paths that evolve to match your unique pace and aspirations.",
+
+    "GAMIFIED_MOTIVATION_TITLE": "Gamified Motivation",
+    "GAMIFIED_MOTIVATION_CONTENT": "Engage in a dynamic, game-inspired environment where every achievement and challenge makes learning exciting and rewarding.",
+
+    "EXPERTISE_TITLE": "Masterclass Expertise",
+    "EXPERTISE_CONTENT": "Gain exclusive access to courses led by industry pioneers, offering cutting-edge knowledge and insights.",
+
+    "PROGRESS_TRACKING_TITLE": "Real-Time Progress Unleashed",
+    "PROGRESS_TRACKING_CONTENT": "Track your evolution with real-time, interactive feedback, empowering you to conquer new milestones effortlessly.",
+
+    "COMMUNITY_SUPPORT_TITLE": "Thriving Learning Community",
+    "COMMUNITY_SUPPORT_CONTENT": "Connect, collaborate, and thrive with a vibrant network of learners, fostering knowledge exchange and peer-driven growth.",
+
+    "WHY_CHOOSE_US": "Why Edu Quest?",
+    "WHY_CHOOSE_US_SUB_TITLE": "Edu Quest delivers a dynamic and personalized learning experience that keeps you motivated.",
+
+    "WEB_STATISTICS": "Edu Quest in Action",
+    "WEB_STATISTICS_SUB_TITLE": "Numbers don’t lie, see how learners worldwide are leveling up, unlocking achievements, and turning knowledge into power!",
+
+    "WEB_STATISTICS_ACTIVE_LEARNERS": "Active Learners",
+    "WEB_STATISTICS_ACTIVE_LEARNERS_UNIT": "leaners",
+    "WEB_STATISTICS_DAILY_CHALLENGES": "Daily Quests Completed",
+    "WEB_STATISTICS_DAILY_CHALLENGES_UNIT": "quests",
+    "WEB_STATISTICS_LEARNING_STREAK": "Average Learning Streak",
+    "WEB_STATISTICS_LEARNING_STREAK_UNIT": "days",
+    "WEB_STATISTICS_COURSE_COMPLETION": "Course Completed",
+    "WEB_STATISTICS_COURSE_COMPLETION_UNIT": "courses",
+    "SIGN_IN": "Sign In"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search anything",

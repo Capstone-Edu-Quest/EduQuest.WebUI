@@ -1,3 +1,22 @@
-<p>
-  home-why-choose-us works!
-</p>
+<div class="why-choose-us">
+  <div class="title text-gradient" data-aos="fade-down">
+    {{ "LABEL.WHY_CHOOSE_US" | translate }}
+  </div>
+  <div class="sub-title" data-aos="fade-down" data-aos-delay="200">
+    {{ "LABEL.WHY_CHOOSE_US_SUB_TITLE" | translate }}
+  </div>
+
+  <div class="items-ctn">
+    <div class="middle-line" data-aos="fade-up"></div>
+    <div
+      class="item"
+      *ngFor="let item of items; let i = index"
+      [attr.data-aos]="i % 2 === 0 ? 'fade-right' : 'fade-left'"
+      [attr.data-aos-delay]="200 + 200 * i"
+    >
+    <div class="item-dot"></div>
+      <div class="item-title">{{ item.title | translate }}</div>
+      <div class="item-sub-title">{{ item.content | translate }}</div>
+    </div>
+  </div>
+</div>

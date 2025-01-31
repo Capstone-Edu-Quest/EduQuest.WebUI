@@ -1,3 +1,4 @@
+import { UserService } from './../../core/services/user.service';
 import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
@@ -5,6 +6,7 @@ import { Subscription } from 'rxjs';
 import { CartService } from '../../core/services/cart.service';
 import { ICourse, ICourseCart } from '../../shared/interfaces/CourseInterfaces';
 import { WishlistService } from '../../core/services/wishlist.service';
+import { IUser } from '../../shared/interfaces/UserInterfaces';
 
 @Component({
   selector: 'app-navbar',
@@ -50,18 +52,22 @@ export class NavbarComponent implements OnInit {
     },
   ];
 
+  user: IUser | null = null;
+
   constructor(
     private translate: TranslateService,
     private router: Router,
     private route: ActivatedRoute,
     private cart: CartService,
-    private wishlist: WishlistService
+    private wishlist: WishlistService,
+    private UserService: UserService
   ) {}
   subscription$: Subscription = new Subscription();
 
   ngOnInit() {
     this.listenCartItems();
     this.listenWishlistItems();
+    this.listenToUser();
     this.subscription$.add(
       this.route.queryParams.subscribe((params) => {
         this.searchText = params['keyword']
@@ -90,6 +96,14 @@ export class NavbarComponent implements OnInit {
 
   goToProfilePage() {
     this.router.navigate(['/profile']);
+  }
+
+  listenToUser() {
+    this.subscription$.add(
+      this.UserService.user$.subscribe((user) => {
+        this.user = user;
+      })
+    );
   }
 
   listenCartItems() {
@@ -123,6 +137,13 @@ export class NavbarComponent implements OnInit {
 
   onBackHome() {
     this.router.navigate(['/']);
+  }
+
+  onExploreMore() {
+    window.scrollTo({
+      top: window.scrollY + window.innerHeight - 30,
+      behavior: 'smooth',
+    });
   }
 
   ngOnDestroy(): void {

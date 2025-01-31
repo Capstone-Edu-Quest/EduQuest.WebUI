@@ -1,5 +1,5 @@
 <div class="home" @fadeInOut>
-  <ng-container [ngTemplateOutlet]="notSignIn"></ng-container>
+  <ng-container [ngTemplateOutlet]="user ? signedIn : notSignIn"></ng-container>
 </div>
 
 <ng-template #signedIn>

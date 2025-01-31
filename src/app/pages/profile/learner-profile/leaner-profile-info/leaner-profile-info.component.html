@@ -1,11 +1,8 @@
-<div class="info-section">
-  <app-avatar-by-name
-    [name]="'Gia Khang'"
-    [size]="'65px'"
-  ></app-avatar-by-name>
+<div class="info-section" *ngIf="user">
+  <app-avatar-by-name [name]="user.name" [size]="'65px'"></app-avatar-by-name>
   <div class="info">
-    <div class="name">Truong Nguyen Gia Khang</div>
-    <div class="email">khangtngse171927&#64;fpt.edu.vn</div>
+    <div class="name">{{ user.name }}</div>
+    <div class="email">{{ user.email }}</div>
     <div class="level">
       <nz-icon nzType="thunderbolt"></nz-icon
       >{{ "LABEL.LEVEL" | translate : { level: 15 } }}
@@ -26,10 +23,10 @@
 <div class="stats-list">
   <div class="stat" *ngFor="let stat of statItems">
     <div class="stat-label">
-      <nz-icon nzType="{{stat.icon}}"></nz-icon>
-      <div>{{stat.label | translate}}</div>
+      <nz-icon nzType="{{ stat.icon }}"></nz-icon>
+      <div>{{ stat.label | translate }}</div>
     </div>
-    <div class="stat-value">{{stat.value}}</div>
+    <div class="stat-value">{{ stat.value }}</div>
   </div>
 </div>
 

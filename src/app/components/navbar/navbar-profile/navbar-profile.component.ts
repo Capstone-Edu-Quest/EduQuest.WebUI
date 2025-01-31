@@ -1,3 +1,4 @@
+import { UserService } from './../../../core/services/user.service';
 import {
   Component,
   OnDestroy,
@@ -10,6 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ThemeService } from '../../../core/services/theme.service';
 import { ModalService } from '../../../core/services/modal.service';
+import { IUser } from '../../../shared/interfaces/UserInterfaces';
 
 @Component({
   selector: 'app-navbar-profile',
@@ -21,17 +23,21 @@ export class NavbarProfileComponent implements OnInit, OnDestroy {
   subscription$: Subscription = new Subscription();
 
   routeItems: any[] = [];
+  user: IUser | null = null;
+
   constructor(
     private router: Router,
     private translate: TranslateService,
     private theme: ThemeService,
-    private modal: ModalService
+    private modal: ModalService,
+    private UserService: UserService
   ) {}
 
   ngOnInit() {
     this.onInitRouteItems();
     this.listenToLanguage();
     this.listenToTheme();
+    this.listenToUser();
   }
 
   onInitRouteItems() {
@@ -90,6 +96,14 @@ export class NavbarProfileComponent implements OnInit, OnDestroy {
         name: 'LABEL.LOGOUT',
       },
     ];
+  }
+
+  listenToUser() {
+    this.subscription$.add(
+      this.UserService.user$.subscribe((user) => {
+        this.user = user;
+      })
+    );
   }
 
   listenToLanguage() {

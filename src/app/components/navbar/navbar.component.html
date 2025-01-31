@@ -28,32 +28,48 @@
 
   <!-- Right -->
   <div class="ctn">
-    <app-dropdownMenu
-      *ngFor="let icon of iconItems"
-      [dropdown]="getTemplate(icon.routerLink)"
-    >
-      <a
-        class="routerLink"
-        [ngClass]="icon.routerLink"
-        [routerLink]="icon.routerLink"
-      >
-        <app-badge [count]="icon.badge">
-          <nz-icon [nzType]="icon.icon" />
-        </app-badge>
-      </a>
-    </app-dropdownMenu>
-    <div class="level">
-      <nz-icon nzType="thunderbolt" />
-      {{ "LABEL.LEVEL" | translate : { level: 15 } }}
-    </div>
-
-    <app-dropdownMenu [dropdown]="getTemplate('profile')" [position]="'left'">
-      <div class="profile" (click)="goToProfilePage()">
-        <nz-icon nzType="user" />
-      </div>
-    </app-dropdownMenu>
+    <ng-container
+      [ngTemplateOutlet]="user ? signedIn : notSignIn"
+    ></ng-container>
   </div>
 </div>
+
+<ng-template #notSignIn>
+  <div class="btn-ctn">
+    <app-button (click)="onExploreMore()">{{ "LABEL.EXPLORE_MORE" | translate }}</app-button>
+    <app-button [type]="'primary'" >
+    {{
+      "LABEL.SIGN_IN" | translate
+    }}</app-button>
+  </div>
+</ng-template>
+
+<ng-template #signedIn>
+  <app-dropdownMenu
+    *ngFor="let icon of iconItems"
+    [dropdown]="getTemplate(icon.routerLink)"
+  >
+    <a
+      class="routerLink"
+      [ngClass]="icon.routerLink"
+      [routerLink]="icon.routerLink"
+    >
+      <app-badge [count]="icon.badge">
+        <nz-icon [nzType]="icon.icon" />
+      </app-badge>
+    </a>
+  </app-dropdownMenu>
+  <div class="level">
+    <nz-icon nzType="thunderbolt" />
+    {{ "LABEL.LEVEL" | translate : { level: 15 } }}
+  </div>
+
+  <app-dropdownMenu [dropdown]="getTemplate('profile')" [position]="'left'">
+    <div class="profile" (click)="goToProfilePage()">
+      <nz-icon nzType="user" />
+    </div>
+  </app-dropdownMenu>
+</ng-template>
 
 <ng-template #wishListDropdown>
   <app-wishlist-cart></app-wishlist-cart>

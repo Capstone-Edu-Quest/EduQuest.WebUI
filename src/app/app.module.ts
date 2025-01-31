@@ -25,6 +25,7 @@ import { CouponService } from './core/services/coupon.service';
 import { MessageService } from './core/services/message.service';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { UserService } from './core/services/user.service';
 
 // Factory function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -53,7 +54,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
       },
     }),
   ],
-  providers: [HttpClient, MessageService, ThemeService, PriceService, ModalService, ChatService, CartService, WishlistService, NotificationService, CouponService, provideAnimationsAsync()],
+  providers: [HttpClient, UserService, MessageService, ThemeService, PriceService, ModalService, ChatService, CartService, WishlistService, NotificationService, CouponService, provideAnimationsAsync()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

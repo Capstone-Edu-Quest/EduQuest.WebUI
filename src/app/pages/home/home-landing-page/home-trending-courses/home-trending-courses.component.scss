@@ -1,7 +1,15 @@
 .trending-courses {
-    .title {
-        font-weight: 600;
-        font-size: 25px;
-        margin-bottom: 18px;
-    }
+  padding-bottom: 45px;
+  
+  .title {
+    font-weight: 600;
+    font-size: 25px;
+    text-align: center;
+  }
+  .sub-title {
+    color: var(--secondary-text);
+    font-size: 12px;
+    margin-bottom: 18px;
+    text-align: center;
+  }
 }

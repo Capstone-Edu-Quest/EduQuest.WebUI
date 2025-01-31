@@ -2,8 +2,8 @@
   <div class="user-info">
     <app-avatar-by-name name="Gia Khang" [size]="'45px'"></app-avatar-by-name>
     <div class="other-info">
-      <div class="name">Truong Nguyen Gia Khang</div>
-      <div class="email">khangtngse171927&#64;fpt.edu.vn</div>
+      <div class="name">{{ user?.name }}</div>
+      <div class="email">{{ user?.email }}</div>
     </div>
   </div>
 
@@ -25,4 +25,6 @@
   </div>
 </div>
 
-<ng-template #language><app-language-changer></app-language-changer></ng-template>
+<ng-template #language
+  ><app-language-changer></app-language-changer
+></ng-template>

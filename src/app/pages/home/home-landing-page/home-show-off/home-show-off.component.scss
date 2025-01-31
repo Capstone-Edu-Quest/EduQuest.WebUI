@@ -1,7 +1,14 @@
 .show-off-title {
   font-weight: 600;
   font-size: 25px;
+  margin-bottom: 2px;
+  text-align: center;
+}
+.show-off-sub-title {
+  color: var(--secondary-text);
+  font-size: 12px;
   margin-bottom: 20px;
+  text-align: center;
 }
 .home-showoff {
   display: flex;
@@ -9,6 +16,7 @@
   gap: 18px;
   justify-content: center;
   align-items: center;
+  padding-bottom: 45px;
 
   .item {
     display: flex;

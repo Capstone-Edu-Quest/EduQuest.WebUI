@@ -1,20 +1,26 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ICourse } from '../../../shared/interfaces/CourseInterfaces';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
+import { UserService } from '../../../core/services/user.service';
+import { Subscription } from 'rxjs';
+import { IUser } from '../../../shared/interfaces/UserInterfaces';
 
 @Component({
   selector: 'app-instructor-profile',
   templateUrl: './instructor-profile.component.html',
-  styleUrls: ['./instructor-profile.component.scss']
+  styleUrls: ['./instructor-profile.component.scss'],
 })
-export class InstructorProfileComponent implements OnInit {
+export class InstructorProfileComponent implements OnInit, OnDestroy {
+  subscription$: Subscription = new Subscription();
+  user: IUser | null = null;
+
   sampleCourses: ICourse[] = [
     {
       id: 'course1',
       name: 'Introduction to JavaScript',
       price: 15.99,
       author: {
-        name: 'Maxmilian Dopamine'
+        name: 'Maxmilian Dopamine',
       },
       description:
         'Learn the fundamentals of JavaScript, the programming language of the web.',
@@ -46,7 +52,7 @@ export class InstructorProfileComponent implements OnInit {
       createdDate: '2023-03-10',
       lastUpdated: '2023-10-05',
       author: {
-        name: 'Maxmilian Dopamine'
+        name: 'Maxmilian Dopamine',
       },
       rating: 3.2,
       numberOfRating: 11253,
@@ -70,7 +76,7 @@ export class InstructorProfileComponent implements OnInit {
       price: 15.99,
       name: 'HTML & CSS: Design and Build Websites',
       author: {
-        name: 'Maxmilian Dopamine'
+        name: 'Maxmilian Dopamine',
       },
       description: 'Create beautiful, responsive websites with HTML and CSS.',
       duration: 150,
@@ -91,7 +97,7 @@ export class InstructorProfileComponent implements OnInit {
       price: 12.99,
       name: 'React Fundamentals',
       author: {
-        name: 'Maxmilian Dopamine'
+        name: 'Maxmilian Dopamine',
       },
       description: 'Learn to build interactive web applications using React.',
       duration: 240,
@@ -115,7 +121,7 @@ export class InstructorProfileComponent implements OnInit {
       id: 'course5',
       price: 15.99,
       author: {
-        name: 'Maxmilian Dopamine'
+        name: 'Maxmilian Dopamine',
       },
       name: 'Understanding APIs and RESTful Services',
       description: 'Learn how to work with APIs and build RESTful services.',
@@ -138,9 +144,21 @@ export class InstructorProfileComponent implements OnInit {
     },
   ];
   star = faStar;
-  constructor() { }
+  constructor(private UserService: UserService) {}
 
   ngOnInit() {
+    this.listenToUser();
   }
 
+  listenToUser() {
+    this.subscription$.add(
+      this.UserService.user$.subscribe((user) => {
+        this.user = user;
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
+  }
 }

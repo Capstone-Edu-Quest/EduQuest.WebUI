@@ -1,4 +1,5 @@
 <div class="trending-courses">
-  <div class="title text-gradient" data-aos="fade-right" >{{'LABEL.TRENDING_COURSES' | translate}}</div>
-  <app-coursesList [courses]="sampleCourses" data-aos="fade-up" [notShowFooter]="true" ></app-coursesList>
+  <div class="title text-gradient" data-aos="fade-down" >{{'LABEL.TRENDING_COURSES' | translate}}</div>
+  <div class="sub-title" data-aos="fade-down" data-aos-delay="200">{{'LABEL.TRENDING_COURSES_SUB_TITLE' | translate}}</div>
+  <app-coursesList [courses]="sampleCourses" data-aos="fade-up" data-aos-delay="600" [notShowFooter]="true" ></app-coursesList>
 </div>

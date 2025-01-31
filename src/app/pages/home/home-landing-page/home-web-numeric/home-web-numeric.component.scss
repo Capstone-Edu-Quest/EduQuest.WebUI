@@ -1,0 +1,48 @@
+.web-numeric {
+  padding-bottom: 30px;
+
+  .title {
+    font-weight: 600;
+    font-size: 25px;
+    text-align: center;
+  }
+  .sub-title {
+    color: var(--secondary-text);
+    font-size: 12px;
+    margin-bottom: 18px;
+    text-align: center;
+  }
+
+  .item-ctn {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    padding: 0 3vw;
+    box-sizing: border-box;
+
+    .item {
+      text-align: center;
+
+      .label {
+        font-size: 13px;
+        color: var(--brand-light);
+        margin-bottom: 2px;
+        font-weight: 500;
+      }
+
+      .value {
+        font-size: 30px;
+        font-weight: 600;
+        color: var(--primary-text);
+        margin-top: 3px;
+      }
+
+      .unit {
+        font-size: 12px;
+        color: var(--secondary-text);
+      }
+    }
+  }
+}
