@@ -1,5 +1,5 @@
 export enum WebRole {
-    ADMIN,
+    ADMIN = 1,
     INSTRUCTOR,
     LEANER,
     GUEST

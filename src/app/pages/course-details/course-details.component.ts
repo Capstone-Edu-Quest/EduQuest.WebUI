@@ -17,6 +17,7 @@ import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { handleCastDateString } from '../../core/utils/time.utils';
 import { MessageService } from '../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
+import { WebRole } from '../../shared/enums/user.enum';
 
 @Component({
   selector: 'app-course-details',
@@ -35,7 +36,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
       email: 'johndoe@example.com',
       jobTitle: 'Senior Software Engineer @ Shopee',
       avatar: 'https://example.com/avatar.jpg',
-      role: 'Instructor',
+      role: WebRole.INSTRUCTOR,
       createdAt: '2024-01-01T00:00:00Z',
       updatedAt: '2024-01-15T12:30:00Z',
       description:
