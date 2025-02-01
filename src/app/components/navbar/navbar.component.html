@@ -22,7 +22,7 @@
     </nz-input-group>
 
     <ng-template #suffixIconButton>
-      <nz-icon nzType="search" style="color: var(--secondary-text)" />
+      <i nz-icon nzType="search" style="color: var(--secondary-text)"></i>
     </ng-template>
   </div>
 
@@ -55,18 +55,18 @@
       [routerLink]="icon.routerLink"
     >
       <app-badge [count]="icon.badge">
-        <nz-icon [nzType]="icon.icon" />
+        <i nz-icon [nzType]="icon.icon"></i>
       </app-badge>
     </a>
   </app-dropdownMenu>
   <div class="level">
-    <nz-icon nzType="thunderbolt" />
+    <i nz-icon nzType="thunderbolt"></i>
     {{ "LABEL.LEVEL" | translate : { level: 15 } }}
   </div>
 
   <app-dropdownMenu [dropdown]="getTemplate('profile')" [position]="'left'">
     <div class="profile" (click)="goToProfilePage()">
-      <nz-icon nzType="user" />
+      <i nz-icon nzType="user"></i>
     </div>
   </app-dropdownMenu>
 </ng-template>

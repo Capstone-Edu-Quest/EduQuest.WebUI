@@ -4,7 +4,7 @@
     <div class="name">{{ user.name }}</div>
     <div class="email">{{ user.email }}</div>
     <div class="level">
-      <nz-icon nzType="thunderbolt"></nz-icon
+      <i nz-icon nzType="thunderbolt"></i
       >{{ "LABEL.LEVEL" | translate : { level: 15 } }}
     </div>
   </div>
@@ -23,7 +23,7 @@
 <div class="stats-list">
   <div class="stat" *ngFor="let stat of statItems">
     <div class="stat-label">
-      <nz-icon nzType="{{ stat.icon }}"></nz-icon>
+      <i nz-icon nzType="{{ stat.icon }}"></i>
       <div>{{ stat.label | translate }}</div>
     </div>
     <div class="stat-value">{{ stat.value }}</div>

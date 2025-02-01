@@ -85,12 +85,12 @@
         (isInCart ? "BUTTON.GO_TO_CART" : "BUTTON.ADD_TO_CART") | translate
       }}</app-button
     >
-    <nz-icon
+    <i nz-icon
       nzType="heart"
       [ngClass]="{ favorited: isInWishlist }"
       [nzTheme]="isInWishlist ? 'fill' : 'outline'"
       (click)="onAddToWishlist($event)"
       *ngIf="!isInCart && !isWishlistView"
-    ></nz-icon>
+    ></i>
   </div>
 </ng-template>

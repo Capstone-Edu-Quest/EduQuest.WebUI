@@ -26,12 +26,12 @@
       cursor: pointer;
 
       &:hover {
-        nz-icon {
+        i {
           color: var(--alert) !important;
         }
       }
 
-      nz-icon {
+      i {
         transform: translateY(2px);
         transition: all 0.12s linear;
       }

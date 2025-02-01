@@ -1,6 +1,6 @@
 <div class="modal-wrapper" @fadeInOut>
   <div class="modal">
-    <nz-icon (click)="onClose()" class="close-btn" nzType="close"></nz-icon>
+    <i nz-icon (click)="onClose()" class="close-btn" nzType="close"></i>
     <div class="content">
       <ng-container
         *ngTemplateOutlet="modal.modalContent$ | async"

@@ -5,7 +5,7 @@
       <!-- Cart -->
       <div class="section">
         <div class="cart-item-title">
-          <nz-icon nzType="shopping-cart"></nz-icon>
+          <i nz-icon nzType="shopping-cart"></i>
           <label>{{ "LABEL.CART_ITEM" | translate }}</label>
         </div>
         <div class="cart-item-subtitle">
@@ -29,7 +29,7 @@
       <!-- Wishlist -->
       <div class="section">
         <div class="cart-item-title">
-          <nz-icon nzType="heart"></nz-icon>
+          <i nz-icon nzType="heart"></i>
           <label>{{ "LABEL.WISH_LIST_ITEM" | translate }}</label>
         </div>
         <div class="cart-item-subtitle">
@@ -50,7 +50,7 @@
       <!-- Checkout -->
       <div class="section">
         <div class="checkout">
-          <nz-icon nzType="credit-card" nzTheme="outline" />
+          <i nz-icon nzType="credit-card" nzTheme="outline"></i>
           <label>{{ "LABEL.CHECKOUT" | translate }}</label>
         </div>
         <div class="checkout-info">
@@ -110,7 +110,7 @@
       <!-- Coupon -->
       <div class="section" style="margin-top: 12px">
         <div class="checkout">
-          <nz-icon nzType="gift" nzTheme="outline" />
+          <i nz-icon nzType="gift" nzTheme="outline"></i>
           <label>{{ "LABEL.COUPON" | translate }}</label>
         </div>
 
@@ -122,7 +122,7 @@
             </div>
             <div class="discount">-{{ _coupon.discount }}%</div>
           </div>
-          <nz-icon nzType="close" (click)="removeCoupon()"></nz-icon>
+          <i nz-icon nzType="close" (click)="removeCoupon()"></i>
         </div>
 
         <div class="input-code">

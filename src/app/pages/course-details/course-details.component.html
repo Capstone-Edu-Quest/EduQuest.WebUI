@@ -28,7 +28,7 @@
 
     <div class="additional">
       <div class="addt">
-        <nz-icon nzType="edit"></nz-icon>
+        <i nz-icon nzType="edit"></i>
         <div class="value">
           {{
             "LABEL.LAST_UPDATED"
@@ -42,7 +42,7 @@
         </div>
       </div>
       <div class="addt">
-        <nz-icon nzType="safety-certificate"></nz-icon>
+        <i nz-icon nzType="safety-certificate"></i>
         <div class="value">
           {{ "LABEL.CERTIFIED" | translate }}
         </div>
@@ -65,7 +65,7 @@
         class="stat"
         *ngFor="let stat of courseDetails.author.statistics; let i = index"
       >
-        <nz-icon nzType="{{ authorStatsIcon[i] }}"></nz-icon>
+        <i nz-icon nzType="{{ authorStatsIcon[i] }}"></i>
         {{ stat.label | translate : { value: stat.value } }}
       </div>
     </div>
@@ -79,7 +79,7 @@
     <div class="requirements-title">{{ "LABEL.REQUIREMENTS" | translate }}</div>
     <div class="requirements">
       <div class="req-item" *ngFor="let req of courseDetails.requirements">
-        <nz-icon nzType="exclamation-circle"></nz-icon>{{ req }}
+        <i nz-icon nzType="exclamation-circle"></i>{{ req }}
       </div>
     </div>
 
@@ -153,13 +153,13 @@
             (isInCart ? "BUTTON.GO_TO_CART" : "BUTTON.ADD_TO_CART") | translate
           }}</app-button
         >
-        <nz-icon
+        <i nz-icon
           nzType="heart"
           [ngClass]="{ favorited: isInWishlist }"
           [nzTheme]="isInWishlist ? 'fill' : 'outline'"
           (click)="onAddToWishlist($event)"
           *ngIf="!isInCart"
-        ></nz-icon>
+        ></i>
       </div>
 
       <div class="included-title">
@@ -167,7 +167,7 @@
       </div>
       <div class="guarantees-ctn">
         <div class="guarantee" *ngFor="let guarantee of guaranteeItems">
-          <nz-icon nzType="{{ guarantee.icon }}"></nz-icon>
+          <i nz-icon nzType="{{ guarantee.icon }}"></i>
           <label>{{
             guarantee.label | translate : { value: guarantee.value }
           }}</label>
@@ -187,7 +187,7 @@
           </div>
           <div class="discount">-{{ _coupon.discount }}%</div>
         </div>
-        <nz-icon nzType="close" (click)="removeCoupon()"></nz-icon>
+        <i nz-icon nzType="close" (click)="removeCoupon()"></i>
       </div>
 
       <div class="input-code">

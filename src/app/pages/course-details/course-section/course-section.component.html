@@ -1,12 +1,12 @@
 <div class="stage" *ngIf="stage" (click)="onExpand()">
-  <nz-icon nzType="{{ isDropDown ? 'down' : 'right' }}"></nz-icon>
+  <i nz-icon nzType="{{ isDropDown ? 'down' : 'right' }}"></i>
   <div class="info">
     <div class="stage-name">
       {{ "LABEL.STAGE_VALUE" | translate : { value: index + 1 } }} -
       {{ stage.title }}
     </div>
     <div class="time">
-      <nz-icon nzType="clock-circle"></nz-icon>
+      <i nz-icon nzType="clock-circle"></i>
       {{ "LABEL.MINUTE" | translate : { value: stage.time * 60 } }}
     </div>
   </div>
@@ -19,7 +19,7 @@
       <div class="mission-name">{{i + 1}}.{{ mission.mission }}</div>
     </div>
     <div class="mission-time">
-      <nz-icon nzType="clock-circle"></nz-icon>
+      <i nz-icon nzType="clock-circle"></i>
       {{ 'LABEL.MINUTES' | translate:{value: mission.time} }}
     </div>
   </div>
