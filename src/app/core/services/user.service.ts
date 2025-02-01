@@ -18,6 +18,14 @@ export class UserService {
     role: WebRole.LEANER,
     createdAt: new Date().toISOString(),
     updatedAt: new Date().toISOString(),
+    jobTitle: 'Software Engineer',
+    description: 'A software engineer who loves to learn new things',
+    statistics: [
+      { label: 'LABEL.TOTAL_COURSES_STATS', value: 12 },
+      { label: 'LABEL.TOTAL_LEARNER_STATS', value: 1253 },
+      { label: 'LABEL.TOTAL_REVIEWS_STATS', value: 152 },
+      { label: 'LABEL.AVERAGE_RATINGS_STATS', value: 4.8 },
+    ],
   };
 
   user$: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(
