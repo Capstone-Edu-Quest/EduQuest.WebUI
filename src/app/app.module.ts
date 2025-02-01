@@ -1,14 +1,13 @@
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
-import { NgModule } from '@angular/core';
+import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClient } from '@angular/common/http'; // Make sure HttpClient is imported here
-import { TranslateHttpLoader } from '@ngx-translate/http-loader';
-import { NzIconModule } from 'ng-zorro-antd/icon';
 import {
   AppDeclarations,
   NGIcons,
@@ -21,6 +20,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { NzIconModule } from 'ng-zorro-antd/icon';
 
 // Factory function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -55,6 +55,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
     ...appServices,
     ...appGuards,
   ],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

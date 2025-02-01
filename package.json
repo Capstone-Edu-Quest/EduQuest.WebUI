@@ -22,6 +22,7 @@
     "@angular/platform-browser-dynamic": "^17.1.0",
     "@angular/router": "^17.1.0",
     "@ant-design/icons-angular": "^17.0.0",
+    "@ctrl/tinycolor": "^4.1.0",
     "@fortawesome/angular-fontawesome": "^0.14.1",
     "@fortawesome/fontawesome-svg-core": "^6.7.2",
     "@fortawesome/free-brands-svg-icons": "^6.7.2",
@@ -31,7 +32,7 @@
     "@ngx-translate/http-loader": "^16.0.1",
     "aos": "^2.3.4",
     "i18n": "^0.15.1",
-    "ng-zorro-antd": "^17.0.0",
+    "ng-zorro-antd": "^17.4.1",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
