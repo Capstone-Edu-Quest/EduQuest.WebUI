@@ -36,11 +36,12 @@
 
 <ng-template #notSignIn>
   <div class="btn-ctn">
-    <app-button (click)="onExploreMore()">{{ "LABEL.EXPLORE_MORE" | translate }}</app-button>
-    <app-button [type]="'primary'" >
-    {{
-      "LABEL.SIGN_IN" | translate
+    <app-button (click)="onExploreMore()">{{
+      "LABEL.EXPLORE_MORE" | translate
     }}</app-button>
+    <app-button [type]="'primary'" (click)="onSignIn()">
+      {{ "LABEL.SIGN_IN" | translate }}</app-button
+    >
   </div>
 </ng-template>
 

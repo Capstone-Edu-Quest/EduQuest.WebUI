@@ -54,7 +54,7 @@ export class HttpService {
     });
   }
 
-  private handleError(error: any): Observable<never> {
+  handleError(error: any): Observable<never> {
     console.error('Error occurred: ', error);
     throw error;
   }

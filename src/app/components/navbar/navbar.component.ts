@@ -146,6 +146,10 @@ export class NavbarComponent implements OnInit {
     });
   }
 
+  onSignIn() {
+    this.UserService.signInWithGoogle();
+  }
+
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();
   }

@@ -5,6 +5,9 @@ import { BehaviorSubject } from 'rxjs';
 import { MessageService } from './message.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import { FirebaseService } from './firebase.service';
+import { HttpService } from './http.service';
+import { UserCredential } from 'firebase/auth';
 
 @Injectable({
   providedIn: 'root',
@@ -36,11 +39,24 @@ export class UserService {
   constructor(
     private message: MessageService,
     private translate: TranslateService,
-    private router: Router
+    private router: Router,
+    private firebase: FirebaseService,
+    private http: HttpService
   ) {}
 
   updateUser(user: IUser | null) {
     this.user$.next(user);
+  }
+
+  signInWithGoogle() {
+    this.firebase
+      .signInWithPopupGoogle()
+      .then((credential: UserCredential) => {
+        console.log(credential.user);
+      })
+      .catch((err) => {
+        this.http.handleError(err);
+      });
   }
 
   logout() {

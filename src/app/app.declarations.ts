@@ -95,6 +95,7 @@ import { CourseDetailsComponent } from './pages/course-details/course-details.co
 import { CoursesService } from './core/services/courses.service';
 import { CourseSectionComponent } from './pages/course-details/course-section/course-section.component';
 import { NavbarNotiComponent } from './components/navbar/navbar-noti/navbar-noti.component';
+import { FirebaseService } from './core/services/firebase.service';
 
 export const AppDeclarations = [
   AppComponent,
@@ -203,7 +204,8 @@ export const appServices = [
   NotificationService,
   CouponService,
   CoursesService,
-  ChatService
+  ChatService,
+  FirebaseService,
 ];
 
 export const appGuards = [

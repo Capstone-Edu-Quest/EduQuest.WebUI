@@ -12,6 +12,7 @@ import { NotificationService } from './core/services/notification.service';
 import { UserService } from './core/services/user.service';
 import { ChatService } from './core/services/chat.service';
 import { ModalService } from './core/services/modal.service';
+import { FirebaseService } from './core/services/firebase.service';
 
 @Component({
   selector: 'app-root',
@@ -31,7 +32,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private notification: NotificationService,
     private user: UserService,
     private chat: ChatService,
-    public modal: ModalService
+    public modal: ModalService,
+    private firebase: FirebaseService
   ) {}
 
   ngOnInit(): void {
@@ -39,6 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.onInitLanguage();
     this.initAOS();
     this.listenToUser();
+    this.firebase.init();
   }
 
   initAOS() {
