@@ -35,4 +35,6 @@ export class WishlistService {
       this.wishlist$.next(this.courses);
     }
   }
+
+  destroyWishList() {}
 }

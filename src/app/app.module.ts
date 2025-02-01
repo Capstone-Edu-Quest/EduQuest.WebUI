@@ -1,7 +1,7 @@
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
-import { CUSTOM_ELEMENTS_SCHEMA, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http'; // Import HttpClientModule
 import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
@@ -55,7 +55,6 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
     ...appServices,
     ...appGuards,
   ],
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

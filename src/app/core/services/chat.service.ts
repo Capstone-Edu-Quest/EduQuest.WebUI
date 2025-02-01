@@ -7,4 +7,8 @@ export class ChatService {
 
 constructor() { }
 
+initChat(){}
+
+destroyChat(){}
+
 }

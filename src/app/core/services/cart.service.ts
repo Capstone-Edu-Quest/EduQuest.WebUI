@@ -70,4 +70,6 @@ export class CartService {
       flyComponent.remove();
     }, 1000);
   }
+
+  destroyCart(){}
 }

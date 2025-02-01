@@ -94,6 +94,7 @@ import { AuthGuard } from './core/guards/auth.guards';
 import { CourseDetailsComponent } from './pages/course-details/course-details.component';
 import { CoursesService } from './core/services/courses.service';
 import { CourseSectionComponent } from './pages/course-details/course-section/course-section.component';
+import { NavbarNotiComponent } from './components/navbar/navbar-noti/navbar-noti.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -144,6 +145,8 @@ export const AppDeclarations = [
   LeanerAchievementsComponent,
   LearningHeatmapComponent,
   LeanerCoursesComponent,
+  // Noti
+  NavbarNotiComponent
 ];
 export const NGIcons = [
   FieldTimeOutline,
@@ -199,7 +202,8 @@ export const appServices = [
   WishlistService,
   NotificationService,
   CouponService,
-  CoursesService
+  CoursesService,
+  ChatService
 ];
 
 export const appGuards = [

@@ -1,0 +1,18 @@
+<div class="noti-view-all">
+  <div class="title">{{'LABEL.NOTIFICATIONS' | translate}}</div>
+</div>
+<div class="navbar-noti">
+  <div class="noti" *ngFor="let noti of notis">
+    <div class="label">{{ noti.content | translate }}</div>
+    <div class="time" *ngIf="calculateTimeAgo(noti.time) as timeAgo">
+      <i nz-icon nzType="clock-circle"></i>
+      {{
+        timeAgo === 0
+          ? ("LABEL.MINUTES_AGO" | translate : { value: timeAgo * 60 })
+          : ("LABEL.HOURS_AGO" | translate : { value: timeAgo })
+      }}
+    </div>
+
+    <div class="unread-dot"></div>
+  </div>
+</div>

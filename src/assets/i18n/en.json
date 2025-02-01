@@ -157,7 +157,7 @@
     "WEB_STATISTICS_SUB_TITLE": "Numbers don’t lie, see how learners worldwide are leveling up, unlocking achievements, and turning knowledge into power!",
 
     "WEB_STATISTICS_ACTIVE_LEARNERS": "Active Learners",
-    "WEB_STATISTICS_ACTIVE_LEARNERS_UNIT": "leaners",
+    "WEB_STATISTICS_ACTIVE_LEARNERS_UNIT": "quests",
     "WEB_STATISTICS_DAILY_CHALLENGES": "Daily Quests Completed",
     "WEB_STATISTICS_DAILY_CHALLENGES_UNIT": "quests",
     "WEB_STATISTICS_LEARNING_STREAK": "Average Learning Streak",
@@ -183,7 +183,11 @@
     "TOTAL_HOUR": "Total {{value}} hours",
     "LIFE_TIME_ACCESS": "Life time access",
     "CERTIFICATE_OF_COMPLETEION": "Certificate of Completion",
-    "REFUND_WITHIN_PERCENT": "Refund within {{value}} days"
+    "REFUND_WITHIN_PERCENT": "Refund within {{value}} days",
+    "HOURS_AGO": "{{value}} hours ago",
+    "MINUTES_AGO": "{{value}} minutes ago",
+    "VIEW_ALL":"View all",
+    "NOTIFICATIONS": "Notifications"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search anything",
