@@ -22,7 +22,7 @@ export class FooterComponent implements OnInit, OnDestroy {
     { name: 'LABEL.ABOUT', link: '/about' },
     { name: 'LABEL.PRICING', link: '/pricing' },
     { name: 'LABEL.CONTACT', link: '/contact' },
-    { name: 'LABEL.HELP', link: '/help' },
+    // { name: 'LABEL.HELP', link: 'mailto:eduquestwork@gmail.com' },
     { name: 'LABEL.PRIVACY', link: '/privacy' },
     { name: 'LABEL.TERMS', link: '/terms' },
   ];

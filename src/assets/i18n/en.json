@@ -243,7 +243,33 @@
     "GOVERNING_LAW_CONTENT": "These Terms are governed by the laws of [Your Country/Region]. Any disputes will be resolved through negotiation or legal means in the appropriate jurisdiction.",
 
     "CONTACT_US": "Contact Us",
-    "CONTACT_US_CONTENT": "If you have questions about these Terms, please contact us at [Your Contact Email]."
+    "CONTACT_US_CONTENT": "If you have questions about these Terms, please contact us at eduquestwork@gmail.com.",
+    "PRIVACY_POLICY": "Privacy Policy",
+    "PRIVACY_POLICY_CONTENT": "Welcome to Edu Quest. Your privacy is important to us. This Privacy Policy explains how we collect, use, and protect your personal data when you use our platform. By accessing Edu Quest, you agree to the terms outlined in this policy.",
+
+    "DATA_WE_COLLECT": "Data We Collect",
+    "DATA_WE_COLLECT_CONTENT": "Personal Information: Name, email address, age, profile information. | Usage Data: IP address, browser type, device information, and platform activity. | Cookies & Tracking Data: We use cookies and tracking technologies to enhance user experience and analytics.",
+
+    "HOW_WE_USE_YOUR_DATA": "How We Use Your Data",
+    "HOW_WE_USE_YOUR_DATA_CONTENT": "Provide and improve our platform's functionality. | Personalize your learning experience with AI-driven recommendations. | Communicate updates, promotions, or policy changes. | Ensure security, fraud prevention, and compliance with legal obligations.",
+
+    "DATA_SHARING_AND_THIRD_PARTY_SERVICES": "Data Sharing & Third-Party Services",
+    "DATA_SHARING_AND_THIRD_PARTY_SERVICES_CONTENT": "We do not sell your personal data. | We may share limited data with trusted third-party service providers (e.g., payment processors, analytics tools) to enhance our platform. | If required by law, we may disclose your data to legal authorities.",
+
+    "DATA_SECURITY": "Data Security",
+    "DATA_SECURITY_CONTENT": "We implement industry-standard security measures to protect your personal data from unauthorized access, alteration, or disclosure. However, no method of transmission over the internet is 100% secure.",
+
+    "YOUR_RIGHTS_AND_CHOICES": "Your Rights & Choices",
+    "YOUR_RIGHTS_AND_CHOICES_CONTENT": "You can access, update, or delete your account information at any time. | You can manage cookie preferences through your browser settings. | You may opt out of marketing emails by following the unsubscribe instructions.",
+
+    "RETENTION_OF_DATA": "Retention of Data",
+    "RETENTION_OF_DATA_CONTENT": "We retain your data as long as necessary to fulfill platform services and legal requirements. If you delete your account, we may retain some data for record-keeping purposes.",
+
+    "CHANGES_TO_POLICY": "Changes to This Policy",
+    "CHANGES_TO_POLICY_CONTENT": "We may update this Privacy Policy periodically. Significant changes will be communicated via email or platform notifications.",
+
+    "CONTACT_US": "Contact Us",
+    "CONTACT_US_CONTENT": "If you have any questions regarding this Privacy Policy, please contact us at eduquestwork@gmail.com."
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search anything",

@@ -23,12 +23,19 @@
         routerLink="{{ eq.link }}"
         >{{ eq.name | translate }}</a
       >
+      <a class="eqLink" href="mailto:eduquestwork@gmail.com">{{
+        "LABEL.HELP" | translate
+      }}</a>
     </div>
     <div class="language" (click)="onShowLanguageDialog()">
       <i nz-icon nzType="global"></i>
-      <label>{{(('LANGUAGES.' + currentLanguage).toUpperCase()) | translate}}</label>
+      <label>{{
+        ("LANGUAGES." + currentLanguage).toUpperCase() | translate
+      }}</label>
     </div>
   </div>
 </div>
 
-<ng-template #language><app-language-changer></app-language-changer></ng-template>
+<ng-template #language
+  ><app-language-changer></app-language-changer
+></ng-template>

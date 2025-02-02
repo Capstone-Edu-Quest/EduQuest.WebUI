@@ -11,6 +11,7 @@ import { ChatComponent } from './pages/chat/chat.component';
 import { ConversationMessageComponent } from './pages/chat/conversation-message/conversation-message.component';
 import { AboutComponent } from './pages/about/about.component';
 import { TermsComponent } from './pages/terms/terms.component';
+import { PrivacyComponent } from './pages/privacy/privacy.component';
 
 const routes: Routes = [
   {
@@ -61,6 +62,10 @@ const routes: Routes = [
   {
     path: 'terms',
     component: TermsComponent
+  },
+  {
+    path: 'privacy',
+    component: PrivacyComponent
   }
 ];
 
