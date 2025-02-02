@@ -3,11 +3,13 @@ import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ChatService } from '../../../core/services/chat.service';
 import { IChatConversation } from '../../../shared/interfaces/OthersInterface';
+import { fadeInOutAnimation } from '../../../shared/constants/animations.constant';
 
 @Component({
   selector: 'app-conversation-message',
   templateUrl: './conversation-message.component.html',
   styleUrls: ['./conversation-message.component.scss'],
+  animations: [fadeInOutAnimation]
 })
 export class ConversationMessageComponent implements OnInit, OnDestroy {
   subscription$: Subscription = new Subscription();

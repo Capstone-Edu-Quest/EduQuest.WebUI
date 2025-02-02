@@ -1,0 +1,64 @@
+.about-page {
+  padding: 35px 8vw;
+  padding-bottom: 0;
+  box-sizing: border-box;
+
+  .title {
+    font-size: 30px;
+    font-weight: 600;
+  }
+
+  .section {
+    margin-top: 25px;
+    margin-bottom: 100px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .subject {
+      font-size: 20px;
+      color: var(--brand-hover);
+      font-weight: 500;
+      margin-bottom: 5px;
+    }
+    .content {
+      font-size: 13px;
+      color: var(--secondary-text);
+      width: 60%;
+      text-align: center;
+    }
+
+    .items-list-about {
+        box-sizing: border-box;
+        display: flex;
+        gap: 5vw;
+        margin-top: 18px;
+
+        .item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 3px;
+            width: calc(100% / 3);
+
+            fa-icon {
+                font-size: 20px;
+                color: var(--brand-light);
+            }
+
+            .title {
+                font-size: 14px;
+                font-weight: 500;
+                color: var(--primary-text);
+            }
+
+            .content {
+                font-size: 10px;
+                font-weight: 400;
+                color: var(--secondary-text);
+                width: 100%;
+            }
+        }
+    }
+  }
+}

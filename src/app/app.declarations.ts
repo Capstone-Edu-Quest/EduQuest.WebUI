@@ -101,6 +101,7 @@ import { NavbarChatComponent } from './components/navbar/navbar-chat/navbar-chat
 import { ChatComponent } from './pages/chat/chat.component';
 import { ConversationMessageComponent } from './pages/chat/conversation-message/conversation-message.component';
 import { ConversationsListComponent } from './pages/chat/conversations-list/conversations-list.component';
+import { AboutComponent } from './pages/about/about.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -157,7 +158,9 @@ export const AppDeclarations = [
   NavbarChatComponent,
   ChatComponent,
   ConversationMessageComponent,
-  ConversationsListComponent
+  ConversationsListComponent,
+  // About
+  AboutComponent
 ];
 export const NGIcons = [
   EnterOutline,
