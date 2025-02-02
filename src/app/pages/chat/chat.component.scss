@@ -1,0 +1,30 @@
+.chat {
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  gap: 8px;
+  padding: 25px 15px;
+  box-sizing: border-box;
+  height: 90vh;
+
+  .conv-list {
+    grid-column: 1/8;
+    background: var(--secondary-bg);
+    padding: 12px;
+    box-sizing: border-box;
+    border-radius: 15px;
+
+    .title {
+      font-size: 18px;
+      color: var(--brand-light);
+      font-weight: 500;
+    }
+  }
+
+  .message {
+    grid-column: 8/25;
+    background: var(--secondary-bg);
+    padding: 12px;
+    border-radius: 15px;
+  }
+
+}

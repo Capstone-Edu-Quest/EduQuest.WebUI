@@ -1,0 +1,30 @@
+<div class="chat-content" *ngIf="currentConversation">
+  <div class="messages-list">
+    <div
+      class="message-row"
+      [ngClass]="{
+        'my-message': mess.senderId === currentUserId
+      }"
+      *ngFor="let mess of currentConversation.messages"
+    >
+      <div class="message">
+        <div class="content">{{ mess.content }}</div>
+        <div class="time">{{ mess.time| date: 'HH:mm' }}</div>
+      </div>
+    </div>
+  </div>
+  <div class="texting-input">
+    <input
+      class="send-text"
+      placeholder="{{ 'LABEL.ENTER_MESSAGE' | translate }}"
+    />
+
+    <div class="guide">
+      <div class="shortcut">
+        {{ "LABEL.ENTER_KEYBOARD" | translate }}
+        <i nz-icon nzType="enter"></i>
+      </div>
+      <div class="action">{{ "LABEL.SEND" | translate }}</div>
+    </div>
+  </div>
+</div>

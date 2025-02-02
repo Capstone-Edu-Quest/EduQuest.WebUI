@@ -1,0 +1,28 @@
+<div class="chat-list">
+  <input
+    class="search-name"
+    placeholder="{{ 'LABEL.SEARCH_CHAT' | translate }}"
+    [(ngModel)]="searchConversation"
+  />
+
+  <div class="list">
+    <div
+      class="chat"
+      [ngClass]="{
+        isView: conv.id === currentViewId
+      }"
+      *ngFor="let conv of conversations"
+      (click)="viewChatMessage(conv.id)"
+    >
+      <app-avatar-by-name [name]="'Gia Khang'"></app-avatar-by-name>
+      <div class="info">
+        <div class="name">Gia Khang</div>
+        <div class="last-message">
+          {{ "LABEL.YOU" | translate }}: Hello · 11:22
+        </div>
+      </div>
+
+      <div class="dot"></div>
+    </div>
+  </div>
+</div>

@@ -189,7 +189,11 @@
     "VIEW_ALL":"View all",
     "NOTIFICATIONS": "Notifications",
     "CHAT": "Chat",
-    "YOU": "You"
+    "YOU": "You",
+    "SEARCH_CHAT": "Search conversation",
+    "ENTER_MESSAGE": "Enter Message",
+    "ENTER_KEYBOARD": "Enter",
+    "SEND": "Send"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search anything",

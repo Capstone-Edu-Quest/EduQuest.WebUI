@@ -1,0 +1,89 @@
+.chat-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  height: 100%;
+  padding: 0 12px;
+  box-sizing: border-box;
+
+  .messages-list {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 12px;
+    gap: 5px;
+    overflow-y: scroll;
+
+    .message-row {
+      display: flex;
+      justify-content: start;
+      align-items: center;
+
+      .message {
+        background: var(--brand-01);
+        padding: 7px 12px;
+        box-sizing: border-box;
+        border-radius: 8px;
+        
+        .time {
+            text-align: left;
+            color: var(--secondary-text);
+            font-size: 10px;
+            margin-top: 5px;
+        }
+      }
+
+      &.my-message {
+        justify-content: end;
+
+        .message {
+            background: var(--quaternary-bg);
+
+            .time {
+                text-align: right;
+            }
+        }
+      }
+    }
+  }
+
+  .texting-input {
+    display: flex;
+    align-items: center;
+    border: 1px solid var(--brand-01);
+    background: var(--tertiary-bg);
+    border-radius: 12px;
+    gap: 5px;
+
+    .send-text {
+      width: 100%;
+      padding: 12px 15px;
+      outline: none;
+      box-sizing: border-box;
+      color: var(--primary-text);
+      border: none;
+      background: none;
+      font-size: 13px;
+      resize: none;
+    }
+
+    .guide {
+      color: var(--tertiary-text);
+      padding-right: 10px;
+
+      .shortcut {
+        display: flex;
+        align-items: center;
+        font-size: 10px;
+        gap: 2px;
+
+        i {
+          transform: translateY(1px);
+        }
+      }
+
+      .action {
+        font-size: 12px;
+      }
+    }
+  }
+}

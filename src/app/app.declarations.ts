@@ -16,6 +16,7 @@ import {
   CommentOutline,
   CreditCardOutline,
   EditOutline,
+  EnterOutline,
   ExclamationCircleOutline,
   FieldTimeOutline,
   FileExclamationOutline,
@@ -97,6 +98,9 @@ import { CourseSectionComponent } from './pages/course-details/course-section/co
 import { NavbarNotiComponent } from './components/navbar/navbar-noti/navbar-noti.component';
 import { FirebaseService } from './core/services/firebase.service';
 import { NavbarChatComponent } from './components/navbar/navbar-chat/navbar-chat.component';
+import { ChatComponent } from './pages/chat/chat.component';
+import { ConversationMessageComponent } from './pages/chat/conversation-message/conversation-message.component';
+import { ConversationsListComponent } from './pages/chat/conversations-list/conversations-list.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -150,9 +154,13 @@ export const AppDeclarations = [
   // Noti
   NavbarNotiComponent,
   // Chat
-  NavbarChatComponent
+  NavbarChatComponent,
+  ChatComponent,
+  ConversationMessageComponent,
+  ConversationsListComponent
 ];
 export const NGIcons = [
+  EnterOutline,
   FieldTimeOutline,
   BookOutline,
   CheckCircleFill,
