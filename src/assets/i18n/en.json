@@ -187,7 +187,9 @@
     "HOURS_AGO": "{{value}} hours ago",
     "MINUTES_AGO": "{{value}} minutes ago",
     "VIEW_ALL":"View all",
-    "NOTIFICATIONS": "Notifications"
+    "NOTIFICATIONS": "Notifications",
+    "CHAT": "Chat",
+    "YOU": "You"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search anything",

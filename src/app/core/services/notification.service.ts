@@ -66,5 +66,7 @@ export class NotificationService {
 
   }
 
-  destroyNotification() {}
+  destroyNotification() {
+    this.notification$.next([]);
+  }
 }

@@ -71,5 +71,7 @@ export class CartService {
     }, 1000);
   }
 
-  destroyCart(){}
+  destroyCart(){
+    this.cart$.next(this.cart)
+  }
 }

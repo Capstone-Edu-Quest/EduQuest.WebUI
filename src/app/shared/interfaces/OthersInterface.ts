@@ -15,3 +15,24 @@ export interface INotification {
   value?: any[];
   isRead: boolean;
 }
+
+export interface IChatMessage {
+  id: string;
+  senderId: string;
+  time: string;
+  content: string;
+}
+
+export interface IChatConversation {
+  id: string;
+  participants: {
+    [userId: string]: {
+      id: string;
+      name: string;
+      avatar: string;
+      lastSeen: string;
+    };
+  };
+  createdAt: string;
+  messages: IChatMessage[];
+}

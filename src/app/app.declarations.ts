@@ -96,6 +96,7 @@ import { CoursesService } from './core/services/courses.service';
 import { CourseSectionComponent } from './pages/course-details/course-section/course-section.component';
 import { NavbarNotiComponent } from './components/navbar/navbar-noti/navbar-noti.component';
 import { FirebaseService } from './core/services/firebase.service';
+import { NavbarChatComponent } from './components/navbar/navbar-chat/navbar-chat.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -147,7 +148,9 @@ export const AppDeclarations = [
   LearningHeatmapComponent,
   LeanerCoursesComponent,
   // Noti
-  NavbarNotiComponent
+  NavbarNotiComponent,
+  // Chat
+  NavbarChatComponent
 ];
 export const NGIcons = [
   FieldTimeOutline,
