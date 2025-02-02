@@ -10,6 +10,7 @@ import { CourseDetailsComponent } from './pages/course-details/course-details.co
 import { ChatComponent } from './pages/chat/chat.component';
 import { ConversationMessageComponent } from './pages/chat/conversation-message/conversation-message.component';
 import { AboutComponent } from './pages/about/about.component';
+import { TermsComponent } from './pages/terms/terms.component';
 
 const routes: Routes = [
   {
@@ -56,6 +57,10 @@ const routes: Routes = [
   {
     path: 'about',
     component: AboutComponent
+  },
+  {
+    path: 'terms',
+    component: TermsComponent
   }
 ];
 

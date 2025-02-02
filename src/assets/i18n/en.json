@@ -214,7 +214,36 @@
     "CONTINUOUS_INNOVATION": "Continuous Innovation",
     "CONTINUOUS_INNOVATION_CONTENT": "We’re always improving to make learning better.",
     "LOOKING_AHEAD": "Looking Ahead",
-    "LOOKING_AHEAD_CONTENT": "Edu Quest is more than just a platform; it is a movement toward a smarter, more engaging way of learning. As we grow, we aim to integrate AI-driven recommendations, expand our course offerings, and enhance collaboration features to make education more accessible and exciting. This is just the beginning. Are you ready to embark on your learning journey?"
+    "LOOKING_AHEAD_CONTENT": "Edu Quest is more than just a platform; it is a movement toward a smarter, more engaging way of learning. As we grow, we aim to integrate AI-driven recommendations, expand our course offerings, and enhance collaboration features to make education more accessible and exciting. This is just the beginning. Are you ready to embark on your learning journey?",
+    "TERMS_OF_SERVICE": "Terms of Service",
+    "TERMS_OF_SERVICE_CONTENT": "Welcome to Edu Quest! These Terms of Service ('Terms') govern your use of our platform, website, and services ('Services'). By accessing or using Edu Quest, you agree to be bound by these Terms. If you do not agree, please refrain from using our Services.",
+
+    "USE_OF_PLATFORM": "Use of the Platform",
+    "USE_OF_PLATFORM_CONTENT": "Eligibility: You must be at least 13 years old to use Edu Quest. If you are under 18, you must have parental or guardian consent. | Account Registration: You are responsible for maintaining the security of your account credentials and ensuring the accuracy of your provided information. | Acceptable Use: You agree not to misuse the platform, including but not limited to uploading or sharing harmful, offensive, or illegal content, attempting to hack, disrupt, or interfere with the Services, and violating intellectual property rights or using the platform for unauthorized commercial purposes.",
+
+    "CONTENT_AND_IP": "Content & Intellectual Property",
+    "CONTENT_AND_IP_CONTENT": "User-Generated Content: You retain ownership of any content you create or submit, but you grant Edu Quest a worldwide, non-exclusive license to use, modify, display, and distribute your content for platform operations. | Platform Content: All content, trademarks, and intellectual property provided by Edu Quest (logos, text, graphics, software) belong to us or our licensors and may not be copied, modified, or distributed without permission.",
+
+    "PAYMENT_AND_SUBSCRIPTIONS": "Payment & Subscriptions",
+    "PAYMENT_AND_SUBSCRIPTIONS_CONTENT": "Pricing: Certain features of Edu Quest may require payment. Pricing and billing details will be clearly communicated before purchase. | Refunds: We offer refunds only in accordance with our refund policy. | Subscription Cancellations: You may cancel your subscription anytime, but cancellation may not result in a refund.",
+
+    "PRIVACY_AND_DATA_PROTECTION": "Privacy & Data Protection",
+    "PRIVACY_AND_DATA_PROTECTION_CONTENT": "Your use of the platform is also governed by our Privacy Policy, which explains how we collect, use, and protect your personal data. By using Edu Quest, you acknowledge that you have read and agreed to our Privacy Policy.",
+
+    "DISCLAIMERS_AND_LIABILITY": "Disclaimers & Limitation of Liability",
+    "DISCLAIMERS_AND_LIABILITY_CONTENT": "No Guarantee of Results: Edu Quest is an educational tool, and we do not guarantee any specific learning outcomes. | Service Availability: We strive for uninterrupted service but do not guarantee that the platform will always be available or free from errors. | Limitation of Liability: To the maximum extent permitted by law, Edu Quest is not responsible for any direct, indirect, or incidental damages resulting from your use of the platform.",
+
+    "TERMINATION": "Termination",
+    "TERMINATION_CONTENT": "We reserve the right to suspend or terminate your access to Edu Quest if you violate these Terms or engage in prohibited activities.",
+
+    "CHANGES_TO_TERMS": "Changes to These Terms",
+    "CHANGES_TO_TERMS_CONTENT": "We may update these Terms from time to time. Significant changes will be communicated to users, and continued use of the platform after updates constitutes acceptance of the new Terms.",
+
+    "GOVERNING_LAW": "Governing Law & Dispute Resolution",
+    "GOVERNING_LAW_CONTENT": "These Terms are governed by the laws of [Your Country/Region]. Any disputes will be resolved through negotiation or legal means in the appropriate jurisdiction.",
+
+    "CONTACT_US": "Contact Us",
+    "CONTACT_US_CONTENT": "If you have questions about these Terms, please contact us at [Your Contact Email]."
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search anything",

@@ -102,6 +102,7 @@ import { ChatComponent } from './pages/chat/chat.component';
 import { ConversationMessageComponent } from './pages/chat/conversation-message/conversation-message.component';
 import { ConversationsListComponent } from './pages/chat/conversations-list/conversations-list.component';
 import { AboutComponent } from './pages/about/about.component';
+import { TermsComponent } from './pages/terms/terms.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -160,7 +161,9 @@ export const AppDeclarations = [
   ConversationMessageComponent,
   ConversationsListComponent,
   // About
-  AboutComponent
+  AboutComponent,
+  // Terms
+  TermsComponent
 ];
 export const NGIcons = [
   EnterOutline,
