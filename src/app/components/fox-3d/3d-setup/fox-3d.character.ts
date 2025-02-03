@@ -1,8 +1,6 @@
 import {
   AnimationMixer,
   Mesh,
-  MeshBasicMaterial,
-  MeshStandardMaterial,
   PerspectiveCamera,
   Scene,
   WebGLRenderer,

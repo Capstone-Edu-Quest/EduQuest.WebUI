@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as THREE from 'three';
 import Fox3DMain from './3d-setup/fox-3d.main';
 import { GUI } from 'dat.gui';
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
 @Component({
   selector: 'app-fox-3d',
