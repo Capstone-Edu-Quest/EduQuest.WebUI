@@ -42,5 +42,24 @@
   <!-- Fox -->
   <div class="section-container">
     <app-fox-3d></app-fox-3d>
+    <div class="pannel-ctn">
+      <div class="gold-ctn">
+        <fa-icon [icon]="coinIcon"></fa-icon>
+        <div class="number">224</div>
+        <fa-icon class="add" [icon]="addIcon"></fa-icon>
+      </div>
+
+      <fa-icon class="shop" [icon]="shopIcon"></fa-icon>
+
+      <fa-icon class="shop" [icon]="boxIcon"></fa-icon>
+    </div>
+
+    <div class="level">
+      <div class="label">{{ "LABEL.LEVEL" | translate : { level: 15 } }}</div>
+      <div class="progress">
+        <div class="progress-heart"></div>
+        <div class="exp">123/522</div>
+      </div>
+    </div>
   </div>
 </div>

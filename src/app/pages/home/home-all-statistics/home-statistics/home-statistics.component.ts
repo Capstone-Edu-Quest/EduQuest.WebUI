@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { faBoxOpen, faCertificate, faCoins, faPlus, faShop } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-home-statistics',
@@ -21,6 +22,12 @@ export class HomeStatisticsComponent implements OnInit {
       max: 2,
     },
   ];
+
+  levelIcon = faCertificate;
+  coinIcon = faCoins;
+  addIcon = faPlus;
+  shopIcon = faShop;
+  boxIcon = faBoxOpen
 
   statistics = [
     // {
@@ -46,8 +53,5 @@ export class HomeStatisticsComponent implements OnInit {
   ];
   constructor() {}
 
-  ngOnInit() {
-  
-  }
-
+  ngOnInit() {}
 }

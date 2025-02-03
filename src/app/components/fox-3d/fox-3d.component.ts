@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import * as THREE from 'three';
 import Fox3DMain from './3d-setup/fox-3d.main';
 import { GUI } from 'dat.gui';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
 
 @Component({
   selector: 'app-fox-3d',
@@ -30,28 +31,48 @@ export class Fox3dComponent implements OnInit {
 
     // Camera
     const camera = new THREE.PerspectiveCamera(
-      30,
+      32,
       container.clientWidth / container.clientHeight,
       0.1,
       1000
     );
     camera.position.set(-1, 2, 8.4);
+    camera.lookAt(0, 1.8, 0);
 
     // Renderer
-    const renderer = new THREE.WebGLRenderer({ canvas: container, antialias: true });
+    const renderer = new THREE.WebGLRenderer({
+      canvas: container,
+      antialias: true,
+    });
+    renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setClearColor(0x000000, 0);
     renderer.setSize(container.clientWidth, container.clientHeight);
+
     window.addEventListener('resize', () => {
       camera.aspect = container.clientWidth / container.clientHeight;
       camera.updateProjectionMatrix();
+
       renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setPixelRatio(window.devicePixelRatio);
     });
 
-    console.log(
-      'container size: ',
-      container.clientHeight,
-      container.clientWidth
-    );
+    // Controls
+    const controls = new OrbitControls(camera, renderer.domElement);
+    controls.target.set(0, 1.8, 0);
+    controls.enableDamping = true;
+    controls.dampingFactor = 0.02;
+    controls.minPolarAngle = 0;
+    controls.maxDistance = 11;
+    controls.minDistance = 8;
+    controls.maxPolarAngle = Math.PI / 2;
+    controls.enablePan = false;
+    // controls.enableZoom = false;
+
+    // console.log(
+    //   'container size: ',
+    //   container.clientHeight,
+    //   container.clientWidth
+    // );
 
     const foxScene = new Fox3DMain(scene, camera, renderer);
     await foxScene.init();
@@ -70,6 +91,8 @@ export class Fox3dComponent implements OnInit {
       delta = clock.getDelta();
 
       foxScene.update(delta);
+
+      controls.update();
 
       renderer.render(scene, camera);
     }
