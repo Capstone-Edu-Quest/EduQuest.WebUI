@@ -19,7 +19,7 @@ export class Fox3dComponent implements OnInit {
   async initThree() {
     const container = document.getElementById(
       'three-container'
-    ) as HTMLCanvasElement;
+    ) as HTMLDivElement;
 
     if (!container) {
       console.error('Can not find three container');
@@ -32,7 +32,7 @@ export class Fox3dComponent implements OnInit {
     // Camera
     const camera = new THREE.PerspectiveCamera(
       32,
-      container.clientWidth / container.clientHeight,
+      container.offsetWidth / container.offsetHeight,
       0.1,
       1000
     );
@@ -41,20 +41,29 @@ export class Fox3dComponent implements OnInit {
 
     // Renderer
     const renderer = new THREE.WebGLRenderer({
-      canvas: container,
+      // canvas: container,
       antialias: true,
     });
-    renderer.setPixelRatio(window.devicePixelRatio);
+    // renderer.setSize(container.offsetWidth, container.offsetHeight);
+    // renderer.setPixelRatio(window.devicePixelRatio);
     renderer.setClearColor(0x000000, 0);
-    renderer.setSize(container.clientWidth, container.clientHeight);
+    container.appendChild(renderer.domElement);
 
-    window.addEventListener('resize', () => {
-      camera.aspect = container.clientWidth / container.clientHeight;
+    const updateDimension = () => {
+      camera.aspect = container.clientWidth / container.offsetHeight;
       camera.updateProjectionMatrix();
 
-      renderer.setSize(container.clientWidth, container.clientHeight);
+      renderer.setSize(container.offsetWidth, container.offsetHeight);
       renderer.setPixelRatio(window.devicePixelRatio);
-    });
+      // console.log(
+      //   'resize',
+      //   container.offsetWidth,
+      //   container.offsetHeight,
+      //   container
+      // );
+    };
+
+    window.addEventListener('resize', updateDimension);
 
     // Controls
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -63,15 +72,15 @@ export class Fox3dComponent implements OnInit {
     controls.dampingFactor = 0.02;
     controls.minPolarAngle = 0;
     controls.maxDistance = 11;
-    controls.minDistance = 8;
+    controls.minDistance = 8.3;
     controls.maxPolarAngle = Math.PI / 2;
     controls.enablePan = false;
     // controls.enableZoom = false;
 
     // console.log(
     //   'container size: ',
-    //   container.clientHeight,
-    //   container.clientWidth
+    //   container.offsetHeight,
+    //   container.offsetWidth
     // );
 
     const foxScene = new Fox3DMain(scene, camera, renderer);
@@ -87,16 +96,16 @@ export class Fox3dComponent implements OnInit {
 
     function animate() {
       requestAnimationFrame(animate);
-
       delta = clock.getDelta();
-
       foxScene.update(delta);
-
       controls.update();
-
       renderer.render(scene, camera);
     }
 
+    const dimensionTimeout = setTimeout(() => {
+      updateDimension();
+      clearTimeout(dimensionTimeout);
+    }, 1);
     animate();
   }
 }
