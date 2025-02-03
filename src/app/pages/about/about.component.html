@@ -3,19 +3,19 @@
     {{ "LABEL.ABOUT" | translate }}
   </div>
   <div class="section">
-    <div class="subject" data-aos="fade-down" data-aos-delay="300">
+    <div class="subject" data-aos="fade-down">
       {{ "LABEL.OUR_STORY" | translate }}
     </div>
-    <div class="content" data-aos="fade-up" data-aos-delay="500">
+    <div class="content" data-aos="fade-up">
       {{ "LABEL.OUR_STORY_CONTENT" | translate }}
     </div>
   </div>
 
   <div class="section">
-    <div class="subject" data-aos="fade-down" data-aos-delay="800">
+    <div class="subject" data-aos="fade-down">
       {{ "LABEL.WHAT_DIFFERENT" | translate }}
     </div>
-    <div class="content" data-aos="fade-up" data-aos-delay="1000">
+    <div class="content" data-aos="fade-up">
       {{ "LABEL.WHAT_DIFFERENT_CONTENT" | translate }}
     </div>
     <div class="items-list-about">
@@ -23,7 +23,6 @@
         class="item"
         *ngFor="let item of whatDifferentItems; let i = index"
         data-aos="fade-up"
-        [attr.data-aos-delay]="1200 + i * 100"
       >
         <fa-icon [icon]="item.icon"></fa-icon>
         <div class="title">{{ item.title | translate }}</div>
@@ -33,7 +32,7 @@
   </div>
 
   <div class="section">
-    <div class="subject" data-aos="fade-down" data-aos-delay="1700">
+    <div class="subject" data-aos="fade-down">
       {{ "LABEL.OUR_VALUES" | translate }}
     </div>
     <div class="items-list-about">
@@ -41,7 +40,6 @@
         class="item"
         *ngFor="let item of ourValuesItems; let i = index"
         data-aos="fade-up"
-        [attr.data-aos-delay]="1900 + i * 100"
       >
         <fa-icon [icon]="item.icon"></fa-icon>
         <div class="title">{{ item.title | translate }}</div>
@@ -51,10 +49,10 @@
   </div>
 
   <div class="section">
-    <div class="subject" data-aos="fade-down" data-aos-delay="2400">
+    <div class="subject" data-aos="fade-down">
       {{ "LABEL.LOOKING_AHEAD" | translate }}
     </div>
-    <div class="content" data-aos="fade-up" data-aos-delay="2600">
+    <div class="content" data-aos="fade-up">
       {{ "LABEL.LOOKING_AHEAD_CONTENT" | translate }}
     </div>
   </div>

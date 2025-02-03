@@ -104,6 +104,7 @@ import { ConversationsListComponent } from './pages/chat/conversations-list/conv
 import { AboutComponent } from './pages/about/about.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
+import { Fox3dComponent } from './components/fox-3d/fox-3d.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -166,7 +167,8 @@ export const AppDeclarations = [
   // Terms
   TermsComponent,
   // privacy
-  PrivacyComponent
+  PrivacyComponent,
+  Fox3dComponent
 ];
 export const NGIcons = [
   EnterOutline,

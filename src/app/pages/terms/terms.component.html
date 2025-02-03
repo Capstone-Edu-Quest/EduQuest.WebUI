@@ -2,17 +2,17 @@
   <div class="title text-gradient" data-aos="fade-right">
     {{ "LABEL.TERMS_OF_SERVICE" | translate }}
   </div>
-  <div class="description" data-aos="fade-left" data-aos-delay="200">
+  <div class="description" data-aos="fade-left">
     {{ "LABEL.TERMS_OF_SERVICE_CONTENT" | translate }}
   </div>
 
   <div class="sections-ctn">
-    <div class="section" *ngFor="let term of terms; let i = index "data-aos="fade-up" [attr.data-aos-delay]="(i + 1) * 300">
-      <div
-        class="term-title"
-      >
-        {{ i + 1 }}. {{ term.title | translate }}
-      </div>
+    <div
+      class="section"
+      *ngFor="let term of terms; let i = index"
+      data-aos="fade-up"
+    >
+      <div class="term-title">{{ i + 1 }}. {{ term.title | translate }}</div>
       <div
         class="term-content-ctn"
         *ngFor="
@@ -20,11 +20,7 @@
           let z = index
         "
       >
-        <div
-          class="content"
-        >
-          {{ i + 1 }}.{{ z + 1 }} {{ content }}
-        </div>
+        <div class="content">{{ i + 1 }}.{{ z + 1 }} {{ content }}</div>
       </div>
     </div>
   </div>

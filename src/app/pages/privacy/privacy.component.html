@@ -11,7 +11,6 @@
       class="section"
       *ngFor="let term of privacies; let i = index"
       data-aos="fade-up"
-      [attr.data-aos-delay]="(i + 1) * 300"
     >
       <div class="term-title">{{ i + 1 }}. {{ term.title | translate }}</div>
       <div
