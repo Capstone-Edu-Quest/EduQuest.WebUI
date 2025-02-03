@@ -7,6 +7,7 @@ import { CartService } from '../../core/services/cart.service';
 import { ICourse, ICourseCart } from '../../shared/interfaces/CourseInterfaces';
 import { WishlistService } from '../../core/services/wishlist.service';
 import { IUser } from '../../shared/interfaces/UserInterfaces';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 @Component({
   selector: 'app-navbar',
@@ -53,6 +54,8 @@ export class NavbarComponent implements OnInit {
   ];
 
   user: IUser | null = null;
+
+  googleIcon = faGoogle;
 
   constructor(
     private translate: TranslateService,

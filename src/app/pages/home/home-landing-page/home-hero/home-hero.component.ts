@@ -1,3 +1,4 @@
+import { UserService } from './../../../../core/services/user.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home-hero.component.scss'],
 })
 export class HomeHeroComponent implements OnInit {
-  constructor() {}
+  constructor(private UserService: UserService) {}
 
   ngOnInit() {}
 
@@ -15,5 +16,9 @@ export class HomeHeroComponent implements OnInit {
       top: window.scrollY + window.innerHeight - 30,
       behavior: 'smooth',
     });
+  }
+
+  onSignIn() {
+    this.UserService.signInWithGoogle();
   }
 }

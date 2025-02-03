@@ -1,6 +1,8 @@
 import {
   AnimationMixer,
+  Group,
   Mesh,
+  Object3DEventMap,
   PerspectiveCamera,
   Scene,
   WebGLRenderer,
@@ -14,8 +16,19 @@ export default class Character {
   camera!: PerspectiveCamera;
 
   loadingElement!: HTMLDivElement;
+  fox!: Group<Object3DEventMap>;
+
   totalLoadingObjects: number = 5;
   loadedObjects: number = 0;
+
+  equipment = {
+    head: null,
+    rightHand: null,
+    leftHand: null,
+    body: null,
+    legs: null,
+    feet: null,
+  };
 
   constructor(
     scene: Scene,
@@ -52,15 +65,14 @@ export default class Character {
     this.loadingElement = document.getElementById(
       'three-loading'
     ) as HTMLDivElement;
-    this.loadingElement.style.display = 'block';
 
     this.glTFLoader.load('/assets/characters/fox.glb', (gltf) => {
-      const fox = gltf.scene;
-      this.mixer = new AnimationMixer(fox);
+      this.fox = gltf.scene;
+      this.mixer = new AnimationMixer(this.fox);
       this.mixer.clipAction(gltf.animations[0]).play();
 
-      fox.position.set(0, 0.2, 0);
-      this.scene.add(fox);
+      this.fox.position.set(0, 0.2, 0);
+      this.scene.add(this.fox);
       //   this.camera?.lookAt(fox.position);
       // console.log('added fox to the scene', fox);
 

@@ -15,7 +15,7 @@
 
   <!-- Button -->
   <div class="btn-ctn">
-    <app-button data-aos="zoom-out" data-aos-delay="600" [type]="'primary'">{{
+    <app-button data-aos="zoom-out" data-aos-delay="600" [type]="'primary'" (click)="onSignIn()">{{
       "LABEL.START_JOURNEY" | translate
     }}</app-button>
     <app-button data-aos="zoom-out" data-aos-delay="600" (click)="onExploreMore()">{{
