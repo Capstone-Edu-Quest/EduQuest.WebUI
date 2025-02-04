@@ -9,7 +9,12 @@ import {
   WebGLRenderer,
 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
-import { grassPositions, stoneData, treePositions } from './fox-3d.config';
+import {
+  grassData,
+  grassStonePositions,
+  stoneData,
+  treePositions,
+} from './fox-3d.config';
 
 export default class Character {
   scene!: Scene;
@@ -85,12 +90,12 @@ export default class Character {
   async initBackground() {
     this.glTFLoader.load('/assets/characters/rock-flat-grass.glb', (gltf) => {
       const grass = gltf.scene;
-      const grasses = grassPositions.map((_grass) => grass.clone());
+      const grasses = grassStonePositions.map((_grass) => grass.clone());
       grasses.forEach((_grass, index) => {
         _grass.position.set(
-          grassPositions[index].x,
-          grassPositions[index].y,
-          grassPositions[index].z
+          grassStonePositions[index].x,
+          grassStonePositions[index].y,
+          grassStonePositions[index].z
         );
       });
 
@@ -126,7 +131,7 @@ export default class Character {
       (gltf) => {
         const stone = gltf.scene;
         const stones = stoneData.map((_stone) => stone.clone());
-        
+
         stones.forEach((_stone, index) => {
           _stone.position.set(
             stoneData[index].position.x,
@@ -151,13 +156,21 @@ export default class Character {
     // Grass
     this.glTFLoader.load('/assets/characters/patch-grass-large.glb', (gltf) => {
       const grass = gltf.scene;
-      const grasses = [grass.clone(), grass.clone(), grass.clone()];
-      grasses[0].position.set(-0.7, 0, -0.7);
-      grasses[0].scale.set(1.5, 1.5, 1.5);
-      grasses[1].position.set(-1, 0, -0);
-      grasses[1].scale.set(1.5, 1.5, 1.5);
-      grasses[2].position.set(0.7, 0.2, -0.5);
-      grasses[2].scale.set(1.5, 1.5, 1.5);
+      const grasses = grassData.map((_grass) => grass.clone());
+
+      grasses.forEach((_grass, index) => {
+        _grass.position.set(
+          grassData[index].position.x,
+          grassData[index].position.y,
+          grassData[index].position.z
+        );
+        _grass.scale.set(
+          grassData[index].scale.x,
+          grassData[index].scale.y,
+          grassData[index].scale.z
+        );
+      });
+
       grasses.forEach((_grass) => {
         this.scene.add(_grass);
       });

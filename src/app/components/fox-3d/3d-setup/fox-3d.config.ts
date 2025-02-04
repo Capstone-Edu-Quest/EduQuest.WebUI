@@ -26,7 +26,7 @@ export enum bonePosition {
   tail004 = 'tail004',
 }
 
-export const grassPositions = [
+export const grassStonePositions = [
   { x: 0, y: 0, z: 0.2 },
   { x: -0.2, y: 0, z: 0.2 },
   { x: 0.3, y: 0, z: 0.2 },
@@ -50,4 +50,10 @@ export const stoneData = [
   { position: { x: 1.5, y: 0, z: 0.2 }, scale: { x: 3, y: 3, z: 3 } },
   { position: { x: 1.2, y: 0.2, z: -0.5 }, scale: { x: 4, y: 4, z: 4 } },
   { position: { x: 0.7, y: 0.2, z: -0.5 }, scale: { x: 4, y: 4, z: 4 } },
+];
+
+export const grassData = [
+  { position: { x: -0.7, y: 0, z: -0.7 }, scale: { x: 1.5, y: 1.5, z: 1.5 } },
+  { position: { x: -1, y: 0, z: 0 }, scale: { x: 1.5, y: 1.5, z: 1.5 } },
+  { position: { x: 0.7, y: 0.2, z: -0.5 }, scale: { x: 1.5, y: 1.5, z: 1.5 } },
 ];
