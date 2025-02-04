@@ -92,8 +92,8 @@ export default class Character {
       this.scene.add(this.fox);
 
       this.updateLoading();
-      // this.updateEquipment('cow-boy-hat');
-      // this.updateEquipment('orange-vest');
+      this.updateEquipment('goblin-shield');
+      // this.updateEquipment('samurai-hat');
     });
 
     await this.initBackground();
@@ -211,12 +211,12 @@ export default class Character {
 
     // Item is currently equiped -> Remove from scene
     if (item.id === currentEquipItem.id) {
-      this.removeItem(currentEquipItem, item.position);
+      this.removeItem(currentEquipItem, item);
       return;
     }
 
     // Item is different -> Remove current & Equip new item
-    this.removeItem(currentEquipItem, item.position);
+    this.removeItem(currentEquipItem, item);
     this.addItem(item, this.getBonesList(item.position));
   }
 
@@ -239,6 +239,7 @@ export default class Character {
       this.glTFLoader.load(path, (gltf) => {
         this.updateLoading();
         const model = gltf.scene;
+
         model.scale.set(item.scale.x, item.scale.y, item.scale.z);
         model.rotation.set(item.rotation.x, item.rotation.y, item.rotation.z);
         model.position.set(
@@ -251,7 +252,7 @@ export default class Character {
         _boneIdx.add(model);
         this.equipment[item.position] = { id: item.id, model };
 
-        this.syncItem({...this.equipment});
+        this.syncItem({ ...this.equipment });
       });
     });
   }
@@ -278,10 +279,24 @@ export default class Character {
     positionFolder.add(item.position, 'z', -20, 20);
   }
 
-  removeItem(currentEquipItem: IItemInUse, position: string) {
-    this.fox.remove(currentEquipItem.model);
-    this.equipment[position] = null;
-    this.syncItem({...this.equipment});
+  removeItem(currentEquipItem: IItemInUse, item: IEquipmentItem) {
+    const boneName = this.getBonesList(item.position);
+    const bones: Bone[] = [];
+
+    boneName.forEach((_bone) => {
+      this.fox.traverse((child) => {
+        if (child.type === 'Bone' && child.name === _bone) {
+          bones.push(child as Bone);
+        }
+      });
+    });
+
+    bones.forEach((_bone) => {
+      _bone.remove(currentEquipItem.model);
+    });
+
+    this.equipment[item.position] = null;
+    this.syncItem({ ...this.equipment });
   }
 
   getBonesList(position: equipmentType) {

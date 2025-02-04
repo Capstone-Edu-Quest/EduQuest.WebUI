@@ -10,9 +10,9 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 })
 export class FoxItemsComponent implements OnInit, OnDestroy {
   subscription$: Subscription = new Subscription();
+  thumbnailPath = 'assets/characters/Thumbnails/';
 
   currentEquipedItem!: IEquipmentServiceItem;
-  itemsSlot!: { key: string; thumbnailUrl: string | null }[];
 
   constructor(private FoxService: FoxService) {}
 
@@ -24,19 +24,14 @@ export class FoxItemsComponent implements OnInit, OnDestroy {
     this.subscription$.add(
       this.FoxService.currentEquipedItem$.subscribe((itemsSlot) => {
         this.currentEquipedItem = itemsSlot;
-        this.loadItems();
       })
     );
   }
 
-  loadItems() {
-    const thumbnailPath = 'assets/characters/Thumbnails/';
-    this.itemsSlot = Object.keys(this.currentEquipedItem).map((key) => ({
-      key,
-      thumbnailUrl: this.currentEquipedItem[key]
-        ? `${thumbnailPath}${this.currentEquipedItem[key]}.png`
-        : null,
-    }));
+  changeItem(itemId: string | undefined) {
+    if (!itemId) return;
+
+    this.FoxService.equipItem(itemId);
   }
 
   ngOnDestroy(): void {
