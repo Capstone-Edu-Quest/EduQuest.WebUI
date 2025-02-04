@@ -1,3 +1,4 @@
+import { equipmentType } from './../../../shared/interfaces/ThreeInterfaces';
 import {
   AnimationMixer,
   Group,
@@ -8,6 +9,7 @@ import {
   WebGLRenderer,
 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { grassPositions, stoneData, treePositions } from './fox-3d.config';
 
 export default class Character {
   scene!: Scene;
@@ -73,8 +75,6 @@ export default class Character {
 
       this.fox.position.set(0, 0.2, 0);
       this.scene.add(this.fox);
-      //   this.camera?.lookAt(fox.position);
-      // console.log('added fox to the scene', fox);
 
       this.updateLoading();
     });
@@ -85,43 +85,39 @@ export default class Character {
   async initBackground() {
     this.glTFLoader.load('/assets/characters/rock-flat-grass.glb', (gltf) => {
       const grass = gltf.scene;
-      const grasses = [
-        grass.clone(),
-        grass.clone(),
-        grass.clone(),
-        grass.clone(),
-        grass.clone(),
-        grass.clone(),
-      ];
-      grasses[0].position.set(-0.2, 0, 0.2);
-      grasses[1].position.set(0.3, 0, 0.2);
-      grasses[2].position.set(0.1, 0.1, -0.2);
-      grasses[3].position.set(-0.5, 0, 0);
-      grasses[4].position.set(0.6, 0, -0.5);
-      grasses[5].position.set(-0, 0.2, -0.6);
+      const grasses = grassPositions.map((_grass) => grass.clone());
+      grasses.forEach((_grass, index) => {
+        _grass.position.set(
+          grassPositions[index].x,
+          grassPositions[index].y,
+          grassPositions[index].z
+        );
+      });
 
       grasses.forEach((_grass) => {
         this.scene.add(_grass);
       });
-      this.scene.add(grass);
-      // console.log('added grass to the scene', grass);
+
       this.updateLoading();
     });
 
     // Tree
     this.glTFLoader.load('/assets/characters/tree.glb', (gltf) => {
       const tree = gltf.scene;
-      const trees = [tree.clone(), tree.clone(), tree.clone()];
-      trees[0].position.set(1, 0, -0.3);
-      trees[1].position.set(-1, 0, -0.2);
-      trees[2].position.set(-0.4, 0, -1.2);
+      const trees = treePositions.map((_tree) => tree.clone());
+      trees.forEach((_tree, index) => {
+        _tree.position.set(
+          treePositions[index].x,
+          treePositions[index].y,
+          treePositions[index].z
+        );
+      });
 
       trees.forEach((_tree) => {
         this.scene.add(_tree);
       });
 
       this.updateLoading();
-      // console.log('added tree to the scene', tree);
     });
 
     // Stone
@@ -129,13 +125,21 @@ export default class Character {
       '/assets/characters/resource-stone-large.glb',
       (gltf) => {
         const stone = gltf.scene;
-        const stones = [stone.clone(), stone.clone(), stone.clone()];
-        stones[0].position.set(1.5, 0, 0.2);
-        stones[0].scale.set(3, 3, 3);
-        stones[1].position.set(1.2, 0.2, -0.5);
-        stones[1].scale.set(4, 4, 4);
-        stones[2].position.set(0.7, 0.2, -0.5);
-        stones[2].scale.set(4, 4, 4);
+        const stones = stoneData.map((_stone) => stone.clone());
+        
+        stones.forEach((_stone, index) => {
+          _stone.position.set(
+            stoneData[index].position.x,
+            stoneData[index].position.y,
+            stoneData[index].position.z
+          );
+          _stone.scale.set(
+            stoneData[index].scale.x,
+            stoneData[index].scale.y,
+            stoneData[index].scale.z
+          );
+        });
+
         stones.forEach((_stone) => {
           this.scene.add(_stone);
         });
@@ -161,6 +165,8 @@ export default class Character {
       this.updateLoading();
     });
   }
+
+  updateEquipment(equimentId: string, equipmentType: equipmentType) {}
 
   update(delta: number) {
     this.mixer?.update(delta);

@@ -1,0 +1,1 @@
+export type equipmentType = 'head' | 'rightHand' | 'leftHand' | 'body' | 'legs' | 'feet'
