@@ -1,8 +1,13 @@
-import { equipmentType } from './../../../shared/interfaces/ThreeInterfaces';
+import {
+  IEquipmentItem,
+  IEquipmentPosition,
+  IItemInUse,
+  equipmentType,
+} from './../../../shared/interfaces/ThreeInterfaces';
 import {
   AnimationMixer,
+  Bone,
   Group,
-  Mesh,
   Object3DEventMap,
   PerspectiveCamera,
   Scene,
@@ -10,11 +15,15 @@ import {
 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
 import {
+  FoxItems,
+  bonePosition,
+  defaultEquipmentSlot,
   grassData,
   grassStonePositions,
   stoneData,
   treePositions,
 } from './fox-3d.config';
+import { GUI } from 'dat.gui';
 
 export default class Character {
   scene!: Scene;
@@ -28,23 +37,22 @@ export default class Character {
   totalLoadingObjects: number = 5;
   loadedObjects: number = 0;
 
-  equipment = {
-    head: null,
-    rightHand: null,
-    leftHand: null,
-    body: null,
-    legs: null,
-    feet: null,
-  };
+  syncItem!: (item: IEquipmentPosition) => void;
+
+  equipment: IEquipmentPosition = JSON.parse(
+    JSON.stringify(defaultEquipmentSlot)
+  );
 
   constructor(
     scene: Scene,
     camera: PerspectiveCamera,
-    renderer: WebGLRenderer
+    renderer: WebGLRenderer,
+    syncItem: (item: IEquipmentPosition) => void
   ) {
     this.scene = scene;
     this.camera = camera;
     this.glTFLoader = new GLTFLoader();
+    this.syncItem = syncItem;
   }
 
   updateLoading() {
@@ -64,6 +72,8 @@ export default class Character {
       (this.loadedObjects / this.totalLoadingObjects) * 100 + '%';
 
     if (this.loadedObjects === this.totalLoadingObjects) {
+      this.totalLoadingObjects = 0;
+      this.loadedObjects = 0;
       this.loadingElement.style.display = 'none';
     }
   }
@@ -82,6 +92,8 @@ export default class Character {
       this.scene.add(this.fox);
 
       this.updateLoading();
+      // this.updateEquipment('cow-boy-hat');
+      // this.updateEquipment('orange-vest');
     });
 
     await this.initBackground();
@@ -179,7 +191,126 @@ export default class Character {
     });
   }
 
-  updateEquipment(equimentId: string, equipmentType: equipmentType) {}
+  updateEquipment(itemId: string) {
+    const item = FoxItems.find((item) => item.id === itemId);
+
+    // No Item in the list
+    if (!item) {
+      console.log('Item not found', itemId);
+      return;
+    }
+
+    const currentEquipItem = this.equipment[item.position];
+
+    // Not equip anything
+    if (!currentEquipItem) {
+      // Load new item & equip
+      this.addItem(item, this.getBonesList(item.position));
+      return;
+    }
+
+    // Item is currently equiped -> Remove from scene
+    if (item.id === currentEquipItem.id) {
+      this.removeItem(currentEquipItem, item.position);
+      return;
+    }
+
+    // Item is different -> Remove current & Equip new item
+    this.removeItem(currentEquipItem, item.position);
+    this.addItem(item, this.getBonesList(item.position));
+  }
+
+  addItem(item: IEquipmentItem, boneName: bonePosition[]) {
+    this.loadingElement.style.display = 'block';
+    const path = `/assets/characters/Equipments/${item.id}.glb`;
+
+    const bones: Bone[] = [];
+
+    boneName.forEach((_bone) => {
+      this.fox.traverse((child) => {
+        if (child.type === 'Bone' && child.name === _bone) {
+          bones.push(child as Bone);
+        }
+      });
+    });
+
+    bones.forEach((_boneIdx) => {
+      this.totalLoadingObjects++;
+      this.glTFLoader.load(path, (gltf) => {
+        this.updateLoading();
+        const model = gltf.scene;
+        model.scale.set(item.scale.x, item.scale.y, item.scale.z);
+        model.rotation.set(item.rotation.x, item.rotation.y, item.rotation.z);
+        model.position.set(
+          item.translation.x,
+          item.translation.y,
+          item.translation.z
+        );
+
+        this.addItemGui(model);
+        _boneIdx.add(model);
+        this.equipment[item.position] = { id: item.id, model };
+
+        this.syncItem({...this.equipment});
+      });
+    });
+  }
+
+  addItemGui(item: Group<Object3DEventMap>) {
+    const gui = new GUI();
+
+    const scaleFolder = gui.addFolder('scale');
+    scaleFolder.open();
+    scaleFolder.add(item.scale, 'x', -20, 20);
+    scaleFolder.add(item.scale, 'y', 0, 20);
+    scaleFolder.add(item.scale, 'z', 0, 20);
+
+    // const rotationFolder = gui.addFolder('rotation');
+    // rotationFolder.open();
+    // rotationFolder.add(item.rotation, 'x', 0, Math.PI * 2);
+    // rotationFolder.add(item.rotation, 'y', 0, Math.PI * 2);
+    // rotationFolder.add(item.rotation, 'z', 0, Math.PI * 2);
+
+    const positionFolder = gui.addFolder('position');
+    positionFolder.open();
+    positionFolder.add(item.position, 'x', -20, 20);
+    positionFolder.add(item.position, 'y', -20, 20);
+    positionFolder.add(item.position, 'z', -20, 20);
+  }
+
+  removeItem(currentEquipItem: IItemInUse, position: string) {
+    this.fox.remove(currentEquipItem.model);
+    this.equipment[position] = null;
+    this.syncItem({...this.equipment});
+  }
+
+  getBonesList(position: equipmentType) {
+    let bone: bonePosition[] = [];
+    switch (position) {
+      case 'head':
+        bone = [bonePosition.head];
+        break;
+      case 'rightHand':
+        bone = [bonePosition.handRight];
+        break;
+      case 'leftHand':
+        bone = [bonePosition.handLeft];
+        break;
+      case 'body':
+        bone = [bonePosition.body01];
+        break;
+      case 'legs':
+        bone = [bonePosition.pelvisLeft];
+        break;
+      case 'feet':
+        bone = [bonePosition.feetLeft, bonePosition.feetRight];
+        break;
+      default:
+        break;
+    }
+
+    return bone;
+  }
 
   update(delta: number) {
     this.mixer?.update(delta);

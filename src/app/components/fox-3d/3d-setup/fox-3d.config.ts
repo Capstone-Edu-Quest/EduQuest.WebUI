@@ -1,8 +1,13 @@
+import {
+  IEquipmentItem,
+  IEquipmentPosition,
+} from '../../../shared/interfaces/ThreeInterfaces';
+
 export enum bonePosition {
   foxName = 'metarig',
-  head = 'head',
-  earLeft = 'earL',
-  earRight = 'earR',
+  head = 'Head',
+  earLeft = 'EarL',
+  earRight = 'EarR',
   shoulderLeft = 'shoulderL',
   shoulderRight = 'shoulderR',
   armLeft = 'upper_armL',
@@ -20,10 +25,10 @@ export enum bonePosition {
   thighRight = 'thighR',
   feetLeft = 'shinL',
   feetRight = 'shinR',
-  tail001 = 'tail001',
-  tail002 = 'tail002',
-  tail003 = 'tail003',
-  tail004 = 'tail004',
+  tail001 = 'Tail001',
+  tail002 = 'Tail002',
+  tail003 = 'Tail003',
+  tail004 = 'Tail004',
 }
 
 export const grassStonePositions = [
@@ -57,3 +62,29 @@ export const grassData = [
   { position: { x: -1, y: 0, z: 0 }, scale: { x: 1.5, y: 1.5, z: 1.5 } },
   { position: { x: 0.7, y: 0.2, z: -0.5 }, scale: { x: 1.5, y: 1.5, z: 1.5 } },
 ];
+
+export const FoxItems: IEquipmentItem[] = [
+  {
+    id: 'orange-vest',
+    position: 'body',
+    scale: { x: 2.6, y: 2, z: 3.82 },
+    rotation: { x: 0, y: 0, z: 0 },
+    translation: { x: 0.05, y: -0.35, z: 0.185 },
+  },
+  {
+    id: 'cow-boy-hat',
+    position: 'head',
+    translation: { x: 0, y: 1, z: 0 },
+    scale: { x: 0.32, y: 0.31, z: 0.32 },
+    rotation: { x: 0, y: 0, z: 0 },
+  },
+];
+
+export const defaultEquipmentSlot: IEquipmentPosition = {
+  head: null,
+  rightHand: null,
+  leftHand: null,
+  body: null,
+  legs: null,
+  feet: null,
+};

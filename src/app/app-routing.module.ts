@@ -12,6 +12,7 @@ import { ConversationMessageComponent } from './pages/chat/conversation-message/
 import { AboutComponent } from './pages/about/about.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
+import { FoxItemsComponent } from './pages/fox-items/fox-items.component';
 
 const routes: Routes = [
   {
@@ -27,23 +28,23 @@ const routes: Routes = [
       },
       {
         path: ':courseId',
-        component: CourseDetailsComponent
-      }
+        component: CourseDetailsComponent,
+      },
     ],
   },
   {
     path: 'cart',
     component: CartComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'wishlist',
     component: WishlistComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard],
   },
   {
     path: 'profile',
-    component: ProfileComponent
+    component: ProfileComponent,
   },
   {
     path: 'chat',
@@ -51,22 +52,26 @@ const routes: Routes = [
     children: [
       {
         path: ':conversationId',
-        component: ConversationMessageComponent
-      }
-    ]
+        component: ConversationMessageComponent,
+      },
+    ],
   },
   {
     path: 'about',
-    component: AboutComponent
+    component: AboutComponent,
   },
   {
     path: 'terms',
-    component: TermsComponent
+    component: TermsComponent,
   },
   {
     path: 'privacy',
-    component: PrivacyComponent
-  }
+    component: PrivacyComponent,
+  },
+  {
+    path: 'items',
+    component: FoxItemsComponent,
+  },
 ];
 
 @NgModule({

@@ -1,3 +1,4 @@
+import { FoxService } from './../../core/services/fox.service';
 import {
   Component,
   ElementRef,
@@ -16,26 +17,31 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
   styleUrls: ['./fox-3d.component.scss'],
 })
 export class Fox3dComponent implements OnInit, OnDestroy {
-  // @ViewChild('threeContainer', { static: true }) threeContainer!: ElementRef;
-
   randomId: number = Math.random() * new Date().getTime();
   scene!: THREE.Scene;
+  fox!: Fox3DMain;
   camera!: THREE.PerspectiveCamera;
   renderer!: THREE.WebGLRenderer;
   controls!: OrbitControls;
   animationFrameId!: number;
 
-  constructor() {}
+  constructor(private FoxService: FoxService) {}
 
   ngOnInit() {
     const triggerTimeout = setTimeout(() => {
       this.initThree();
+      this.listenToItemEquip();
       clearTimeout(triggerTimeout);
     }, 100);
   }
 
+  listenToItemEquip() {
+    this.FoxService.equipStream$.subscribe((itemId) => {
+      this.fox.updateItem(itemId);
+    });
+  }
+
   async initThree() {
-    console.log('initThree');
     const container = document.getElementById(
       'three-container'
     ) as HTMLDivElement;
@@ -55,7 +61,7 @@ export class Fox3dComponent implements OnInit, OnDestroy {
       0.1,
       1000
     );
-    this.camera.position.set(-1, 2, 8.4);
+    this.camera.position.set(-1, 3, 8.7);
     this.camera.lookAt(0, 1.8, 0);
 
     // Renderer
@@ -102,8 +108,8 @@ export class Fox3dComponent implements OnInit, OnDestroy {
     //   container.offsetWidth
     // );
 
-    const foxScene = new Fox3DMain(this.scene, this.camera, this.renderer);
-    await foxScene.init();
+    this.fox = new Fox3DMain(this.scene, this.camera, this.renderer, this.FoxService.syncItem);
+    await this.fox.init();
 
     // const gui = new GUI();
     // gui.add(camera.position, "x", -20, 20);
@@ -116,7 +122,7 @@ export class Fox3dComponent implements OnInit, OnDestroy {
     const animate = () => {
       this.animationFrameId = requestAnimationFrame(animate);
       delta = clock.getDelta();
-      foxScene.update(delta);
+      this.fox.update(delta);
       this.controls.update();
       this.renderer.render(this.scene, this.camera);
     };
@@ -129,7 +135,6 @@ export class Fox3dComponent implements OnInit, OnDestroy {
   }
 
   disposeThree() {
-    console.log('clear three');
     if (this.renderer) {
       this.renderer.dispose();
       this.renderer.forceContextLoss();
@@ -146,11 +151,11 @@ export class Fox3dComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.FoxService.equipStream$.unsubscribe();
     this.disposeThree();
 
     const container = document.getElementById('three-container');
     if (container) {
-      console.log('Removing canvas from container');
       while (container.firstChild) {
         container.removeChild(container.firstChild);
       }
