@@ -142,13 +142,6 @@ export const FoxItems: IEquipmentItem[] = [
     rotation: { x: Math.PI, y: 0, z: 0 },
   },
   {
-    id: 'persian-sword',
-    position: 'rightHand',
-    translation: { x: 0, y: 0, z: 0.85},
-    scale: {x: 1, y: 1, z: 1 },
-    rotation: { x: Math.PI, y: 0, z: 0 },
-  },
-  {
     id: 'goblin-shield',
     position: 'leftHand',
     translation: { x: -0.1, y: 0, z: 0.15},

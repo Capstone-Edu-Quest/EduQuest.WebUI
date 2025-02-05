@@ -37,6 +37,8 @@ export default class Character {
   totalLoadingObjects: number = 5;
   loadedObjects: number = 0;
 
+  pendingItemsId: string[] = [];
+
   syncItem!: (item: IEquipmentPosition) => void;
 
   equipment: IEquipmentPosition = JSON.parse(
@@ -47,12 +49,14 @@ export default class Character {
     scene: Scene,
     camera: PerspectiveCamera,
     renderer: WebGLRenderer,
-    syncItem: (item: IEquipmentPosition) => void
+    syncItem: (item: IEquipmentPosition) => void,
+    pendingItemsId: string[]
   ) {
     this.scene = scene;
     this.camera = camera;
     this.glTFLoader = new GLTFLoader();
     this.syncItem = syncItem;
+    this.pendingItemsId = pendingItemsId;
   }
 
   updateLoading() {
@@ -92,11 +96,18 @@ export default class Character {
       this.scene.add(this.fox);
 
       this.updateLoading();
-      this.updateEquipment('goblin-shield');
+      this.initItems();
+      // this.updateEquipment('goblin-shield');
       // this.updateEquipment('samurai-hat');
     });
 
     await this.initBackground();
+  }
+
+  initItems() {
+    this.pendingItemsId.forEach((itemId) => {
+      this.updateEquipment(itemId);
+    });
   }
 
   async initBackground() {
@@ -237,7 +248,6 @@ export default class Character {
     bones.forEach((_boneIdx) => {
       this.totalLoadingObjects++;
       this.glTFLoader.load(path, (gltf) => {
-        this.updateLoading();
         const model = gltf.scene;
 
         model.scale.set(item.scale.x, item.scale.y, item.scale.z);
@@ -248,11 +258,12 @@ export default class Character {
           item.translation.z
         );
 
-        this.addItemGui(model);
+        // this.addItemGui(model);
         _boneIdx.add(model);
         this.equipment[item.position] = { id: item.id, model };
 
         this.syncItem({ ...this.equipment });
+        this.updateLoading();
       });
     });
   }

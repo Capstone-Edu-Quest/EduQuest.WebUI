@@ -27,6 +27,7 @@
         position: absolute;
         cursor: pointer;
         transition: all 0.12s linear;
+        border-radius: 5px;
 
         display: flex;
         align-items: center;
@@ -92,5 +93,38 @@
     background: var(--secondary-bg);
     grid-column: 1/7;
     border-radius: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 12px;
+    box-sizing: border-box;
+    justify-content: center;
+    overflow-y: scroll;
+
+    .item {
+      width: calc(100% / 3 - 12px);
+      height: 150px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: var(--tertiary-bg);
+      padding: 8px;
+      box-sizing: border-box;
+      border-radius: 20px;
+      border: 1px solid var(--quaternary-text);
+      cursor: pointer;
+
+      &.equipped {
+        background: var(--quaternary-bg);
+      }
+
+      img {
+        width: 100%;
+        user-select: none;
+        user-drag: none;
+        -webkit-user-drag: none;
+        
+      }
+    }
   }
 }

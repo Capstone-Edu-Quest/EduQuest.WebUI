@@ -24,11 +24,13 @@ export class Fox3dComponent implements OnInit, OnDestroy {
   renderer!: THREE.WebGLRenderer;
   controls!: OrbitControls;
   animationFrameId!: number;
+  pendingItemsId: string[] = [];
 
   constructor(private FoxService: FoxService) {}
 
   ngOnInit() {
     const triggerTimeout = setTimeout(() => {
+      this.onInitCurrentItem();
       this.initThree();
       this.listenToItemEquip();
       clearTimeout(triggerTimeout);
@@ -38,6 +40,15 @@ export class Fox3dComponent implements OnInit, OnDestroy {
   listenToItemEquip() {
     this.FoxService.equipStream$.subscribe((itemId) => {
       this.fox.updateItem(itemId);
+    });
+  }
+
+  onInitCurrentItem() {
+    const currentItem = this.FoxService.currentEquipedItem$.value;
+    Object.keys(currentItem).forEach((key) => {
+      if (currentItem[key]) {
+        this.pendingItemsId.push(currentItem[key]?.id as string);
+      }
     });
   }
 
@@ -108,7 +119,13 @@ export class Fox3dComponent implements OnInit, OnDestroy {
     //   container.offsetWidth
     // );
 
-    this.fox = new Fox3DMain(this.scene, this.camera, this.renderer, this.FoxService.syncItem);
+    this.fox = new Fox3DMain(
+      this.scene,
+      this.camera,
+      this.renderer,
+      this.FoxService.syncItem,
+      this.pendingItemsId
+    );
     await this.fox.init();
 
     // const gui = new GUI();
@@ -151,7 +168,7 @@ export class Fox3dComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.FoxService.equipStream$.unsubscribe();
+    // this.FoxService.equipStream$.unsubscribe();
     this.disposeThree();
 
     const container = document.getElementById('three-container');

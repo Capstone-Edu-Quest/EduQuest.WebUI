@@ -8,22 +8,25 @@ export default class Fox3DMain {
   camera!: PerspectiveCamera;
   renderer!: WebGLRenderer;
   character!: Character;
-  syncItem!: (item: IEquipmentPosition) => void
+  syncItem!: (item: IEquipmentPosition) => void;
+  pendingItemsId: string[] = [];
 
   constructor(
     scene: Scene,
     camera: PerspectiveCamera,
     renderer: WebGLRenderer,
-    syncItem: (item: IEquipmentPosition) => void
+    syncItem: (item: IEquipmentPosition) => void,
+    pendingItemsId: string[]
   ) {
     this.scene = scene;
     this.camera = camera;
     this.renderer = renderer;
     this.syncItem = syncItem;
+    this.pendingItemsId = pendingItemsId;
   }
 
   async init() {
-    this.character = new Character(this.scene, this.camera, this.renderer, this.syncItem);
+    this.character = new Character(this.scene, this.camera, this.renderer, this.syncItem, this.pendingItemsId);
     await this.character.init();
 
     const environment = new Enviroment(this.scene);

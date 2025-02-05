@@ -1,5 +1,18 @@
 <div class="fox-items-ctn">
-  <div class="items-box"></div>
+  <div class="items-box">
+    <div
+      class="item"
+      [ngClass]="{
+        equipped: equippedItems.includes(item.id)
+      }"
+      *ngFor="let item of allItems"
+    >
+      <img
+        [src]="thumbnailPath + item.id + '.png'"
+        (click)="changeItem(item.id)"
+      />
+    </div>
+  </div>
   <div class="fox-box">
     <app-fox-3d></app-fox-3d>
     <div class="fox-item-map">
