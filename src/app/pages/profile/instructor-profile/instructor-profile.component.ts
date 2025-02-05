@@ -3,7 +3,7 @@ import { ICourse } from '../../../shared/interfaces/CourseInterfaces';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../../core/services/user.service';
 import { Subscription } from 'rxjs';
-import { IUser } from '../../../shared/interfaces/UserInterfaces';
+import { IUser, IUserStat } from '../../../shared/interfaces/UserInterfaces';
 import { Router } from '@angular/router';
 
 @Component({

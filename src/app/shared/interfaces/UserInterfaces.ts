@@ -2,10 +2,14 @@ import { WebRole } from '../enums/user.enum';
 
 export interface IUser {
   id: string;
-  name: string;
+  username: string;
   email: string;
-  avatar: string;
-  role: WebRole;
+  phone: string;
+  avatarUrl: string;
+  roleId: WebRole;
+  status: string;
+}
+export interface IUserStat extends IUser {
   createdAt: string;
   updatedAt: string;
   jobTitle: string;

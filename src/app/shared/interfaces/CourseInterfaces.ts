@@ -1,9 +1,9 @@
-import { IUser } from "./UserInterfaces";
+import { IUserStat } from "./UserInterfaces";
 
 export interface ICourse {
   id: string;
   name: string;
-  author: IUser | any; // TODO: User interface
+  author: IUserStat | any; // TODO: User interface
   description: string;
   duration: number;
   stageCount?: number;

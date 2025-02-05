@@ -1,7 +1,7 @@
 import { Subscription } from 'rxjs';
 import { UserService } from './../../../../core/services/user.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { IUser } from '../../../../shared/interfaces/UserInterfaces';
+import { IUser, IUserStat } from '../../../../shared/interfaces/UserInterfaces';
 
 @Component({
   selector: 'app-leaner-profile-info',

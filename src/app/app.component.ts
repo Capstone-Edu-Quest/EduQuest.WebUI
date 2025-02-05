@@ -37,6 +37,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.user.initUser();
     this.ThemeService.onInitTheme();
     this.onInitLanguage();
     this.initAOS();

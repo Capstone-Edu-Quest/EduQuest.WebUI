@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IUser } from '../../shared/interfaces/UserInterfaces';
+import { IUser, IUserStat } from '../../shared/interfaces/UserInterfaces';
 import { WebRole } from '../../shared/enums/user.enum';
 import { BehaviorSubject } from 'rxjs';
 import { MessageService } from './message.service';
@@ -8,51 +8,73 @@ import { Router } from '@angular/router';
 import { FirebaseService } from './firebase.service';
 import { HttpService } from './http.service';
 import { UserCredential } from 'firebase/auth';
+import { endPoints } from '../../shared/constants/endPoints.constant';
+import { StorageService } from './storage.service';
+import {
+  TokenEnum,
+  localStorageEnum,
+} from '../../shared/enums/localStorage.enum';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  demoUser: IUser = {
-    id: '123456',
-    name: 'Truong Nguyen Gia Khang',
-    email: 'khangtngse171927@fpt.edu.vn',
-    avatar: 'https://api.dicebear.com/7.x/avataaars/svg?seed=Khang',
-    role: WebRole.LEANER,
-    createdAt: new Date().toISOString(),
-    updatedAt: new Date().toISOString(),
-    jobTitle: 'Software Engineer',
-    description: 'A software engineer who loves to learn new things',
-    statistics: [
-      { label: 'LABEL.TOTAL_COURSES_STATS', value: 12 },
-      { label: 'LABEL.TOTAL_LEARNER_STATS', value: 1253 },
-      { label: 'LABEL.TOTAL_REVIEWS_STATS', value: 152 },
-      { label: 'LABEL.AVERAGE_RATINGS_STATS', value: 4.8 },
-    ],
-  };
-
-  user$: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(
-    this.demoUser
-    // null
-  );
+  user$: BehaviorSubject<IUser | null> =
+    new BehaviorSubject<IUser | null>(null);
 
   constructor(
     private message: MessageService,
     private translate: TranslateService,
     private router: Router,
     private firebase: FirebaseService,
-    private http: HttpService
+    private http: HttpService,
+    private storage: StorageService
   ) {}
 
   updateUser(user: IUser | null) {
     this.user$.next(user);
+    this.storage.setToLocalStorage(
+      localStorageEnum.USER_DATA,
+      JSON.stringify(user)
+    );
+  }
+
+  initUser() {
+    const userData = this.storage.getFromLocalStorage(
+      localStorageEnum.USER_DATA
+    );
+    if (userData) {
+      this.updateUser(JSON.parse(userData));
+    }
   }
 
   signInWithGoogle() {
     this.firebase
       .signInWithPopupGoogle()
       .then((credential: UserCredential) => {
-        console.log(credential.user);
+        const aToken = (credential.user as any).accessToken;
+
+        this.http
+          .post(endPoints.signin, { token: aToken })
+          .subscribe((data) => {
+            const payload = data.payload;
+            this.updateUser({
+              ...data.payload.userData,
+              roleId: Number(data.payload.userData.roleId) as WebRole,
+            });
+            this.storage.setCookie(TokenEnum.ACCESS_TOKEN, payload.accessToken);
+            this.storage.setCookie(
+              TokenEnum.REFRESH_TOKEN,
+              payload.refreshToken
+            );
+
+            this.message.addMessage(
+              'success',
+              this.translate.instant('MESSAGE.WELCOME_BACK', {
+                name: data.payload.userData.username,
+              })
+            );
+          });
       })
       .catch((err) => {
         this.http.handleError(err);
@@ -65,6 +87,7 @@ export class UserService {
       'success',
       this.translate.instant('MESSAGE.LOG_OUT_SUCCESS')
     );
+    this.storage.setToLocalStorage(localStorageEnum.USER_DATA, null);
     this.router.navigate(['/']);
   }
 }

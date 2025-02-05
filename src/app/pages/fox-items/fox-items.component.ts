@@ -17,6 +17,7 @@ export class FoxItemsComponent implements OnInit, OnDestroy {
   subscription$: Subscription = new Subscription();
   thumbnailPath = 'assets/characters/Thumbnails/';
 
+  slots: string[] = ['head', 'body', 'legs', 'leftHand', 'rightHand'];
   currentEquipedItem!: IEquipmentServiceItem;
   equippedItems: string[] = [];
   allItems: IEquipmentItem[] = FoxItems;

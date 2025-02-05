@@ -19,55 +19,13 @@
   <div class="fox-box">
     <app-fox-3d></app-fox-3d>
     <div class="fox-item-map">
-      <div class="item-slot head">
+      <div class="item-slot" [ngClass]="slot" *ngFor="let slot of slots">
         <img
-          *ngIf="currentEquipedItem['head']?.id"
-          [src]="thumbnailPath + currentEquipedItem['head']?.id + '.png'"
-          (click)="changeItem(currentEquipedItem['head']?.id)"
+          *ngIf="currentEquipedItem[slot]?.id"
+          [src]="thumbnailPath + currentEquipedItem[slot]?.id + '.png'"
+          (click)="changeItem(currentEquipedItem[slot]?.id)"
         />
       </div>
-      <div class="item-slot body">
-        <img
-          *ngIf="currentEquipedItem['body']?.id"
-          [src]="thumbnailPath + currentEquipedItem['body']?.id + '.png'"
-          (click)="changeItem(currentEquipedItem['body']?.id)"
-        />
-      </div>
-      <div class="item-slot leftHand">
-        <img
-          *ngIf="currentEquipedItem['leftHand']?.id"
-          [src]="thumbnailPath + currentEquipedItem['leftHand']?.id + '.png'"
-          (click)="changeItem(currentEquipedItem['leftHand']?.id)"
-        />
-      </div>
-      <div class="item-slot rightHand">
-        <img
-          *ngIf="currentEquipedItem['rightHand']?.id"
-          [src]="thumbnailPath + currentEquipedItem['rightHand']?.id + '.png'"
-          (click)="changeItem(currentEquipedItem['rightHand']?.id)"
-        />
-      </div>
-      <div class="item-slot legs">
-        <img
-          *ngIf="currentEquipedItem['legs']?.id"
-          [src]="thumbnailPath + currentEquipedItem['legs']?.id + '.png'"
-          (click)="changeItem(currentEquipedItem['legs']?.id)"
-        />
-      </div>
-      <!-- <div class="item-slot feet1">
-        <img
-          *ngIf="currentEquipedItem['feet']?.id"
-          [src]="thumbnailPath + currentEquipedItem['feet']?.id + '.png'"
-          (click)="changeItem(currentEquipedItem['feet']?.id)"
-        />
-      </div>
-      <div class="item-slot feet2">
-        <img
-          *ngIf="currentEquipedItem['feet']?.id"
-          [src]="thumbnailPath + currentEquipedItem['feet']?.id + '.png'"
-          (click)="changeItem(currentEquipedItem['feet']?.id)"
-        />
-      </div> -->
     </div>
   </div>
 </div>

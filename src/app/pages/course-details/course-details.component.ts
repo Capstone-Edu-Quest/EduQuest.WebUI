@@ -47,7 +47,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
         { label: 'LABEL.TOTAL_REVIEWS_STATS', value: 152 },
         { label: 'LABEL.AVERAGE_RATINGS_STATS', value: 4.8 },
       ],
-    }, // TODO: Replace with IUser interface
+    }, // TODO: Replace with IUserStat interface
     description:
       'A complete guide to mastering TypeScript, from basics to advanced concepts.',
     duration: 12,

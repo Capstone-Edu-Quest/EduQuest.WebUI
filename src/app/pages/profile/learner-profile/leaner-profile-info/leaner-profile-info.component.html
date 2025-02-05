@@ -1,7 +1,7 @@
 <div class="info-section" *ngIf="user">
-  <app-avatar-by-name [name]="user.name" [size]="'65px'"></app-avatar-by-name>
+  <app-avatar-by-name [name]="user.username" [size]="'65px'"></app-avatar-by-name>
   <div class="info">
-    <div class="name">{{ user.name }}</div>
+    <div class="name">{{ user.username }}</div>
     <div class="email">{{ user.email }}</div>
     <div class="level">
       <i nz-icon nzType="thunderbolt"></i
