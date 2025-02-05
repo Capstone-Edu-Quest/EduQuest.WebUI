@@ -14,6 +14,7 @@ import {
   WebGLRenderer,
 } from 'three';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js';
 import {
   FoxItems,
   bonePosition,
@@ -24,7 +25,6 @@ import {
   treePositions,
 } from './fox-3d.config';
 import { GUI } from 'dat.gui';
-import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
 export default class Character {
   scene!: Scene;
