@@ -24,6 +24,7 @@ import {
   treePositions,
 } from './fox-3d.config';
 import { GUI } from 'dat.gui';
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader';
 
 export default class Character {
   scene!: Scene;
@@ -54,9 +55,13 @@ export default class Character {
   ) {
     this.scene = scene;
     this.camera = camera;
-    this.glTFLoader = new GLTFLoader();
     this.syncItem = syncItem;
     this.pendingItemsId = pendingItemsId;
+
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
+    this.glTFLoader = new GLTFLoader();
+    this.glTFLoader.setDRACOLoader(dracoLoader);
   }
 
   updateLoading() {
@@ -233,7 +238,7 @@ export default class Character {
 
   addItem(item: IEquipmentItem, boneName: bonePosition[]) {
     this.loadingElement.style.display = 'block';
-    const path = `/assets/characters/Equipments/${item.id}.glb`;
+    const path = `/assets/characters/Equipments/compressed/${item.id}-compressed.glb`;
 
     const bones: Bone[] = [];
 
