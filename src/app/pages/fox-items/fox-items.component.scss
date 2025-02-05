@@ -145,6 +145,7 @@
         user-select: none;
         user-drag: none;
         -webkit-user-drag: none;
+        filter: drop-shadow(0px 0px 6px var(--brand-light));
       }
     }
   }

@@ -21,7 +21,7 @@ export class FoxItemsComponent implements OnInit, OnDestroy {
   equippedItems: string[] = [];
   allItems: IEquipmentItem[] = FoxItems;
 
-  allowedItemsId = ['katana', 'wings'];
+  allowedItemsId = ['katana', 'wings', 'samurai-hat', 'gold-belt', 'apollos-shield'];
 
   lockIcon = faLock;
 
