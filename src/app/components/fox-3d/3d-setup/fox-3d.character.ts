@@ -102,7 +102,6 @@ export default class Character {
 
       this.updateLoading();
       this.initItems();
-      // this.updateEquipment('goblin-shield');
       // this.updateEquipment('samurai-hat');
     });
 
@@ -331,7 +330,7 @@ export default class Character {
         bone = [bonePosition.body01];
         break;
       case 'legs':
-        bone = [bonePosition.pelvisLeft];
+        bone = [bonePosition.body01];
         break;
       case 'feet':
         bone = [bonePosition.feetLeft, bonePosition.feetRight];
