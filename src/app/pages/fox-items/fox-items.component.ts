@@ -6,6 +6,7 @@ import {
 import { FoxService } from './../../core/services/fox.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FoxItems } from '../../components/fox-3d/3d-setup/fox-3d.config';
+import { faLock } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-fox-items',
@@ -19,6 +20,10 @@ export class FoxItemsComponent implements OnInit, OnDestroy {
   currentEquipedItem!: IEquipmentServiceItem;
   equippedItems: string[] = [];
   allItems: IEquipmentItem[] = FoxItems;
+
+  allowedItemsId = ['katana', 'wings'];
+
+  lockIcon = faLock;
 
   constructor(private FoxService: FoxService) {}
 
@@ -36,7 +41,7 @@ export class FoxItemsComponent implements OnInit, OnDestroy {
   }
 
   changeItem(itemId: string | undefined) {
-    if (!itemId) return;
+    if (!itemId || !this.allowedItemsId.includes(itemId)) return;
 
     this.FoxService.equipItem(itemId);
   }

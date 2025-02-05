@@ -3,14 +3,17 @@
     <div
       class="item"
       [ngClass]="{
-        equipped: equippedItems.includes(item.id)
+        equipped: equippedItems.includes(item.id),
+        locked: !allowedItemsId.includes(item.id)
       }"
       *ngFor="let item of allItems"
+      (click)="changeItem(item.id)"
     >
-      <img
-        [src]="thumbnailPath + item.id + '.png'"
-        (click)="changeItem(item.id)"
-      />
+      <fa-icon
+        *ngIf="!allowedItemsId.includes(item.id)"
+        [icon]="lockIcon"
+      ></fa-icon>
+      <img [src]="thumbnailPath + item.id + '.png'" />
     </div>
   </div>
   <div class="fox-box">

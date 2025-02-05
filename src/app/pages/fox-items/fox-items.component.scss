@@ -113,9 +113,25 @@
       border-radius: 20px;
       border: 1px solid var(--quaternary-text);
       cursor: pointer;
+      position: relative;
 
       &.equipped {
         background: var(--quaternary-bg);
+      }
+
+      &.locked {
+        background: var(--primary-bg);
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
+
+      fa-icon {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        color: var(--alert);
+        font-size: 24px;
       }
 
       img {
