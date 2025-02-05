@@ -49,6 +49,7 @@ const routes: Routes = [
   {
     path: 'chat',
     component: ChatComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: ':conversationId',
@@ -71,6 +72,7 @@ const routes: Routes = [
   {
     path: 'items',
     component: FoxItemsComponent,
+    canActivate: [AuthGuard],
   },
 ];
 
