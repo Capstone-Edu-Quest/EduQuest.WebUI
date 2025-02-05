@@ -121,8 +121,13 @@
 
       &.locked {
         background: var(--primary-bg);
-        opacity: 0.5;
         cursor: not-allowed;
+
+        img {
+          filter: saturate(10%);
+          opacity: 0.5;
+          z-index: 1;
+        }
       }
 
       fa-icon {
@@ -132,6 +137,7 @@
         transform: translate(-50%, -50%);
         color: var(--alert);
         font-size: 24px;
+        z-index: 2;
       }
 
       img {
@@ -139,7 +145,6 @@
         user-select: none;
         user-drag: none;
         -webkit-user-drag: none;
-        
       }
     }
   }
