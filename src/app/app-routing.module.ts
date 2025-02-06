@@ -13,6 +13,7 @@ import { AboutComponent } from './pages/about/about.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { FoxItemsComponent } from './pages/fox-items/fox-items.component';
+import { CourseStageComponent } from './pages/course-stage/course-stage.component';
 
 const routes: Routes = [
   {
@@ -28,7 +29,16 @@ const routes: Routes = [
       },
       {
         path: ':courseId',
-        component: CourseDetailsComponent,
+        children: [
+          {
+            path: '',
+            component: CourseDetailsComponent,
+          },
+          {
+            path: 'stages',
+            component: CourseStageComponent
+          }
+        ],
       },
     ],
   },

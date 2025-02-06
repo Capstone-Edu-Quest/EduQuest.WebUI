@@ -107,6 +107,7 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { Fox3dComponent } from './components/fox-3d/fox-3d.component';
 import { FoxService } from './core/services/fox.service';
 import { FoxItemsComponent } from './pages/fox-items/fox-items.component';
+import { CourseStageComponent } from './pages/course-stage/course-stage.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -172,7 +173,9 @@ export const AppDeclarations = [
   PrivacyComponent,
   Fox3dComponent,
   // Fox
-  FoxItemsComponent
+  FoxItemsComponent,
+  // Stages
+  CourseStageComponent
 ];
 export const NGIcons = [
   EnterOutline,

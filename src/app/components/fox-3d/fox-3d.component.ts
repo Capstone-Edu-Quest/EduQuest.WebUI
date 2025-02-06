@@ -17,7 +17,6 @@ import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
   styleUrls: ['./fox-3d.component.scss'],
 })
 export class Fox3dComponent implements OnInit, OnDestroy {
-  randomId: number = Math.random() * new Date().getTime();
   scene!: THREE.Scene;
   fox!: Fox3DMain;
   camera!: THREE.PerspectiveCamera;

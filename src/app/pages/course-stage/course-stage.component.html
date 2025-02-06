@@ -1,0 +1,50 @@
+<div class="stage-ctn">
+  <div class="course-name">Mastering Typescript</div>
+  <div class="current-stage">
+    {{ "LABEL.STAGE_COUNT" | translate : { value: currentStage } }}: Basic Typescript
+    Syntax
+  </div>
+
+  <div class="btn-ctn">
+    <div class="btn prev" *ngIf="currentStage > 1" (click)="updateCurrentStage(-1)">
+      <fa-icon [icon]="prevIcon"></fa-icon>
+      <div class="content">Previous Stage</div>
+    </div>
+    <div class="btn next" *ngIf="currentStage < totalStages" (click)="updateCurrentStage(1)">
+      <div class="content">Next Stage</div>
+      <fa-icon [icon]="nextIcon"></fa-icon>
+    </div>
+  </div>
+  
+  <div class="stage-items-ctn">
+    <div class="stage-row" *ngFor="let row of rows; let rowIdx = index">
+      <div
+        class="connect-line-horizontal"
+        [ngStyle]="{ width: 'calc(' + (getRowLength(row) - 1) + '* 100%/4)' }"
+        *ngIf="row.length > 1"
+      ></div>
+      <div
+        [ngStyle]="{
+          display: rowIdx === rows.length - 1 ? 'none' : 'absolute'
+        }"
+        class="vertical-connect-line"
+      ></div>
+      <div
+        class="stage-item-wrapper"
+        *ngFor="let mission of row; let i = index"
+      >
+        @if(!mission) {
+        <div class="blank-item"></div>
+        } @else {
+        <div class="stage-item" [ngClass]="mission.class">
+          <div class="you-are-here">You are here</div>
+          <div class="stage-surface">
+            <fa-icon [icon]="mission.icon"></fa-icon>
+          </div>
+          <div class="stage-body"></div>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

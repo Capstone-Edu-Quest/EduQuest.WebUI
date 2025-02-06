@@ -1,0 +1,224 @@
+.stage-ctn {
+  padding: 40px 20vw;
+  width: 100%;
+  box-sizing: border-box;
+
+  .course-name {
+    font-weight: 500;
+    font-size: 13px;
+    color: var(--secondary-text);
+  }
+
+  .current-stage {
+    margin-top: 2px;
+    font-size: 22px;
+    font-weight: 500;
+    color: var(--primary-text);
+  }
+
+  .btn-ctn {
+    display: flex;
+    position: relative;
+    margin-top: 40px;
+    user-select: none;
+
+    .btn {
+      position: absolute;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 15px;
+      color: var(--secondary-text);
+      cursor: pointer;
+      transition: all 0.1s linear;
+
+      &.next {
+        right: 0;
+      }
+
+      &.prev {
+        left: 0;
+      }
+
+      &:hover {
+        color: var(--brand);
+      }
+
+      fa-icon {
+        font-size: 18px
+      }
+
+      .content {
+        padding-bottom: 4px;
+      }
+    }
+  }
+
+  .stage-items-ctn {
+    margin-top: 60px;
+    gap: 10px;
+
+    .stage-row {
+      position: relative;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 70px;
+
+      .connect-line-horizontal {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: calc(100% - 100% / 4);
+        height: 2px;
+        border-bottom: 2px dashed var(--disabled-text);
+        z-index: 0;
+      }
+
+      .vertical-connect-line {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 2px;
+        transform: translateX(-50%);
+        height: calc(90px + 70px);
+        border-right: 2px dashed var(--disabled-text);
+        z-index: 0;
+        margin: 0 calc(100%/8);
+      }
+
+      &:nth-child(2) {
+        flex-direction: row-reverse;
+
+        .connect-line-horizontal {
+          left: unset;
+          transform: translateX(0) !important;
+          right: calc(100%/8);
+        }
+
+        .vertical-connect-line  {
+          right: unset;
+          left: 0;
+        }
+      }
+
+      .stage-item-wrapper {
+        width: calc(100% / 4);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .stage-item {
+        position: relative;
+        height: 90px;
+        width: 90px;
+
+        .you-are-here {
+          position: absolute;
+          top: -50px;
+          left: 50%;
+          transform: translateX(-50%);
+          width: 100px;
+          height: 30px;
+          background: var(--quaternary-bg);
+          border-radius: 8px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 10px;
+          animation: hovering 1.5s ease-out infinite;
+
+          &::before {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-top: 10px solid var(--quaternary-bg);
+          }
+        }
+
+        .stage-surface {
+          top: 0;
+          position: absolute;
+          background: #f29955;
+          height: 80%;
+          width: 80%;
+          border-radius: 50%;
+          z-index: 2;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 26px;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          filter: drop-shadow(0 0 4px #292929);
+        }
+
+        .stage-body {
+          position: absolute;
+          background: #7d4d29;
+          height: 100%;
+          width: 100%;
+          border-radius: 50%;
+          z-index: 1;
+        }
+
+        &.locked {
+          .stage-surface {
+            background: #b5b5b5;
+
+            fa-icon {
+              color: var(--alert);
+            }
+          }
+
+          .stage-body {
+            background: #525252;
+          }
+
+          .you-are-here {
+            display: none;
+          }
+        }
+
+        &.done {
+          .stage-surface {
+            background: #58cc02;
+
+            fa-icon {
+              color: white;
+            }
+          }
+
+          .stage-body {
+            background: #3d8a03;
+          }
+
+          .you-are-here {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+}
+
+@keyframes hovering {
+  0% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -6px);
+  }
+  100% {
+    transform: translate(-50%, 0);
+  }
+}

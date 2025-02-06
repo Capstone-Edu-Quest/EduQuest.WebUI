@@ -269,7 +269,8 @@
     "CHANGES_TO_POLICY_CONTENT": "We may update this Privacy Policy periodically. Significant changes will be communicated via email or platform notifications.",
 
     "CONTACT_US": "Contact Us",
-    "CONTACT_US_CONTENT": "If you have any questions regarding this Privacy Policy, please contact us at eduquestwork@gmail.com."
+    "CONTACT_US_CONTENT": "If you have any questions regarding this Privacy Policy, please contact us at eduquestwork@gmail.com.",
+    "STAGE_COUNT": "Stage {{value}}"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search anything",

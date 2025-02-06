@@ -1,3 +1,4 @@
+import { MissionStatus } from "../enums/course.enum";
 import { IUserStat } from "./UserInterfaces";
 
 export interface ICourse {
@@ -32,10 +33,13 @@ export interface IStage {
   mission: IStageMission[];
 }
 
+export type stageMissionType = 'video' | 'document' | 'quiz'
+
 export interface IStageMission {
   id: string;
   title: string;
-  type: 'video' | 'document' | 'quiz';
+  type: stageMissionType;
+  status?: MissionStatus;
   mission: string;
   time: number; // minutes
 }
