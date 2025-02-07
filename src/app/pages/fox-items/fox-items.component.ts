@@ -7,11 +7,13 @@ import { FoxService } from './../../core/services/fox.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FoxItems } from '../../components/fox-3d/3d-setup/fox-3d.config';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
+import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 
 @Component({
   selector: 'app-fox-items',
   templateUrl: './fox-items.component.html',
   styleUrl: './fox-items.component.scss',
+  animations: [fadeInOutAnimation]
 })
 export class FoxItemsComponent implements OnInit, OnDestroy {
   subscription$: Subscription = new Subscription();

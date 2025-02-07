@@ -8,11 +8,13 @@ import {
   IPathTab,
 } from '../../shared/interfaces/learning-path.interfaces';
 import { LearningPathModeEnum } from '../../shared/enums/learning-path.enum';
+import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 
 @Component({
   selector: 'app-leaning-path',
   templateUrl: './leaning-path.component.html',
   styleUrl: './leaning-path.component.scss',
+  animations: [fadeInOutAnimation]
 })
 export class LeaningPathComponent implements OnInit {
   currentViewTab: string | LearningPathModeEnum = defaultLearningPathMode;
