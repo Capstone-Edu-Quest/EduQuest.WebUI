@@ -13,6 +13,7 @@ import { UserService } from './core/services/user.service';
 import { ChatService } from './core/services/chat.service';
 import { ModalService } from './core/services/modal.service';
 import { FirebaseService } from './core/services/firebase.service';
+import { LoadingService } from './core/services/loading.service';
 
 @Component({
   selector: 'app-root',
@@ -22,6 +23,7 @@ import { FirebaseService } from './core/services/firebase.service';
 export class AppComponent implements OnInit, OnDestroy {
   savedTheme: string = '';
   subscription$: Subscription = new Subscription();
+  isLoading: boolean = false;
 
   constructor(
     private ThemeService: ThemeService,
@@ -33,16 +35,27 @@ export class AppComponent implements OnInit, OnDestroy {
     private user: UserService,
     private chat: ChatService,
     public modal: ModalService,
-    private firebase: FirebaseService
+    private firebase: FirebaseService,
+    private loading: LoadingService
   ) {}
 
   ngOnInit(): void {
+    this.listenToLoading();
     this.user.initUser();
     this.ThemeService.onInitTheme();
     this.onInitLanguage();
     this.initAOS();
     this.listenToUser();
     this.firebase.init();
+  }
+
+  listenToLoading() {
+    this.subscription$.add(
+      this.loading.loading$.subscribe((loading) => {
+        console.log(loading)
+        this.isLoading = loading;
+      })
+    );
   }
 
   initAOS() {

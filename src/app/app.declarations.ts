@@ -109,6 +109,9 @@ import { FoxService } from './core/services/fox.service';
 import { FoxItemsComponent } from './pages/fox-items/fox-items.component';
 import { CourseStageComponent } from './pages/course-stage/course-stage.component';
 import { LeaningPathComponent } from './pages/leaning-path/leaning-path.component';
+import { LoadingService } from './core/services/loading.service';
+import { LoadingComponent } from './components/loading/loading.component';
+import { HttpService } from './core/services/http.service';
 
 export const AppDeclarations = [
   AppComponent,
@@ -129,6 +132,7 @@ export const AppDeclarations = [
   WishlistCartComponent,
   NavbarProfileComponent,
   AvatarByNameComponent,
+  LoadingComponent,
   // Home
   HomeComponent,
   HomeStatisticsComponent,
@@ -238,7 +242,9 @@ export const appServices = [
   CoursesService,
   ChatService,
   FirebaseService,
-  FoxService
+  FoxService,
+  LoadingService,
+  HttpService
 ];
 
 export const appGuards = [

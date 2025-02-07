@@ -19,6 +19,7 @@ import {
   localStorageEnum,
 } from '../../shared/enums/localStorage.enum';
 import { BaseReponse } from '../../shared/interfaces/https.interfaces';
+import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root',
@@ -34,7 +35,8 @@ export class UserService {
     private router: Router,
     private firebase: FirebaseService,
     private http: HttpService,
-    private storage: StorageService
+    private storage: StorageService,
+    private loading: LoadingService
   ) {}
 
   updateUser(user: IUser | null) {
@@ -55,6 +57,7 @@ export class UserService {
   }
 
   signInWithGoogle() {
+    this.loading.addLoading();
     this.firebase
       .signInWithPopupGoogle()
       .then((credential: UserCredential) => {
@@ -66,7 +69,8 @@ export class UserService {
       })
       .catch((err) => {
         this.http.handleHttpError(err);
-      });
+      })
+      .finally(() => this.loading.removeLoading());
   }
 
   private signInHandler(response: BaseReponse<ILoginRes>) {

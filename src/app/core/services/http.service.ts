@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { catchError, switchMap } from 'rxjs/operators';
+import { catchError, finalize, switchMap, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { BaseReponse } from '../../shared/interfaces/https.interfaces';
 import { EMPTY } from 'rxjs';
+import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root',
@@ -12,12 +13,13 @@ import { EMPTY } from 'rxjs';
 export class HttpService {
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private loading: LoadingService) {}
 
   post<TPayload>(
     endpoint: string,
     data: any
   ): Observable<BaseReponse<TPayload>> {
+    this.loading.addLoading();
     const url = `${this.apiUrl}/${endpoint}`;
     return this.http
       .post<BaseReponse<TPayload>>(url, data, { headers: this.getHeaders() })
@@ -28,6 +30,7 @@ export class HttpService {
     endpoint: string,
     id?: string
   ): Observable<BaseReponse<TPayload>> {
+    this.loading.addLoading();
     const url = id
       ? `${this.apiUrl}/${endpoint}/${id}`
       : `${this.apiUrl}/${endpoint}`;
@@ -37,9 +40,11 @@ export class HttpService {
   }
 
   getOutside<T>(url: string): Observable<T> {
-    return this.http
-      .get<T>(url, { headers: this.getHeaders() })
-      .pipe(catchError((error) => this.handleHttpError(error)));
+    this.loading.addLoading();
+    return this.http.get<T>(url, { headers: this.getHeaders() }).pipe(
+      catchError((error) => this.handleHttpError(error)),
+      finalize(() => this.loading.removeLoading())
+    );
   }
 
   update<TPayload>(
@@ -47,6 +52,7 @@ export class HttpService {
     id: string,
     data: any
   ): Observable<BaseReponse<TPayload>> {
+    this.loading.addLoading();
     const url = `${this.apiUrl}/${endpoint}/${id}`;
     return this.http
       .put<BaseReponse<TPayload>>(url, data, { headers: this.getHeaders() })
@@ -54,6 +60,7 @@ export class HttpService {
   }
 
   delete<TPayload>(endpoint: string, id: string): Observable<BaseReponse<any>> {
+    this.loading.addLoading();
     const url = `${this.apiUrl}/${endpoint}/${id}`;
     return this.http
       .delete<BaseReponse<any>>(url, { headers: this.getHeaders() })
@@ -75,7 +82,8 @@ export class HttpService {
           }
           return of(response);
         }),
-        catchError((error) => this.handleHttpError(error))
+        catchError((error) => this.handleHttpError(error)),
+        finalize(() => this.loading.removeLoading())
       );
   }
 

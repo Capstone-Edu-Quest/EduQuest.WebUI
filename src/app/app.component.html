@@ -1,5 +1,6 @@
 <div>
   <app-modal *ngIf="modal.modalContent$ | async"></app-modal>
+  <app-loading *ngIf="isLoading"></app-loading>
   <app-message></app-message>
   <app-navbar></app-navbar>
   <router-outlet></router-outlet>
