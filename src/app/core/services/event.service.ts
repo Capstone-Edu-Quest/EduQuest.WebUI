@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Subject, Subscription, filter } from 'rxjs';
-import { EventBase } from '../../shared/interfaces/Events';
+import { EventBase } from '../../shared/interfaces/events.interfaces';
 
 @Injectable({
   providedIn: 'root',

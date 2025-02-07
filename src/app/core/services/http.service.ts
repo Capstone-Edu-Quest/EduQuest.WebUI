@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
+import { catchError, switchMap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import { BaseReponse } from '../../shared/interfaces/https.interfaces';
+import { EMPTY } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -20,15 +21,7 @@ export class HttpService {
     const url = `${this.apiUrl}/${endpoint}`;
     return this.http
       .post<BaseReponse<TPayload>>(url, data, { headers: this.getHeaders() })
-      .pipe(
-        map((response: any) => {
-          if (response.isError) {
-            throw response;
-          }
-          return response;
-        }),
-        catchError((error) => this.handleError(error))
-      );
+      .pipe(this.handleResponse<TPayload>());
   }
 
   get<TPayload>(
@@ -38,21 +31,15 @@ export class HttpService {
     const url = id
       ? `${this.apiUrl}/${endpoint}/${id}`
       : `${this.apiUrl}/${endpoint}`;
-    return this.http.get<TPayload>(url, { headers: this.getHeaders() }).pipe(
-      map((response: any) => {
-        if (response.isError) {
-          throw response;
-        }
-        return response;
-      }),
-      catchError((error) => this.handleError(error))
-    );
+    return this.http
+      .get<BaseReponse<TPayload>>(url, { headers: this.getHeaders() })
+      .pipe(this.handleResponse<TPayload>());
   }
 
   getOutside<T>(url: string): Observable<T> {
     return this.http
       .get<T>(url, { headers: this.getHeaders() })
-      .pipe(catchError(this.handleError));
+      .pipe(catchError((error) => this.handleHttpError(error)));
   }
 
   update<TPayload>(
@@ -62,32 +49,15 @@ export class HttpService {
   ): Observable<BaseReponse<TPayload>> {
     const url = `${this.apiUrl}/${endpoint}/${id}`;
     return this.http
-      .put<TPayload>(url, data, { headers: this.getHeaders() })
-      .pipe(
-        map((response: any) => {
-          if (response.isError) {
-            throw response;
-          }
-          return response;
-        }),
-        catchError((error) => this.handleError(error))
-      );
+      .put<BaseReponse<TPayload>>(url, data, { headers: this.getHeaders() })
+      .pipe(this.handleResponse<TPayload>());
   }
 
-  delete<TPayload>(
-    endpoint: string,
-    id: string
-  ): Observable<BaseReponse<TPayload>> {
+  delete<TPayload>(endpoint: string, id: string): Observable<BaseReponse<any>> {
     const url = `${this.apiUrl}/${endpoint}/${id}`;
-    return this.http.delete<void>(url, { headers: this.getHeaders() }).pipe(
-      map((response: any) => {
-        if (response.isError) {
-          throw response;
-        }
-        return response;
-      }),
-      catchError((error) => this.handleError(error))
-    );
+    return this.http
+      .delete<BaseReponse<any>>(url, { headers: this.getHeaders() })
+      .pipe(this.handleResponse<TPayload>());
   }
 
   private getHeaders(): HttpHeaders {
@@ -96,8 +66,27 @@ export class HttpService {
     });
   }
 
-  handleError(error: any): Observable<never> {
+  private handleResponse<TPayload>() {
+    return (source$: Observable<BaseReponse<TPayload>>) =>
+      source$.pipe(
+        switchMap((response) => {
+          if (response.isError) {
+            return this.handleUserError(response);
+          }
+          return of(response);
+        }),
+        catchError((error) => this.handleHttpError(error))
+      );
+  }
+
+  handleHttpError(error: any): Observable<never> {
     console.error('Error occurred: ', error);
-    throw error;
+    throw EMPTY;
+  }
+
+  private handleUserError<TPayload>(
+    payload: BaseReponse<TPayload>
+  ): Observable<never> {
+    throw EMPTY;
   }
 }

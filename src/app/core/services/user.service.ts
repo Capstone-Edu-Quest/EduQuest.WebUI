@@ -65,7 +65,7 @@ export class UserService {
           .subscribe((res) => this.signInHandler(res));
       })
       .catch((err) => {
-        this.http.handleError(err);
+        this.http.handleHttpError(err);
       });
   }
 
