@@ -62,36 +62,30 @@ export class UserService {
 
         this.http
           .post<ILoginRes>(endPoints.signin, { token: aToken })
-          .subscribe((res) => {
-            console.log(res);
-            const payload = res.payload;
-
-            if (!payload) return;
-
-            this.updateUser({
-              ...payload.userData,
-              roleId: Number(payload.userData.roleId) as WebRole,
-            });
-            this.storage.setCookie(
-              TokenEnum.ACCESS_TOKEN,
-              payload.token.accessToken
-            );
-            this.storage.setCookie(
-              TokenEnum.REFRESH_TOKEN,
-              payload.token.refreshToken
-            );
-
-            this.message.addMessage(
-              'success',
-              this.translate.instant('MESSAGE.WELCOME_BACK', {
-                name: payload.userData.username,
-              })
-            );
-          });
+          .subscribe((res) => this.signInHandler(res));
       })
       .catch((err) => {
         this.http.handleError(err);
       });
+  }
+
+  private signInHandler(response: BaseReponse<ILoginRes>) {
+    const payload = response.payload;
+    if (!payload) return;
+
+    this.updateUser({
+      ...payload.userData,
+      roleId: Number(payload.userData.roleId) as WebRole,
+    });
+    this.storage.setCookie(TokenEnum.ACCESS_TOKEN, payload.token.accessToken);
+    this.storage.setCookie(TokenEnum.REFRESH_TOKEN, payload.token.refreshToken);
+
+    this.message.addMessage(
+      'success',
+      this.translate.instant('MESSAGE.WELCOME_BACK', {
+        name: payload.userData.username,
+      })
+    );
   }
 
   logout() {

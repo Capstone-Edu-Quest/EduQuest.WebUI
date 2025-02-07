@@ -6,11 +6,11 @@ export interface BaseReponse<TData = any> {
 }
 
 export interface IErrors {
-  StatusCode: number;
-  StatusResponse: string;
-  Message: string;
-  Location: string;
-  Detail: string;
+  statusCode: number;
+  statusResponse: string;
+  message: string;
+  location: string;
+  detail: string;
 }
 
 export interface IMessage {

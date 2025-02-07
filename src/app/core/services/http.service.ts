@@ -13,13 +13,13 @@ export class HttpService {
 
   constructor(private http: HttpClient) {}
 
-  post<TResponse>(
+  post<TPayload>(
     endpoint: string,
     data: any
-  ): Observable<BaseReponse<TResponse>> {
+  ): Observable<BaseReponse<TPayload>> {
     const url = `${this.apiUrl}/${endpoint}`;
     return this.http
-      .post<BaseReponse<TResponse>>(url, data, { headers: this.getHeaders() })
+      .post<BaseReponse<TPayload>>(url, data, { headers: this.getHeaders() })
       .pipe(
         map((response: any) => {
           if (response.isError) {
@@ -31,14 +31,14 @@ export class HttpService {
       );
   }
 
-  get<TResponse>(
+  get<TPayload>(
     endpoint: string,
     id?: string
-  ): Observable<BaseReponse<TResponse>> {
+  ): Observable<BaseReponse<TPayload>> {
     const url = id
       ? `${this.apiUrl}/${endpoint}/${id}`
       : `${this.apiUrl}/${endpoint}`;
-    return this.http.get<TResponse>(url, { headers: this.getHeaders() }).pipe(
+    return this.http.get<TPayload>(url, { headers: this.getHeaders() }).pipe(
       map((response: any) => {
         if (response.isError) {
           throw response;
@@ -55,14 +55,14 @@ export class HttpService {
       .pipe(catchError(this.handleError));
   }
 
-  update<TResponse>(
+  update<TPayload>(
     endpoint: string,
     id: string,
     data: any
-  ): Observable<BaseReponse<TResponse>> {
+  ): Observable<BaseReponse<TPayload>> {
     const url = `${this.apiUrl}/${endpoint}/${id}`;
     return this.http
-      .put<TResponse>(url, data, { headers: this.getHeaders() })
+      .put<TPayload>(url, data, { headers: this.getHeaders() })
       .pipe(
         map((response: any) => {
           if (response.isError) {
@@ -74,10 +74,10 @@ export class HttpService {
       );
   }
 
-  delete<TResponse>(
+  delete<TPayload>(
     endpoint: string,
     id: string
-  ): Observable<BaseReponse<TResponse>> {
+  ): Observable<BaseReponse<TPayload>> {
     const url = `${this.apiUrl}/${endpoint}/${id}`;
     return this.http.delete<void>(url, { headers: this.getHeaders() }).pipe(
       map((response: any) => {
