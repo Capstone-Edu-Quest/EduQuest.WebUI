@@ -270,7 +270,11 @@
 
     "CONTACT_US": "Contact Us",
     "CONTACT_US_CONTENT": "If you have any questions regarding this Privacy Policy, please contact us at eduquestwork@gmail.com.",
-    "STAGE_COUNT": "Stage {{value}}"
+    "STAGE_COUNT": "Stage {{value}}",
+    "NEXT_STAGE": "Next Stage",
+    "PREVIOUS_STAGE": "Previous Stage",
+    "YOU_ARE_HERE": "You are here",
+    "MISSION_TYPE": "Mission type: {{value}}"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search anything",

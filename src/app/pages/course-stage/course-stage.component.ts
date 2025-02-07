@@ -1,12 +1,14 @@
 import { IStageMission } from './../../shared/interfaces/CourseInterfaces';
 import { Component, type OnInit } from '@angular/core';
-import { faCheck, faChevronLeft, faChevronRight, faLock, faStar } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faChevronLeft, faChevronRight, faClock, faLock, faStar } from '@fortawesome/free-solid-svg-icons';
 import { MissionStatus } from '../../shared/enums/course.enum';
+import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 
 @Component({
   selector: 'app-course-stage',
   templateUrl: './course-stage.component.html',
   styleUrl: './course-stage.component.scss',
+  animations: [fadeInOutAnimation]
 })
 export class CourseStageComponent implements OnInit {
   lockIcon = faLock;
@@ -14,6 +16,7 @@ export class CourseStageComponent implements OnInit {
   currentIcon = faStar;
   nextIcon = faChevronRight;
   prevIcon = faChevronLeft;
+  clockIcon = faClock;
 
   demoMissions: IStageMission[] = [
     {

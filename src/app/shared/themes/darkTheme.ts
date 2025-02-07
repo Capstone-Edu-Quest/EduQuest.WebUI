@@ -28,4 +28,12 @@ export const darkTheme = {
   '--alert': '#EF4444',
   '--error': '#B91C1C',
   '--info': '#3B82F6',
+
+  '--stage-surface-current': '#f29955',
+  '--stage-body-current': '#7d4d29',
+  '--stage-surface-locked': '#b5b5b5',
+  '--stage-body-locked': '#525252',
+  '--stage-surface-done': '#58cc02',
+  '--stage-body-done': '#3d8a03',
+  '--stage-shadow': '#292929'
 };

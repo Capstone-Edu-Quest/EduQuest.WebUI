@@ -1,4 +1,4 @@
-<div class="stage-ctn">
+<div class="stage-ctn" @fadeInOut>
   <div class="course-name">Mastering Typescript</div>
   <div class="current-stage">
     {{ "LABEL.STAGE_COUNT" | translate : { value: currentStage } }}: Basic Typescript
@@ -8,14 +8,14 @@
   <div class="btn-ctn">
     <div class="btn prev" *ngIf="currentStage > 1" (click)="updateCurrentStage(-1)">
       <fa-icon [icon]="prevIcon"></fa-icon>
-      <div class="content">Previous Stage</div>
+      <div class="content">{{'LABEL.PREVIOUS_STAGE' | translate}} </div>
     </div>
     <div class="btn next" *ngIf="currentStage < totalStages" (click)="updateCurrentStage(1)">
-      <div class="content">Next Stage</div>
+      <div class="content">{{'LABEL.NEXT_STAGE' | translate}}</div>
       <fa-icon [icon]="nextIcon"></fa-icon>
     </div>
   </div>
-  
+
   <div class="stage-items-ctn">
     <div class="stage-row" *ngFor="let row of rows; let rowIdx = index">
       <div
@@ -37,14 +37,21 @@
         <div class="blank-item"></div>
         } @else {
         <div class="stage-item" [ngClass]="mission.class">
-          <div class="you-are-here">You are here</div>
+          <div class="you-are-here">{{'LABEL.YOU_ARE_HERE' | translate}}</div>
           <div class="stage-surface">
             <fa-icon [icon]="mission.icon"></fa-icon>
           </div>
           <div class="stage-body"></div>
+          <div class="stage-item-info">
+            <div class="title">{{mission.title}}</div>
+            <div class="type">{{'LABEL.MISSION_TYPE' | translate:{value: mission.type} }}</div>
+            <div class="type"><fa-icon [icon]="clockIcon"></fa-icon>{{'LABEL.MINUTES' | translate:{value: mission.time} }}</div>
+          </div>
         </div>
         }
       </div>
     </div>
   </div>
+
+  <div class="blur-circle" data-aos="zoom-out"></div>
 </div>

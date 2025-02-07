@@ -28,4 +28,12 @@ export const lightTheme = {
   '--alert': '#f07575',
   '--error': '#d44a4a',
   '--info': '#618ff2',
+
+  '--stage-surface-current': '#fab27a',
+  '--stage-body-current': '#e8ae82',
+  '--stage-surface-locked': '#d4d4d4',
+  '--stage-body-locked': '#ababab',
+  '--stage-surface-done': '#65e602',
+  '--stage-body-done': '#55c402',
+  '--stage-shadow': '#6b6b6b'
 };
