@@ -14,6 +14,7 @@ import { TermsComponent } from './pages/terms/terms.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { FoxItemsComponent } from './pages/fox-items/fox-items.component';
 import { CourseStageComponent } from './pages/course-stage/course-stage.component';
+import { LeaningPathComponent } from './pages/leaning-path/leaning-path.component';
 
 const routes: Routes = [
   {
@@ -82,6 +83,11 @@ const routes: Routes = [
   {
     path: 'items',
     component: FoxItemsComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'learning-path',
+    component: LeaningPathComponent,
     canActivate: [AuthGuard],
   },
 ];

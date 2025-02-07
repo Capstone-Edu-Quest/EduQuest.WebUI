@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ChatService } from '../../../core/services/chat.service';
 import { Subscription } from 'rxjs';
-import { IChatConversation } from '../../../shared/interfaces/OthersInterface';
+import { IChatConversation } from '../../../shared/interfaces/others.interfaces';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 
 @Component({

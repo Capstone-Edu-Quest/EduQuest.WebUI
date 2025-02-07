@@ -1,6 +1,6 @@
 export const environment = {
     production: false,
-    apiUrl: 'https://eduquest.azurewebsites.net/v1/',
+    apiUrl: 'https://eduquest.azurewebsites.net/v1',
     firebaseConfig: {
       apiKey: 'AIzaSyA--YPCbTKIlM7gQ-ElKCag6uT2vbXOj_U',
       authDomain: 'eduquest-1a0bd.firebaseapp.com',

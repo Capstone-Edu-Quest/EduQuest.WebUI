@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { WishlistService } from '../../core/services/wishlist.service';
 import { Subscription } from 'rxjs';
 import { CouponService } from '../../core/services/coupon.service';
-import { ICourse } from '../../shared/interfaces/CourseInterfaces';
+import { ICourse } from '../../shared/interfaces/course.interfaces';
 import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 import { Router } from '@angular/router';
 

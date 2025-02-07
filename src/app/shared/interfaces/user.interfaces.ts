@@ -1,5 +1,15 @@
 import { WebRole } from '../enums/user.enum';
 
+export interface ILoginRes {
+  token: IToken;
+  userData: IUser;
+}
+
+export interface IToken {
+  accessToken: string;
+  refreshToken: string;
+}
+
 export interface IUser {
   id: string;
   username: string;
@@ -9,6 +19,7 @@ export interface IUser {
   roleId: WebRole;
   status: string;
 }
+
 export interface IUserStat extends IUser {
   createdAt: string;
   updatedAt: string;

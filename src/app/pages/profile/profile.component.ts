@@ -2,7 +2,7 @@ import { UserService } from './../../core/services/user.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 import { Subscription } from 'rxjs';
-import { IUser, IUserStat } from '../../shared/interfaces/UserInterfaces';
+import { IUser, IUserStat } from '../../shared/interfaces/user.interfaces';
 import { WebRole } from '../../shared/enums/user.enum';
 
 @Component({

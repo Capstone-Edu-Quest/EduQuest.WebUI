@@ -3,7 +3,7 @@ import {
   IEquipmentPosition,
   IEquipmentServiceItem,
   equipmentType,
-} from '../../shared/interfaces/ThreeInterfaces';
+} from '../../shared/interfaces/three.interfaces';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { FoxItems } from '../../components/fox-3d/3d-setup/fox-3d.config';
 

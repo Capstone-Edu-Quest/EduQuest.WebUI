@@ -2,7 +2,7 @@ import { animate, query, style, transition, trigger } from '@angular/animations'
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from '../../core/services/message.service';
 import { Subscription } from 'rxjs';
-import { IMessage } from '../../shared/interfaces/OthersInterface';
+import { IMessage } from '../../shared/interfaces/others.interfaces';
 
 @Component({
   selector: 'app-message',

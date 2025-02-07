@@ -1,5 +1,5 @@
 import { ElementRef, Injectable } from '@angular/core';
-import { ICourse, ICourseCart } from '../../shared/interfaces/CourseInterfaces';
+import { ICourse, ICourseCart } from '../../shared/interfaces/course.interfaces';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { WishlistService } from './wishlist.service';
 

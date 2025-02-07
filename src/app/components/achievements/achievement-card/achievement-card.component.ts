@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IAchievement } from '../../../shared/interfaces/QuestsInterface';
+import { IAchievement } from '../../../shared/interfaces/quests.interfaces';
 
 @Component({
   selector: 'app-achievement-card',

@@ -1,7 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ICourse } from '../../shared/interfaces/CourseInterfaces';
+import { ICourse } from '../../shared/interfaces/course.interfaces';
 import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 
 @Component({

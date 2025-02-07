@@ -7,7 +7,7 @@ import {
   ICourse,
   ICourseCart,
   ICourseDetails,
-} from '../../shared/interfaces/CourseInterfaces';
+} from '../../shared/interfaces/course.interfaces';
 import { CouponService } from '../../core/services/coupon.service';
 import { CartService } from '../../core/services/cart.service';
 import { WishlistService } from '../../core/services/wishlist.service';

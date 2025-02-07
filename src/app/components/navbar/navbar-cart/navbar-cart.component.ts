@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { CartService } from '../../../core/services/cart.service';
-import { ICourseCart } from '../../../shared/interfaces/CourseInterfaces';
+import { ICourseCart } from '../../../shared/interfaces/course.interfaces';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { CouponService } from '../../../core/services/coupon.service';

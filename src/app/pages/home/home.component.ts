@@ -2,7 +2,7 @@ import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 import { UserService } from '../../core/services/user.service';
-import { IUser, IUserStat } from '../../shared/interfaces/UserInterfaces';
+import { IUser, IUserStat } from '../../shared/interfaces/user.interfaces';
 import { Subscription } from 'rxjs';
 
 @Component({

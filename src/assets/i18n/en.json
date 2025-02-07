@@ -274,7 +274,8 @@
     "NEXT_STAGE": "Next Stage",
     "PREVIOUS_STAGE": "Previous Stage",
     "YOU_ARE_HERE": "You are here",
-    "MISSION_TYPE": "Mission type: {{value}}"
+    "MISSION_TYPE": "Mission type: {{value}}",
+    "LEANING_PATH": "Learning Path"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search anything",

@@ -1,4 +1,4 @@
-import { IStageMission } from './../../shared/interfaces/CourseInterfaces';
+import { IStageMission } from '../../shared/interfaces/course.interfaces';
 import { Component, type OnInit } from '@angular/core';
 import { faCheck, faChevronLeft, faChevronRight, faClock, faLock, faStar } from '@fortawesome/free-solid-svg-icons';
 import { MissionStatus } from '../../shared/enums/course.enum';

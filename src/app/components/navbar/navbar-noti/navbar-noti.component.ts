@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NotificationService } from '../../../core/services/notification.service';
-import { INotification } from '../../../shared/interfaces/OthersInterface';
+import { INotification } from '../../../shared/interfaces/others.interfaces';
 import { Subscription } from 'rxjs';
 
 @Component({

@@ -108,6 +108,7 @@ import { Fox3dComponent } from './components/fox-3d/fox-3d.component';
 import { FoxService } from './core/services/fox.service';
 import { FoxItemsComponent } from './pages/fox-items/fox-items.component';
 import { CourseStageComponent } from './pages/course-stage/course-stage.component';
+import { LeaningPathComponent } from './pages/leaning-path/leaning-path.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -175,7 +176,9 @@ export const AppDeclarations = [
   // Fox
   FoxItemsComponent,
   // Stages
-  CourseStageComponent
+  CourseStageComponent,
+  // Path
+  LeaningPathComponent
 ];
 export const NGIcons = [
   EnterOutline,

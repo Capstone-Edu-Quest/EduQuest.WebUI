@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@ang
 import {
   ICourse,
   ICourseCart,
-} from '../../../shared/interfaces/CourseInterfaces';
+} from '../../../shared/interfaces/course.interfaces';
 import { faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { CartService } from '../../../core/services/cart.service';

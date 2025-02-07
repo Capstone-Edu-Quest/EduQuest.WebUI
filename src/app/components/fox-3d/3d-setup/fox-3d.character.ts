@@ -3,7 +3,7 @@ import {
   IEquipmentPosition,
   IItemInUse,
   equipmentType,
-} from './../../../shared/interfaces/ThreeInterfaces';
+} from '../../../shared/interfaces/three.interfaces';
 import {
   AnimationMixer,
   Bone,

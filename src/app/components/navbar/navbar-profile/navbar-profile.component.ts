@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { ThemeService } from '../../../core/services/theme.service';
 import { ModalService } from '../../../core/services/modal.service';
-import { IUser, IUserStat } from '../../../shared/interfaces/UserInterfaces';
+import { IUser, IUserStat } from '../../../shared/interfaces/user.interfaces';
 import { MessageService } from '../../../core/services/message.service';
 
 @Component({

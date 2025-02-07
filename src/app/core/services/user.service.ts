@@ -1,5 +1,9 @@
 import { Injectable } from '@angular/core';
-import { IUser, IUserStat } from '../../shared/interfaces/UserInterfaces';
+import {
+  ILoginRes,
+  IUser,
+  IUserStat,
+} from '../../shared/interfaces/user.interfaces';
 import { WebRole } from '../../shared/enums/user.enum';
 import { BehaviorSubject } from 'rxjs';
 import { MessageService } from './message.service';
@@ -14,13 +18,15 @@ import {
   TokenEnum,
   localStorageEnum,
 } from '../../shared/enums/localStorage.enum';
+import { BaseReponse } from '../../shared/interfaces/https.interfaces';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  user$: BehaviorSubject<IUser | null> =
-    new BehaviorSubject<IUser | null>(null);
+  user$: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(
+    null
+  );
 
   constructor(
     private message: MessageService,
@@ -55,23 +61,30 @@ export class UserService {
         const aToken = (credential.user as any).accessToken;
 
         this.http
-          .post(endPoints.signin, { token: aToken })
-          .subscribe((data) => {
-            const payload = data.payload;
+          .post<ILoginRes>(endPoints.signin, { token: aToken })
+          .subscribe((res) => {
+            console.log(res);
+            const payload = res.payload;
+
+            if (!payload) return;
+
             this.updateUser({
-              ...data.payload.userData,
-              roleId: Number(data.payload.userData.roleId) as WebRole,
+              ...payload.userData,
+              roleId: Number(payload.userData.roleId) as WebRole,
             });
-            this.storage.setCookie(TokenEnum.ACCESS_TOKEN, payload.accessToken);
+            this.storage.setCookie(
+              TokenEnum.ACCESS_TOKEN,
+              payload.token.accessToken
+            );
             this.storage.setCookie(
               TokenEnum.REFRESH_TOKEN,
-              payload.refreshToken
+              payload.token.refreshToken
             );
 
             this.message.addMessage(
               'success',
               this.translate.instant('MESSAGE.WELCOME_BACK', {
-                name: data.payload.userData.username,
+                name: payload.userData.username,
               })
             );
           });

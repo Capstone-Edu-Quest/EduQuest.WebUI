@@ -1,7 +1,7 @@
 import { PerspectiveCamera, Scene, WebGLRenderer } from 'three';
 import Character from './fox-3d.character';
 import Enviroment from './fox-3d.enviroment';
-import { IEquipmentPosition } from '../../../shared/interfaces/ThreeInterfaces';
+import { IEquipmentPosition } from '../../../shared/interfaces/three.interfaces';
 
 export default class Fox3DMain {
   scene!: Scene;

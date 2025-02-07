@@ -2,7 +2,7 @@ import { Subscription } from 'rxjs';
 import {
   IEquipmentItem,
   IEquipmentServiceItem,
-} from '../../shared/interfaces/ThreeInterfaces';
+} from '../../shared/interfaces/three.interfaces';
 import { FoxService } from './../../core/services/fox.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FoxItems } from '../../components/fox-3d/3d-setup/fox-3d.config';

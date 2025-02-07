@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ICourse } from '../../../../shared/interfaces/CourseInterfaces';
+import { ICourse } from '../../../../shared/interfaces/course.interfaces';
 import { Router } from '@angular/router';
 
 @Component({

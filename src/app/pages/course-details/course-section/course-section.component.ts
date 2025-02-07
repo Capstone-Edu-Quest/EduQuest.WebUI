@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IStage } from '../../../shared/interfaces/CourseInterfaces';
+import { IStage } from '../../../shared/interfaces/course.interfaces';
 import {
   faFile,
   faCirclePlay,

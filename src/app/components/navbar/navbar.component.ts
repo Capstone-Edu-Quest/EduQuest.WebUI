@@ -4,9 +4,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../core/services/cart.service';
-import { ICourse, ICourseCart } from '../../shared/interfaces/CourseInterfaces';
+import { ICourse, ICourseCart } from '../../shared/interfaces/course.interfaces';
 import { WishlistService } from '../../core/services/wishlist.service';
-import { IUser, IUserStat } from '../../shared/interfaces/UserInterfaces';
+import { IUser, IUserStat } from '../../shared/interfaces/user.interfaces';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 
 @Component({

@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ChatService } from '../../../core/services/chat.service';
-import { IChatConversation } from '../../../shared/interfaces/OthersInterface';
+import { IChatConversation } from '../../../shared/interfaces/others.interfaces';
 import { fadeInOutAnimation } from '../../../shared/constants/animations.constant';
 
 @Component({

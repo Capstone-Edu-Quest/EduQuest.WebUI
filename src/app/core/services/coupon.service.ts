@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ICoupon } from '../../shared/interfaces/CourseInterfaces';
+import { ICoupon } from '../../shared/interfaces/course.interfaces';
 
 @Injectable({
   providedIn: 'root',

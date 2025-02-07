@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { INotification } from '../../shared/interfaces/OthersInterface';
+import { INotification } from '../../shared/interfaces/others.interfaces';
 
 @Injectable({
   providedIn: 'root',

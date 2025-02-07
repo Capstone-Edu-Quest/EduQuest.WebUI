@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ICourse } from '../../../../shared/interfaces/CourseInterfaces';
+import { ICourse } from '../../../../shared/interfaces/course.interfaces';
 
 @Component({
   selector: 'app-home-studying',

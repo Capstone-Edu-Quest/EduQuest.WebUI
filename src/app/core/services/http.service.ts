@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
+import { BaseReponse } from '../../shared/interfaces/https.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -12,24 +13,32 @@ export class HttpService {
 
   constructor(private http: HttpClient) {}
 
-  post<T>(endpoint: string, data: T): Observable<any> {
+  post<TResponse>(
+    endpoint: string,
+    data: any
+  ): Observable<BaseReponse<TResponse>> {
     const url = `${this.apiUrl}/${endpoint}`;
-    return this.http.post<T>(url, data, { headers: this.getHeaders() }).pipe(
-      map((response: any) => {
-        if (response.isError) {
-          throw response;
-        }
-        return response;
-      }),
-      catchError((error) => this.handleError(error))
-    );
+    return this.http
+      .post<BaseReponse<TResponse>>(url, data, { headers: this.getHeaders() })
+      .pipe(
+        map((response: any) => {
+          if (response.isError) {
+            throw response;
+          }
+          return response;
+        }),
+        catchError((error) => this.handleError(error))
+      );
   }
 
-  get<T>(endpoint: string, id?: string): Observable<T> {
+  get<TResponse>(
+    endpoint: string,
+    id?: string
+  ): Observable<BaseReponse<TResponse>> {
     const url = id
       ? `${this.apiUrl}/${endpoint}/${id}`
       : `${this.apiUrl}/${endpoint}`;
-    return this.http.get<T>(url, { headers: this.getHeaders() }).pipe(
+    return this.http.get<TResponse>(url, { headers: this.getHeaders() }).pipe(
       map((response: any) => {
         if (response.isError) {
           throw response;
@@ -46,20 +55,29 @@ export class HttpService {
       .pipe(catchError(this.handleError));
   }
 
-  update<T>(endpoint: string, id: string, data: T): Observable<T> {
+  update<TResponse>(
+    endpoint: string,
+    id: string,
+    data: any
+  ): Observable<BaseReponse<TResponse>> {
     const url = `${this.apiUrl}/${endpoint}/${id}`;
-    return this.http.put<T>(url, data, { headers: this.getHeaders() }).pipe(
-      map((response: any) => {
-        if (response.isError) {
-          throw response;
-        }
-        return response;
-      }),
-      catchError((error) => this.handleError(error))
-    );
+    return this.http
+      .put<TResponse>(url, data, { headers: this.getHeaders() })
+      .pipe(
+        map((response: any) => {
+          if (response.isError) {
+            throw response;
+          }
+          return response;
+        }),
+        catchError((error) => this.handleError(error))
+      );
   }
 
-  delete(endpoint: string, id: string): Observable<void> {
+  delete<TResponse>(
+    endpoint: string,
+    id: string
+  ): Observable<BaseReponse<TResponse>> {
     const url = `${this.apiUrl}/${endpoint}/${id}`;
     return this.http.delete<void>(url, { headers: this.getHeaders() }).pipe(
       map((response: any) => {

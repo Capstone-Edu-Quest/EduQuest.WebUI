@@ -1,7 +1,7 @@
 import {
   IEquipmentItem,
   IEquipmentPosition,
-} from '../../../shared/interfaces/ThreeInterfaces';
+} from '../../../shared/interfaces/three.interfaces';
 
 export enum bonePosition {
   foxName = 'metarig',

@@ -5,7 +5,7 @@ import {
   ICoupon,
   ICourse,
   ICourseCart,
-} from '../../shared/interfaces/CourseInterfaces';
+} from '../../shared/interfaces/course.interfaces';
 import { Subscription } from 'rxjs';
 import { WishlistService } from '../../core/services/wishlist.service';
 import { CouponService } from '../../core/services/coupon.service';

@@ -1,5 +1,5 @@
 import { MissionStatus } from "../enums/course.enum";
-import { IUserStat } from "./UserInterfaces";
+import { IUserStat } from "./user.interfaces";
 
 export interface ICourse {
   id: string;

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { IChatConversation } from '../../shared/interfaces/OthersInterface';
+import { IChatConversation } from '../../shared/interfaces/others.interfaces';
 
 @Injectable({
   providedIn: 'root',

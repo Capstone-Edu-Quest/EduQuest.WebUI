@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ICourse } from '../../../shared/interfaces/CourseInterfaces';
+import { ICourse } from '../../../shared/interfaces/course.interfaces';
 import { faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { CartService } from '../../../core/services/cart.service';

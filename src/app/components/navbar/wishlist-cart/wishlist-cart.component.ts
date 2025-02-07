@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CouponService } from '../../../core/services/coupon.service';
 import { Subscription } from 'rxjs';
 import { WishlistService } from '../../../core/services/wishlist.service';
-import { ICourse } from '../../../shared/interfaces/CourseInterfaces';
+import { ICourse } from '../../../shared/interfaces/course.interfaces';
 import { CartService } from '../../../core/services/cart.service';
 import { Router } from '@angular/router';
 
