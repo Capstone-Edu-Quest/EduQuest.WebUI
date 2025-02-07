@@ -93,6 +93,13 @@ export const FoxItems: IEquipmentItem[] = [
     rotation: { x: 0, y: 0, z: 0 },
   },
   {
+    id: 'donut-necklace',
+    position: 'body',
+    scale: { x: 3, y: 3, z: 3 },
+    translation: { x: 0, y: 0.67, z: 0 },
+    rotation: { x: 0, y: 0, z: 0 },
+  },
+  {
     id: 'cow-boy-hat',
     position: 'head',
     translation: { x: 0, y: 1, z: 0 },
@@ -119,6 +126,20 @@ export const FoxItems: IEquipmentItem[] = [
     translation: { x: 0, y: 1.3, z: 0 },
     scale: { x: 0.0065, y: 0.006, z: 0.0055 },
     rotation: { x: -Math.PI / 3, y: 0, z: 0 },
+  },
+  {
+    id: 'tinker-glasses',
+    position: 'head',
+    translation: { x: 0, y: 0.85, z: 0.78 },
+    scale: { x: 0.23, y: 0.25, z: 0.25 },
+    rotation: { x: 0, y: 0, z: 0 },
+  },
+  {
+    id: 'sun-glasses',
+    position: 'head',
+    translation: { x: 0, y: 0.7, z: 0.9 },
+    scale: { x: 0.007, y: 0.0066, z: 0.005 },
+    rotation: { x: 0, y: 0, z: 0 },
   },
   {
     id: 'bicycle-hat',

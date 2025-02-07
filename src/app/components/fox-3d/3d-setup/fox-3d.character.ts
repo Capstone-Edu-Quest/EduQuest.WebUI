@@ -102,7 +102,7 @@ export default class Character {
 
       this.updateLoading();
       this.initItems();
-      // this.updateEquipment('samurai-hat');
+      // this.updateEquipment('donut-necklace');
     });
 
     await this.initBackground();
@@ -346,3 +346,5 @@ export default class Character {
     this.mixer?.update(delta);
   }
 }
+
+// gltf-transform optimize './tinker-glasses.glb' './compressed/tinker-glasses-compressed.glb' --compress draco --texture-compress webp
