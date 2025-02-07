@@ -6,4 +6,46 @@
     font-weight: 500;
     font-size: 22px;
   }
+
+  .tabs {
+    margin-top: 15px;
+    width: 100%;
+    border-bottom: 1px solid var(--tertiary-bg);
+    display: flex;
+    align-items: center;
+    padding: 0;
+    box-sizing: border-box;
+    gap: 5px;
+
+    .tab {
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--secondary-text);
+      transition: all 0.12s linear;
+      text-align: center;
+      border: 1px solid transparent;
+      
+      &:hover {
+        color: var(--brand-hover);
+      }
+
+      &.active {
+        border-bottom: 1px solid var(--brand-light);
+        color: var(--brand-light);
+      }
+    }
+  }
+
+  .paths-ctn {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+
+    app-path-item {
+      width: calc(100% / 3 - 12px);
+    }
+  }
 }

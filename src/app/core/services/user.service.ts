@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {
   ILoginRes,
   IUser,
-  IUserStat,
 } from '../../shared/interfaces/user.interfaces';
 import { WebRole } from '../../shared/enums/user.enum';
 import { BehaviorSubject } from 'rxjs';

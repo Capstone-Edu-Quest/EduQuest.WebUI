@@ -1,3 +1,20 @@
 <div class="learning-path">
   <div class="title text-gradient">{{ "LABEL.LEANING_PATH" | translate }}</div>
+
+  <div class="tabs">
+    <div
+      class="tab"
+      [ngClass]="{
+        active: tab.value === currentViewTab
+      }"
+      (click)="currentViewTab = tab.value"
+      *ngFor="let tab of tabs"
+    >
+      {{ tab.label | translate }}
+    </div>
+  </div>
+
+  <div class="paths-ctn">
+    <app-path-item *ngFor="let path of demoLearningPaths" [path]="path"></app-path-item>
+  </div>
 </div>

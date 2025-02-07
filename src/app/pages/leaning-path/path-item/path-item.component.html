@@ -1,0 +1,43 @@
+<div class="path-item">
+  <div class="option">
+    <div class="option-item"></div>
+    <div class="option-item"></div>
+    <div class="option-item"></div>
+
+    <div class="drop-down">
+      <div class="option" *ngFor="let opt of pannelBtn; let i = index" [ngStyle]="{
+        top: 5 + i * 28 + 'px'
+      }">
+        <fa-icon [icon]="opt.icon"></fa-icon>
+        {{ opt.label | translate }}
+      </div>
+    </div>
+  </div>
+
+  <div class="item-name">{{ path.name }}</div>
+  <div class="created-by">
+    {{ "LABEL.CREATED_BY" | translate : { value: path.name } }}
+  </div>
+
+  <div class="others-info">
+    <div>
+      {{ "LABEL.TOTAL_TIME_IN_HOUR" | translate : { hour: path.totalTime } }}
+    </div>
+    <div>·</div>
+    <div>
+      {{ "LABEL.COURSES_COUNT" | translate : { value: path.totalCourses } }}
+    </div>
+  </div>
+  <div class="description">{{ path.description }}</div>
+
+  <app-button
+    type="primary"
+    [ngStyle]="{ width: '100%' }"
+    [style]="{
+      'margin-top': '8px',
+      width: '100%'
+    }"
+  >
+    {{ "LABEL.ENROLL" | translate }}
+  </app-button>
+</div>

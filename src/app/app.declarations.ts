@@ -112,6 +112,7 @@ import { LeaningPathComponent } from './pages/leaning-path/leaning-path.componen
 import { LoadingService } from './core/services/loading.service';
 import { LoadingComponent } from './components/loading/loading.component';
 import { HttpService } from './core/services/http.service';
+import { PathItemComponent } from './pages/leaning-path/path-item/path-item.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -182,7 +183,8 @@ export const AppDeclarations = [
   // Stages
   CourseStageComponent,
   // Path
-  LeaningPathComponent
+  LeaningPathComponent,
+  PathItemComponent
 ];
 export const NGIcons = [
   EnterOutline,
