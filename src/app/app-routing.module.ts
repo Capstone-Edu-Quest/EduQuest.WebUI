@@ -17,6 +17,8 @@ import { CourseStageComponent } from './pages/course-stage/course-stage.componen
 import { LeaningPathComponent } from './pages/leaning-path/leaning-path.component';
 import { LearningPathDetailsComponent } from './pages/learning-path-details/learning-path-details.component';
 import { ShopItemsComponent } from './pages/shop-items/shop-items.component';
+import { RoleGuard } from './core/guards/role.guards';
+import { WebRole } from './shared/enums/user.enum';
 
 const routes: Routes = [
   {
@@ -25,6 +27,8 @@ const routes: Routes = [
   },
   {
     path: 'courses',
+    canActivate: [RoleGuard],
+    data: { blockedRoles: [WebRole.ADMIN, WebRole.INSTRUCTOR] },
     children: [
       {
         path: '',
@@ -48,21 +52,36 @@ const routes: Routes = [
   {
     path: 'cart',
     component: CartComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.LEANER] },
   },
   {
     path: 'wishlist',
     component: WishlistComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.LEANER] },
   },
   {
     path: 'profile',
-    component: ProfileComponent,
+    canActivate: [RoleGuard],
+    data: { blockedRoles: [WebRole.ADMIN] },
+    children: [
+      {
+        path: '',
+        component: ProfileComponent,
+        canActivate: [AuthGuard],
+      },
+      {
+        path: ':userId',
+        component: ProfileComponent,
+      },
+    ],
   },
   {
     path: 'chat',
     component: ChatComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.LEANER, WebRole.INSTRUCTOR] },
     children: [
       {
         path: ':conversationId',
@@ -85,16 +104,19 @@ const routes: Routes = [
   {
     path: 'items',
     component: FoxItemsComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.LEANER] },
   },
   {
     path: 'shop-items',
     component: ShopItemsComponent,
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.LEANER] },
   },
   {
     path: 'learning-path',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.LEANER] },
     children: [
       {
         path: '',

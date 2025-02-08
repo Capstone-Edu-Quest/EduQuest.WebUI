@@ -5,25 +5,19 @@
     <div class="name text-gradient" (click)="onBackHome()">
       {{ "LABEL.WEB_NAME" | translate }}
     </div>
-    <a class="routerLink" routerLink="/learning-path">{{
-      "LABEL.LEARNING_PATH" | translate
-    }}</a>
+    <a
+      *ngIf="user && user.roleId === 3"
+      class="routerLink"
+      routerLink="/learning-path"
+      >{{ "LABEL.LEARNING_PATH" | translate }}</a
+    >
   </div>
 
   <!-- Middle -->
   <div class="ctn">
-    <nz-input-group [nzSuffix]="suffixIconButton" style="width: 32vw">
-      <input
-        [(ngModel)]="searchText"
-        (keydown)="onConfirmSearchCourse($event)"
-        nz-input
-        placeholder="{{ 'MESSAGE.SEARCH_COURSE' | translate }}"
-      />
-    </nz-input-group>
-
-    <ng-template #suffixIconButton>
-      <i nz-icon nzType="search" style="color: var(--secondary-text)"></i>
-    </ng-template>
+    <ng-container
+      [ngTemplateOutlet]="user?.roleId === 2 ? instructorMid : leanerMid"
+    ></ng-container>
   </div>
 
   <!-- Right -->
@@ -40,7 +34,10 @@
       "LABEL.EXPLORE_MORE" | translate
     }}</app-button>
     <app-button [type]="'primary'" (click)="onSignIn()">
-      <fa-icon style="font-size: 12px; margin-right: 3px" [icon]="googleIcon"></fa-icon>
+      <fa-icon
+        style="font-size: 12px; margin-right: 3px"
+        [icon]="googleIcon"
+      ></fa-icon>
       {{ "LABEL.SIGN_IN" | translate }}</app-button
     >
   </div>
@@ -50,6 +47,7 @@
   <app-dropdownMenu
     *ngFor="let icon of iconItems"
     [dropdown]="getTemplate(icon.routerLink)"
+    [position]="user?.roleId === 2 ? 'left' : 'center'"
   >
     <a
       class="routerLink"
@@ -61,7 +59,7 @@
       </app-badge>
     </a>
   </app-dropdownMenu>
-  <div class="level">
+  <div class="level" *ngIf="user && user.roleId === 3">
     <i nz-icon nzType="thunderbolt"></i>
     {{ "LABEL.LEVEL" | translate : { level: 15 } }}
   </div>
@@ -92,3 +90,20 @@
 <ng-template #profileDropdown>
   <app-navbar-profile></app-navbar-profile>
 </ng-template>
+
+<ng-template #leanerMid>
+  <nz-input-group [nzSuffix]="suffixIconButton" style="width: 32vw">
+    <input
+      [(ngModel)]="searchText"
+      (keydown)="onConfirmSearchCourse($event)"
+      nz-input
+      placeholder="{{ 'MESSAGE.SEARCH_COURSE' | translate }}"
+    />
+  </nz-input-group>
+
+  <ng-template #suffixIconButton>
+    <i nz-icon nzType="search" style="color: var(--secondary-text)"></i>
+  </ng-template>
+</ng-template>
+
+<ng-template #instructorMid> ins </ng-template>

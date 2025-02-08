@@ -4,10 +4,14 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../core/services/cart.service';
-import { ICourse, ICourseCart } from '../../shared/interfaces/course.interfaces';
+import {
+  ICourse,
+  ICourseCart,
+} from '../../shared/interfaces/course.interfaces';
 import { WishlistService } from '../../core/services/wishlist.service';
 import { IUser, IUserStat } from '../../shared/interfaces/user.interfaces';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { WebRole } from '../../shared/enums/user.enum';
 
 @Component({
   selector: 'app-navbar',
@@ -26,7 +30,8 @@ export class NavbarComponent implements OnInit {
   profileDropdown!: TemplateRef<any>;
 
   searchText: string = '';
-  iconItems = [
+
+  leanerItems = [
     {
       icon: 'heart',
       routerLink: 'wishlist',
@@ -52,6 +57,23 @@ export class NavbarComponent implements OnInit {
       dropdown: this.messageDropdown,
     },
   ];
+
+  instructorItems = [
+    {
+      icon: 'bell',
+      routerLink: 'notification',
+      badge: 0,
+      dropdown: this.notificationDropdown,
+    },
+    {
+      icon: 'message',
+      routerLink: 'message',
+      badge: 0,
+      dropdown: this.messageDropdown,
+    },
+  ];
+
+  iconItems: any[] = [];
 
   user: IUser | null = null;
 
@@ -80,6 +102,24 @@ export class NavbarComponent implements OnInit {
     );
   }
 
+  initNavbarItems() {
+    if (!this.user) {
+      this.iconItems = [];
+      return;
+    }
+
+    switch (this.user.roleId) {
+      case WebRole.LEANER:
+        this.iconItems = this.leanerItems;
+        break;
+      case WebRole.INSTRUCTOR:
+        this.iconItems = this.instructorItems;
+        break;
+      default:
+        this.iconItems = [];
+    }
+  }
+
   getTemplate(key: string) {
     switch (key) {
       case 'wishlist':
@@ -105,6 +145,7 @@ export class NavbarComponent implements OnInit {
     this.subscription$.add(
       this.UserService.user$.subscribe((user) => {
         this.user = user;
+        this.initNavbarItems();
       })
     );
   }
