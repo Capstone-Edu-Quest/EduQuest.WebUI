@@ -1,0 +1,50 @@
+<div class="course-chart">
+  <div class="section">
+    <div class="title">{{ "LABEL.TOTAL_COURSE_LEANER" | translate }}</div>
+    <canvas
+      baseChart
+      [data]="totalCourseLeanerChartData"
+      [options]="lineChartConfig"
+      type="line"
+    >
+    </canvas>
+  </div>
+  <div class="section">
+    <div class="title">{{ "LABEL.COURSE_RATING" | translate }}</div>
+    <canvas
+      baseChart
+      [data]="ratingChartData"
+      [options]="lineChartConfig"
+      type="bar"
+    >
+    </canvas>
+  </div>
+
+  <div class="section">
+    <div class="title">{{ "LABEL.LEANER_STATUS" | translate }}</div>
+    <div style="padding: 0 10%; box-sizing: border-box">
+      <canvas
+        baseChart
+        [data]="leanerStatisticsChartData"
+        [options]="roundChartConfig"
+        type="pie"
+      >
+      </canvas>
+    </div>
+  </div>
+  <div class="section">
+<div class="title">{{ "LABEL.TOP_X_COURSES" | translate:{value: 3} }}</div>
+    <canvas
+      baseChart
+      [data]="topCoursesChartData"
+      [options]="radarChartOptions"
+      type="radar"
+    >
+    </canvas>
+  </div>
+</div>
+<!-- Chart -->
+<!-- Enroll over time (line) -->
+<!-- Completed & In progress (pie) -->
+<!-- Course rating (radar) -->
+<!-- TOP 5 Courses enrollment & reviews (line) -->

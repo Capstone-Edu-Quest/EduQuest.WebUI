@@ -104,17 +104,42 @@ export class HomeInsOthersComponent implements OnInit, OnDestroy {
     const currentTheme = this.theme.getCurrentTheme();
     if (!currentTheme) return;
 
+    const dataCfg = this.chartData.datasets[0];
+
+    const gridColor = {
+      grid: {
+        color: currentTheme.theme['--quaternary-text'],
+      },
+      ticks: {
+        color: currentTheme.theme['--secondary-text'],
+      },
+    };
+
+    this.chartOptions = {
+      ...this.chartOptions,
+      plugins: {
+        ...this.chartOptions?.plugins,
+        legend: {
+          ...this.chartOptions?.plugins?.legend,
+          labels: { color: currentTheme.theme['--secondary-text'] },
+        },
+      },
+      scales: {
+        x: gridColor,
+        y: gridColor,
+      },
+    };
+
     this.chartData = {
-      labels: this.chartData.labels,
+      ...this.chartData,
       datasets: [
         {
+          ...dataCfg,
           label: this.translate.instant('LABEL.LEARNERS'),
-          data: [50, 75, 110, 90, 130],
-          backgroundColor: currentTheme?.theme['--brand-05'],
+          backgroundColor: currentTheme?.theme['--brand'],
           hoverBackgroundColor: currentTheme?.theme['--brand-hover'],
           borderColor: currentTheme?.theme['--brand-02'],
           hoverBorderColor: currentTheme?.theme['--brand-01'],
-          borderWidth: 1,
         },
       ],
     };

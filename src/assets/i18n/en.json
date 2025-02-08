@@ -303,15 +303,25 @@
     "AVERAGE_RATING": "Average Reviews",
     "MONTHLY_REVENUE": "Monthly Revenue",
     "RECENT_ACTIVITIES": "Recent Activities",
+    "TOP_X_COURSES": "Top {{value}} Courses",
+    "LEARNERS": "Leaners",
+    "TOTAL_COURSE_LEANER": "Total Course's Leaners",
+    "LEANER_STATUS": "Leaner's Status",
+    "COURSE_RATING": "Course's Rating",
     "TOP_COURSES": "Top Courses",
-    "LEARNERS": "Leaners"
+    "IN_PROGRESS": "In Progress"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search Courses",
     "WELCOME_BACK": "Welcome back, {{name}}",
     "SEARCH_TAGS": "Enter tags name",
     "APPLIED_COUPON": "Coupon applied successfully",
-    "LOG_OUT_SUCCESS": "Logged out successfully"
+    "LOG_OUT_SUCCESS": "Logged out successfully",
+    "INTERNAL_SERVER_ERROR": "501: Internal server error, Please try again later",
+    "UNAUTHORIZED": "401: Unauthorized, you need to login to do this",
+    "NO_PERMISSION": "403: You don't have permission to do this",
+    "NOT_FOUND": "404: Your performed action have no result, Not Found!",
+    "UNKNOWN_ERROR": "Unknown error, Please try again later"
   },
   "BUTTON": {
     "CONTINUE": "Continue",

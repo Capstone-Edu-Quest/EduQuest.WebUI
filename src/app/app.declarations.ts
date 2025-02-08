@@ -118,6 +118,9 @@ import { PathCourseItemComponent } from './pages/learning-path-details/path-cour
 import { ShopItemsComponent } from './pages/shop-items/shop-items.component';
 import { HomeInstructorSummaryComponent } from './pages/home/home-instructor/home-instructor-summary/home-instructor-summary.component';
 import { HomeInsOthersComponent } from './pages/home/home-instructor/home-ins-others/home-ins-others.component';
+import { MyCoursesComponent } from './pages/my-courses/my-courses.component';
+import { MyCourseChartsComponent } from './pages/my-courses/my-course-charts/my-course-charts.component';
+import { MyCourseListComponent } from './pages/my-courses/my-course-list/my-course-list.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -158,6 +161,9 @@ export const AppDeclarations = [
   CourseSearchItemComponent,
   CourseDetailsComponent,
   CourseSectionComponent,
+  MyCoursesComponent,
+  MyCourseChartsComponent,
+  MyCourseListComponent,
   // Cart
   CartComponent,
   CartItemComponent,

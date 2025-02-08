@@ -1,0 +1,23 @@
+.course-chart {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+
+    .section {
+        width: calc(100%/2 - 8px);
+        max-height: 440px;
+        overflow: hidden;
+        padding: 14px;
+        box-sizing: border-box;
+        border-radius: 14px;
+        background: var(--secondary-bg);
+
+        .title {
+            font-weight: 500;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+        
+    }
+}

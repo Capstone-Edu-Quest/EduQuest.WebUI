@@ -19,6 +19,7 @@ import { LearningPathDetailsComponent } from './pages/learning-path-details/lear
 import { ShopItemsComponent } from './pages/shop-items/shop-items.component';
 import { RoleGuard } from './core/guards/role.guards';
 import { WebRole } from './shared/enums/user.enum';
+import { MyCoursesComponent } from './pages/my-courses/my-courses.component';
 
 const routes: Routes = [
   {
@@ -48,6 +49,12 @@ const routes: Routes = [
         ],
       },
     ],
+  },
+  {
+    path: 'my-courses',
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.INSTRUCTOR] },
+    component: MyCoursesComponent
   },
   {
     path: 'cart',

@@ -6,6 +6,8 @@ import { environment } from '../../../environments/environment';
 import { BaseReponse } from '../../shared/interfaces/https.interfaces';
 import { EMPTY } from 'rxjs';
 import { LoadingService } from './loading.service';
+import { MessageService } from './message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +15,12 @@ import { LoadingService } from './loading.service';
 export class HttpService {
   private apiUrl = environment.apiUrl;
 
-  constructor(private http: HttpClient, private loading: LoadingService) {}
+  constructor(
+    private http: HttpClient,
+    private loading: LoadingService,
+    private message: MessageService,
+    private translate: TranslateService
+  ) {}
 
   post<TPayload>(
     endpoint: string,
@@ -89,6 +96,38 @@ export class HttpService {
 
   handleHttpError(error: any): Observable<never> {
     console.error('Error occurred: ', error);
+    switch (error.status) {
+      case 401:
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.UNAUTHORIZED')
+        );
+        break;
+      case 403:
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.NO_PERMISSION')
+        );
+        break;
+      case 404:
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.NOT_FOUND')
+        );
+        break;
+      case 500:
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.INTERNAL_SERVER_ERROR')
+        );
+        break;
+      default:
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.UNKNOWN_ERROR')
+        );
+        break;
+    }
     throw EMPTY;
   }
 
