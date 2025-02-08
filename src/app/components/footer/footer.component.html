@@ -1,5 +1,5 @@
 <div class="footer">
-  <div class="become-instructor">
+  <div class="become-instructor" *ngIf="user?.roleId === 3">
     <div class="info">
       <div class="become">{{ "LABEL.BECOME_INSTRUCTOR" | translate }}</div>
       <div class="become-sub">

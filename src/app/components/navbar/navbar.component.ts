@@ -147,7 +147,7 @@ export class NavbarComponent implements OnInit {
         return this.cartDropdown;
       case 'notification':
         return this.notificationDropdown;
-      case 'message':
+      case 'chat':
         return this.messageDropdown;
       case 'profile':
         return this.profileDropdown;

@@ -1,3 +1,4 @@
+import { UserService } from './../../core/services/user.service';
 import {
   Component,
   ElementRef,
@@ -9,6 +10,7 @@ import {
 import { ModalService } from '../../core/services/modal.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
+import { IUser } from '../../shared/interfaces/user.interfaces';
 
 @Component({
   selector: 'app-footer',
@@ -17,6 +19,8 @@ import { Subscription } from 'rxjs';
 })
 export class FooterComponent implements OnInit, OnDestroy {
   @ViewChild('language', { static: true }) language!: TemplateRef<any>;
+
+  user!: IUser | null;
 
   eduquestLink = [
     { name: 'LABEL.ABOUT', link: '/about' },
@@ -32,13 +36,24 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   constructor(
     private modal: ModalService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private UserService: UserService
   ) {}
 
   ngOnInit() {
     this.subscription$.add(
       this.translate.onLangChange.subscribe((event) => {
         this.currentLanguage = event.lang;
+      })
+    );
+
+    this.listenToUser();
+  }
+
+  listenToUser() {
+    this.subscription$.add(
+      this.UserService.user$.subscribe((user) => {
+        this.user = user;
       })
     );
   }
