@@ -113,6 +113,8 @@ import { LoadingService } from './core/services/loading.service';
 import { LoadingComponent } from './components/loading/loading.component';
 import { HttpService } from './core/services/http.service';
 import { PathItemComponent } from './pages/leaning-path/path-item/path-item.component';
+import { LearningPathDetailsComponent } from './pages/learning-path-details/learning-path-details.component';
+import { PathCourseItemComponent } from './pages/learning-path-details/path-course-item/path-course-item.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -184,7 +186,9 @@ export const AppDeclarations = [
   CourseStageComponent,
   // Path
   LeaningPathComponent,
-  PathItemComponent
+  PathItemComponent,
+  LearningPathDetailsComponent,
+  PathCourseItemComponent
 ];
 export const NGIcons = [
   EnterOutline,

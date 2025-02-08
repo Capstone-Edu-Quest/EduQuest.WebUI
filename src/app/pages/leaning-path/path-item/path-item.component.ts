@@ -1,7 +1,13 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, type OnInit } from '@angular/core';
 import { ILearningPath } from '../../../shared/interfaces/learning-path.interfaces';
-import { faClone, faPen, faShare, faTrash } from '@fortawesome/free-solid-svg-icons';
+import {
+  faClone,
+  faPen,
+  faShare,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-path-item',
@@ -15,36 +21,51 @@ export class PathItemComponent implements OnInit {
     {
       icon: faPen,
       label: 'LABEL.EDIT',
-      action: () => this.onEdit(),
+      action: (e: Event) => this.onEdit(e),
     },
     {
       icon: faTrash,
       label: 'LABEL.DELETE',
-      action: () => this.onDelete(),
+      action: (e: Event) => this.onDelete(e),
     },
     {
       icon: faClone,
       label: 'LABEL.CLONE',
-      action: () => this.onClone(),
+      action: (e: Event) => this.onClone(e),
     },
     {
       icon: faShare,
       label: 'LABEL.SHARE',
-      action: () => this.onShare(),
+      action: (e: Event) => this.onShare(e),
     },
   ];
 
-  
-  constructor() {}
+  constructor(private router: Router) {}
+
   ngOnInit(): void {}
 
-  onEdit() {}
+  onEnroll(e: Event) {
+    e.stopPropagation();
+  }
 
-  onDelete() {}
+  onEdit(e: Event) {
+    console.log(e)
+    e.stopPropagation();
+  }
 
-  onEnroll() {}
+  onDelete(e: Event) {
+    e.stopPropagation();
+  }
 
-  onClone() {}
+  onClone(e: Event) {
+    e.stopPropagation();
+  }
 
-  onShare() {}
+  onShare(e: Event) {
+    e.stopPropagation();
+  }
+
+  onViewDetails() {
+    this.router.navigate(['/learning-path', this.path.id]);
+  }
 }

@@ -288,7 +288,10 @@
     "EDIT": "Edit",
     "DELETE": "Delete",
     "CLONE" : "Clone",
-    "SHARE": "Share"
+    "SHARE": "Share",
+    "PUBLIC": "Public",
+    "PRIVATE": "Private",
+    "HOURS_VALUE": "{{value}} hours"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search Courses",

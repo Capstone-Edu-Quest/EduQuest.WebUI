@@ -1,0 +1,74 @@
+<div class="learning-path-details">
+  <div class="name">{{ learningPathDetails.name }}</div>
+  <div class="description">{{ learningPathDetails.description }}</div>
+
+  <div class="option">
+    <div class="option-item"></div>
+    <div class="option-item"></div>
+    <div class="option-item"></div>
+
+    <div
+      class="drop-down"
+      [ngStyle]="{
+        height: 11 + pannelBtn.length * 28 + 'px'
+      }"
+    >
+      <div
+        class="option"
+        *ngFor="let opt of pannelBtn; let i = index"
+        [ngStyle]="{
+          top: 5 + i * 28 + 'px'
+        }"
+        (click)="opt.action()"
+      >
+        <fa-icon [icon]="opt.icon"></fa-icon>
+        {{ opt.label | translate }}
+      </div>
+    </div>
+  </div>
+
+  <div class="info-ctn">
+    <div class="info">
+      <fa-icon [icon]="authorIcon"></fa-icon>
+      <label> {{ learningPathDetails.createdBy.name }}</label>
+    </div>
+    <div class="info">
+      <fa-icon [icon]="timeIcon"></fa-icon>
+      <label>
+        {{
+          "LABEL.HOURS_VALUE"
+            | translate : { value: learningPathDetails.totalTime }
+        }}</label
+      >
+    </div>
+    <div class="info">
+      <fa-icon [icon]="privacyIcon"></fa-icon>
+      <label>
+        {{
+          "LABEL." + (learningPathDetails.isPublic ? "PUBLIC" : "PRIVATE")
+            | translate
+        }}</label
+      >
+    </div>
+  </div>
+
+  <div class="courses-ctn">
+    <div
+      class="course-wrapper"
+      *ngFor="let course of tempCourseList || learningPathDetails.courses"
+      [attr.courseId]="course.course.id"
+      [attr.draggable]="isEdit"
+      (dragstart)="onDragStart($event, course)"
+      (dragover)="onDragOver($event)"
+      (drop)="onDrop($event)"
+    >
+      <div class="drag-point" *ngIf="isEdit">
+        <fa-icon [icon]="dragIcon"></fa-icon>
+      </div>
+      <app-path-course-item
+        [isEdit]="isEdit"
+        [course]="course.course"
+      ></app-path-course-item>
+    </div>
+  </div>
+</div>

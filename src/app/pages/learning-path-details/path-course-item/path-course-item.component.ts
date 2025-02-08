@@ -1,23 +1,31 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  ViewChild,
+  type OnInit,
+  OnDestroy,
+} from '@angular/core';
 import {
   ICourse,
   ICourseCart,
 } from '../../../shared/interfaces/course.interfaces';
-import { faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
-import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
-import { Subscription } from 'rxjs';
 import { CartService } from '../../../core/services/cart.service';
 import { WishlistService } from '../../../core/services/wishlist.service';
 import { Router } from '@angular/router';
 import { CouponService } from '../../../core/services/coupon.service';
+import { Subscription } from 'rxjs';
+import { faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
+import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 
 @Component({
-  selector: 'app-course-search-item',
-  templateUrl: './course-search-item.component.html',
-  styleUrls: ['./course-search-item.component.scss'],
+  selector: 'app-path-course-item',
+  templateUrl: './path-course-item.component.html',
+  styleUrl: './path-course-item.component.scss',
 })
-export class CourseSearchItemComponent implements OnInit, OnDestroy {
+export class PathCourseItemComponent implements OnInit, OnDestroy {
   @Input('course') course: ICourse | null = null;
+  @Input('isEdit') isEdit!: boolean;
 
   @ViewChild('item') item!: ElementRef;
 
@@ -86,7 +94,7 @@ export class CourseSearchItemComponent implements OnInit, OnDestroy {
   }
 
   viewCourseDetails() {
-    if (!this.course) return;
+    if (!this.course || this.isEdit) return;
     this.router.navigate(['/courses', this.course.id]);
   }
 
@@ -115,7 +123,7 @@ export class CourseSearchItemComponent implements OnInit, OnDestroy {
     this.router.navigate(['/cart']);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this.subscription$.unsubscribe();
   }
 }

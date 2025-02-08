@@ -1,0 +1,36 @@
+{
+    "notifications": {
+      "user-123": {
+        "notif-001": {
+          "id": "notif-001",
+          "receiverId": "user-123",
+          "url": "/chat/conv-001",
+          "time": "2025-02-07T10:00:00Z",
+          "content": "NEW_MESSAGE",
+          "value": ["user-456", "Hey, how are you?"],
+          "isRead": false
+        },
+        "notif-002": {
+          "id": "notif-002",
+          "receiverId": "user-123",
+          "url": "/friends",
+          "time": "2025-02-07T10:05:00Z",
+          "content": "FRIEND_REQUEST",
+          "value": ["user-456"],
+          "isRead": true
+        }
+      },
+      "user-456": {
+        "notif-003": {
+          "id": "notif-003",
+          "receiverId": "user-456",
+          "url": "/settings",
+          "time": "2025-02-07T10:10:00Z",
+          "content": "NEW_UPDATE",
+          "value": ["Dark Mode"],
+          "isRead": false
+        }
+      }
+    }
+  }
+  

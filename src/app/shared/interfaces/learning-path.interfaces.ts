@@ -1,4 +1,5 @@
-import { LearningPathModeEnum } from "../enums/learning-path.enum";
+import { LearningPathModeEnum } from '../enums/learning-path.enum';
+import { ICourse } from './course.interfaces';
 
 export interface ILearningPath {
   id: string;
@@ -20,4 +21,13 @@ export interface ILearningPath {
 export interface IPathTab {
   label: string;
   value: string | LearningPathModeEnum;
+}
+
+export interface ILearningPathDetails extends ILearningPath {
+  courses: ILCourseObject[];
+}
+
+export interface ILCourseObject {
+  order: number;
+  course: ICourse;
 }

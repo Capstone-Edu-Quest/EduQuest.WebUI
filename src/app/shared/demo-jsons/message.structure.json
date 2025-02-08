@@ -1,0 +1,92 @@
+{
+  "conversations": {
+    "conv-001": {
+      "id": "conv-001",
+      "participants": {
+        "user-123": {
+          "lastSeen": "2025-02-02T08:10:00Z"
+        },
+        "user-456": {
+          "lastSeen": "2025-02-02T08:12:00Z"
+        }
+      },
+      "createdAt": "2025-02-02T08:00:00Z",
+      "lastMessage": {
+        "senderId": "user-456",
+        "time": "2025-02-02T08:09:15Z",
+        "content": "Need help? I ran into something similar last week."
+      }
+    },
+    "conv-002": {
+      "id": "conv-002",
+      "participants": {
+        "user-123": {
+          "lastSeen": "2025-02-02T09:00:00Z"
+        },
+        "user-789": {
+          "lastSeen": "2025-02-02T09:05:00Z"
+        }
+      },
+      "createdAt": "2025-02-02T09:00:00Z",
+      "lastMessage": {
+        "senderId": "user-789",
+        "time": "2025-02-02T09:15:30Z",
+        "content": "Sure! Let me check it for you."
+      }
+    }
+  },
+  "messages": {
+    "conv-001": {
+      "msg-001": {
+        "id": "msg-001",
+        "senderId": "user-123",
+        "time": "2025-02-02T08:05:00Z",
+        "content": "Hey, how are you?"
+      },
+      "msg-002": {
+        "id": "msg-002",
+        "senderId": "user-456",
+        "time": "2025-02-02T08:06:30Z",
+        "content": "I'm good! What about you?"
+      },
+      "msg-003": {
+        "id": "msg-003",
+        "senderId": "user-123",
+        "time": "2025-02-02T08:07:45Z",
+        "content": "Doing great, just working on a new project."
+      },
+      "msg-004": {
+        "id": "msg-004",
+        "senderId": "user-456",
+        "time": "2025-02-02T08:09:15Z",
+        "content": "Need help? I ran into something similar last week."
+      }
+    },
+    "conv-002": {
+      "msg-005": {
+        "id": "msg-005",
+        "senderId": "user-123",
+        "time": "2025-02-02T09:10:00Z",
+        "content": "Hello, nice to meet you!"
+      },
+      "msg-006": {
+        "id": "msg-006",
+        "senderId": "user-789",
+        "time": "2025-02-02T09:12:20Z",
+        "content": "Nice to meet you too!"
+      },
+      "msg-007": {
+        "id": "msg-007",
+        "senderId": "user-123",
+        "time": "2025-02-02T09:14:10Z",
+        "content": "Can you help me with an issue?"
+      },
+      "msg-008": {
+        "id": "msg-008",
+        "senderId": "user-789",
+        "time": "2025-02-02T09:15:30Z",
+        "content": "Sure! Let me check it for you."
+      }
+    }
+  }
+}

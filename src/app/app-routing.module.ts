@@ -15,6 +15,7 @@ import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { FoxItemsComponent } from './pages/fox-items/fox-items.component';
 import { CourseStageComponent } from './pages/course-stage/course-stage.component';
 import { LeaningPathComponent } from './pages/leaning-path/leaning-path.component';
+import { LearningPathDetailsComponent } from './pages/learning-path-details/learning-path-details.component';
 
 const routes: Routes = [
   {
@@ -37,8 +38,8 @@ const routes: Routes = [
           },
           {
             path: 'stages',
-            component: CourseStageComponent
-          }
+            component: CourseStageComponent,
+          },
         ],
       },
     ],
@@ -87,8 +88,17 @@ const routes: Routes = [
   },
   {
     path: 'learning-path',
-    component: LeaningPathComponent,
     canActivate: [AuthGuard],
+    children: [
+      {
+        path: '',
+        component: LeaningPathComponent,
+      },
+      {
+        path: ':pathId',
+        component: LearningPathDetailsComponent,
+      },
+    ],
   },
 ];
 
