@@ -1,0 +1,90 @@
+.ins-others {
+    display: grid;
+    grid-template-columns: repeat(1fr, 24);
+    gap: 12px;
+
+    .activities, .top-course {
+        background-color: var(--secondary-bg);
+        padding: 14px 20px;
+        border-radius: 20px;
+
+        .title {
+            font-size: 16px;
+            font-weight: 500;
+        }
+    }
+
+    .activities {
+        grid-column: 1/9;
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            fa-icon {
+                font-size: 16px;
+                color: var(--brand-light);
+            }
+        }
+
+        .navbar-noti {
+            margin-top: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            width: 100%;
+            max-height: 300px;
+            overflow-y: scroll;
+          
+            .noti {
+              position: relative;
+              padding: 12px 22px 12px 0;
+            //   border-bottom: 1px solid var(--quaternary-text);
+              box-sizing: border-box;
+          
+              &:nth-child(1) {
+                padding-top: 6px;
+              }
+          
+              &:nth-last-child(1) {
+                border-bottom: none;
+                padding-bottom: 6px;
+              }
+          
+              .label {
+                font-size: 13px;
+              }
+          
+              .time {
+                font-size: 11px;
+                margin-top: 2px;
+                color: var(--secondary-text);
+                display: flex;
+                align-items: center;
+                gap: 2px;
+          
+                i {
+                  transform: translateY(1px);
+                }
+              }
+          
+              .unread-dot {
+                height: 5px;
+                width: 5px;
+                position: absolute;
+                right: 3px;
+                top: 50%;
+                transform: translateY(-50%);
+                background: var(--alert);
+                border-radius: 50%;
+              }
+            }
+          }
+          
+    }
+
+    .top-course {
+        grid-column: 9/25;
+    }
+}

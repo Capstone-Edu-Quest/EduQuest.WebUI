@@ -29,11 +29,6 @@ export class HomeInstructorSummaryComponent implements OnInit, OnDestroy {
       value: 4.7,
       icon: faStar
     },
-    // {
-    //   label: 'LABEL.MONTHLY_REVENUE',
-    //   value: 99923,
-    //   icon: faDollarSign
-    // }
   ]
 
   constructor(private UserService: UserService) {}

@@ -1,0 +1,27 @@
+<div class="ins-others">
+  <div class="activities">
+    <div class="header">
+      <div class="title">{{ "LABEL.RECENT_ACTIVITIES" | translate }}</div>
+      <fa-icon [icon]="bellIcon"></fa-icon>
+    </div>
+    <div class="navbar-noti">
+      <div class="noti" *ngFor="let noti of notis">
+        <div class="label">{{ noti.content | translate }}</div>
+        <div class="time" *ngIf="calculateTimeAgo(noti.time) as timeAgo">
+          <i nz-icon nzType="clock-circle"></i>
+          {{
+            timeAgo === 0
+              ? ("LABEL.MINUTES_AGO" | translate : { value: timeAgo * 60 })
+              : ("LABEL.HOURS_AGO" | translate : { value: timeAgo })
+          }}
+        </div>
+
+        <div class="unread-dot"></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="top-course">
+    <div class="title">{{ "LABEL.TOP_COURSES" | translate }}</div>
+  </div>
+</div>
