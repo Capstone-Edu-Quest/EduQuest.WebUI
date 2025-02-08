@@ -109,7 +109,7 @@ export class MyCourseChartsComponent implements OnInit, OnDestroy {
     },
   };
   topCoursesChartData: ChartData<'radar'> = {
-    labels: ['Leaners', 'Rating (3.5 - 5)', 'Rating (1 - 3.5)'], // Labels for each axis
+    labels: ['Leaners', 'Rating (3 - 5)', 'Rating (1 - 3)'], // Labels for each axis
     datasets: [
       {
         label: 'ReactJS',

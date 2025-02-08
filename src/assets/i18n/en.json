@@ -309,7 +309,8 @@
     "LEANER_STATUS": "Leaner's Status",
     "COURSE_RATING": "Course's Rating",
     "TOP_COURSES": "Top Courses",
-    "IN_PROGRESS": "In Progress"
+    "IN_PROGRESS": "In Progress",
+    "COURSES_LIST": "Courses List"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search Courses",
