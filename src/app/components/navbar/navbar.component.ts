@@ -79,7 +79,7 @@ export class NavbarComponent implements OnInit {
       routerLink: ''
     },
     {
-      label: 'LABEL.MANAGE_COURSES',
+      label: 'LABEL.COURSES',
       routerLink: 'my-courses'
     },
     {
