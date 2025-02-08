@@ -174,7 +174,11 @@ export class LearningPathDetailsComponent implements OnInit {
 
   constructor(private route: ActivatedRoute) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    if(this.route.snapshot.queryParams['edit']) {
+      this.onEdit();
+    }
+  }
 
   onEnroll() {}
 
@@ -193,7 +197,7 @@ export class LearningPathDetailsComponent implements OnInit {
   }
 
   onEditPrivacy() {
-    if(!this.isEdit) return;
+    if (!this.isEdit) return;
     this.tempEditMeta.isPublic = !this.tempEditMeta.isPublic;
   }
 

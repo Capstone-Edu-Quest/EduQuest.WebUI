@@ -49,8 +49,12 @@ export class PathItemComponent implements OnInit {
   }
 
   onEdit(e: Event) {
-    console.log(e)
     e.stopPropagation();
+    this.router.navigate(['/learning-path', this.path.id], {
+      queryParams: {
+        edit: true,
+      },
+    });
   }
 
   onDelete(e: Event) {
