@@ -10,11 +10,11 @@ import {
   faEarth,
   faGripVertical,
   faPen,
+  faRetweet,
   faShare,
   faTrash,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
-import { ICourse } from '../../shared/interfaces/course.interfaces';
 
 @Component({
   selector: 'app-learning-path-details',
@@ -130,11 +130,17 @@ export class LearningPathDetailsComponent implements OnInit {
   timeIcon = faClock;
   privacyIcon = faEarth;
   dragIcon = faGripVertical;
+  swapIcon = faRetweet;
 
   isEdit: boolean = false;
-  currentDragCourse: ILCourseObject | null = null;
 
+  currentDragCourse: ILCourseObject | null = null;
   tempCourseList: ILCourseObject[] | null = null;
+  tempEditMeta = {
+    name: '',
+    description: '',
+    isPublic: this.learningPathDetails.isPublic,
+  };
 
   pannelBtn = [
     {
@@ -164,6 +170,8 @@ export class LearningPathDetailsComponent implements OnInit {
     },
   ];
 
+  showingPannelBtn = [...this.pannelBtn];
+
   constructor(private route: ActivatedRoute) {}
 
   ngOnInit(): void {}
@@ -172,7 +180,46 @@ export class LearningPathDetailsComponent implements OnInit {
 
   onEdit() {
     this.isEdit = !this.isEdit;
-    this.tempCourseList = this.isEdit ? this.learningPathDetails.courses : null;
+    this.tempCourseList = this.learningPathDetails.courses;
+    this.showingPannelBtn = this.showingPannelBtn.filter(
+      (btn) => btn.label !== 'LABEL.EDIT'
+    );
+
+    this.tempEditMeta = {
+      name: this.learningPathDetails.name,
+      description: this.learningPathDetails.description,
+      isPublic: this.learningPathDetails.isPublic,
+    };
+  }
+
+  onEditPrivacy() {
+    if(!this.isEdit) return;
+    this.tempEditMeta.isPublic = !this.tempEditMeta.isPublic;
+  }
+
+  onSaveEdit() {
+    this.learningPathDetails.courses = (
+      this.tempCourseList as ILCourseObject[]
+    ).map((c, i) => ({
+      ...c,
+      order: i,
+    }));
+
+    this.learningPathDetails.name = this.tempEditMeta.name;
+    this.learningPathDetails.description = this.tempEditMeta.description;
+    this.learningPathDetails.isPublic = this.tempEditMeta.isPublic;
+
+    console.log(this.learningPathDetails);
+
+    // Reset all edit attributes
+    this.onCancelEdit();
+  }
+
+  onCancelEdit() {
+    this.isEdit = false;
+    this.tempCourseList = null;
+    this.currentDragCourse = null;
+    this.showingPannelBtn = this.pannelBtn;
   }
 
   onDelete() {}
@@ -198,21 +245,22 @@ export class LearningPathDetailsComponent implements OnInit {
       .closest('.course-wrapper')
       ?.getAttribute('courseId');
 
-    if (!this.tempCourseList) return;
+    if (this.tempCourseList) {
+      const dropIndx = this.tempCourseList.findIndex(
+        (c) => c.course.id === droppedOnCourseId
+      );
 
-    const dropIndx = this.tempCourseList.findIndex(
-      (c) => c.course.id === droppedOnCourseId
-    );
+      this.tempCourseList = this.tempCourseList.filter(
+        (c) => c.course.id !== this.currentDragCourse?.course.id
+      );
 
-    this.tempCourseList = this.tempCourseList.filter(
-      (c) => c.course.id !== this.currentDragCourse?.course.id
-    );
+      this.tempCourseList = [
+        ...this.tempCourseList.slice(0, dropIndx),
+        this.currentDragCourse as ILCourseObject,
+        ...this.tempCourseList.slice(dropIndx),
+      ];
+    }
 
-    this.tempCourseList = [
-      ...this.tempCourseList.slice(0, dropIndx),
-      this.currentDragCourse as ILCourseObject,
-      ...this.tempCourseList.slice(dropIndx),
-    ];
     // console.log(this.tempCourseList, droppedOnCourseId);
     this.currentDragCourse = null;
   }

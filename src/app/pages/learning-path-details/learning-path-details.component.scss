@@ -2,6 +2,7 @@
   padding: 35px 15vw;
   box-sizing: border-box;
   position: relative;
+  user-select: none;
 
   .name {
     font-size: 18px;
@@ -14,8 +15,33 @@
     margin-top: 3px;
   }
 
+  .input-name,
+  .input-desc {
+    display: block;
+    background: var(--tertiary-bg);
+    border: none;
+    outline: none;
+    color: var(--primary-text);
+    width: calc(100% - 30px);
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+  }
+
+  .input-name {
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .input-desc {
+    font-size: 12px;
+    margin-top: 5px;
+  }
+
   .info-ctn {
+    position: relative;
     display: flex;
+    align-items: center;
     gap: 25px;
     margin-top: 22px;
 
@@ -23,6 +49,31 @@
       display: flex;
       gap: 6px;
       color: var(--secondary-text);
+
+      &.edit {
+        padding: 5px 12px;
+        border-radius: 8px;
+        box-sizing: border-box;
+        background: var(--tertiary-bg);
+        color: var(--primary-text);
+        cursor: pointer !important;
+
+        label {
+          cursor: pointer;
+        }
+
+        &:hover {
+          background: var(--tertiary-bg);
+        }
+      }
+    }
+
+    .btn-ctn {
+      display: flex;
+      gap: 8px;
+      position: absolute;
+      right: 0;
+      bottom: -50%;
     }
   }
 
@@ -107,6 +158,11 @@
       display: flex;
       align-items: center;
       width: 100%;
+
+      &.dragging {
+        opacity: 0.3;
+        cursor: grabbing;
+      }
 
       .drag-point {
         margin-right: 10px;

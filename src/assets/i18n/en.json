@@ -287,7 +287,7 @@
     "ENROLL": "Enroll",
     "EDIT": "Edit",
     "DELETE": "Delete",
-    "CLONE" : "Clone",
+    "CLONE": "Clone",
     "SHARE": "Share",
     "PUBLIC": "Public",
     "PRIVATE": "Private",
@@ -313,7 +313,9 @@
     "MOVE_TO_WISHLIST": "Move to wish list",
     "PROCEED_PAYMENT": "Proceed to payment",
     "APPLY": "Apply",
-    "GO_TO_WISHLIST": "Go to wishlist"
+    "GO_TO_WISHLIST": "Go to wishlist",
+    "CANCEL": "Cancel",
+    "SAVE": "Save"
   },
   "LANGUAGES": {
     "EN": "English",

@@ -1,6 +1,11 @@
 <div class="learning-path-details">
+  @if(!isEdit) {
   <div class="name">{{ learningPathDetails.name }}</div>
   <div class="description">{{ learningPathDetails.description }}</div>
+  } @else {
+  <input class="input-name" [(ngModel)]="tempEditMeta.name" />
+  <input class="input-desc" [(ngModel)]="tempEditMeta.description" />
+  }
 
   <div class="option">
     <div class="option-item"></div>
@@ -10,12 +15,12 @@
     <div
       class="drop-down"
       [ngStyle]="{
-        height: 11 + pannelBtn.length * 28 + 'px'
+        height: 11 + showingPannelBtn.length * 28 + 'px'
       }"
     >
       <div
         class="option"
-        *ngFor="let opt of pannelBtn; let i = index"
+        *ngFor="let opt of showingPannelBtn; let i = index"
         [ngStyle]="{
           top: 5 + i * 28 + 'px'
         }"
@@ -41,14 +46,30 @@
         }}</label
       >
     </div>
-    <div class="info">
+    <div
+      class="info"
+      [ngClass]="{
+        edit: isEdit
+      }"
+      (click)="onEditPrivacy()"
+    >
       <fa-icon [icon]="privacyIcon"></fa-icon>
       <label>
         {{
-          "LABEL." + (learningPathDetails.isPublic ? "PUBLIC" : "PRIVATE")
+          "LABEL." + ((isEdit ? tempEditMeta.isPublic : learningPathDetails.isPublic )? "PUBLIC" : "PRIVATE")
             | translate
         }}</label
       >
+      <fa-icon *ngIf="isEdit" [icon]="swapIcon"></fa-icon>
+    </div>
+
+    <div class="btn-ctn" *ngIf="isEdit">
+      <app-button (click)="onCancelEdit()">{{
+        "BUTTON.CANCEL" | translate
+      }}</app-button>
+      <app-button (click)="onSaveEdit()" type="primary">{{
+        "BUTTON.SAVE" | translate
+      }}</app-button>
     </div>
   </div>
 
@@ -61,11 +82,17 @@
       (dragstart)="onDragStart($event, course)"
       (dragover)="onDragOver($event)"
       (drop)="onDrop($event)"
+      [ngClass]="{
+        dragging: course.course.id === currentDragCourse?.course?.id
+      }"
     >
       <div class="drag-point" *ngIf="isEdit">
         <fa-icon [icon]="dragIcon"></fa-icon>
       </div>
       <app-path-course-item
+        [ngStyle]="{
+          cursor: isEdit ? 'grab' : 'pointer'
+        }"
         [isEdit]="isEdit"
         [course]="course.course"
       ></app-path-course-item>
