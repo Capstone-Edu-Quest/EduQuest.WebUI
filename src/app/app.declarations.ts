@@ -116,6 +116,7 @@ import { PathItemComponent } from './pages/leaning-path/path-item/path-item.comp
 import { LearningPathDetailsComponent } from './pages/learning-path-details/learning-path-details.component';
 import { PathCourseItemComponent } from './pages/learning-path-details/path-course-item/path-course-item.component';
 import { ShopItemsComponent } from './pages/shop-items/shop-items.component';
+import { HomeInstructorSummaryComponent } from './pages/home/home-instructor/home-instructor-summary/home-instructor-summary.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -148,6 +149,7 @@ export const AppDeclarations = [
   HomeWebNumericComponent,
   HomeShowOffComponent,
   HomeWhyChooseUsComponent,
+  HomeInstructorSummaryComponent,
   // Courses
   CoursesComponent,
   CoursesSearchPannelComponent,

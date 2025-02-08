@@ -1,0 +1,39 @@
+<div class="ins-summary">
+  <div class="header">
+    <app-avatar-by-name
+      [name]="user?.username || ''"
+      size="50px"
+    ></app-avatar-by-name>
+    <div class="info">
+      <div class="welcome-back text-gradient">
+        {{ "MESSAGE.WELCOME_BACK" | translate : { name: "Khang" } }}
+      </div>
+      <div class="what-new">{{ "LABEL.WHATS_NEW_INSTRUCTOR" | translate }}</div>
+    </div>
+  </div>
+
+  <div class="stats-ctn">
+    <div class="stat" *ngFor="let stat of statsItem">
+      <div class="header">
+        <label>{{ stat.label | translate }}</label>
+        <fa-icon [icon]="stat.icon"></fa-icon>
+      </div>
+      <div class="value">{{ stat.value.toLocaleString() }}</div>
+    </div>
+    <div class="stat">
+      <div class="header">
+        <label>{{ "LABEL.MONTHLY_REVENUE" | translate }}</label>
+        <div class="icon">
+          {{ "SIGNATURE.MONEY_VALUE" | translate : { value: "" } }}
+        </div>
+      </div>
+      <div class="value">
+        {{
+          "SIGNATURE.MONEY_VALUE"
+            | translate
+              : { value: 99992 | currencyExchange : { toString: true } }
+        }}
+      </div>
+    </div>
+  </div>
+</div>

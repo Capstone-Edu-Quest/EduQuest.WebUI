@@ -53,13 +53,13 @@ const routes: Routes = [
     path: 'cart',
     component: CartComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { allowedRoles: [WebRole.LEANER] },
+    data: { allowedRoles: [WebRole.LEARNER] },
   },
   {
     path: 'wishlist',
     component: WishlistComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { allowedRoles: [WebRole.LEANER] },
+    data: { allowedRoles: [WebRole.LEARNER] },
   },
   {
     path: 'profile',
@@ -81,7 +81,7 @@ const routes: Routes = [
     path: 'chat',
     component: ChatComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { allowedRoles: [WebRole.LEANER, WebRole.INSTRUCTOR] },
+    data: { allowedRoles: [WebRole.LEARNER, WebRole.INSTRUCTOR] },
     children: [
       {
         path: ':conversationId',
@@ -105,18 +105,18 @@ const routes: Routes = [
     path: 'items',
     component: FoxItemsComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { allowedRoles: [WebRole.LEANER] },
+    data: { allowedRoles: [WebRole.LEARNER] },
   },
   {
     path: 'shop-items',
     component: ShopItemsComponent,
     canActivate: [AuthGuard, RoleGuard],
-    data: { allowedRoles: [WebRole.LEANER] },
+    data: { allowedRoles: [WebRole.LEARNER] },
   },
   {
     path: 'learning-path',
     canActivate: [AuthGuard, RoleGuard],
-    data: { allowedRoles: [WebRole.LEANER] },
+    data: { allowedRoles: [WebRole.LEARNER] },
     children: [
       {
         path: '',

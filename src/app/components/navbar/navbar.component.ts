@@ -52,7 +52,7 @@ export class NavbarComponent implements OnInit {
     },
     {
       icon: 'message',
-      routerLink: 'message',
+      routerLink: 'chat',
       badge: 0,
       dropdown: this.messageDropdown,
     },
@@ -67,12 +67,31 @@ export class NavbarComponent implements OnInit {
     },
     {
       icon: 'message',
-      routerLink: 'message',
+      routerLink: 'chat',
       badge: 0,
       dropdown: this.messageDropdown,
     },
   ];
 
+  instructorsNavItems = [
+    {
+      label: 'LABEL.HOME',
+      routerLink: ''
+    },
+    {
+      label: 'LABEL.MANAGE_COURSES',
+      routerLink: 'my-courses'
+    },
+    {
+      label: 'LABEL.REVIEWS',
+      routerLink: 'my-reviews'
+    },
+    {
+      label: 'LABEL.REVENUE',
+      routerLink: 'revenue'
+    },
+  ]
+  
   iconItems: any[] = [];
 
   user: IUser | null = null;
@@ -109,7 +128,7 @@ export class NavbarComponent implements OnInit {
     }
 
     switch (this.user.roleId) {
-      case WebRole.LEANER:
+      case WebRole.LEARNER:
         this.iconItems = this.leanerItems;
         break;
       case WebRole.INSTRUCTOR:

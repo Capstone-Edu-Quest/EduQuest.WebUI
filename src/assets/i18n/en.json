@@ -293,7 +293,16 @@
     "PRIVATE": "Private",
     "HOURS_VALUE": "{{value}} hours",
     "SHOP": "Shop",
-    "PURCHASED": "Purchased"
+    "PURCHASED": "Purchased",
+    "HOME": "Home",
+    "MANAGE_COURSES": "Manage Courses",
+    "REVIEWS": "Reviews",
+    "REVENUE": "Revenue",
+    "WHATS_NEW_INSTRUCTOR": "Here's what's happening with your courses today.",
+    "TOTAL_COURSES": "Total Courses",
+    "TOTAL_LEANERS": "Total Leaners",
+    "AVERAGE_RATING": "Average Reviews",
+    "MONTHLY_REVENUE": "Monthly Revenue"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search Courses",

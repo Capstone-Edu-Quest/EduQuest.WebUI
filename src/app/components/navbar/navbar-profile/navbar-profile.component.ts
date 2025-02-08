@@ -13,6 +13,7 @@ import { ThemeService } from '../../../core/services/theme.service';
 import { ModalService } from '../../../core/services/modal.service';
 import { IUser, IUserStat } from '../../../shared/interfaces/user.interfaces';
 import { MessageService } from '../../../core/services/message.service';
+import { WebRole } from '../../../shared/enums/user.enum';
 
 @Component({
   selector: 'app-navbar-profile',
@@ -42,63 +43,123 @@ export class NavbarProfileComponent implements OnInit, OnDestroy {
     this.listenToUser();
   }
 
+  instructorItems = [
+    {
+      name: 'LABEL.PROFILE',
+      action: () => this.router.navigate(['/profile']),
+    },
+    {
+      name: 'LABEL.SETTINGS',
+      action: () => this.router.navigate(['/settings']),
+    },
+    {
+      name: 'LABEL.TRANSACTIONS',
+      action: () => this.router.navigate(['/transactions']),
+    },
+    {
+      name: null,
+    },
+    {
+      name: 'LABEL.LANGUAGE',
+      value: {
+        icon: 'global',
+        value: `LANGUAGES.${this.translate.currentLang.toUpperCase()}`,
+      },
+      action: () => this.onShowLanguageDialog(),
+    },
+    {
+      name: 'LABEL.THEME',
+      value: {
+        icon: 'format-painter',
+        value: '',
+      },
+      action: () => this.theme.onGoToNextTheme(),
+    },
+    {
+      name: null,
+    },
+    {
+      name: 'LABEL.PRICING',
+      action: () => this.router.navigate(['/pricing']),
+    },
+    {
+      name: 'LABEL.HELP',
+      action: () => this.router.navigate(['/help']),
+    },
+    {
+      name: 'LABEL.LOGOUT',
+      action: () => this.UserService.logout(),
+    },
+  ];
+
+  leanerItems = [
+    {
+      name: 'LABEL.PROFILE',
+      action: () => this.router.navigate(['/profile']),
+    },
+    {
+      name: 'LABEL.MY_LEARNING',
+      action: () => this.router.navigate(['/my-learning']),
+    },
+    {
+      name: 'LABEL.SETTINGS',
+      action: () => this.router.navigate(['/settings']),
+    },
+    {
+      name: 'LABEL.TRANSACTIONS',
+      action: () => this.router.navigate(['/transactions']),
+    },
+    {
+      name: null,
+    },
+    {
+      name: 'LABEL.LANGUAGE',
+      value: {
+        icon: 'global',
+        value: `LANGUAGES.${this.translate.currentLang.toUpperCase()}`,
+      },
+      action: () => this.onShowLanguageDialog(),
+    },
+    {
+      name: 'LABEL.THEME',
+      value: {
+        icon: 'format-painter',
+        value: '',
+      },
+      action: () => this.theme.onGoToNextTheme(),
+    },
+    {
+      name: null,
+    },
+    {
+      name: 'LABEL.BECOME_AN_INSTRUCTOR',
+      action: () => this.router.navigate(['/create-course']),
+    },
+    {
+      name: 'LABEL.PRICING',
+      action: () => this.router.navigate(['/pricing']),
+    },
+    {
+      name: 'LABEL.HELP',
+      action: () => this.router.navigate(['/help']),
+    },
+    {
+      name: 'LABEL.LOGOUT',
+      action: () => this.UserService.logout(),
+    },
+  ];
+
   onInitRouteItems() {
-    this.routeItems = [
-      {
-        name: 'LABEL.PROFILE',
-        action: () => this.router.navigate(['/profile']),
-      },
-      {
-        name: 'LABEL.MY_LEARNING',
-        action: () => this.router.navigate(['/my-learning']),
-      },
-      {
-        name: 'LABEL.SETTINGS',
-        action: () => this.router.navigate(['/settings']),
-      },
-      {
-        name: 'LABEL.TRANSACTIONS',
-        action: () => this.router.navigate(['/transactions']),
-      },
-      {
-        name: null,
-      },
-      {
-        name: 'LABEL.LANGUAGE',
-        value: {
-          icon: 'global',
-          value: `LANGUAGES.${this.translate.currentLang.toUpperCase()}`,
-        },
-        action: () => this.onShowLanguageDialog(),
-      },
-      {
-        name: 'LABEL.THEME',
-        value: {
-          icon: 'format-painter',
-          value: '',
-        },
-        action: () => this.theme.onGoToNextTheme(),
-      },
-      {
-        name: null,
-      },
-      {
-        name: 'LABEL.BECOME_AN_INSTRUCTOR',
-        action: () => this.router.navigate(['/create-course']),
-      },
-      {
-        name: 'LABEL.PRICING',
-        action: () => this.router.navigate(['/pricing']),
-      },
-      {
-        name: 'LABEL.HELP',
-        action: () => this.router.navigate(['/help']),
-      },
-      {
-        name: 'LABEL.LOGOUT',
-        action: () => this.UserService.logout()
-      },
-    ];
+    if(!this.UserService.user$?.value) return;
+
+    switch(this.UserService.user$.value.roleId) {
+      case WebRole.INSTRUCTOR:
+        this.routeItems = this.instructorItems;
+        break;
+      case WebRole.LEARNER:
+        this.routeItems = this.leanerItems;
+        break;
+    }
   }
 
   listenToUser() {

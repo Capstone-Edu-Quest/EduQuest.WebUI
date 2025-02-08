@@ -14,10 +14,6 @@ export class RoleGuard implements CanActivate {
     const allowedRoles = route.data['allowedRoles'];
     const blockedRoles = route.data['blockedRoles'];
 
-    console.log(
-      !blockedRoles.includes((this.userService.user$.value as IUser)?.roleId)
-    );
-
     if (
       allowedRoles &&
       allowedRoles.includes((this.userService.user$.value as IUser)?.roleId)

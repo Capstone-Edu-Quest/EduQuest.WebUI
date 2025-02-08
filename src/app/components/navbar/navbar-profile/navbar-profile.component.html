@@ -1,6 +1,6 @@
 <div class="navbar-profile">
   <div class="user-info">
-    <app-avatar-by-name name="Gia Khang" [size]="'45px'"></app-avatar-by-name>
+    <app-avatar-by-name [name]="user?.username || ''" [size]="'45px'"></app-avatar-by-name>
     <div class="other-info">
       <div class="name">{{ user?.username }}</div>
       <div class="email">{{ user?.email }}</div>
