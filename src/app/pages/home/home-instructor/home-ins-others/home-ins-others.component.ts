@@ -22,12 +22,6 @@ export class HomeInsOthersComponent implements OnInit, OnDestroy {
   bellIcon = faBell;
 
   // Chart
-  chartColor = {
-    backgroundColor: 'rgba(75, 192, 192, 0.5)',
-    borderColor: 'rgba(75, 192, 192, 1)',
-  };
-  chartTitle = 'Leaners';
-
   chartType: ChartType = 'bar';
 
   chartOptions: ChartConfiguration['options'] = {
@@ -51,9 +45,8 @@ export class HomeInsOthersComponent implements OnInit, OnDestroy {
     ],
     datasets: [
       {
-        label: this.chartTitle,
+        label: '',
         data: [50, 75, 110, 90, 130],
-        ...this.chartColor,
         borderWidth: 1,
       },
     ],
