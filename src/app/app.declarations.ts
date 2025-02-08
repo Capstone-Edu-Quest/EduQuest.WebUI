@@ -44,15 +44,15 @@ import {
   WarningFill,
 } from '@ant-design/icons-angular/icons';
 import { HomeComponent } from './pages/home/home.component';
-import { HomeStatisticsComponent } from './pages/home/home-all-statistics/home-statistics/home-statistics.component';
-import { HomeStudyingComponent } from './pages/home/home-all-statistics/home-studying/home-studying.component';
+import { HomeStatisticsComponent } from './pages/home/home-leaner/home-statistics/home-statistics.component';
+import { HomeStudyingComponent } from './pages/home/home-leaner/home-studying/home-studying.component';
 import { CoursesCardComponent } from './components/courses-components/coursesCard/coursesCard.component';
 import { DropdownMenuComponent } from './components/dropdownMenu/dropdownMenu.component';
 import { BadgeComponent } from './components/badge/badge.component';
 import { CoursesListComponent } from './components/courses-components/coursesList/coursesList.component';
 import { ButtonComponent } from './components/button/button.component';
-import { HomeSuggestedComponent } from './pages/home/home-all-statistics/home-suggested/home-suggested.component';
-import { HomeAchievementsComponent } from './pages/home/home-all-statistics/home-achievements/home-achievements.component';
+import { HomeSuggestedComponent } from './pages/home/home-leaner/home-suggested/home-suggested.component';
+import { HomeAchievementsComponent } from './pages/home/home-leaner/home-achievements/home-achievements.component';
 import { AchievementCardComponent } from './components/achievements/achievement-card/achievement-card.component';
 import { AchievementsListComponent } from './components/achievements/achievements-list/achievements-list.component';
 import { ModalComponent } from './components/modal/modal.component';

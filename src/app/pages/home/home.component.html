@@ -3,10 +3,15 @@
 </div>
 
 <ng-template #signedIn>
+  @if(user && user.roleId === 2) { 
+    
+  } @else {
+
   <app-home-statistics></app-home-statistics>
   <app-home-studying></app-home-studying>
   <app-home-suggested></app-home-suggested>
   <app-home-achievements></app-home-achievements>
+  }
 </ng-template>
 
 <ng-template #notSignIn>
