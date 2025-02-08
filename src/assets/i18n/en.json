@@ -293,7 +293,7 @@
     "PRIVATE": "Private",
     "HOURS_VALUE": "{{value}} hours",
     "SHOP": "Shop",
-    "OWNED": "Owned"
+    "PURCHASED": "Purchased"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search Courses",
@@ -345,7 +345,7 @@
     "BALLOON": "Balloon",
     "GOBLIN-SHIELD": "Goblin Shield",
     "APOLLOS-SHIELD": "Apollos Shield",
-    "GOLD-BELT": "Gold Belt"
+    "GOLD-BELT": "Golden Belt"
   },
   "SIGNATURE": {
     "MONEY_VALUE": "${{value}}",

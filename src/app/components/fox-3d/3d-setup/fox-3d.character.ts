@@ -238,7 +238,7 @@ export default class Character {
 
   addItem(item: IEquipmentItem, boneName: bonePosition[]) {
     this.loadingElement.style.display = 'block';
-    const path = `${folderPath}${item.id}-compressed.glb`;
+    const path = `${folderPath.item}${item.id}-compressed.glb`;
 
     const bones: Bone[] = [];
 
