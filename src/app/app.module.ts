@@ -21,6 +21,7 @@ import { FormsModule } from '@angular/forms';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NgChartsModule } from 'ng2-charts';
 
 // Factory function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -30,6 +31,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
 @NgModule({
   declarations: AppDeclarations,
   imports: [
+    NgChartsModule,
     MatTooltipModule,
     BrowserAnimationsModule,
     PipesModule,

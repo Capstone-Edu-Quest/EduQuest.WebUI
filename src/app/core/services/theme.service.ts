@@ -61,5 +61,9 @@ export class ThemeService {
     this.StorageService.setToLocalStorage(localStorageEnum.THEME, nextThemeKey);
     this.onUpdateTheme(nextThemeKey);
   }
+
+  getCurrentTheme() {
+    return this.themes.find((theme) => theme.key === this.currentTheme$.value);
+  }
   
 }

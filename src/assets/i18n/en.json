@@ -304,7 +304,8 @@
     "AVERAGE_RATING": "Average Reviews",
     "MONTHLY_REVENUE": "Monthly Revenue",
     "RECENT_ACTIVITIES": "Recent Activities",
-    "TOP_COURSES": "Top Courses"
+    "TOP_COURSES": "Top Courses",
+    "LEARNERS": "Leaners"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search Courses",
