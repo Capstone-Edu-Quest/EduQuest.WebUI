@@ -8,6 +8,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FoxItems } from '../../components/fox-3d/3d-setup/fox-3d.config';
 import { faLock } from '@fortawesome/free-solid-svg-icons';
 import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
+import { folderPath } from '../../shared/constants/path.constant';
 
 @Component({
   selector: 'app-fox-items',
@@ -17,7 +18,7 @@ import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 })
 export class FoxItemsComponent implements OnInit, OnDestroy {
   subscription$: Subscription = new Subscription();
-  thumbnailPath = 'assets/characters/Thumbnails/';
+  thumbnailPath = folderPath.itemThumbnail;
 
   slots: string[] = ['head', 'body', 'legs', 'leftHand', 'rightHand'];
   currentEquipedItem!: IEquipmentServiceItem;

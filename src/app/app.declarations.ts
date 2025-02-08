@@ -115,6 +115,7 @@ import { HttpService } from './core/services/http.service';
 import { PathItemComponent } from './pages/leaning-path/path-item/path-item.component';
 import { LearningPathDetailsComponent } from './pages/learning-path-details/learning-path-details.component';
 import { PathCourseItemComponent } from './pages/learning-path-details/path-course-item/path-course-item.component';
+import { ShopItemsComponent } from './pages/shop-items/shop-items.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -182,6 +183,7 @@ export const AppDeclarations = [
   Fox3dComponent,
   // Fox
   FoxItemsComponent,
+  ShopItemsComponent,
   // Stages
   CourseStageComponent,
   // Path

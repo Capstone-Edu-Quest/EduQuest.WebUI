@@ -49,7 +49,9 @@
         <fa-icon class="add" [icon]="addIcon"></fa-icon>
       </div>
 
-      <fa-icon class="shop" [icon]="shopIcon"></fa-icon>
+      <a routerLink="shop-items">
+        <fa-icon class="shop" [icon]="shopIcon"></fa-icon>
+      </a>
 
       <a routerLink="items">
         <fa-icon class="shop" [icon]="boxIcon"></fa-icon>
@@ -65,3 +67,7 @@
     </div>
   </div>
 </div>
+
+<ng-template #shop>
+  <app-shop-items></app-shop-items>
+</ng-template>

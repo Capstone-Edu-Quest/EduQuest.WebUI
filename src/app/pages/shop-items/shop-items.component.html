@@ -1,0 +1,33 @@
+<div class="shop-items">
+  <div class="header">
+    <div class="title text-gradient">{{ "LABEL.SHOP" | translate }}</div>
+
+    <div class="gold-ctn">
+      <fa-icon [icon]="coinIcon"></fa-icon>
+      <div class="number">224</div>
+      <fa-icon class="add" [icon]="addIcon"></fa-icon>
+    </div>
+  </div>
+
+  <div class="items-list">
+    <div class="item" *ngFor="let item of items">
+      <div class="img-wrapper">
+        <img [src]="thumbnailPath + item.id + '.png'" />
+      </div>
+      <div class="item-name">
+        {{ "SHOP_ITEMS." + item.id.toUpperCase() | translate }}
+      </div>
+      <div class="price">
+        <fa-icon [icon]="coinIcon"></fa-icon>
+        <div class="number">{{ item.price }}</div>
+      </div>
+
+      <div class="owned" *ngIf="item.isOwned">
+        {{ "LABEL.OWNED" | translate }}
+      </div>
+      <button class="buy-btn" *ngIf="!item.isOwned">
+        {{ "BUTTON.PURCHASE" | translate }}
+      </button>
+    </div>
+  </div>
+</div>

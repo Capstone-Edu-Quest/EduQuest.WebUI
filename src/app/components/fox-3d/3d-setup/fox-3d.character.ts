@@ -25,6 +25,7 @@ import {
   treePositions,
 } from './fox-3d.config';
 import { GUI } from 'dat.gui';
+import { folderPath } from '../../../shared/constants/path.constant';
 
 export default class Character {
   scene!: Scene;
@@ -92,7 +93,7 @@ export default class Character {
       'three-loading'
     ) as HTMLDivElement;
 
-    this.glTFLoader.load('/assets/characters/fox.glb', (gltf) => {
+    this.glTFLoader.load(`${folderPath.characters}fox.glb`, (gltf) => {
       this.fox = gltf.scene;
       this.mixer = new AnimationMixer(this.fox);
       this.mixer.clipAction(gltf.animations[0]).play();
@@ -115,7 +116,7 @@ export default class Character {
   }
 
   async initBackground() {
-    this.glTFLoader.load('/assets/characters/rock-flat-grass.glb', (gltf) => {
+    this.glTFLoader.load(`${folderPath.characters}rock-flat-grass.glb`, (gltf) => {
       const grass = gltf.scene;
       const grasses = grassStonePositions.map((_grass) => grass.clone());
       grasses.forEach((_grass, index) => {
@@ -134,7 +135,7 @@ export default class Character {
     });
 
     // Tree
-    this.glTFLoader.load('/assets/characters/tree.glb', (gltf) => {
+    this.glTFLoader.load(`${folderPath.characters}tree.glb`, (gltf) => {
       const tree = gltf.scene;
       const trees = treePositions.map((_tree) => tree.clone());
       trees.forEach((_tree, index) => {
@@ -154,7 +155,7 @@ export default class Character {
 
     // Stone
     this.glTFLoader.load(
-      '/assets/characters/resource-stone-large.glb',
+      `${folderPath.characters}resource-stone-large.glb`,
       (gltf) => {
         const stone = gltf.scene;
         const stones = stoneData.map((_stone) => stone.clone());
@@ -181,7 +182,7 @@ export default class Character {
     );
 
     // Grass
-    this.glTFLoader.load('/assets/characters/patch-grass-large.glb', (gltf) => {
+    this.glTFLoader.load(`${folderPath.characters}patch-grass-large.glb`, (gltf) => {
       const grass = gltf.scene;
       const grasses = grassData.map((_grass) => grass.clone());
 
@@ -237,7 +238,7 @@ export default class Character {
 
   addItem(item: IEquipmentItem, boneName: bonePosition[]) {
     this.loadingElement.style.display = 'block';
-    const path = `/assets/characters/Equipments/compressed/${item.id}-compressed.glb`;
+    const path = `${folderPath}${item.id}-compressed.glb`;
 
     const bones: Bone[] = [];
 

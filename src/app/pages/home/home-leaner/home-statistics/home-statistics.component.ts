@@ -1,5 +1,12 @@
-import { Component, OnInit } from '@angular/core';
-import { faBoxOpen, faCertificate, faCoins, faPlus, faShop } from '@fortawesome/free-solid-svg-icons';
+import { Component, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  faBoxOpen,
+  faCertificate,
+  faCoins,
+  faPlus,
+  faShop,
+} from '@fortawesome/free-solid-svg-icons';
+import { ModalService } from '../../../../core/services/modal.service';
 
 @Component({
   selector: 'app-home-statistics',
@@ -27,7 +34,7 @@ export class HomeStatisticsComponent implements OnInit {
   coinIcon = faCoins;
   addIcon = faPlus;
   shopIcon = faShop;
-  boxIcon = faBoxOpen
+  boxIcon = faBoxOpen;
 
   statistics = [
     // {
@@ -51,7 +58,7 @@ export class HomeStatisticsComponent implements OnInit {
       value: `0% exp | 0% gold`,
     },
   ];
-  constructor() {}
+  constructor(private modal: ModalService) {}
 
   ngOnInit() {}
 }

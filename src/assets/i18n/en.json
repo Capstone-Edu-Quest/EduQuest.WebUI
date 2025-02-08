@@ -291,7 +291,9 @@
     "SHARE": "Share",
     "PUBLIC": "Public",
     "PRIVATE": "Private",
-    "HOURS_VALUE": "{{value}} hours"
+    "HOURS_VALUE": "{{value}} hours",
+    "SHOP": "Shop",
+    "OWNED": "Owned"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search Courses",
@@ -315,13 +317,35 @@
     "APPLY": "Apply",
     "GO_TO_WISHLIST": "Go to wishlist",
     "CANCEL": "Cancel",
-    "SAVE": "Save"
+    "SAVE": "Save",
+    "PURCHASE": "Purchase"
   },
   "LANGUAGES": {
     "EN": "English",
     "VI": "Vietnamese",
     "CN": "Chinese",
     "JP": "Japanese"
+  },
+  "SHOP_ITEMS": {
+    "ORANGE-VEST": "Orange Vest",
+    "WINGS": "Wings",
+    "POLICE-VEST": "Police Vest",
+    "LEATHER-VEST": "Leather Vest",
+    "DONUT-NECKLACE": "Donut Necklace",
+    "COW-BOY-HAT": "Cow Boy Hat",
+    "SAMURAI-HAT": "Samurai Hat",
+    "CLOWN-HAT": "Clown Hat",
+    "ARROW-HAT": "Arrow Hat",
+    "TINKER-GLASSES": "Tinker Glasses",
+    "SUN-GLASSES": "Sun Glasses",
+    "BICYCLE-HAT": "Bicycle Hat",
+    "KATANA": "Katana",
+    "MIRAZ-SWORD": "Miraz Sword",
+    "PERSIAN-SWORD": "Persian Sword",
+    "BALLOON": "Balloon",
+    "GOBLIN-SHIELD": "Goblin Shield",
+    "APOLLOS-SHIELD": "Apollos Shield",
+    "GOLD-BELT": "Gold Belt"
   },
   "SIGNATURE": {
     "MONEY_VALUE": "${{value}}",

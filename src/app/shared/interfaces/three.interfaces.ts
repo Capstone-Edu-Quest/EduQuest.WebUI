@@ -28,3 +28,9 @@ export interface IItemInUse {
   id: string;
   model: Object3D;
 }
+
+export interface IShopItem {
+  id: string;
+  price: number;
+  isOwned: boolean;
+}
