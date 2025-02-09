@@ -1,5 +1,5 @@
-import { MissionStatus } from "../enums/course.enum";
-import { IUserStat } from "./user.interfaces";
+import { MissionStatus } from '../enums/course.enum';
+import { IUserStat } from './user.interfaces';
 
 export interface ICourse {
   id: string;
@@ -26,6 +26,19 @@ export interface ICourseDetails extends ICourse {
   totalTime: number; // hours
 }
 
+export interface ICourseManage extends ICourse {
+  isPublic: boolean;
+}
+
+export interface ICourseManageDetails extends Omit<ICourseDetails, 'author'> {
+  isPublic: boolean;
+  totalInWhislist: number;
+  totalInCart: number;
+  courseEnrollOverTime: { time: string; count: number }[];
+  courseRatingOverTime: { time: string; count: number }[];
+  totalEnrolled: number;
+}
+
 export interface IStage {
   id: string;
   title: string;
@@ -33,7 +46,7 @@ export interface IStage {
   mission: IStageMission[];
 }
 
-export type stageMissionType = 'video' | 'document' | 'quiz'
+export type stageMissionType = 'video' | 'document' | 'quiz';
 
 export interface IStageMission {
   id: string;
@@ -60,4 +73,18 @@ export interface ICoupon {
   discount: number; // %
   description: string;
   expireDate: string | null;
+}
+
+export interface IReview {
+  id: string;
+  user: {
+    id: string;
+    name: string;
+    avatar: string;
+  };
+  courseId: string;
+  rating: number;
+  content: string;
+  createdDate: string;
+  lastUpdated: string;
 }

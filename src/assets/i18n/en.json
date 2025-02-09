@@ -311,7 +311,14 @@
     "TOP_COURSES": "Top Courses",
     "IN_PROGRESS": "In Progress",
     "COURSES_LIST": "Courses List",
-    "ADD_NEW_COURSE": "Add New Course"
+    "ADD_NEW_COURSE": "Add New Course",
+    "MOST_LEANERS": "Most Leaners",
+    "TOTAL_IN_WISHLIST": "Saved to Wishlist",
+    "TOTAL_IN_CART": "Added to Cart",
+    "STATISTICS_OVERTIME": "Statistics Over Time",
+    "LAST_UPDATED": "Last updated {{value}}",
+    "THUMBNAIL": "Thumbnail",
+    "RATING_VALUE": "{{value}} ratings"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search Courses",

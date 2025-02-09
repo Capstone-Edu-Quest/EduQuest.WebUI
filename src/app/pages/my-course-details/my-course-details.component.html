@@ -1,1 +1,118 @@
-<div class="my-course-details">{{courseId}}</div>
+<div class="my-course-details">
+  <div class="name">{{ course.name }}</div>
+  <div class="last-updated"></div>
+
+  <ng-container [ngTemplateOutlet]="dropdown"></ng-container>
+
+  <div class="other-info">
+    {{
+      "LABEL.LAST_UPDATED"
+        | translate
+          : { value: "SIGNATURE.DATE_FORMAT" | translate : lastUpdated }
+    }}
+    <div>·</div>
+    <div class="course-status">
+      {{ (course.isPublic ? "LABEL.PUBLIC" : "LABEL.PRIVATE") | translate }}
+    </div>
+    <div>·</div>
+    <div class="course-status">
+      {{
+        "SIGNATURE.MONEY_VALUE"
+          | translate : { value: course.price | currencyExchange }
+      }}
+    </div>
+  </div>
+
+  <div class="stats-ctn">
+    <div class="stats-number-section" *ngFor="let stat of statsItem">
+      <div class="label">{{ stat.label | translate }}</div>
+      <div class="value">
+        {{ course[stat.index]?.toLocaleString() }}
+        <fa-icon [icon]="stat.icon"></fa-icon>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-ctn">
+    <div class="title">{{ "LABEL.STATISTICS_OVERTIME" | translate }}</div>
+    <canvas baseChart [data]="chartData" [options]="chartOptions" type="line">
+    </canvas>
+  </div>
+
+  <div class="section">
+    <div class="label">{{ "LABEL.REVIEWS" | translate }}</div>
+    <div class="other-info">
+      <div class="time">
+        {{
+          "LABEL.RATING_VALUE"
+            | translate : { value: course.numberOfRating.toLocaleString() }
+        }}
+      </div>
+    </div>
+    <div class="value">---</div>
+  </div>
+
+  <div class="section">
+    <div class="label">{{ "LABEL.STAGES" | translate }}</div>
+    <div class="other-info">
+      <div class="time">
+        {{ "LABEL.TOTAL_TIME_IN_HOUR" | translate : { hour: course.duration } }}
+      </div>
+      <div>·</div>
+      <div class="lesson">
+        {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: course.stageCount } }}
+      </div>
+    </div>
+    <div class="sections-ctn">
+      <app-course-section
+        *ngFor="let stage of course.stages; let i = index"
+        [index]="i"
+        [stage]="stage"
+      ></app-course-section>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="label">{{ "LABEL.REQUIREMENTS" | translate }}</div>
+    <ol>
+      <li *ngFor="let item of course.requirements">{{ item }}</li>
+    </ol>
+  </div>
+
+  <div class="section">
+    <div class="label">{{ "LABEL.DESCRIPTION" | translate }}</div>
+    <div class="value">{{ course.description }}</div>
+  </div>
+
+  <div class="section">
+    <div class="label">{{ "LABEL.THUMBNAIL" | translate }}</div>
+    <img class="thumbnail" [src]="course.image" />
+  </div>
+</div>
+
+<ng-template #dropdown>
+  <div class="option">
+    <div class="option-item"></div>
+    <div class="option-item"></div>
+    <div class="option-item"></div>
+
+    <div
+      class="drop-down"
+      [ngStyle]="{
+        height: 11 + pannelBtn.length * 28 + 'px'
+      }"
+    >
+      <div
+        class="option"
+        *ngFor="let opt of pannelBtn; let i = index"
+        [ngStyle]="{
+          top: 5 + i * 28 + 'px'
+        }"
+        (click)="opt.action($event)"
+      >
+        <fa-icon [icon]="opt.icon"></fa-icon>
+        {{ opt.label | translate }}
+      </div>
+    </div>
+  </div>
+</ng-template>

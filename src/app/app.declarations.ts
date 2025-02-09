@@ -124,6 +124,7 @@ import { MyCourseListComponent } from './pages/my-courses/my-course-list/my-cour
 import { MyCourseItemComponent } from './pages/my-courses/my-course-list/my-course-item/my-course-item.component';
 import { MyCourseAddComponent } from './pages/my-course-add/my-course-add.component';
 import { MyCourseDetailsComponent } from './pages/my-course-details/my-course-details.component';
+import { ReviewItemComponent } from './components/review-item/review-item.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -145,6 +146,7 @@ export const AppDeclarations = [
   NavbarProfileComponent,
   AvatarByNameComponent,
   LoadingComponent,
+  ReviewItemComponent,
   // Home
   HomeComponent,
   HomeStatisticsComponent,

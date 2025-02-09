@@ -1,5 +1,5 @@
 import { Component, type OnInit } from '@angular/core';
-import { ICourse } from '../../../shared/interfaces/course.interfaces';
+import { ICourseManage } from '../../../shared/interfaces/course.interfaces';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -8,7 +8,7 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
   styleUrl: './my-course-list.component.scss',
 })
 export class MyCourseListComponent implements OnInit {
-  sampleCourses: ICourse[] = [
+  sampleCourses: ICourseManage[] = [
     {
       id: 'course1',
       name: 'Introduction to JavaScript',
@@ -35,6 +35,7 @@ export class MyCourseListComponent implements OnInit {
         },
         { id: 'tag2', name: 'Beginner', description: 'Suitable for beginners' },
       ],
+      isPublic: false
     },
     {
       id: 'course2',
@@ -66,6 +67,7 @@ export class MyCourseListComponent implements OnInit {
           description: 'For experienced developers',
         },
       ],
+      isPublic: true
     },
     {
       id: 'course3',
@@ -88,6 +90,7 @@ export class MyCourseListComponent implements OnInit {
         { id: 'tag5', name: 'HTML', description: 'Hypertext Markup Language' },
         { id: 'tag6', name: 'CSS', description: 'Cascading Style Sheets' },
       ],
+      isPublic: false
     },
     {
       id: 'course4',
@@ -114,6 +117,7 @@ export class MyCourseListComponent implements OnInit {
         },
         { id: 'tag8', name: 'Frontend', description: 'Frontend development' },
       ],
+      isPublic: false
     },
     {
       id: 'course5',
@@ -140,6 +144,7 @@ export class MyCourseListComponent implements OnInit {
         },
         { id: 'tag10', name: 'Backend', description: 'Backend development' },
       ],
+      isPublic: false
     },
   ];
 

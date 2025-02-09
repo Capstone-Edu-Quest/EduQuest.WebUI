@@ -1,5 +1,5 @@
 import { Component, Input, type OnInit } from '@angular/core';
-import { ICourse } from '../../../../shared/interfaces/course.interfaces';
+import { ICourseManage } from '../../../../shared/interfaces/course.interfaces';
 import {
   faPen,
   faStar,
@@ -15,7 +15,7 @@ import { Router } from '@angular/router';
   styleUrl: './my-course-item.component.scss',
 })
 export class MyCourseItemComponent implements OnInit {
-  @Input() course!: ICourse;
+  @Input() course!: ICourseManage;
 
   pannelBtn = [
     {
