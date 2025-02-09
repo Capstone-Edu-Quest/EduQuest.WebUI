@@ -122,6 +122,8 @@ import { MyCoursesComponent } from './pages/my-courses/my-courses.component';
 import { MyCourseChartsComponent } from './pages/my-courses/my-course-charts/my-course-charts.component';
 import { MyCourseListComponent } from './pages/my-courses/my-course-list/my-course-list.component';
 import { MyCourseItemComponent } from './pages/my-courses/my-course-list/my-course-item/my-course-item.component';
+import { MyCourseAddComponent } from './pages/my-course-add/my-course-add.component';
+import { MyCourseDetailsComponent } from './pages/my-course-details/my-course-details.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -166,6 +168,8 @@ export const AppDeclarations = [
   MyCourseChartsComponent,
   MyCourseListComponent,
   MyCourseItemComponent,
+  MyCourseAddComponent,
+  MyCourseDetailsComponent,
   // Cart
   CartComponent,
   CartItemComponent,

@@ -1,5 +1,6 @@
 import { Component, type OnInit } from '@angular/core';
 import { ICourse } from '../../../shared/interfaces/course.interfaces';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-my-course-list',
@@ -141,6 +142,8 @@ export class MyCourseListComponent implements OnInit {
       ],
     },
   ];
+
+  addIcon = faPlus
 
   constructor() { }
   ngOnInit(): void { }

@@ -310,7 +310,8 @@
     "COURSE_RATING": "Course's Rating",
     "TOP_COURSES": "Top Courses",
     "IN_PROGRESS": "In Progress",
-    "COURSES_LIST": "Courses List"
+    "COURSES_LIST": "Courses List",
+    "ADD_NEW_COURSE": "Add New Course"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search Courses",

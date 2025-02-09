@@ -140,8 +140,8 @@
     .drop-down {
       display: none;
       position: absolute;
-      left: 50%;
-      transform: translateX(-50%);
+      left: 0;
+      transform: translateX(-85%);
       bottom: 12px;
       background: var(--tertiary-bg);
       border: 1px solid var(--brand-05);

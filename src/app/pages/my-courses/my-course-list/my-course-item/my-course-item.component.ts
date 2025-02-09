@@ -1,9 +1,13 @@
 import { Component, Input, type OnInit } from '@angular/core';
 import { ICourse } from '../../../../shared/interfaces/course.interfaces';
-import { faPen, faStar, faStarHalfStroke, faTrash } from '@fortawesome/free-solid-svg-icons';
 import {
-  faStar as faStarRegular,
-} from '@fortawesome/free-regular-svg-icons';
+  faPen,
+  faStar,
+  faStarHalfStroke,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
+import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-my-course-item',
@@ -41,6 +45,8 @@ export class MyCourseItemComponent implements OnInit {
   starHalf = faStarHalfStroke;
   starsList: any[] = [];
 
+  constructor(private router: Router) {}
+
   ngOnInit(): void {
     this.initStars();
   }
@@ -61,9 +67,14 @@ export class MyCourseItemComponent implements OnInit {
 
   onEdit(e: Event) {
     e.stopPropagation();
+    this.router.navigate(['my-courses', this.course.id, 'edit']);
   }
 
   onDelete(e: Event) {
     e.stopPropagation();
+  }
+
+  onCourseClick(): void {
+    this.router.navigate(['my-courses', this.course.id]);
   }
 }

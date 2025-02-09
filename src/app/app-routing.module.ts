@@ -20,6 +20,8 @@ import { ShopItemsComponent } from './pages/shop-items/shop-items.component';
 import { RoleGuard } from './core/guards/role.guards';
 import { WebRole } from './shared/enums/user.enum';
 import { MyCoursesComponent } from './pages/my-courses/my-courses.component';
+import { MyCourseAddComponent } from './pages/my-course-add/my-course-add.component';
+import { MyCourseDetailsComponent } from './pages/my-course-details/my-course-details.component';
 
 const routes: Routes = [
   {
@@ -54,7 +56,29 @@ const routes: Routes = [
     path: 'my-courses',
     canActivate: [AuthGuard, RoleGuard],
     data: { allowedRoles: [WebRole.INSTRUCTOR] },
-    component: MyCoursesComponent
+    children: [
+      {
+        path: '',
+        component: MyCoursesComponent,
+      },
+      {
+        path: 'add',
+        component: MyCourseAddComponent,
+      },
+      {
+        path: ':courseId',
+        children: [
+          {
+            path: 'edit',
+            component: MyCourseAddComponent,
+          },
+          {
+            path: '',
+            component: MyCourseDetailsComponent,
+          },
+        ],
+      },
+    ],
   },
   {
     path: 'cart',

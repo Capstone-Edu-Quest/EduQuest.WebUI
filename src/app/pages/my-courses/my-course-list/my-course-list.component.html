@@ -1,5 +1,13 @@
 <div class="my-courses-list">
-  <div class="title">{{ "LABEL.COURSES_LIST" | translate }}</div>
+  <div class="header">
+    <div class="title">{{ "LABEL.COURSES_LIST" | translate }}</div>
+    <a routerLink="/my-courses/add">
+      <app-button type="primary"
+        ><fa-icon [icon]="addIcon"></fa-icon
+        >{{ "LABEL.ADD_NEW_COURSE" | translate }}
+      </app-button>
+    </a>
+  </div>
 
   <div class="courses-list">
     <app-my-course-item
