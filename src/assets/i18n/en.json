@@ -330,7 +330,10 @@
     "UNAUTHORIZED": "401: Unauthorized, you need to login to do this",
     "NO_PERMISSION": "403: You don't have permission to do this",
     "NOT_FOUND": "404: Your performed action have no result, Not Found!",
-    "UNKNOWN_ERROR": "Unknown error, Please try again later"
+    "UNKNOWN_ERROR": "Unknown error, Please try again later",
+    "DROP_IMAGE_ADD_THUMBNAIL": "Drop image here or click to add thumbnail",
+    "ONLY_1_FILE": "Only 1 file can be upload",
+    "INVALID_IMAGE": "Please upload image file"
   },
   "BUTTON": {
     "CONTINUE": "Continue",

@@ -125,6 +125,7 @@ import { MyCourseItemComponent } from './pages/my-courses/my-course-list/my-cour
 import { MyCourseAddComponent } from './pages/my-course-add/my-course-add.component';
 import { MyCourseDetailsComponent } from './pages/my-course-details/my-course-details.component';
 import { ReviewItemComponent } from './components/review-item/review-item.component';
+import { ImageService } from './core/services/image.service';
 
 export const AppDeclarations = [
   AppComponent,
@@ -270,7 +271,8 @@ export const appServices = [
   FirebaseService,
   FoxService,
   LoadingService,
-  HttpService
+  HttpService,
+  ImageService
 ];
 
 export const appGuards = [
