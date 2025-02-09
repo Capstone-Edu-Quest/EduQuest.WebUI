@@ -1,0 +1,59 @@
+<div class="course-item">
+  <div class="option">
+    <div class="option-item"></div>
+    <div class="option-item"></div>
+    <div class="option-item"></div>
+
+    <div
+      class="drop-down"
+      [ngStyle]="{
+        height: 11 + pannelBtn.length * 28 + 'px'
+      }"
+    >
+      <div
+        class="option"
+        *ngFor="let opt of pannelBtn; let i = index"
+        [ngStyle]="{
+          top: 5 + i * 28 + 'px'
+        }"
+        (click)="opt.action($event)"
+      >
+        <fa-icon [icon]="opt.icon"></fa-icon>
+        {{ opt.label | translate }}
+      </div>
+    </div>
+  </div>
+
+  <div class="image-ctn">
+    <img [src]="course.image" />
+  </div>
+  <div class="info-ctn">
+    <div class="name">{{ course.name }}</div>
+
+    <div class="other-info">
+      <div class="time">
+        {{ "LABEL.TOTAL_TIME_IN_HOUR" | translate : { hour: course.duration } }}
+      </div>
+      <div>·</div>
+      <div class="lesson">
+        {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: course.stageCount } }}
+      </div>
+      <div>·</div>
+      <div class="leaners">
+        {{
+          "LABEL.LEANERS_COUNT" | translate : { value: (2212).toLocaleString() }
+        }}
+      </div>
+    </div>
+
+    <div class="feedback-ctn">
+      <div class="stars-number">{{ course.rating }}</div>
+      <div class="stars-ctn">
+        <fa-icon *ngFor="let starIcon of starsList" [icon]="starIcon"></fa-icon>
+      </div>
+      <div class="feedbacks-number">
+        ({{ course.numberOfRating.toLocaleString() }})
+      </div>
+    </div>
+  </div>
+</div>
