@@ -2,37 +2,82 @@
   padding: 35px 10vw;
   box-sizing: border-box;
 
-  .image-drop-zone {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16/9;
-    border: 1px dashed var(--tertiary-text);
-    border-radius: 20px;
-    background: var(--secondary-bg);
-    cursor: pointer;
+  .image-wrapper {
+    padding: 0 20%;
+    box-sizing: border-box;
 
-    &.dragOver {
+    .image-drop-zone {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16/9;
+      border: 1px dashed var(--tertiary-text);
+      border-radius: 20px;
+      background: var(--secondary-bg);
+      cursor: pointer;
+      overflow: hidden;
+
+      &.dragOver {
         background: var(--tertiary-bg);
-    }
-
-    .instruction {
-      color: var(--primary-text);
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 3px;
-
-      fa-icon {
-        font-size: 22px;
       }
 
-      label {
+      .instruction {
+        color: var(--primary-text);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
 
+        fa-icon {
+          font-size: 22px;
+        }
+
+        label {
+        }
+      }
+
+      .thumbnail {
+        width: 100%;
+        aspect-ratio: 16/9;
+        -webkit-user-drag: none;
+      }
+
+      .progress {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 12px;
+        width: 70%;
+        height: 16px;
+        background: var(--brand-02);
+        overflow: hidden;
+
+        .running-progress {
+          height: 100%;
+          background: var(--brand);
+          border-radius: 12px;
+        }
+
+        .label-progress {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: var(--primary-text);
+          font-size: 12px;
+          font-weight: 500;
+        }
+      }
+
+      .remove-image-btn {
+        position: absolute;
+        bottom: 12px;
+        right: 12px;
       }
     }
   }

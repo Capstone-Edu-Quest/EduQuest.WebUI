@@ -23,4 +23,14 @@
       background: var(--brand-02);
     }
   }
+
+  &.danger {
+    color: var(--primary-text);
+    background: var(--alert);
+    border: 1px solid var(--alert);
+
+    &:hover {
+      background: var(--error);
+    }
+  }
 }

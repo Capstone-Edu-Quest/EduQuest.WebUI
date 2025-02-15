@@ -18,6 +18,23 @@ export interface IUser {
   avatarUrl: string;
   roleId: WebRole;
   status: string;
+  statistic: IUserStatistics;
+  mascotItem: string[];
+}
+
+export interface IUserStatistics {
+  userId: string;
+  totalActiveDay: number;
+  maxStudyStreakDay: number;
+  lastLearningDay: string | null;
+  completedCourses: number;
+  gold: number;
+  exp: number;
+  level: number;
+  studyTime: number;
+  totalCourseCreated: number;
+  totalLearner: number;
+  totalReview: number;
 }
 
 export interface IUserStat extends IUser {

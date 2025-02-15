@@ -1,10 +1,11 @@
 export const environment = {
-  production: true,
+  production: false,
   apiUrl: 'https://eduquest.azurewebsites.net/v1',
-  appName: 'MyDevApp',
   firebaseConfig: {
     apiKey: 'AIzaSyA--YPCbTKIlM7gQ-ElKCag6uT2vbXOj_U',
     authDomain: 'eduquest-1a0bd.firebaseapp.com',
+    databaseURL:
+      'https://eduquest-1a0bd-default-rtdb.asia-southeast1.firebasedatabase.app',
     projectId: 'eduquest-1a0bd',
     storageBucket: 'eduquest-1a0bd.firebasestorage.app',
     messagingSenderId: '542222212171',

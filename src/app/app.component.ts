@@ -1,6 +1,6 @@
 import { TranslateService } from '@ngx-translate/core';
 import { ThemeService } from './core/services/theme.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Host, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { defaultLanguage } from './shared/constants/languages.constant';
 import { StorageService } from './core/services/storage.service';
 import { localStorageEnum } from './shared/enums/localStorage.enum';
@@ -102,7 +102,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.storage.setToLocalStorage(localStorageEnum.LANGUAGE, event.lang)
     );
   }
-
+  
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();
   }

@@ -1,8 +1,5 @@
-import { Injectable } from '@angular/core';
-import {
-  ILoginRes,
-  IUser,
-} from '../../shared/interfaces/user.interfaces';
+import { Injectable, Injector } from '@angular/core';
+import { ILoginRes, IUser } from '../../shared/interfaces/user.interfaces';
 import { WebRole } from '../../shared/enums/user.enum';
 import { BehaviorSubject } from 'rxjs';
 import { MessageService } from './message.service';
@@ -27,16 +24,21 @@ export class UserService {
   user$: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(
     null
   );
+  private firebase!: FirebaseService;
 
   constructor(
     private message: MessageService,
     private translate: TranslateService,
     private router: Router,
-    private firebase: FirebaseService,
+    private injector: Injector,
     private http: HttpService,
     private storage: StorageService,
     private loading: LoadingService
   ) {}
+
+  initFirebase() {
+    this.firebase = this.injector.get(FirebaseService);
+  }
 
   updateUser(user: IUser | null) {
     this.user$.next(user);
@@ -47,6 +49,7 @@ export class UserService {
   }
 
   initUser() {
+    this.initFirebase();
     const userData = this.storage.getFromLocalStorage(
       localStorageEnum.USER_DATA
     );
@@ -78,7 +81,8 @@ export class UserService {
 
     this.updateUser({
       ...payload.userData,
-      roleId: Number(payload.userData.roleId) as WebRole,
+      // roleId: Number(payload.userData.roleId) as WebRole,
+      roleId: 2
     });
     this.storage.setCookie(TokenEnum.ACCESS_TOKEN, payload.token.accessToken);
     this.storage.setCookie(TokenEnum.REFRESH_TOKEN, payload.token.refreshToken);
