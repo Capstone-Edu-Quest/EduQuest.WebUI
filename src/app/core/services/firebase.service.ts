@@ -113,21 +113,43 @@ export class FirebaseService {
     return { progress$, downloadURL$ };
   }
 
-  addCacheImage(url: string) {
-    // this.addCache(CacheFieldEnum.IMAGE_URL, url);
-    console.log('add cache')
-    const test = this.getDocument(FirestoreCollectionEnum.CACHE_COL, this.UserService.user$.value?.id || null);
-    console.log(test)
-    // this.updateData(FirestoreCollectionEnum.CACHE_COL, 'test', {test: 'hello'});
+  deleteFile(fileUrl: string) {
+    const meta = this.getUserMetaData();
+    const filePath = decodeURIComponent(fileUrl.split('/o/')[1].split('?')[0]);
+    const fileRef = ref(this.storage, filePath);
+
+    return deleteObject(fileRef);
   }
 
-  removeCachedImage() {
-    const userImages = this.getDocument(
-      FirestoreCollectionEnum.CACHE_COL,
-      this.UserService.user$.value?.id || null
-    );
-    console.log(userImages);
-    // this.clearCache(CacheFieldEnum.IMAGE_URL);
+  addCacheImage(url: string) {
+    this.addCache(CacheFieldEnum.IMAGE_URL, url);
+  }
+
+  async removeCachedImage(): Promise<void> {
+    const userId = this.UserService.user$.value?.id;
+    if (!userId) return;
+    
+    try {
+      const res = await this.getDocument(
+        FirestoreCollectionEnum.CACHE_COL,
+        userId
+        );
+
+      const imgUrls = (res as any)?.imageUrl || [];
+
+      if (imgUrls.length === 0) {
+        // console.log('No images to delete.');
+        return;
+      }
+
+      const deleteStack = imgUrls.map((url: string) => this.deleteFile(url));
+
+      await Promise.all(deleteStack);
+      this.clearCacheField(CacheFieldEnum.IMAGE_URL);
+      // console.log('All cached images deleted successfully.');
+    } catch (error) {
+      // console.error('Error deleting cached images:', error);
+    }
   }
 
   // Firestore
@@ -143,8 +165,8 @@ export class FirebaseService {
   ) {
     if (!docId) return;
 
-    const docRef = doc(this.firestoreDB, 'cache', 'a');
-    console.log('docref: ', docRef);
+    const docRef = doc(this.firestoreDB, collectionName, docId);
+
     const snapshot = await getDoc(docRef);
     return snapshot.exists() ? { id: snapshot.id, ...snapshot.data() } : null;
   }
@@ -179,7 +201,7 @@ export class FirebaseService {
     }
   }
 
-  async clearCache(field: CacheFieldEnum) {
+  async clearCacheField(field: CacheFieldEnum) {
     const collectionName = FirestoreCollectionEnum.CACHE_COL;
     const docId = this.UserService.user$.value?.id || '';
 

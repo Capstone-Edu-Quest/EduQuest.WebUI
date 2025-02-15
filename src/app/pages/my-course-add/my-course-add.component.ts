@@ -33,7 +33,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
 
   isEdit: boolean = false;
   isDragOverImgInput: boolean = false;
-  imageName: string = `[userid]_${Date.now()}`;
+  imageName: string = `userid_${Date.now()}`;
   uploadProgress: number | null = null;
   currentImageURL: string | null = null;
 
@@ -55,7 +55,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
     this.subscription$.add(
       this.UserService.user$.subscribe((user) => {
         this.user = user;
-        this.imageName.replace('[userid]', user?.id || '[userid]');
+        this.imageName = this.imageName.replace('userid', user?.id || 'userid');
       })
     );
   }

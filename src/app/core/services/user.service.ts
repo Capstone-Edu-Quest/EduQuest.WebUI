@@ -55,6 +55,9 @@ export class UserService {
     );
     if (userData) {
       this.updateUser(JSON.parse(userData));
+      setTimeout(() => {
+        this.firebase.removeCachedImage();
+      }, 1000)
     }
   }
 
