@@ -318,7 +318,11 @@
     "STATISTICS_OVERTIME": "Statistics Over Time",
     "LAST_UPDATED": "Last updated {{value}}",
     "THUMBNAIL": "Thumbnail",
-    "RATING_VALUE": "{{value}} ratings"
+    "RATING_VALUE": "{{value}} ratings",
+    "COURSE_NAME": "Name",
+    "COURSE_DESCRIPTION": "Description",
+    "COURSE_REQUIREMENTS": "Requirements",
+    "COURSE_PRICE": "Price"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search Courses",
@@ -333,7 +337,10 @@
     "UNKNOWN_ERROR": "Unknown error, Please try again later",
     "DROP_IMAGE_ADD_THUMBNAIL": "Drop image here or click to add thumbnail",
     "ONLY_1_FILE": "Only 1 file can be upload",
-    "INVALID_IMAGE": "Please upload image file"
+    "INVALID_IMAGE": "Please upload image file",
+    "MISSING_FIELDS": "There are some missing fields",
+    "INVALID_PRICE": "Invalid price",
+    "COURSE_NEED_THUMBNAIL": "You need to upload a thumbnail"
   },
   "BUTTON": {
     "CONTINUE": "Continue",
@@ -352,7 +359,10 @@
     "CANCEL": "Cancel",
     "SAVE": "Save",
     "PURCHASE": "Purchase",
-    "REMOVE_IMAGE": "Remove Image"
+    "REMOVE_IMAGE": "Remove Image",
+    "ADD_REQUIREMENTS": "Add Requirements",
+    "REMOVE_REQUIREMENTS": "Remove Requirements",
+    "CREATE_COURSE": "Create Course"
   },
   "LANGUAGES": {
     "EN": "English",

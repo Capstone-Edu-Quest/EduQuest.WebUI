@@ -19,6 +19,14 @@ export interface ICourse {
   tags: ITag[];
 }
 
+export interface ICourseCreate {
+  name: string;
+  description: string;
+  image: string;
+  price: number;
+  requirements: string[];
+}
+
 export interface ICourseDetails extends ICourse {
   stages: IStage[];
   requirements: string[];

@@ -12,7 +12,7 @@
     >
       <div
         class="instruction"
-        *ngIf="uploadProgress === null && currentImageURL === null"
+        *ngIf="uploadProgress === null && courseInfo.image === ''"
       >
         <input
           type="file"
@@ -24,7 +24,11 @@
         <label>{{ "MESSAGE.DROP_IMAGE_ADD_THUMBNAIL" | translate }}</label>
       </div>
 
-      <img [src]="currentImageURL" class="thumbnail" *ngIf="currentImageURL" />
+      <img
+        [src]="courseInfo.image"
+        class="thumbnail"
+        *ngIf="courseInfo.image !== ''"
+      />
 
       <div class="progress" *ngIf="uploadProgress !== null">
         <div
@@ -36,9 +40,66 @@
         <div class="label-progress">{{ uploadProgress }}%</div>
       </div>
 
-      <app-button (click)="onRemoveImage($event)" class="remove-image-btn" type="danger" *ngIf="currentImageURL">{{
-        "BUTTON.REMOVE_IMAGE" | translate
-      }}</app-button>
+      <app-button
+        (click)="onRemoveImage($event)"
+        class="remove-image-btn"
+        type="danger"
+        *ngIf="courseInfo.image !== ''"
+        >{{ "BUTTON.REMOVE_IMAGE" | translate }}</app-button
+      >
     </div>
   </div>
+
+  <div class="input-label">{{ "LABEL.COURSE_NAME" | translate }}</div>
+  <input
+    class="course-input course-name"
+    [placeholder]="'LABEL.COURSE_NAME' | translate"
+    [(ngModel)]="courseInfo.name"
+  />
+
+  <div class="input-label">{{ "LABEL.COURSE_DESCRIPTION" | translate }}</div>
+  <textarea
+    class="course-input course-description"
+    [placeholder]="'LABEL.COURSE_DESCRIPTION' | translate"
+    rows="6"
+    [(ngModel)]="courseInfo.description"
+  ></textarea>
+
+  <div class="input-label">{{ "LABEL.COURSE_REQUIREMENTS" | translate }}</div>
+  <div
+    class="req-row"
+    *ngFor="
+      let req of courseInfo.requirements;
+      let i = index;
+      trackBy: RequirementTrackIdx
+    "
+  >
+    <input
+      class="course-input"
+      [placeholder]="('LABEL.REQUIREMENTS' | translate) + ' ' + (i + 1)"
+      [(ngModel)]="courseInfo.requirements[i]"
+    />
+    <fa-icon (click)="onRemoveRequirement(i)" [icon]="removeIcon"></fa-icon>
+  </div>
+
+  <app-button
+    [style]="{ marginTop: '5px', border: 'none' }"
+    (click)="onAddRequirement()"
+  >
+    <fa-icon [icon]="addIcon"></fa-icon>
+    {{ "BUTTON.ADD_REQUIREMENTS" | translate }}</app-button
+  >
+
+  <div class="input-label">{{ "LABEL.COURSE_PRICE" | translate }}</div>
+  <div class="req-row">
+    <div class="currency">$</div>
+    <input
+      type="number"
+      [min]="0"
+      class="course-input"
+      [(ngModel)]="courseInfo.price"
+    />
+  </div>
+
+  <app-button [style]="{marginTop: '35px', width: '100%'}" (click)="onCreateCourse()" type="primary">{{ "BUTTON.CREATE_COURSE" | translate }}</app-button>
 </div>

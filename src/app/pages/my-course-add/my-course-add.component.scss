@@ -1,9 +1,9 @@
 .manage-course {
-  padding: 35px 10vw;
+  padding: 35px 20vw;
   box-sizing: border-box;
 
   .image-wrapper {
-    padding: 0 20%;
+    // padding: 0 15%;
     box-sizing: border-box;
 
     .image-drop-zone {
@@ -78,6 +78,62 @@
         position: absolute;
         bottom: 12px;
         right: 12px;
+      }
+    }
+  }
+
+  .input-label {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .course-input {
+    font-size: 13px;
+    margin-top: 4px;
+    width: 100%;
+    display: block;
+    background: var(--tertiary-bg);
+    border: none;
+    outline: none;
+    color: var(--primary-text);
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    
+    &.course-description {
+      resize: none;
+    }
+  }
+
+  .req-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    position: relative;
+
+    .currency {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(calc(-50% + 2px));
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .course-input {
+      padding-left: 26px;
+    }
+
+    fa-icon {
+      color: var(--alert);
+      font-size: 18px;
+      transform: translateY(1px);
+      cursor: pointer;
+      transition: all 0.1s linear;
+
+      &:hover {
+        color: var(--error);
       }
     }
   }

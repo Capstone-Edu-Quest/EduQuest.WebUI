@@ -53,11 +53,15 @@ export class UserService {
     const userData = this.storage.getFromLocalStorage(
       localStorageEnum.USER_DATA
     );
+
     if (userData) {
       this.updateUser(JSON.parse(userData));
+      
+      if (JSON.parse(userData).roleId !== WebRole.INSTRUCTOR) return;
+
       setTimeout(() => {
         this.firebase.removeCachedImage();
-      }, 1000)
+      }, 1000);
     }
   }
 
@@ -85,7 +89,7 @@ export class UserService {
     this.updateUser({
       ...payload.userData,
       // roleId: Number(payload.userData.roleId) as WebRole,
-      roleId: 2
+      roleId: 2,
     });
     this.storage.setCookie(TokenEnum.ACCESS_TOKEN, payload.token.accessToken);
     this.storage.setCookie(TokenEnum.REFRESH_TOKEN, payload.token.refreshToken);

@@ -7,7 +7,7 @@ import {
   ElementRef,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { faCamera } from '@fortawesome/free-solid-svg-icons';
+import { faCamera, faPlus, faRemove } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { MessageService } from '../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -15,6 +15,7 @@ import { ImageService } from '../../core/services/image.service';
 import { FirebaseStorageFolder } from '../../shared/enums/firebase.enum';
 import { IUser } from '../../shared/interfaces/user.interfaces';
 import { FirebaseService } from '../../core/services/firebase.service';
+import { ICourseCreate } from '../../shared/interfaces/course.interfaces';
 
 @Component({
   selector: 'app-my-course-add',
@@ -23,6 +24,9 @@ import { FirebaseService } from '../../core/services/firebase.service';
 })
 export class MyCourseAddComponent implements OnInit, OnDestroy {
   @ViewChild('fileInput') fileInput!: ElementRef;
+
+  addIcon = faPlus;
+  removeIcon = faRemove;
 
   subscription$: Subscription = new Subscription();
   user: IUser | null = null;
@@ -34,8 +38,17 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
   isEdit: boolean = false;
   isDragOverImgInput: boolean = false;
   imageName: string = `userid_${Date.now()}`;
+  isUploadedFirstTime: boolean = false;
   uploadProgress: number | null = null;
-  currentImageURL: string | null = null;
+  // currentImageURL: string | null = null;
+
+  courseInfo: ICourseCreate = {
+    name: '',
+    description: '',
+    price: 0,
+    image: '',
+    requirements: [],
+  };
 
   constructor(
     private route: ActivatedRoute,
@@ -149,16 +162,77 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
 
   onUploadSuccess(url: string) {
     this.uploadProgress = null;
-    this.currentImageURL = url;
-    this.firebase.addCacheImage(url);
+    this.courseInfo.image = url;
+    !this.isUploadedFirstTime && this.firebase.addCacheImage(url);
+    this.isUploadedFirstTime = true;
   }
 
   onRemoveImage(e: Event) {
     e.stopPropagation();
-    this.currentImageURL = null;
+    this.courseInfo.image = '';
   }
 
+  onAddRequirement() {
+    this.courseInfo.requirements.push('');
+  }
 
+  onRemoveRequirement(idx: number) {
+    this.courseInfo.requirements.splice(idx, 1);
+  }
+
+  RequirementTrackIdx(index: number, item: string) {
+    return index;
+  }
+
+  onCreateCourse() {
+    const course: any = {
+      ...this.courseInfo,
+      // instructor: this.user.id,
+    };
+
+    const courseKey = Object.keys(course);
+    if(course.image === '') {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.COURSE_NEED_THUMBNAIL')
+      );
+      return
+    }
+    for (let i = 0; i < courseKey.length; i++) {
+      if (
+        typeof course[courseKey[i]] === 'string' &&
+        course[courseKey[i]].trim().length === 0
+      ) {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.MISSING_FIELDS')
+        );
+        return;
+      }
+
+      if (
+        typeof course[courseKey[i]] === 'number' &&
+        course[courseKey[i]] < 0
+      ) {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.INVALID_PRICE')
+        );
+        return;
+      }
+
+      if (
+        Array.isArray(course[courseKey[i]]) &&
+        course[courseKey[i]].length === 0
+      ) {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.MISSING_FIELDS')
+        );
+        return;
+      }
+    }
+  }
 
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();
