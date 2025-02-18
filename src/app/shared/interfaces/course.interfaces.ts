@@ -27,6 +27,17 @@ export interface ICourseCreate {
   requirements: string[];
 }
 
+export interface ICourseUpdate extends ICourseCreate {
+  id: string;
+  stages: IModifyStage[];
+}
+
+export interface IModifyStage {
+  name: string;
+  description: string;
+  materialsId: string[];
+}
+
 export interface ICourseDetails extends ICourse {
   stages: IStage[];
   requirements: string[];
@@ -38,6 +49,39 @@ export interface ICourseManage extends ICourse {
   isPublic: boolean;
 }
 
+export type materialType = 'video' | 'document' | 'quiz' | 'assignment';
+export interface IMaterialCreate {
+  id: string;
+  name: string;
+  description: string;
+  type: materialType;
+  data:
+    | { type: 'video'; data: IVideo }
+    | { type: 'document'; data: IDocument }
+    | { type: 'quiz'; data: IQuiz }
+    | { type: 'assignment'; data: IAssignment };
+}
+
+export interface IVideo {
+  url: string;
+  duration: number;
+  thumbnail: string;
+}
+export interface IDocument {
+  content: string; // html
+}
+export interface IQuiz {}
+
+export interface IAssignment {
+  questions: IAssignmentQuestion[];
+  timeLimit: number; // minutes
+}
+
+export interface IAssignmentQuestion {
+  question: string;
+  answerLanguage: 'javascript' | 'python' | 'typescript' | 'text'; //...
+}
+
 export interface ICourseManageDetails extends Omit<ICourseDetails, 'author'> {
   isPublic: boolean;
   totalInWhislist: number;
@@ -45,24 +89,6 @@ export interface ICourseManageDetails extends Omit<ICourseDetails, 'author'> {
   courseEnrollOverTime: { time: string; count: number }[];
   courseRatingOverTime: { time: string; count: number }[];
   totalEnrolled: number;
-}
-
-export interface IStage {
-  id: string;
-  title: string;
-  time: number; // hour
-  mission: IStageMission[];
-}
-
-export type stageMissionType = 'video' | 'document' | 'quiz';
-
-export interface IStageMission {
-  id: string;
-  title: string;
-  type: stageMissionType;
-  status?: MissionStatus;
-  mission: string;
-  time: number; // minutes
 }
 export interface ITag {
   id: string;
@@ -95,4 +121,21 @@ export interface IReview {
   content: string;
   createdDate: string;
   lastUpdated: string;
+}
+
+// Remove later
+export interface IStage {
+  id: string;
+  title: string;
+  time: number; // hour
+  mission: IStageMission[];
+}
+
+export interface IStageMission {
+  id: string;
+  title: string;
+  type: materialType;
+  status?: MissionStatus;
+  mission: string;
+  time: number; // minutes
 }

@@ -1,0 +1,45 @@
+<div class="stage" *ngIf="stage" (click)="onExpand()">
+  <i nz-icon nzType="{{ isDropDown ? 'down' : 'right' }}"></i>
+  <div class="info">
+    <div class="stage-name">
+      <div>{{ "LABEL.STAGE_VALUE" | translate : { value: index + 1 } }} -</div>
+      <input
+        (click)="onPreventProp($event)"
+        (input)="onChangeName($event)"
+        [defaultValue]="stage.title"
+      />
+    </div>
+    <div class="time">
+      <i nz-icon nzType="clock-circle"></i>
+      {{ "LABEL.MINUTE" | translate : { value: stage.time * 60 } }}
+    </div>
+  </div>
+  <fa-icon [icon]="XIcon" (click)="onRemoveStage()"></fa-icon>
+</div>
+
+<div class="stage-missions-ctn" *ngIf="isDropDown && stage">
+  <div class="mission" *ngFor="let mission of stage.mission; let i = index">
+    <div class="mission-info">
+      <fa-icon [icon]="onGetIcon(mission.type)"></fa-icon>
+      <div class="mission-name">{{ i + 1 }}.{{ mission.mission }}</div>
+    </div>
+
+    <div class="right-ctn">
+      <div class="mission-time">
+        <i nz-icon nzType="clock-circle"></i>
+        {{ "LABEL.MINUTES" | translate : { value: mission.time } }}
+
+        <fa-icon
+          (click)="onRemoveMaterial(mission.id)"
+          [icon]="XIcon"
+        ></fa-icon>
+      </div>
+    </div>
+  </div>
+  <div class="mission add">
+    <div style="display: flex; align-items: center; gap: 8px">
+      <fa-icon [icon]="PlusIcon"></fa-icon>
+      <div class="mission-name">{{ "LABEL.ADD_MATERIAL" | translate }}</div>
+    </div>
+  </div>
+</div>

@@ -1,10 +1,14 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { IStage } from '../../../shared/interfaces/course.interfaces';
+import {
+  IStage,
+  materialType,
+} from '../../../shared/interfaces/course.interfaces';
 import {
   faFile,
   faCirclePlay,
-  faChartBar
+  faChartBar,
 } from '@fortawesome/free-regular-svg-icons';
+import { CoursesService } from '../../../core/services/courses.service';
 
 @Component({
   selector: 'app-course-section',
@@ -15,7 +19,8 @@ export class CourseSectionComponent implements OnInit {
   @Input('stage') stage: IStage | null = null;
   @Input('index') index: number = 0;
   isDropDown: boolean = false;
-  constructor() {}
+
+  constructor(private course: CoursesService) {}
 
   ngOnInit() {}
 
@@ -23,15 +28,7 @@ export class CourseSectionComponent implements OnInit {
     this.isDropDown = !this.isDropDown;
   }
 
-  onGetIcon(type: string) {
-    switch (type) {
-      case 'video':
-        return faCirclePlay;
-      case 'quiz':
-        return faChartBar;
-      case 'document':
-      default:
-        return faFile;
-    }
+  onGetIcon(type: materialType) {
+    return this.course.onGetMaterialIcon(type);
   }
 }

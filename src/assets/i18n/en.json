@@ -274,7 +274,7 @@
     "NEXT_STAGE": "Next Stage",
     "PREVIOUS_STAGE": "Previous Stage",
     "YOU_ARE_HERE": "You are here",
-    "MISSION_TYPE": "Mission type: {{value}}",
+    "MISSION_TYPE": "Material type: {{value}}",
     "LEANING_PATH": "Learning Path",
     "NEWEST": "Newest",
     "OLDEST": "Oldest",
@@ -322,7 +322,9 @@
     "COURSE_NAME": "Name",
     "COURSE_DESCRIPTION": "Description",
     "COURSE_REQUIREMENTS": "Requirements",
-    "COURSE_PRICE": "Price"
+    "COURSE_PRICE": "Price",
+    "MATERIALS": "Materials",
+    "ADD_MATERIAL": "Add Material"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search Courses",
@@ -362,7 +364,8 @@
     "REMOVE_IMAGE": "Remove Image",
     "ADD_REQUIREMENTS": "Add Requirements",
     "REMOVE_REQUIREMENTS": "Remove Requirements",
-    "CREATE_COURSE": "Create Course"
+    "CREATE_COURSE": "Create Course",
+    "UPDATE_COURSE": "Update Course"
   },
   "LANGUAGES": {
     "EN": "English",

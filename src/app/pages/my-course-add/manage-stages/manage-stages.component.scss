@@ -1,0 +1,128 @@
+.stage {
+  background: var(--secondary-bg);
+  padding: 12px 16px;
+  box-sizing: border-box;
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  cursor: pointer;
+  z-index: 1;
+  position: relative;
+  user-select: none;
+
+  fa-icon {
+    color: var(--alert);
+    cursor: pointer;
+    font-size: 22px;
+  }
+
+  .info {
+    width: 100%;
+  }
+  .stage-name {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 4px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    input {
+      width: 80%;
+      font-size: 14px;
+      font-weight: 600;
+      background: var(--brand-01);
+      border: none;
+      outline: none;
+      color: var(--primary-text);
+      padding: 4px 8px;
+      border-radius: 4px;
+    }
+  }
+
+  .time {
+    font-size: 11px;
+    color: var(--secondary-text);
+    display: flex;
+    align-items: center;
+    gap: 3px;
+
+    i {
+      transform: translateY(1px);
+    }
+  }
+}
+
+.stage-missions-ctn {
+  background: var(--tertiary-bg);
+  transform: translateY(-12px);
+  z-index: -1;
+  padding: 24px 16px 12px 16px;
+  box-sizing: border-box;
+  border-radius: 0 0 16px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  user-select: none;
+
+  .mission {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &.add {
+      color: var(--secondary-text);
+
+      div {
+        cursor: pointer;
+        transition: all 0.05s linear;
+        &:hover {
+          color: var(--brand-hover);
+        }
+      }
+    }
+
+    .mission-info {
+      display: flex;
+      align-items: center;
+      justify-content: left;
+      gap: 8px;
+      .mission-name {
+        font-weight: 400;
+        text-overflow: ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+      }
+      fa-icon {
+        color: var(--secondary-text);
+        width: 20px;
+      }
+    }
+
+    .right-ctn {
+      display: flex;
+      align-items: center;
+
+      .mission-time {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        font-size: 12px;
+        color: var(--secondary-text);
+
+        i {
+          transform: translateY(1px);
+        }
+
+        fa-icon {
+          color: var(--alert);
+          cursor: pointer;
+          font-size: 18px;
+          margin-left: 20px;
+        }
+      }
+    }
+  }
+}

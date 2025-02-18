@@ -96,10 +96,36 @@
     <input
       type="number"
       [min]="0"
-      class="course-input"
+      class="course-input money"
       [(ngModel)]="courseInfo.price"
     />
   </div>
 
-  <app-button [style]="{marginTop: '35px', width: '100%'}" (click)="onCreateCourse()" type="primary">{{ "BUTTON.CREATE_COURSE" | translate }}</app-button>
+  <div class="input-label">{{ "LABEL.STAGES" | translate }}</div>
+  <div class="stages-ctn">
+    <app-manage-stages
+      *ngFor="
+        let stage of fullStagesInfo;
+        let i = index;
+        trackBy: trackStageChange
+      "
+      [index]="i"
+      [stage]="stage"
+      (onEdit)="onEditStage($event)"
+    ></app-manage-stages>
+  </div>
+
+  <div class="btn-ctn">
+    <app-button [style]="{ width: '100%' }" (click)="onCancel()">
+      {{ "BUTTON.CANCEL" | translate }}
+    </app-button>
+    <app-button
+      [style]="{ width: '100%' }"
+      (click)="isEdit ? onUpdate() : onCreateCourse()"
+      type="primary"
+      >{{
+        (isEdit ? "BUTTON.UPDATE_COURSE" : "BUTTON.CREATE_COURSE") | translate
+      }}</app-button
+    >
+  </div>
 </div>

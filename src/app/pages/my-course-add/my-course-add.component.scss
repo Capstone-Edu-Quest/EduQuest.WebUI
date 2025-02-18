@@ -121,7 +121,7 @@
       font-weight: 500;
     }
 
-    .course-input {
+    .money {
       padding-left: 26px;
     }
 
@@ -136,5 +136,22 @@
         color: var(--error);
       }
     }
+  }
+
+  .btn-ctn {
+    margin-top: 35px;
+    display: flex;
+    gap: 8px;
+    
+    app-button {
+      width: 100%;
+    }
+  }
+
+  .stages-ctn {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
   }
 }

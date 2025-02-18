@@ -126,6 +126,7 @@ import { MyCourseAddComponent } from './pages/my-course-add/my-course-add.compon
 import { MyCourseDetailsComponent } from './pages/my-course-details/my-course-details.component';
 import { ReviewItemComponent } from './components/review-item/review-item.component';
 import { ImageService } from './core/services/image.service';
+import { ManageStagesComponent } from './pages/my-course-add/manage-stages/manage-stages.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -173,6 +174,7 @@ export const AppDeclarations = [
   MyCourseItemComponent,
   MyCourseAddComponent,
   MyCourseDetailsComponent,
+  ManageStagesComponent,
   // Cart
   CartComponent,
   CartItemComponent,
