@@ -100,7 +100,7 @@
     padding: 8px 12px;
     border-radius: 8px;
     box-sizing: border-box;
-    
+
     &.course-description {
       resize: none;
     }
@@ -142,7 +142,7 @@
     margin-top: 35px;
     display: flex;
     gap: 8px;
-    
+
     app-button {
       width: 100%;
     }
@@ -153,5 +153,25 @@
     display: flex;
     flex-direction: column;
     gap: 4px;
+    width: 100%;
+
+    .stage-wrapper {
+      display: flex;
+      align-items: start;
+      width: 100%;
+      gap: 6px;
+
+      .drag-point {
+        padding-top: 24px;
+        color: var(--secondary-text);
+        cursor: grab;
+        align-self: stretch;
+      }
+
+      app-manage-stages {
+        width: 100%;
+        -webkit-user-drag: none;
+      }
+    }
   }
 }

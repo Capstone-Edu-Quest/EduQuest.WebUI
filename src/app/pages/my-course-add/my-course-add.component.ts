@@ -7,7 +7,12 @@ import {
   ElementRef,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { faCamera, faPlus, faRemove } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCamera,
+  faGripVertical,
+  faPlus,
+  faRemove,
+} from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 import { MessageService } from '../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -35,6 +40,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
   addIcon = faPlus;
   removeIcon = faRemove;
   cameraIcon = faCamera;
+  dragIcon = faGripVertical;
 
   subscription$: Subscription = new Subscription();
   user: IUser | null = null;
@@ -44,7 +50,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
   imageName: string = `userid_${Date.now()}`;
   isUploadedFirstTime: boolean = false;
   uploadProgress: number | null = null;
-  // currentImageURL: string | null = null;
+  currentDragStageId: string | null = null;
 
   courseInfo: ICourseCreate = {
     name: '',
@@ -425,6 +431,46 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
 
   trackStageChange(index: number, item: IStage) {
     return item.id;
+  }
+
+  onDragStageStart(e: Event, stageId: string) {
+    this.currentDragStageId = stageId;
+  }
+
+  onDragStageOver(e: Event) {
+    e.preventDefault();
+    // console.log(e);
+  }
+
+  onDropStage(e: Event) {
+    e.preventDefault();
+
+    const droppedElement = e.target as HTMLElement;
+    const droppedOnStageId = droppedElement
+      .closest('.stage-wrapper')
+      ?.getAttribute('stageId');
+
+    if (this.currentDragStageId) {
+      const dropIndx = this.fullStagesInfo.findIndex(
+        (c) => c.id === droppedOnStageId
+      );
+
+      const dragStage = this.fullStagesInfo.find(
+        (s) => s.id === this.currentDragStageId
+      );
+
+      this.fullStagesInfo = this.fullStagesInfo.filter(
+        (c) => c.id !== this.currentDragStageId
+      );
+
+      this.fullStagesInfo = [
+        ...this.fullStagesInfo.slice(0, dropIndx),
+        dragStage as IStage,
+        ...this.fullStagesInfo.slice(dropIndx),
+      ];
+    }
+
+    this.currentDragStageId = null;
   }
 
   ngOnDestroy(): void {

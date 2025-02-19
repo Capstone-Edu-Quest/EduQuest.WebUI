@@ -103,16 +103,31 @@
 
   <div class="input-label">{{ "LABEL.STAGES" | translate }}</div>
   <div class="stages-ctn">
-    <app-manage-stages
+    <div
+      class="stage-wrapper"
       *ngFor="
         let stage of fullStagesInfo;
         let i = index;
         trackBy: trackStageChange
       "
-      [index]="i"
-      [stage]="stage"
-      (onEdit)="onEditStage($event)"
-    ></app-manage-stages>
+      [attr.stageId]="stage.id"
+      [attr.draggable]="true"
+      (dragstart)="onDragStageStart($event, stage.id)"
+      (dragover)="onDragStageOver($event)"
+      (drop)="onDropStage($event)"
+      [ngStyle]="{
+        opacity: currentDragStageId === stage.id ? 0.5 : 1
+      }"
+    >
+      <div class="drag-point">
+        <fa-icon [icon]="dragIcon"></fa-icon>
+      </div>
+      <app-manage-stages
+        [index]="i"
+        [stage]="stage"
+        (onEdit)="onEditStage($event)"
+      ></app-manage-stages>
+    </div>
   </div>
 
   <div class="btn-ctn">
