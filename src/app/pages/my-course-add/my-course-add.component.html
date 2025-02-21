@@ -101,8 +101,8 @@
     />
   </div>
 
-  <div class="input-label">{{ "LABEL.STAGES" | translate }}</div>
-  <div class="stages-ctn">
+  <div class="input-label" *ngIf="isEdit">{{ "LABEL.STAGES" | translate }}</div>
+  <div class="stages-ctn" *ngIf="isEdit">
     <div
       class="stage-wrapper"
       *ngFor="

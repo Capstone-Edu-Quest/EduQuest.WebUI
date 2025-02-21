@@ -1,0 +1,90 @@
+<div class="materials">
+  <div class="title text-gradient">{{ "LABEL.MATERIALS" | translate }}</div>
+
+  <div class="section" *ngFor="let section of materialsSection">
+    <div class="head-wrapper">
+      <div class="info">
+        <div class="header">{{ section.label | translate }}</div>
+        <div class="description">
+          {{ section.description | translate : section.value }}
+        </div>
+      </div>
+      <a [routerLink]="'/materials/' + section.id" class="view-all">
+        {{ "LABEL.VIEW_ALL" | translate }}
+        <fa-icon [icon]="viewAllIcon"></fa-icon>
+      </a>
+    </div>
+    @switch(section.id) { @case('video') {
+    <ng-container [ngTemplateOutlet]="video"></ng-container>
+    } @case('document') {
+    <ng-container [ngTemplateOutlet]="document"></ng-container>
+    } @case('quiz') {
+    <ng-container [ngTemplateOutlet]="quiz"></ng-container>
+    } @case('assignment') {
+    <ng-container [ngTemplateOutlet]="assignment"></ng-container>
+    } }
+  </div>
+</div>
+
+<ng-template #video>
+  <div class="material-items-ctn">
+    <div class="material-row" *ngFor="let material of get3Materials('video')">
+      <div class="info">
+        <div class="name">{{ material.name }}</div>
+        <div class="description">{{ material.description }}</div>
+      </div>
+      <div class="add-on">
+        <fa-icon [icon]="clockIcon"></fa-icon>
+        <div class="duration">
+          {{ "LABEL.MINUTES" | translate : { value: getNumber(material.data) } }}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #document>
+  <div class="material-items-ctn">
+    <div class="material-row" *ngFor="let material of get3Materials('video')">
+      <div class="info">
+        <div class="name">{{ material.name }}</div>
+        <div class="description">{{ material.description }}</div>
+      </div>
+      <!-- <fa-icon [icon]="rightIcon"></fa-icon> -->
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #quiz>
+  <div class="material-items-ctn">
+    <div class="material-row" *ngFor="let material of get3Materials('quiz')">
+      <div class="info">
+        <div class="name">{{ material.name }}</div>
+        <div class="description">{{ material.description }}</div>
+      </div>
+      <div class="add-on">
+        <fa-icon [icon]="questionIcon"></fa-icon>
+        <div class="duration">
+          {{ "LABEL.QUESTIONS_COUNT" | translate : { value: getNumber(material.data) } }}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #assignment>
+    <div class="material-items-ctn">
+        <div class="material-row" *ngFor="let material of get3Materials('assignment')">
+        <div class="info">
+            <div class="name">{{ material.name }}</div>
+            <div class="description">{{ material.description }}</div>
+        </div>
+        <div class="add-on">
+            <fa-icon [icon]="codeIcon"></fa-icon>
+            <div class="duration">
+            {{ material.data.answerLanguage }}
+            </div>
+        </div>
+        </div>
+    </div>
+</ng-template>

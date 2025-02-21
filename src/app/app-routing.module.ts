@@ -22,6 +22,7 @@ import { WebRole } from './shared/enums/user.enum';
 import { MyCoursesComponent } from './pages/my-courses/my-courses.component';
 import { MyCourseAddComponent } from './pages/my-course-add/my-course-add.component';
 import { MyCourseDetailsComponent } from './pages/my-course-details/my-course-details.component';
+import { MaterialsComponent } from './pages/materials/materials.component';
 
 const routes: Routes = [
   {
@@ -79,6 +80,12 @@ const routes: Routes = [
         ],
       },
     ],
+  },
+  {
+    path: 'materials',
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.INSTRUCTOR] },
+    component: MaterialsComponent
   },
   {
     path: 'cart',

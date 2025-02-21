@@ -324,7 +324,18 @@
     "COURSE_REQUIREMENTS": "Requirements",
     "COURSE_PRICE": "Price",
     "MATERIALS": "Materials",
-    "ADD_MATERIAL": "Add Material"
+    "ADD_MATERIAL": "Add Material",
+    "VIDEOS": "Videos",
+    "VIDEOS_DESCRIPTION": "Total {{value}} videos",
+    "DOCUMENTS": "Documents",
+    "DOCUMENTS_DESCRIPTION": "Total {{value}} documents",
+    "QUIZ": "Quizzes",
+    "QUIZ_DESCRIPTION": "Total {{value}} quizzes",
+    "ASSIGNMENT": "Assignments",
+    "ASSIGNMENT_DESCRIPTION": "Total {{value}} assignments",
+    "ADD": "New",
+    "VIEW_ALL": "View All",
+    "QUESTIONS_COUNT": "{{value}} questions"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search Courses",

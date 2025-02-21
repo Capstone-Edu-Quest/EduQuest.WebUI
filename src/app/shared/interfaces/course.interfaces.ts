@@ -55,11 +55,7 @@ export interface IMaterialCreate {
   name: string;
   description: string;
   type: materialType;
-  data:
-    | { type: 'video'; data: IVideo }
-    | { type: 'document'; data: IDocument }
-    | { type: 'quiz'; data: IQuiz }
-    | { type: 'assignment'; data: IAssignment };
+  data: IVideo | IDocument | IQuiz | IAssignment;
 }
 
 export interface IVideo {
@@ -70,16 +66,33 @@ export interface IVideo {
 export interface IDocument {
   content: string; // html
 }
-export interface IQuiz {}
 
-export interface IAssignment {
-  questions: IAssignmentQuestion[];
-  timeLimit: number; // minutes
+// ----
+export interface IQuiz {
+  timeLimit: number;
+  passingPercentages: number;
+  questions: IQuizQuestion[];
 }
 
-export interface IAssignmentQuestion {
+export interface IQuizQuestion {
+  id: string;
+  question: string;
+  answers: IQuizOption[];
+  correctAnswers: string; // id
+  // explanation: string;
+}
+
+export interface IQuizOption {
+  id: string;
+  content: string;
+}
+// ----
+
+export interface IAssignment {
+  timeLimit: number; // minutes
   question: string;
   answerLanguage: 'javascript' | 'python' | 'typescript' | 'text'; //...
+  expectedAnswer: any; // Expected answer from code, can be null
 }
 
 export interface ICourseManageDetails extends Omit<ICourseDetails, 'author'> {

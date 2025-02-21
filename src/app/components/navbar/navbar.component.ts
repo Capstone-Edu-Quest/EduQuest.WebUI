@@ -84,7 +84,7 @@ export class NavbarComponent implements OnInit {
     },
     {
       label: 'LABEL.MATERIALS',
-      routerLink: 'my-materials'
+      routerLink: 'materials'
     },
     {
       label: 'LABEL.REVENUE',

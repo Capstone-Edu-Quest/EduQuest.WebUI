@@ -127,6 +127,7 @@ import { MyCourseDetailsComponent } from './pages/my-course-details/my-course-de
 import { ReviewItemComponent } from './components/review-item/review-item.component';
 import { ImageService } from './core/services/image.service';
 import { ManageStagesComponent } from './pages/my-course-add/manage-stages/manage-stages.component';
+import { MaterialsComponent } from './pages/materials/materials.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -211,7 +212,9 @@ export const AppDeclarations = [
   LeaningPathComponent,
   PathItemComponent,
   LearningPathDetailsComponent,
-  PathCourseItemComponent
+  PathCourseItemComponent,
+  // Materials
+  MaterialsComponent
 ];
 export const NGIcons = [
   EnterOutline,
