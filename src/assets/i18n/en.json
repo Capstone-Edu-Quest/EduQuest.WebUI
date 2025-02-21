@@ -335,7 +335,19 @@
     "ASSIGNMENT_DESCRIPTION": "Total {{value}} assignments",
     "ADD": "New",
     "VIEW_ALL": "View All",
-    "QUESTIONS_COUNT": "{{value}} questions"
+    "QUESTIONS_COUNT": "{{value}} questions",
+    "TOTAL_REVENUE": "Total Revenue",
+    "REVENUE_THIS_MONTH": "Revenue This Month",
+    "REVENUE_7_DAYS": "Revenue 7 Days",
+    "TOTAL_REVENUE_LAST_YEAR": "Last year",
+    "REVENUE_LAST_MONTH": "Last month",
+    "REVENUE_LAST_7_DAYS": "Last 7 days",
+    "PENDING_BALANCE": "Pending Balance",
+    "PENDING_BALANCE_DESCRIPTION": "Earnings on hold to cover potential refunds",
+    "AVAILABLE_BALANCE": "Available Balance",
+    "AVAILABLE_BALANCE_DESCRIPTION": "Earnings that available for withdrawal",
+    "WITHDRAW_ACTION": "Proceed to withdraw",
+    "COURSE_REVENUE" : "Courses' Revenue"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search Courses",

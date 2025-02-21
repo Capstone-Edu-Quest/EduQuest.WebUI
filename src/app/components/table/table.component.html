@@ -1,0 +1,45 @@
+<div class="table-wrapper">
+  <table>
+    <thead>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{ col.label }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let row of onGetDataRow()">
+        <td *ngFor="let col of columns">
+          {{
+            col.isMoney
+              ? ("SIGNATURE.MONEY_VALUE"
+                | translate
+                  : {
+                      value:
+                        onGetVal(col, row)
+                        | currencyExchange : { toString: true }
+                    })
+              : col.translateLabel
+              ? (col.translateLabel | translate : { value: onGetVal(col, row) })
+              : onGetVal(col, row)
+          }}
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="paginition">
+    <fa-icon [icon]="leftIcon" (click)="onModifyPage(currentPage - 1)"></fa-icon>
+    <div
+      class="page-item"
+      [ngClass]="{
+        active: page === currentPage
+      }"
+      (click)="onModifyPage(page)"
+      *ngFor="let page of totalPages"
+    >
+      {{ page }}
+    </div>
+    <fa-icon [icon]="rightIcon" (click)="onModifyPage(currentPage + 1)"></fa-icon>
+  </div>
+</div>

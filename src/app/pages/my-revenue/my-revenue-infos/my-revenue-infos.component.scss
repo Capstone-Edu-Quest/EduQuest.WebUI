@@ -1,0 +1,118 @@
+.my-revenue-infos {
+  margin-top: 14px;
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+
+  .card {
+    width: calc(100% / 3 - 12px);
+    background: var(--secondary-bg);
+    padding: 12px;
+    box-sizing: border-box;
+    border-radius: 12px;
+
+    .label {
+      color: var(--secondary-text);
+      font-size: 14px;
+    }
+
+    .value-ctn {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+
+      .value {
+        font-size: 24px;
+        font-weight: 500;
+      }
+
+      .rate-change {
+        text-align: center;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+
+        .rate-value {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          font-size: 13px;
+
+          fa-icon {
+            font-size: 15px;
+          }
+
+          &.rate-value--up {
+            color: var(--success);
+          }
+          &.rate-value--down {
+            color: var(--alert);
+          }
+        }
+
+        .rate-compare-to {
+          font-size: 10px;
+          color: var(--secondary-text);
+        }
+      }
+    }
+  }
+
+  .card2 {
+    width: calc(100% / 2 - 12px);
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .label {
+        color: var(--primary-text);
+        font-size: 15px;
+      }
+
+      .description {
+        color: var(--secondary-text);
+        font-size: 12px;
+        margin-top: 2px;
+      }
+
+      fa-icon {
+        font-size: 17px;
+      }
+    }
+
+    .body {
+      margin-top: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+
+      .value {
+        font-size: 24px;
+        font-weight: 500;
+        color: var(--brand-light);
+      }
+
+      .withdraw {
+        display: flex;
+        align-items: center;
+        gap: 4px;
+        color: var(--secondary-text);
+        transition: all 0.1s linear;
+
+        a {
+          color: var(--secondary-text);
+        }
+
+        &:hover {
+            &, a {
+                color: var(--brand-hover);
+            }
+        }
+      }
+    }
+  }
+}

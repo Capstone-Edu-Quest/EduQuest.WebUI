@@ -28,7 +28,7 @@
 
 <ng-template #video>
   <div class="material-items-ctn">
-    <div class="material-row" *ngFor="let material of get3Materials('video')">
+    <a [routerLink]="'/video/' + material.id" class="material-row" *ngFor="let material of get3Materials('video')">
       <div class="info">
         <div class="name">{{ material.name }}</div>
         <div class="description">{{ material.description }}</div>
@@ -36,28 +36,30 @@
       <div class="add-on">
         <fa-icon [icon]="clockIcon"></fa-icon>
         <div class="duration">
-          {{ "LABEL.MINUTES" | translate : { value: getNumber(material.data) } }}
+          {{
+            "LABEL.MINUTES" | translate : { value: getNumber(material.data) }
+          }}
         </div>
       </div>
-    </div>
+    </a>
   </div>
 </ng-template>
 
 <ng-template #document>
   <div class="material-items-ctn">
-    <div class="material-row" *ngFor="let material of get3Materials('video')">
+    <a [routerLink]="'/document/' + material.id" class="material-row" *ngFor="let material of get3Materials('video')">
       <div class="info">
         <div class="name">{{ material.name }}</div>
         <div class="description">{{ material.description }}</div>
       </div>
       <!-- <fa-icon [icon]="rightIcon"></fa-icon> -->
-    </div>
+    </a>
   </div>
 </ng-template>
 
 <ng-template #quiz>
   <div class="material-items-ctn">
-    <div class="material-row" *ngFor="let material of get3Materials('quiz')">
+    <a [routerLink]="'/quiz/' + material.id" class="material-row" *ngFor="let material of get3Materials('quiz')">
       <div class="info">
         <div class="name">{{ material.name }}</div>
         <div class="description">{{ material.description }}</div>
@@ -65,26 +67,33 @@
       <div class="add-on">
         <fa-icon [icon]="questionIcon"></fa-icon>
         <div class="duration">
-          {{ "LABEL.QUESTIONS_COUNT" | translate : { value: getNumber(material.data) } }}
+          {{
+            "LABEL.QUESTIONS_COUNT"
+              | translate : { value: getNumber(material.data) }
+          }}
         </div>
       </div>
-    </div>
+    </a>
   </div>
 </ng-template>
 
 <ng-template #assignment>
-    <div class="material-items-ctn">
-        <div class="material-row" *ngFor="let material of get3Materials('assignment')">
-        <div class="info">
-            <div class="name">{{ material.name }}</div>
-            <div class="description">{{ material.description }}</div>
+  <div class="material-items-ctn">
+    <a
+    [routerLink]="'/assignment/' + material.id"
+      class="material-row"
+      *ngFor="let material of get3Materials('assignment')"
+    >
+      <div class="info">
+        <div class="name">{{ material.name }}</div>
+        <div class="description">{{ material.description }}</div>
+      </div>
+      <div class="add-on">
+        <fa-icon [icon]="codeIcon"></fa-icon>
+        <div class="duration">
+          {{ material.data.answerLanguage }}
         </div>
-        <div class="add-on">
-            <fa-icon [icon]="codeIcon"></fa-icon>
-            <div class="duration">
-            {{ material.data.answerLanguage }}
-            </div>
-        </div>
-        </div>
-    </div>
+      </div>
+    </a>
+  </div>
 </ng-template>

@@ -88,7 +88,7 @@ export class NavbarComponent implements OnInit {
     },
     {
       label: 'LABEL.REVENUE',
-      routerLink: 'revenue'
+      routerLink: 'my-revenue'
     },
   ]
   

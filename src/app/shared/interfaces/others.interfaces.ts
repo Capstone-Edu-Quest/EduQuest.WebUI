@@ -37,4 +37,13 @@ export interface IChatConversation {
   messages: IChatMessage[];
 }
 
+export interface TableColumn {
+  key: string;
+  label: string;
+  sortable?: boolean;
+  render?: (value: any) => string;
+  translateLabel?: string;
+  isMoney?: boolean;
+}
+
 

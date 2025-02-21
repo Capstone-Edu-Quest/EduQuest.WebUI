@@ -23,6 +23,11 @@ import { MyCoursesComponent } from './pages/my-courses/my-courses.component';
 import { MyCourseAddComponent } from './pages/my-course-add/my-course-add.component';
 import { MyCourseDetailsComponent } from './pages/my-course-details/my-course-details.component';
 import { MaterialsComponent } from './pages/materials/materials.component';
+import { MaterialsVideoComponent } from './pages/materials-group/materials-video/materials-video.component';
+import { MaterialsDocumentComponent } from './pages/materials-group/materials-document/materials-document.component';
+import { MaterialsQuizComponent } from './pages/materials-group/materials-quiz/materials-quiz.component';
+import { MaterialsAssignmentComponent } from './pages/materials-group/materials-assignment/materials-assignment.component';
+import { MyRevenueComponent } from './pages/my-revenue/my-revenue.component';
 
 const routes: Routes = [
   {
@@ -82,10 +87,74 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'my-revenue',
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.INSTRUCTOR] },
+    component: MyRevenueComponent
+  },
+  {
     path: 'materials',
     canActivate: [AuthGuard, RoleGuard],
     data: { allowedRoles: [WebRole.INSTRUCTOR] },
-    component: MaterialsComponent
+    children: [
+      {
+        path: '',
+        component: MaterialsComponent,
+      },
+      {
+        path: 'video',
+        component: MaterialsVideoComponent,
+        children: [
+          {
+            path: '',
+            component: MaterialsVideoComponent,
+          },
+          // {
+          //   path: ':videoId',
+          //   // TODO
+          // },
+        ],
+      },
+      {
+        path: 'document',
+        children: [
+          {
+            path: '',
+            component: MaterialsDocumentComponent,
+          },
+          // {
+          //   path: ':documentId',
+          //   // TODO
+          // },
+        ],
+      },
+      {
+        path: 'quiz',
+        children: [
+          {
+            path: '',
+            component: MaterialsQuizComponent,
+          },
+          // {
+          //   path: ':quizId',
+          //   // TODO
+          // },
+        ],
+      },
+      {
+        path: 'assignment',
+        children: [
+          {
+            path: '',
+            component: MaterialsAssignmentComponent,
+          },
+          // {
+          //   path: ':assignmentId',
+          //   // TODO
+          // },
+        ],
+      },
+    ],
   },
   {
     path: 'cart',

@@ -1,0 +1,85 @@
+<div class="my-revenue-infos">
+  <div class="card" *ngFor="let revenueData of datas">
+    <div class="label">{{ revenueData.label | translate }}</div>
+    <div class="value-ctn">
+      <div class="value">
+        {{
+          "SIGNATURE.MONEY_VALUE"
+            | translate
+              : {
+                  value:
+                    revenueData.value | currencyExchange : { toString: true }
+                }
+        }}
+      </div>
+
+      <div class="rate-change">
+        <div
+          class="rate-value"
+          [ngClass]="{
+            'rate-value--up': percentagesValue[revenueData.label] > 0,
+            'rate-value--down': percentagesValue[revenueData.label] < 0
+          }"
+        >
+          <fa-icon
+            [icon]="percentagesValue[revenueData.label] < 0 ? downIcon : upIcon"
+          ></fa-icon>
+          {{ percentagesValue[revenueData.label] }}%
+        </div>
+        <div class="rate-compare-to">
+          ({{ revenueData.compareToLabel | translate }})
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card2 card">
+    <div class="header">
+      <div class="main-text">
+        <div class="label">{{ "LABEL.PENDING_BALANCE" | translate }}</div>
+        <div class="description">
+          {{ "LABEL.PENDING_BALANCE_DESCRIPTION" | translate }}
+        </div>
+      </div>
+      <fa-icon [icon]="clockIcon"></fa-icon>
+    </div>
+    <div class="body">
+      <div class="value">
+        {{
+          "SIGNATURE.MONEY_VALUE"
+            | translate
+              : {
+                  value: 35.2 | currencyExchange : { toString: true }
+                }
+        }}
+      </div>
+    </div>
+  </div>
+
+  <div class="card2 card">
+    <div class="header">
+      <div class="main-text">
+        <div class="label">{{ "LABEL.AVAILABLE_BALANCE" | translate }}</div>
+        <div class="description">
+          {{ "LABEL.AVAILABLE_BALANCE_DESCRIPTION" | translate }}
+        </div>
+      </div>
+      <fa-icon [icon]="walletIcon"></fa-icon>
+    </div>
+    <div class="body">
+      <div class="value">
+        {{
+          "SIGNATURE.MONEY_VALUE"
+            | translate
+              : {
+                  value: 182 | currencyExchange : { toString: true }
+                }
+        }}
+      </div>
+      <div class="withdraw">
+        <a routerLink="/withdraw">{{ "LABEL.WITHDRAW_ACTION" | translate }}</a>
+        <fa-icon [icon]="arrowRightIcon"></fa-icon>
+      </div>
+    </div>
+  </div>
+</div>

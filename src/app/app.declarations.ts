@@ -128,6 +128,14 @@ import { ReviewItemComponent } from './components/review-item/review-item.compon
 import { ImageService } from './core/services/image.service';
 import { ManageStagesComponent } from './pages/my-course-add/manage-stages/manage-stages.component';
 import { MaterialsComponent } from './pages/materials/materials.component';
+import { MaterialsQuizComponent } from './pages/materials-group/materials-quiz/materials-quiz.component';
+import { MaterialsVideoComponent } from './pages/materials-group/materials-video/materials-video.component';
+import { MaterialsDocumentComponent } from './pages/materials-group/materials-document/materials-document.component';
+import { MaterialsAssignmentComponent } from './pages/materials-group/materials-assignment/materials-assignment.component';
+import { MyRevenueComponent } from './pages/my-revenue/my-revenue.component';
+import { MyRevenueInfosComponent } from './pages/my-revenue/my-revenue-infos/my-revenue-infos.component';
+import { MyRevenueCoursesBreakDownComponent } from './pages/my-revenue/my-revenue-courses-break-down/my-revenue-courses-break-down.component';
+import { TableComponent } from './components/table/table.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -150,6 +158,7 @@ export const AppDeclarations = [
   AvatarByNameComponent,
   LoadingComponent,
   ReviewItemComponent,
+  TableComponent,
   // Home
   HomeComponent,
   HomeStatisticsComponent,
@@ -214,7 +223,15 @@ export const AppDeclarations = [
   LearningPathDetailsComponent,
   PathCourseItemComponent,
   // Materials
-  MaterialsComponent
+  MaterialsComponent,
+  MaterialsQuizComponent,
+  MaterialsVideoComponent,
+  MaterialsDocumentComponent,
+  MaterialsAssignmentComponent,
+  // Revenue
+  MyRevenueComponent,
+  MyRevenueInfosComponent,
+  MyRevenueCoursesBreakDownComponent
 ];
 export const NGIcons = [
   EnterOutline,
