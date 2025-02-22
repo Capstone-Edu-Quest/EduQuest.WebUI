@@ -13,6 +13,14 @@
     width: 100vw !important;
   }
 
+  .logo-video {
+    position: absolute;
+    top: 10px;
+    left: 12px;
+    height: 25px;
+    opacity: 0.5;
+  }
+
   video {
     width: 100%;
     cursor: pointer;

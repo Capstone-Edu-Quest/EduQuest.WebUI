@@ -210,7 +210,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   }
 
   onLoadedVideo(initState: any) {
-    if (initState) {
+    if (initState && this.material) {
       this.material.data.duration = initState.duration;
     }
   }
