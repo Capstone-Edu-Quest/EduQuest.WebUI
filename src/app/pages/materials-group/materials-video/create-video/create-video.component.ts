@@ -39,7 +39,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
     description: '',
     type: 'video',
     data: {
-      url: 'https://firebasestorage.googleapis.com/v0/b/eduquest-1a0bd.firebasestorage.app/o/course-video%2Fa70b6e26-ec51-4ddd-bb7b-05646f614fb3_1740246588021?alt=media&token=adc5efe9-14e3-4786-b1ed-dfa3cc5eec59',
+      url: '',
       duration: 0,
     },
   };

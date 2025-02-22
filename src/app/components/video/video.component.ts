@@ -62,7 +62,7 @@ export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
   playbackSpeed: number = 1.0;
   availableSpeed: number[] = [0.5, 1, 1.5, 2];
 
-  currentVolume: number = 100;
+  currentVolume: number = 70;
   isMuted: boolean = false;
 
   mouseIsMoving: boolean = false;
@@ -122,8 +122,8 @@ export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
       videoEl.addEventListener('pause', () => this.pauseEvent.emit())
     );
 
+    videoEl.volume = this.currentVolume;
     videoEl.playbackRate = this.playbackSpeed;
-    this.currentVolume = videoEl.volume;
     this.isMuted = videoEl.muted;
 
     this.toggleMouseMoving();
