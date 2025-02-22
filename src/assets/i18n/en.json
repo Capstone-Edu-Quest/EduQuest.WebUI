@@ -347,7 +347,16 @@
     "AVAILABLE_BALANCE": "Available Balance",
     "AVAILABLE_BALANCE_DESCRIPTION": "Earnings that available for withdrawal",
     "WITHDRAW_ACTION": "Proceed to withdraw",
-    "COURSE_REVENUE" : "Courses' Revenue"
+    "COURSE_REVENUE": "Courses' Revenue",
+    "COURSE_REVENUE_SUB": "All time revenue from your courses",
+    "COURSE_NAME_REVENUE": "Course Name",
+    "TOTAL_SALES": "Total Sales",
+    "TOTAL_REFUNDS": "Total Refunds",
+    "TRENDS_INSIGHTS": "Trends & Insights",
+    "TRENDS_INSIGHTS_LABEL": "Display your revenue statistics overtime",
+    "REVENUE_IN_UNIT": "Earnings ({{unit}})",
+    "SALES_IN_UNIT": "Sales ({{unit}})",
+    "REFUNDS_IN_UNIT": "Refunds ({{unit}})"
   },
   "MESSAGE": {
     "SEARCH_COURSE": "Search Courses",

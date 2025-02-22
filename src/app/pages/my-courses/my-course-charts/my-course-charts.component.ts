@@ -4,7 +4,6 @@ import {
   ChartConfiguration,
   ChartData,
   ChartOptions,
-  ChartType,
   RadialLinearScaleOptions,
 } from 'chart.js';
 import { darkTheme } from '../../../shared/themes/darkTheme';

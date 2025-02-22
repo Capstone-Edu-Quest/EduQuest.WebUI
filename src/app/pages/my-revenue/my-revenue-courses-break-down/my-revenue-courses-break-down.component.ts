@@ -8,11 +8,11 @@ import { TableColumn } from '../../../shared/interfaces/others.interfaces';
 })
 export class MyRevenueCoursesBreakDownComponent implements OnInit {
   tableColumns: TableColumn[] = [
-    { key: 'courseName', label: 'Course Name' },
-    { key: 'totalLeaners', label: 'Total Leaners' },
-    { key: 'totalRefund', label: 'Total Refunds' },
+    { key: 'courseName', label: 'LABEL.COURSE_NAME_REVENUE' },
+    { key: 'totalLeaners', label: 'LABEL.TOTAL_SALES'},
+    { key: 'totalRefund', label: 'LABEL.TOTAL_REFUNDS' },
     // revenue = Total - Refund
-    { key: 'totalRevenue', label: 'Total Revenue', isMoney: true },
+    { key: 'totalRevenue', label: 'Total Revenue', translateLabel: 'LABEL.TOTAL_REVENUE', isMoney: true },
   ];
 
   tableData = [

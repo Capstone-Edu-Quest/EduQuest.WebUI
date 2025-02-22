@@ -1,0 +1,19 @@
+<div class="revenue-trends">
+  <div class="label">{{ "LABEL.TRENDS_INSIGHTS" | translate }}</div>
+  <div class="sub-label">{{ "LABEL.TRENDS_INSIGHTS_LABEL" | translate }}</div>
+  <div class="card">
+    <canvas
+      baseChart
+      [data]="totalCourseLeanerChartData"
+      [options]="lineChartConfig"
+      type="line"
+    >
+    </canvas>
+  </div>
+</div>
+
+<!-- 
+    3. Revenue trends & insights
+    Earnings Over Time: Line Graph showing revenue growth compare to enrollment. (by month)
+    TOP Earning course (bar chart)
+ -->

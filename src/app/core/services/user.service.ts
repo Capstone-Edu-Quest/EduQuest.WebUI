@@ -88,8 +88,7 @@ export class UserService {
 
     this.updateUser({
       ...payload.userData,
-      // roleId: Number(payload.userData.roleId) as WebRole,
-      roleId: 2,
+      roleId: Number(payload.userData.roleId) as WebRole,
     });
     this.storage.setCookie(TokenEnum.ACCESS_TOKEN, payload.token.accessToken);
     this.storage.setCookie(TokenEnum.REFRESH_TOKEN, payload.token.refreshToken);

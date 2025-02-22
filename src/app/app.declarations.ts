@@ -136,6 +136,8 @@ import { MyRevenueComponent } from './pages/my-revenue/my-revenue.component';
 import { MyRevenueInfosComponent } from './pages/my-revenue/my-revenue-infos/my-revenue-infos.component';
 import { MyRevenueCoursesBreakDownComponent } from './pages/my-revenue/my-revenue-courses-break-down/my-revenue-courses-break-down.component';
 import { TableComponent } from './components/table/table.component';
+import { MyRevenueTrendsComponent } from './pages/my-revenue/MyRevenueTrends/MyRevenueTrends.component';
+import { CurrencyExchangePipe } from './core/pipes/currency.pipe';
 
 export const AppDeclarations = [
   AppComponent,
@@ -231,7 +233,8 @@ export const AppDeclarations = [
   // Revenue
   MyRevenueComponent,
   MyRevenueInfosComponent,
-  MyRevenueCoursesBreakDownComponent
+  MyRevenueCoursesBreakDownComponent,
+  MyRevenueTrendsComponent
 ];
 export const NGIcons = [
   EnterOutline,
@@ -294,7 +297,8 @@ export const appServices = [
   FoxService,
   LoadingService,
   HttpService,
-  ImageService
+  ImageService,
+  CurrencyExchangePipe
 ];
 
 export const appGuards = [
