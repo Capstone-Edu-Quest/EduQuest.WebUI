@@ -1,0 +1,89 @@
+<div
+  class="video-container"
+  [ngClass]="{
+    fullwidth: isExpand
+  }"
+  (mousemove)="toggleMouseMoving()"
+  #container
+>
+  <video
+    #videoElement
+    (click)="togglePlay()"
+    (waiting)="showLoading()"
+    (stalled)="showLoading()"
+    (canplay)="hideLoading()"
+    (playing)="hideLoading()"
+    (pause)="hideLoading()"
+    (progress)="checkBuffered()"
+  >
+    <source
+      *ngFor="let source of sources"
+      [src]="source.url"
+      type="video/mp4"
+    />
+  </video>
+
+  <div class="loading" *ngIf="isLoading">
+    <ul class="dots">
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+  </div>
+
+  <div class="controls-wrapper" *ngIf="mouseIsMoving || !isPlaying" @fadeInOut>
+    <!-- Progress Bar -->
+    <div
+      class="progress-container"
+      #progressBar
+      (click)="seek($event)"
+      (mousemove)="showTooltip($event)"
+      (mouseleave)="hideTooltip()"
+    >
+      <div
+        class="buffered-bar"
+        [style.width]="(buffered / duration) * 100 + '%'"
+      ></div>
+      <div
+        class="progress-bar"
+        [style.width]="(currentTime / duration) * 100 + '%'"
+      ></div>
+    </div>
+
+    <div
+      class="tooltip"
+      [style.left.px]="tooltipX"
+      [style.visibility]="tooltipVisible ? 'visible' : 'hidden'"
+    >
+      {{ tooltipTime }}
+    </div>
+
+    <div class="settings">
+      <div class="ctn">
+        <fa-icon
+          (click)="togglePlay()"
+          [icon]="!isPlaying ? playIcon : pauseIcon"
+        ></fa-icon>
+
+        <div class="volume-control">
+          <fa-icon (click)="toggleMute()" [icon]="getVolumeIcon()"></fa-icon>
+          <app-slider
+            @fadeInOut
+            (valueChange)="onChangeVolume($event)"
+            [value]="currentVolume"
+          ></app-slider>
+        </div>
+
+        <div class="time">
+          {{ getMinuteAndSecond(currentTime) }} /
+          {{ getMinuteAndSecond(duration) }}
+        </div>
+      </div>
+      <div class="ctn">
+        <div class="speed" (click)="changeSpeed()">{{ playbackSpeed }}x</div>
+        <div class="expand" (click)="onToggleExpand()"></div>
+        <fa-icon [icon]="expandIcon" (click)="toggleFullscreen()"></fa-icon>
+      </div>
+    </div>
+  </div>
+</div>

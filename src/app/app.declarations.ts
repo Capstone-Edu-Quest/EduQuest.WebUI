@@ -140,6 +140,8 @@ import { MyRevenueTrendsComponent } from './pages/my-revenue/MyRevenueTrends/MyR
 import { CurrencyExchangePipe } from './core/pipes/currency.pipe';
 import { VideoService } from './core/services/video.service';
 import { CreateVideoComponent } from './pages/materials-group/materials-video/create-video/create-video.component';
+import { VideoComponent } from './components/video/video.component';
+import { SliderComponent } from './components/fox-3d/slider/slider.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -163,6 +165,8 @@ export const AppDeclarations = [
   LoadingComponent,
   ReviewItemComponent,
   TableComponent,
+  VideoComponent,
+  SliderComponent,
   // Home
   HomeComponent,
   HomeStatisticsComponent,

@@ -7,7 +7,6 @@ import {
   type OnInit,
   OnDestroy,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { MessageService } from '../../../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
 import { FirebaseService } from '../../../../core/services/firebase.service';
@@ -40,7 +39,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
     description: '',
     type: 'video',
     data: {
-      url: '',
+      url: 'https://firebasestorage.googleapis.com/v0/b/eduquest-1a0bd.firebasestorage.app/o/course-video%2Fa70b6e26-ec51-4ddd-bb7b-05646f614fb3_1740246588021?alt=media&token=adc5efe9-14e3-4786-b1ed-dfa3cc5eec59',
       duration: 0,
     },
   };
@@ -85,8 +84,8 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   }
 
   onClickAddImage() {
-    if(!this.fileInput.nativeElement || this.uploadProgress || this.compressProgress) return;
-    this.fileInput.nativeElement.click();
+    if(!this.fileInput.nativeElement || this.uploadProgress || this.compressProgress || this.material.data.url !== '') return;
+    this.fileInput?.nativeElement?.click();
   }
 
   onFileSelected(event: any) {

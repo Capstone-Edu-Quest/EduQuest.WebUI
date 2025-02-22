@@ -20,7 +20,7 @@
       border-radius: 20px;
       background: var(--secondary-bg);
       cursor: pointer;
-      overflow: hidden;
+      // overflow: hidden;
 
       &.dragOver {
         background: var(--tertiary-bg);

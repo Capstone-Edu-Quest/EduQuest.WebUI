@@ -1,0 +1,7 @@
+<div class="slider-container">
+    <div class="slider" #slider>
+      <div class="slider-track"></div>
+      <div class="slider-thumb" #thumb [style.left.%]="(value - min) / (max - min) * 100"></div>
+    </div>
+  </div>
+  

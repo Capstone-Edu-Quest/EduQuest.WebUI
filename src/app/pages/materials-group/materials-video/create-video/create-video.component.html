@@ -8,7 +8,8 @@
         dragOver: isDragOverImgInput
       }"
       [ngStyle]="{
-        aspectRatio: material.data.url === '' ? '16/9' : 'unset'
+        aspectRatio: material.data.url === '' ? '16/9' : 'unset',
+        borderWidth:  material.data.url === '' ? '1px' : '0px'
       }"
       (click)="onClickAddImage()"
       (dragover)="onDragOver($event)"
@@ -33,15 +34,16 @@
         <label>{{ "MESSAGE.DROP_VIDEO" | translate }}</label>
       </div>
 
-      <video
-        width="100%"
-        height="auto"
-        controls
+      <app-video
         *ngIf="material.data.url !== ''"
-      >
-        <source [src]="material.data.url" type="video/mp4" />
-        Your browser does not support the video tag.
-      </video>
+        [sources]="[{ url: material.data.url, label: '1080p' }]"
+        [defaultSpeed]="1.0"
+      ></app-video>
+      <!-- (speedChange)="onSpeedChange($event)"
+      (qualityChange)="onQualityChange($event)"
+      (progressChange)="onProgressChange($event)"
+      (playEvent)="onPlay()"
+      (pauseEvent)="onPause()" -->
 
       <div
         *ngIf="uploadProgress !== null || compressProgress !== null"
