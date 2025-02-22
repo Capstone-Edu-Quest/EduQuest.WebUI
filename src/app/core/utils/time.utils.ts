@@ -162,3 +162,15 @@ export const convertMinutesToHour = (minutes: number): string => {
 
   return minute > 0 ? `${hour}:${minute}` : hour.toString();
 };
+
+export const timeStringToSeconds = (timeString: string): number => {
+  // Expect timeString in the format "HH:MM:SS.ms"
+  const [hours, minutes, secondsAndMs] = timeString.split(':');
+  const [seconds, ms] = secondsAndMs.split('.');
+  return (
+    parseInt(hours, 10) * 3600 +
+    parseInt(minutes, 10) * 60 +
+    parseInt(seconds, 10) +
+    parseFloat(`0.${ms}`)
+  );
+}

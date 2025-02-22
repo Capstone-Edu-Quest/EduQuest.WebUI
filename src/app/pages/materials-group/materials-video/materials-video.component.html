@@ -1,1 +1,40 @@
-<p>materials-video works!</p>,
+<div class="material-ctn">
+  <div class="header">
+    <div class="title text-gradient">
+      {{ "LABEL.VIDEO_MATERIAL" | translate }}
+    </div>
+    <app-button [style]="{ display: 'flex', gap: '4px' }" (click)="onCreate()"
+      ><fa-icon [icon]="addIcon"></fa-icon
+      >{{ "BUTTON.ADD_VIDEO" | translate }}</app-button
+    >
+  </div>
+
+  <div class="material-items-ctn">
+    <div class="material-row" *ngFor="let material of videoMaterials">
+      <div class="info">
+        <div class="name">{{ material.name }}</div>
+        <div class="description">{{ material.description }}</div>
+        <div class="time">
+          <fa-icon [icon]="clockIcon"></fa-icon>
+          <div class="duration">
+            {{
+              "LABEL.MINUTES" | translate : { value: material.data.duration }
+            }}
+          </div>
+        </div>
+      </div>
+      <div class="btn-ctn">
+        <fa-icon
+          (click)="onEdit($event)"
+          class="edit"
+          [icon]="editIcon"
+        ></fa-icon>
+        <fa-icon
+          (click)="onDelete($event)"
+          class="delete"
+          [icon]="deleteIcon"
+        ></fa-icon>
+      </div>
+    </div>
+  </div>
+</div>

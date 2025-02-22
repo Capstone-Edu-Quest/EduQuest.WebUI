@@ -1,0 +1,71 @@
+<div class="create-video">
+  <div class="title text-gradient">{{ "LABEL.CREATE_VIDEO" | translate }}</div>
+
+  <div class="image-wrapper">
+    <div
+      class="image-drop-zone"
+      [ngClass]="{
+        dragOver: isDragOverImgInput
+      }"
+      [ngStyle]="{
+        aspectRatio: material.data.url === '' ? '16/9' : 'unset'
+      }"
+      (click)="onClickAddImage()"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (drop)="onDrop($event)"
+    >
+      <div
+        class="instruction"
+        *ngIf="
+          uploadProgress === null &&
+          compressProgress === null &&
+          material.data.url === ''
+        "
+      >
+        <input
+          type="file"
+          (change)="onFileSelected($event)"
+          #fileInput
+          hidden
+        />
+        <fa-icon [icon]="cameraIcon"></fa-icon>
+        <label>{{ "MESSAGE.DROP_VIDEO" | translate }}</label>
+      </div>
+
+      <video
+        width="100%"
+        height="auto"
+        controls
+        *ngIf="material.data.url !== ''"
+      >
+        <source [src]="material.data.url" type="video/mp4" />
+        Your browser does not support the video tag.
+      </video>
+
+      <div *ngIf="uploadProgress !== null || compressProgress !== null" class="label-progress">{{(uploadProgress ? 'LABEL.UPLOADING' : 'LABEL.COMPRESSING') | translate}}...</div>
+      <div
+      class="progress"
+      *ngIf="uploadProgress !== null || compressProgress !== null"
+      >
+        <div
+          class="running-progress"
+          [ngStyle]="{
+            width: (uploadProgress ?? compressProgress )+ '%'
+          }"
+        ></div>
+        <div class="label-progress">
+          {{ uploadProgress ?? compressProgress }}%
+        </div>
+      </div>
+
+      <app-button
+        (click)="onRemoveImage($event)"
+        class="remove-image-btn"
+        type="danger"
+        *ngIf="material.data.url !== ''"
+        >{{ "BUTTON.REMOVE_IMAGE" | translate }}</app-button
+      >
+    </div>
+  </div>
+</div>

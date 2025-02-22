@@ -138,6 +138,8 @@ import { MyRevenueCoursesBreakDownComponent } from './pages/my-revenue/my-revenu
 import { TableComponent } from './components/table/table.component';
 import { MyRevenueTrendsComponent } from './pages/my-revenue/MyRevenueTrends/MyRevenueTrends.component';
 import { CurrencyExchangePipe } from './core/pipes/currency.pipe';
+import { VideoService } from './core/services/video.service';
+import { CreateVideoComponent } from './pages/materials-group/materials-video/create-video/create-video.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -230,6 +232,7 @@ export const AppDeclarations = [
   MaterialsVideoComponent,
   MaterialsDocumentComponent,
   MaterialsAssignmentComponent,
+  CreateVideoComponent,
   // Revenue
   MyRevenueComponent,
   MyRevenueInfosComponent,
@@ -298,7 +301,8 @@ export const appServices = [
   LoadingService,
   HttpService,
   ImageService,
-  CurrencyExchangePipe
+  CurrencyExchangePipe,
+  VideoService
 ];
 
 export const appGuards = [

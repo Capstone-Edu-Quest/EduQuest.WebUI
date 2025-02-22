@@ -59,9 +59,9 @@ export class MyRevenueTrendsComponent implements OnInit, OnDestroy {
     ],
   };
 
-  revenues = [122, 60, 900, 218, 488];
   sales = [170, 65, 780, 232, 522];
   refunds = [8, 5, 120, 24, 44];
+  revenues = this.sales.map((val, index) => val - this.refunds[index]);
 
   constructor(
     private theme: ThemeService,

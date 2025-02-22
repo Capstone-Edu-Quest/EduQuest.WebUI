@@ -50,18 +50,17 @@ export interface ICourseManage extends ICourse {
 }
 
 export type materialType = 'video' | 'document' | 'quiz' | 'assignment';
-export interface IMaterialCreate {
+export interface IMaterialCreate<T> {
   id: string;
   name: string;
   description: string;
   type: materialType;
-  data: IVideo | IDocument | IQuiz | IAssignment;
+  data: T;
 }
 
 export interface IVideo {
   url: string;
   duration: number;
-  thumbnail: string;
 }
 export interface IDocument {
   content: string; // html

@@ -53,7 +53,7 @@ export class MaterialsComponent implements OnInit {
     },
   ];
 
-  videoMaterials: IMaterialCreate[] = [
+  videoMaterials: IMaterialCreate<IVideo>[] = [
     {
       id: '1',
       name: 'Introduction to TypeScript',
@@ -63,7 +63,6 @@ export class MaterialsComponent implements OnInit {
       data: {
         url: 'https://example.com/videos/typescript-intro.mp4',
         duration: 10, // 10 minutes
-        thumbnail: 'https://example.com/thumbnails/typescript-intro.jpg',
       },
     },
     {
@@ -75,7 +74,6 @@ export class MaterialsComponent implements OnInit {
       data: {
         url: 'https://example.com/videos/react-state.mp4',
         duration: 15, // 15 minutes
-        thumbnail: 'https://example.com/thumbnails/react-state.jpg',
       },
     },
     {
@@ -87,12 +85,11 @@ export class MaterialsComponent implements OnInit {
       data: {
         url: 'https://example.com/videos/async-js.mp4',
         duration: 12.5, // 12.5 minutes
-        thumbnail: 'https://example.com/thumbnails/async-js.jpg',
       },
     },
   ];
 
-  quizMaterials: IMaterialCreate[] = [
+  quizMaterials: IMaterialCreate<IQuiz>[] = [
     {
       id: 'material-quiz-1',
       name: 'JavaScript Fundamentals Quiz',
@@ -201,7 +198,7 @@ export class MaterialsComponent implements OnInit {
     },
   ];
 
-  assignmentMaterials: IMaterialCreate[] = [
+  assignmentMaterials: IMaterialCreate<IAssignment>[] = [
     {
       id: 'assignment-1',
       name: 'JavaScript Prime Number Check',

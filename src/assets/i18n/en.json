@@ -357,9 +357,14 @@
     "REVENUE_IN_UNIT": "Earnings ({{unit}})",
     "SALES_IN_UNIT": "Sales ({{unit}})",
     "REFUNDS_IN_UNIT": "Refunds ({{unit}})",
-    "ADD_STAGE": "Add a new stage"
+    "ADD_STAGE": "Add a new stage",
+    "VIDEO_MATERIAL": "Video Materials",
+    "CREATE_VIDEO": "Create Video",
+    "UPLOADING": "Uploading",
+    "COMPRESSING": "Compressing"
   },
   "MESSAGE": {
+    "DROP_VIDEO": "Drop video here or click to upload",
     "SEARCH_COURSE": "Search Courses",
     "WELCOME_BACK": "Welcome back, {{name}}",
     "SEARCH_TAGS": "Enter tags name",
@@ -376,7 +381,8 @@
     "MISSING_FIELDS": "There are some missing fields",
     "INVALID_PRICE": "Invalid price",
     "COURSE_NEED_THUMBNAIL": "You need to upload a thumbnail",
-    "INVALID_STAGES": "Stage must not have empty name or no material"
+    "INVALID_STAGES": "Stage must not have empty name or no material",
+    "INVALID_VIDEO": "Please upload a video file"
   },
   "BUTTON": {
     "CONTINUE": "Continue",
@@ -399,7 +405,8 @@
     "ADD_REQUIREMENTS": "Add Requirements",
     "REMOVE_REQUIREMENTS": "Remove Requirements",
     "CREATE_COURSE": "Create Course",
-    "UPDATE_COURSE": "Update Course"
+    "UPDATE_COURSE": "Update Course",
+    "ADD_VIDEO": "New Video"
   },
   "LANGUAGES": {
     "EN": "English",

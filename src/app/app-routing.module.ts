@@ -28,6 +28,7 @@ import { MaterialsDocumentComponent } from './pages/materials-group/materials-do
 import { MaterialsQuizComponent } from './pages/materials-group/materials-quiz/materials-quiz.component';
 import { MaterialsAssignmentComponent } from './pages/materials-group/materials-assignment/materials-assignment.component';
 import { MyRevenueComponent } from './pages/my-revenue/my-revenue.component';
+import { CreateVideoComponent } from './pages/materials-group/materials-video/create-video/create-video.component';
 
 const routes: Routes = [
   {
@@ -90,7 +91,7 @@ const routes: Routes = [
     path: 'my-revenue',
     canActivate: [AuthGuard, RoleGuard],
     data: { allowedRoles: [WebRole.INSTRUCTOR] },
-    component: MyRevenueComponent
+    component: MyRevenueComponent,
   },
   {
     path: 'materials',
@@ -103,12 +104,16 @@ const routes: Routes = [
       },
       {
         path: 'video',
-        component: MaterialsVideoComponent,
         children: [
           {
             path: '',
             component: MaterialsVideoComponent,
           },
+          {
+            path: 'new',
+            component: CreateVideoComponent,
+          },
+
           // {
           //   path: ':videoId',
           //   // TODO
