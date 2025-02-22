@@ -139,7 +139,7 @@
   }
 
   .btn-ctn {
-    margin-top: 35px;
+    margin-top: 45px;
     display: flex;
     gap: 8px;
 
@@ -154,6 +154,18 @@
     flex-direction: column;
     gap: 4px;
     width: 100%;
+
+    .add-stage {
+      display: flex;
+      gap: 8px;
+      cursor: pointer;
+      color: var(--secondary-text);
+      transition: all 0.1s linear;
+
+      &:hover {
+        color: var(--primary-text);
+      }
+    }
 
     .stage-wrapper {
       display: flex;

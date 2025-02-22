@@ -343,12 +343,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
     return index;
   }
 
-  onCreateCourse() {
-    const course: any = {
-      ...this.courseInfo,
-      // instructor: this.user.id,
-    };
-
+  onValidateCourseInfo(course: any) {
     const courseKey = Object.keys(course);
     if (course.image === '') {
       this.message.addMessage(
@@ -392,6 +387,16 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
       }
     }
 
+    return true;
+  }
+
+  onCreateCourse() {
+    const course: any = {
+      ...this.courseInfo,
+      // instructor: this.user.id,
+    };
+
+    if (!this.onValidateCourseInfo(course)) return;
     console.log(course);
   }
 
@@ -407,6 +412,20 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
         } as IModifyStage;
       }),
     };
+
+    if (!this.onValidateCourseInfo(newCourseInfo)) return;
+
+    const emptyStage = newCourseInfo.stages.findIndex(
+      (stage) => stage.name === '' || stage.materialsId.length === 0
+    );
+
+    if (emptyStage !== -1) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.INVALID_STAGES')
+      );
+      return;
+    }
 
     console.log(newCourseInfo);
   }
@@ -471,6 +490,17 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
     }
 
     this.currentDragStageId = null;
+  }
+
+  onAddNewStage() {
+    const newStage: IStage = {
+      id: `stage-${this.fullStagesInfo.length + 1}`,
+      title: '',
+      time: 0,
+      mission: [],
+    };
+
+    this.fullStagesInfo.push(newStage);
   }
 
   ngOnDestroy(): void {
