@@ -2,7 +2,7 @@ import { Component, type OnInit } from '@angular/core';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { faPen, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import {
-  IMaterialCreate,
+  IMaterial,
   IVideo,
 } from '../../../shared/interfaces/course.interfaces';
 import { Router } from '@angular/router';
@@ -18,7 +18,7 @@ export class MaterialsVideoComponent implements OnInit {
   editIcon = faPen;
   deleteIcon = faTrash;
 
-  videoMaterials: IMaterialCreate<IVideo>[] = [
+  videoMaterials: IMaterial<IVideo>[] = [
     {
       id: '1',
       name: 'Introduction to TypeScript',
@@ -62,8 +62,9 @@ export class MaterialsVideoComponent implements OnInit {
     this.router.navigate(['/materials/video/new']);
   }
 
-  onEdit(e: Event) {
+  onEdit(e: Event, id: string) {
     e.stopPropagation();
+    this.router.navigate(['/materials/video/', id]);
   }
 
   onDelete(e: Event) {

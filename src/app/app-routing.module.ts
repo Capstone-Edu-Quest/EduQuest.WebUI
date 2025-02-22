@@ -113,11 +113,10 @@ const routes: Routes = [
             path: 'new',
             component: CreateVideoComponent,
           },
-
-          // {
-          //   path: ':videoId',
-          //   // TODO
-          // },
+          {
+            path: ':videoId',
+            component: CreateVideoComponent,
+          },
         ],
       },
       {

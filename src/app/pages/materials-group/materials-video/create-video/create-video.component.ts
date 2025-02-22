@@ -15,10 +15,12 @@ import { FirebaseStorageFolder } from '../../../../shared/enums/firebase.enum';
 import { Subscription } from 'rxjs';
 import { IUser } from '../../../../shared/interfaces/user.interfaces';
 import {
+  IMaterial,
   IMaterialCreate,
   IVideo,
 } from '../../../../shared/interfaces/course.interfaces';
 import { Location } from '@angular/common';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-video',
@@ -34,7 +36,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   removeIcon = faRemove;
   cameraIcon = faVideo;
 
-  material: IMaterialCreate<IVideo> = {
+  material: IMaterialCreate<IVideo> | IMaterial<IVideo> = {
     name: '',
     description: '',
     type: 'video',
@@ -54,6 +56,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   uploadProgress: number | null = null;
 
   constructor(
+    private route: ActivatedRoute,
     private location: Location,
     private message: MessageService,
     private translate: TranslateService,
@@ -63,6 +66,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.initView();
     this.listenToVideoCompressingProgress();
     this.listenToUser();
   }
@@ -82,6 +86,33 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
         this.compressProgress = progress;
       })
     );
+  }
+
+  initView() {
+    this.subscription$.add(
+      this.route.paramMap.subscribe((params) => {
+        const videoId = params.get('videoId');
+        this.isEdit = !!videoId;
+        if (!!videoId) {
+          this.initMaterial(videoId);
+        }
+      })
+    );
+  }
+
+  initMaterial(videoId: string) {
+    const testMaterial: IMaterial<IVideo> = {
+      id: 'material-1',
+      name: 'Test Video',
+      description: 'Test Description',
+      type: 'video',
+      data: {
+        url: 'https://firebasestorage.googleapis.com/v0/b/eduquest-1a0bd.firebasestorage.app/o/course-video%2Fa70b6e26-ec51-4ddd-bb7b-05646f614fb3_1740246588021?alt=media&token=adc5efe9-14e3-4786-b1ed-dfa3cc5eec59',
+        duration: 14,
+      },
+    };
+
+    this.material = testMaterial;
   }
 
   onClickAddVideo() {
@@ -179,35 +210,48 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   }
 
   onLoadedVideo(initState: any) {
-    if(initState) {
+    if (initState) {
       this.material.data.duration = initState.duration;
     }
   }
 
   onCancel() {
-    this.location.back()
+    this.location.back();
   }
 
   onValidate() {
-    if(this.material.data.url === '') {
-      this.message.addMessage('error', this.translate.instant('MESSAGE.NEED_TO_UPLOAD_VIDEO'));
+    if (this.material.data.url === '') {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.NEED_TO_UPLOAD_VIDEO')
+      );
       return;
     }
 
-    if(this.material.name.trim() === '' || this.material.description.trim() === '') {
-      this.message.addMessage('error', this.translate.instant('MESSAGE.MISSING_FIELDS'));
+    if (
+      this.material.name.trim() === '' ||
+      this.material.description.trim() === ''
+    ) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.MISSING_FIELDS')
+      );
       return;
     }
 
     return true;
   }
 
-  onUpdate() {}
+  onUpdate() {
+    if (!this.onValidate()) return;
+
+    console.log(this.material);
+  }
 
   onCreate() {
-    if(!this.onValidate()) return;
+    if (!this.onValidate()) return;
 
-    console.log(this.material)
+    console.log(this.material);
   }
 
   ngOnDestroy() {

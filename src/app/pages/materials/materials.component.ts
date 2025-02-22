@@ -2,14 +2,11 @@ import { Component, type OnInit } from '@angular/core';
 import {
   faAngleDown,
   faAngleRight,
-  faArrowUpRightFromSquare,
   faCode,
-  faPlus,
-  faQuestion,
 } from '@fortawesome/free-solid-svg-icons';
 import {
   IAssignment,
-  IMaterialCreate,
+  IMaterial,
   IQuiz,
   IVideo,
 } from '../../shared/interfaces/course.interfaces';
@@ -53,7 +50,7 @@ export class MaterialsComponent implements OnInit {
     },
   ];
 
-  videoMaterials: IMaterialCreate<IVideo>[] = [
+  videoMaterials: IMaterial<IVideo>[] = [
     {
       id: '1',
       name: 'Introduction to TypeScript',
@@ -89,7 +86,7 @@ export class MaterialsComponent implements OnInit {
     },
   ];
 
-  quizMaterials: IMaterialCreate<IQuiz>[] = [
+  quizMaterials: IMaterial<IQuiz>[] = [
     {
       id: 'material-quiz-1',
       name: 'JavaScript Fundamentals Quiz',
@@ -198,7 +195,7 @@ export class MaterialsComponent implements OnInit {
     },
   ];
 
-  assignmentMaterials: IMaterialCreate<IAssignment>[] = [
+  assignmentMaterials: IMaterial<IAssignment>[] = [
     {
       id: 'assignment-1',
       name: 'JavaScript Prime Number Check',
