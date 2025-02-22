@@ -364,7 +364,7 @@
     "COMPRESSING": "Compressing"
   },
   "MESSAGE": {
-    "DROP_VIDEO": "Drop video here or click to upload",
+    "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",
     "SEARCH_COURSE": "Search Courses",
     "WELCOME_BACK": "Welcome back, {{name}}",
     "SEARCH_TAGS": "Enter tags name",
@@ -382,7 +382,8 @@
     "INVALID_PRICE": "Invalid price",
     "COURSE_NEED_THUMBNAIL": "You need to upload a thumbnail",
     "INVALID_STAGES": "Stage must not have empty name or no material",
-    "INVALID_VIDEO": "Please upload a video file"
+    "INVALID_VIDEO": "Please upload a landscape video file",
+    "COMPRESS_VIDEO_ERROR": "Error while compressing video"
   },
   "BUTTON": {
     "CONTINUE": "Continue",
@@ -406,7 +407,8 @@
     "REMOVE_REQUIREMENTS": "Remove Requirements",
     "CREATE_COURSE": "Create Course",
     "UPDATE_COURSE": "Update Course",
-    "ADD_VIDEO": "New Video"
+    "ADD_VIDEO": "New Video",
+    "REMOVE_VIDEO": "Remove Video"
   },
   "LANGUAGES": {
     "EN": "English",

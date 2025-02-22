@@ -4,6 +4,8 @@ import { FirebaseService } from './firebase.service';
 import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
 import { BehaviorSubject } from 'rxjs';
 import { timeStringToSeconds } from '../utils/time.utils';
+import { MessageService } from './message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -12,32 +14,60 @@ export class VideoService {
   compressingProgress$: BehaviorSubject<string | null> = new BehaviorSubject<
     string | null
   >(null);
-  ffmpeg = createFFmpeg({ log: false });
+  ffmpeg = createFFmpeg({ log: true });
 
-  constructor(private firebase: FirebaseService) {}
+  constructor(private firebase: FirebaseService, private message: MessageService, private translate: TranslateService) {}
 
-  vailidateVideoFile(file: File): boolean {
-    const videoMimeTypes = [
-      'video/mp4',
-      'video/webm',
-      'video/ogg',
-      'video/avi',
-      'video/mpeg',
-      'video/quicktime', // MOV
-      'video/x-msvideo', // AVI
-      'video/x-matroska', // MKV
-    ];
+  stopCompressing() {
+    this.compressingProgress$.next(null);
+    this.ffmpeg.exit();
+  }
 
-    const videoExtensions = ['mp4', 'webm', 'ogg', 'avi', 'mpeg', 'mov', 'mkv'];
+  vailidateVideoFile(file: File): Promise<boolean> {
+    return new Promise((resolve) => {
+      const videoMimeTypes = [
+        'video/mp4',
+        'video/webm',
+        'video/ogg',
+        'video/avi',
+        'video/mpeg',
+        'video/quicktime',
+        'video/x-msvideo',
+        'video/x-matroska',
+      ];
 
-    // Check MIME type
-    if (videoMimeTypes.includes(file.type)) return true;
+      const videoExtensions = [
+        'mp4',
+        'webm',
+        'ogg',
+        'avi',
+        'mpeg',
+        'mov',
+        'mkv',
+      ];
 
-    // Check extension if MIME type is missing
-    const fileExtension = file.name.split('.').pop()?.toLowerCase();
-    if (fileExtension && videoExtensions.includes(fileExtension)) return true;
+      // Check MIME type
+      if (!videoMimeTypes.includes(file.type)) {
+        // Check extension if MIME type is missing
+        const fileExtension = file.name.split('.').pop()?.toLowerCase();
+        if (!fileExtension || !videoExtensions.includes(fileExtension)) {
+          return resolve(false);
+        }
+      }
 
-    return false;
+      // Create a video element to check resolution
+      const video = document.createElement('video');
+      video.preload = 'metadata';
+
+      video.onloadedmetadata = () => {
+        URL.revokeObjectURL(video.src); // Clean up object URL
+        resolve(video.videoWidth > video.videoHeight); // True if landscape
+      };
+
+      video.onerror = () => resolve(false); // Invalid video
+
+      video.src = URL.createObjectURL(file);
+    });
   }
 
   async compressVideo(file: File) {
@@ -49,6 +79,7 @@ export class VideoService {
 
     this.ffmpeg.FS('writeFile', 'input.mp4', await fetchFile(file));
     this.ffmpeg.setLogger(({ type, message }) => {
+      if (!message) return;
       const totalTime = message.match(/Duration:\s(\d{2}:\d{2}:\d{2}\.\d{2})/);
       if (totalTime) {
         // console.log('totalTime', totalTime[1]);
@@ -66,14 +97,21 @@ export class VideoService {
     });
 
     await this.ffmpeg.run(
-      '-i',
-      'input.mp4',
-      '-vf',
-      'scale=1280:720',
-      '-b:v',
-      '1M',
+      '-i', 'input.mp4',
+      '-vf', 'scale=1920:-2',
+      '-c:v', 'libx264',
+      '-preset', 'ultrafast',
+      '-crf', '20', // Slightly lower quality for speed
+      '-b:v', '4M',
+      '-maxrate', '5M',
+      '-bufsize', '10M',
+      '-r', '24', // Reduce FPS slightly (if original is 30+)
+      '-c:a', 'copy',
+      '-threads', navigator.hardwareConcurrency.toString(),
+      '-movflags', 'faststart',
       'output.mp4'
-    );
+    );    
+
     const data = this.ffmpeg.FS('readFile', 'output.mp4');
     const compressedFile = new File([data.buffer], 'compressed.mp4', {
       type: 'video/mp4',
@@ -88,7 +126,7 @@ export class VideoService {
     fileName: string
   ) {
     this.compressingProgress$.next('0.00');
-    
+
     const compressedFile = await this.compressVideo(file);
     const filePath = `${folder}/${fileName}`;
 

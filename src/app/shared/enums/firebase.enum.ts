@@ -9,5 +9,6 @@ export enum FirestoreCollectionEnum {
 
 export enum CacheFieldEnum {
     IMAGE_URL = 'imageUrl',
+    VIDEO_URL = 'videoUrl',
 }
 

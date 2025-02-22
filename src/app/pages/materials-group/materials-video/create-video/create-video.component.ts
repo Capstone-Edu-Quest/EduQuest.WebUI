@@ -58,7 +58,8 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
     private message: MessageService,
     private translate: TranslateService,
     private VideoService: VideoService,
-    private UserService: UserService
+    private UserService: UserService,
+    private firebase: FirebaseService
   ) {}
 
   ngOnInit(): void {
@@ -84,6 +85,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   }
 
   onClickAddImage() {
+    if(!this.fileInput.nativeElement || this.uploadProgress || this.compressProgress) return;
     this.fileInput.nativeElement.click();
   }
 
@@ -122,7 +124,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
     }
 
     const file = files[0];
-    const isValid = this.VideoService.vailidateVideoFile(file);
+    const isValid = await this.VideoService.vailidateVideoFile(file);
 
     if (!isValid) {
       this.message.addMessage(
@@ -155,13 +157,18 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   onUploadSuccess(url: string) {
     this.uploadProgress = null;
     this.material.data.url = url;
-    // !this.isUploadedFirstTime && this.firebase.addCacheImage(url);
+    !this.isUploadedFirstTime && this.firebase.addCacheImage(url);
     this.isUploadedFirstTime = true;
   }
 
   onRemoveImage(e: Event) {
     e.stopPropagation();
     this.material.data.url = '';
+  }
+
+  onCancelCompressVideo(e: Event) {
+    e.stopPropagation();
+    this.VideoService.stopCompressing();
   }
 
   ngOnDestroy() {

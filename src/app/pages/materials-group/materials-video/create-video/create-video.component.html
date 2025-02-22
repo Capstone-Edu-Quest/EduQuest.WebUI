@@ -43,28 +43,43 @@
         Your browser does not support the video tag.
       </video>
 
-      <div *ngIf="uploadProgress !== null || compressProgress !== null" class="label-progress">{{(uploadProgress ? 'LABEL.UPLOADING' : 'LABEL.COMPRESSING') | translate}}...</div>
       <div
-      class="progress"
-      *ngIf="uploadProgress !== null || compressProgress !== null"
+        *ngIf="uploadProgress !== null || compressProgress !== null"
+        class="label-progress"
+      >
+        {{
+          (uploadProgress ? "LABEL.UPLOADING" : "LABEL.COMPRESSING")
+            | translate
+        }}...
+      </div>
+      <div
+        class="progress"
+        *ngIf="uploadProgress !== null || compressProgress !== null"
       >
         <div
           class="running-progress"
           [ngStyle]="{
-            width: (uploadProgress ?? compressProgress )+ '%'
+            width: (uploadProgress ?? compressProgress) + '%'
           }"
         ></div>
         <div class="label-progress">
           {{ uploadProgress ?? compressProgress }}%
         </div>
       </div>
+      <app-button
+        (click)="onCancelCompressVideo($event)"
+        *ngIf="compressProgress"
+        type="danger"
+        class="cancel-btn"
+        >{{ "BUTTON.CANCEL" | translate }}</app-button
+      >
 
       <app-button
         (click)="onRemoveImage($event)"
         class="remove-image-btn"
         type="danger"
         *ngIf="material.data.url !== ''"
-        >{{ "BUTTON.REMOVE_IMAGE" | translate }}</app-button
+        >{{ "BUTTON.REMOVE_VIDEO" | translate }}</app-button
       >
     </div>
   </div>
