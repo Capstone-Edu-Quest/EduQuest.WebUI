@@ -9,9 +9,9 @@
       }"
       [ngStyle]="{
         aspectRatio: material.data.url === '' ? '16/9' : 'unset',
-        borderWidth:  material.data.url === '' ? '1px' : '0px'
+        borderWidth: material.data.url === '' ? '1px' : '0px'
       }"
-      (click)="onClickAddImage()"
+      (click)="onClickAddVideo()"
       (dragover)="onDragOver($event)"
       (dragleave)="onDragLeave($event)"
       (drop)="onDrop($event)"
@@ -38,6 +38,7 @@
         *ngIf="material.data.url !== ''"
         [sources]="[{ url: material.data.url, label: '1080p' }]"
         [defaultSpeed]="1.0"
+        [onLoad]="onLoadedVideo"
       ></app-video>
       <!-- (speedChange)="onSpeedChange($event)"
       (qualityChange)="onQualityChange($event)"
@@ -77,12 +78,41 @@
       >
 
       <app-button
-        (click)="onRemoveImage($event)"
+        (click)="onRemoveVideo($event)"
         class="remove-image-btn"
         type="danger"
         *ngIf="material.data.url !== ''"
         >{{ "BUTTON.REMOVE_VIDEO" | translate }}</app-button
       >
     </div>
+  </div>
+
+  <div class="input-label">{{ "LABEL.MATERIAL_NAME" | translate }}</div>
+  <input
+    class="material-input material-name"
+    [placeholder]="'LABEL.MATERIAL_NAME' | translate"
+    [(ngModel)]="material.name"
+  />
+
+  <div class="input-label">{{ "LABEL.MATERIAL_DESCRIPTION" | translate }}</div>
+  <textarea
+    class="material-input material-description"
+    [placeholder]="'LABEL.MATERIAL_DESCRIPTION' | translate"
+    [(ngModel)]="material.description"
+    rows="4"
+  ></textarea>
+
+  <div class="btn-ctn">
+    <app-button [style]="{ width: '100%' }" (click)="onCancel()">
+      {{ "BUTTON.CANCEL" | translate }}
+    </app-button>
+    <app-button
+      [style]="{ width: '100%' }"
+      (click)="isEdit ? onUpdate() : onCreate()"
+      type="primary"
+      >{{
+        (isEdit ? "BUTTON.UPDATE_MATERIAL" : "BUTTON.CREATE_MATERIAL") | translate
+      }}</app-button
+    >
   </div>
 </div>

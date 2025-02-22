@@ -18,6 +18,7 @@ import {
   IMaterialCreate,
   IVideo,
 } from '../../../../shared/interfaces/course.interfaces';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-create-video',
@@ -34,7 +35,6 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   cameraIcon = faVideo;
 
   material: IMaterialCreate<IVideo> = {
-    id: '',
     name: '',
     description: '',
     type: 'video',
@@ -54,6 +54,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   uploadProgress: number | null = null;
 
   constructor(
+    private location: Location,
     private message: MessageService,
     private translate: TranslateService,
     private VideoService: VideoService,
@@ -83,8 +84,14 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
     );
   }
 
-  onClickAddImage() {
-    if(!this.fileInput.nativeElement || this.uploadProgress || this.compressProgress || this.material.data.url !== '') return;
+  onClickAddVideo() {
+    if (
+      !this.fileInput.nativeElement ||
+      this.uploadProgress ||
+      this.compressProgress ||
+      this.material.data.url !== ''
+    )
+      return;
     this.fileInput?.nativeElement?.click();
   }
 
@@ -160,14 +167,47 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
     this.isUploadedFirstTime = true;
   }
 
-  onRemoveImage(e: Event) {
+  onRemoveVideo(e: Event) {
     e.stopPropagation();
     this.material.data.url = '';
+    this.material.data.duration = 0;
   }
 
   onCancelCompressVideo(e: Event) {
     e.stopPropagation();
     this.VideoService.stopCompressing();
+  }
+
+  onLoadedVideo(initState: any) {
+    if(initState) {
+      this.material.data.duration = initState.duration;
+    }
+  }
+
+  onCancel() {
+    this.location.back()
+  }
+
+  onValidate() {
+    if(this.material.data.url === '') {
+      this.message.addMessage('error', this.translate.instant('MESSAGE.NEED_TO_UPLOAD_VIDEO'));
+      return;
+    }
+
+    if(this.material.name.trim() === '' || this.material.description.trim() === '') {
+      this.message.addMessage('error', this.translate.instant('MESSAGE.MISSING_FIELDS'));
+      return;
+    }
+
+    return true;
+  }
+
+  onUpdate() {}
+
+  onCreate() {
+    if(!this.onValidate()) return;
+
+    console.log(this.material)
   }
 
   ngOnDestroy() {

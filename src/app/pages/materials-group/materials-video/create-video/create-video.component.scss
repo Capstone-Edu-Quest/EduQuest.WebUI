@@ -96,4 +96,38 @@
       }
     }
   }
+
+  .input-label {
+    margin-top: 15px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .material-input {
+    font-size: 13px;
+    margin-top: 4px;
+    width: 100%;
+    display: block;
+    background: var(--tertiary-bg);
+    border: none;
+    outline: none;
+    color: var(--primary-text);
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+
+    &.material-description {
+      resize: none;
+    }
+  }
+
+  .btn-ctn {
+    margin-top: 45px;
+    display: flex;
+    gap: 8px;
+
+    app-button {
+      width: 100%;
+    }
+  }
 }

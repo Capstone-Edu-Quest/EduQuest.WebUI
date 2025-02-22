@@ -361,7 +361,9 @@
     "VIDEO_MATERIAL": "Video Materials",
     "CREATE_VIDEO": "Create Video",
     "UPLOADING": "Uploading",
-    "COMPRESSING": "Compressing"
+    "COMPRESSING": "Compressing",
+    "MATERIAL_NAME": "Name",
+    "MATERIAL_DESCRIPTION": "Description"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",
@@ -383,7 +385,8 @@
     "COURSE_NEED_THUMBNAIL": "You need to upload a thumbnail",
     "INVALID_STAGES": "Stage must not have empty name or no material",
     "INVALID_VIDEO": "Please upload a landscape video file",
-    "COMPRESS_VIDEO_ERROR": "Error while compressing video"
+    "COMPRESS_VIDEO_ERROR": "Error while compressing video",
+    "NEED_TO_UPLOAD_VIDEO": "You need to upload a video"
   },
   "BUTTON": {
     "CONTINUE": "Continue",
@@ -408,7 +411,9 @@
     "CREATE_COURSE": "Create Course",
     "UPDATE_COURSE": "Update Course",
     "ADD_VIDEO": "New Video",
-    "REMOVE_VIDEO": "Remove Video"
+    "REMOVE_VIDEO": "Remove Video",
+    "UPDATE_MATERIAL": "Update Material",
+    "CREATE_MATERIAL": "Create Material"
   },
   "LANGUAGES": {
     "EN": "English",

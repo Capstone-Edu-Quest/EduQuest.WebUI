@@ -20,7 +20,7 @@ import {
   faVolumeMute,
 } from '@fortawesome/free-solid-svg-icons';
 import { onAddZeroToTime } from '../../core/utils/time.utils';
-import { Subscription, fromEvent } from 'rxjs';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-video',
@@ -38,6 +38,7 @@ export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() sources: { url: string; label: string }[] = [];
   @Input() defaultSpeed: number = 1.0;
+  @Input() onLoad: (initState: any) => void = () => {};
 
   @Output() speedChange = new EventEmitter<number>();
   @Output() qualityChange = new EventEmitter<string>();
@@ -104,6 +105,16 @@ export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
     this.subscriptions$.add(
       videoEl.addEventListener('loadedmetadata', () => {
         this.duration = videoEl.duration || 0;
+        const initState = {
+          videoEl,
+          currentTime: this.currentTime,
+          duration: this.duration,
+          buffered: this.buffered,
+          playbackSpeed: this.playbackSpeed,
+          volume: this.currentVolume,
+          isMuted: this.isMuted,
+        };
+        this.onLoad(initState);
       })
     );
 
@@ -122,7 +133,7 @@ export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
       videoEl.addEventListener('pause', () => this.pauseEvent.emit())
     );
 
-    videoEl.volume = this.currentVolume;
+    videoEl.volume = this.currentVolume / 100;
     videoEl.playbackRate = this.playbackSpeed;
     this.isMuted = videoEl.muted;
 
@@ -292,7 +303,7 @@ export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
   onChangeVolume(val: number) {
     const videoEl = this.videoRef.nativeElement;
     this.currentVolume = val;
-    videoEl.volume = this.currentVolume;
+    videoEl.volume = this.currentVolume / 100;
   }
 
   onToggleExpand() {
