@@ -1,7 +1,6 @@
-
 // Custom Theming for Angular Material
 // For more information: https://material.angular.io/guide/theming
-@use '@angular/material' as mat;
+@use "@angular/material" as mat;
 @import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800;900&display=swap");
 
 html {
@@ -25,17 +24,76 @@ html {
 }
 
 body {
-    background-color: var(--background) !important;
-    padding: 0;
-    margin: 0;
-    color: var(--primary-text);
-    font-weight: 400;
-    font-size: 13px;
-    font-family: "Be Vietnam Pro", sans-serif;
+  background-color: var(--background) !important;
+  padding: 0;
+  margin: 0;
+  color: var(--primary-text);
+  font-weight: 400;
+  font-size: 13px;
+  font-family: "Be Vietnam Pro", sans-serif;
 }
 
 textarea {
   font-family: "Be Vietnam Pro", sans-serif;
 }
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.NgxEditor__MenuBar {
+  background-color: var(--secondary-bg) !important;
+
+  .NgxEditor__MenuItem--Icon,
+  .NgxEditor__Dropdown {
+    border-radius: 6px !important;
+    &:hover {
+      background-color: var(--brand-02) !important;
+    }
+
+    &.NgxEditor__MenuItem--Active {
+      background: var(--brand) !important;
+
+      &:hover {
+        background: var(--brand) !important;
+      }
+    }
+  }
+}
+
+.NgxEditor__Dropdown .NgxEditor__Dropdown--Selected,
+.NgxEditor__Dropdown .NgxEditor__Dropdown--Open {
+  background: var(--brand-02) !important;
+  border-radius: 6px !important;
+  color: var(--primary-text) !important;
+}
+
+.NgxEditor__Dropdown .NgxEditor__Dropdown--DropdownMenu {
+  background-color: var(--tertiary-bg) !important;
+  color: var(--primary-text) !important;
+  border-radius: 6px !important;
+
+  .NgxEditor__Dropdown--Item {
+    &:hover {
+      background-color: var(--brand-02) !important;
+    }
+  }
+}
+
+.NgxEditor {
+  background: var(--primary-bg) !important;
+  border: 1px solid var(--tertiary-text) !important;
+  color: var(--primary-text) !important;
+}
+ngx-toggle-command {
+  button {
+    // background: var(--secondary-bg) !important;
+    svg {
+      fill: var(--primary-text) !important;
+    }
+  }
+}

@@ -143,6 +143,7 @@ import { CreateVideoComponent } from './pages/materials-group/materials-video/cr
 import { VideoComponent } from './components/video/video.component';
 import { SliderComponent } from './components/fox-3d/slider/slider.component';
 import { CreateDocumentComponent } from './pages/materials-group/materials-document/create-document/create-document.component';
+import { TextEditorComponent } from './components/text-editor/text-editor.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -168,6 +169,7 @@ export const AppDeclarations = [
   TableComponent,
   VideoComponent,
   SliderComponent,
+  TextEditorComponent,
   // Home
   HomeComponent,
   HomeStatisticsComponent,
