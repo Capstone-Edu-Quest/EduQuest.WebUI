@@ -131,10 +131,10 @@ const routes: Routes = [
             path: 'new',
             component: CreateDocumentComponent,
           },
-          // {
-          //   path: ':documentId',
-          //   // TODO
-          // },
+          {
+            path: ':documentId',
+            component: CreateDocumentComponent,
+          },
         ],
       },
       {

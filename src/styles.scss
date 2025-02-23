@@ -88,14 +88,36 @@ body {
 .NgxEditor__Dropdown--Active {
   background: var(--brand-02) !important;
 }
-
+.NgxEditor__MenuItem--Active {
+  color: var(--primary-text) !important;
+}
 .NgxEditor {
   background: var(--primary-bg) !important;
   border: 1px solid var(--tertiary-text) !important;
   color: var(--primary-text) !important;
   min-height: 300px;
-  padding: 0 25px;
+  padding: 0 15px;
   box-sizing: border-box;
+}
+
+.NgxEditor__Popup {
+  background: var(--secondary-bg) !important;
+  border-radius: 8px !important;
+  color: var(--primary-text) !important;
+
+  input {
+    background-color: var(--tertiary-bg) !important;
+    border: 1px solid var(--tertiary-text) !important;
+    outline: none;
+    padding: 3px 6px !important;
+    box-sizing: border-box;
+    border-radius: 4px;
+    color: var(--primary-text) !important;
+
+    &:disabled {
+      color: var(--tertiary-text) !important;
+    }
+  }
 }
 
 .NgxEditor,
@@ -119,6 +141,20 @@ body {
   }
   h4 {
     font-size: 16px !important;
+  }
+  code {
+    background: var(--quaternary-bg) !important;
+    padding: 2px 4px !important;
+    box-sizing: border-box !important;
+    border-radius: 2px !important;
+  }
+  blockquote {
+    border-left-color: var(--tertiary-text) !important;
+  }
+
+  p {
+    display: block !important;
+    width: 100% !important;
   }
 }
 

@@ -7,4 +7,14 @@
     font-size: 22px;
     margin-bottom: 18px;
   }
+
+  .btn-ctn {
+    margin-top: 45px;
+    display: flex;
+    gap: 8px;
+
+    app-button {
+      width: 100%;
+    }
+  }
 }

@@ -368,7 +368,8 @@
     "FAST_SUB": "These questions will appear randomly in this video",
     "ADD_QUESTION": "Add Question",
     "ADD_ANSWER": "Add Answer",
-    "DOCUMENT_MATERIAL": "Documents"
+    "DOCUMENT_MATERIAL": "Documents",
+    "TYPE_HERE": "Type here..."
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",

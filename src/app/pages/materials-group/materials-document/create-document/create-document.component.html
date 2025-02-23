@@ -1,5 +1,19 @@
 <div class="create-document">
   <div class="title text-gradient">{{ "LABEL.DOCUMENTS" | translate }}</div>
 
-  <app-text-editor></app-text-editor>
+  <app-text-editor #textEditor [htmlContent]="material.data.content" ></app-text-editor>
+
+  <div class="btn-ctn">
+    <app-button [style]="{ width: '100%' }" (click)="onCancel()">
+      {{ "BUTTON.CANCEL" | translate }}
+    </app-button>
+    <app-button
+      [style]="{ width: '100%' }"
+      (click)="isEdit ? onUpdate() : onCreate()"
+      type="primary"
+      >{{
+        (isEdit ? "BUTTON.UPDATE_MATERIAL" : "BUTTON.CREATE_MATERIAL")
+          | translate
+      }}</app-button
+    >
 </div>
