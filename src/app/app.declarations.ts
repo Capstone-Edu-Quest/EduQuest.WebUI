@@ -142,6 +142,7 @@ import { VideoService } from './core/services/video.service';
 import { CreateVideoComponent } from './pages/materials-group/materials-video/create-video/create-video.component';
 import { VideoComponent } from './components/video/video.component';
 import { SliderComponent } from './components/fox-3d/slider/slider.component';
+import { CreateDocumentComponent } from './pages/materials-group/materials-document/create-document/create-document.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -237,6 +238,7 @@ export const AppDeclarations = [
   MaterialsDocumentComponent,
   MaterialsAssignmentComponent,
   CreateVideoComponent,
+  CreateDocumentComponent,
   // Revenue
   MyRevenueComponent,
   MyRevenueInfosComponent,

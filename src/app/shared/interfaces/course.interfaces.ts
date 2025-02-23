@@ -63,10 +63,10 @@ export interface IMaterialCreate<T> extends Omit<IMaterial<T>, 'id'> {}
 export interface IVideo {
   url: string;
   duration: number;
-  questions: IVideQuestion[]
+  questions: IVideoQuestion[]
 }
 
-export interface IVideQuestion {
+export interface IVideoQuestion {
   question: string;
   answers: {
     answer: string;

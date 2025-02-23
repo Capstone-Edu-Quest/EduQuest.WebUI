@@ -29,6 +29,7 @@ import { MaterialsQuizComponent } from './pages/materials-group/materials-quiz/m
 import { MaterialsAssignmentComponent } from './pages/materials-group/materials-assignment/materials-assignment.component';
 import { MyRevenueComponent } from './pages/my-revenue/my-revenue.component';
 import { CreateVideoComponent } from './pages/materials-group/materials-video/create-video/create-video.component';
+import { CreateDocumentComponent } from './pages/materials-group/materials-document/create-document/create-document.component';
 
 const routes: Routes = [
   {
@@ -125,6 +126,10 @@ const routes: Routes = [
           {
             path: '',
             component: MaterialsDocumentComponent,
+          },
+          {
+            path: 'new',
+            component: CreateDocumentComponent,
           },
           // {
           //   path: ':documentId',

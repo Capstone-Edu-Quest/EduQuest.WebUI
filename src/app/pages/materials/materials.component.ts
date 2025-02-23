@@ -6,6 +6,7 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import {
   IAssignment,
+  IDocument,
   IMaterial,
   IQuiz,
   IVideo,
@@ -60,7 +61,7 @@ export class MaterialsComponent implements OnInit {
       data: {
         url: 'https://example.com/videos/typescript-intro.mp4',
         duration: 10, // 10 minutes,
-        questions: []
+        questions: [],
       },
     },
     {
@@ -72,7 +73,7 @@ export class MaterialsComponent implements OnInit {
       data: {
         url: 'https://example.com/videos/react-state.mp4',
         duration: 15, // 15 minutes
-        questions: []
+        questions: [],
       },
     },
     {
@@ -84,7 +85,41 @@ export class MaterialsComponent implements OnInit {
       data: {
         url: 'https://example.com/videos/async-js.mp4',
         duration: 12.5, // 12.5 minutes
-        questions: []
+        questions: [],
+      },
+    },
+  ];
+
+  documentMaterials: IMaterial<IDocument>[] = [
+    {
+      id: 'doc-001',
+      name: 'Introduction to TypeScript',
+      description: 'A beginner-friendly introduction to TypeScript.',
+      type: 'document',
+      data: {
+        content:
+          '<h1>Welcome to TypeScript</h1><p>TypeScript is a typed superset of JavaScript...</p>',
+      },
+    },
+    {
+      id: 'doc-002',
+      name: 'Angular Basics',
+      description:
+        'Understanding components, modules, and services in Angular.',
+      type: 'document',
+      data: {
+        content:
+          '<h2>Angular Overview</h2><p>Angular is a popular front-end framework...</p>',
+      },
+    },
+    {
+      id: 'doc-003',
+      name: 'Web Security Essentials',
+      description: 'Learn the fundamentals of securing web applications.',
+      type: 'document',
+      data: {
+        content:
+          '<h3>Security Best Practices</h3><ul><li>Use HTTPS</li><li>Validate Inputs</li></ul>',
       },
     },
   ];
@@ -262,6 +297,11 @@ export class MaterialsComponent implements OnInit {
         return this.videoMaterials.slice(
           0,
           Math.min(3, this.videoMaterials.length)
+        );
+      case 'document':
+        return this.documentMaterials.slice(
+          0,
+          Math.min(3, this.documentMaterials.length)
         );
       case 'quiz':
         return this.quizMaterials.slice(

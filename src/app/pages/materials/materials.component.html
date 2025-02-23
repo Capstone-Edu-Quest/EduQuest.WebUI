@@ -47,7 +47,7 @@
 
 <ng-template #document>
   <div class="material-items-ctn">
-    <a [routerLink]="'/document/' + material.id" class="material-row" *ngFor="let material of get3Materials('video')">
+    <a [routerLink]="'/document/' + material.id" class="material-row" *ngFor="let material of get3Materials('document')">
       <div class="info">
         <div class="name">{{ material.name }}</div>
         <div class="description">{{ material.description }}</div>

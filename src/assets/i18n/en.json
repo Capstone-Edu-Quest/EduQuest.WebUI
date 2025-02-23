@@ -367,7 +367,8 @@
     "FAST_QUESTIONS": "Fast Questions",
     "FAST_SUB": "These questions will appear randomly in this video",
     "ADD_QUESTION": "Add Question",
-    "ADD_ANSWER": "Add Answer"
+    "ADD_ANSWER": "Add Answer",
+    "DOCUMENT_MATERIAL": "Documents"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",
@@ -420,7 +421,8 @@
     "ADD_VIDEO": "New Video",
     "REMOVE_VIDEO": "Remove Video",
     "UPDATE_MATERIAL": "Update Material",
-    "CREATE_MATERIAL": "Create Material"
+    "CREATE_MATERIAL": "Create Material",
+    "ADD_DOCUMENT": "Add Document"
   },
   "LANGUAGES": {
     "EN": "English",
