@@ -395,7 +395,7 @@
     "MISSING_QUESTION": "There are some questions do not have content",
     "MISSING_ANSWER": "There are some answers do not have content",
     "MISSING_CORRECT_ANSWER": "Each question must have a correct answer",
-    "VIDEO_SIZE_LIMIT_REACHED": "Video size over limit (Max 1Gb)"
+    "VIDEO_SIZE_LIMIT_REACHED": "Video size over limit (Max 500Mb)"
   },
   "BUTTON": {
     "CONTINUE": "Continue",

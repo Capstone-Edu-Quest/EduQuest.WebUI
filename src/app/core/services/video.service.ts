@@ -62,7 +62,7 @@ export class VideoService {
       }
 
       const fileSizeInMB = (file.size / (1024 * 1024)).toFixed(2);
-      if (Number(fileSizeInMB) > 1000) {
+      if (Number(fileSizeInMB) > 500) {
         this.message.addMessage(
           'error',
           this.translate.instant('MESSAGE.VIDEO_SIZE_LIMIT_REACHED')
@@ -157,17 +157,18 @@ export class VideoService {
     file: File,
     fileName: string
   ) {
-    this.compressingProgress$.next('0.00');
+    // this.compressingProgress$.next('0.00');
 
-    const compressedFile = await this.compressVideo(file);
+    // const compressedFile = await this.compressVideo(file);
+    
+    // this.ffmpeg.FS('writeFile', 'input.mp4', await fetchFile(file));
+
     const filePath = `${folder}/${fileName}`;
-
-    this.ffmpeg.FS('writeFile', 'input.mp4', await fetchFile(file));
 
     this.compressingProgress$.next(null);
     const { progress$, downloadURL$ } = this.firebase.uploadFile(
       filePath,
-      compressedFile
+      file
     );
 
     return { progress$, downloadURL$ };
