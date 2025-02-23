@@ -144,6 +144,7 @@ import { VideoComponent } from './components/video/video.component';
 import { SliderComponent } from './components/fox-3d/slider/slider.component';
 import { CreateDocumentComponent } from './pages/materials-group/materials-document/create-document/create-document.component';
 import { TextEditorComponent } from './components/text-editor/text-editor.component';
+import { CreateAssignmentComponent } from './pages/materials-group/materials-assignment/create-assignment/create-assignment.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -241,6 +242,7 @@ export const AppDeclarations = [
   MaterialsAssignmentComponent,
   CreateVideoComponent,
   CreateDocumentComponent,
+  CreateAssignmentComponent,
   // Revenue
   MyRevenueComponent,
   MyRevenueInfosComponent,

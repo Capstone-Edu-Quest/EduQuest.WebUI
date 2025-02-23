@@ -369,7 +369,14 @@
     "ADD_QUESTION": "Add Question",
     "ADD_ANSWER": "Add Answer",
     "DOCUMENT_MATERIAL": "Documents",
-    "TYPE_HERE": "Type here..."
+    "TYPE_HERE": "Type here...",
+    "ASSIGNMENT_ANSWER_LANGUAGE": "Answer Language",
+    "ASSIGNMENT_ANSWER_LANGUAGE_SUB": "Choose the coding language leaner will use to answer",
+    "ASSIGNMENT_EXPECTED_ANSWER": "Expected Answer",
+    "ASSIGNMENT_EXPECTED_ANSWER_SUB": "The value return when the code compiled (Ex: [1, 2, 3])",
+    "ASSIGNMENT_INPUT_ARGUMENT": "Input Arguments",
+    "ASSIGNMENT_INPUT_ARGUMENT_SUB": "The arguments that will be passed to the function (Ex: 'Fox', 1)",
+    "ADD_ARGUMENT": "Add Argument"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",
@@ -424,7 +431,9 @@
     "REMOVE_VIDEO": "Remove Video",
     "UPDATE_MATERIAL": "Update Material",
     "CREATE_MATERIAL": "Create Material",
-    "ADD_DOCUMENT": "Add Document"
+    "ADD_DOCUMENT": "Add Document",
+    "ADD_ASSIGNMENT": "Add Assignment",
+    "TEST_ASSIGNMENT": "Test the Assignment"
   },
   "LANGUAGES": {
     "EN": "English",

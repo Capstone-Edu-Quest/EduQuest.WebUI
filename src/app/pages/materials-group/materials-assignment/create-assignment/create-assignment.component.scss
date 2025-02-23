@@ -1,0 +1,76 @@
+.create-assignment {
+  padding: 35px 15vw;
+  box-sizing: border-box;
+
+  .title {
+    font-weight: 500;
+    font-size: 22px;
+    margin-bottom: 18px;
+  }
+
+  .input-label {
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .input-label-sub {
+    color: var(--secondary-text);
+  }
+
+  .add {
+    margin-top: 7px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--secondary-text);
+    transition: all 0.1s;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--primary-text);
+    }
+  }
+
+  select {
+    margin-top: 4px;
+    background: var(--tertiary-bg);
+    border: none;
+    outline: none;
+    color: var(--primary-text);
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    width: 120px;
+  }
+
+  .material-input {
+    font-size: 13px;
+    margin-top: 4px;
+    width: 100%;
+    display: block;
+    background: var(--tertiary-bg);
+    border: none;
+    outline: none;
+    color: var(--primary-text);
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+
+    &.material-description {
+      resize: none;
+      font-size: 12px;
+    }
+  }
+
+  .btn-ctn {
+    margin-top: 45px;
+    display: flex;
+    gap: 8px;
+
+    app-button {
+      width: 100%;
+    }
+  }
+}

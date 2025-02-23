@@ -12,6 +12,7 @@ import {
   IVideo,
 } from '../../shared/interfaces/course.interfaces';
 import { faClock, faQuestionCircle } from '@fortawesome/free-regular-svg-icons';
+import { AssignmentLanguageEnum } from '../../shared/enums/materials.enum';
 
 @Component({
   selector: 'app-materials',
@@ -240,10 +241,10 @@ export class MaterialsComponent implements OnInit {
       description: 'Write a function to check if a number is prime.',
       type: 'assignment',
       data: {
-        timeLimit: 45,
+        inputArguments: [],
         question:
           'Write a JavaScript function that returns `true` if a number is prime and `false` otherwise.',
-        answerLanguage: 'javascript',
+        answerLanguage: AssignmentLanguageEnum.JAVASCRIPT,
         expectedAnswer: true, // Expected output for an example input like isPrime(7)
       },
     },
@@ -253,10 +254,10 @@ export class MaterialsComponent implements OnInit {
       description: 'Find the second largest number in a list.',
       type: 'assignment',
       data: {
-        timeLimit: 60,
+        inputArguments: [],
         question:
           'Write a Python function that returns the second largest number from a list.',
-        answerLanguage: 'python',
+        answerLanguage: AssignmentLanguageEnum.JAVASCRIPT,
         expectedAnswer: 42, // Example expected output for input [10, 42, 5, 42, 8]
       },
     },
@@ -266,10 +267,10 @@ export class MaterialsComponent implements OnInit {
       description: 'Define and validate a User interface.',
       type: 'assignment',
       data: {
-        timeLimit: 30,
+        inputArguments: [],
         question:
           "Ensure that an object `{ id: 1, name: 'Alice', email: 'alice@example.com' }` is valid according to a TypeScript interface.",
-        answerLanguage: 'typescript',
+        answerLanguage: AssignmentLanguageEnum.JAVASCRIPT,
         expectedAnswer: true, // Expected result if the object matches the interface
       },
     },
@@ -279,10 +280,10 @@ export class MaterialsComponent implements OnInit {
       description: 'Explain asynchronous programming.',
       type: 'assignment',
       data: {
-        timeLimit: 20,
+        inputArguments: [],
         question:
           'What is the difference between synchronous and asynchronous programming?',
-        answerLanguage: 'text',
+        answerLanguage: AssignmentLanguageEnum.JAVASCRIPT,
         expectedAnswer:
           'Asynchronous programming allows tasks to run independently, while synchronous programming executes tasks in sequence.',
       },

@@ -30,6 +30,7 @@ import { MaterialsAssignmentComponent } from './pages/materials-group/materials-
 import { MyRevenueComponent } from './pages/my-revenue/my-revenue.component';
 import { CreateVideoComponent } from './pages/materials-group/materials-video/create-video/create-video.component';
 import { CreateDocumentComponent } from './pages/materials-group/materials-document/create-document/create-document.component';
+import { CreateAssignmentComponent } from './pages/materials-group/materials-assignment/create-assignment/create-assignment.component';
 
 const routes: Routes = [
   {
@@ -157,10 +158,14 @@ const routes: Routes = [
             path: '',
             component: MaterialsAssignmentComponent,
           },
-          // {
-          //   path: ':assignmentId',
-          //   // TODO
-          // },
+          {
+            path: 'new',
+            component: CreateAssignmentComponent,
+          },
+          {
+            path: ':assignmentId',
+            component: CreateAssignmentComponent,
+          },
         ],
       },
     ],

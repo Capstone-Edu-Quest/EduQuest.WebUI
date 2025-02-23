@@ -1,4 +1,5 @@
 import { MissionStatus } from '../enums/course.enum';
+import { AssignmentLanguageEnum } from '../enums/materials.enum';
 import { IUserStat } from './user.interfaces';
 
 export interface ICourse {
@@ -99,9 +100,9 @@ export interface IQuizOption {
 // ----
 
 export interface IAssignment {
-  timeLimit: number; // minutes
   question: string;
-  answerLanguage: 'javascript' | 'python' | 'typescript' | 'text'; //...
+  inputArguments: any[]; // Input arguments for code
+  answerLanguage: AssignmentLanguageEnum; //...
   expectedAnswer: any; // Expected answer from code, can be null
 }
 
