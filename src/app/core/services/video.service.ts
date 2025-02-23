@@ -16,7 +16,11 @@ export class VideoService {
   >(null);
   ffmpeg = createFFmpeg({ log: true });
 
-  constructor(private firebase: FirebaseService, private message: MessageService, private translate: TranslateService) {}
+  constructor(
+    private firebase: FirebaseService,
+    private message: MessageService,
+    private translate: TranslateService
+  ) {}
 
   stopCompressing() {
     this.compressingProgress$.next(null);
@@ -55,6 +59,15 @@ export class VideoService {
         }
       }
 
+      const fileSizeInMB = (file.size / (1024 * 1024)).toFixed(2);
+      if (Number(fileSizeInMB) > 1000) {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.VIDEO_SIZE_LIMIT_REACHED')
+        );
+        return;
+      }
+
       // Create a video element to check resolution
       const video = document.createElement('video');
       video.preload = 'metadata';
@@ -77,7 +90,9 @@ export class VideoService {
 
     let totalDuration = 0;
 
-    this.ffmpeg.FS('writeFile', 'input.mp4', await fetchFile(file));
+    const fileArrayBuffer = await file.arrayBuffer();
+    this.ffmpeg.FS('writeFile', 'input.mp4', new Uint8Array(fileArrayBuffer));
+
     this.ffmpeg.setLogger(({ type, message }) => {
       if (!message) return;
       const totalTime = message.match(/Duration:\s(\d{2}:\d{2}:\d{2}\.\d{2})/);
@@ -98,17 +113,19 @@ export class VideoService {
 
     await this.ffmpeg.run(
       '-i', 'input.mp4',
-      '-vf', 'scale=1920:-2',
+      '-vf', 'scale=1920:-2', // Keep 1080p or upscale for better quality
       '-c:v', 'libx264',
-      '-preset', 'ultrafast',
-      '-crf', '20', // Slightly lower quality for speed
-      '-b:v', '4M',
+      '-preset', 'medium', // Better balance between speed & quality
+      '-crf', '22', // Lower CRF = Higher quality (default is ~23)
+      '-b:v', '4M', // Increase bitrate for smoother frames
       '-maxrate', '5M',
       '-bufsize', '10M',
-      '-r', '24', // Reduce FPS slightly (if original is 30+)
-      '-c:a', 'copy',
-      '-threads', navigator.hardwareConcurrency.toString(),
+      '-r', '30', // Keep standard FPS to avoid choppy frames
+      '-c:a', 'aac',
+      '-b:a', '160k', // Higher bitrate for clearer sound
+      '-ar', '44100', // Standard audio sample rate
       '-movflags', 'faststart',
+      '-threads', navigator.hardwareConcurrency.toString(),
       'output.mp4'
     );    
 

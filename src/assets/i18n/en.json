@@ -394,7 +394,8 @@
     "NEED_TO_UPLOAD_VIDEO": "You need to upload a video",
     "MISSING_QUESTION": "There are some questions do not have content",
     "MISSING_ANSWER": "There are some answers do not have content",
-    "MISSING_CORRECT_ANSWER": "Each question must have a correct answer"
+    "MISSING_CORRECT_ANSWER": "Each question must have a correct answer",
+    "VIDEO_SIZE_LIMIT_REACHED": "Video size over limit (Max 1Gb)"
   },
   "BUTTON": {
     "CONTINUE": "Continue",
