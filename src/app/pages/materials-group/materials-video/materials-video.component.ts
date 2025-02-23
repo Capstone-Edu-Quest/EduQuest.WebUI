@@ -27,7 +27,8 @@ export class MaterialsVideoComponent implements OnInit {
       type: 'video',
       data: {
         url: 'https://example.com/videos/typescript-intro.mp4',
-        duration: 10, // 10 minutes
+        duration: 10, // 10 seconds
+        questions: []
       },
     },
     {
@@ -38,7 +39,8 @@ export class MaterialsVideoComponent implements OnInit {
       type: 'video',
       data: {
         url: 'https://example.com/videos/react-state.mp4',
-        duration: 15, // 15 minutes
+        duration: 15, // 15 seconds
+        questions: []
       },
     },
     {
@@ -49,7 +51,8 @@ export class MaterialsVideoComponent implements OnInit {
       type: 'video',
       data: {
         url: 'https://example.com/videos/async-js.mp4',
-        duration: 12.5, // 12.5 minutes
+        duration: 12.5, // 12.5 seconds
+        questions: []
       },
     },
   ];

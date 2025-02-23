@@ -10,7 +10,12 @@ import {
 import { MessageService } from '../../../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
 import { FirebaseService } from '../../../../core/services/firebase.service';
-import { faPlus, faRemove, faVideo } from '@fortawesome/free-solid-svg-icons';
+import {
+  faCheck,
+  faPlus,
+  faRemove,
+  faVideo,
+} from '@fortawesome/free-solid-svg-icons';
 import { FirebaseStorageFolder } from '../../../../shared/enums/firebase.enum';
 import { Subscription } from 'rxjs';
 import { IUser } from '../../../../shared/interfaces/user.interfaces';
@@ -21,6 +26,7 @@ import {
 } from '../../../../shared/interfaces/course.interfaces';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
+import { getAlphabetByIndex } from '../../../../core/utils/quiz.utils';
 
 @Component({
   selector: 'app-create-video',
@@ -35,6 +41,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   addIcon = faPlus;
   removeIcon = faRemove;
   cameraIcon = faVideo;
+  correctIcon = faCheck;
 
   material: IMaterialCreate<IVideo> | IMaterial<IVideo> = {
     name: '',
@@ -43,6 +50,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
     data: {
       url: '',
       duration: 0,
+      questions: [],
     },
   };
 
@@ -109,6 +117,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
       data: {
         url: 'https://firebasestorage.googleapis.com/v0/b/eduquest-1a0bd.firebasestorage.app/o/course-video%2Fa70b6e26-ec51-4ddd-bb7b-05646f614fb3_1740246588021?alt=media&token=adc5efe9-14e3-4786-b1ed-dfa3cc5eec59',
         duration: 14,
+        questions: [],
       },
     };
 
@@ -239,6 +248,41 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
       return;
     }
 
+    for (let i = 0; i < this.material.data.questions.length; i++) {
+      const q = this.material.data.questions[i];
+      let correctIdx = -1;
+      if (q.question.trim() === '') {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.MISSING_QUESTION')
+        );
+        return;
+      }
+
+      for (let j = 0; j < q.answers.length; j++) {
+        const a = q.answers[j];
+        if (a.answer.trim() === '') {
+          this.message.addMessage(
+            'error',
+            this.translate.instant('MESSAGE.MISSING_ANSWER')
+          );
+          return;
+        }
+
+        if(a.isCorrect) {
+          correctIdx = j;
+        }
+      }
+
+      if(correctIdx === -1) {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.MISSING_CORRECT_ANSWER')
+        );
+        return;
+      }
+    }
+
     return true;
   }
 
@@ -252,6 +296,47 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
     if (!this.onValidate()) return;
 
     console.log(this.material);
+  }
+
+  onAddFastQuestion() {
+    this.material.data.questions.push({
+      question: '',
+      answers: [
+        {
+          answer: '',
+          isCorrect: false,
+        },
+        {
+          answer: '',
+          isCorrect: false,
+        },
+      ],
+    });
+  }
+
+  onRemoveFastQuestion(qIdx: number) {
+    this.material.data.questions.splice(qIdx, 1);
+  }
+
+  getQuestionAlphabet(aIdx: number) {
+    return getAlphabetByIndex(aIdx);
+  }
+
+  onAddFQAnswer(qIdx: number) {
+    this.material.data.questions[qIdx].answers.push({
+      answer: '',
+      isCorrect: false,
+    });
+  }
+
+  onRemoveFQAnswer(qIdx: number, aIdx: number) {
+    this.material.data.questions[qIdx].answers.splice(aIdx, 1);
+  }
+
+  onSetCorrectAnswer(qIdx: number, aIdx: number) {
+    this.material.data.questions[qIdx].answers.forEach((a, idx) => {
+      a.isCorrect = idx === aIdx;
+    });
   }
 
   ngOnDestroy() {

@@ -103,6 +103,108 @@
     font-weight: 500;
   }
 
+  .input-label-sub {
+    color: var(--secondary-text);
+  }
+
+  .questions {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .question {
+      input {
+        font-size: 14px;
+        width: 100%;
+        display: block;
+        background: var(--tertiary-bg);
+        border: none;
+        outline: none;
+        color: var(--primary-text);
+        padding: 5px 9px;
+        border-radius: 6px;
+        box-sizing: border-box;
+      }
+
+      .input-wrapper {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      .remove {
+        font-size: 18px;
+        color: var(--alert);
+        cursor: pointer;
+        transition: all 0.1s;
+
+        &:hover {
+          color: var(--error);
+        }
+      }
+
+      .answers {
+        margin-top: 4px;
+        display: flex;
+        flex-direction: column;
+        gap: 4px;
+        margin-left: 15px;
+
+        input {
+          font-size: 12px;
+        }
+
+        .answer {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          padding-right: 22px;
+          box-sizing: border-box;
+
+          .check-icon {
+            color: var(--tertiary-text);
+            cursor: pointer;
+            margin-right: 4px;
+            transition: all 0.1s;
+
+            &:hover {
+              color: var(--secondary-text);
+            }
+
+            &.correct {
+              color: var(--success);
+            }
+          }
+
+          .id {
+            font-size: 14px;
+            font-weight: 500;
+            width: 15px;
+          }
+        }
+      }
+    }
+
+    .add {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--secondary-text);
+      transition: all 0.1s;
+      cursor: pointer;
+
+      &.add-answer {
+        margin-top: 4px;
+        margin-left: 15px;
+      }
+
+      &:hover {
+        color: var(--primary-text);
+      }
+    }
+  }
+
   .material-input {
     font-size: 13px;
     margin-top: 4px;

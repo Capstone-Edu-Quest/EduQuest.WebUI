@@ -102,6 +102,59 @@
     rows="4"
   ></textarea>
 
+  <div class="input-label">{{ "LABEL.FAST_QUESTIONS" | translate }}</div>
+  <div class="input-label-sub">{{ "LABEL.FAST_SUB" | translate }}</div>
+
+  <div class="questions">
+    <div
+      class="question"
+      *ngFor="let q of material.data.questions; let i = index"
+    >
+      <div class="input-wrapper">
+        <input [(ngModel)]="material.data.questions[i].question" />
+        <fa-icon
+          class="remove"
+          [icon]="removeIcon"
+          (click)="onRemoveFastQuestion(i)"
+        ></fa-icon>
+      </div>
+
+      <!-- Answers container -->
+      <div class="answers">
+        <!-- Each Answer -->
+        <div class="answer" *ngFor="let a of q.answers; let z = index">
+          <!-- Icon check -> set correct state -->
+          <fa-icon
+            [ngClass]="{
+              correct: a.isCorrect
+            }"
+            class="check-icon"
+            [icon]="correctIcon"
+            (click)="onSetCorrectAnswer(i, z)"
+          ></fa-icon>
+          <!-- Answer -->
+          <div class="id">{{ getQuestionAlphabet(z) }}.</div>
+          <input [(ngModel)]="q.answers[z].answer" />
+          <!-- Remove answer btn -->
+          <fa-icon
+            class="remove"
+            [icon]="removeIcon"
+            (click)="onRemoveFQAnswer(i, z)"
+          ></fa-icon>
+        </div>
+      </div>
+      <!-- Add answer btn -->
+      <div class="add add-answer" (click)="onAddFQAnswer(i)">
+        <fa-icon [icon]="addIcon"></fa-icon>{{ "LABEL.ADD_ANSWER" | translate }}
+      </div>
+    </div>
+
+    <!-- Add Question Btn -->
+    <div class="add" (click)="onAddFastQuestion()">
+      <fa-icon [icon]="addIcon"></fa-icon>{{ "LABEL.ADD_QUESTION" | translate }}
+    </div>
+  </div>
+
   <div class="btn-ctn">
     <app-button [style]="{ width: '100%' }" (click)="onCancel()">
       {{ "BUTTON.CANCEL" | translate }}
@@ -111,7 +164,8 @@
       (click)="isEdit ? onUpdate() : onCreate()"
       type="primary"
       >{{
-        (isEdit ? "BUTTON.UPDATE_MATERIAL" : "BUTTON.CREATE_MATERIAL") | translate
+        (isEdit ? "BUTTON.UPDATE_MATERIAL" : "BUTTON.CREATE_MATERIAL")
+          | translate
       }}</app-button
     >
   </div>

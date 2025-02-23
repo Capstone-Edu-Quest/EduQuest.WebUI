@@ -363,7 +363,11 @@
     "UPLOADING": "Uploading",
     "COMPRESSING": "Compressing",
     "MATERIAL_NAME": "Name",
-    "MATERIAL_DESCRIPTION": "Description"
+    "MATERIAL_DESCRIPTION": "Description",
+    "FAST_QUESTIONS": "Fast Questions",
+    "FAST_SUB": "These questions will appear randomly in this video",
+    "ADD_QUESTION": "Add Question",
+    "ADD_ANSWER": "Add Answer"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",
@@ -386,7 +390,10 @@
     "INVALID_STAGES": "Stage must not have empty name or no material",
     "INVALID_VIDEO": "Please upload a landscape video file",
     "COMPRESS_VIDEO_ERROR": "Error while compressing video",
-    "NEED_TO_UPLOAD_VIDEO": "You need to upload a video"
+    "NEED_TO_UPLOAD_VIDEO": "You need to upload a video",
+    "MISSING_QUESTION": "There are some questions do not have content",
+    "MISSING_ANSWER": "There are some answers do not have content",
+    "MISSING_CORRECT_ANSWER": "Each question must have a correct answer"
   },
   "BUTTON": {
     "CONTINUE": "Continue",

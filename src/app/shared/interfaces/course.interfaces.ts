@@ -63,6 +63,15 @@ export interface IMaterialCreate<T> extends Omit<IMaterial<T>, 'id'> {}
 export interface IVideo {
   url: string;
   duration: number;
+  questions: IVideQuestion[]
+}
+
+export interface IVideQuestion {
+  question: string;
+  answers: {
+    answer: string;
+    isCorrect: boolean;
+  }[]
 }
 export interface IDocument {
   content: string; // html
