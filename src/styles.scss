@@ -75,7 +75,8 @@ body {
 .NgxEditor__Dropdown .NgxEditor__Dropdown--DropdownMenu {
   background-color: var(--tertiary-bg) !important;
   color: var(--primary-text) !important;
-  border-radius: 6px !important;
+  border-radius: 10px !important;
+  overflow: hidden;
 
   .NgxEditor__Dropdown--Item {
     &:hover {
@@ -84,11 +85,43 @@ body {
   }
 }
 
+.NgxEditor__Dropdown--Active {
+  background: var(--brand-02) !important;
+}
+
 .NgxEditor {
   background: var(--primary-bg) !important;
   border: 1px solid var(--tertiary-text) !important;
   color: var(--primary-text) !important;
+  min-height: 300px;
+  padding: 0 25px;
+  box-sizing: border-box;
 }
+
+.NgxEditor,
+.editor-loader-wrapper {
+  h1 {
+    font-size: 22px !important;
+    background: linear-gradient(
+      to right,
+      var(--brand-hover),
+      var(--brand-focused)
+    );
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  h2 {
+    font-size: 20px !important;
+  }
+
+  h3 {
+    font-size: 18px !important;
+  }
+  h4 {
+    font-size: 16px !important;
+  }
+}
+
 ngx-toggle-command {
   button {
     // background: var(--secondary-bg) !important;
