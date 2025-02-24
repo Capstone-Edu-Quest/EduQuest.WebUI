@@ -1,0 +1,33 @@
+<div class="code-editor">
+  <div class="info">
+    <div class="left">
+      <div class="language">{{ language }}</div>
+      <div class="argument">{{ args }}</div>
+    </div>
+    <fa-icon [icon]="playIcon" (click)="runCode()"></fa-icon>
+  </div>
+  <ngx-codemirror [(ngModel)]="code" [options]="editorOptions"></ngx-codemirror>
+  <div class="result">
+    <div class="result-left">
+      <div class="title">{{ "LABEL.OUTPUT" | translate }}:</div>
+      <div
+        class="output"
+        [ngStyle]="{
+          color: isError ? 'var(--alert)' : 'var(--primary-text)'
+        }"
+      >
+        {{ currentResultString || "undefined" }}
+      </div>
+    </div>
+
+    <div
+    *ngIf="!isFirstTime"
+      class="judge"
+      [ngStyle]="{
+        color: checkResult() ? 'var(--success)' : 'var(--alert)'
+      }"
+    >
+      {{ (checkResult() ? "LABEL.PASSED" : "LABEL.FAILED") | translate }}
+    </div>
+  </div>
+</div>

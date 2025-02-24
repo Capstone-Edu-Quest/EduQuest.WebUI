@@ -23,15 +23,16 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NgChartsModule } from 'ng2-charts';
 import { NgxEditorModule } from 'ngx-editor';
+import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 
 // Factory function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
   return new TranslateHttpLoader(http, '/assets/i18n/', '.json'); // You may specify the path to your translation files
 }
-
 @NgModule({
   declarations: AppDeclarations,
   imports: [
+    CodemirrorModule,
     NgxEditorModule,
     NgChartsModule,
     MatTooltipModule,

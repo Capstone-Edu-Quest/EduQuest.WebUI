@@ -145,6 +145,8 @@ import { SliderComponent } from './components/fox-3d/slider/slider.component';
 import { CreateDocumentComponent } from './pages/materials-group/materials-document/create-document/create-document.component';
 import { TextEditorComponent } from './components/text-editor/text-editor.component';
 import { CreateAssignmentComponent } from './pages/materials-group/materials-assignment/create-assignment/create-assignment.component';
+import { CodeEditorComponent } from './components/code-editor/code-editor.component';
+import { CodeHighlightComponent } from './components/code-highlight/code-highlight.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -171,6 +173,8 @@ export const AppDeclarations = [
   VideoComponent,
   SliderComponent,
   TextEditorComponent,
+  CodeEditorComponent,
+  CodeHighlightComponent,
   // Home
   HomeComponent,
   HomeStatisticsComponent,

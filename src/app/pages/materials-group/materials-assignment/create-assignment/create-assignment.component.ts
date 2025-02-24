@@ -8,7 +8,7 @@ import {
   IMaterialCreate,
 } from '../../../../shared/interfaces/course.interfaces';
 import { AssignmentLanguageEnum } from '../../../../shared/enums/materials.enum';
-import { faPlay, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft, faPlay, faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-create-assignment',
@@ -19,6 +19,8 @@ export class CreateAssignmentComponent implements OnInit, OnDestroy {
   subscription$: Subscription = new Subscription();
 
   isEdit: boolean = false;
+  isTestingAssignment: boolean = false;
+
   avaiableLangs = Object.values(AssignmentLanguageEnum);
   material: IMaterialCreate<IAssignment> | IMaterial<IAssignment> = {
     name: '',
@@ -34,6 +36,7 @@ export class CreateAssignmentComponent implements OnInit, OnDestroy {
 
   addIcon = faPlus;
   playIcon = faPlay;
+  backIcon = faAngleLeft;
 
   constructor(private route: ActivatedRoute, private location: Location) {}
 
@@ -64,8 +67,10 @@ export class CreateAssignmentComponent implements OnInit, OnDestroy {
   }
 
   onTestAssignment() {
-    console.log(this.material);
+    this.isTestingAssignment = true;
   }
+
+  trackByIdx(idx: number) {}
 
   onUpdate() {}
 

@@ -376,7 +376,11 @@
     "ASSIGNMENT_EXPECTED_ANSWER_SUB": "The value return when the code compiled (Ex: [1, 2, 3])",
     "ASSIGNMENT_INPUT_ARGUMENT": "Input Arguments",
     "ASSIGNMENT_INPUT_ARGUMENT_SUB": "The arguments that will be passed to the function (Ex: 'Fox', 1)",
-    "ADD_ARGUMENT": "Add Argument"
+    "ADD_ARGUMENT": "Add Argument",
+    "OUTPUT": "Output",
+    "BACK": "Back",
+    "PASSED": "Passed",
+    "FAILED": "Failed"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",

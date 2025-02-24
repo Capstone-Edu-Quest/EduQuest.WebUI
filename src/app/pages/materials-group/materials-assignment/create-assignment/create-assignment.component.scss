@@ -2,6 +2,19 @@
   padding: 35px 15vw;
   box-sizing: border-box;
 
+  .back {
+    margin-bottom: 12px;
+    display: flex;
+    gap: 6px;
+    color: var(--secondary-text);
+    transition: all 0.1s linear;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--primary-text);
+    }
+  }
+
   .title {
     font-weight: 500;
     font-size: 22px;

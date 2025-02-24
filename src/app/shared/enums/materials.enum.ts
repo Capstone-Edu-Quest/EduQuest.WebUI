@@ -6,7 +6,7 @@ export enum AssignmentLanguageEnum {
     // JAVA = 'Java',
     // C = 'C',
     // C_PLUS_PLUS = 'C++',
-    C_SHARP = 'C#',
+    // C_SHARP = 'C#',
     // RUBY = 'Ruby',
     // SWIFT = 'Swift',
     // KOTLIN = 'Kotlin',
@@ -31,4 +31,11 @@ export enum AssignmentLanguageEnum {
     // PROLOG = 'Prolog',
     // VHDL = 'VHDL',
     // VERILOG = 'Verilog'
+}
+
+export enum MaterialTypeEnum {
+    VIDEO = 1,
+    DOCUMENT,
+    QUIZ,
+    ASSIGNMENT
 }
