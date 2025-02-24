@@ -63,7 +63,7 @@ export interface IMaterialCreate<T> extends Omit<IMaterial<T>, 'id'> {}
 
 export interface IVideo {
   url: string;
-  duration: number;
+  duration: number; // seconds
   questions: IVideoQuestion[]
 }
 
@@ -80,22 +80,22 @@ export interface IDocument {
 
 // ----
 export interface IQuiz {
-  timeLimit: number;
+  timeLimit: number; // minutes
   passingPercentages: number;
   questions: IQuizQuestion[];
 }
 
 export interface IQuizQuestion {
-  id: string;
+  id?: string;
   question: string;
   answers: IQuizOption[];
-  correctAnswers: string; // id
   // explanation: string;
 }
 
 export interface IQuizOption {
-  id: string;
+  id?: string;
   content: string;
+  isCorrect: boolean
 }
 // ----
 

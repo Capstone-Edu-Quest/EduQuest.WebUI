@@ -147,6 +147,7 @@ import { TextEditorComponent } from './components/text-editor/text-editor.compon
 import { CreateAssignmentComponent } from './pages/materials-group/materials-assignment/create-assignment/create-assignment.component';
 import { CodeEditorComponent } from './components/code-editor/code-editor.component';
 import { CodeHighlightComponent } from './components/code-highlight/code-highlight.component';
+import { CreateQuizComponent } from './pages/materials-group/materials-quiz/create-quiz/create-quiz.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -247,6 +248,7 @@ export const AppDeclarations = [
   CreateVideoComponent,
   CreateDocumentComponent,
   CreateAssignmentComponent,
+  CreateQuizComponent,
   // Revenue
   MyRevenueComponent,
   MyRevenueInfosComponent,

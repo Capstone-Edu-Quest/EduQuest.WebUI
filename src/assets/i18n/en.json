@@ -380,7 +380,13 @@
     "OUTPUT": "Output",
     "BACK": "Back",
     "PASSED": "Passed",
-    "FAILED": "Failed"
+    "FAILED": "Failed",
+    "OVER_PERCENTAGES": "Over or equals {{value}}% to pass",
+    "PASS_PERCENTAGES": "Passing Percentages",
+    "PASS_PERCENTAGES_SUB": "The correct percentages that leaner need to pass the quiz",
+    "TIME_LIMIT": "Time Limit (minutes)",
+    "TIME_LIMIT_SUB": "The maximum time leaner can spend on this quiz, 0 for unlimited",
+    "QUESTIONS": "Questions"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",
@@ -408,7 +414,11 @@
     "MISSING_ANSWER": "There are some answers do not have content",
     "MISSING_CORRECT_ANSWER": "Each question must have a correct answer",
     "VIDEO_SIZE_LIMIT_REACHED": "Video size over limit (Max 500Mb)",
-    "NO_EXPECTED_ANSWER_OR_ARGUMENTS": "You need to provide expected answer and input arguments"
+    "NO_EXPECTED_ANSWER_OR_ARGUMENTS": "You need to provide expected answer and input arguments",
+    "NEED_ALEAST_ANSWERS": "Each question must have at least {{value}} answers",
+    "INVALID_TIME_LIMIT": "Invalid time limit",
+    "INVALID_PASSING_PERCENTAGE": "Invalid passing percentages",
+    "NEED_ALEAST_QUESTIONS": "You need to provide at least {{value}} question"
   },
   "BUTTON": {
     "CONTINUE": "Continue",
@@ -438,7 +448,8 @@
     "CREATE_MATERIAL": "Create Material",
     "ADD_DOCUMENT": "Add Document",
     "ADD_ASSIGNMENT": "Add Assignment",
-    "TEST_ASSIGNMENT": "Test the Assignment"
+    "TEST_ASSIGNMENT": "Test the Assignment",
+    "ADD_QUIZ": "Add Quiz"
   },
   "LANGUAGES": {
     "EN": "English",

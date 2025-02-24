@@ -250,6 +250,15 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
 
     for (let i = 0; i < this.material.data.questions.length; i++) {
       const q = this.material.data.questions[i];
+
+      if(q.answers.length < 2) {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.NEED_ALEAST_ANSWERS', {value: 2})
+        );
+        return;
+      }
+
       let correctIdx = -1;
       if (q.question.trim() === '') {
         this.message.addMessage(

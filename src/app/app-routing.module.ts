@@ -31,6 +31,7 @@ import { MyRevenueComponent } from './pages/my-revenue/my-revenue.component';
 import { CreateVideoComponent } from './pages/materials-group/materials-video/create-video/create-video.component';
 import { CreateDocumentComponent } from './pages/materials-group/materials-document/create-document/create-document.component';
 import { CreateAssignmentComponent } from './pages/materials-group/materials-assignment/create-assignment/create-assignment.component';
+import { CreateQuizComponent } from './pages/materials-group/materials-quiz/create-quiz/create-quiz.component';
 
 const routes: Routes = [
   {
@@ -145,10 +146,14 @@ const routes: Routes = [
             path: '',
             component: MaterialsQuizComponent,
           },
-          // {
-          //   path: ':quizId',
-          //   // TODO
-          // },
+          {
+            path: 'new',
+            component: CreateQuizComponent,
+          },
+          {
+            path: ':quizId',
+            component: CreateQuizComponent,
+          },
         ],
       },
       {

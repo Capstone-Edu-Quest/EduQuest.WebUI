@@ -1,0 +1,88 @@
+.material-ctn {
+    padding: 35px 5vw;
+  
+    .header {
+      display: flex;
+      justify-content: space-between;
+  
+      .title {
+        font-size: 22px;
+        font-weight: 500;
+      }
+    }
+  
+    .material-items-ctn {
+      margin-top: 8px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+  
+      .material-row {
+        display: flex;
+        align-items: start;
+        justify-content: space-between;
+        color: var(--primary-text);
+        text-decoration: none;
+        background: var(--secondary-bg);
+        padding: 12px;
+        box-sizing: border-box;
+        border-radius: 12px;
+        cursor: pointer;
+        transition: all 0.1s linear;
+        width: calc(100% / 2 - 4px);
+  
+        &:hover {
+          background: var(--tertiary-bg);
+        }
+  
+        fa-icon {
+          font-size: 13px;
+          color: var(--secondary-text);
+        }
+  
+        .info {
+          .name {
+            font-size: 14px;
+            font-weight: 500;
+          }
+          .description {
+            font-size: 11px;
+            color: var(--secondary-text);
+            margin-top: 2px;
+            margin-bottom: 8px;
+          }
+          .add-on {
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 2px;
+            font-size: 11px;
+            color: var(--secondary-text);
+  
+            fa-icon {
+              font-size: 11px;
+              color: var(--secondary-text);
+              width: 13px;
+              text-align: center;
+            }
+          }
+        }
+  
+        .btn-ctn {
+          font-size: 12px;
+          display: flex;
+          gap: 12px;
+  
+          .edit,
+          .delete {
+            font-size: 11px;
+          }
+  
+          .delete {
+            color: var(--alert);
+          }
+        }
+      }
+    }
+  }
+  

@@ -1,0 +1,108 @@
+<div class="create-quiz">
+  <div class="title text-gradient">{{ "LABEL.QUIZ" | translate }}</div>
+
+  <div class="input-label">{{ "LABEL.MATERIAL_NAME" | translate }}</div>
+  <input
+    class="material-input material-name"
+    [placeholder]="'LABEL.MATERIAL_NAME' | translate"
+    [(ngModel)]="material.name"
+  />
+
+  <div class="input-label">{{ "LABEL.MATERIAL_DESCRIPTION" | translate }}</div>
+  <textarea
+    class="material-input material-description"
+    [placeholder]="'LABEL.MATERIAL_DESCRIPTION' | translate"
+    [(ngModel)]="material.description"
+    rows="4"
+  ></textarea>
+
+  <div class="input-label">{{ "LABEL.PASS_PERCENTAGES" | translate }}</div>
+  <div class="input-label-sub">
+    {{ "LABEL.PASS_PERCENTAGES_SUB" | translate }}
+  </div>
+  <input
+    class="material-input material-name"
+    [placeholder]="'LABEL.PASS_PERCENTAGES' | translate"
+    [(ngModel)]="material.data.passingPercentages"
+    style="max-width: 250px"
+    type="number"
+  />
+
+  <div class="input-label">{{ "LABEL.TIME_LIMIT" | translate }}</div>
+  <div class="input-label-sub">{{ "LABEL.TIME_LIMIT_SUB" | translate }}</div>
+  <input
+    class="material-input material-name"
+    [placeholder]="'LABEL.TIME_LIMIT' | translate"
+    [(ngModel)]="material.data.timeLimit"
+    style="max-width: 250px"
+    type="number"
+  />
+
+  <div class="input-label">
+    {{ "LABEL.QUESTIONS" | translate }} ({{ material.data.questions.length }})
+  </div>
+  <div class="questions">
+    <div
+      class="question"
+      *ngFor="let q of material.data.questions; let i = index"
+    >
+      <div class="input-wrapper">
+        <input [(ngModel)]="material.data.questions[i].question" />
+        <fa-icon
+          class="remove"
+          [icon]="removeIcon"
+          (click)="onRemoveQuestion(i)"
+        ></fa-icon>
+      </div>
+
+      <!-- Answers container -->
+      <div class="answers">
+        <!-- Each Answer -->
+        <div class="answer" *ngFor="let a of q.answers; let z = index">
+          <!-- Icon check -> set correct state -->
+          <fa-icon
+            [ngClass]="{
+              correct: a.isCorrect
+            }"
+            class="check-icon"
+            [icon]="correctIcon"
+            (click)="onSetCorrectAnswer(i, z)"
+          ></fa-icon>
+          <!-- Answer -->
+          <div class="id">{{ getQuestionAlphabet(z) }}.</div>
+          <input [(ngModel)]="q.answers[z].content" />
+          <!-- Remove answer btn -->
+          <fa-icon
+            class="remove"
+            [icon]="removeIcon"
+            (click)="onRemoveAnswer(i, z)"
+          ></fa-icon>
+        </div>
+      </div>
+      <!-- Add answer btn -->
+      <div class="add add-answer" (click)="onAddAnswer(i)">
+        <fa-icon [icon]="addIcon"></fa-icon>{{ "LABEL.ADD_ANSWER" | translate }}
+      </div>
+    </div>
+
+    <!-- Add Question Btn -->
+    <div class="add" (click)="onAddQuestion()">
+      <fa-icon [icon]="addIcon"></fa-icon>{{ "LABEL.ADD_QUESTION" | translate }}
+    </div>
+  </div>
+
+  <div class="btn-ctn">
+    <app-button [style]="{ width: '100%' }" (click)="onCancel()">
+      {{ "BUTTON.CANCEL" | translate }}
+    </app-button>
+    <app-button
+      [style]="{ width: '100%' }"
+      (click)="isEdit ? onUpdate() : onCreate()"
+      type="primary"
+      >{{
+        (isEdit ? "BUTTON.UPDATE_MATERIAL" : "BUTTON.CREATE_MATERIAL")
+          | translate
+      }}</app-button
+    >
+  </div>
+</div>
