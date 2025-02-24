@@ -15,6 +15,20 @@
     }
   }
 
+  .arg-input-wrapper {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    transition: all 0.1s linear;
+
+    fa-icon {
+      color: var(--alert);
+      font-size: 18px;
+      transform: translateY(2px);
+    }
+  }
+
   .title {
     font-weight: 500;
     font-size: 22px;

@@ -47,18 +47,23 @@
     {{ "LABEL.ASSIGNMENT_INPUT_ARGUMENT_SUB" | translate }}
   </div>
   <div class="args-ctn">
-    <input
+    <div
+      class="arg-input-wrapper"
       *ngFor="
         let arg of material.data.inputArguments;
         let i = index;
         trackBy: trackByIdx
       "
-      class="material-input material-name"
-      [placeholder]="
-        ('LABEL.ASSIGNMENT_INPUT_ARGUMENT' | translate) + ' ' + (i + 1)
-      "
-      [(ngModel)]="material.data.inputArguments[i]"
-    />
+    >
+      <input
+        class="material-input material-name"
+        [placeholder]="
+          ('LABEL.ASSIGNMENT_INPUT_ARGUMENT' | translate) + ' ' + (i + 1)
+        "
+        [(ngModel)]="material.data.inputArguments[i]"
+      />
+      <fa-icon [icon]="removeIcon" (click)="onRemoveArg(i)"></fa-icon>
+    </div>
     <div class="add" (click)="onAddArgument()">
       <fa-icon [icon]="addIcon"></fa-icon>{{ "LABEL.ADD_ARGUMENT" | translate }}
     </div>

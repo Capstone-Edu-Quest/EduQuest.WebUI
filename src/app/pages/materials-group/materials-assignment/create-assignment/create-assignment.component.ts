@@ -8,7 +8,9 @@ import {
   IMaterialCreate,
 } from '../../../../shared/interfaces/course.interfaces';
 import { AssignmentLanguageEnum } from '../../../../shared/enums/materials.enum';
-import { faAngleLeft, faPlay, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft, faClose, faPlay, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { MessageService } from '../../../../core/services/message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-assignment',
@@ -37,8 +39,9 @@ export class CreateAssignmentComponent implements OnInit, OnDestroy {
   addIcon = faPlus;
   playIcon = faPlay;
   backIcon = faAngleLeft;
+  removeIcon = faClose;
 
-  constructor(private route: ActivatedRoute, private location: Location) {}
+  constructor(private route: ActivatedRoute, private location: Location, private message: MessageService, private translate: TranslateService) {}
 
   ngOnInit(): void {
     this.listenToRoute();
@@ -67,10 +70,19 @@ export class CreateAssignmentComponent implements OnInit, OnDestroy {
   }
 
   onTestAssignment() {
+    if(!this.material.data.expectedAnswer || this.material.data.expectedAnswer?.trim() === '' || this.material.data.inputArguments.length === 0 || this.material.data.inputArguments.some(arg => arg?.trim() === '')) {
+      this.message.addMessage('error', this.translate.instant('MESSAGE.NO_EXPECTED_ANSWER_OR_ARGUMENTS'));
+      return;
+    }
+
     this.isTestingAssignment = true;
   }
 
   trackByIdx(idx: number) {}
+
+  onRemoveArg(idx: number) {
+    this.material.data.inputArguments.splice(idx, 1);
+  }
 
   onUpdate() {}
 
