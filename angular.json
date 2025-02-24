@@ -28,13 +28,10 @@
               "src/styles.scss",
               "src/app/shared/styles/common.scss",
               "node_modules/aos/dist/aos.css",
-              "node_modules/prismjs/themes/prism-tomorrow.css",
-              "node_modules/prismjs/themes/prism-dracula.css",
+              "src/app/shared/styles/prismtheme.css",
               "codemirror/lib/codemirror.css",
               "codemirror/theme/material.css",
-              "node_modules/codemirror/theme/dracula.css",
-              "node_modules/codemirror/theme/darcula.css",
-              "node_modules/codemirror/theme/tomorrow-night-bright.css"
+              "node_modules/codemirror/theme/dracula.css"
             ],
             "scripts": [
               "node_modules/aos/dist/aos.js",
