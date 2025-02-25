@@ -28,7 +28,7 @@
 
 <ng-template #video>
   <div class="material-items-ctn">
-    <a [routerLink]="'/video/' + material.id" class="material-row" *ngFor="let material of get3Materials('video')">
+    <a [routerLink]="'video/' + material.id" class="material-row" *ngFor="let material of get3Materials('video')">
       <div class="info">
         <div class="name">{{ material.name }}</div>
         <div class="description">{{ material.description }}</div>
@@ -47,7 +47,7 @@
 
 <ng-template #document>
   <div class="material-items-ctn">
-    <a [routerLink]="'/document/' + material.id" class="material-row" *ngFor="let material of get3Materials('document')">
+    <a [routerLink]="'document/' + material.id" class="material-row" *ngFor="let material of get3Materials('document')">
       <div class="info">
         <div class="name">{{ material.name }}</div>
         <div class="description">{{ material.description }}</div>
@@ -59,7 +59,7 @@
 
 <ng-template #quiz>
   <div class="material-items-ctn">
-    <a [routerLink]="'/quiz/' + material.id" class="material-row" *ngFor="let material of get3Materials('quiz')">
+    <a [routerLink]="'quiz/' + material.id" class="material-row" *ngFor="let material of get3Materials('quiz')">
       <div class="info">
         <div class="name">{{ material.name }}</div>
         <div class="description">{{ material.description }}</div>
@@ -80,7 +80,7 @@
 <ng-template #assignment>
   <div class="material-items-ctn">
     <a
-    [routerLink]="'/assignment/' + material.id"
+    [routerLink]="'assignment/' + material.id"
       class="material-row"
       *ngFor="let material of get3Materials('assignment')"
     >
