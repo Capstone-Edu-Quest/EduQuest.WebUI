@@ -32,6 +32,7 @@ import { CreateVideoComponent } from './pages/materials-group/materials-video/cr
 import { CreateDocumentComponent } from './pages/materials-group/materials-document/create-document/create-document.component';
 import { CreateAssignmentComponent } from './pages/materials-group/materials-assignment/create-assignment/create-assignment.component';
 import { CreateQuizComponent } from './pages/materials-group/materials-quiz/create-quiz/create-quiz.component';
+import { TransactionsComponent } from './pages/transactions/transactions.component';
 
 const routes: Routes = [
   {
@@ -253,6 +254,12 @@ const routes: Routes = [
         component: LearningPathDetailsComponent,
       },
     ],
+  },
+  {
+    path: 'transactions',
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.LEARNER, WebRole.INSTRUCTOR] },
+    component: TransactionsComponent
   },
 ];
 

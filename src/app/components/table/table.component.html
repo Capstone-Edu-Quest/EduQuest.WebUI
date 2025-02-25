@@ -9,7 +9,7 @@
     </thead>
     <tbody>
       <tr *ngFor="let row of onGetDataRow()">
-        <td *ngFor="let col of columns">
+        <td *ngFor="let col of columns" [ngStyle]="onGetDataStyle(col, row)">
           {{
             col.isMoney
               ? ("SIGNATURE.MONEY_VALUE"
@@ -20,7 +20,7 @@
                         | currencyExchange : { toString: true }
                     })
               : col.translateLabel
-              ? (col.translateLabel | translate : { value: onGetVal(col, row) })
+              ? (onGetColLabel(col, row) | translate : { value: onGetVal(col, row) })
               : onGetVal(col, row)
           }}
         </td>
@@ -29,7 +29,7 @@
   </table>
 
   <div class="paginition">
-    <fa-icon [icon]="leftIcon" (click)="onModifyPage(currentPage - 1)"></fa-icon>
+    <fa-icon *ngIf="currentPage > 1" [icon]="leftIcon" (click)="onModifyPage(currentPage - 1)"></fa-icon>
     <div
       class="page-item"
       [ngClass]="{
@@ -40,6 +40,6 @@
     >
       {{ page }}
     </div>
-    <fa-icon [icon]="rightIcon" (click)="onModifyPage(currentPage + 1)"></fa-icon>
+    <fa-icon *ngIf="currentPage < data.length/itemsPerPage" [icon]="rightIcon" (click)="onModifyPage(currentPage + 1)"></fa-icon>
   </div>
 </div>

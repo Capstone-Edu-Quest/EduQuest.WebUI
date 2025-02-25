@@ -70,6 +70,16 @@ export class TableComponent implements OnInit {
     }
   }
 
+  onGetDataStyle(column: TableColumn, row: any) {
+    if (!column.style) return {};
+
+    if (column.style instanceof Function) {
+      return column.style(row);
+    }
+
+    return column.style;
+  }
+
   onGetDataRow() {
     return this.data.slice(
       (this.currentPage - 1) * this.itemsPerPage,
@@ -77,10 +87,18 @@ export class TableComponent implements OnInit {
     );
   }
 
+  onGetColLabel(column: TableColumn, row: any) {
+    if(!column.translateLabel) return '';
+    
+    if(column.translateLabel instanceof Function) {
+      return column.translateLabel(row);
+    }
+
+    return column.translateLabel;
+  }
+
   onGetVal(column: TableColumn, row: any) {
-    const val = column.render
-      ? column.render(row[column.key])
-      : row[column.key];
+    const val = column.render ? column.render(row) : row[column.key];
 
     return val;
   }

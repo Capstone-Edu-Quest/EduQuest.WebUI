@@ -386,7 +386,15 @@
     "PASS_PERCENTAGES_SUB": "The correct percentages that leaner need to pass the quiz",
     "TIME_LIMIT": "Time Limit (minutes)",
     "TIME_LIMIT_SUB": "The maximum time leaner can spend on this quiz, 0 for unlimited",
-    "QUESTIONS": "Questions"
+    "QUESTIONS": "Questions",
+    "ID": "ID",
+    "DESCRIPTION": "Description",
+    "TIME": "Time",
+    "AMOUNT": "Amount",
+    "STATUS": "Status",
+    "SUCCESS": "Success",
+    "PENDING": "Pending",
+    "UNKNOWN" : "Unknown"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",

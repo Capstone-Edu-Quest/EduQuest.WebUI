@@ -148,6 +148,7 @@ import { CreateAssignmentComponent } from './pages/materials-group/materials-ass
 import { CodeEditorComponent } from './components/code-editor/code-editor.component';
 import { CodeHighlightComponent } from './components/code-highlight/code-highlight.component';
 import { CreateQuizComponent } from './pages/materials-group/materials-quiz/create-quiz/create-quiz.component';
+import { TransactionsComponent } from './pages/transactions/transactions.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -253,7 +254,9 @@ export const AppDeclarations = [
   MyRevenueComponent,
   MyRevenueInfosComponent,
   MyRevenueCoursesBreakDownComponent,
-  MyRevenueTrendsComponent
+  MyRevenueTrendsComponent,
+  // transactions
+  TransactionsComponent
 ];
 export const NGIcons = [
   EnterOutline,
