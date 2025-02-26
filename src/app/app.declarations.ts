@@ -149,6 +149,10 @@ import { CodeEditorComponent } from './components/code-editor/code-editor.compon
 import { CodeHighlightComponent } from './components/code-highlight/code-highlight.component';
 import { CreateQuizComponent } from './pages/materials-group/materials-quiz/create-quiz/create-quiz.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { CoursesManageComponent } from './pages/courses-manage/courses-manage.component';
+import { CoursesApprovalComponent } from './pages/courses-manage/courses-approval/courses-approval.component';
+import { CoursesCategorizeComponent } from './pages/courses-manage/courses-categorize/courses-categorize.component';
+import { LearningPathManageComponent } from './pages/learning-path-manage/learning-path-manage.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -203,6 +207,9 @@ export const AppDeclarations = [
   MyCourseAddComponent,
   MyCourseDetailsComponent,
   ManageStagesComponent,
+  CoursesManageComponent,
+  CoursesApprovalComponent,
+  CoursesCategorizeComponent,
   // Cart
   CartComponent,
   CartItemComponent,
@@ -240,6 +247,7 @@ export const AppDeclarations = [
   PathItemComponent,
   LearningPathDetailsComponent,
   PathCourseItemComponent,
+  LearningPathManageComponent,
   // Materials
   MaterialsComponent,
   MaterialsQuizComponent,

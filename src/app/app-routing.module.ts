@@ -33,6 +33,10 @@ import { CreateDocumentComponent } from './pages/materials-group/materials-docum
 import { CreateAssignmentComponent } from './pages/materials-group/materials-assignment/create-assignment/create-assignment.component';
 import { CreateQuizComponent } from './pages/materials-group/materials-quiz/create-quiz/create-quiz.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { CoursesApprovalComponent } from './pages/courses-manage/courses-approval/courses-approval.component';
+import { CoursesCategorizeComponent } from './pages/courses-manage/courses-categorize/courses-categorize.component';
+import { LearningPathManageComponent } from './pages/learning-path-manage/learning-path-manage.component';
+import { CoursesManageComponent } from './pages/courses-manage/courses-manage.component';
 
 const routes: Routes = [
   {
@@ -42,7 +46,7 @@ const routes: Routes = [
   {
     path: 'courses',
     canActivate: [RoleGuard],
-    data: { blockedRoles: [WebRole.ADMIN, WebRole.INSTRUCTOR] },
+    data: { blockedRoles: [WebRole.ADMIN, WebRole.INSTRUCTOR, WebRole.EXPERT] },
     children: [
       {
         path: '',
@@ -88,6 +92,27 @@ const routes: Routes = [
             component: MyCourseDetailsComponent,
           },
         ],
+      },
+    ],
+  },
+  {
+    path: 'courses-manage',
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.EXPERT, WebRole.STAFF] },
+    component: CoursesManageComponent,
+    children: [
+      {
+        path: '',
+        redirectTo: 'approval',
+        pathMatch: 'full',
+      },
+      {
+        path: 'approval',
+        component: CoursesApprovalComponent,
+      },
+      {
+        path: 'categorize',
+        component: CoursesCategorizeComponent,
       },
     ],
   },
@@ -241,6 +266,12 @@ const routes: Routes = [
     data: { allowedRoles: [WebRole.LEARNER] },
   },
   {
+    path: 'learning-path-manage',
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.EXPERT, WebRole.STAFF] },
+    component: LearningPathManageComponent
+  },
+  {
     path: 'learning-path',
     canActivate: [AuthGuard, RoleGuard],
     data: { allowedRoles: [WebRole.LEARNER] },
@@ -259,7 +290,7 @@ const routes: Routes = [
     path: 'transactions',
     canActivate: [AuthGuard, RoleGuard],
     data: { allowedRoles: [WebRole.LEARNER, WebRole.INSTRUCTOR] },
-    component: TransactionsComponent
+    component: TransactionsComponent,
   },
 ];
 

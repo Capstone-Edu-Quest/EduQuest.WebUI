@@ -15,9 +15,7 @@
 
   <!-- Middle -->
   <div class="ctn">
-    <ng-container
-      [ngTemplateOutlet]="user?.roleId === 2 ? instructorMid : leanerMid"
-    ></ng-container>
+    <ng-container [ngTemplateOutlet]="onGetMiddleNavigation()"></ng-container>
   </div>
 
   <!-- Right -->
@@ -91,6 +89,8 @@
   <app-navbar-profile></app-navbar-profile>
 </ng-template>
 
+<ng-template #empty></ng-template>
+
 <ng-template #leanerMid>
   <nz-input-group [nzSuffix]="suffixIconButton" style="width: 32vw">
     <input
@@ -108,11 +108,12 @@
 
 <ng-template #instructorMid>
   <a
-    *ngFor="let item of instructorsNavItems"
+    *ngFor="let item of middleNavigationItems"
     class="routerLink"
-    [routerLinkActiveOptions]="{ exact: true }"
     [routerLink]="'/' + item.routerLink"
-    routerLinkActive="active"
-    >{{ item.label| translate }}</a
+    [ngClass]="{
+      active: isRouteActive(item.routerLink)
+    }"
+    >{{ item.label | translate }}</a
   >
 </ng-template>

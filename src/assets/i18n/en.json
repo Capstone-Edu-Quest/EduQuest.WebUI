@@ -394,7 +394,10 @@
     "STATUS": "Status",
     "SUCCESS": "Success",
     "PENDING": "Pending",
-    "UNKNOWN" : "Unknown"
+    "UNKNOWN" : "Unknown",
+    "COURSES_APPROVAL": "Courses Approval",
+    "COURSES_CATEGORIZE": "Courses Categorize",
+    "COURSES_MANAGE": "Courses Manage"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",

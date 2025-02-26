@@ -9,7 +9,7 @@ import {
   ICourseCart,
 } from '../../shared/interfaces/course.interfaces';
 import { WishlistService } from '../../core/services/wishlist.service';
-import { IUser, IUserStat } from '../../shared/interfaces/user.interfaces';
+import { IUser } from '../../shared/interfaces/user.interfaces';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { WebRole } from '../../shared/enums/user.enum';
 
@@ -28,6 +28,11 @@ export class NavbarComponent implements OnInit {
   messageDropdown!: TemplateRef<any>;
   @ViewChild('profileDropdown', { static: true })
   profileDropdown!: TemplateRef<any>;
+
+  @ViewChild('empty', { static: true }) emptyRef!: TemplateRef<any>;
+  @ViewChild('leanerMid', { static: true }) leanerMid!: TemplateRef<any>;
+  @ViewChild('instructorMid', { static: true })
+  instructorMid!: TemplateRef<any>;
 
   searchText: string = '';
 
@@ -76,22 +81,39 @@ export class NavbarComponent implements OnInit {
   instructorsNavItems = [
     {
       label: 'LABEL.HOME',
-      routerLink: ''
+      routerLink: '',
     },
     {
       label: 'LABEL.COURSES',
-      routerLink: 'my-courses'
+      routerLink: 'my-courses',
     },
     {
       label: 'LABEL.MATERIALS',
-      routerLink: 'materials'
+      routerLink: 'materials',
     },
     {
       label: 'LABEL.REVENUE',
-      routerLink: 'my-revenue'
+      routerLink: 'my-revenue',
     },
-  ]
-  
+  ];
+
+  expertNavItems = [
+    {
+      label: 'LABEL.HOME',
+      routerLink: '',
+    },
+    {
+      label: 'LABEL.LEARNING_PATH',
+      routerLink: '/learning-path-manage',
+    },
+    {
+      label: 'LABEL.COURSES_MANAGE',
+      routerLink: '/courses-manage',
+    },
+  ];
+
+  middleNavigationItems: any = [];
+
   iconItems: any[] = [];
 
   user: IUser | null = null;
@@ -129,9 +151,15 @@ export class NavbarComponent implements OnInit {
 
     switch (this.user.roleId) {
       case WebRole.LEARNER:
+        this.middleNavigationItems = [];
         this.iconItems = this.leanerItems;
         break;
       case WebRole.INSTRUCTOR:
+        this.middleNavigationItems = this.instructorsNavItems;
+        this.iconItems = this.instructorItems;
+        break;
+      case WebRole.EXPERT:
+        this.middleNavigationItems = this.expertNavItems;
         this.iconItems = this.instructorItems;
         break;
       default:
@@ -211,6 +239,24 @@ export class NavbarComponent implements OnInit {
 
   onSignIn() {
     this.UserService.signInWithGoogle();
+  }
+
+  onGetMiddleNavigation() {
+    if (!this.user) return this.emptyRef;
+    switch (this.user.roleId) {
+      case WebRole.LEARNER:
+        return this.leanerMid;
+      case WebRole.EXPERT:
+      case WebRole.INSTRUCTOR:
+        return this.instructorMid;
+      default:
+        return this.emptyRef;
+    }
+  }
+
+  isRouteActive(route: string): boolean {
+    if (this.router.url.trim() !== '/' && route.trim() === '') return false;
+    return this.router.url.startsWith(`${route}`);
   }
 
   ngOnDestroy(): void {
