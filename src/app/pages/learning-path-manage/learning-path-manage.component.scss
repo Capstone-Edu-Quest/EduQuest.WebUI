@@ -1,0 +1,21 @@
+.manage-learning-path {
+    padding: 35px 5vw;
+    box-sizing: border-box;
+
+    .title {
+        font-size: 22px;
+        font-weight: 500;
+    }
+
+    .paths-ctn {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 12px;
+        margin-top: 20px;
+    
+        app-path-item {
+          width: calc(100% / 3 - 12px);
+        }
+      }
+}

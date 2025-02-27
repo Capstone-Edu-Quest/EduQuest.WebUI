@@ -4,6 +4,20 @@
   position: relative;
   user-select: none;
 
+  .back {
+    color: var(--secondary-text);
+    display: flex;
+    gap: 8px;
+    cursor: pointer;
+    align-items: center;
+    margin-bottom: 12px;
+    transition: all 0.1s linear;
+
+    &:hover {
+      color: var(--primary-text);
+    }
+  }
+
   .name {
     font-size: 18px;
     font-weight: 600;

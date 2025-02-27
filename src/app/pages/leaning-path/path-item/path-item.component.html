@@ -7,12 +7,12 @@
     <div
       class="drop-down"
       [ngStyle]="{
-        height: 11 + pannelBtn.length * 28 + 'px'
+        height: 11 + menu.length * 28 + 'px'
       }"
     >
       <div
         class="option"
-        *ngFor="let opt of pannelBtn; let i = index"
+        *ngFor="let opt of menu; let i = index"
         [ngStyle]="{
           top: 5 + i * 28 + 'px'
         }"
@@ -48,6 +48,7 @@
       'margin-top': '8px',
       width: '100%'
     }"
+    *ngIf="!isViewExpert"
   >
     {{ "LABEL.ENROLL" | translate }}
   </app-button>

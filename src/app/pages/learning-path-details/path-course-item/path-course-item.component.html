@@ -30,7 +30,7 @@
             {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: course.stageCount } }}
           </div>
         </div>
-        <div class="add-to-cart-group" *ngIf="!isEdit">
+        <div class="add-to-cart-group" *ngIf="!isEdit && !isExpertView">
           <app-button
             [ngStyle]="{ width: 'calc(100%)' }"
             [type]="'primary'"

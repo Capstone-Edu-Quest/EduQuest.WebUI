@@ -16,8 +16,11 @@ import { Router } from '@angular/router';
 })
 export class PathItemComponent implements OnInit {
   @Input('path') path!: ILearningPath;
+  @Input('isViewExpert') isViewExpert: boolean = false;
 
-  pannelBtn = [
+  menu: any[] = [];
+
+  commonMenu = [
     {
       icon: faPen,
       label: 'LABEL.EDIT',
@@ -28,6 +31,9 @@ export class PathItemComponent implements OnInit {
       label: 'LABEL.DELETE',
       action: (e: Event) => this.onDelete(e),
     },
+  ];
+
+  learnerMenu = [
     {
       icon: faClone,
       label: 'LABEL.CLONE',
@@ -42,19 +48,34 @@ export class PathItemComponent implements OnInit {
 
   constructor(private router: Router) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.onInitMenu();
+  }
 
   onEnroll(e: Event) {
     e.stopPropagation();
   }
 
+  onInitMenu() {
+    this.menu = this.commonMenu;
+    if (!this.isViewExpert) {
+      this.menu = [...this.menu, ...this.learnerMenu];
+    }
+  }
+
   onEdit(e: Event) {
     e.stopPropagation();
-    this.router.navigate(['/learning-path', this.path.id], {
-      queryParams: {
-        edit: true,
-      },
-    });
+    this.router.navigate(
+      [
+        this.isViewExpert ? '/learning-path-manage' : '/learning-path',
+        this.path.id,
+      ],
+      {
+        queryParams: {
+          edit: true,
+        },
+      }
+    );
   }
 
   onDelete(e: Event) {
@@ -70,6 +91,9 @@ export class PathItemComponent implements OnInit {
   }
 
   onViewDetails() {
-    this.router.navigate(['/learning-path', this.path.id]);
+    this.router.navigate([
+      this.isViewExpert ? '/learning-path-manage' : '/learning-path',
+      this.path.id,
+    ]);
   }
 }

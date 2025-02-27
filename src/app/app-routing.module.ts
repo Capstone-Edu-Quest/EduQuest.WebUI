@@ -37,6 +37,7 @@ import { CoursesApprovalComponent } from './pages/courses-manage/courses-approva
 import { CoursesCategorizeComponent } from './pages/courses-manage/courses-categorize/courses-categorize.component';
 import { LearningPathManageComponent } from './pages/learning-path-manage/learning-path-manage.component';
 import { CoursesManageComponent } from './pages/courses-manage/courses-manage.component';
+import { CoursesManageViewDetailsComponent } from './pages/courses-manage/courses-manage-view-details/courses-manage-view-details.component';
 
 const routes: Routes = [
   {
@@ -105,6 +106,10 @@ const routes: Routes = [
         path: '',
         redirectTo: 'approval',
         pathMatch: 'full',
+      },
+      {
+        path: ':courseId',
+        component: CoursesManageViewDetailsComponent
       },
       {
         path: 'approval',
@@ -269,7 +274,16 @@ const routes: Routes = [
     path: 'learning-path-manage',
     canActivate: [AuthGuard, RoleGuard],
     data: { allowedRoles: [WebRole.EXPERT, WebRole.STAFF] },
-    component: LearningPathManageComponent
+    children: [
+      {
+        path: '',
+        component: LearningPathManageComponent,
+      },
+      {
+        path: ':pathId',
+        component: LearningPathDetailsComponent,
+      },
+    ]
   },
   {
     path: 'learning-path',

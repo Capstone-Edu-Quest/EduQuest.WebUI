@@ -5,6 +5,7 @@ import {
   ILearningPathDetails,
 } from '../../shared/interfaces/learning-path.interfaces';
 import {
+  faAngleLeft,
   faClock,
   faClone,
   faEarth,
@@ -15,6 +16,7 @@ import {
   faTrash,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-learning-path-details',
@@ -131,8 +133,10 @@ export class LearningPathDetailsComponent implements OnInit {
   privacyIcon = faEarth;
   dragIcon = faGripVertical;
   swapIcon = faRetweet;
+  backIcon = faAngleLeft;
 
   isEdit: boolean = false;
+  isExpertView: boolean = false;
 
   currentDragCourse: ILCourseObject | null = null;
   tempCourseList: ILCourseObject[] | null = null;
@@ -158,6 +162,9 @@ export class LearningPathDetailsComponent implements OnInit {
       label: 'LABEL.CLONE',
       action: () => this.onClone(),
     },
+  ];
+
+  defaultPannels = [
     {
       icon: faPen,
       label: 'LABEL.EDIT',
@@ -170,17 +177,30 @@ export class LearningPathDetailsComponent implements OnInit {
     },
   ];
 
-  showingPannelBtn = [...this.pannelBtn];
+  showingPannelBtn: any[] = [];
 
-  constructor(private route: ActivatedRoute) {}
+  constructor(private route: ActivatedRoute, private location: Location) {}
 
   ngOnInit(): void {
-    if(this.route.snapshot.queryParams['edit']) {
+    if (this.route.snapshot.queryParams['edit']) {
       this.onEdit();
     }
+
+    this.isExpertView =
+      this.route.parent?.routeConfig?.path === 'learning-path-manage';
+    this.onInitMenu();
   }
 
   onEnroll() {}
+
+  onInitMenu() {
+    this.showingPannelBtn = [];
+    if (!this.isExpertView) {
+      this.showingPannelBtn = [...this.pannelBtn];
+    }
+
+    this.showingPannelBtn = [...this.showingPannelBtn, ...this.defaultPannels];
+  }
 
   onEdit() {
     this.isEdit = !this.isEdit;
@@ -199,6 +219,10 @@ export class LearningPathDetailsComponent implements OnInit {
   onEditPrivacy() {
     if (!this.isEdit) return;
     this.tempEditMeta.isPublic = !this.tempEditMeta.isPublic;
+  }
+
+  onBack() {
+    this.location.back();
   }
 
   onSaveEdit() {
@@ -223,7 +247,7 @@ export class LearningPathDetailsComponent implements OnInit {
     this.isEdit = false;
     this.tempCourseList = null;
     this.currentDragCourse = null;
-    this.showingPannelBtn = this.pannelBtn;
+    this.onInitMenu();
   }
 
   onDelete() {}

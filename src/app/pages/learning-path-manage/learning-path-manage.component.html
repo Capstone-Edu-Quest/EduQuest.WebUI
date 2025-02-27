@@ -1,1 +1,11 @@
-<p>learning-path-manage works!</p>,
+<div class="manage-learning-path">
+  <div class="title text-gradient">{{ "LABEL.LEARNING_PATH" | translate }}</div>
+
+  <div class="paths-ctn">
+    <app-path-item *ngFor="let path of demoLearningPaths" [path]="path" [isViewExpert]="true"></app-path-item>
+  </div>
+</div>
+
+<!-- Show leaning path created by expert user -->
+<!-- Categorize learning path -->
+<!-- CRUD learning path -->

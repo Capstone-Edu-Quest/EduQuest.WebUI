@@ -460,7 +460,8 @@
     "ADD_DOCUMENT": "Add Document",
     "ADD_ASSIGNMENT": "Add Assignment",
     "TEST_ASSIGNMENT": "Test the Assignment",
-    "ADD_QUIZ": "Add Quiz"
+    "ADD_QUIZ": "Add Quiz",
+    "BACK": "Back"
   },
   "LANGUAGES": {
     "EN": "English",
