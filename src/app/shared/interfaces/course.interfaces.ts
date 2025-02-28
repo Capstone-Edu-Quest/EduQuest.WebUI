@@ -55,6 +55,13 @@ export interface ICourseDetails extends ICourse {
   totalTime: number; // hours
 }
 
+export interface ICourseTagData {
+  id: string;
+  name: string;
+  description: string;
+  tags: ITag[];
+}
+
 export interface ICourseManage extends ICourse {
   isPublic: boolean;
 }
@@ -138,6 +145,10 @@ export interface ITag {
   id: string;
   name: string;
   description?: string;
+}
+
+export interface ITagCount extends ITag {
+  numberOfCourses: number;
 }
 
 export interface ICourseCart {

@@ -8,7 +8,10 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of onGetDataRow()" (click)="handleRowClick(row)">
+      <tr
+        *ngFor="let row of onGetDataRow(); let idx = index"
+        (click)="handleRowClick(row)"
+      >
         <td
           *ngFor="let col of columns"
           [ngStyle]="onGetDataStyle(col, row)"
@@ -17,7 +20,7 @@
           <ng-container
             *ngIf="col.elementRef"
             [ngTemplateOutlet]="col.elementRef"
-            [ngTemplateOutletContext]="{ row }"
+            [ngTemplateOutletContext]="{ row, index:  idx}"
           ></ng-container>
           {{
             col.isMoney

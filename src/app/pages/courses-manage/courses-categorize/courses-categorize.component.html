@@ -1,8 +1,43 @@
-<p>courses-categorize works!</p>,
+<div class="categorize-courses">
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <div class="label">{{ "LABEL.TAGS" | translate }}</div>
+        <div class="sub-label">
+          {{ "LABEL.TAGS_SUB" | translate }}
+        </div>
+      </div>
+      <app-button>
+        <fa-icon [icon]="addIcon" style="margin-right: 5px"></fa-icon
+        >{{ "BUTTON.ADD_TAG" | translate }}</app-button
+      >
+    </div>
+    <app-table [columns]="tagTableColumns" [data]="tagsData"></app-table>
+  </div>
 
-<!-- Table -->
-<!-- Show all tags in order most courses -> lowest courses amount -->
-<!-- no., Tag name, description, creator, number of courses -->
+  <div class="section">
+    <div class="label">{{ "LABEL.COURSES" | translate }}</div>
+    <div class="sub-label">{{ "LABEL.COURSES_SUB" | translate }}</div>
 
-<!-- Table -->
-<!-- Show list courses with basic info name, description, number of stages, number of materials, current tags -->
+    <div class="input-ctn">
+      <nz-input-group [nzSuffix]="suffixIconButton" style="width: 40%">
+        <input
+          [(ngModel)]="searchText"
+          (keydown)="onConfirmSearchCourse($event)"
+          nz-input
+          placeholder="{{ 'MESSAGE.SEARCH_COURSE' | translate }}"
+        />
+      </nz-input-group>
+
+      <ng-template #suffixIconButton>
+        <i nz-icon nzType="search" style="color: var(--secondary-text)"></i>
+      </ng-template>
+    </div>
+
+    <app-table [columns]="courseTableColumns" [data]="coursesData"></app-table>
+  </div>
+</div>
+
+<ng-template #edit let-row="row" let-index="index">
+  <fa-icon style="cursor: pointer" (click)="onEdit($event, row, index)" [icon]="editIcon"></fa-icon>
+</ng-template>

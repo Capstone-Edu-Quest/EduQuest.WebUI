@@ -394,7 +394,7 @@
     "STATUS": "Status",
     "SUCCESS": "Success",
     "PENDING": "Pending",
-    "UNKNOWN" : "Unknown",
+    "UNKNOWN": "Unknown",
     "COURSES_APPROVAL": "Courses Approval",
     "COURSES_CATEGORIZE": "Courses Categorize",
     "COURSES_MANAGE": "Courses Manage",
@@ -408,7 +408,9 @@
     "MODIFY_HASHTAG": "Modify Hashtags",
     "PENDING_COURSES_COUNT": "{{value}} Pending Courses",
     "PRICE": "Price",
-    "DURATION": "Duration"
+    "DURATION": "Duration",
+    "TAGS_SUB": "Modify category (tags)",
+    "COURSES_SUB": "Categorize courses using tags to make it easier to search"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",
@@ -472,7 +474,8 @@
     "ADD_ASSIGNMENT": "Add Assignment",
     "TEST_ASSIGNMENT": "Test the Assignment",
     "ADD_QUIZ": "Add Quiz",
-    "BACK": "Back"
+    "BACK": "Back",
+    "ADD_TAG": "New tag"
   },
   "LANGUAGES": {
     "EN": "English",
@@ -505,6 +508,7 @@
     "MONEY_VALUE": "${{value}}",
     "DATE_FORMAT": "{{month}}/{{date}}/{{year}}",
     "SECONDS": "{{value}} seconds",
-    "MINUTES": "{{value}} minutes"
+    "MINUTES": "{{value}} minutes",
+    "HOURS": "{{value}} hours"
   }
 }

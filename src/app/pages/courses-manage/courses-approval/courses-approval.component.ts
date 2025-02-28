@@ -160,6 +160,9 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
     {
       key: 'name',
       label: 'LABEL.COURSE_NAME',
+    },{
+      key: 'description',
+      label: 'LABEL.DESCRIPTION',
     },
     {
       key: 'instructor',
@@ -174,6 +177,7 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
     {
       key: 'duration',
       label: 'LABEL.DURATION',
+      translateLabel: 'SIGNATURE.HOURS'
     },
     {
       key: 'stageCount',
@@ -205,6 +209,7 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
   initCourses(): void {
     this.courses = this.sampleCourses;
 
+    console.log(this.courses)
     this.initTableData();
   }
 
