@@ -1,8 +1,31 @@
 <div class="course-details-explore">
-
   <div class="back" (click)="onBack()">
-    <fa-icon [icon]="backIcon"></fa-icon
-    >{{ "BUTTON.BACK" | translate }}
+    <fa-icon [icon]="backIcon"></fa-icon>{{ "BUTTON.BACK" | translate }}
+  </div>
+
+  <div class="option">
+    <div class="option-item"></div>
+    <div class="option-item"></div>
+    <div class="option-item"></div>
+
+    <div
+      class="drop-down"
+      [ngStyle]="{
+        height: 11 + menu.length * 28 + 'px'
+      }"
+    >
+      <div
+        class="option"
+        *ngFor="let opt of menu; let i = index"
+        [ngStyle]="{
+          top: 5 + i * 28 + 'px'
+        }"
+        (click)="opt.action($event)"
+      >
+        <fa-icon [icon]="opt.icon"></fa-icon>
+        {{ opt.label | translate }}
+      </div>
+    </div>
   </div>
 
   <div class="course-name">{{ course?.name }}</div>

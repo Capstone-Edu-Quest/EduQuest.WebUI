@@ -10,7 +10,17 @@ import {
   IVideo,
 } from '../../../shared/interfaces/course.interfaces';
 import { AssignmentLanguageEnum } from '../../../shared/enums/materials.enum';
-import { faAngleLeft, faAngleRight, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleLeft,
+  faAngleRight,
+  faCheck,
+  faCheckCircle,
+  faClose,
+  faHashtag,
+  faPen,
+  faPlus,
+  faTrash,
+} from '@fortawesome/free-solid-svg-icons';
 import { Location } from '@angular/common';
 import { TableColumn } from '../../../shared/interfaces/others.interfaces';
 import { TranslateService } from '@ngx-translate/core';
@@ -24,7 +34,8 @@ export class CoursesManageViewDetailsComponent implements OnInit {
   backIcon = faAngleLeft;
   reqIcon = faCheckCircle;
   rightIcon = faAngleRight;
-  
+  addIcon = faPlus;
+
   exampleCourse: ICourseFullMetarialsView = {
     id: 'course-002',
     name: 'Advanced TypeScript & Functional Programming',
@@ -180,12 +191,35 @@ export class CoursesManageViewDetailsComponent implements OnInit {
     {
       key: 'view',
       label: '',
-      icon: this.rightIcon
+      icon: this.rightIcon,
     },
   ];
   materialsData: ITableMaterialData[] = [];
 
   course: ICourseFullMetarialsView | null = null;
+
+  approvalMenu = [
+    {
+      icon: faCheck,
+      label: 'LABEL.ACCEPT',
+      action: (e: Event) => this.onAccept(e),
+    },
+    {
+      icon: faClose,
+      label: 'LABEL.REJECT',
+      action: (e: Event) => this.onReject(e),
+    },
+  ];
+
+  modifyMenu = [
+    {
+      icon: faHashtag,
+      label: 'LABEL.MODIFY_HASHTAG',
+      action: (e: Event) => this.onModifyHashtag(e),
+    },
+  ];
+
+  menu: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -202,7 +236,17 @@ export class CoursesManageViewDetailsComponent implements OnInit {
     this.course = this.exampleCourse;
 
     this.onInitMaterialsData();
+    this.initMenu();
   };
+
+  initMenu() {
+    this.menu = [];
+    
+    // Check status = pending
+    this.menu = [...this.approvalMenu];
+    
+    this.menu.push(...this.modifyMenu);
+  }
 
   onConverTime(time: string) {
     return new Date(time).toLocaleString();
@@ -210,7 +254,7 @@ export class CoursesManageViewDetailsComponent implements OnInit {
 
   async onInitMaterialsData() {
     if (!this.course) return;
-  
+
     for (const [i, stage] of this.course.stages.entries()) {
       for (const material of stage.materials) {
         const materialData: ITableMaterialData = {
@@ -225,38 +269,49 @@ export class CoursesManageViewDetailsComponent implements OnInit {
       }
     }
   }
-  
 
-  onGetDataInfo(material: IMaterial<IVideo | IDocument | IQuiz | IAssignment>): Promise<string> {
+  onGetDataInfo(
+    material: IMaterial<IVideo | IDocument | IQuiz | IAssignment>
+  ): Promise<string> {
     return new Promise((resolve) => {
       switch (material.type) {
         case 'video':
-          this.translate.get('LABEL.QUESTIONS_COUNT', { value: (material.data as IVideo).questions.length })
+          this.translate
+            .get('LABEL.QUESTIONS_COUNT', {
+              value: (material.data as IVideo).questions.length,
+            })
             .subscribe((res) => resolve(res));
           break;
-  
+
         case 'document':
           resolve('');
           break;
-  
+
         case 'quiz':
-          this.translate.get('LABEL.QUESTIONS_COUNT', { value: (material.data as IQuiz).questions.length })
+          this.translate
+            .get('LABEL.QUESTIONS_COUNT', {
+              value: (material.data as IQuiz).questions.length,
+            })
             .subscribe((questions) => {
-              const passingPercentages = (material.data as IQuiz).passingPercentages;
+              const passingPercentages = (material.data as IQuiz)
+                .passingPercentages;
               resolve(`${questions} | ${passingPercentages}%`);
             });
           break;
-  
+
         case 'assignment':
-          resolve(`${(material.data as IAssignment).question} (${(material.data as IAssignment).answerLanguage})`);
+          resolve(
+            `${(material.data as IAssignment).question} (${
+              (material.data as IAssignment).answerLanguage
+            })`
+          );
           break;
-  
+
         default:
           resolve('');
       }
     });
   }
-  
 
   onGetDataTime(material: IMaterial<IVideo | IDocument | IQuiz | IAssignment>) {
     switch (material.type) {
@@ -277,8 +332,23 @@ export class CoursesManageViewDetailsComponent implements OnInit {
     }
   }
 
+  onAccept(e: Event) {
+    e.preventDefault();
+    console.log('Accept');
+  }
+
+  onReject(e: Event) {
+    e.preventDefault();
+    console.log('Decline');
+  }
+
+  onModifyHashtag(e: Event) {
+    e.preventDefault();
+    console.log('Modify Hashtag');
+  }
+
   onBack() {
     this.location.back();
-    console.log('back')
+    console.log('back');
   }
 }

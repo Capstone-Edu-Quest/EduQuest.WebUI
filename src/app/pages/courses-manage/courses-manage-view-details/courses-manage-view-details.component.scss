@@ -2,6 +2,7 @@
   margin-top: 20px;
   padding: 0 20px;
   box-sizing: border-box;
+  position: relative;
 
   .back {
     color: var(--secondary-text);
@@ -14,6 +15,10 @@
     &:hover {
       color: var(--primary-text);
     }
+  }
+
+  .drop-down {
+    left: -30%;
   }
 
   .course-name {
@@ -63,19 +68,19 @@
     align-items: center;
 
     .info {
-        display: flex;
-        gap: 2px;
-        flex-direction: column;
+      display: flex;
+      gap: 2px;
+      flex-direction: column;
 
-        .name {
-            font-size: 14px;
-            font-weight: 500;
-        }
+      .name {
+        font-size: 14px;
+        font-weight: 500;
+      }
 
-        .bio {
-            font-size: 11px;
-            color: var(--secondary-text);
-        }
+      .bio {
+        font-size: 11px;
+        color: var(--secondary-text);
+      }
     }
   }
 }

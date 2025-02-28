@@ -402,7 +402,10 @@
     "COUSRE_CATEGORIZE": "Category",
     "COURSE_EXPLORE": "Explore",
     "TYPE": "Type",
-    "MATERIAL_INFO": "Details"
+    "MATERIAL_INFO": "Details",
+    "ACCEPT": "Accept",
+    "REJECT": "Reject",
+    "MODIFY_HASHTAG": "Modify Hashtags"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",
