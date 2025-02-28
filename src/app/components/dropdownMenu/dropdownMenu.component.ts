@@ -1,8 +1,10 @@
 import {
   Component,
+  ElementRef,
   Input,
   OnInit,
   TemplateRef,
+  ViewChild,
 } from '@angular/core';
 import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 
@@ -10,11 +12,14 @@ import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
   selector: 'app-dropdownMenu',
   templateUrl: './dropdownMenu.component.html',
   styleUrls: ['./dropdownMenu.component.scss'],
-  animations: [fadeInOutAnimation]
+  animations: [fadeInOutAnimation],
 })
 export class DropdownMenuComponent implements OnInit {
   @Input('dropdown') dropdown: TemplateRef<any> | null = null;
-  @Input('position') position?: 'left' | 'right' | 'center' = 'center';
+
+  position = 'center';
+
+  @ViewChild('dropdownMenu') dropdownMenu!: ElementRef<HTMLDivElement>;
 
   isHovering: boolean = false;
 
@@ -24,5 +29,20 @@ export class DropdownMenuComponent implements OnInit {
 
   updateHoverStatus(hovering: boolean) {
     this.isHovering = hovering;
+
+    if (hovering) {
+      // Wait for Angular to render the dropdown before getting its position
+      setTimeout(() => this.initPosition(), 0);
+    }
+  }
+
+  initPosition() {
+    const rect = this.dropdownMenu.nativeElement.getBoundingClientRect();
+    const screenWidth = window.innerWidth;
+
+    if(rect.right >  screenWidth) {
+      this.position = 'left';
+    }
+
   }
 }

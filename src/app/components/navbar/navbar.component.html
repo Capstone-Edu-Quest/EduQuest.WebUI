@@ -45,7 +45,6 @@
   <app-dropdownMenu
     *ngFor="let icon of iconItems"
     [dropdown]="getTemplate(icon.routerLink)"
-    [position]="user?.roleId === 2 ? 'left' : 'center'"
   >
     <a
       class="routerLink"
@@ -62,7 +61,7 @@
     {{ "LABEL.LEVEL" | translate : { level: 15 } }}
   </div>
 
-  <app-dropdownMenu [dropdown]="getTemplate('profile')" [position]="'left'">
+  <app-dropdownMenu [dropdown]="getTemplate('profile')">
     <div class="profile" (click)="goToProfilePage()">
       <i nz-icon nzType="user"></i>
     </div>

@@ -409,7 +409,7 @@
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",
-    "SEARCH_COURSE": "Search Courses",
+    "SEARCH_COURSE": "Search Courses (Enter to search)",
     "WELCOME_BACK": "Welcome back, {{name}}",
     "SEARCH_TAGS": "Enter tags name",
     "APPLIED_COUPON": "Coupon applied successfully",

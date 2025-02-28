@@ -13,6 +13,7 @@ export class RoleGuard implements CanActivate {
   canActivate(route: ActivatedRouteSnapshot): boolean {
     const allowedRoles = route.data['allowedRoles'];
     const blockedRoles = route.data['blockedRoles'];
+    const redirectUrl = route.data['redirectUrl'];
 
     if (
       allowedRoles &&
@@ -28,7 +29,7 @@ export class RoleGuard implements CanActivate {
       return true;
     }
 
-    this.router.navigate(['/']);
+    this.router.navigate([(redirectUrl && redirectUrl.length > 0) ? redirectUrl[0] : '/']);
     return false;
   }
 }

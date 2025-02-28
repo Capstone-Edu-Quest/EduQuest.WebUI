@@ -43,6 +43,8 @@ import { CourseManageExploreComponent } from './pages/courses-manage/course-mana
 const routes: Routes = [
   {
     path: '',
+    canActivate: [RoleGuard],
+    data: { blockedRoles: [WebRole.EXPERT], redirectUrl: ['/courses-manage'] },
     component: HomeComponent,
   },
   {
@@ -247,8 +249,7 @@ const routes: Routes = [
   {
     path: 'chat',
     component: ChatComponent,
-    canActivate: [AuthGuard, RoleGuard],
-    data: { allowedRoles: [WebRole.LEARNER, WebRole.INSTRUCTOR] },
+    canActivate: [AuthGuard],
     children: [
       {
         path: ':conversationId',

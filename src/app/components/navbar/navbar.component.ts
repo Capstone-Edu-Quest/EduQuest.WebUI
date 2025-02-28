@@ -99,16 +99,12 @@ export class NavbarComponent implements OnInit {
 
   expertNavItems = [
     {
-      label: 'LABEL.HOME',
-      routerLink: '',
+      label: 'LABEL.COURSES_MANAGE',
+      routerLink: '/courses-manage',
     },
     {
       label: 'LABEL.LEARNING_PATH',
       routerLink: '/learning-path-manage',
-    },
-    {
-      label: 'LABEL.COURSES_MANAGE',
-      routerLink: '/courses-manage',
     },
   ];
 
