@@ -45,6 +45,8 @@ export interface TableColumn {
   translateLabel?: string | ((value: any) => string);
   isMoney?: boolean;
   style?: (data: any) => Object | Object;
+  icon?: any;
+  onClick?: (val: any) => void;
 }
 
 

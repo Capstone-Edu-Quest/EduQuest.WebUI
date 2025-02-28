@@ -38,6 +38,7 @@ import { CoursesCategorizeComponent } from './pages/courses-manage/courses-categ
 import { LearningPathManageComponent } from './pages/learning-path-manage/learning-path-manage.component';
 import { CoursesManageComponent } from './pages/courses-manage/courses-manage.component';
 import { CoursesManageViewDetailsComponent } from './pages/courses-manage/courses-manage-view-details/courses-manage-view-details.component';
+import { CourseManageExploreComponent } from './pages/courses-manage/course-manage-explore/course-manage-explore.component';
 
 const routes: Routes = [
   {
@@ -108,8 +109,17 @@ const routes: Routes = [
         pathMatch: 'full',
       },
       {
-        path: ':courseId',
-        component: CoursesManageViewDetailsComponent
+        path: 'explore',
+        children: [
+          {
+            path: '',
+            component: CourseManageExploreComponent
+          },
+          {
+            path: ':courseId',
+            component: CoursesManageViewDetailsComponent
+          }
+        ]
       },
       {
         path: 'approval',

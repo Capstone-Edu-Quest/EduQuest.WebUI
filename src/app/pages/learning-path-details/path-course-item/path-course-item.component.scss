@@ -154,5 +154,15 @@
         }
       }
     }
+
+    .tags {
+      display: flex;
+      gap: 6px;
+
+      .tag {
+        font-size: 11px;
+        color: var(--secondary-text);
+      }
+    }
   }
   

@@ -1,0 +1,23 @@
+.courses-ctn {
+    margin-top: 18px;
+
+    .search-ctn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-sizing: border-box;
+        margin: 12px 0;
+    }
+
+    .results-text {
+        font-size: 14px;
+        margin: 8px 0;
+        font-weight: 500;
+    }
+
+  .courses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+}

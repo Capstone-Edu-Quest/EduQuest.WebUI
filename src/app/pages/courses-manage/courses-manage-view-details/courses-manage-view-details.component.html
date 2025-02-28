@@ -1,4 +1,44 @@
-<p>courses-manage-view-details works!</p>,
+<div class="course-details-explore">
+
+  <div class="back" (click)="onBack()">
+    <fa-icon [icon]="backIcon"></fa-icon
+    >{{ "BUTTON.BACK" | translate }}
+  </div>
+
+  <div class="course-name">{{ course?.name }}</div>
+
+  <div class="hashtag">
+    <div class="tag" *ngFor="let tag of course?.tags || []">
+      #{{ tag.name }}
+    </div>
+  </div>
+
+  <div class="course-description">{{ course?.description }}</div>
+
+  <div class="instructor-info">
+    <app-avatar-by-name name="Khang" size="40px"></app-avatar-by-name>
+    <div class="info">
+      <div class="name">Gia Khang</div>
+      <div class="bio">Software Engineer of ABC Company</div>
+    </div>
+  </div>
+
+  <div class="label">{{ "LABEL.REQUIREMENTS" | translate }}</div>
+  <div class="reqs">
+    <div class="req" *ngFor="let req of course?.requirements || []">
+      <fa-icon [icon]="reqIcon"></fa-icon>{{ req }}
+    </div>
+  </div>
+
+  <div class="label" style="margin-bottom: 8px">
+    {{ "LABEL.MATERIALS" | translate }}
+  </div>
+  <app-table
+    [ngStyle]="{ cursor: 'pointer' }"
+    [data]="materialsData"
+    [columns]="tableColumns"
+  ></app-table>
+</div>
 
 <!-- Show details course, materials, try materials, can modify tags -->
 <!-- Expert can approve course if in pending -->

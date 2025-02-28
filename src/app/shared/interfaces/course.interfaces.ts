@@ -2,6 +2,15 @@ import { MissionStatus } from '../enums/course.enum';
 import { AssignmentLanguageEnum } from '../enums/materials.enum';
 import { IUserStat } from './user.interfaces';
 
+export interface ITableMaterialData {
+  stage: number;
+  name: string;
+  description: string;
+  time: string;
+  type: materialType;
+  data: string;
+}
+
 export interface ICourse {
   id: string;
   name: string;
@@ -114,6 +123,17 @@ export interface ICourseManageDetails extends Omit<ICourseDetails, 'author'> {
   courseRatingOverTime: { time: string; count: number }[];
   totalEnrolled: number;
 }
+
+export interface ICourseFullMetarialsView extends ICourse {
+  stages: {
+    id: string;
+  title: string;
+  description: string;
+    materials: IMaterial<IVideo | IDocument | IQuiz | IAssignment>[]
+  }[];
+  requirements: string[];
+}
+
 export interface ITag {
   id: string;
   name: string;

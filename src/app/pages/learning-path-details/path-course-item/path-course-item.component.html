@@ -71,6 +71,10 @@
           }}
         </div>
       </div>
+
+      <div class="tags" *ngIf="isExpertView">
+        <div class="tag" *ngFor="let tag of course.tags">#{{ tag.name }}</div>
+      </div>
     </div>
   </div>
   

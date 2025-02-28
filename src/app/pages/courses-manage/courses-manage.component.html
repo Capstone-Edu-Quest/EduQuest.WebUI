@@ -1,2 +1,17 @@
-<p>courses-manage works!</p>,
-<router-outlet></router-outlet>
+<div class="courses-manage">
+  <div class="title text-gradient">
+    {{ "LABEL.COURSES_MANAGE" | translate }}
+  </div>
+  <div class="tabs">
+    <a
+      class="tab"
+      [routerLink]="tab.link"
+      *ngFor="let tab of tabs"
+      [routerLinkActive]="['active']"
+    >
+      {{ tab.label | translate }}
+    </a>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

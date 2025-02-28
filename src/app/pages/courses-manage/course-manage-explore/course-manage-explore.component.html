@@ -1,0 +1,31 @@
+<div class="courses-ctn">
+  <div class="search-ctn">
+    <nz-input-group [nzSuffix]="suffixIconButton" style="width: 32vw">
+      <input
+        [(ngModel)]="searchText"
+        (keydown)="onConfirmSearchCourse($event)"
+        nz-input
+        placeholder="{{ 'MESSAGE.SEARCH_COURSE' | translate }}"
+      />
+    </nz-input-group>
+
+    <ng-template #suffixIconButton>
+      <i nz-icon nzType="search" style="color: var(--secondary-text)"></i>
+    </ng-template>
+  </div>
+
+  <div class="results-text" *ngIf="currentResultSearch.trim().length > 0">
+    {{
+      "LABEL.FOUND_COURSES"
+        | translate
+          : { courses: sampleCourses.length, keyword: currentResultSearch }
+    }}
+  </div>
+  <div class="courses-list">
+    <app-path-course-item
+      *ngFor="let course of sampleCourses"
+      [course]="course"
+      [isExpertView]="true"
+    ></app-path-course-item>
+  </div>
+</div>

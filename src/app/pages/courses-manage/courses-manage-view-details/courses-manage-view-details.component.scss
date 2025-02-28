@@ -1,0 +1,81 @@
+.course-details-explore {
+  margin-top: 20px;
+  padding: 0 20px;
+  box-sizing: border-box;
+
+  .back {
+    color: var(--secondary-text);
+    cursor: pointer;
+    transition: all 0.1s linear;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    &:hover {
+      color: var(--primary-text);
+    }
+  }
+
+  .course-name {
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 15px;
+  }
+
+  .course-description {
+    margin-top: 12px;
+    color: var(--secondary-text);
+    font-size: 13px;
+  }
+
+  .hashtag {
+    display: flex;
+    gap: 5px;
+    font-size: 11px;
+    color: var(--secondary-text);
+    margin-top: 2px;
+  }
+
+  .label {
+    font-size: 16px;
+    font-weight: 500;
+    margin-top: 15px;
+    color: var(--brand-light);
+  }
+
+  .reqs {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin-top: 6px;
+
+    .req {
+      display: flex;
+      gap: 4px;
+      color: var(--secondary-text);
+    }
+  }
+
+  .instructor-info {
+    margin: 25px 0;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+
+    .info {
+        display: flex;
+        gap: 2px;
+        flex-direction: column;
+
+        .name {
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .bio {
+            font-size: 11px;
+            color: var(--secondary-text);
+        }
+    }
+  }
+}

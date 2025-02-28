@@ -397,7 +397,12 @@
     "UNKNOWN" : "Unknown",
     "COURSES_APPROVAL": "Courses Approval",
     "COURSES_CATEGORIZE": "Courses Categorize",
-    "COURSES_MANAGE": "Courses Manage"
+    "COURSES_MANAGE": "Courses Manage",
+    "COUSRE_APPROVAL": "Approval",
+    "COUSRE_CATEGORIZE": "Category",
+    "COURSE_EXPLORE": "Explore",
+    "TYPE": "Type",
+    "MATERIAL_INFO": "Details"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",
@@ -492,6 +497,8 @@
   },
   "SIGNATURE": {
     "MONEY_VALUE": "${{value}}",
-    "DATE_FORMAT": "{{month}}/{{date}}/{{year}}"
+    "DATE_FORMAT": "{{month}}/{{date}}/{{year}}",
+    "SECONDS": "{{value}} seconds",
+    "MINUTES": "{{value}} minutes"
   }
 }

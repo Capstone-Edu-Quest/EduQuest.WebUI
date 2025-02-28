@@ -99,7 +99,7 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
 
   viewCourseDetails() {
     if (!this.course || this.isEdit) return;
-    this.router.navigate([this.isExpertView ? '/courses-manage' : '/courses', this.course.id]);
+    this.router.navigate([this.isExpertView ? '/courses-manage/explore' : '/courses', this.course.id]);
   }
 
   onAddToCart(event: Event) {

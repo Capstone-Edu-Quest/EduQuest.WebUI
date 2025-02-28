@@ -23,6 +23,7 @@
               ? (onGetColLabel(col, row) | translate : { value: onGetVal(col, row) })
               : onGetVal(col, row)
           }}
+          <fa-icon *ngIf="col.icon" [icon]="col.icon"></fa-icon>
         </td>
       </tr>
     </tbody>

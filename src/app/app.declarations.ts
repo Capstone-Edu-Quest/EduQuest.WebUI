@@ -154,6 +154,7 @@ import { CoursesApprovalComponent } from './pages/courses-manage/courses-approva
 import { CoursesCategorizeComponent } from './pages/courses-manage/courses-categorize/courses-categorize.component';
 import { LearningPathManageComponent } from './pages/learning-path-manage/learning-path-manage.component';
 import { CoursesManageViewDetailsComponent } from './pages/courses-manage/courses-manage-view-details/courses-manage-view-details.component';
+import { CourseManageExploreComponent } from './pages/courses-manage/course-manage-explore/course-manage-explore.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -212,6 +213,7 @@ export const AppDeclarations = [
   CoursesApprovalComponent,
   CoursesCategorizeComponent,
   CoursesManageViewDetailsComponent,
+  CourseManageExploreComponent,
   // Cart
   CartComponent,
   CartItemComponent,
