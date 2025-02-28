@@ -405,7 +405,10 @@
     "MATERIAL_INFO": "Details",
     "ACCEPT": "Accept",
     "REJECT": "Reject",
-    "MODIFY_HASHTAG": "Modify Hashtags"
+    "MODIFY_HASHTAG": "Modify Hashtags",
+    "PENDING_COURSES_COUNT": "{{value}} Pending Courses",
+    "PRICE": "Price",
+    "DURATION": "Duration"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",

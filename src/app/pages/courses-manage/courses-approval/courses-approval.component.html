@@ -1,6 +1,23 @@
-<p>courses-approval works!</p>,
+<div class="course-approval">
+  <div class="title">
+    {{ "LABEL.PENDING_COURSES_COUNT" | translate : { value: 5 } }}
+  </div>
+
+  <app-table
+    (onRowClick)="onViewDetails($event)"
+    [data]="courses"
+    [columns]="tableColumns"
+  ></app-table>
+</div>
 
 <!-- Line chart approve/reject course monthly -->
 <!-- Pie chart of this month approved/rejected/pending -->
 <!-- Show table of courses in pending status -->
 <!-- Show name, description, number of stages, number of materials, view details btn -->
+
+<ng-template #buttons let-row="row">
+  <div class="ref-btns-ctn">
+    <fa-icon (click)="onReject($event, row)" [icon]="acceptIcon" style="color: var(--success)"></fa-icon>
+    <fa-icon (click)="onAccept($event, row)" [icon]="rejectIcon" style="color: var(--alert)"></fa-icon>
+  </div>
+</ng-template>

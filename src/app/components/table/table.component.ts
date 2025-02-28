@@ -1,4 +1,4 @@
-import { Component, Input, type OnInit } from '@angular/core';
+import { Component, Input, Output, type OnInit, EventEmitter } from '@angular/core';
 import { TableColumn } from '../../shared/interfaces/others.interfaces';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
 
@@ -11,6 +11,7 @@ export class TableComponent implements OnInit {
   @Input() columns: TableColumn[] = [];
   @Input() data: any[] = [];
   @Input() itemsPerPage: number = 10;
+  @Output() onRowClick = new EventEmitter<any>();
 
   rightIcon = faAngleRight;
   leftIcon = faAngleLeft;
@@ -21,6 +22,7 @@ export class TableComponent implements OnInit {
 
   ngOnInit(): void {
     this.initPagination();
+    console.log(this.columns)
   }
 
   initPagination() {
@@ -51,7 +53,6 @@ export class TableComponent implements OnInit {
       return;
     }
 
-    console.log(this.currentPage, totalPage);
     if (this.currentPage <= totalPage - 2) {
       this.totalPages = [
         1,
@@ -104,7 +105,6 @@ export class TableComponent implements OnInit {
   }
 
   onModifyPage(pageNumber: number | string) {
-    console.log(pageNumber);
     if (typeof pageNumber === 'string') return;
     if (
       pageNumber < 1 ||
@@ -115,5 +115,15 @@ export class TableComponent implements OnInit {
 
     this.currentPage = pageNumber;
     this.initPagination();
+  }
+
+  handleRowClick(row: any) {
+    this.onRowClick.next(row)
+  }
+
+  handleClick(col: TableColumn, row: any) {
+    if(col.onClick) {
+      col.onClick(row);
+    }
   }
 }

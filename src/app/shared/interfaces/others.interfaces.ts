@@ -1,3 +1,5 @@
+import { ElementRef, TemplateRef } from "@angular/core";
+
 export interface IMessage {
   id: string;
   type: MessageType;
@@ -47,6 +49,7 @@ export interface TableColumn {
   style?: (data: any) => Object | Object;
   icon?: any;
   onClick?: (val: any) => void;
+  elementRef?: TemplateRef<any>;
 }
 
 

@@ -8,8 +8,17 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let row of onGetDataRow()">
-        <td *ngFor="let col of columns" [ngStyle]="onGetDataStyle(col, row)">
+      <tr *ngFor="let row of onGetDataRow()" (click)="handleRowClick(row)">
+        <td
+          *ngFor="let col of columns"
+          [ngStyle]="onGetDataStyle(col, row)"
+          (click)="handleClick(col, row)"
+        >
+          <ng-container
+            *ngIf="col.elementRef"
+            [ngTemplateOutlet]="col.elementRef"
+            [ngTemplateOutletContext]="{ row }"
+          ></ng-container>
           {{
             col.isMoney
               ? ("SIGNATURE.MONEY_VALUE"
@@ -20,7 +29,8 @@
                         | currencyExchange : { toString: true }
                     })
               : col.translateLabel
-              ? (onGetColLabel(col, row) | translate : { value: onGetVal(col, row) })
+              ? (onGetColLabel(col, row)
+                | translate : { value: onGetVal(col, row) })
               : onGetVal(col, row)
           }}
           <fa-icon *ngIf="col.icon" [icon]="col.icon"></fa-icon>
@@ -30,7 +40,11 @@
   </table>
 
   <div class="paginition">
-    <fa-icon *ngIf="currentPage > 1" [icon]="leftIcon" (click)="onModifyPage(currentPage - 1)"></fa-icon>
+    <fa-icon
+      *ngIf="currentPage > 1"
+      [icon]="leftIcon"
+      (click)="onModifyPage(currentPage - 1)"
+    ></fa-icon>
     <div
       class="page-item"
       [ngClass]="{
@@ -41,6 +55,10 @@
     >
       {{ page }}
     </div>
-    <fa-icon *ngIf="currentPage < data.length/itemsPerPage" [icon]="rightIcon" (click)="onModifyPage(currentPage + 1)"></fa-icon>
+    <fa-icon
+      *ngIf="currentPage < data.length / itemsPerPage"
+      [icon]="rightIcon"
+      (click)="onModifyPage(currentPage + 1)"
+    ></fa-icon>
   </div>
 </div>

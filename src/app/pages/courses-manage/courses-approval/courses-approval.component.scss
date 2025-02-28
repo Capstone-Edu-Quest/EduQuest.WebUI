@@ -1,0 +1,20 @@
+.course-approval {
+  margin-top: 20px;
+
+  .title {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 12px;
+  }
+
+  app-table {
+    cursor: pointer;
+  }
+}
+
+.ref-btns-ctn {
+  display: flex;
+  gap: 12px;
+  font-size: 15px;
+  cursor: pointer;
+}
