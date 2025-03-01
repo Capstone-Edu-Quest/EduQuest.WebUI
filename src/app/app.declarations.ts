@@ -155,6 +155,12 @@ import { CoursesCategorizeComponent } from './pages/courses-manage/courses-categ
 import { LearningPathManageComponent } from './pages/learning-path-manage/learning-path-manage.component';
 import { CoursesManageViewDetailsComponent } from './pages/courses-manage/courses-manage-view-details/courses-manage-view-details.component';
 import { CourseManageExploreComponent } from './pages/courses-manage/course-manage-explore/course-manage-explore.component';
+import { HomeStaffChartComponent } from './pages/home/home-staff/home-staff-chart/home-staff-chart.component';
+import { HomeOverviewComponent } from './pages/home/home-staff/home-overview/home-overview.component';
+import { PieChartComponent } from './components/chart/pie-chart/pie-chart.component';
+import { LineChartComponent } from './components/chart/line-chart/line-chart.component';
+import { BarChartComponent } from './components/chart/bar-chart/bar-chart.component';
+import { RadarChartComponent } from './components/chart/radar-chart/radar-chart.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -183,6 +189,10 @@ export const AppDeclarations = [
   TextEditorComponent,
   CodeEditorComponent,
   CodeHighlightComponent,
+  PieChartComponent,
+  LineChartComponent,
+  BarChartComponent,
+  RadarChartComponent,
   // Home
   HomeComponent,
   HomeStatisticsComponent,
@@ -196,6 +206,8 @@ export const AppDeclarations = [
   HomeWhyChooseUsComponent,
   HomeInstructorSummaryComponent,
   HomeInsOthersComponent,
+  HomeStaffChartComponent,
+  HomeOverviewComponent,
   // Courses
   CoursesComponent,
   CoursesSearchPannelComponent,

@@ -1,46 +1,37 @@
 <div class="course-chart">
   <div class="section">
     <div class="title">{{ "LABEL.TOTAL_COURSE_LEANER" | translate }}</div>
-    <canvas
-      baseChart
-      [data]="totalCourseLeanerChartData"
-      [options]="lineChartConfig"
-      type="line"
-    >
-    </canvas>
+    <app-line-chart
+      [labels]="totalCourseLeanersLabel"
+      [dataSet]="totalCourseLeanersDataSet"
+    ></app-line-chart>
   </div>
   <div class="section">
     <div class="title">{{ "LABEL.COURSE_RATING" | translate }}</div>
-    <canvas
-      baseChart
-      [data]="ratingChartData"
-      [options]="lineChartConfig"
-      type="bar"
-    >
-    </canvas>
+    <app-bar-chart
+      [labels]="ratingsChartLabel"
+      [dataSet]="ratinsChartData"
+    ></app-bar-chart>
   </div>
 
   <div class="section">
     <div class="title">{{ "LABEL.LEANER_STATUS" | translate }}</div>
     <div style="padding: 0 10%; box-sizing: border-box">
-      <canvas
-        baseChart
-        [data]="leanerStatisticsChartData"
-        [options]="roundChartConfig"
-        type="pie"
-      >
-      </canvas>
+      <app-pie-chart
+        [labels]="learnerStatisticsLabel"
+        [dataSet]="leanerStatisticsData"
+      ></app-pie-chart>
     </div>
   </div>
   <div class="section">
-<div class="title">{{ "LABEL.TOP_X_COURSES" | translate:{value: 3} }} ({{'LABEL.MOST_LEANERS' | translate}})</div>
-    <canvas
-      baseChart
-      [data]="topCoursesChartData"
-      [options]="radarChartOptions"
-      type="radar"
-    >
-    </canvas>
+    <div class="title">
+      {{ "LABEL.TOP_X_COURSES" | translate : { value: 3 } }} ({{
+        "LABEL.MOST_LEANERS" | translate
+      }})
+    </div>
+    <app-radar-chart
+    [labels]="top3CoursesLabels"
+    [dataSet]="top3CoursesDataSet"
+    ></app-radar-chart>
   </div>
 </div>
-

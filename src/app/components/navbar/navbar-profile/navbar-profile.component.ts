@@ -149,6 +149,25 @@ export class NavbarProfileComponent implements OnInit, OnDestroy {
     },
   ];
 
+  otherItems = [
+    {
+      name: 'LABEL.LANGUAGE',
+      value: {
+        icon: 'global',
+        value: `LANGUAGES.${this.translate.currentLang.toUpperCase()}`,
+      },
+      action: () => this.onShowLanguageDialog(),
+    },
+    {
+      name: 'LABEL.THEME',
+      value: {
+        icon: 'format-painter',
+        value: '',
+      },
+      action: () => this.theme.onGoToNextTheme(),
+    },
+  ]
+
   onInitRouteItems() {
     if(!this.UserService.user$?.value) return;
 
@@ -158,6 +177,11 @@ export class NavbarProfileComponent implements OnInit, OnDestroy {
         break;
       case WebRole.LEARNER:
         this.routeItems = this.leanerItems;
+        break;
+      case WebRole.EXPERT:
+      case WebRole.STAFF:
+      case WebRole.ADMIN:
+        this.routeItems = this.otherItems;
         break;
     }
   }

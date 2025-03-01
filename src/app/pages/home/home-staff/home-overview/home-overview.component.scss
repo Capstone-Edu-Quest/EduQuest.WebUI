@@ -1,0 +1,43 @@
+.home-overview {
+  .stats-ctn {
+    margin-top: 12px;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+
+    .stat {
+      min-width: calc(100% / 4 - 8px);
+      flex: 1;
+      padding: 16px;
+      box-sizing: border-box;
+      border-radius: 12px;
+      background: var(--secondary-bg);
+      //   border: 1px solid var(--quaternary-text);
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: start;
+
+        label {
+          font-size: 13px;
+          color: var(--secondary-text);
+        }
+
+        fa-icon,
+        .icon {
+          font-size: 20px;
+          color: var(--brand-light);
+        }
+      }
+
+      .value {
+        margin-top: 8px;
+        font-size: 20px;
+        font-weight: 500;
+      }
+    }
+  }
+}

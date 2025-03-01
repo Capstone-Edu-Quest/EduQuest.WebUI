@@ -1,22 +1,8 @@
 <div class="home" @fadeInOut>
-  <ng-container [ngTemplateOutlet]="user ? signedIn : notSignIn"></ng-container>
+  <ng-container *ngIf="currentRef" [ngTemplateOutlet]="currentRef"></ng-container>
 </div>
 
-<ng-template #signedIn>
-  @switch(user?.roleId) { @case(1) {
-  <!-- Admin -->
-  } @case(2) {
-  <!-- Instructor -->
-  <app-home-instructor-summary></app-home-instructor-summary>
-  <app-home-ins-others></app-home-ins-others>
-  } @case(3) {
-  <!-- Leaner -->
-  <app-home-statistics></app-home-statistics>
-  <app-home-studying></app-home-studying>
-  <app-home-suggested></app-home-suggested>
-  <app-home-achievements></app-home-achievements>
-  } }
-</ng-template>
+<ng-template #signedIn> </ng-template>
 
 <ng-template #notSignIn>
   <div class="blur-circle" data-aos="zoom-out"></div>
@@ -25,4 +11,21 @@
   <app-home-why-choose-us></app-home-why-choose-us>
   <app-home-trending-courses></app-home-trending-courses>
   <app-home-web-numeric></app-home-web-numeric>
+</ng-template>
+
+<ng-template #leaner>
+  <app-home-statistics></app-home-statistics>
+  <app-home-studying></app-home-studying>
+  <app-home-suggested></app-home-suggested>
+  <app-home-achievements></app-home-achievements>
+</ng-template>
+
+<ng-template #instructor>
+  <app-home-instructor-summary></app-home-instructor-summary>
+  <app-home-ins-others></app-home-ins-others>
+</ng-template>
+
+<ng-template #staff>
+  <app-home-overview></app-home-overview>
+  <app-home-staff-chart></app-home-staff-chart>
 </ng-template>

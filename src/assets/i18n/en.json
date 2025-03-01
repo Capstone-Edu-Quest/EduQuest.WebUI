@@ -397,7 +397,7 @@
     "UNKNOWN": "Unknown",
     "COURSES_APPROVAL": "Courses Approval",
     "COURSES_CATEGORIZE": "Courses Categorize",
-    "COURSES_MANAGE": "Courses Manage",
+    "COURSES_MANAGE": "Courses",
     "COUSRE_APPROVAL": "Approval",
     "COUSRE_CATEGORIZE": "Category",
     "COURSE_EXPLORE": "Explore",
@@ -410,7 +410,16 @@
     "PRICE": "Price",
     "DURATION": "Duration",
     "TAGS_SUB": "Modify category (tags)",
-    "COURSES_SUB": "Categorize courses using tags to make it easier to search"
+    "COURSES_SUB": "Categorize courses using tags to make it easier to search",
+    "USERS_MANAGE": "Users",
+    "VIOLATION_MANAGE": "Violations",
+    "PLATFORM_SETTINGS": "Settings",
+    "TOTAL_USERS": "Total Users",
+    "MONTHLY_ACTIVE_USERS": "Monthly Active Users",
+    "NEW_USER_THIS_MONTH": "New Users This Month",
+    "PENDING_VIOLATIONS": "Pending Violations",
+    "NEW_COURSES_THIS_MONTH": "New Courses This Month",
+    "MOST_POPULAR_CATEGORY": "Most Popular Category"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",

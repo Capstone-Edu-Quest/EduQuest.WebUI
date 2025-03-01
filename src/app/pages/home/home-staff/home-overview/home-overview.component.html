@@ -1,0 +1,31 @@
+<div class="home-overview">
+  <div class="stats-ctn">
+    <div class="stat" *ngFor="let stat of statsItem">
+      <div class="header">
+        <label>{{ stat.label | translate }}</label>
+        <fa-icon [icon]="stat.icon"></fa-icon>
+      </div>
+      <div class="value">{{ stat.value.toLocaleString() }}</div>
+    </div>
+  </div>
+</div>
+
+<!-- 
+Total Users (Active & Inactive)
+Total Courses (Approved, Pending, Rejected)
+Monthly Active Users (MAU)
+Number of New Users This Month
+Total Pending Violations
+ -->
+
+<!-- 
+Dashboard
+User Manage
+Courses Manage (Explore & Categorize & Remove Course) 
+Violations Management
+Platform Settings:
+- Exp & Level (Exp per level, number of level, reward when level up)
+- Quests
+- Premium Package Pricing manage
+- Shop Item manage
+-->

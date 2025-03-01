@@ -107,7 +107,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'approval',
+        redirectTo: 'explore',
         pathMatch: 'full',
       },
       {
@@ -115,16 +115,18 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            component: CourseManageExploreComponent
+            component: CourseManageExploreComponent,
           },
           {
             path: ':courseId',
-            component: CoursesManageViewDetailsComponent
-          }
-        ]
+            component: CoursesManageViewDetailsComponent,
+          },
+        ],
       },
       {
         path: 'approval',
+        canActivate: [RoleGuard],
+        data: { allowedRoles: [WebRole.EXPERT] },
         component: CoursesApprovalComponent,
       },
       {
@@ -294,7 +296,7 @@ const routes: Routes = [
         path: ':pathId',
         component: LearningPathDetailsComponent,
       },
-    ]
+    ],
   },
   {
     path: 'learning-path',

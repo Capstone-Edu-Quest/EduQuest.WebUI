@@ -7,6 +7,7 @@ import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { ThemeService } from '../../../../core/services/theme.service';
 import { BaseChartDirective } from 'ng2-charts';
 import { TranslateService } from '@ngx-translate/core';
+import { IBarChartDataSet } from '../../../../shared/interfaces/chart.interface';
 
 @Component({
   selector: 'app-home-ins-others',
@@ -22,36 +23,23 @@ export class HomeInsOthersComponent implements OnInit, OnDestroy {
   bellIcon = faBell;
 
   // Chart
-  chartType: ChartType = 'bar';
+  labels: string[] = [
+    'ReactJS',
+    'Typescript for beginner',
+    'NodeJS',
+    'C# .Net Fundamentals',
+  ];
 
-  chartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    plugins: {
-      legend: { display: true, position: 'top' },
-      tooltip: { enabled: true },
+  chartDataSet: IBarChartDataSet[] = [
+    {
+      label: 'LABEL.LEARNERS',
+      backgroundColor: '--brand',
+      hoverBackgroundColor: '--brand-hover',
+      borderColor: '--brand-02',
+      hoverBorderColor: '--brand-01',
+      data: [50, 75, 110, 90, 130],
     },
-    scales: {
-      x: { grid: { display: false } },
-      y: { beginAtZero: true },
-    },
-  };
-
-  chartData: ChartData<'bar'> = {
-    labels: [
-      'ReactJS',
-      'Typescript for beginner',
-      'NodeJS',
-      'C# .Net Fundamentals',
-    ],
-    datasets: [
-      {
-        label: '',
-        data: [50, 75, 110, 90, 130],
-        borderWidth: 1,
-      },
-    ],
-  };
-  // -----
+  ];
 
   constructor(
     private notification: NotificationService,
@@ -60,30 +48,12 @@ export class HomeInsOthersComponent implements OnInit, OnDestroy {
   ) {}
   ngOnInit(): void {
     this.listenToNotification();
-    this.listenToTheme();
-    this.listenToTranslate();
   }
 
   listenToNotification() {
     this.subscription$.add(
       this.notification.notification$.subscribe((noti) => {
         this.notis = noti;
-      })
-    );
-  }
-
-  listenToTheme() {
-    this.subscription$.add(
-      this.theme.currentTheme$.subscribe(() => {
-        this.updateChartLanguageAndTheme();
-      })
-    );
-  }
-
-  listenToTranslate() {
-    this.subscription$.add(
-      this.translate.onLangChange.subscribe(() => {
-        this.updateChartLanguageAndTheme();
       })
     );
   }
@@ -98,51 +68,6 @@ export class HomeInsOthersComponent implements OnInit, OnDestroy {
     const diffMinutes = Math.floor(diffMs / (1000 * 60));
 
     return Math.floor(diffMinutes / 60);
-  }
-
-  updateChartLanguageAndTheme() {
-    const currentTheme = this.theme.getCurrentTheme();
-    if (!currentTheme) return;
-
-    const dataCfg = this.chartData.datasets[0];
-
-    const gridColor = {
-      grid: {
-        color: currentTheme.theme['--quaternary-text'],
-      },
-      ticks: {
-        color: currentTheme.theme['--secondary-text'],
-      },
-    };
-
-    this.chartOptions = {
-      ...this.chartOptions,
-      plugins: {
-        ...this.chartOptions?.plugins,
-        legend: {
-          ...this.chartOptions?.plugins?.legend,
-          labels: { color: currentTheme.theme['--secondary-text'] },
-        },
-      },
-      scales: {
-        x: gridColor,
-        y: gridColor,
-      },
-    };
-
-    this.chartData = {
-      ...this.chartData,
-      datasets: [
-        {
-          ...dataCfg,
-          label: this.translate.instant('LABEL.LEARNERS'),
-          backgroundColor: currentTheme?.theme['--brand'],
-          hoverBackgroundColor: currentTheme?.theme['--brand-hover'],
-          borderColor: currentTheme?.theme['--brand-02'],
-          hoverBorderColor: currentTheme?.theme['--brand-01'],
-        },
-      ],
-    };
   }
 
   ngOnDestroy(): void {

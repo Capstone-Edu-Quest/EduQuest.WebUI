@@ -166,3 +166,8 @@ ngx-toggle-command {
     }
   }
 }
+
+app-bar-chart, app-line-chart, app-pie-chart, app-radar-chart {
+  display: block;
+  width: 100%;
+}

@@ -20,14 +20,9 @@
       </div>
     </div>
   </div>
-  
+
   <div class="top-course">
     <div class="title">{{ "LABEL.TOP_COURSES" | translate }}</div>
-    <canvas 
-      baseChart 
-      [data]="chartData" 
-      [options]="chartOptions" 
-      [type]="chartType">
-    </canvas>
+    <app-bar-chart [labels]="labels" [dataSet]="chartDataSet"></app-bar-chart>
   </div>
 </div>
