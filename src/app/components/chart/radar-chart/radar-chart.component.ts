@@ -136,8 +136,6 @@ export class RadarChartComponent implements OnInit, OnDestroy {
       };
     })
     this.chartData.labels = this.labels;
-
-    console.log(this.chartData);
   }
 
   ngOnDestroy(): void { 

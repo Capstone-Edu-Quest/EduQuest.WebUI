@@ -1,5 +1,8 @@
 <div class="home" @fadeInOut>
-  <ng-container *ngIf="currentRef" [ngTemplateOutlet]="currentRef"></ng-container>
+  <ng-container
+    *ngIf="currentRef"
+    [ngTemplateOutlet]="currentRef"
+  ></ng-container>
 </div>
 
 <ng-template #signedIn> </ng-template>
@@ -26,6 +29,7 @@
 </ng-template>
 
 <ng-template #staff>
+  <div class="title text-gradient">{{ "LABEL.DASHBOARD" | translate }}</div>
+  <app-home-staff-user></app-home-staff-user>
   <app-home-overview></app-home-overview>
-  <app-home-staff-chart></app-home-staff-chart>
 </ng-template>

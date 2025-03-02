@@ -1,13 +1,4 @@
-import { Component, OnDestroy, type OnInit } from '@angular/core';
-import { TranslateService } from '@ngx-translate/core';
-import {
-  ChartConfiguration,
-  ChartData,
-  ChartOptions,
-  RadialLinearScaleOptions,
-} from 'chart.js';
-import { darkTheme } from '../../../shared/themes/darkTheme';
-import { ThemeService } from '../../../core/services/theme.service';
+import { Component, type OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import {
   IBarChartDataSet,
@@ -21,7 +12,7 @@ import {
   templateUrl: './my-course-charts.component.html',
   styleUrl: './my-course-charts.component.scss',
 })
-export class MyCourseChartsComponent implements OnInit, OnDestroy {
+export class MyCourseChartsComponent implements OnInit {
   subscription$: Subscription = new Subscription();
 
   ratingsChartLabel: string[] = ['1', '2', '3', '4', '5'];
@@ -45,7 +36,7 @@ export class MyCourseChartsComponent implements OnInit, OnDestroy {
   ];
   totalCourseLeanersDataSet: ILineChartDataSet[] = [
     {
-      label: this.translate.instant('LABEL.LEARNERS'),
+      label: 'LABEL.LEARNERS',
       data: [50, 75, 110, 120, 223],
       borderColor: '--brand-05',
       pointBackgroundColor: '--brand-hover',
@@ -76,7 +67,7 @@ export class MyCourseChartsComponent implements OnInit, OnDestroy {
       pointBorderColor: '#fff', // Point border color
       pointHoverBackgroundColor: '#fff', // Hover background color
       pointHoverBorderColor: 'rgba(255, 99, 132, 1)', // Hover border color
-    }, 
+    },
     {
       label: 'Typescript',
       data: [70, 85, 44], // Scores for another student
@@ -99,13 +90,7 @@ export class MyCourseChartsComponent implements OnInit, OnDestroy {
     },
   ];
 
-  constructor(
-    private translate: TranslateService,
-  ) {}
+  constructor() {}
 
   ngOnInit(): void {}
-
-  ngOnDestroy(): void {
-    this.subscription$.unsubscribe();
-  }
 }

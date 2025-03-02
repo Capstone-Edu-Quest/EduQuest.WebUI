@@ -419,7 +419,10 @@
     "NEW_USER_THIS_MONTH": "New Users This Month",
     "PENDING_VIOLATIONS": "Pending Violations",
     "NEW_COURSES_THIS_MONTH": "New Courses This Month",
-    "MOST_POPULAR_CATEGORY": "Most Popular Category"
+    "MOST_POPULAR_CATEGORY": "Most Popular Category",
+    "ACTIVE_USERS": "Active Users",
+    "PREMIUM_USERS": "Premium Users",
+    "DASHBOARD": "Dashboard"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",

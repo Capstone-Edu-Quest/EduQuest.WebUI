@@ -1,14 +1,19 @@
-.home-overview {
+.home-staff-user {
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  gap: 8px;
+
   .stats-ctn {
-    margin-top: 0;
+    grid-column: 1/9;
     display: flex;
+    flex-direction: column;
     flex-wrap: wrap;
     align-items: center;
     justify-content: center;
     gap: 8px;
 
     .stat {
-      min-width: calc(100% / 4 - 8px);
+      width: 100%;
       flex: 1;
       padding: 16px;
       box-sizing: border-box;
@@ -39,5 +44,13 @@
         font-weight: 500;
       }
     }
+  }
+
+  .graph {
+    grid-column: 9/25;
+    background: var(--secondary-bg);
+    border-radius: 12px;
+    padding: 12px;
+    box-sizing: border-box;
   }
 }

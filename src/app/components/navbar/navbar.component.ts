@@ -85,15 +85,15 @@ export class NavbarComponent implements OnInit {
     },
     {
       label: 'LABEL.COURSES',
-      routerLink: 'my-courses',
+      routerLink: '/my-courses',
     },
     {
       label: 'LABEL.MATERIALS',
-      routerLink: 'materials',
+      routerLink: '/materials',
     },
     {
       label: 'LABEL.REVENUE',
-      routerLink: 'my-revenue',
+      routerLink: '/my-revenue',
     },
   ];
 

@@ -4,6 +4,11 @@
   flex-direction: column;
   gap: 20px;
 
+  .title {
+    font-size: 22px;
+    font-weight: 500;
+  }
+
   .blur-circle {
     position: fixed;
     width: 30%;

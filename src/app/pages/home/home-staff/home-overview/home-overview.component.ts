@@ -10,21 +10,6 @@ export class HomeOverviewComponent implements OnInit {
 
   statsItem = [
     {
-      label: 'LABEL.TOTAL_USERS',
-      value: 2123,
-      icon: faUser
-    },
-    {
-      label: 'LABEL.MONTHLY_ACTIVE_USERS',
-      value: 1263,
-      icon: faUsersRays
-    },
-    {
-      label: 'LABEL.NEW_USER_THIS_MONTH',
-      value: 532,
-      icon: faUserPlus
-    },
-    {
       label: 'LABEL.PENDING_VIOLATIONS',
       value: 12,
       icon: faWarning

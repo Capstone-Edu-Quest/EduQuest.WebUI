@@ -1,0 +1,18 @@
+<div class="home-staff-user">
+  <div class="stats-ctn">
+    <div class="stat" *ngFor="let stat of statItems">
+      <div class="header">
+        <label>{{ stat.label | translate }}</label>
+        <fa-icon [icon]="stat.icon"></fa-icon>
+      </div>
+      <div class="value">{{ stat.value.toLocaleString() }}</div>
+    </div>
+  </div>
+
+  <div class="graph">
+    <app-line-chart
+      [labels]="graphLabels"
+      [dataSet]="graphData"
+    ></app-line-chart>
+  </div>
+</div>
