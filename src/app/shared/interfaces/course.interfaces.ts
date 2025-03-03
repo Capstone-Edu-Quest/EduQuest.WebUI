@@ -194,3 +194,15 @@ export interface IStageMission {
   mission: string;
   time: number; // minutes
 }
+
+export interface ITrendingCourse {
+  id: string;
+  name: string;
+  author: {
+    id: string;
+    name: string;
+    avatar: string | null;
+  },
+  enrollments: number;
+  tags: ITag[];
+}

@@ -161,6 +161,10 @@ import { LineChartComponent } from './components/chart/line-chart/line-chart.com
 import { BarChartComponent } from './components/chart/bar-chart/bar-chart.component';
 import { RadarChartComponent } from './components/chart/radar-chart/radar-chart.component';
 import { HomeStaffUserComponent } from './pages/home/home-staff/home-staff-user/home-staff-user.component';
+import { UserManageComponent } from './pages/user-manage/user-manage.component';
+import { ViolationsManageComponent } from './pages/violations-manage/violations-manage.component';
+import { PlatformSettingsComponent } from './pages/platform-settings/platform-settings.component';
+import { CoursesStatisticsComponent } from './pages/courses-manage/courses-statistics/courses-statistics.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -226,6 +230,7 @@ export const AppDeclarations = [
   CoursesCategorizeComponent,
   CoursesManageViewDetailsComponent,
   CourseManageExploreComponent,
+  CoursesStatisticsComponent,
   // Cart
   CartComponent,
   CartItemComponent,
@@ -280,7 +285,13 @@ export const AppDeclarations = [
   MyRevenueCoursesBreakDownComponent,
   MyRevenueTrendsComponent,
   // transactions
-  TransactionsComponent
+  TransactionsComponent,
+  // User manage
+  UserManageComponent,
+  // violation
+  ViolationsManageComponent,
+  // Settings
+  PlatformSettingsComponent
 ];
 export const NGIcons = [
   EnterOutline,

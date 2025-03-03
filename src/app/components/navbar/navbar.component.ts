@@ -111,7 +111,7 @@ export class NavbarComponent implements OnInit {
   staffNavItems = [
     {
       label: 'LABEL.HOME',
-      routerLink: '/',
+      routerLink: '',
     },
     {
       label: 'LABEL.COURSES_MANAGE',
@@ -208,6 +208,13 @@ export class NavbarComponent implements OnInit {
   }
 
   goToProfilePage() {
+    if (
+      ![WebRole.INSTRUCTOR, WebRole.LEARNER].includes(
+        this.user?.roleId || WebRole.GUEST
+      )
+    ) {
+      return;
+    }
     this.router.navigate(['/profile']);
   }
 
@@ -247,6 +254,7 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/courses'], {
       queryParams: { keyword: encodeURIComponent(this.searchText) },
     });
+    this.searchText = '';
   }
 
   onBackHome() {

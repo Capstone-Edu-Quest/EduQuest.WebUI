@@ -1,0 +1,175 @@
+.courses-statistics {
+  margin-top: 24px;
+
+  .over-view-ctn {
+    display: grid;
+    grid-template-columns: repeat(24, 1fr);
+    gap: 8px;
+
+    .stats-ctn {
+      grid-column: 1/9;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+
+      .stat {
+        width: 100%;
+        flex: 1;
+        padding: 16px;
+        box-sizing: border-box;
+        border-radius: 12px;
+        background: var(--secondary-bg);
+        //   border: 1px solid var(--quaternary-text);
+
+        .header {
+          display: flex;
+          justify-content: space-between;
+          align-items: start;
+
+          label {
+            font-size: 13px;
+            color: var(--secondary-text);
+          }
+
+          fa-icon,
+          .icon {
+            font-size: 20px;
+            color: var(--brand-light);
+          }
+        }
+
+        .value {
+          margin-top: 8px;
+          font-size: 20px;
+          font-weight: 500;
+        }
+      }
+    }
+
+    .graph {
+      grid-column: 9/25;
+    }
+  }
+
+  .graph {
+    background: var(--secondary-bg);
+    border-radius: 12px;
+    padding: 12px;
+    box-sizing: border-box;
+
+    &.bar {
+      padding: 18px;
+      box-sizing: border-box;
+    }
+  }
+
+  .trending-wrapper {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(24, 1fr);
+    gap: 12px;
+
+    .title {
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .graph {
+      grid-column: 1/17;
+    }
+
+    .trending-courses {
+      height: 32vw;
+      grid-column: 17/25;
+      background: var(--secondary-bg);
+      border-radius: 12px;
+      padding: 18px 5px;
+      box-sizing: border-box;
+      overflow-y: scroll;
+
+      .title {
+        padding: 0 12px;
+        box-sizing: border-box;
+      }
+    }
+
+    .courses-ctn {
+      margin-top: 12px;
+      gap: 4px;
+      display: flex;
+      flex-direction: column;
+
+      .course {
+        display: flex;
+        flex-direction: column;
+        // gap: 4px;
+        padding: 8px 12px;
+        box-sizing: border-box;
+        border-radius: 12px;
+        transition: all 0.1s linear;
+        cursor: pointer;
+        transition: all 0.1s linear;
+
+        &:hover {
+            background: var(--brand-02);
+        }
+
+        .course-header {
+          display: flex;
+          gap: 15px;
+          align-items: center;
+          justify-content: space-between;
+
+          .course-name {
+            font-size: 14px;
+            font-weight: 500;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .enrollments {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            font-size: 10px;
+            color: var(--brand-light);
+
+            fa-icon {
+              font-size: 9px;
+            }
+          }
+        }
+
+        .course-author {
+          display: flex;
+          align-items: center;
+          gap: 5px;
+          margin-top: 6px;
+
+          .author-name {
+            color: var(--secondary-text);
+            font-size: 12px;
+          }
+
+          img {
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+          }
+        }
+
+        .tags {
+          display: flex;
+          align-items: center;
+          gap: 4px;
+          font-size: 9px;
+          color: var(--tertiary-text);
+        }
+      }
+    }
+  }
+}

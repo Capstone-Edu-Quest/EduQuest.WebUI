@@ -149,8 +149,8 @@ export class CourseManageExploreComponent implements OnInit {
 
   onConfirmSearchCourse(e: KeyboardEvent) {
     if (e.key !== 'Enter' || !this.searchText.trim()) return;
-    console.log('Search course:', this.searchText);
     this.currentResultSearch = this.searchText; 
+    this.searchText = '';
   }
 
 }

@@ -1,3 +1,4 @@
+import { UserService } from './../../../core/services/user.service';
 import { Component, type OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -20,10 +21,14 @@ import {
   faPen,
   faPlus,
   faTrash,
+  faWarning,
 } from '@fortawesome/free-solid-svg-icons';
 import { Location } from '@angular/common';
 import { TableColumn } from '../../../shared/interfaces/others.interfaces';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
+import { WebRole } from '../../../shared/enums/user.enum';
+import { IUser } from '../../../shared/interfaces/user.interfaces';
 
 @Component({
   selector: 'app-courses-manage-view-details',
@@ -31,10 +36,14 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './courses-manage-view-details.component.scss',
 })
 export class CoursesManageViewDetailsComponent implements OnInit {
+  subscription$: Subscription = new Subscription();
+
   backIcon = faAngleLeft;
   reqIcon = faCheckCircle;
   rightIcon = faAngleRight;
   addIcon = faPlus;
+
+  user: IUser | null = null;
 
   exampleCourse: ICourseFullMetarialsView = {
     id: 'course-002',
@@ -218,17 +227,34 @@ export class CoursesManageViewDetailsComponent implements OnInit {
       action: (e: Event) => this.onModifyHashtag(e),
     },
   ];
+  
+  staffMenu = [
+    {
+      icon: faWarning,
+      label: 'LABEL.SUSPEND_COURSE',
+      action: (e: Event) => this.onSuspendCourse(e),
+    },
+  ]
 
   menu: any[] = [];
 
   constructor(
     private route: ActivatedRoute,
     private location: Location,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private UserService: UserService
   ) {}
 
   ngOnInit(): void {
     this.initCourse();
+  }
+
+  listenToUser() {
+    this.subscription$.add(
+      this.UserService.user$.subscribe((_user) => {
+        this.user = _user;
+      })
+    );
   }
 
   initCourse = () => {
@@ -241,10 +267,14 @@ export class CoursesManageViewDetailsComponent implements OnInit {
 
   initMenu() {
     this.menu = [];
-    
-    // Check status = pending
-    this.menu = [...this.approvalMenu];
-    
+
+    // Check status = pending & expert
+    if (this.user?.roleId === WebRole.EXPERT) {
+      this.menu = [...this.approvalMenu];
+    } else {
+      this.menu = [...this.staffMenu];
+    }
+
     this.menu.push(...this.modifyMenu);
   }
 
@@ -333,18 +363,23 @@ export class CoursesManageViewDetailsComponent implements OnInit {
   }
 
   onAccept(e: Event) {
-    e.preventDefault();
+    e.stopPropagation();
     console.log('Accept');
   }
 
   onReject(e: Event) {
-    e.preventDefault();
+    e.stopPropagation();
     console.log('Decline');
   }
 
   onModifyHashtag(e: Event) {
-    e.preventDefault();
+    e.stopPropagation();
     console.log('Modify Hashtag');
+  }
+
+  onSuspendCourse(e: Event) {
+    e.stopPropagation();
+    console.log('Suspend Course');
   }
 
   onBack() {

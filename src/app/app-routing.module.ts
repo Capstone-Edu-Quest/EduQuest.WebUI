@@ -39,6 +39,10 @@ import { LearningPathManageComponent } from './pages/learning-path-manage/learni
 import { CoursesManageComponent } from './pages/courses-manage/courses-manage.component';
 import { CoursesManageViewDetailsComponent } from './pages/courses-manage/courses-manage-view-details/courses-manage-view-details.component';
 import { CourseManageExploreComponent } from './pages/courses-manage/course-manage-explore/course-manage-explore.component';
+import { UserManageComponent } from './pages/user-manage/user-manage.component';
+import { ViolationsManageComponent } from './pages/violations-manage/violations-manage.component';
+import { PlatformSettingsComponent } from './pages/platform-settings/platform-settings.component';
+import { CoursesStatisticsComponent } from './pages/courses-manage/courses-statistics/courses-statistics.component';
 
 const routes: Routes = [
   {
@@ -132,6 +136,12 @@ const routes: Routes = [
       {
         path: 'categorize',
         component: CoursesCategorizeComponent,
+      },
+      {
+        path: 'statistics',
+        canActivate: [RoleGuard],
+        data: { allowedRoles: [WebRole.ADMIN, WebRole.STAFF] },
+        component: CoursesStatisticsComponent,
       },
     ],
   },
@@ -235,7 +245,7 @@ const routes: Routes = [
   {
     path: 'profile',
     canActivate: [RoleGuard],
-    data: { blockedRoles: [WebRole.ADMIN] },
+    data: { blockedRoles: [WebRole.ADMIN, WebRole.EXPERT, WebRole.STAFF] },
     children: [
       {
         path: '',
@@ -318,6 +328,25 @@ const routes: Routes = [
     canActivate: [AuthGuard, RoleGuard],
     data: { allowedRoles: [WebRole.LEARNER, WebRole.INSTRUCTOR] },
     component: TransactionsComponent,
+  },
+  {
+    path: 'users-manage',
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.STAFF, WebRole.ADMIN] },
+    component: UserManageComponent,
+  },
+
+  {
+    path: 'violations-manage',
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.STAFF, WebRole.ADMIN] },
+    component: ViolationsManageComponent,
+  },
+  {
+    path: 'platform-settings',
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.STAFF, WebRole.ADMIN] },
+    component: PlatformSettingsComponent,
   },
 ];
 

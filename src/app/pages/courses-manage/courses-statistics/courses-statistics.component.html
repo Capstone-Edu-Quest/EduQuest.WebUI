@@ -1,0 +1,71 @@
+<div class="courses-statistics">
+  <div class="over-view-ctn">
+    <div class="stats-ctn">
+      <div class="stat" *ngFor="let stat of statsItem">
+        <div class="header">
+          <label>{{ stat.label | translate }}</label>
+          <fa-icon [icon]="stat.icon"></fa-icon>
+        </div>
+        <div class="value">{{ stat.value.toLocaleString() }}</div>
+      </div>
+    </div>
+
+    <div class="graph">
+      <app-line-chart
+        [labels]="graphLabels"
+        [dataSet]="graphData"
+      ></app-line-chart>
+    </div>
+  </div>
+
+  <div class="trending-wrapper">
+    <div class="graph bar">
+      <div class="title">{{ "LABEL.TRENDING_CATEGORIES" | translate }}</div>
+      <app-bar-chart
+        [labels]="barChartLabels"
+        [dataSet]="barChartData"
+      ></app-bar-chart>
+    </div>
+    <div class="trending-courses">
+      <div class="title">{{ "LABEL.TRENDING_COURSES" | translate }}</div>
+      <div class="courses-ctn">
+        <div class="course" *ngFor="let course of trendingCourses" (click)="onViewCourse(course.id)">
+          <div class="course-header">
+            <div class="course-name">{{ course.name }}</div>
+            <div class="enrollments">
+                <fa-icon [icon]="userIcon"></fa-icon>
+                <span>{{ course.enrollments.toLocaleString() }}</span>
+            </div>
+          </div>
+
+          <div class="tags">
+            <div *ngFor="let tag of course.tags">#{{ tag.name }}</div>
+          </div>
+
+          <div class="course-author">
+            @if(course.author.avatar) {
+            <img [src]="course.author.avatar" alt="author" />
+            } @else {
+            <app-avatar-by-name
+              [name]="course.author.name"
+              size="18px"
+            ></app-avatar-by-name>
+            }
+            <div class="author-name">{{ course.author.name }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 
+    Stats:
+    Courses completion rate % 
+    Total courses
+    New courses this month
+
+    Graph:
+    - Courses completion count +  New courses (monthly) -> Line (Monthly)
+    - Top 10 trending category (hashtags) -> Bar
+-->

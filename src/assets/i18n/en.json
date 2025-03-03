@@ -422,7 +422,16 @@
     "MOST_POPULAR_CATEGORY": "Most Popular Category",
     "ACTIVE_USERS": "Active Users",
     "PREMIUM_USERS": "Premium Users",
-    "DASHBOARD": "Dashboard"
+    "DASHBOARD": "Dashboard",
+    "SUSPEND_COURSE": "Suspend Course",
+    "COUSRE_STATISTICS": "Statistics",
+    "AVERAGE_COMPLETION_RATE": "Average Completion Rate",
+    "COURSES_COMPLETION": "Courses Completion",
+    "NEW_COURSES": "New Courses",
+    "TOTAL_ENROLLMENTS": "Total Enrollments",
+    "TOTAL_COURSES_COMPLETION": "Total Courses Completion",
+    "COURSES_ENROLLMENTS": "Courses Enrollments",
+    "TRENDING_CATEGORIES": "Trending Categories"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",
