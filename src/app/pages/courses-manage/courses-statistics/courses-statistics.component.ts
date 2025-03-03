@@ -13,11 +13,13 @@ import {
 } from '../../../shared/interfaces/chart.interface';
 import { ITrendingCourse } from '../../../shared/interfaces/course.interfaces';
 import { Router } from '@angular/router';
+import { fadeInOutAnimation } from '../../../shared/constants/animations.constant';
 
 @Component({
   selector: 'app-courses-statistics',
   templateUrl: './courses-statistics.component.html',
   styleUrl: './courses-statistics.component.scss',
+  animations: [fadeInOutAnimation]
 })
 export class CoursesStatisticsComponent implements OnInit {
   statsItem = [

@@ -18,9 +18,7 @@ import {
   faCheckCircle,
   faClose,
   faHashtag,
-  faPen,
   faPlus,
-  faTrash,
   faWarning,
 } from '@fortawesome/free-solid-svg-icons';
 import { Location } from '@angular/common';
@@ -29,11 +27,13 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { WebRole } from '../../../shared/enums/user.enum';
 import { IUser } from '../../../shared/interfaces/user.interfaces';
+import { fadeInOutAnimation } from '../../../shared/constants/animations.constant';
 
 @Component({
   selector: 'app-courses-manage-view-details',
   templateUrl: './courses-manage-view-details.component.html',
   styleUrl: './courses-manage-view-details.component.scss',
+  animations: [fadeInOutAnimation]
 })
 export class CoursesManageViewDetailsComponent implements OnInit {
   subscription$: Subscription = new Subscription();

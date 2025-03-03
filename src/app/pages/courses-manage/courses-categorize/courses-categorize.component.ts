@@ -7,16 +7,17 @@ import {
 } from '@angular/core';
 import { TableColumn } from '../../../shared/interfaces/others.interfaces';
 import {
-  ICourse,
   ICourseTagData,
   ITagCount,
 } from '../../../shared/interfaces/course.interfaces';
 import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { fadeInOutAnimation } from '../../../shared/constants/animations.constant';
 
 @Component({
   selector: 'app-courses-categorize',
   templateUrl: './courses-categorize.component.html',
   styleUrl: './courses-categorize.component.scss',
+  animations: [fadeInOutAnimation]
 })
 export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
   @ViewChild('edit') editRef!: TemplateRef<any>;

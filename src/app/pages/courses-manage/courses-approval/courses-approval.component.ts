@@ -10,11 +10,13 @@ import { ICourse } from '../../../shared/interfaces/course.interfaces';
 import { TableColumn } from '../../../shared/interfaces/others.interfaces';
 import { Router } from '@angular/router';
 import { faCheck, faClose } from '@fortawesome/free-solid-svg-icons';
+import { fadeInOutAnimation } from '../../../shared/constants/animations.constant';
 
 @Component({
   selector: 'app-courses-approval',
   templateUrl: './courses-approval.component.html',
   styleUrl: './courses-approval.component.scss',
+  animations: [fadeInOutAnimation]
 })
 export class CoursesApprovalComponent implements OnInit, AfterViewInit {
   @ViewChild('buttons') buttonsRef!: TemplateRef<any>;
