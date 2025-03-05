@@ -9,6 +9,7 @@ import { IUser } from '../../../../shared/interfaces/user.interfaces';
   styleUrls: ['./leaner-courses.component.scss'],
 })
 export class LeanerCoursesComponent implements OnInit {
+  @Input('isStaffView') isStaffView: boolean = false;
   @Input('user') user: IUser | null = null;
 
   currentViewIndex: number = 0;
@@ -164,6 +165,6 @@ export class LeanerCoursesComponent implements OnInit {
   }
 
   viewCourseDetails(courseId: string) {
-    this.router.navigate(['/courses', courseId]);
+    this.router.navigate([this.isStaffView ? '/courses-manage/explore' : '/courses', courseId]);
   }
 }

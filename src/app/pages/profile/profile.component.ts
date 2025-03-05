@@ -16,6 +16,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
   isInstructor: boolean = false;
   subscription$: Subscription = new Subscription();
 
+  isStaffView: boolean = false;
   user: IUser | null = null;
   currentViewProfile: IUser | null = null
 
@@ -30,6 +31,7 @@ export class ProfileComponent implements OnInit, OnDestroy {
     this.subscription$.add(
       this.UserService.user$.subscribe((user) => {
         this.user = user;
+        this.isStaffView = user?.roleId === WebRole.STAFF;
       })
     );
   }

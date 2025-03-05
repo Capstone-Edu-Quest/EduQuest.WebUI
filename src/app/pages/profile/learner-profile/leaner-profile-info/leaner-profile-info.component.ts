@@ -10,6 +10,7 @@ import { IUser, IUserStat } from '../../../../shared/interfaces/user.interfaces'
   styleUrls: ['./leaner-profile-info.component.scss'],
 })
 export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
+  @Input('isStaffView') isStaffView: boolean = false;
   @Input('user') user: IUser | null = null;
   
   subscription$: Subscription = new Subscription();
@@ -50,6 +51,7 @@ export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
 
   onUpdateFoxItems() {
     setTimeout(() => {
+      console.log('init')
       if(!this.user) return;
       this.FoxService.tempEquipItem(this.user.mascotItem);
     }, 110);

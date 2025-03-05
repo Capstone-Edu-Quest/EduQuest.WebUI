@@ -8,7 +8,7 @@
       {{ ("LABEL.INSTRUCTOR" | translate).toUpperCase() }}
     </div>
     <!--  -->
-    <div class="name">{{user.username}}</div>
+    <div class="name">{{ user.username }}</div>
     <div class="headline">Software Engineer &#64;FPT Software</div>
     <!--  -->
     <div class="numeric">
@@ -25,6 +25,19 @@
         <div class="data">4.5 <fa-icon [icon]="star"></fa-icon></div>
       </div>
     </div>
+
+    @if(isStaffView) {
+      <div class="other-info">
+        <div class="label">{{ "LABEL.EMAIL" | translate }}</div>
+        <div class="content">{{ user?.email }}</div>
+      </div>
+      
+      <div class="other-info">
+        <div class="label">{{ "LABEL.PHONE" | translate }}</div>
+        <div class="content">{{ user?.phone }}</div>
+      </div>
+    }
+
     <!--  -->
     <div class="about-me-title">{{ "LABEL.ABOUT_ME" | translate }}</div>
     <div class="about-me-content">
@@ -43,6 +56,6 @@
 
 <div class="courses-title">{{ "LABEL.COURSES" | translate }}</div>
 <div class="courses">
-  <app-coursesCard *ngFor="let course of sampleCourses" [course]="course" />
+  <app-coursesCard [isStaffView]="isStaffView" *ngFor="let course of sampleCourses" [course]="course" />
 </div>
 <!-- Name, email, job title, descript, total leaners, reviews, avg reviews, courses -->

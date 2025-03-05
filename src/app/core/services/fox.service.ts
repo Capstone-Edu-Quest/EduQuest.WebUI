@@ -41,8 +41,6 @@ export class FoxService {
     foxIsLoaded: false,
   };
 
-  private stack: any[] = [];
-
   constructor() {}
 
   triggerFoxLoaded(isDestroy?: boolean) {
@@ -85,18 +83,17 @@ export class FoxService {
   };
 
   tempEquipItem(itemId: string[] | null) {
-    if (!this.loadedCheck.foxIsLoaded) {
+
+    if (!this.loadedCheck.foxIsLoaded && itemId) {
       this.loadedCheck.waitingStack.push(() => this.tempEquipItem(itemId));
       return;
     }
 
     if (!itemId) {
       this.resetItems();
-      setTimeout(() => {
-        Object.keys(this.tempEquipment).forEach((key) => {
-          this.equipItem(this.tempEquipment[key]?.id);
-        });
-      }, 200);
+      Object.keys(this.tempEquipment).forEach((key) => {
+        this.equipItem(this.tempEquipment[key]?.id);
+      });
       return;
     }
 
@@ -106,6 +103,7 @@ export class FoxService {
     this.resetItems();
 
     itemId.forEach((id) => this.equipItem(id));
+
   }
 
   resetItems() {

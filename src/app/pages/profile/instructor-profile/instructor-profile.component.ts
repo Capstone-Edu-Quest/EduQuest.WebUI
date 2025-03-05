@@ -12,8 +12,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./instructor-profile.component.scss'],
 })
 export class InstructorProfileComponent implements OnInit, OnDestroy {
-  subscription$: Subscription = new Subscription();
   @Input('user') user: IUser | null = null;
+  @Input('isStaffView') isStaffView: boolean = false;
+  
+  subscription$: Subscription = new Subscription();
 
   sampleCourses: ICourse[] = [
     {

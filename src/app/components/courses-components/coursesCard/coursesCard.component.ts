@@ -17,6 +17,7 @@ import { CouponService } from '../../../core/services/coupon.service';
   styleUrls: ['./coursesCard.component.scss'],
 })
 export class CoursesCardComponent implements OnInit, OnDestroy {
+  @Input('isStaffView') isStaffView: boolean = false;
   @Input('course') course: ICourse | null = null;
   @Input('isWishlistView') isWishlistView: boolean = false;
   @Input('notShowFooter') notShowFooter: boolean = false;
@@ -107,7 +108,7 @@ export class CoursesCardComponent implements OnInit, OnDestroy {
 
   viewCourseDetails() {
     if (!this.course) return;
-    this.router.navigate(['/courses', this.course.id]);
+    this.router.navigate([this.isStaffView ? '/courses-manage/explore' : '/courses', this.course.id]);
   }
 
   ngOnDestroy(): void {

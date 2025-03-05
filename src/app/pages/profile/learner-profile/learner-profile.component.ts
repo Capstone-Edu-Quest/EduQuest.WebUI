@@ -8,6 +8,8 @@ import { IUser } from '../../../shared/interfaces/user.interfaces';
 })
 export class LearnerProfileComponent implements OnInit {
   @Input('user') user: IUser | null = null;
+  @Input('isStaffView') isStaffView: boolean = false;
+
   constructor() { }
 
   ngOnInit() {

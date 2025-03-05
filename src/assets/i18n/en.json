@@ -460,7 +460,8 @@
     "LEARNER": "Leaner",
     "EXPERT": "Expert",
     "ADMIN": "Admin",
-    "SEARCH_USERS": "Search users (Enter to search)"
+    "SEARCH_USERS": "Search users (Enter to search)",
+    "PHONE": "Phone"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",
