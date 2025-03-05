@@ -1,7 +1,7 @@
-<div class="profile-page" @fadeInOut *ngIf="user">
+<div class="profile-page" @fadeInOut *ngIf="currentViewProfile">
   @if(isInstructor) {
-  <app-instructor-profile></app-instructor-profile>
+  <app-instructor-profile [user]="currentViewProfile"></app-instructor-profile>
   } @else {
-  <app-learner-profile></app-learner-profile>
+  <app-learner-profile [user]="currentViewProfile"></app-learner-profile>
   }
 </div>

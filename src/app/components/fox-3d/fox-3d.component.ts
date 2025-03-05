@@ -123,7 +123,8 @@ export class Fox3dComponent implements OnInit, OnDestroy {
       this.camera,
       this.renderer,
       this.FoxService.syncItem,
-      this.pendingItemsId
+      this.pendingItemsId,
+      this.FoxService.triggerFoxLoaded.bind(this.FoxService)
     );
     await this.fox.init();
 
@@ -167,6 +168,7 @@ export class Fox3dComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
+    this.FoxService.triggerFoxLoaded(true);
     // this.FoxService.equipStream$.unsubscribe();
     this.disposeThree();
 

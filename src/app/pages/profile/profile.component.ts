@@ -4,6 +4,7 @@ import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 import { Subscription } from 'rxjs';
 import { IUser, IUserStat } from '../../shared/interfaces/user.interfaces';
 import { WebRole } from '../../shared/enums/user.enum';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-profile',
@@ -14,21 +15,35 @@ import { WebRole } from '../../shared/enums/user.enum';
 export class ProfileComponent implements OnInit, OnDestroy {
   isInstructor: boolean = false;
   subscription$: Subscription = new Subscription();
-  user: IUser | null = null;
 
-  constructor(private UserService: UserService) {}
+  user: IUser | null = null;
+  currentViewProfile: IUser | null = null
+
+  constructor(private UserService: UserService, private route: ActivatedRoute) {}
 
   ngOnInit() {
     this.listenToUser();
+    this.initProfileByRoute();
   }
 
   listenToUser() {
     this.subscription$.add(
       this.UserService.user$.subscribe((user) => {
         this.user = user;
-        this.isInstructor = user?.roleId === WebRole.INSTRUCTOR;
       })
     );
+  }
+
+  initProfileByRoute() {
+    const userId = this.route.snapshot.paramMap.get('userId');
+    if(!userId) {
+      this.currentViewProfile = this.user;
+      this.isInstructor = this.user?.roleId === WebRole.INSTRUCTOR;
+      return;
+    }
+
+    this.currentViewProfile = this.UserService.getUserById(userId);
+    this.isInstructor = this.currentViewProfile?.roleId === WebRole.INSTRUCTOR;
   }
 
   ngOnDestroy(): void {

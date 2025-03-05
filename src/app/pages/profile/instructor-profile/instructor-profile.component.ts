@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { ICourse } from '../../../shared/interfaces/course.interfaces';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../../core/services/user.service';
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class InstructorProfileComponent implements OnInit, OnDestroy {
   subscription$: Subscription = new Subscription();
-  user: IUser | null = null;
+  @Input('user') user: IUser | null = null;
 
   sampleCourses: ICourse[] = [
     {
@@ -145,19 +145,9 @@ export class InstructorProfileComponent implements OnInit, OnDestroy {
     },
   ];
   star = faStar;
-  constructor(private UserService: UserService) {}
+  constructor() {}
 
-  ngOnInit() {
-    this.listenToUser();
-  }
-
-  listenToUser() {
-    this.subscription$.add(
-      this.UserService.user$.subscribe((user) => {
-        this.user = user;
-      })
-    );
-  }
+  ngOnInit() {}
 
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();

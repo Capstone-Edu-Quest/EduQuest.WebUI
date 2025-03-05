@@ -1,7 +1,7 @@
 <div class="achievement-list-ctn">
   <i nz-icon nzType="left" nzTheme="outline" (click)="updateViewIndex(-1)"></i>
   <div class="achievement-list-wrapper">
-    <div class="achievements-list" [ngStyle]="{transform: 'translateX(calc(((100vw - 140px - 50px) / 4 + 20px) * -' + currentViewIndex + '))'}">
+    <div class="achievements-list" [ngStyle]="{transform: 'translateX(calc((100% / 2) * -' + currentViewIndex + '))'}">
       <app-achievement-card
         *ngFor="let achievement of achievements"
         [achievement]="achievement"

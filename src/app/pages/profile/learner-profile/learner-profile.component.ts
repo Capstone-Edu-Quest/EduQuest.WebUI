@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IUser } from '../../../shared/interfaces/user.interfaces';
 
 @Component({
   selector: 'app-learner-profile',
@@ -6,6 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./learner-profile.component.scss']
 })
 export class LearnerProfileComponent implements OnInit {
+  @Input('user') user: IUser | null = null;
   constructor() { }
 
   ngOnInit() {

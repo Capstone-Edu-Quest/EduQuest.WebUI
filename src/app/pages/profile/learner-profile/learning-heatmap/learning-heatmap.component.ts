@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import {
   getDayByDates,
   getNumberOfDatesInMonth,
@@ -6,6 +6,7 @@ import {
   onAddZeroToTime,
   onGetLabelByMonth,
 } from '../../../../core/utils/time.utils';
+import { IUser } from '../../../../shared/interfaces/user.interfaces';
 
 @Component({
   selector: 'app-learning-heatmap',
@@ -13,6 +14,8 @@ import {
   styleUrls: ['./learning-heatmap.component.scss'],
 })
 export class LearningHeatmapComponent implements OnInit {
+  @Input('user') user: IUser | null = null;
+
   heatmapDates: any[] = [];
   learningData = [
     { date: '10/02/2025', count: 95 },

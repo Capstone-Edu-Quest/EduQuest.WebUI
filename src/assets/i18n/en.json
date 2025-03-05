@@ -452,7 +452,15 @@
     "SUSPEND": "Suspended",
     "VIOLATIONS_LIST": "Violations List",
     "NUMBER_OF_VIOLATED": "Number of violated",
-    "REPORT": "Report"
+    "REPORT": "Report",
+    "NAME": "Name",
+    "EMAIL": "Email",
+    "ROLE": "Role",
+    "INSTRUCTOR": "Instructor",
+    "LEARNER": "Leaner",
+    "EXPERT": "Expert",
+    "ADMIN": "Admin",
+    "SEARCH_USERS": "Search users (Enter to search)"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",

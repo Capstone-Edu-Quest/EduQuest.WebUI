@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { ICourse } from '../../../../shared/interfaces/course.interfaces';
 import { Router } from '@angular/router';
+import { IUser } from '../../../../shared/interfaces/user.interfaces';
 
 @Component({
   selector: 'app-leaner-courses',
@@ -8,6 +9,8 @@ import { Router } from '@angular/router';
   styleUrls: ['./leaner-courses.component.scss'],
 })
 export class LeanerCoursesComponent implements OnInit {
+  @Input('user') user: IUser | null = null;
+
   currentViewIndex: number = 0;
   sampleCourses: ICourse[] = [
     {

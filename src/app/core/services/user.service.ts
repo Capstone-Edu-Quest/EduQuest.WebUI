@@ -56,13 +56,41 @@ export class UserService {
 
     if (userData) {
       this.updateUser(JSON.parse(userData));
-      
+
       if (JSON.parse(userData).roleId !== WebRole.INSTRUCTOR) return;
 
       setTimeout(() => {
         this.firebase.removeCachedImage();
       }, 1000);
     }
+  }
+
+  getUserById(uid: string) {
+    return {
+      id: 'u1',
+      username: 'david_teacher',
+      email: 'david@example.com',
+      phone: '+1234567890',
+      avatarUrl: 'https://example.com/avatars/david.png',
+      roleId: WebRole.LEARNER,
+      status: 'active',
+      statistic: {
+        userId: 'u1',
+        totalActiveDay: 180,
+        maxStudyStreakDay: 45,
+        lastLearningDay: '2025-03-02',
+        completedCourses: 15,
+        gold: 7000,
+        exp: 18000,
+        level: 18,
+        studyTime: 360, // hours
+        totalCourseCreated: 8,
+        totalLearner: 1500,
+        totalReview: 300,
+      },
+      lastActive: '2025-03-03T12:00:00Z',
+      mascotItem: ['wings', 'katana'],
+    };
   }
 
   signInWithGoogle() {
@@ -109,5 +137,20 @@ export class UserService {
     );
     this.storage.setToLocalStorage(localStorageEnum.USER_DATA, null);
     this.router.navigate(['/']);
+  }
+
+  getRoleLabel(role: WebRole) {
+    switch (role) {
+      case WebRole.ADMIN:
+        return 'LABEL.ADMIN';
+      case WebRole.INSTRUCTOR:
+        return 'LABEL.INSTRUCTOR';
+      case WebRole.LEARNER:
+        return 'LABEL.LEARNER';
+      case WebRole.EXPERT:
+        return 'LABEL.EXPERT';
+      default:
+        return '';
+    }
   }
 }

@@ -276,7 +276,11 @@ export class ViolationsListComponent implements OnInit {
 
   constructor(private violation: ViolationsService, private modal: ModalService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    console.log(this.violations);
+    console.log(this.auditLogs);
+    console.log(this.violationCounts);
+  }
 
   onViewReportDetails(data: IViolation): void {
     this.currentViewViolation = data;

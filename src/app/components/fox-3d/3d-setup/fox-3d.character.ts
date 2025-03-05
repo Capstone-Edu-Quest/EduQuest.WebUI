@@ -1,3 +1,4 @@
+import { trigger } from '@angular/animations';
 import {
   IEquipmentItem,
   IEquipmentPosition,
@@ -32,6 +33,7 @@ export default class Character {
   mixer!: AnimationMixer;
   glTFLoader!: GLTFLoader;
   camera!: PerspectiveCamera;
+  triggerLoaded!: () => void;
 
   loadingElement!: HTMLDivElement;
   fox!: Group<Object3DEventMap>;
@@ -50,14 +52,15 @@ export default class Character {
   constructor(
     scene: Scene,
     camera: PerspectiveCamera,
-    renderer: WebGLRenderer,
     syncItem: (item: IEquipmentPosition) => void,
-    pendingItemsId: string[]
+    pendingItemsId: string[],
+    triggerFoxLoaded: () => void,
   ) {
     this.scene = scene;
     this.camera = camera;
     this.syncItem = syncItem;
     this.pendingItemsId = pendingItemsId;
+    this.triggerLoaded = triggerFoxLoaded;
 
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
@@ -85,6 +88,7 @@ export default class Character {
       this.totalLoadingObjects = 0;
       this.loadedObjects = 0;
       this.loadingElement.style.display = 'none';
+      this.triggerLoaded();
     }
   }
 
@@ -116,23 +120,26 @@ export default class Character {
   }
 
   async initBackground() {
-    this.glTFLoader.load(`${folderPath.characters}rock-flat-grass.glb`, (gltf) => {
-      const grass = gltf.scene;
-      const grasses = grassStonePositions.map((_grass) => grass.clone());
-      grasses.forEach((_grass, index) => {
-        _grass.position.set(
-          grassStonePositions[index].x,
-          grassStonePositions[index].y,
-          grassStonePositions[index].z
-        );
-      });
+    this.glTFLoader.load(
+      `${folderPath.characters}rock-flat-grass.glb`,
+      (gltf) => {
+        const grass = gltf.scene;
+        const grasses = grassStonePositions.map((_grass) => grass.clone());
+        grasses.forEach((_grass, index) => {
+          _grass.position.set(
+            grassStonePositions[index].x,
+            grassStonePositions[index].y,
+            grassStonePositions[index].z
+          );
+        });
 
-      grasses.forEach((_grass) => {
-        this.scene.add(_grass);
-      });
+        grasses.forEach((_grass) => {
+          this.scene.add(_grass);
+        });
 
-      this.updateLoading();
-    });
+        this.updateLoading();
+      }
+    );
 
     // Tree
     this.glTFLoader.load(`${folderPath.characters}tree.glb`, (gltf) => {
@@ -182,29 +189,32 @@ export default class Character {
     );
 
     // Grass
-    this.glTFLoader.load(`${folderPath.characters}patch-grass-large.glb`, (gltf) => {
-      const grass = gltf.scene;
-      const grasses = grassData.map((_grass) => grass.clone());
+    this.glTFLoader.load(
+      `${folderPath.characters}patch-grass-large.glb`,
+      (gltf) => {
+        const grass = gltf.scene;
+        const grasses = grassData.map((_grass) => grass.clone());
 
-      grasses.forEach((_grass, index) => {
-        _grass.position.set(
-          grassData[index].position.x,
-          grassData[index].position.y,
-          grassData[index].position.z
-        );
-        _grass.scale.set(
-          grassData[index].scale.x,
-          grassData[index].scale.y,
-          grassData[index].scale.z
-        );
-      });
+        grasses.forEach((_grass, index) => {
+          _grass.position.set(
+            grassData[index].position.x,
+            grassData[index].position.y,
+            grassData[index].position.z
+          );
+          _grass.scale.set(
+            grassData[index].scale.x,
+            grassData[index].scale.y,
+            grassData[index].scale.z
+          );
+        });
 
-      grasses.forEach((_grass) => {
-        this.scene.add(_grass);
-      });
+        grasses.forEach((_grass) => {
+          this.scene.add(_grass);
+        });
 
-      this.updateLoading();
-    });
+        this.updateLoading();
+      }
+    );
   }
 
   updateEquipment(itemId: string) {

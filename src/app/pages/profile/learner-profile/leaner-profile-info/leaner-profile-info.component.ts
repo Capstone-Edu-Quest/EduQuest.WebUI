@@ -1,6 +1,7 @@
+import { FoxService } from './../../../../core/services/fox.service';
 import { Subscription } from 'rxjs';
 import { UserService } from './../../../../core/services/user.service';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { IUser, IUserStat } from '../../../../shared/interfaces/user.interfaces';
 
 @Component({
@@ -9,8 +10,9 @@ import { IUser, IUserStat } from '../../../../shared/interfaces/user.interfaces'
   styleUrls: ['./leaner-profile-info.component.scss'],
 })
 export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
+  @Input('user') user: IUser | null = null;
+  
   subscription$: Subscription = new Subscription();
-  user: IUser | null = null;
 
   statItems = [
     {
@@ -40,21 +42,21 @@ export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
     },
   ];
 
-  constructor(private UserService: UserService) {}
+  constructor(private FoxService: FoxService) {}
 
   ngOnInit() {
-    this.listenToUser();
+    this.onUpdateFoxItems();
   }
 
-  listenToUser() {
-    this.subscription$.add(
-      this.UserService.user$.subscribe((user) => {
-        this.user = user;
-      })
-    );
+  onUpdateFoxItems() {
+    setTimeout(() => {
+      if(!this.user) return;
+      this.FoxService.tempEquipItem(this.user.mascotItem);
+    }, 110);
   }
 
   ngOnDestroy(): void {
+    this.FoxService.tempEquipItem(null);
     this.subscription$.unsubscribe();
   }
 }

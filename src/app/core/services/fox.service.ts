@@ -20,22 +20,55 @@ export class FoxService {
     feet: null,
   };
 
+  private tempEquipment: IEquipmentServiceItem = {
+    head: null,
+    rightHand: null,
+    leftHand: null,
+    body: null,
+    legs: null,
+    feet: null,
+  };
+
   // Store current equiped item
   public currentEquipedItem$: BehaviorSubject<IEquipmentServiceItem> =
     new BehaviorSubject<IEquipmentServiceItem>(this.defaultCurrentEquipedItem);
 
   // Trigger the fox to handle new item
   public equipStream$: Subject<string> = new Subject<string>();
-  constructor() {
-    // this.syncItem = this.syncItem.bind(this);
+
+  public loadedCheck: { waitingStack: any[]; foxIsLoaded: boolean } = {
+    waitingStack: [],
+    foxIsLoaded: false,
+  };
+
+  private stack: any[] = [];
+
+  constructor() {}
+
+  triggerFoxLoaded(isDestroy?: boolean) {
+    this.loadedCheck.foxIsLoaded = !isDestroy;
+    
+    if(!this.loadedCheck.foxIsLoaded) {
+      this.loadedCheck.waitingStack = [];
+      return;
+    }
+
+    this.loadedCheck.waitingStack.forEach((f) => {
+      this.loadedCheck.waitingStack.pop();
+      f();
+    });
   }
 
   // trigger from outside to trigger update equipment
-  equipItem(itemId: string) {
+  // Use in other component except fox
+  equipItem(itemId: string | undefined) {
+    if (!itemId) return;
+
     this.equipStream$.next(itemId);
   }
 
   // trigger when three updated equipment
+  // Only use in fox
   syncItem = (equipment: IEquipmentPosition) => {
     const currentEquipment = { ...this.currentEquipedItem$.value };
 
@@ -50,4 +83,38 @@ export class FoxService {
 
     this.currentEquipedItem$.next(currentEquipment);
   };
+
+  tempEquipItem(itemId: string[] | null) {
+    if (!this.loadedCheck.foxIsLoaded) {
+      this.loadedCheck.waitingStack.push(() => this.tempEquipItem(itemId));
+      return;
+    }
+
+    if (!itemId) {
+      this.resetItems();
+      setTimeout(() => {
+        Object.keys(this.tempEquipment).forEach((key) => {
+          this.equipItem(this.tempEquipment[key]?.id);
+        });
+      }, 200);
+      return;
+    }
+
+    this.tempEquipment = JSON.parse(
+      JSON.stringify(this.currentEquipedItem$.value)
+    );
+    this.resetItems();
+
+    itemId.forEach((id) => this.equipItem(id));
+  }
+
+  resetItems() {
+    const equipmentItems = this.currentEquipedItem$.value;
+    Object.keys(equipmentItems).forEach((key) => {
+      if (equipmentItems[key]) {
+        console.log('remove', equipmentItems[key]?.id);
+        this.equipItem(equipmentItems[key]?.id);
+      }
+    });
+  }
 }

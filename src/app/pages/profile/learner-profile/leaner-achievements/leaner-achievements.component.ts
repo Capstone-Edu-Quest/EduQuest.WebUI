@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { IAchievement } from '../../../../shared/interfaces/quests.interfaces';
+import { IUser } from '../../../../shared/interfaces/user.interfaces';
 
 @Component({
   selector: 'app-leaner-achievements',
@@ -7,6 +8,8 @@ import { IAchievement } from '../../../../shared/interfaces/quests.interfaces';
   styleUrls: ['./leaner-achievements.component.scss']
 })
 export class LeanerAchievementsComponent implements OnInit {
+  @Input('user') user: IUser | null = null;
+
   demoAchievements: IAchievement[] = [
     {
       id: '1',

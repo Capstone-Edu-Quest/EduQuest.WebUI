@@ -78,6 +78,6 @@ export class ViolationsStatisticsComponent implements OnInit {
     },
   ];
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
 }

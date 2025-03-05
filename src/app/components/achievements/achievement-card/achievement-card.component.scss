@@ -1,11 +1,15 @@
 .achievement {
-  width: calc((100vw - 140px - 50px) / 4);
+  width: 100%;
   border-radius: 15px;
   overflow: hidden;
   background: var(--primary-bg);
   border: 1px solid var(--brand-02);
   padding: 12px 15px;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
 
   .achievement-logo {
     display: flex;

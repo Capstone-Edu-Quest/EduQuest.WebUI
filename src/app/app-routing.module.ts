@@ -245,12 +245,13 @@ const routes: Routes = [
   {
     path: 'profile',
     canActivate: [RoleGuard],
-    data: { blockedRoles: [WebRole.ADMIN, WebRole.EXPERT, WebRole.STAFF] },
+    data: { blockedRoles: [WebRole.EXPERT] },
     children: [
       {
         path: '',
         component: ProfileComponent,
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, RoleGuard],
+        data: { blockedRoles: [WebRole.ADMIN, WebRole.STAFF], redirectUrl: ['/users-manage'] },
       },
       {
         path: ':userId',

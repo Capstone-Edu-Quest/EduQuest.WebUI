@@ -19,6 +19,7 @@ export interface IUser {
   roleId: WebRole;
   status: string;
   statistic: IUserStatistics;
+  lastActive?: string;
   mascotItem: string[];
 }
 

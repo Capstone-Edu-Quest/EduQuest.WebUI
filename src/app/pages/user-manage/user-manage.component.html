@@ -1,5 +1,43 @@
-<p>user-manage works!</p>
-,
+<div class="users-manage">
+  <div class="title text-gradient">{{ "LABEL.USERS_MANAGE" | translate }}</div>
+
+  <div class="statistics">
+    <div class="stats-ctn">
+      <div class="stat" *ngFor="let stat of statItems">
+        <div class="header">
+          <label>{{ stat.label | translate }}</label>
+          <fa-icon [icon]="stat.icon"></fa-icon>
+        </div>
+        <div class="value">{{ stat.value.toLocaleString() }}</div>
+      </div>
+    </div>
+
+    <div class="graph">
+      <app-line-chart
+        [labels]="graphLabels"
+        [dataSet]="graphData"
+      ></app-line-chart>
+    </div>
+  </div>
+
+  <div class="users-list">
+    <div class="search-ctn">
+        <nz-input-group [nzSuffix]="suffixIconButton" style="width: 50%">
+          <input
+            [(ngModel)]="searchText"
+            (keydown)="onConfirmSearch($event)"
+            nz-input
+            placeholder="{{ 'LABEL.SEARCH_USERS' | translate }}"
+          />
+        </nz-input-group>
+    
+        <ng-template #suffixIconButton>
+          <i nz-icon nzType="search" style="color: var(--secondary-text)"></i>
+        </ng-template>
+      </div>
+    <app-table (onRowClick)="onViewDetails($event)" [columns]="usersTableColumns" [data]="usersTableData"></app-table>
+  </div>
+</div>
 
 <!-- 
     user list, search & filter (package, role) -> table (+Action, export csv)
@@ -7,8 +45,4 @@
 
     Action: Suspend, active user
     Action 2: Edit info, modify package
-
-    Graph:
-    User grow overtime (monthly) + Active users (line chart)
-    Active & Inactive users (30 days) -> Pie chart
  -->
