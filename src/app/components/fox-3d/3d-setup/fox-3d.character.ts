@@ -9,6 +9,7 @@ import {
   AnimationMixer,
   Bone,
   Group,
+  LoadingManager,
   Object3DEventMap,
   PerspectiveCamera,
   Scene,
@@ -44,6 +45,9 @@ export default class Character {
   pendingItemsId: string[] = [];
 
   syncItem!: (item: IEquipmentPosition) => void;
+  addLoadingModel!: (f: Function) => void;
+
+  loadingManager = new LoadingManager();
 
   equipment: IEquipmentPosition = JSON.parse(
     JSON.stringify(defaultEquipmentSlot)
@@ -55,16 +59,18 @@ export default class Character {
     syncItem: (item: IEquipmentPosition) => void,
     pendingItemsId: string[],
     triggerFoxLoaded: () => void,
+    addLoadingModel: (f: Function) => void
   ) {
     this.scene = scene;
     this.camera = camera;
     this.syncItem = syncItem;
     this.pendingItemsId = pendingItemsId;
     this.triggerLoaded = triggerFoxLoaded;
+    this.addLoadingModel = addLoadingModel;
 
-    const dracoLoader = new DRACOLoader();
+    const dracoLoader = new DRACOLoader(this.loadingManager);
     dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/');
-    this.glTFLoader = new GLTFLoader();
+    this.glTFLoader = new GLTFLoader(this.loadingManager);
     this.glTFLoader.setDRACOLoader(dracoLoader);
   }
 
@@ -262,6 +268,7 @@ export default class Character {
 
     bones.forEach((_boneIdx) => {
       this.totalLoadingObjects++;
+      this.addLoadingModel(() => this.loadingManager.itemEnd(path));
       this.glTFLoader.load(path, (gltf) => {
         const model = gltf.scene;
 

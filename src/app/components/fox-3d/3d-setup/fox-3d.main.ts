@@ -11,6 +11,7 @@ export default class Fox3DMain {
   syncItem!: (item: IEquipmentPosition) => void;
   triggerFoxLoaded!: () => void;
   pendingItemsId: string[] = [];
+  addLoadingModel!: (f: Function) => void;
 
   constructor(
     scene: Scene,
@@ -18,7 +19,8 @@ export default class Fox3DMain {
     renderer: WebGLRenderer,
     syncItem: (item: IEquipmentPosition) => void,
     pendingItemsId: string[],
-    triggerFoxLoaded: () => void
+    triggerFoxLoaded: () => void,
+    addLoadingModel: (f: Function) => void
   ) {
     this.scene = scene;
     this.camera = camera;
@@ -26,10 +28,11 @@ export default class Fox3DMain {
     this.syncItem = syncItem;
     this.pendingItemsId = pendingItemsId;
     this.triggerFoxLoaded = triggerFoxLoaded;
+    this.addLoadingModel = addLoadingModel;
   }
 
   async init() {
-    this.character = new Character(this.scene, this.camera, this.syncItem, this.pendingItemsId, this.triggerFoxLoaded);
+    this.character = new Character(this.scene, this.camera, this.syncItem, this.pendingItemsId, this.triggerFoxLoaded, this.addLoadingModel);
     await this.character.init();
 
     const environment = new Enviroment(this.scene);
