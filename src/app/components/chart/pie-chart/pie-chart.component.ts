@@ -11,6 +11,7 @@ import { IPieChartDataSet } from '../../../shared/interfaces/chart.interface';
   styleUrl: './pie-chart.component.scss',
 })
 export class PieChartComponent implements OnInit, OnDestroy {
+  @Input() isUseTranslate: boolean = false;
   @Input() labels: string[] = [];
   @Input() dataSet: IPieChartDataSet[] = [];
 
@@ -72,7 +73,7 @@ export class PieChartComponent implements OnInit, OnDestroy {
     };
 
     this.chartData = {
-      labels: this.labels,
+      labels: this.labels.map((label) => this.isUseTranslate ? this.translate.instant(label) : label),
       datasets: this.dataSet.map((_dataset: IPieChartDataSet) => ({
         label: this.translate.instant(_dataset.label),
         data: [..._dataset.data],

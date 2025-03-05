@@ -1,0 +1,32 @@
+<div class="violations-statistics">
+    <div class="title text-gradient">
+      {{ "LABEL.VIOLATION_MANAGE" | translate }}
+    </div>
+    <div class="violation-stats">
+      <div class="left-ctn">
+        <div class="stats-ctn">
+          <div class="stat" *ngFor="let stat of statsItem">
+            <div class="header">
+              <label>{{ stat.label | translate }}</label>
+              <fa-icon [icon]="stat.icon"></fa-icon>
+            </div>
+            <div class="value">{{ stat.value.toLocaleString() }}</div>
+          </div>
+        </div>
+  
+        <div class="graph">
+          <div class="graph-sub">{{'LABEL.REPORTS_TYPE_30_DAYS' | translate}}</div>
+          <div class="graph-wrapper">
+            <app-pie-chart
+              [isUseTranslate]="true"
+              [labels]="pieChartLabels"
+              [dataSet]="pieChartDataSet"
+            ></app-pie-chart>
+          </div>
+        </div>
+      </div>
+      <div class="right-ctn">
+          <app-line-chart [labels]="monthlyReportsLabels" [dataSet]="monthlyReportsDataSet"/>
+      </div>
+    </div>
+  </div>

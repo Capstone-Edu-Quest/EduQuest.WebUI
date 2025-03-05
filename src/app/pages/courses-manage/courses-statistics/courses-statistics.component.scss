@@ -58,6 +58,10 @@
     background: var(--secondary-bg);
     border-radius: 12px;
     padding: 12px;
+    display: flex;
+    // align-items: center;
+    justify-content: center;
+    flex-direction: column;
     box-sizing: border-box;
 
     &.bar {
@@ -82,7 +86,7 @@
     }
 
     .trending-courses {
-      height: 32vw;
+      height: 32.8vw;
       grid-column: 17/25;
       background: var(--secondary-bg);
       border-radius: 12px;

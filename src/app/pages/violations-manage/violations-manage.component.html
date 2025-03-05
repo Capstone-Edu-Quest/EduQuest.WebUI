@@ -1,19 +1,4 @@
-<p>violations-manage works!</p>
-,
-
-<!-- 
-    courses, users, feedback
-    Stats: Total reports (all time), Total reports (last 30 days)
-
-    Graph:
-    - New Reports, Approved, Rejected -> Line (Monthly)
-    - Violation Types (All time) -> Pie
-
-    violations list (reported from user) -> Action: Warning (Notify user), Suspend User
-
-    recent violations (have been resolved) [filter] -> Audit log
-
-    CRUD report reasons
-
-    Users/courses list have been reported > 0 time (reason, recent related report) -> Action: Warning (Notify user), Suspend User
- -->
+<div class="violations" @fadeInOut>
+  <app-violations-statistics></app-violations-statistics>
+  <app-violations-list></app-violations-list>
+</div>

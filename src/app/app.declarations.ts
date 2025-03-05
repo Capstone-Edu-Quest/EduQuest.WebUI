@@ -165,6 +165,10 @@ import { UserManageComponent } from './pages/user-manage/user-manage.component';
 import { ViolationsManageComponent } from './pages/violations-manage/violations-manage.component';
 import { PlatformSettingsComponent } from './pages/platform-settings/platform-settings.component';
 import { CoursesStatisticsComponent } from './pages/courses-manage/courses-statistics/courses-statistics.component';
+import { ViolationsStatisticsComponent } from './pages/violations-manage/violations-statistics/violations-statistics.component';
+import { ViolationsListComponent } from './pages/violations-manage/violations-list/violations-list.component';
+import { ViolationsService } from './core/services/violations.service';
+import { ViolationDetailsComponent } from './pages/violations-manage/violations-list/violation-details/violation-details.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -290,6 +294,9 @@ export const AppDeclarations = [
   UserManageComponent,
   // violation
   ViolationsManageComponent,
+  ViolationsStatisticsComponent,
+  ViolationsListComponent,
+  ViolationDetailsComponent,
   // Settings
   PlatformSettingsComponent
 ];
@@ -356,7 +363,8 @@ export const appServices = [
   HttpService,
   ImageService,
   CurrencyExchangePipe,
-  VideoService
+  VideoService,
+  ViolationsService
 ];
 
 export const appGuards = [

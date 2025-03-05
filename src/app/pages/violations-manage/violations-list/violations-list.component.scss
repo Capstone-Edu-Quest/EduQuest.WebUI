@@ -1,0 +1,14 @@
+.violations-list {
+    
+    .label {
+        margin-top: 24px;
+        margin-bottom: 5px;
+        font-size: 15px;
+        font-weight: 500;
+        color: var(--brand-light);
+    }
+
+    app-table {
+        cursor: pointer;
+    }
+}

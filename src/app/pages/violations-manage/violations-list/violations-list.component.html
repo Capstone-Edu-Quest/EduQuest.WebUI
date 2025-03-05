@@ -1,0 +1,16 @@
+<div class="violations-list">
+  <div class="label">{{ "LABEL.PEDING_REPORTS" | translate }}</div>
+  <app-table (onRowClick)="onViewReportDetails($event)" [columns]="violationTableColumns" [data]="violations"></app-table>
+
+  <div class="label">{{ "LABEL.AUDIT_LOGS" | translate }}</div>
+  <app-table (onRowClick)="onViewReportDetails($event)" [columns]="auditLogColumns" [data]="auditLogs"></app-table>
+
+  <div class="label">{{ "LABEL.VIOLATIONS_LIST" | translate }}</div>
+  <app-table (onRowClick)="onViewViolationLogs($event)" [columns]="violationCountsTableColumns" [data]="violationCounts"></app-table>
+</div>
+
+
+<ng-template #violationDetails>
+  <app-violation-details [violation]="currentViewViolation"></app-violation-details>
+</ng-template>
+
