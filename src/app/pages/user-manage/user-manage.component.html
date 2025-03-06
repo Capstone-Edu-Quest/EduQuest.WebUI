@@ -22,22 +22,37 @@
 
   <div class="users-list">
     <div class="search-ctn">
-        <nz-input-group [nzSuffix]="suffixIconButton" style="width: 50%">
-          <input
-            [(ngModel)]="searchText"
-            (keydown)="onConfirmSearch($event)"
-            nz-input
-            placeholder="{{ 'LABEL.SEARCH_USERS' | translate }}"
-          />
-        </nz-input-group>
-    
-        <ng-template #suffixIconButton>
-          <i nz-icon nzType="search" style="color: var(--secondary-text)"></i>
-        </ng-template>
-      </div>
-    <app-table (onRowClick)="onViewDetails($event)" [columns]="usersTableColumns" [data]="usersTableData"></app-table>
+      <nz-input-group [nzSuffix]="suffixIconButton" style="width: 50%">
+        <input
+          [(ngModel)]="searchText"
+          (keydown)="onConfirmSearch($event)"
+          nz-input
+          placeholder="{{ 'LABEL.SEARCH_USERS' | translate }}"
+        />
+      </nz-input-group>
+
+      <ng-template #suffixIconButton>
+        <i nz-icon nzType="search" style="color: var(--secondary-text)"></i>
+      </ng-template>
+    </div>
+    <app-table
+      (onRowClick)="onViewDetails($event)"
+      [columns]="usersTableColumns"
+      [data]="usersTableData"
+    ></app-table>
   </div>
 </div>
+
+<ng-template #action let-row="row">
+  <div style="display: flex; gap: 8px">
+    <app-button (click)="onWarn($event, row)">{{
+      "BUTTON.WARN" | translate
+    }}</app-button>
+    <app-button (click)="onSuspend($event, row)" type="danger">{{
+      "BUTTON.SUSPEND" | translate
+    }}</app-button>
+  </div>
+</ng-template>
 
 <!-- 
     user list, search & filter (package, role) -> table (+Action, export csv)

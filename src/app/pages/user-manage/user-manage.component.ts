@@ -1,7 +1,20 @@
 import { UserService } from './../../core/services/user.service';
-import { Component, type OnInit } from '@angular/core';
-import { ILineChartDataSet, IPieChartDataSet } from '../../shared/interfaces/chart.interface';
-import { faUser, faUserPlus, faUsersRays } from '@fortawesome/free-solid-svg-icons';
+import {
+  Component,
+  ViewChild,
+  type OnInit,
+  TemplateRef,
+  AfterViewInit,
+} from '@angular/core';
+import {
+  ILineChartDataSet,
+  IPieChartDataSet,
+} from '../../shared/interfaces/chart.interface';
+import {
+  faUser,
+  faUserPlus,
+  faUsersRays,
+} from '@fortawesome/free-solid-svg-icons';
 import { IUser } from '../../shared/interfaces/user.interfaces';
 import { TableColumn } from '../../shared/interfaces/others.interfaces';
 import { WebRole } from '../../shared/enums/user.enum';
@@ -12,7 +25,9 @@ import { Router } from '@angular/router';
   templateUrl: './user-manage.component.html',
   styleUrl: './user-manage.component.scss',
 })
-export class UserManageComponent implements OnInit {
+export class UserManageComponent implements OnInit, AfterViewInit {
+  @ViewChild('action') actionRef!: TemplateRef<any>;
+
   searchText: string = '';
 
   statItems = [
@@ -70,40 +85,41 @@ export class UserManageComponent implements OnInit {
   usersTableColumns: TableColumn[] = [
     {
       label: 'LABEL.ID',
-      key: 'id'
+      key: 'id',
     },
     {
       label: 'LABEL.NAME',
-      key: 'username'
+      key: 'username',
     },
     {
       label: 'LABEL.EMAIL',
-      key: 'email'
+      key: 'email',
     },
     {
       label: 'LABEL.PHONE',
-      key: 'phone'
+      key: 'phone',
     },
     {
       label: 'LABEL.ROLE',
       key: 'role',
-      translateLabel: (data: IUser) => this.UserService.getRoleLabel(data.roleId)
+      translateLabel: (data: IUser) =>
+        this.UserService.getRoleLabel(data.roleId),
     },
-  ]
+  ];
   usersTableData: IUser[] = [
     {
-      id: "u1",
-      username: "david_teacher",
-      email: "david@example.com",
-      phone: "+1234567890",
-      avatarUrl: "https://example.com/avatars/david.png",
+      id: 'u1',
+      username: 'david_teacher',
+      email: 'david@example.com',
+      phone: '+1234567890',
+      avatarUrl: 'https://example.com/avatars/david.png',
       roleId: WebRole.INSTRUCTOR,
-      status: "active",
+      status: 'active',
       statistic: {
-        userId: "u1",
+        userId: 'u1',
         totalActiveDay: 180,
         maxStudyStreakDay: 45,
-        lastLearningDay: "2025-03-02",
+        lastLearningDay: '2025-03-02',
         completedCourses: 15,
         gold: 7000,
         exp: 18000,
@@ -113,22 +129,22 @@ export class UserManageComponent implements OnInit {
         totalLearner: 1500,
         totalReview: 300,
       },
-      lastActive: "2025-03-03T12:00:00Z",
-      mascotItem: ["owl", "lion"],
+      lastActive: '2025-03-03T12:00:00Z',
+      mascotItem: ['owl', 'lion'],
     },
     {
-      id: "u2",
-      username: "emily_student",
-      email: "emily@example.com",
-      phone: "+1987654321",
-      avatarUrl: "https://example.com/avatars/emily.png",
+      id: 'u2',
+      username: 'emily_student',
+      email: 'emily@example.com',
+      phone: '+1987654321',
+      avatarUrl: 'https://example.com/avatars/emily.png',
       roleId: WebRole.LEARNER,
-      status: "active",
+      status: 'active',
       statistic: {
-        userId: "u2",
+        userId: 'u2',
         totalActiveDay: 90,
         maxStudyStreakDay: 25,
-        lastLearningDay: "2025-03-03",
+        lastLearningDay: '2025-03-03',
         completedCourses: 5,
         gold: 4000,
         exp: 9000,
@@ -138,15 +154,23 @@ export class UserManageComponent implements OnInit {
         totalLearner: 0,
         totalReview: 20,
       },
-      lastActive: "2025-03-03T14:30:00Z",
-      mascotItem: ["rabbit", "fox"],
+      lastActive: '2025-03-03T14:30:00Z',
+      mascotItem: ['rabbit', 'fox'],
     },
   ];
 
-  constructor(private UserService: UserService, private router: Router) { }
+  constructor(private UserService: UserService, private router: Router) {}
 
   ngOnInit(): void {
-    console.log(this.usersTableData)
+    console.log(this.usersTableData);
+  }
+
+  ngAfterViewInit(): void {
+    this.usersTableColumns.push({
+      label: '',
+      key: 'action',
+      elementRef: this.actionRef,
+    });
   }
 
   onViewDetails(u: IUser) {
@@ -154,8 +178,15 @@ export class UserManageComponent implements OnInit {
     this.router.navigate(['/profile', u.id]);
   }
 
-  onConfirmSearch(e: KeyboardEvent) {
+  onConfirmSearch(e: KeyboardEvent) {}
 
+  onWarn(e: Event, u: IUser) {
+    e.stopPropagation();
+    console.log('warn', u);
   }
 
+  onSuspend(e: Event, u: IUser) {
+    e.stopPropagation();
+    console.log('suspend', u);
+  }
 }

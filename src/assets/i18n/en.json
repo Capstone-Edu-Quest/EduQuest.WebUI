@@ -526,7 +526,9 @@
     "TEST_ASSIGNMENT": "Test the Assignment",
     "ADD_QUIZ": "Add Quiz",
     "BACK": "Back",
-    "ADD_TAG": "New tag"
+    "ADD_TAG": "New tag",
+    "WARN": "warn",
+    "SUSPEND": "Suspend"
   },
   "LANGUAGES": {
     "EN": "English",
