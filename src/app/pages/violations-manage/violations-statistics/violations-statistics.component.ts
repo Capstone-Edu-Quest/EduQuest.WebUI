@@ -30,17 +30,6 @@ export class ViolationsStatisticsComponent implements OnInit {
     {
       label: `LABEL.REPORTS`,
       data: [7, 75, 12],
-      backgroundColor: [
-        '--stage-surface-current',
-        '--stage-body-done',
-        '--error',
-      ],
-      hoverBackgroundColor: [
-        '--stage-surface-current',
-        '--stage-body-done',
-        '--error',
-      ],
-      borderColor: '--brand-02',
     },
   ];
 
@@ -54,26 +43,14 @@ export class ViolationsStatisticsComponent implements OnInit {
   monthlyReportsDataSet: ILineChartDataSet[] = [
     {
       label: 'LABEL.REPORTS',
-      backgroundColor: '--brand',
-      borderColor: '--brand-light',
-      pointBackgroundColor: '--brand',
-      pointBorderColor: '--brand-light',
       data: [22, 12, 18, 15, 20],
     },
     {
       label: 'LABEL.RESOLVED',
-      backgroundColor: '--stage-body-done',
-      borderColor: '--success',
-      pointBackgroundColor: '--stage-body-done',
-      pointBorderColor: '--success',
       data: [18, 6, 18, 4, 19],
     },
     {
       label: 'LABEL.REJECTED',
-      backgroundColor: '--error',
-      borderColor: '--alert',
-      pointBackgroundColor: '--error',
-      pointBorderColor: '--alert',
       data: [4, 6, 0, 11, 1],
     },
   ];

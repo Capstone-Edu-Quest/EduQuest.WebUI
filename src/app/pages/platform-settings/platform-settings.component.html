@@ -1,4 +1,19 @@
-<p>platform-settings works!</p>,
+<div class="platform-settings">
+  <div class="title text-gradient">{{ "LABEL.SETTINGS" | translate }}</div>
+  <div class="tabs">
+    <a
+      class="tab"
+      [routerLink]="tab.link"
+      *ngFor="let tab of tabs"
+      [routerLinkActiveOptions]="{ exact: true }"
+      [routerLinkActive]="['active']"
+    >
+      {{ tab.label | translate }}
+    </a>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>
 
 <!-- 
     Platform Settings:
@@ -6,4 +21,5 @@
 - Quests
 - Premium Package Pricing manage
 - Shop Item manage
+- Coupon
  -->

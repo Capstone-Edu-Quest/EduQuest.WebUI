@@ -61,26 +61,14 @@ export class CoursesStatisticsComponent implements OnInit {
     {
       label: 'LABEL.COURSES_COMPLETION',
       data: [50, 75, 77, 53, 12],
-      borderColor: '--brand-05',
-      pointBackgroundColor: '--brand-hover',
-      pointBorderColor: '--brand-light',
-      backgroundColor: '--brand-05',
     },
     {
       label: 'LABEL.COURSES_ENROLLMENTS',
       data: [88, 121, 88, 99, 52],
-      borderColor: '--info',
-      pointBackgroundColor: '--stage-surface-locked',
-      pointBorderColor: '--stage-surface-locked',
-      backgroundColor: '--info',
     },
     {
       label: 'LABEL.NEW_COURSES',
       data: [2, 7, 5, 12, 2],
-      borderColor: '--stage-surface-done',
-      pointBackgroundColor: '--stage-body-done',
-      pointBorderColor: '--stage-body-done',
-      backgroundColor: '--stage-surface-done',
     },
   ];
 
@@ -89,10 +77,6 @@ export class CoursesStatisticsComponent implements OnInit {
     {
       label: 'LABEL.COURSES',
       data: [50, 75, 77, 53, 12, 22, 112, 123, 321, 641],
-      borderColor: '--brand-05',
-      hoverBackgroundColor: '--brand-light',
-      hoverBorderColor: '--brand-05',
-      backgroundColor: '--brand-hover',
     },
   ];
 

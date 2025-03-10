@@ -169,6 +169,12 @@ import { ViolationsStatisticsComponent } from './pages/violations-manage/violati
 import { ViolationsListComponent } from './pages/violations-manage/violations-list/violations-list.component';
 import { ViolationsService } from './core/services/violations.service';
 import { ViolationDetailsComponent } from './pages/violations-manage/violations-list/violation-details/violation-details.component';
+import { PlatformStatisticsComponent } from './pages/platform-settings/platform-statistics/platform-statistics.component';
+import { LevelSettingsComponent } from './pages/platform-settings/level-settings/level-settings.component';
+import { QuestsSettingsComponent } from './pages/platform-settings/quests-settings/quests-settings.component';
+import { ShopSettingsComponent } from './pages/platform-settings/shop-settings/shop-settings.component';
+import { PricingSettingsComponent } from './pages/platform-settings/pricing-settings/pricing-settings.component';
+import { CouponsSettingsComponent } from './pages/platform-settings/coupons-settings/coupons-settings.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -298,7 +304,13 @@ export const AppDeclarations = [
   ViolationsListComponent,
   ViolationDetailsComponent,
   // Settings
-  PlatformSettingsComponent
+  PlatformSettingsComponent,
+  PlatformStatisticsComponent,
+  LevelSettingsComponent,
+  QuestsSettingsComponent,
+  ShopSettingsComponent,
+  PricingSettingsComponent,
+  CouponsSettingsComponent
 ];
 export const NGIcons = [
   EnterOutline,

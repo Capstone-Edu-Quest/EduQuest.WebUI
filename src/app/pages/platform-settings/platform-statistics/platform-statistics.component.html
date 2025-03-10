@@ -1,0 +1,66 @@
+<div class="platform-stats">
+  <div class="section" *ngFor="let section of sections">
+    <div class="title">{{ "LABEL." + section.id | translate }}</div>
+    <div class="layout">
+      <div class="stats">
+        <div class="stat-item" *ngFor="let stat of section.stats">
+          <div class="header">
+            <label>{{ "LABEL." + stat.id | translate }}</label>
+            <fa-icon [icon]="stat.icon"></fa-icon>
+          </div>
+          <div class="value">{{ stat.value }}</div>
+        </div>
+      </div>
+
+      <div class="chart">
+        <div class="header">{{ section.graph.title | translate }}</div>
+        @switch (section.graph.type) { @case('bar') {
+        <app-bar-chart
+          [labels]="section.graph.labels"
+          [dataSet]="section.graph.dataSets"
+        ></app-bar-chart>
+        } @case ('line') {
+        <app-line-chart
+          [labels]="section.graph.labels"
+          [dataSet]="section.graph.dataSets"
+        ></app-line-chart>
+        } @case('pie') {
+        <div class="pie">
+          <app-pie-chart
+            [labels]="section.graph.labels"
+            [dataSet]="section.graph.dataSets"
+          ></app-pie-chart>
+        </div>
+        } }
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- 
+    4️⃣ Shop Items
+    📊 Statistics (Numbers)
+        🛒 Total Items Sold
+        🔥 Most Purchased Item
+        💰 Total Revenue from Shop
+        💳 Average Purchase Value
+    📈 Graphs
+        🏆 Top-Selling Items (Pie Chart) → 1st 2nd 3rd 4th 5h & others
+3️⃣ Premium Package Pricing
+    📊 Statistics (Numbers)
+        💰 Total Premium Subscriptions Sold
+        🎟️ Active Premium Users
+        💵 Revenue from Premium Packages
+        🥇 Most Purchased Premium Package
+        🔄 Subscription Retention Rate
+    📈 Graphs
+        📊 Subscriptions monthly
+5️⃣ Coupons
+    📊 Statistics (Numbers)
+        🎟️ Total Coupons Created
+        ✅ Total Coupons Redeemed
+        💰 Total Discount Value Given
+        🥇 Most Used Coupon Code
+    📈 Graphs
+        🔄 Redemption vs. Expiration (Line Chart) → Shows how many coupons were used vs. expired.
+ -->

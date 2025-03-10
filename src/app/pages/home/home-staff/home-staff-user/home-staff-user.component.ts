@@ -41,26 +41,14 @@ export class HomeStaffUserComponent implements OnInit {
     {
       label: 'LABEL.TOTAL_USERS',
       data: [50, 75, 110, 120, 223],
-      borderColor: '--brand-05',
-      pointBackgroundColor: '--brand-hover',
-      pointBorderColor: '--brand-light',
-      backgroundColor: '--brand-05',
     },
     {
       label: 'LABEL.ACTIVE_USERS',
       data: [22, 32, 50, 62, 50],
-      borderColor: '--stage-surface-done',
-      pointBackgroundColor: '--stage-body-done',
-      pointBorderColor: '--stage-body-done',
-      backgroundColor: '--stage-surface-done',
     },
     {
       label: 'LABEL.PREMIUM_USERS',
       data: [2, 4, 10, 6, 22],
-      borderColor: '--stage-surface-current',
-      pointBackgroundColor: '--warning',
-      pointBorderColor: '--warning',
-      backgroundColor: '--stage-surface-current',
     },
   ];
 

@@ -4,6 +4,7 @@ import { ILineChartDataSet } from '../../../shared/interfaces/chart.interface';
 import { Subscription } from 'rxjs';
 import { ThemeService } from '../../../core/services/theme.service';
 import { TranslateService } from '@ngx-translate/core';
+import { colorsSet } from '../../../shared/themes/darkTheme';
 
 @Component({
   selector: 'app-line-chart',
@@ -11,7 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './line-chart.component.scss',
 })
 export class LineChartComponent implements OnInit, OnDestroy {
-  @Input() labels: string[] = [];
+  @Input() labels: string[] | number[] = [];
   @Input() dataSet: ILineChartDataSet[] = [];
 
   subscription$: Subscription = new Subscription();
@@ -92,13 +93,13 @@ export class LineChartComponent implements OnInit, OnDestroy {
 
     this.chartDataset = {
       labels: this.labels,
-      datasets: this.dataSet.map((_dataset: ILineChartDataSet) => ({
+      datasets: this.dataSet.map((_dataset: ILineChartDataSet, i) => ({
         label: this.translate.instant(_dataset.label),
         data: [..._dataset.data],
-        backgroundColor: currentTheme.theme[_dataset.backgroundColor],
-        borderColor: currentTheme.theme[_dataset.borderColor],
-        pointBackgroundColor: currentTheme.theme[_dataset.pointBackgroundColor],
-        pointBorderColor: currentTheme.theme[_dataset.pointBorderColor],
+        backgroundColor: currentTheme.theme[colorsSet[i * 3]],
+        borderColor:currentTheme.theme[colorsSet[i * 3]],
+        pointBackgroundColor:currentTheme.theme[colorsSet[i * 3]],
+        pointBorderColor: currentTheme.theme[colorsSet[i * 3]],
         borderWidth: 1,
       })),
     };

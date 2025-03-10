@@ -4,6 +4,7 @@ import { ChartData, ChartOptions, RadialLinearScaleOptions } from 'chart.js';
 import { Subscription } from 'rxjs';
 import { ThemeService } from '../../../core/services/theme.service';
 import { IRadarChartDataSet } from '../../../shared/interfaces/chart.interface';
+import { colorsSet } from '../../../shared/themes/darkTheme';
 
 @Component({
   selector: 'app-radar-chart',
@@ -119,20 +120,16 @@ export class RadarChartComponent implements OnInit, OnDestroy {
       },
     };
 
-    type themeType = keyof typeof currentTheme.theme;
-    this.chartData.datasets = this.dataSet.map((_dataset: IRadarChartDataSet) => {
-      if(!_dataset.isUseThemeColor) {
-        return _dataset;
-      }
+    this.chartData.datasets = this.dataSet.map((_dataset: IRadarChartDataSet, i) => {
       return {
         label: _dataset.label,
         data: _dataset.data,
-        backgroundColor: currentTheme.theme[_dataset.backgroundColor as themeType],
-        borderColor: currentTheme.theme[_dataset.borderColor as themeType],
-        pointBackgroundColor: currentTheme.theme[_dataset.pointBackgroundColor as themeType],
-        pointBorderColor: currentTheme.theme[_dataset.pointBorderColor as themeType],
-        pointHoverBackgroundColor: currentTheme.theme[_dataset.pointHoverBackgroundColor as themeType],
-        pointHoverBorderColor: currentTheme.theme[_dataset.pointHoverBorderColor as themeType],
+        backgroundColor: currentTheme.theme[colorsSet[i]],
+        borderColor: currentTheme.theme[colorsSet[i]],
+        pointBackgroundColor: currentTheme.theme[colorsSet[i]],
+        pointBorderColor: currentTheme.theme[colorsSet[i]],
+        pointHoverBackgroundColor: currentTheme.theme[colorsSet[i]],
+        pointHoverBorderColor: currentTheme.theme[colorsSet[i]],
       };
     })
     this.chartData.labels = this.labels;

@@ -1,10 +1,10 @@
 export const darkTheme = {
-  '--backdrop': '#1A1A1A', 
-  '--background': '#0A0B0F', 
+  '--backdrop': '#1A1A1A',
+  '--background': '#0A0B0F',
   '--primary-bg': '#141210',
-  '--secondary-bg': '#1f1d1b', 
-  '--tertiary-bg': '#291a18', 
-  '--quaternary-bg': '#694727', 
+  '--secondary-bg': '#1f1d1b',
+  '--tertiary-bg': '#291a18',
+  '--quaternary-bg': '#694727',
   '--quaternary-bg-04': 'rgba(255, 154, 60, 0.4)',
   '--quaternary-bg-015': 'rgba(255, 154, 60, 0.15)',
 
@@ -35,5 +35,29 @@ export const darkTheme = {
   '--stage-body-locked': '#525252',
   '--stage-surface-done': '#58cc02',
   '--stage-body-done': '#3d8a03',
-  '--stage-shadow': '#292929'
+  '--stage-shadow': '#292929',
+
+  '--pie-chart-warm': '#FF8805',
+  '--pie-chart-soft-peach': '#EBAA60',
+  '--pie-chart-muted-amber': '#F29955',
+  '--pie-chart-warm-copper': '#D57149',
+  '--pie-chart-earthy-brown': '#A56A54',
+  '--pie-chart-muted-teal': '#6B8578',
+  '--pie-chart-soft-cyan-teal': '#4D7272',
+  '--pie-chart-gentle-blue-gray': '#456789',
+  '--pie-chart-muted-gray': '#5E646E',
+  '--pie-chart-desaturated-lavender': '#84787E',
 };
+
+export const colorsSet: (keyof typeof darkTheme)[] = [
+  '--pie-chart-warm',
+  '--pie-chart-soft-peach',
+  '--pie-chart-muted-amber',
+  '--pie-chart-warm-copper',
+  '--pie-chart-earthy-brown',
+  '--pie-chart-muted-teal',
+  '--pie-chart-soft-cyan-teal',
+  '--pie-chart-gentle-blue-gray',
+  '--pie-chart-muted-gray',
+  '--pie-chart-desaturated-lavender',
+];

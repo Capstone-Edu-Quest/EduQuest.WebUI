@@ -33,10 +33,6 @@ export class HomeInsOthersComponent implements OnInit, OnDestroy {
   chartDataSet: IBarChartDataSet[] = [
     {
       label: 'LABEL.LEARNERS',
-      backgroundColor: '--brand',
-      hoverBackgroundColor: '--brand-hover',
-      borderColor: '--brand-02',
-      hoverBorderColor: '--brand-01',
       data: [50, 75, 110, 90, 130],
     },
   ];

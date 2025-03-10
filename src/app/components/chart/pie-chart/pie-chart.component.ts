@@ -4,6 +4,7 @@ import { ChartConfiguration, ChartData } from 'chart.js';
 import { Subscription } from 'rxjs';
 import { ThemeService } from '../../../core/services/theme.service';
 import { IPieChartDataSet } from '../../../shared/interfaces/chart.interface';
+import { colorsSet, darkTheme } from '../../../shared/themes/darkTheme';
 
 @Component({
   selector: 'app-pie-chart',
@@ -12,7 +13,7 @@ import { IPieChartDataSet } from '../../../shared/interfaces/chart.interface';
 })
 export class PieChartComponent implements OnInit, OnDestroy {
   @Input() isUseTranslate: boolean = false;
-  @Input() labels: string[] = [];
+  @Input() labels: string[] | number[] = [];
   @Input() dataSet: IPieChartDataSet[] = [];
 
   subscription$: Subscription = new Subscription();
@@ -73,13 +74,20 @@ export class PieChartComponent implements OnInit, OnDestroy {
     };
 
     this.chartData = {
-      labels: this.labels.map((label) => this.isUseTranslate ? this.translate.instant(label) : label),
+      labels: this.labels.map((label) =>
+        this.isUseTranslate ? this.translate.instant(label.toString()) : label
+      ),
       datasets: this.dataSet.map((_dataset: IPieChartDataSet) => ({
         label: this.translate.instant(_dataset.label),
         data: [..._dataset.data],
-        backgroundColor: _dataset.backgroundColor.map((color) => currentTheme.theme[color]),
-        hoverBackgroundColor: _dataset.hoverBackgroundColor.map((color) => currentTheme.theme[color]),
-        borderColor: currentTheme.theme[_dataset.borderColor],
+        backgroundColor: _dataset.data.map(
+          (color, i) => currentTheme.theme[colorsSet[i]]
+        ),
+        hoverBackgroundColor: _dataset.data.map(
+          (color, i) => currentTheme.theme[colorsSet[i]]
+        ),
+        borderColor: currentTheme.theme['--brand-05'],
+        hoverBorderColor: currentTheme.theme['--alert'],
         borderWidth: 1,
       })),
     };

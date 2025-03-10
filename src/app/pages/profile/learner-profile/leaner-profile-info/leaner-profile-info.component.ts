@@ -3,6 +3,7 @@ import { Subscription } from 'rxjs';
 import { UserService } from './../../../../core/services/user.service';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { IUser, IUserStat } from '../../../../shared/interfaces/user.interfaces';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-leaner-profile-info',
@@ -14,6 +15,8 @@ export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
   @Input('user') user: IUser | null = null;
   
   subscription$: Subscription = new Subscription();
+
+  isUseTempEquipment: boolean = false;
 
   statItems = [
     {
@@ -43,10 +46,18 @@ export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
     },
   ];
 
-  constructor(private FoxService: FoxService) {}
+  constructor(private FoxService: FoxService, private route: ActivatedRoute) {}
 
   ngOnInit() {
+    this.onInitFoxByOtherProfile();
+  }
+
+  onInitFoxByOtherProfile() {
+    const userId = this.route.snapshot.paramMap.get('userId');
+    if(!userId) return;
+
     this.onUpdateFoxItems();
+    this.isUseTempEquipment = true;
   }
 
   onUpdateFoxItems() {
@@ -58,7 +69,7 @@ export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.FoxService.tempEquipItem(null);
+    this.isUseTempEquipment && this.FoxService.tempEquipItem(null);
     this.subscription$.unsubscribe();
   }
 }

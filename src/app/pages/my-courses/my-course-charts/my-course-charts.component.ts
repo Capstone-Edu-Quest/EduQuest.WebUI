@@ -19,10 +19,6 @@ export class MyCourseChartsComponent implements OnInit {
   ratinsChartData: IBarChartDataSet[] = [
     {
       label: 'LABEL.LEARNERS',
-      backgroundColor: '--brand',
-      hoverBackgroundColor: '--brand-hover',
-      borderColor: '--brand-02',
-      hoverBorderColor: '--brand-01',
       data: [25, 50, 75, 100, 125],
     },
   ];
@@ -38,10 +34,6 @@ export class MyCourseChartsComponent implements OnInit {
     {
       label: 'LABEL.LEARNERS',
       data: [50, 75, 110, 120, 223],
-      borderColor: '--brand-05',
-      pointBackgroundColor: '--brand-hover',
-      pointBorderColor: '--brand-light',
-      backgroundColor: '--brand-05',
     },
   ];
 
@@ -50,9 +42,6 @@ export class MyCourseChartsComponent implements OnInit {
     {
       label: `LABEL.LEARNERS`,
       data: [50, 75],
-      backgroundColor: ['--brand', '--brand-light'],
-      hoverBackgroundColor: ['--brand', '--brand-light'],
-      borderColor: '--brand-05',
     },
   ];
 
@@ -61,32 +50,14 @@ export class MyCourseChartsComponent implements OnInit {
     {
       label: 'ReactJS',
       data: [35, 120, 22], // Scores for each subject
-      backgroundColor: 'rgba(255, 99, 132, 0.2)', // Fill color
-      borderColor: 'rgba(255, 99, 132, 1)', // Border color
-      pointBackgroundColor: 'rgba(255, 99, 132, 1)', // Points color
-      pointBorderColor: '#fff', // Point border color
-      pointHoverBackgroundColor: '#fff', // Hover background color
-      pointHoverBorderColor: 'rgba(255, 99, 132, 1)', // Hover border color
     },
     {
       label: 'Typescript',
       data: [70, 85, 44], // Scores for another student
-      backgroundColor: 'rgba(54, 162, 235, 0.2)',
-      borderColor: 'rgba(54, 162, 235, 1)',
-      pointBackgroundColor: 'rgba(54, 162, 235, 1)',
-      pointBorderColor: '#fff',
-      pointHoverBackgroundColor: '#fff',
-      pointHoverBorderColor: 'rgba(54, 162, 235, 1)',
     },
     {
       label: '.Net Fundamentals',
       data: [80, 90, 55], // Scores for each subject
-      backgroundColor: 'rgba(187, 224, 155, 0.2)', // Fill color
-      borderColor: '#bbe09b', // Border color
-      pointBackgroundColor: '#bbe09b', // Points color
-      pointBorderColor: '#fff', // Point border color
-      pointHoverBackgroundColor: '#fff', // Hover background color
-      pointHoverBorderColor: '#bbe09b', // Hover border color
     },
   ];
 

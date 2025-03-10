@@ -35,5 +35,16 @@ export const lightTheme = {
   '--stage-body-locked': '#ababab',
   '--stage-surface-done': '#65e602',
   '--stage-body-done': '#55c402',
-  '--stage-shadow': '#6b6b6b'
+  '--stage-shadow': '#6b6b6b',
+
+  '--pie-chart-warm': '#FF8805', // Vibrant Orange (Brand Hover)
+  '--pie-chart-soft-peach': '#EBAA60', // Soft Peach (Balanced warmth)
+  '--pie-chart-muted-amber': '#F29955', // Warm Amber (Stage Surface Current)
+  '--pie-chart-warm-copper': '#D57149', // Muted Copper (Rich earthy tone)
+  '--pie-chart-earthy-brown': '#A56A54', // Earthy Brown (Softened depth)
+  '--pie-chart-muted-teal': '#6B8578', // Muted Teal (Gentle contrast)
+  '--pie-chart-soft-cyan-teal': '#4D7272', // Soft Cyan-Teal (Subtle cooling)
+  '--pie-chart-gentle-blue-gray': '#456789', // Gentle Blue-Gray (Soothing touch)
+  '--pie-chart-muted-gray': '#5E646E', // Muted Gray (Neutral anchor)
+  '--pie-chart-desaturated-lavender': '#84787E', // Desaturated Lavender (Soft pastel balance)
 };

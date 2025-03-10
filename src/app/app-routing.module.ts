@@ -43,6 +43,12 @@ import { UserManageComponent } from './pages/user-manage/user-manage.component';
 import { ViolationsManageComponent } from './pages/violations-manage/violations-manage.component';
 import { PlatformSettingsComponent } from './pages/platform-settings/platform-settings.component';
 import { CoursesStatisticsComponent } from './pages/courses-manage/courses-statistics/courses-statistics.component';
+import { PlatformStatisticsComponent } from './pages/platform-settings/platform-statistics/platform-statistics.component';
+import { LevelSettingsComponent } from './pages/platform-settings/level-settings/level-settings.component';
+import { QuestsSettingsComponent } from './pages/platform-settings/quests-settings/quests-settings.component';
+import { ShopSettingsComponent } from './pages/platform-settings/shop-settings/shop-settings.component';
+import { PricingSettingsComponent } from './pages/platform-settings/pricing-settings/pricing-settings.component';
+import { CouponsSettingsComponent } from './pages/platform-settings/coupons-settings/coupons-settings.component';
 
 const routes: Routes = [
   {
@@ -348,6 +354,32 @@ const routes: Routes = [
     canActivate: [AuthGuard, RoleGuard],
     data: { allowedRoles: [WebRole.STAFF, WebRole.ADMIN] },
     component: PlatformSettingsComponent,
+    children: [
+      {
+        path: '',
+        component: PlatformStatisticsComponent
+      },
+      {
+        path: 'level',
+        component: LevelSettingsComponent
+      },
+      {
+        path: 'quests',
+        component: QuestsSettingsComponent
+      },
+      {
+        path: 'shop-items',
+        component: ShopSettingsComponent
+      },
+      {
+        path: 'pricing',
+        component: PricingSettingsComponent
+      },
+      {
+        path: 'coupons',
+        component: CouponsSettingsComponent
+      },
+    ]
   },
 ];
 

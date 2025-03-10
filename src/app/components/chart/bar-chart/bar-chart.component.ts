@@ -4,6 +4,7 @@ import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
 import { ThemeService } from '../../../core/services/theme.service';
 import { IBarChartDataSet } from '../../../shared/interfaces/chart.interface';
 import { Subscription } from 'rxjs';
+import { colorsSet } from '../../../shared/themes/darkTheme';
 
 @Component({
   selector: 'app-bar-chart',
@@ -11,7 +12,7 @@ import { Subscription } from 'rxjs';
   styleUrl: './bar-chart.component.scss',
 })
 export class BarChartComponent implements OnInit, OnDestroy {
-  @Input() labels: string[] = [];
+  @Input() labels: string[] | number[] = [];
   @Input() dataSet: IBarChartDataSet[] = [];
 
   subscription$: Subscription = new Subscription();
@@ -92,13 +93,13 @@ export class BarChartComponent implements OnInit, OnDestroy {
 
     this.chartData = {
       labels: this.labels,
-      datasets: this.dataSet.map((_dataset: IBarChartDataSet) => ({
+      datasets: this.dataSet.map((_dataset: IBarChartDataSet, i) => ({
         label: this.translate.instant(_dataset.label),
         data: [..._dataset.data],
-        backgroundColor: currentTheme.theme[_dataset.backgroundColor],
-        hoverBackgroundColor: currentTheme.theme[_dataset.hoverBackgroundColor],
-        borderColor: currentTheme.theme[_dataset.borderColor],
-        hoverBorderColor: currentTheme.theme[_dataset.hoverBorderColor],
+        backgroundColor: currentTheme.theme[colorsSet[i * 3]],
+        hoverBackgroundColor: currentTheme.theme[colorsSet[i * 3]],
+        borderColor: currentTheme.theme[colorsSet[i * 3]],
+        hoverBorderColor: currentTheme.theme[colorsSet[i * 3]],
         borderWidth: 1,
       })),
     };
