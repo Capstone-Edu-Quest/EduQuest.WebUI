@@ -480,7 +480,15 @@
     "AVERAGE_ITEM_PER_USER": "Average Items per User",
     "MOST_PURCHASED_ITEM": "Most Purchased Item",
     "TOTAL_GOLD_FROM_SALES": "Total Gold from Sales",
-    "BEST_SALE_ITEMS": "Best Sale Items"
+    "BEST_SALE_ITEMS": "Best Sale Items",
+    "INSTRUCTOR_PREMIUM_SOLD": "Instructor Premium Sold",
+    "LEARNER_PREMIUM_SOLD": "Leaner Premium Sold",
+    "RENEW_RATE": "Renew Rate",
+    "SUBSCRIPTION": "Subscription",
+    "REDEEMED_COUPONS": "Redeemed times",
+    "EXPIRED_COUPONS": "Expired coupons",
+    "CREATED_COUPONS": "Created coupons",
+    "NEW_COUPONS": "New Coupons"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",
