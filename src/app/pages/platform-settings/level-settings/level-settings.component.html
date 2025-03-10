@@ -1,1 +1,68 @@
-<p>level-settings works!</p>,
+<div class="level-section">
+  <div class="btn-ctn">
+    <ng-container
+      [ngTemplateOutlet]="isEdit ? editBtns : notEditBtns"
+    ></ng-container>
+  </div>
+  <app-table
+    [changePage]="changePage$"
+    [columns]="isEdit ? editingColumns : tableColumns"
+    [data]="isEdit ? editingLevels : levels"
+  />
+</div>
+
+<ng-template #expInput let-row="row">
+  <input type="number" [(ngModel)]="row.exp" />
+</ng-template>
+
+<ng-template #rewardInput let-row="row">
+  <div class="reward-input-wrapper">
+    <div class="group" *ngFor="let reward of row.rewardType; let i = index">
+      <select [(ngModel)]="row.rewardType[i]">
+        <option
+          *ngFor="let opt of rewardTypeSelectOptions"
+          [ngValue]="opt.value"
+        >
+          {{ opt.label | translate }}
+        </option>
+      </select>
+      <div class="divider"></div>
+      @switch(onGetInputType(reward)) { @case('input') {
+      <input [(ngModel)]="row.rewardValue[i]" />
+      } @case('item') {
+      <select [(ngModel)]="row.rewardValue[i]">
+        <option *ngFor="let opt of foxItemOptions" [ngValue]="opt.value">
+          {{ opt.label | translate }}
+        </option>
+      </select>
+      } @case('coupon') {} @case('booster'){
+      <select [(ngModel)]="row.rewardValue[i]">
+        <option *ngFor="let opt of boosterTypeOptions" [ngValue]="opt.value">
+          {{ opt.label | translate }}
+        </option>
+      </select>
+      } }
+    </div>
+  </div>
+</ng-template>
+
+<!-- BTNS -->
+<ng-template #notEditBtns>
+  <app-button (click)="onEditLevel()"
+    ><fa-icon [icon]="editIcon"></fa-icon
+    >{{ "LABEL.EDIT" | translate }}</app-button
+  >
+  <app-button type="primary" (click)="onAddLevel()"
+    ><fa-icon [icon]="newIcon"></fa-icon
+    >{{ "LABEL.NEW_LEVEL" | translate }}</app-button
+  >
+</ng-template>
+
+<ng-template #editBtns>
+  <app-button (click)="onEditLevel()">{{
+    "LABEL.CANCEL" | translate
+  }}</app-button>
+  <app-button type="primary" (click)="onSaveLevel()">{{
+    "LABEL.SAVE" | translate
+  }}</app-button>
+</ng-template>

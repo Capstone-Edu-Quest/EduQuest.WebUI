@@ -2,7 +2,7 @@
     "angular-schematics.schematicsDefaultOptions": {
         "angular-component": {
             "ngOnInit": true,
-            "skipChangeDetectionOnPush": true,
+            "skipChangeDetectionOnPush": false,
             "skipDisplayBlock": true
         },
         "angular-*": {
@@ -10,4 +10,5 @@
             "style": "scss"
         }
     }
+
 }

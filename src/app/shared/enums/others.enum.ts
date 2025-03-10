@@ -29,3 +29,8 @@ export enum QuestTypeEnum {
     DAILY = 1,
     ONE_TIME // 2
 }
+
+export enum BoosterEnum {
+    EXP = 1,
+    GOLD
+}

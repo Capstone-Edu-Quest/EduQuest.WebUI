@@ -488,7 +488,20 @@
     "REDEEMED_COUPONS": "Redeemed times",
     "EXPIRED_COUPONS": "Expired coupons",
     "CREATED_COUPONS": "Created coupons",
-    "NEW_COUPONS": "New Coupons"
+    "NEW_COUPONS": "New Coupons",
+    "SUBSCRIPTIONS": "Subscriptions",
+    "LEVELS": "Level",
+    "GOLD": "Gold",
+    "ITEM": "Item",
+    "EXP_BOOSTER": "Exp Booster",
+    "GOLD_BOOSTER": "Gold Booster",
+    "EXP": "Exp",
+    "REWARD": "Reward",
+    "NEW_LEVEL": "New Level",
+    "UPDATE_LEVEL": "Update Level",
+    "ADD_REWARD": "Add Reward",
+    "CANCEL": "Cancel",
+    "SAVE": "Save"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",

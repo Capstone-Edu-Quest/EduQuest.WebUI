@@ -17,11 +17,13 @@
           [ngStyle]="onGetDataStyle(col, row)"
           (click)="handleClick(col, row)"
         >
+          @if(col.elementRef) {
           <ng-container
-            *ngIf="col.elementRef"
             [ngTemplateOutlet]="col.elementRef"
             [ngTemplateOutletContext]="{ row, index:  idx}"
           ></ng-container>
+          } @else {
+
           {{
             col.isMoney
               ? ("SIGNATURE.MONEY_VALUE"
@@ -36,6 +38,7 @@
                 | translate : { value: onGetVal(col, row) })
               : onGetVal(col, row)
           }}
+          }
           <fa-icon *ngIf="col.icon" [icon]="col.icon"></fa-icon>
         </td>
       </tr>

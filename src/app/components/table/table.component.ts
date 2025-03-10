@@ -1,17 +1,28 @@
-import { Component, Input, Output, type OnInit, EventEmitter } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  type OnInit,
+  EventEmitter,
+  OnDestroy,
+} from '@angular/core';
 import { TableColumn } from '../../shared/interfaces/others.interfaces';
 import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnDestroy {
+  @Input() changePage!: EventEmitter<number>;
   @Input() columns: TableColumn[] = [];
   @Input() data: any[] = [];
   @Input() itemsPerPage: number = 10;
   @Output() onRowClick = new EventEmitter<any>();
+
+  subscription$: Subscription = new Subscription();
 
   rightIcon = faAngleRight;
   leftIcon = faAngleLeft;
@@ -22,6 +33,18 @@ export class TableComponent implements OnInit {
 
   ngOnInit(): void {
     this.initPagination();
+    this.subscription$ = this.changePage.subscribe((pageNumber) => {
+      const max = Math.ceil(this.data.length / this.itemsPerPage);
+      
+      if (pageNumber === -1) {
+        this.currentPage = max;
+        return;
+      }
+
+      if (pageNumber <= max) {
+        this.currentPage = pageNumber;
+      }
+    });
   }
 
   initPagination() {
@@ -88,9 +111,9 @@ export class TableComponent implements OnInit {
   }
 
   onGetColLabel(column: TableColumn, row: any) {
-    if(!column.translateLabel) return '';
-    
-    if(column.translateLabel instanceof Function) {
+    if (!column.translateLabel) return '';
+
+    if (column.translateLabel instanceof Function) {
       return column.translateLabel(row);
     }
 
@@ -117,12 +140,16 @@ export class TableComponent implements OnInit {
   }
 
   handleRowClick(row: any) {
-    this.onRowClick.next(row)
+    this.onRowClick.next(row);
   }
 
   handleClick(col: TableColumn, row: any) {
-    if(col.onClick) {
+    if (col.onClick) {
       col.onClick(row);
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
   }
 }

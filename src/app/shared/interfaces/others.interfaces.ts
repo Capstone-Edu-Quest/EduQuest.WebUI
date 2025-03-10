@@ -43,7 +43,7 @@ export interface TableColumn {
   key: string;
   label: string;
   sortable?: boolean;
-  render?: (value: any) => string;
+  render?: (value: any) => string | number;
   translateLabel?: string | ((value: any) => string);
   isMoney?: boolean;
   style?: (data: any) => Object | Object;

@@ -175,6 +175,7 @@ import { QuestsSettingsComponent } from './pages/platform-settings/quests-settin
 import { ShopSettingsComponent } from './pages/platform-settings/shop-settings/shop-settings.component';
 import { PricingSettingsComponent } from './pages/platform-settings/pricing-settings/pricing-settings.component';
 import { CouponsSettingsComponent } from './pages/platform-settings/coupons-settings/coupons-settings.component';
+import { QuestsService } from './core/services/quests.service';
 
 export const AppDeclarations = [
   AppComponent,
@@ -376,7 +377,8 @@ export const appServices = [
   ImageService,
   CurrencyExchangePipe,
   VideoService,
-  ViolationsService
+  ViolationsService,
+  QuestsService
 ];
 
 export const appGuards = [

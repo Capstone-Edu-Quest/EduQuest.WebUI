@@ -1,0 +1,52 @@
+.level-section {
+  padding: 20px 0;
+  box-sizing: border-box;
+
+  .btn-ctn {
+    display: flex;
+    justify-content: end;
+    margin-bottom: 8px;
+    gap: 6px;
+
+    fa-icon {
+      margin-right: 5px;
+    }
+  }
+}
+
+.reward-input-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+
+  .group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--tertiary-bg) !important;
+    border: 1px solid var(--tertiary-text) !important;
+    max-width: 220px;
+    border-radius: 6px;
+    box-sizing: border-box;
+    padding: 0;
+
+    input,
+    select {
+      border: none !important;
+      outline: none !important;
+      background: none !important;
+      color: var(--primary-text) !important;
+    }
+
+    select {
+       padding-left: 4px;
+    }
+
+    .divider {
+      margin: 0;
+      width: 1px;
+      height: 12px;
+      border-right: 1px solid var(--quaternary-text) !important;
+    }
+  }
+}

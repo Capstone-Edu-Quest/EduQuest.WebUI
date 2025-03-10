@@ -39,7 +39,7 @@ export class PlatformStatisticsComponent implements OnInit {
 
   questsLineChartDataSet: ILineChartDataSet[] = [
     {
-      label: 'LABEL.COURSES_COMPLETION',
+      label: 'LABEL.QUESTS_COMPLETION',
       data: [50, 75, 77, 53, 12, 60],
     },
   ];
