@@ -501,7 +501,11 @@
     "UPDATE_LEVEL": "Update Level",
     "ADD_REWARD": "Add Reward",
     "CANCEL": "Cancel",
-    "SAVE": "Save"
+    "SAVE": "Save",
+    "ADD_ITEM": "Add New Item",
+    "TOTAL_ITEM_COUNT": "{{value}} Items",
+    "NO_ITEM": "No item to display",
+    "SELECT_MULTIPLE_ITEMS": "Select items"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",
@@ -533,7 +537,8 @@
     "NEED_ALEAST_ANSWERS": "Each question must have at least {{value}} answers",
     "INVALID_TIME_LIMIT": "Invalid time limit",
     "INVALID_PASSING_PERCENTAGE": "Invalid passing percentages",
-    "NEED_ALEAST_QUESTIONS": "You need to provide at least {{value}} question"
+    "NEED_ALEAST_QUESTIONS": "You need to provide at least {{value}} question",
+    "NO_ITEM_TO_ADD": "You have to select atleast 1 item to add"
   },
   "BUTTON": {
     "CONTINUE": "Continue",
@@ -568,7 +573,8 @@
     "BACK": "Back",
     "ADD_TAG": "New tag",
     "WARN": "warn",
-    "SUSPEND": "Suspend"
+    "SUSPEND": "Suspend",
+    "ADD": "Add"
   },
   "LANGUAGES": {
     "EN": "English",

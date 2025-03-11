@@ -1,1 +1,98 @@
-<p>shop-settings works!</p>,
+<div class="shop-items">
+  <div class="header">
+    <div class="item-count">
+      {{ "LABEL.TOTAL_ITEM_COUNT" | translate : { value: items.length } }}
+    </div>
+    <div class="btns">
+      <ng-container
+        [ngTemplateOutlet]="isEdit ? editBtns : notEditBtns"
+      ></ng-container>
+    </div>
+  </div>
+
+  <div class="manage-fox-items-list">
+    <div
+      class="item"
+      [ngClass]="{ isDeleted: deleteItems.includes(item.id) }"
+      *ngFor="let item of isEdit ? tempItems : items"
+    >
+      <div class="img-wrapper">
+        <img [src]="thumbnailPath + item.id + '.png'" />
+      </div>
+      <div class="item-name">
+        {{ "SHOP_ITEMS." + item.id.toUpperCase() | translate }}
+      </div>
+      <div class="price">
+        <fa-icon [icon]="coinIcon"></fa-icon>
+        <div class="number" *ngIf="!isEdit">{{ item.price }}</div>
+        <input *ngIf="isEdit" [(ngModel)]="item.price" type="number" />
+      </div>
+
+      <fa-icon
+        *ngIf="isEdit"
+        class="delete"
+        [icon]="deleteItems.includes(item.id) ? recoverIcon : removeIcon"
+        (click)="onDelete(item)"
+      ></fa-icon>
+    </div>
+
+    <div class="item add-card" (click)="onAdd()">
+      <fa-icon [icon]="addIcon"></fa-icon>
+      <div class="add-label">{{ "LABEL.ADD_ITEM" | translate }}</div>
+    </div>
+  </div>
+</div>
+
+<ng-template #notEditBtns>
+  <app-button (click)="onEdit()"
+    ><fa-icon [icon]="editIcon"></fa-icon
+    >{{ "LABEL.EDIT" | translate }}</app-button
+  >
+</ng-template>
+
+<ng-template #editBtns>
+  <app-button (click)="onEdit()">{{ "LABEL.CANCEL" | translate }}</app-button>
+  <app-button type="primary" (click)="onSave()">{{
+    "LABEL.SAVE" | translate
+  }}</app-button>
+</ng-template>
+
+<ng-template #deleteItem let-row="row">
+  <fa-icon
+    (click)="onDelete(row)"
+    style="color: var(--error); cursor: pointer"
+    [icon]="removeIcon"
+  ></fa-icon>
+</ng-template>
+
+<ng-template #addItemModal>
+  <div class="add-item-title">
+    {{ "LABEL.SELECT_MULTIPLE_ITEMS" | translate }}
+  </div>
+  <div class="no-item-to-add" *ngIf="availableItemsToAdd.length === 0">
+    {{ "LABEL.NO_ITEM" | translate }}
+  </div>
+  <div class="manage-fox-items-list adding-item">
+    <div
+      class="item"
+      *ngFor="let item of availableItemsToAdd"
+      [ngClass]="{
+        selected: selectedIdToAddItems.includes(item.id)
+      }"
+      [ngStyle]="{ cursor: 'pointer' }"
+      (click)="onSelectToAdd(item.id)"
+    >
+      <div class="img-wrapper">
+        <img [src]="thumbnailPath + item.id + '.png'" />
+      </div>
+      <div class="item-name">
+        {{ "SHOP_ITEMS." + item.id.toUpperCase() | translate }}
+      </div>
+    </div>
+  </div>
+
+  <div class="add-items-btn-ctn">
+    <app-button (click)="onCancelAdd()">{{'BUTTON.CANCEL' | translate}}</app-button>
+    <app-button (click)="onConfirmAdd()" type="primary">{{'BUTTON.ADD' | translate}}</app-button>
+  </div>
+</ng-template>

@@ -52,7 +52,7 @@ export class QuestsService {
           );
           break;
         case RewardTypeEnum.ITEM:
-          rewards.push(`${reward[i]} x1`);
+          rewards.push(`${this.translate.instant(`SHOP_ITEMS.${(reward[i] as string).toUpperCase()}`)} x1`);
           break;
         case RewardTypeEnum.COUPON:
           rewards.push(

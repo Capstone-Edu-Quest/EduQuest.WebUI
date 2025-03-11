@@ -9,12 +9,11 @@ import {
 } from '@angular/core';
 import { TableColumn } from '../../../shared/interfaces/others.interfaces';
 import { ILevel } from '../../../shared/interfaces/Platform.interface';
-import { BoosterEnum, RewardTypeEnum } from '../../../shared/enums/others.enum';
+import { RewardTypeEnum } from '../../../shared/enums/others.enum';
 import { QuestsService } from '../../../core/services/quests.service';
-import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faMinus, faPen, faPlus, faRotateLeft } from '@fortawesome/free-solid-svg-icons';
 import { ModalService } from '../../../core/services/modal.service';
 import { Subscription } from 'rxjs';
-import { FoxItems } from '../../../components/fox-3d/3d-setup/fox-3d.config';
 
 @Component({
   selector: 'app-level-settings',
@@ -26,6 +25,7 @@ export class LevelSettingsComponent
 {
   @ViewChild('expInput') expInputRef!: TemplateRef<any>;
   @ViewChild('rewardInput') rewardInputRef!: TemplateRef<any>;
+  @ViewChild('deleteLevel') deleteLevelRef!: TemplateRef<any>;
 
   subscription$: Subscription = new Subscription();
   changePage$: EventEmitter<number> = new EventEmitter<number>();
@@ -136,6 +136,7 @@ export class LevelSettingsComponent
   ];
 
   editingLevels: ILevel[] = [];
+  deletedLevels: number[] = [];
 
   // -------------
   rewardTypeSelectOptions: { value: string | number; label: string }[] = [];
@@ -144,6 +145,8 @@ export class LevelSettingsComponent
 
   newIcon = faPlus;
   editIcon = faPen;
+  removeIcon = faMinus;
+  recoverIcon = faRotateLeft;
 
   constructor(private quests: QuestsService, private modal: ModalService) {}
   ngOnInit(): void {
@@ -157,19 +160,31 @@ export class LevelSettingsComponent
         {
           key: 'id',
           label: 'LABEL.LEVELS',
+          customClass: (row: ILevel) => this.onGetDeletedState(row)
         },
         {
           key: 'exp',
           label: 'LABEL.EXP',
           elementRef: this.expInputRef,
+          customClass: (row: ILevel) => this.onGetDeletedState(row)
         },
         {
           key: 'reward',
           label: 'LABEL.REWARD',
           elementRef: this.rewardInputRef,
+          customClass: (row: ILevel) => this.onGetDeletedState(row)
+        },
+        {
+          key: 'action',
+          label: '',
+          elementRef: this.deleteLevelRef,
         },
       ]
     );
+  }
+
+  onGetDeletedState(row: ILevel) {
+    return this.deletedLevels.includes(row.id) ? 'isRemoved': '';
   }
 
   onAddLevel() {
@@ -179,8 +194,8 @@ export class LevelSettingsComponent
     const newLevel: ILevel = {
       id: this.levels.length + 1,
       exp: 0,
-      rewardType: [RewardTypeEnum.GOLD],
-      rewardValue: [0],
+      rewardType: [],
+      rewardValue: [],
     };
     this.editingLevels = JSON.parse(
       JSON.stringify(this.isEdit ? [...this.levels, newLevel] : [])
@@ -192,6 +207,7 @@ export class LevelSettingsComponent
     this.editingLevels = JSON.parse(
       JSON.stringify(this.isEdit ? this.levels : [])
     );
+    this.deletedLevels = [];
   }
 
   onSaveLevel() {
@@ -205,9 +221,28 @@ export class LevelSettingsComponent
     });
 
     this.isEdit = false;
-    this.levels = JSON.parse(JSON.stringify(this.editingLevels));
+    this.levels = JSON.parse(JSON.stringify(this.editingLevels))
+    .filter((l: ILevel) => !this.deletedLevels.includes(l.id))
+    .map(
+      (level: ILevel, i: number) => ({ ...level, id: i + 1 })
+    );
 
-    console.log(updatedLevels);
+    console.log('modified:', JSON.parse(JSON.stringify(this.editingLevels)));
+    console.log('result (re-ordered):', this.levels);
+    console.log('deleted:', this.deletedLevels);
+
+    this.deletedLevels = [];
+  }
+
+  onDeleteLevel(level: ILevel) {
+    const idx = this.deletedLevels.findIndex(l => l === level.id);
+
+    if(idx === -1) {
+      this.deletedLevels.push(level.id);
+      return;
+    }
+
+    this.deletedLevels.splice(idx, 1);
   }
 
   onInitSelectOptions() {
@@ -226,7 +261,17 @@ export class LevelSettingsComponent
     this.foxItemOptions = this.quests.getRewardOptions(RewardTypeEnum.ITEM);
   }
 
-  onAddReward() {}
+  onAddReward(level: ILevel) {
+    if (level.rewardType.length >= this.rewardTypeSelectOptions.length) return;
+
+    level.rewardType.push(RewardTypeEnum.GOLD);
+    level.rewardValue.push(1);
+  }
+
+  onRemoveReward(level: ILevel, idx: number) {
+    level.rewardType.splice(idx, 1);
+    level.rewardValue.splice(idx, 1);
+  }
 
   onGetInputType(rewardType: RewardTypeEnum) {
     switch (rewardType) {

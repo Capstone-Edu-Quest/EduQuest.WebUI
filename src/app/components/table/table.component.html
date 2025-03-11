@@ -15,6 +15,7 @@
         <td
           *ngFor="let col of columns"
           [ngStyle]="onGetDataStyle(col, row)"
+          [ngClass]="onGetClass(col, row)"
           (click)="handleClick(col, row)"
         >
           @if(col.elementRef) {

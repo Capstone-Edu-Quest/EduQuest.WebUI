@@ -50,6 +50,7 @@ export interface TableColumn {
   icon?: any;
   onClick?: (val: any) => void;
   elementRef?: TemplateRef<any>;
+  customClass?: (val:any) => string | string;
 }
 
 

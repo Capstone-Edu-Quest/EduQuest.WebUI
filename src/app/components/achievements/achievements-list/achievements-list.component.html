@@ -1,10 +1,24 @@
 <div class="achievement-list-ctn">
   <i nz-icon nzType="left" nzTheme="outline" (click)="updateViewIndex(-1)"></i>
   <div class="achievement-list-wrapper">
-    <div class="achievements-list" [ngStyle]="{transform: 'translateX(calc((100% / 2) * -' + currentViewIndex + '))'}">
+    <div
+      class="achievements-list"
+      [ngStyle]="{
+        transform:
+          'translateX(calc((100% / ' +
+          appearPerRow +
+          ') * -' +
+          currentViewIndex +
+          '))'
+      }"
+    >
       <app-achievement-card
         *ngFor="let achievement of achievements"
         [achievement]="achievement"
+        [ngStyle]="{
+          minWidth: 'calc(100% / ' + appearPerRow + ' - 20px)',
+          maxWidth: 'calc(100% / ' + appearPerRow + ' - 20px)'
+        }"
       ></app-achievement-card>
     </div>
   </div>

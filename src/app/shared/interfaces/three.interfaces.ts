@@ -34,3 +34,5 @@ export interface IShopItem {
   price: number;
   isOwned: boolean;
 }
+
+export interface IShopItemEdit extends Omit<IShopItem, 'isOwned'> {}

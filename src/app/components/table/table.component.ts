@@ -149,6 +149,15 @@ export class TableComponent implements OnInit, OnDestroy {
     }
   }
 
+  onGetClass(col: TableColumn, row: any) {
+    if(!col.customClass) return '';
+    if(col.customClass instanceof Function) {
+      return col.customClass(row);
+    }
+
+    return col.customClass;
+  }
+
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();
   }
