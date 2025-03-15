@@ -1,0 +1,35 @@
+.modal-coupon-wrapper {
+  .title {
+    font-weight: 500;
+    font-size: 16px;
+    margin-bottom: 16px;
+  }
+
+  .create-coupon-modal {
+    display: flex;
+    gap: 10%;
+    flex-wrap: wrap;
+
+    .create-coupon-group {
+      display: flex;
+      flex-wrap: wrap;
+      width: calc(50% - 5%);
+
+      .form-input-group {
+        width: 100%;
+      }
+    }
+
+    .time-ctn {
+      display: flex;
+      gap: 4px;
+    }
+  }
+
+  .btn-ctn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+}

@@ -45,7 +45,7 @@ export class CartComponent implements OnInit, OnDestroy {
     this.subsription$.add(
       this.coupon.inUseCoupon$.subscribe((coupon) => {
         this._coupon = coupon;
-        this.discountAmout = coupon.discount;
+        this.discountAmout = coupon?.discount ?? 0;
       })
     );
   }
@@ -67,7 +67,7 @@ export class CartComponent implements OnInit, OnDestroy {
   }
 
   removeCoupon() {
-    this.coupon.useCoupon('notUse');
+    this.coupon.useCoupon(null);
   }
 
   applyNewCoupon() {

@@ -36,7 +36,7 @@ export class NavbarCartComponent implements OnInit, OnDestroy {
   listenToCoupon() {
     this.subscription$.add(
       this.coupon.inUseCoupon$.subscribe((coupon) => {
-        this.discountAmout = coupon.discount;
+        this.discountAmout = coupon?.discount ?? 0;
       })
     );
   }

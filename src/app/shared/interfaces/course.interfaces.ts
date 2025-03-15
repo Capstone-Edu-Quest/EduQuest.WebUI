@@ -80,7 +80,7 @@ export interface IMaterialCreate<T> extends Omit<IMaterial<T>, 'id'> {}
 export interface IVideo {
   url: string;
   duration: number; // seconds
-  questions: IVideoQuestion[]
+  questions: IVideoQuestion[];
 }
 
 export interface IVideoQuestion {
@@ -88,7 +88,7 @@ export interface IVideoQuestion {
   answers: {
     answer: string;
     isCorrect: boolean;
-  }[]
+  }[];
 }
 export interface IDocument {
   content: string; // html
@@ -111,7 +111,7 @@ export interface IQuizQuestion {
 export interface IQuizOption {
   id?: string;
   content: string;
-  isCorrect: boolean
+  isCorrect: boolean;
 }
 // ----
 
@@ -134,9 +134,9 @@ export interface ICourseManageDetails extends Omit<ICourseDetails, 'author'> {
 export interface ICourseFullMetarialsView extends ICourse {
   stages: {
     id: string;
-  title: string;
-  description: string;
-    materials: IMaterial<IVideo | IDocument | IQuiz | IAssignment>[]
+    title: string;
+    description: string;
+    materials: IMaterial<IVideo | IDocument | IQuiz | IAssignment>[];
   }[];
   requirements: string[];
 }
@@ -156,12 +156,29 @@ export interface ICourseCart {
   total: number;
 }
 
-export interface ICoupon {
-  id: string;
+export interface ICoupon extends ICouponCreate {
   code: string;
-  discount: number; // %
+  usages: number; // number of time used
+  createdAt: string;
+  createdBy: string;
+}
+
+export interface ICouponCreate {
+  code: string | null; // unique
   description: string;
-  expireDate: string | null;
+  discount: number; // %
+  limit: number; // -1 = unlimited
+  startTime: string;
+  expireTime: string | null; // null = not expire
+  allowedUsePerUser: number; // number of times a user can use coupon -1 = unlimited
+  // whitelistUserIds: string[] | null; // Users can use coupon, null = all users
+  // whitelistCourseIds: string[] | null; // Courses can apply coupon, null = all courses
+}
+
+export interface ICouponCreateState
+  extends Omit<ICouponCreate, 'startTime' | 'expireTime'> {
+  startTime: string;
+  expireTime: string | null;
 }
 
 export interface IReview {
@@ -202,7 +219,7 @@ export interface ITrendingCourse {
     id: string;
     name: string;
     avatar: string | null;
-  },
+  };
   enrollments: number;
   tags: ITag[];
 }

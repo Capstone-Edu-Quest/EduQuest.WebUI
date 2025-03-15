@@ -7,27 +7,25 @@ import { ICoupon } from '../../shared/interfaces/course.interfaces';
 })
 export class CouponService {
   private defaultCoupon: ICoupon = {
-    id: 'coupon1',
-    code: 'EDUQUEST',
-    discount: 20,
-    description: 'Default',
-    expireDate: null,
+    code: 'SUMMER20',
+    description: 'Get 20% off on all courses this summer!',
+    discount: 0.2,
+    limit: -1,
+    usages: 45,
+    createdAt: '2025-02-20T10:00:00Z',
+    createdBy: 'admin',
+    startTime: '2025-03-01T00:00:00Z',
+    expireTime: null,
+    allowedUsePerUser: 1,
+    // whitelistUserIds: null,
+    // whitelistCourseIds: null,
   };
-  private notUse: ICoupon = {
-    id: 'notUse',
-    code: 'notUse',
-    discount: 0,
-    description: 'Coupon represent for not use',
-    expireDate: null,
-  };
-  public inUseCoupon$: BehaviorSubject<ICoupon> = new BehaviorSubject(
-    this.notUse
-  );
+  public inUseCoupon$: BehaviorSubject<ICoupon | null> = new BehaviorSubject<ICoupon | null> (null);
   constructor() {}
 
-  useCoupon(couponId: string) {
-    if (couponId === 'notUse') {
-      this.inUseCoupon$.next(this.notUse);
+  useCoupon(couponId: string | null) {
+    if (!couponId) {
+      this.inUseCoupon$.next(null);
     } else {
       const coupon: ICoupon = this.getCouponById(couponId);
       this.inUseCoupon$.next(coupon);

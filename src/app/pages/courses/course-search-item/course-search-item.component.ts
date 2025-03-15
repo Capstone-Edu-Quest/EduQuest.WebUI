@@ -64,7 +64,7 @@ export class CourseSearchItemComponent implements OnInit, OnDestroy {
   listenToCoupon() {
     this.subscription$.add(
       this.coupon.inUseCoupon$.subscribe((coupon) => {
-        this.discountAmount = coupon.discount;
+        this.discountAmount = coupon?.discount ?? 0;
       })
     );
   }

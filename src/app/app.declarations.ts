@@ -176,6 +176,7 @@ import { ShopSettingsComponent } from './pages/platform-settings/shop-settings/s
 import { PricingSettingsComponent } from './pages/platform-settings/pricing-settings/pricing-settings.component';
 import { CouponsSettingsComponent } from './pages/platform-settings/coupons-settings/coupons-settings.component';
 import { QuestsService } from './core/services/quests.service';
+import { CreateCouponComponent } from './pages/platform-settings/coupons-settings/create-coupon/create-coupon.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -311,7 +312,8 @@ export const AppDeclarations = [
   QuestsSettingsComponent,
   ShopSettingsComponent,
   PricingSettingsComponent,
-  CouponsSettingsComponent
+  CouponsSettingsComponent,
+  CreateCouponComponent,
 ];
 export const NGIcons = [
   EnterOutline,

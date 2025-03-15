@@ -1,1 +1,39 @@
-<p>coupons-settings works!</p>,
+<div class="coupons-settings">
+  <div class="btn-ctn">
+    <app-button type="primary" (click)="onCreateCoupon()">{{
+      "LABEL.CREATE_COUPON" | translate
+    }}</app-button>
+  </div>
+  <app-table [columns]="tableColumns" [data]="coupons"></app-table>
+</div>
+
+<ng-template #whitelistUser let-row="row">
+  <i *ngIf="!row.whitelistUserIds" style="color: var(--secondary-text)">{{
+    "LABEL.UNSET" | translate
+  }}</i>
+  <div *ngIf="row.whitelistUserIds">
+    {{
+      "LABEL.USERS_COUNT" | translate : { value: row.whitelistUserIds.length }
+    }}
+  </div>
+</ng-template>
+
+<ng-template #whitelistCourse let-row="row">
+  <i *ngIf="!row.whitelistCourseIds" style="color: var(--secondary-text)">{{
+    "LABEL.UNSET" | translate
+  }}</i>
+  <div *ngIf="row.whitelistCourseIds">
+    {{
+      "LABEL.COURSES_COUNT"
+        | translate : { value: row.whitelistCourseIds.length }
+    }}
+  </div>
+</ng-template>
+
+<ng-template #status let-row="row">
+  <div>{{'LABEL.' + onGetStatus(row) | translate}}</div>
+</ng-template>
+
+<ng-template #createCoupon>
+  <app-create-coupon></app-create-coupon>
+</ng-template>

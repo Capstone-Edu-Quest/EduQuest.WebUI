@@ -176,12 +176,93 @@ input {
   background-color: var(--tertiary-bg) !important;
   border: 1px solid var(--tertiary-text) !important;
   outline: none;
-  padding: 3px 6px !important;
+  padding: 4px 6px !important;
   box-sizing: border-box;
-  border-radius: 4px;
+  border-radius: 6px;
   color: var(--primary-text) !important;
+  font-family: "Be Vietnam Pro", sans-serif !important;
 
   &:disabled {
     color: var(--tertiary-text) !important;
+  }
+
+  &[type="date"],
+  &[type="time"] {
+    &::-webkit-calendar-picker-indicator {
+      display: none;
+    }
+  }
+}
+
+.form-input-group {
+  display: grid;
+  grid-template-columns: repeat(24, 1fr);
+  gap: 8px;
+  margin-bottom: 12px;
+
+  label {
+    grid-column: 1/10;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+  }
+
+  .wrapper {
+    grid-column: 10/25;
+    display: flex;
+    gap: 6px;
+    align-items: center;
+    width: 100%;
+    input {
+      width: 100% !important;
+
+      &[type="number"] {
+        width: 50% !important;
+        min-width: 120px;
+      }
+    }
+
+    .remove-icon {
+      color: var(--alert);
+      cursor: pointer;
+    }
+  }
+
+  .add-label-input {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    grid-column: 10/25;
+    font-size: 11px;
+    color: var(--secondary-text);
+    cursor: pointer;
+    transition: all 0.1s linear;
+
+    &:hover {
+      color: var(--primary-text);
+    }
+
+    fa-icon {
+      font-size: 14px;
+    }
+
+    .text {
+      .main-text {
+        font-size: 12px;
+      }
+      .sub-text {
+        font-size: 9px;
+      }
+    }
+  }
+
+  input, .time-ctn {
+    font-size: 12px !important;
+    grid-column: 10/25;
+
+    &[type="number"] {
+      width: 50%;
+      min-width: 120px;
+    }
   }
 }

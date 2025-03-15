@@ -40,7 +40,7 @@ export class CartItemComponent implements OnInit, OnDestroy {
   listenToCoupon() {
     this.subsription$.add(
       this.coupon.inUseCoupon$.subscribe((coupon) => {
-        this.discountValue = coupon.discount;
+        this.discountValue = coupon?.discount ?? 0;
       })
     );
   }

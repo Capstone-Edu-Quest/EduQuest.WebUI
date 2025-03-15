@@ -179,13 +179,13 @@
         {{ "LABEL.COUPON" | translate }}
       </div>
 
-      <div class="coupon" *ngIf="_coupon && _coupon.code !== 'notUse'">
+      <div class="coupon" *ngIf="_coupon && _coupon.code">
         <div class="info">
           <div class="code">
             <b>{{ _coupon.code }}</b>
             {{ "LABEL.CODE_IS_APPLIED" | translate }}
           </div>
-          <div class="discount">-{{ _coupon.discount }}%</div>
+          <div class="discount">-{{ _coupon?.discount ?? 0 }}%</div>
         </div>
         <i nz-icon nzType="close" (click)="removeCoupon()"></i>
       </div>

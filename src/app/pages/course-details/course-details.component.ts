@@ -263,7 +263,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     this.subscription$.add(
       this.coupon.inUseCoupon$.subscribe((coupon) => {
         this._coupon = coupon;
-        this.discountAmount = coupon.discount;
+        this.discountAmount = coupon?.discount ?? 0;
       })
     );
   }
@@ -311,7 +311,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   }
 
   removeCoupon() {
-    this.coupon.useCoupon('notUse');
+    this.coupon.useCoupon(null);
   }
 
   ngOnDestroy(): void {

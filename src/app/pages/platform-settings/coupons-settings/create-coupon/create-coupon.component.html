@@ -1,0 +1,116 @@
+<div class="modal-coupon-wrapper">
+  <div class="title">{{ "LABEL.NEW_COUPON" | translate }}</div>
+  <div class="create-coupon-modal">
+    <div class="create-coupon-group" *ngFor="let key of getRenderKeys()">
+      <ng-container
+        *ngTemplateOutlet="getTypeOfInput(key); context: { key }"
+      ></ng-container>
+    </div>
+  </div>
+
+  <div class="btn-ctn">
+    <app-button (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</app-button>
+    <app-button (click)="onCreate()" type="primary">{{'BUTTON.CREATE' | translate}}</app-button>
+  </div>
+</div>
+
+<ng-template #timeGroup let-key="key">
+  <div class="form-input-group">
+    <label>{{ "LABEL." + key.toUpperCase() | translate }}</label>
+    <div class="time-ctn">
+      @if(key === 'startTime' ) {
+        <input type="time" [(ngModel)]="startTime" />
+        <input type="date" [(ngModel)]="startDate" />
+      }
+      @if(key === 'expireTime') {
+        <input type="time" [(ngModel)]="expireTime" />
+        <input type="date" [(ngModel)]="expireDate" />
+      }
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #textInput let-key="key">
+  <div class="form-input-group">
+    <label>{{ "LABEL." + key.toUpperCase() | translate }}</label>
+    <div class="wrapper">
+      <input
+        [placeholder]="'LABEL.' + key.toUpperCase() | translate"
+        *ngIf="key !== 'code' || coupon.code !== null"
+        [(ngModel)]="coupon[getCouponKey(key)]"
+      />
+      @if(key === 'code') {
+      <!-- Remove code -->
+      <fa-icon
+        *ngIf="coupon.code !== null"
+        [icon]="removeIcon"
+        class="remove-icon"
+        (click)="onRemoveCode()"
+      ></fa-icon>
+      <!--  -->
+      <!-- Add code -->
+      <div
+        class="add-label-input"
+        *ngIf="coupon.code === null"
+        (click)="onAddCode()"
+      >
+        <fa-icon [icon]="newIcon"></fa-icon>
+        <div class="text">
+          <div class="main-text">{{ "LABEL.ADD_CODE_INPUT" | translate }}</div>
+          <div class="sub-text">
+            {{ "LABEL.ADD_CODE_INPUT_SUB" | translate }}
+          </div>
+        </div>
+      </div>
+      <!--  -->
+      }
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #numberInput let-key="key">
+  <div class="form-input-group">
+    <label>{{ "LABEL." + key.toUpperCase() | translate }}</label>
+    <div class="wrapper">
+      <input
+        *ngIf="coupon.limit !== -1 || key !== 'limit'"
+        [placeholder]="'LABEL.' + key.toUpperCase() | translate"
+        type="number"
+        [(ngModel)]="coupon[getCouponKey(key)]"
+      />
+
+      <!-- Remove limit -->
+      <fa-icon
+        class="remove-icon"
+        *ngIf="coupon.limit !== -1 && key === 'limit'"
+        [icon]="removeIcon"
+        (click)="onRemoveLimit()"
+      ></fa-icon>
+      <!--  -->
+
+      <!-- Add limit -->
+      <div
+        class="add-label-input"
+        *ngIf="coupon.limit === -1 && key === 'limit'"
+        (click)="onAddLimit()"
+      >
+        <fa-icon [icon]="newIcon"></fa-icon>
+        <div class="text">
+          <div class="main-text">{{ "LABEL.ADD_LIMIT_INPUT" | translate }}</div>
+          <div class="sub-text">
+            {{ "LABEL.ADD_LIMIT_INPUT_SUB" | translate }}
+          </div>
+        </div>
+      </div>
+      <!--  -->
+
+      <!-- Discount % icon -->
+      <span class="icon" *ngIf="key === 'discount'">%</span>
+      <!--  -->
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #arrayInput ley-key="key"></ng-template>
+
+<ng-template #none></ng-template>
