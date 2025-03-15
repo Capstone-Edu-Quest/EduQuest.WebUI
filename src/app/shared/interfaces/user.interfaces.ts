@@ -21,6 +21,7 @@ export interface IUser {
   statistic: IUserStatistics;
   lastActive?: string;
   mascotItem: string[];
+  isPremium: boolean
 }
 
 export interface IUserStatistics {

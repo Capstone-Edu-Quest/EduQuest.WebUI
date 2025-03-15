@@ -47,8 +47,9 @@ import { PlatformStatisticsComponent } from './pages/platform-settings/platform-
 import { LevelSettingsComponent } from './pages/platform-settings/level-settings/level-settings.component';
 import { QuestsSettingsComponent } from './pages/platform-settings/quests-settings/quests-settings.component';
 import { ShopSettingsComponent } from './pages/platform-settings/shop-settings/shop-settings.component';
-import { PricingSettingsComponent } from './pages/platform-settings/pricing-settings/pricing-settings.component';
 import { CouponsSettingsComponent } from './pages/platform-settings/coupons-settings/coupons-settings.component';
+import { PricingComponent } from './pages/pricing/pricing.component';
+import { AdvanceSettingsComponent } from './pages/platform-settings/advance-settings/advance-settings.component';
 
 const routes: Routes = [
   {
@@ -257,7 +258,10 @@ const routes: Routes = [
         path: '',
         component: ProfileComponent,
         canActivate: [AuthGuard, RoleGuard],
-        data: { blockedRoles: [WebRole.ADMIN, WebRole.STAFF], redirectUrl: ['/users-manage'] },
+        data: {
+          blockedRoles: [WebRole.ADMIN, WebRole.STAFF],
+          redirectUrl: ['/users-manage'],
+        },
       },
       {
         path: ':userId',
@@ -357,29 +361,35 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        component: PlatformStatisticsComponent
+        component: PlatformStatisticsComponent,
       },
       {
         path: 'level',
-        component: LevelSettingsComponent
+        component: LevelSettingsComponent,
       },
       {
         path: 'quests',
-        component: QuestsSettingsComponent
+        component: QuestsSettingsComponent,
       },
       {
         path: 'shop-items',
-        component: ShopSettingsComponent
-      },
-      {
-        path: 'pricing',
-        component: PricingSettingsComponent
+        component: ShopSettingsComponent,
       },
       {
         path: 'coupons',
-        component: CouponsSettingsComponent
+        component: CouponsSettingsComponent,
       },
-    ]
+      {
+        path: 'advance-settings',
+        canActivate: [RoleGuard],
+        data: { allowedRoles: [WebRole.ADMIN] },
+        component: AdvanceSettingsComponent,
+      },
+    ],
+  },
+  {
+    path: 'pricing',
+    component: PricingComponent,
   },
 ];
 

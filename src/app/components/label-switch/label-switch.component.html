@@ -1,0 +1,22 @@
+<div class="select-label-switch">
+  <div
+    class="selected-obj"
+    [ngStyle]="{
+        width: 'calc(' + 100 / switchValues.length + '% - 8px)',
+        left: 'calc(3px + ' + (100 / switchValues.length) * selectedIndex + '%)',
+    }"
+  ></div>
+  <div
+    class="switch-item"
+    *ngFor="let item of switchValues; let i = index"
+    (click)="onChange(item.key)"
+    [ngClass]="{
+        selected: i === selectedIndex,
+    }"
+    [ngStyle]="{
+            width: 'calc(' + 100 / switchValues.length + '% - 8px)',
+        }"
+  >
+    {{ item.label | translate }}
+  </div>
+</div>

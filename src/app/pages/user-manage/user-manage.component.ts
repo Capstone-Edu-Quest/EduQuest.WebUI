@@ -103,6 +103,7 @@ export class UserManageComponent implements OnInit, AfterViewInit {
       avatarUrl: 'https://example.com/avatars/david.png',
       roleId: WebRole.INSTRUCTOR,
       status: 'active',
+      isPremium: false,
       statistic: {
         userId: 'u1',
         totalActiveDay: 180,
@@ -128,6 +129,7 @@ export class UserManageComponent implements OnInit, AfterViewInit {
       avatarUrl: 'https://example.com/avatars/emily.png',
       roleId: WebRole.LEARNER,
       status: 'active',
+      isPremium: false,
       statistic: {
         userId: 'u2',
         totalActiveDay: 90,

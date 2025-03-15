@@ -73,6 +73,7 @@ export class UserService {
       phone: '+1234567890',
       avatarUrl: 'https://example.com/avatars/david.png',
       roleId: WebRole.LEARNER,
+      isPremium: true,
       status: 'active',
       statistic: {
         userId: 'u1',

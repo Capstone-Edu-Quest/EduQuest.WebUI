@@ -1,0 +1,134 @@
+.pricing-page {
+  padding: 35px 5vw;
+  box-sizing: border-box;
+
+  .title {
+    font-size: 22px;
+    font-weight: 500;
+  }
+
+  .package-duration {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+
+    .switch {
+      width: 100%;
+      max-width: 300px;
+    }
+  }
+
+  .packages-ctn {
+    margin-top: 15px;
+    display: flex;
+    gap: 22px;
+    justify-content: center;
+    align-items: stretch;
+    padding: 0 5vw;
+    box-sizing: border-box;
+
+    .package {
+      width: calc(50% - 22px);
+      padding: 18px 25px;
+      box-sizing: border-box;
+      border-radius: 20px;
+      background: var(--tertiary-bg);
+      border: 1px solid var(--quaternary-bg);
+      
+
+      .package-name {
+        font-size: 13px;
+        font-weight: 500;
+        text-transform: uppercase;
+      }
+
+      .price {
+        font-size: 25px;
+        font-weight: 500;
+        margin-top: 12px;
+      }
+
+      .package-sub {
+        font-size: 11px;
+        margin-top: 2px;
+      }
+
+      .upgrade {
+        font-size: 14px;
+        text-align: center;
+        margin-top: 20px;
+        padding: 10px 15px;
+        border-radius: 10px;
+        background: var(--brand-05);
+        font-weight: 500;
+        text-transform: uppercase;
+        border: 1px solid transparent;
+        cursor: pointer;
+        transition: all 0.1s linear;
+
+        &:hover {
+          background: transparent;
+          border: 1px solid var(--brand-05);
+        }
+
+        &.applied {
+          background: var(--disabled-text);
+          border: 1px solid var(--quaternary-text);
+          cursor: not-allowed;
+        }
+      }
+
+      .description {
+        margin-top: 20px;
+
+        .describe-text {
+          font-size: 13px;
+          font-weight: 500;
+        }
+
+        .available-features {
+          margin-top: 15px;
+          font-size: 13px;
+          display: flex;
+          flex-direction: column;
+          gap: 10px;
+
+          .feature {
+            display: flex;
+            gap: 8px;
+            fa-icon {
+              color: var(--brand-light);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.select-package-switch {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  padding: 3px;
+  box-sizing: border-box;
+  justify-content: center;
+  background: var(--tertiary-bg);
+  border-radius: 12px;
+  position: relative;
+
+  .switch-item {
+    padding: 4px 8px;
+    box-sizing: border-box;
+    text-align: center;
+    color: var(--secondary-text);
+    cursor: pointer;
+  }
+
+  .selected-obj {
+    position: absolute;
+    background: var(--brand-02);
+    height: calc(100% - 6px);
+    border-radius: 12px;
+  }
+}

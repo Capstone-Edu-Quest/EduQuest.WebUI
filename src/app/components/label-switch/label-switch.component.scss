@@ -1,0 +1,39 @@
+$border-radius: 15px;
+$ctn-padding: 3px;
+$children-padding: 7px 8px;
+
+.select-label-switch {
+    display: flex;
+    gap: 8px;
+    font-size: 13px;
+    padding: $ctn-padding;
+    box-sizing: border-box;
+    justify-content: center;
+    background: var(--tertiary-bg);
+    border-radius: $border-radius;
+    position: relative;
+    user-select: none;  
+  
+    .switch-item {
+      padding: $children-padding;
+      box-sizing: border-box;
+      text-align: center;
+      color: var(--secondary-text);
+      cursor: pointer;
+      z-index: 1;
+
+      &.selected {
+        color: var(--primary-text);
+        font-weight: 500;
+      }
+    }
+  
+    .selected-obj {
+      position: absolute;
+      background: var(--brand-02);
+      height: calc(100% - $ctn-padding * 2);
+      border-radius: $border-radius;
+      transition: all 0.1s ease-out;
+      z-index: 0;
+    }
+  }

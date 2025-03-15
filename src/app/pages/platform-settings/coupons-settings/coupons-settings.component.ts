@@ -126,7 +126,7 @@ export class CouponsSettingsComponent implements OnInit, AfterViewInit {
       {
         key: 'discount',
         label: 'LABEL.DISCOUNT',
-        render: (coupon: ICoupon) => `${coupon?.discount ?? 0 * 100}%`,
+        render: (coupon: ICoupon) => `${(coupon?.discount ?? 0) * 100}%`,
       },
       {
         key: 'use_per_user',

@@ -1,0 +1,64 @@
+<div class="pricing-page">
+  <div class="title text-gradient">{{ "LABEL.PRICING" | translate }}</div>
+
+  <div class="package-duration">
+    <div class="switch">
+      <app-label-switch [switchValues]="switchValues" (onValueChange)="onValueChange($event)" />
+    </div>
+  </div>
+
+  <div class="packages-ctn">
+    <ng-container
+      *ngTemplateOutlet="pricingCard; context: { info: getPackageInfo('free') }"
+    ></ng-container>
+    <ng-container
+      *ngTemplateOutlet="
+        pricingCard;
+        context: { info: getPackageInfo('premium') }
+      "
+    ></ng-container>
+  </div>
+</div>
+
+<ng-template #pricingCard let-info="info">
+  <div class="package">
+    <div class="package-name">
+      {{ info?.packageName | translate }}
+    </div>
+    <div class="price">
+      {{
+        "SIGNATURE.MONEY_VALUE"
+          | translate
+            : { value: info?.price | currencyExchange : { toString: true } }
+      }}
+    </div>
+    <div class="package-sub">
+      {{ info?.packageTime | translate }}
+    </div>
+
+    <div
+      class="upgrade"
+      [ngClass]="{
+        applied: info?.action === 'LABEL.APPLIED'
+      }"
+    >
+      {{ info?.action | translate }}
+    </div>
+
+    <div class="description">
+      <div class="describe-text">{{ info.packageDescribe | translate }}:</div>
+      <div class="available-features">
+        <div
+          class="feature"
+          *ngFor="
+            let text of (
+              info?.features | translate : info.packageDescribeValue
+            ).split(' | ')
+          "
+        >
+          <fa-icon [icon]="lightningIcon"></fa-icon>{{ text }}
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>

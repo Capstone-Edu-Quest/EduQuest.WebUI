@@ -1,23 +1,57 @@
-import { Component, type OnInit } from '@angular/core';
+import { Component, OnDestroy, type OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { UserService } from '../../core/services/user.service';
+import { Subscription } from 'rxjs';
+import { WebRole } from '../../shared/enums/user.enum';
 
 @Component({
   selector: 'app-platform-settings',
   templateUrl: './platform-settings.component.html',
   styleUrl: './platform-settings.component.scss',
 })
-export class PlatformSettingsComponent implements OnInit {
-  tabs: any[] = [
+export class PlatformSettingsComponent implements OnInit, OnDestroy {
+  subscription$: Subscription = new Subscription();
+
+  defaultTabs: any[] = [
     { label: 'LABEL.STATISTICS', link: '/platform-settings' },
     { label: 'LABEL.LEVEL_EXP', link: 'level' },
     { label: 'LABEL.QUESTS', link: 'quests' },
     { label: 'LABEL.SHOP_ITEMS', link: 'shop-items' },
-    { label: 'LABEL.PRICING', link: 'pricing' },
     { label: 'LABEL.COUPONS', link: 'coupons' },
   ];
 
-  constructor() {}
+  adminTabs: any[] = [
+    { label: 'LABEL.ADVANCE_SETTINGS', link: 'advance-settings' },
+  ];
 
-  ngOnInit(): void {}
+  tabs: any[] = [];
 
+  constructor(private user: UserService) {}
+
+  ngOnInit(): void {
+    this.listenToUser();
+  }
+
+  listenToUser() {
+    this.subscription$.add(
+      this.user.user$.subscribe((user) => {
+        this.tabs = [];
+        if (user) {
+          switch (user.roleId) {
+            case WebRole.ADMIN:
+              this.tabs.push(...this.defaultTabs);
+              this.tabs.push(...this.adminTabs);
+              break;
+            case WebRole.STAFF:
+              this.tabs.push(...this.defaultTabs);
+              break;
+          }
+        }
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
+  }
 }

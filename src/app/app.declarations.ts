@@ -173,10 +173,12 @@ import { PlatformStatisticsComponent } from './pages/platform-settings/platform-
 import { LevelSettingsComponent } from './pages/platform-settings/level-settings/level-settings.component';
 import { QuestsSettingsComponent } from './pages/platform-settings/quests-settings/quests-settings.component';
 import { ShopSettingsComponent } from './pages/platform-settings/shop-settings/shop-settings.component';
-import { PricingSettingsComponent } from './pages/platform-settings/pricing-settings/pricing-settings.component';
 import { CouponsSettingsComponent } from './pages/platform-settings/coupons-settings/coupons-settings.component';
 import { QuestsService } from './core/services/quests.service';
 import { CreateCouponComponent } from './pages/platform-settings/coupons-settings/create-coupon/create-coupon.component';
+import { PricingComponent } from './pages/pricing/pricing.component';
+import { LabelSwitchComponent } from './components/label-switch/label-switch.component';
+import { AdvanceSettingsComponent } from './pages/platform-settings/advance-settings/advance-settings.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -209,6 +211,7 @@ export const AppDeclarations = [
   LineChartComponent,
   BarChartComponent,
   RadarChartComponent,
+  LabelSwitchComponent,
   // Home
   HomeComponent,
   HomeStatisticsComponent,
@@ -311,9 +314,11 @@ export const AppDeclarations = [
   LevelSettingsComponent,
   QuestsSettingsComponent,
   ShopSettingsComponent,
-  PricingSettingsComponent,
+  AdvanceSettingsComponent,
   CouponsSettingsComponent,
   CreateCouponComponent,
+  // Pricing
+  PricingComponent
 ];
 export const NGIcons = [
   EnterOutline,
