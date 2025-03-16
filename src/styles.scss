@@ -200,6 +200,12 @@ input {
   gap: 8px;
   margin-bottom: 12px;
 
+  .text-dropdown-group {
+    grid-column: 10/25;
+    display: flex;
+    gap: 4px;
+  }
+
   label {
     grid-column: 1/10;
     font-size: 14px;

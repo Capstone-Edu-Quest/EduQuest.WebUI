@@ -1,0 +1,121 @@
+<div class="add-new-quest-modal">
+  <div class="add-quest-title">{{ "LABEL.ADD_NEW_QUEST" | translate }}</div>
+
+  <div class="quest-form">
+    <!-- Quest Name -->
+    <div class="form-input-group">
+      <label>{{ "LABEL.QUEST_NAME" | translate }}</label>
+      <input [(ngModel)]="newQuest.title" [placeholder]="'LABEL.QUEST_NAME' | translate" />
+    </div>
+
+    <!-- Quest Type -->
+    <div class="form-input-group">
+      <label>{{ "LABEL.QUEST_TYPE" | translate }}</label>
+      <div class="wrapper">
+        <div>{{ "LABEL." + onGetQuestTypeLabel() | translate }}</div>
+        <fa-icon
+          class="swap-icon"
+          (click)="onSwapQuestType()"
+          [icon]="swapIcon"
+        ></fa-icon>
+      </div>
+    </div>
+
+    <!-- Mission Type -->
+    <div class="form-input-group">
+      <label>{{ "LABEL.MISSION" | translate }}</label>
+      <!-- Mission -->
+      <div class="text-dropdown-group">
+        <div class="mission-label">
+          <div
+            class="mission-text"
+            *ngFor="
+              let text of (
+                onGetQuestMissionLabel() | translate : mockValue
+              ).split('|');
+              let i = index
+            "
+          >
+            <label *ngIf="text !== '[]'">{{ text }}</label>
+            <input
+              ngClass="between-input"
+              *ngIf="text === '[]'"
+              type="number"
+              [(ngModel)]="newQuest.questValue[getInputIndex(i)]"
+            />
+          </div>
+        </div>
+
+        <fa-icon class="dropdown-icon" [icon]="downIcon"></fa-icon>
+
+        <div class="dropdown-mission-type" @fadeInOut>
+          <div
+            (click)="onSwitchOption(o.value)"
+            class="opt"
+            [ngClass]="{
+              selected: o.value === newQuest.questType
+            }"
+            *ngFor="let o of missionTypeOptions"
+          >
+            {{ o.label | translate }}
+          </div>
+        </div>
+      </div>
+      <!--  -->
+    </div>
+
+    <!-- Rewards -->
+    <div class="form-input-group rewards-group">
+      <label>{{ "LABEL.REWARD" | translate }}</label>
+      <div class="rewards-ctn">
+        <ng-container *ngTemplateOutlet="rewardInput"></ng-container>
+
+        <div *ngIf="newQuest.rewardType.length < rewardTypeSelectOptions.length" class="add-label-input" (click)="onAddReward()">
+          <fa-icon [icon]="addIcon"></fa-icon>
+          {{ "LABEL.ADD_REWARD" | translate }}
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-ctn">
+    <app-button (click)="onCancel()">{{'BUTTON.CANCEL' | translate}}</app-button>
+    <app-button (click)="onCreate()" type="primary">{{'BUTTON.CREATE_COUPON' | translate}}</app-button>
+  </div>
+</div>
+
+<ng-template #rewardInput>
+  <div class="reward" *ngFor="let reward of newQuest.rewardType; let i = index">
+    <select [(ngModel)]="newQuest.rewardType[i]">
+      <option *ngFor="let opt of rewardTypeSelectOptions" [ngValue]="opt.value">
+        {{ opt.label | translate }}
+      </option>
+    </select>
+
+    <div class="divider"></div>
+
+    @switch(onGetInputType(i)) { @case('input') {
+    <input [(ngModel)]="newQuest.rewardValue[i]" type="number" />
+    } @case('item') {
+    <select [(ngModel)]="newQuest.rewardValue[i]">
+      <option *ngFor="let opt of foxItemOptions" [ngValue]="opt.value">
+        {{ "SHOP_ITEMS." + opt.label.toUpperCase() | translate }}
+      </option>
+    </select>
+    } @case('coupon') {
+      <input [(ngModel)]="newQuest.rewardValue[i]" type="number" /> %
+    } @case('booster'){
+    <select [(ngModel)]="newQuest.rewardValue[i]">
+      <option *ngFor="let opt of boosterTypeOptions" [ngValue]="opt.value">
+        {{ opt.label | translate }}
+      </option>
+    </select>
+    } }
+
+    <fa-icon
+        (click)="onRemoveReward(i)"
+        class="remove-icon"
+        [icon]="removeIcon"
+      ></fa-icon>
+  </div>
+</ng-template>

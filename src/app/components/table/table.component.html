@@ -2,8 +2,24 @@
   <table>
     <thead>
       <tr>
-        <th *ngFor="let col of columns">
-          {{ col.label | translate }}
+        <th
+          *ngFor="let col of columns"
+          (click)="onSwitchKey(col)"
+          [ngStyle]="{
+            cursor: col.isSwitchData ? 'pointer' : '',
+            display: col.isSwitchData ? 'flex' : '',
+            justifyContent: 'space-between'
+          }"
+        >
+          <div class="info">
+            {{ col.label | translate }}
+            <span *ngIf="col.isSwitchData"
+              >({{ onGetCurrentKeyLabel(col) | translate }})</span
+            >
+          </div>
+          <div class="filter-items" *ngIf="col.isSwitchData">
+            <div class="item" *ngFor="let it of onGetCurrentKeyValues(col)" [ngClass]="{selected: onGetCurrentKeyLabel(col) === it}"></div>
+          </div>
         </th>
       </tr>
     </thead>
@@ -24,7 +40,6 @@
             [ngTemplateOutletContext]="{ row, index:  idx}"
           ></ng-container>
           } @else {
-
           {{
             col.isMoney
               ? ("SIGNATURE.MONEY_VALUE"
@@ -35,8 +50,7 @@
                         | currencyExchange : { toString: true }
                     })
               : col.translateLabel
-              ? (onGetColLabel(col, row)
-                | translate : { value: onGetVal(col, row) })
+              ? (onGetColLabel(col, row) | translate : onGetVal(col, row))
               : onGetVal(col, row)
           }}
           }

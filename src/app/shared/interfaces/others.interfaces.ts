@@ -43,7 +43,7 @@ export interface TableColumn {
   key: string;
   label: string;
   sortable?: boolean;
-  render?: (value: any) => string | number;
+  render?: (value: any) => string | number | (number | string)[] | object;
   translateLabel?: string | ((value: any) => string);
   isMoney?: boolean;
   style?: (data: any) => Object | Object;
@@ -51,4 +51,5 @@ export interface TableColumn {
   onClick?: (val: any) => void;
   elementRef?: TemplateRef<any>;
   customClass?: (val: any) => string | string;
+  isSwitchData?: boolean;
 }

@@ -11,6 +11,7 @@ import { ModalService } from '../../core/services/modal.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { IUser } from '../../shared/interfaces/user.interfaces';
+import { WebRole } from '../../shared/enums/user.enum';
 
 @Component({
   selector: 'app-footer',
@@ -22,14 +23,19 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   user!: IUser | null;
 
-  eduquestLink = [
+  defaultTabs = [
     { name: 'LABEL.ABOUT', link: '/about' },
-    { name: 'LABEL.PRICING', link: '/pricing' },
     // { name: 'LABEL.CONTACT', link: '/contact' },
     { name: 'LABEL.HELP', link: '/help' },
     { name: 'LABEL.PRIVACY', link: '/privacy' },
     { name: 'LABEL.TERMS', link: '/terms' },
   ];
+
+  normalUserTabs = [
+    { name: 'LABEL.PRICING', link: '/pricing' }
+  ]
+
+  eduquestLink: any[] = [];
 
   private subscription$: Subscription = new Subscription();
   currentLanguage: string = this.translate.currentLang;
@@ -53,7 +59,15 @@ export class FooterComponent implements OnInit, OnDestroy {
   listenToUser() {
     this.subscription$.add(
       this.UserService.user$.subscribe((user) => {
+        this.eduquestLink = [...this.defaultTabs];
         this.user = user;
+
+        if (
+          !user ||
+          [WebRole.INSTRUCTOR, WebRole.LEARNER].includes(user.roleId)
+        ) {
+          this.defaultTabs.push(...this.normalUserTabs);
+        }
       })
     );
   }

@@ -1,1 +1,30 @@
-<p>quests-settings works!</p>,
+<div class="quests-setting">
+  <div class="header">
+    <div class="blank"></div>
+
+    <div class="input-group">
+      <!-- <select></select> -->
+      <nz-input-group [nzSuffix]="suffixIconButton" style="width: 32vw">
+        <input
+          [(ngModel)]="searchText"
+          (keydown)="onConfirmSearch($event)"
+          nz-input
+          placeholder="{{ 'MESSAGE.SEARCH_QUESTS' | translate }}"
+        />
+      </nz-input-group>
+
+      <ng-template #suffixIconButton>
+        <i nz-icon nzType="search" style="color: var(--secondary-text)"></i>
+      </ng-template>
+    </div>
+    <app-button type="primary" (click)="onAddQuest()"
+      ><fa-icon [icon]="addIcon"></fa-icon
+      >{{ "BUTTON.ADD_QUEST" | translate }}</app-button
+    >
+  </div>
+  <app-table [columns]="tableColumns" [data]="quests"></app-table>
+</div>
+
+<ng-template #addQuestModal>
+  <app-create-new-quest></app-create-new-quest>
+</ng-template>

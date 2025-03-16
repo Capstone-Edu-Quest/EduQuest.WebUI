@@ -1,0 +1,148 @@
+.add-new-quest-modal {
+  margin-top: 5px;
+
+  .add-quest-title {
+    font-size: 16px;
+    font-weight: 500;
+  }
+
+  .quest-form {
+    margin-top: 15px;
+
+    .text-dropdown-group {
+      cursor: pointer;
+      color: var(--secondary-text);
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      position: relative;
+
+      .mission-label {
+        color: var(--primary-text);
+        display: flex;
+        align-items: center;
+        gap: 6px;
+
+        .between-input {
+          min-width: unset !important;
+          width: 50px !important;
+        }
+      }
+
+      .dropdown-icon {
+        height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      .dropdown-icon:hover + .dropdown-mission-type,
+      .dropdown-mission-type:hover {
+        display: block;
+      }
+
+      .dropdown-mission-type {
+        display: none;
+        position: absolute;
+        top: calc(100%);
+        border: 1px solid var(--quaternary-text);
+        background-color: var(--tertiary-bg);
+        width: 100%;
+        padding: 8px 4px;
+        box-sizing: border-box;
+        border-radius: 8px;
+
+        .opt {
+          padding: 5px 12px;
+          border-radius: 7px;
+          transition: all 0.1s linear;
+
+          &:hover {
+            background-color: var(--brand-01);
+          }
+
+          &.selected {
+            background-color: var(--brand-05);
+            color: var(--primary-text);
+          }
+        }
+      }
+    }
+  }
+
+  .swap-icon {
+    cursor: pointer;
+    color: var(--secondary-text);
+    margin-left: 5px;
+    margin-top: 1px;
+  }
+
+  .rewards-group {
+    align-items: start;
+  }
+
+  .rewards-ctn {
+    grid-column: 10/25;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .reward {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background-color: var(--tertiary-bg) !important;
+      border: 1px solid var(--tertiary-text) !important;
+      max-width: 220px;
+      border-radius: 6px;
+      box-sizing: border-box;
+      padding: 0;
+      padding-right: 25px;
+
+      input,
+      select {
+        border: none !important;
+        outline: none !important;
+        background: none !important;
+        padding: 3px 6px !important;
+        color: var(--primary-text) !important;
+        font-size: 12px !important;
+        max-width: 100px !important;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        min-width: unset !important;
+      }
+
+      select {
+        padding-left: 4px;
+      }
+
+      .divider {
+        margin: 0;
+        width: 1px;
+        height: 12px;
+        border-right: 1px solid var(--quaternary-text) !important;
+      }
+
+      .remove-icon {
+        position: absolute;
+        right: 6px;
+        cursor: pointer;
+        color: var(--alert);
+        transition: all 0.1s linear;
+  
+        &:hover {
+          color: var(--error);
+        }
+      }
+    }
+  }
+
+  .btn-ctn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-top: 15px;
+  }
+}

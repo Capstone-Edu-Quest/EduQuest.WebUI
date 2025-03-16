@@ -18,6 +18,27 @@
     font-weight: 500;
     user-select: none;
     font-size: 14px;
+    align-items: center;
+
+    .filter-items {
+      display: flex;
+      gap: 2px;
+      flex-direction: column;
+      flex-wrap: wrap;
+      max-height: calc(4px * 3 + 2px * 2);
+
+      .item {
+        background-color: var(--quaternary-text);
+        height: 4px;
+        width: 4px;
+        border-radius: 1px;
+        transition: all 0.1s linear;
+
+        &.selected {
+          background-color: var(--secondary-text);
+        }
+      }
+    }
   }
 
   tbody {

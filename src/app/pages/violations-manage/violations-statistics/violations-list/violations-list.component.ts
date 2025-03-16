@@ -1,19 +1,19 @@
 import { Component, ViewChild, type OnInit, TemplateRef } from '@angular/core';
-import { TableColumn } from '../../../shared/interfaces/others.interfaces';
-import { ViolationsService } from '../../../core/services/violations.service';
+import { TableColumn } from '../../../../shared/interfaces/others.interfaces';
+import { ViolationsService } from '../../../../core/services/violations.service';
 import {
   IReportFeedback,
   IReportedCourse,
   IViolation,
   IViolationCount,
   IViolationUser,
-} from '../../../shared/interfaces/violations.interface';
+} from '../../../../shared/interfaces/violations.interface';
 import {
   ViolationActionEnum,
   ViolationsStatusEnum,
   ViolationsTypeEnum,
-} from '../../../shared/enums/violations.enum';
-import { ModalService } from '../../../core/services/modal.service';
+} from '../../../../shared/enums/violations.enum';
+import { ModalService } from '../../../../core/services/modal.service';
 
 @Component({
   selector: 'app-violations-list',

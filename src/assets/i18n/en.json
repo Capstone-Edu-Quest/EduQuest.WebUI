@@ -540,7 +540,14 @@
     "FREE_LEARNER_DESCRIPTION": "Find the perfect courses tailored to your interests | Customize your own learning path or follow expert-created ones | Earn EXP, Gold, and level up as you progress | Get free Fox characters and exclusive in-game items | Track your personal learning statistics and progress | Compete with others on the leaderboard and rankings | Complete quests to earn rewards and boost motivation | Unlock achievements and collect special badges",
     "FREE_INSTRUCTOR_DESCRIPTION": "Create unlimited courses and learning materials | Reuse materials effortlessly across multiple courses | Upload videos, documents, quizzes, and assignments with ease | Get detailed course statistics, including revenue and learner insights | Access comprehensive revenue reports to track earnings | Engage learners with interactive and gamified course elements | Manage and organize courses seamlessly with an intuitive dashboard | Receive feedback and ratings to improve your courses | Connect with a growing community of passionate educators | Earn revenue with just an {{commisionFee}}% commission fee.",
     "PREMIUM_INSTRUCTOR_DESCRIPTION": "Reduce commission rate to {{commisionFee}}% | Unlock advanced tools to track learner insights and activities | Create course series with custom pricing | Send marketing emails {{marketingEmailPerMonth}} times a month",
-    "PREMIUM_LEARNER_DESCRIPTION": "Enjoy {{couponPerMonth}} exclusive coupons every month with discounts up to {{couponDiscountUpto}}% | Earn {{extraGoldAndExp}}% extra EXP & Gold to boost your learning journey | Try up to {{trialCoursePercentage}}% of any course for free, limited to {{courseTrialPerMonth}} courses per month"
+    "PREMIUM_LEARNER_DESCRIPTION": "Enjoy {{couponPerMonth}} exclusive coupons every month with discounts up to {{couponDiscountUpto}}% | Earn {{extraGoldAndExp}}% extra EXP & Gold to boost your learning journey | Try up to {{trialCoursePercentage}}% of any course for free, limited to {{courseTrialPerMonth}} courses per month",
+    "DAILY": "Daily",
+    "ONE_TIME": "One time",
+    "QUEST_NAME": "Quest Name",
+    "QUEST_TYPE": "Type",
+    "MISSION": "Mission",
+    "ALL": "All",
+    "ADD_NEW_QUEST": "Add New Quest"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",
@@ -573,7 +580,14 @@
     "INVALID_TIME_LIMIT": "Invalid time limit",
     "INVALID_PASSING_PERCENTAGE": "Invalid passing percentages",
     "NEED_ALEAST_QUESTIONS": "You need to provide at least {{value}} question",
-    "NO_ITEM_TO_ADD": "You have to select atleast 1 item to add"
+    "NO_ITEM_TO_ADD": "You have to select atleast 1 item to add",
+    "SEARCH_QUESTS": "Search Quests (Enter to search)",
+    "EMPTY_QUESTNAME": "Quest Name can not be empty",
+    "EMPTY_REWARD": "Must have atleast 1 reward",
+    "NO_REWARD_VALUE": "Some reward do not have value",
+    "DUPLICATE_REWARD": "Reward type can not be duplicate",
+    "EXP_ZERO": "Exp must be greater than 0",
+    "REWARD_ZERO": "Reward value must be greater than 0"
   },
   "BUTTON": {
     "CONTINUE": "Continue",
@@ -610,13 +624,28 @@
     "WARN": "warn",
     "SUSPEND": "Suspend",
     "ADD": "Add",
-    "CREATE": "Create"
+    "CREATE": "Create",
+    "ADD_QUEST": "Add Quest",
+    "CREATE_COUPON":"Create Coupon"
   },
   "LANGUAGES": {
     "EN": "English",
     "VI": "Vietnamese",
     "CN": "Chinese",
     "JP": "Japanese"
+  },
+  "MISSION": {
+    "LESSONS": "Complete {{0}} lessons",
+    "LESSONS_TIME": "Complete {{0}} lessons in {{1}} minutes",
+    "MATERIALS": "Complete {{0}} learning materials",
+    "MATERIALS_TIME": "Complete {{0}} learning materials in {{1}} minutes",
+    "QUIZ": "Complete {{0}} quizzes",
+    "QUIZ_TIME": "Complete {{0}} quizzes in {{1}} minutes",
+    "COURSES": "Complete {{0}} courses",
+    "COURSES_TIME": "Complete {{0}} courses in {{1}} minutes",
+    "LEARNING_TIME": "Spend {{0}} minutes learning",
+    "LEARNING_TIME_TIME": "Spend {{0}} minutes learning in {{1}} minutes",
+    "STREAK": "Study for {{0}} consecutive days"
   },
   "SHOP_ITEMS": {
     "ORANGE-VEST": "Orange Vest",

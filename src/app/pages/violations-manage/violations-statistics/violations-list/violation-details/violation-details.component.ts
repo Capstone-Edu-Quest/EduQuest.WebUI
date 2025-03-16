@@ -1,5 +1,5 @@
 import { Component, Input, type OnInit } from '@angular/core';
-import { IViolation } from '../../../../shared/interfaces/violations.interface';
+import { IViolation } from '../../../../../shared/interfaces/violations.interface';
 
 @Component({
   selector: 'app-violation-details',

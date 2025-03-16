@@ -11,9 +11,15 @@ import { TableColumn } from '../../../shared/interfaces/others.interfaces';
 import { ILevel } from '../../../shared/interfaces/Platform.interface';
 import { RewardTypeEnum } from '../../../shared/enums/others.enum';
 import { QuestsService } from '../../../core/services/quests.service';
-import { faMinus, faPen, faPlus, faRotateLeft } from '@fortawesome/free-solid-svg-icons';
-import { ModalService } from '../../../core/services/modal.service';
+import {
+  faMinus,
+  faPen,
+  faPlus,
+  faRotateLeft,
+} from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+import { MessageService } from '../../../core/services/message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-level-settings',
@@ -148,7 +154,11 @@ export class LevelSettingsComponent
   removeIcon = faMinus;
   recoverIcon = faRotateLeft;
 
-  constructor(private quests: QuestsService, private modal: ModalService) {}
+  constructor(
+    private quests: QuestsService,
+    private message: MessageService,
+    private translate: TranslateService
+  ) {}
   ngOnInit(): void {
     this.onInitSelectOptions();
     console.log(this.levels);
@@ -160,19 +170,19 @@ export class LevelSettingsComponent
         {
           key: 'id',
           label: 'LABEL.LEVELS',
-          customClass: (row: ILevel) => this.onGetDeletedState(row)
+          customClass: (row: ILevel) => this.onGetDeletedState(row),
         },
         {
           key: 'exp',
           label: 'LABEL.EXP',
           elementRef: this.expInputRef,
-          customClass: (row: ILevel) => this.onGetDeletedState(row)
+          customClass: (row: ILevel) => this.onGetDeletedState(row),
         },
         {
           key: 'reward',
           label: 'LABEL.REWARD',
           elementRef: this.rewardInputRef,
-          customClass: (row: ILevel) => this.onGetDeletedState(row)
+          customClass: (row: ILevel) => this.onGetDeletedState(row),
         },
         {
           key: 'action',
@@ -184,7 +194,7 @@ export class LevelSettingsComponent
   }
 
   onGetDeletedState(row: ILevel) {
-    return this.deletedLevels.includes(row.id) ? 'isRemoved': '';
+    return this.deletedLevels.includes(row.id) ? 'isRemoved' : '';
   }
 
   onAddLevel() {
@@ -204,13 +214,76 @@ export class LevelSettingsComponent
 
   onEditLevel() {
     this.isEdit = !this.isEdit;
+    this.changePage$.next(1);
     this.editingLevels = JSON.parse(
       JSON.stringify(this.isEdit ? this.levels : [])
     );
     this.deletedLevels = [];
   }
 
+  validateSaveLevels() {
+    for (let i = 0; i < this.editingLevels.length; i++) {
+      // Check no exp
+      if (
+        (this.editingLevels[i].exp === 0 && i !== 0) ||
+        this.editingLevels[i].exp < 0
+      ) {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.EXP_ZERO')
+        );
+        return;
+      }
+
+      // CHeck exp
+      if (this.editingLevels[i].rewardType.length === 0) {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.EMPTY_REWARD')
+        );
+        return;
+      }
+
+      if (
+        this.editingLevels[i].rewardValue.some((v) =>
+          typeof v === 'string' ? v.length <= 0 : v <= 0
+        )
+      ) {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.REWARD_ZERO')
+        );
+        return;
+      }
+
+      // Check dup reward type
+      const dupRewardErr = [];
+      this.editingLevels[i].rewardType.forEach((type, idx) => {
+        if (
+          this.editingLevels[i].rewardType.filter((t) => t === type).length > 1
+        ) {
+          dupRewardErr.push(type);
+        }
+      });
+      if (dupRewardErr.length > 0) {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.DUPLICATE_REWARD')
+        );
+        return;
+      }
+    }
+
+    return true;
+  }
+
   onSaveLevel() {
+    // Validate
+    const result = this.validateSaveLevels();
+
+    if (!result) return;
+
+    console.log('pass');
     const updatedLevels: ILevel[] = [];
 
     // compare
@@ -222,10 +295,8 @@ export class LevelSettingsComponent
 
     this.isEdit = false;
     this.levels = JSON.parse(JSON.stringify(this.editingLevels))
-    .filter((l: ILevel) => !this.deletedLevels.includes(l.id))
-    .map(
-      (level: ILevel, i: number) => ({ ...level, id: i + 1 })
-    );
+      .filter((l: ILevel) => !this.deletedLevels.includes(l.id))
+      .map((level: ILevel, i: number) => ({ ...level, id: i + 1 }));
 
     console.log('modified:', JSON.parse(JSON.stringify(this.editingLevels)));
     console.log('result (re-ordered):', this.levels);
@@ -235,9 +306,9 @@ export class LevelSettingsComponent
   }
 
   onDeleteLevel(level: ILevel) {
-    const idx = this.deletedLevels.findIndex(l => l === level.id);
+    const idx = this.deletedLevels.findIndex((l) => l === level.id);
 
-    if(idx === -1) {
+    if (idx === -1) {
       this.deletedLevels.push(level.id);
       return;
     }

@@ -5,15 +5,18 @@ import {
   type OnInit,
   EventEmitter,
   OnDestroy,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { TableColumn } from '../../shared/interfaces/others.interfaces';
-import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons';
+import { faAngleLeft, faAngleRight, faSort } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
+import { ModalService } from '../../core/services/modal.service';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent implements OnInit, OnDestroy {
   @Input() changePage!: EventEmitter<number>;
@@ -24,6 +27,8 @@ export class TableComponent implements OnInit, OnDestroy {
 
   subscription$: Subscription = new Subscription();
 
+  tempData: any[] = [];
+
   rightIcon = faAngleRight;
   leftIcon = faAngleLeft;
 
@@ -31,11 +36,33 @@ export class TableComponent implements OnInit, OnDestroy {
   currentPage: number = 1;
   totalPages: (number | string)[] = [];
 
+  switchValueKeys = {};
+
+  sortIcon = faSort;
+
   ngOnInit(): void {
     this.initPagination();
+
+    this.tempData = [...this.data];
+
+    this.columns.forEach((col) => {
+      if (col.isSwitchData) {
+        const values = this.getAllDataByLabel(col);
+
+        this.switchValueKeys = {
+          ...this.switchValueKeys,
+          [col.key]: {
+            values,
+            currentKey: values[0],
+          },
+        };
+      }
+    });
+
+    if (!this.changePage) return;
     this.subscription$ = this.changePage.subscribe((pageNumber) => {
-      const max = Math.ceil(this.data.length / this.itemsPerPage);
-      
+      const max = Math.ceil(this.tempData.length / this.itemsPerPage);
+
       if (pageNumber === -1) {
         this.currentPage = max;
         return;
@@ -47,8 +74,26 @@ export class TableComponent implements OnInit, OnDestroy {
     });
   }
 
+  getAllDataByLabel(column: TableColumn) {
+    const vals: any[] = [];
+
+    this.tempData.forEach((row) => {
+      if (column.translateLabel) {
+        vals.push(
+          column.translateLabel instanceof Function
+            ? column.translateLabel(row)
+            : column.translateLabel
+        );
+        return;
+      }
+      vals.push(this.onGetVal(column, row));
+    });
+
+    return ['LABEL.ALL', ...new Set(vals)];
+  }
+
   initPagination() {
-    const totalPage = Math.ceil(this.data.length / this.itemsPerPage);
+    const totalPage = Math.ceil(this.tempData.length / this.itemsPerPage);
     if (totalPage <= 5) {
       this.totalPages = Array(totalPage)
         .fill(0)
@@ -104,7 +149,7 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   onGetDataRow() {
-    return this.data.slice(
+    return this.tempData.slice(
       (this.currentPage - 1) * this.itemsPerPage,
       this.currentPage * this.itemsPerPage
     );
@@ -121,16 +166,30 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   onGetVal(column: TableColumn, row: any) {
-    const val = column.render ? column.render(row) : row[column.key];
+    let value = null;
 
-    return val;
+    if (column.render) {
+      value = column.render(row);
+    } else {
+      value = row[column.key];
+    }
+
+    if (typeof value === 'object') {
+      return value;
+    }
+
+    if (column.translateLabel) {
+      return { value };
+    }
+
+    return value;
   }
 
   onModifyPage(pageNumber: number | string) {
     if (typeof pageNumber === 'string') return;
     if (
       pageNumber < 1 ||
-      pageNumber > Math.ceil(this.data.length / this.itemsPerPage)
+      pageNumber > Math.ceil(this.tempData.length / this.itemsPerPage)
     ) {
       return;
     }
@@ -150,12 +209,46 @@ export class TableComponent implements OnInit, OnDestroy {
   }
 
   onGetClass(col: TableColumn, row: any) {
-    if(!col.customClass) return '';
-    if(col.customClass instanceof Function) {
+    if (!col.customClass) return '';
+    if (col.customClass instanceof Function) {
       return col.customClass(row);
     }
 
     return col.customClass;
+  }
+
+  onSwitchKey(col: TableColumn) {
+    // Prepare key & refer item
+    const _k = col.key as keyof typeof this.switchValueKeys;
+    const currentItem = this.switchValueKeys[_k] as any;
+
+    // Update key
+    const idx = currentItem.values.indexOf(currentItem.currentKey);
+    let newKeyIdx = idx === currentItem.values.length - 1 ? 0 : idx + 1;
+    currentItem.currentKey = currentItem.values[newKeyIdx];
+
+    // Update data
+    if (currentItem.currentKey === 'LABEL.ALL') {
+      this.tempData = [...this.data];
+    } else {
+      this.tempData = this.data.filter((row) => {
+        const checkVal =
+          col.translateLabel instanceof Function
+            ? col.translateLabel(row)
+            : col.translateLabel;
+        return checkVal === currentItem.currentKey;
+      });
+    }
+  }
+
+  onGetCurrentKeyLabel(col: TableColumn) {
+    const _k = col.key as keyof typeof this.switchValueKeys;
+    return (this.switchValueKeys[_k] as any).currentKey;
+  }
+
+  onGetCurrentKeyValues(col: TableColumn) {
+    const _k = col.key as keyof typeof this.switchValueKeys;
+    return (this.switchValueKeys[_k] as any).values;
   }
 
   ngOnDestroy(): void {

@@ -389,6 +389,10 @@ const routes: Routes = [
   },
   {
     path: 'pricing',
+    canActivate: [RoleGuard],
+    data: {
+      allowedRoles: [WebRole.GUEST, WebRole.LEARNER, WebRole.INSTRUCTOR],
+    },
     component: PricingComponent,
   },
 ];

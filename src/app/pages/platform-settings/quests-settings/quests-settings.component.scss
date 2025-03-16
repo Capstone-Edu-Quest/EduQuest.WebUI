@@ -1,0 +1,31 @@
+.quests-setting {
+  padding-top: 20px;
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    align-items: center;
+
+    .blank {
+      width: 10%;
+      height: 100%;
+    }
+
+    .input-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      input::placeholder {
+        font-size: 12px;
+      }
+    }
+
+    fa-icon {
+      margin-right: 6px;
+    }
+  }
+}
+
+

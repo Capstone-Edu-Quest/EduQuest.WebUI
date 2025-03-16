@@ -20,8 +20,8 @@
       <a
         class="eqLink"
         *ngFor="let eq of eduquestLink"
-        routerLink="{{ eq.link }}"
-        >{{ eq.name | translate }}</a
+        routerLink="{{ eq?.link }}"
+        >{{ eq?.name | translate }}</a
       >
       <a class="eqLink" href="mailto:eduquestwork@gmail.com">{{
         "LABEL.CONTACT" | translate

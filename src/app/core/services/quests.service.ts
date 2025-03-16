@@ -1,5 +1,10 @@
 import { TranslateService } from '@ngx-translate/core';
-import { BoosterEnum, RewardTypeEnum } from './../../shared/enums/others.enum';
+import {
+  BoosterEnum,
+  QuestMissionEnum,
+  QuestTypeEnum,
+  RewardTypeEnum,
+} from './../../shared/enums/others.enum';
 import { Injectable } from '@angular/core';
 import { RewardValueType } from '../../shared/interfaces/Platform.interface';
 import { FoxItems } from '../../components/fox-3d/3d-setup/fox-3d.config';
@@ -52,7 +57,11 @@ export class QuestsService {
           );
           break;
         case RewardTypeEnum.ITEM:
-          rewards.push(`${this.translate.instant(`SHOP_ITEMS.${(reward[i] as string).toUpperCase()}`)} x1`);
+          rewards.push(
+            `${this.translate.instant(
+              `SHOP_ITEMS.${`${reward[i] as string}`.toUpperCase()}`
+            )} x1`
+          );
           break;
         case RewardTypeEnum.COUPON:
           rewards.push(
@@ -93,5 +102,24 @@ export class QuestsService {
       default:
         return [];
     }
+  }
+
+  getQuestTypeLabel(type: QuestTypeEnum) {
+    switch (type) {
+      case QuestTypeEnum.DAILY:
+        return 'LABEL.DAILY';
+      case QuestTypeEnum.ONE_TIME:
+        return 'LABEL.ONE_TIME';
+      default:
+        return '';
+    }
+  }
+
+  getMissionLabel(
+    mission: QuestMissionEnum,
+  ) {
+    const label = 'MISSION.' + QuestMissionEnum[mission];
+
+    return label;
   }
 }

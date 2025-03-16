@@ -7,8 +7,8 @@ export enum RewardTypeEnum {
 }
 
 export enum QuestMissionEnum {
-    STAGES = 1, // Complete X Stages
-    STAGES_TIME, // Complete X Stages in Y minutes
+    LESSONS = 1, // Complete X LESSONS
+    LESSONS_TIME, // Complete X LESSONS in Y minutes
 
     MATERIALS, // Complete X materials (Quiz, Video, ...)
     MATERIALS_TIME, // Complete X materials in Y minutes

@@ -166,9 +166,9 @@ import { ViolationsManageComponent } from './pages/violations-manage/violations-
 import { PlatformSettingsComponent } from './pages/platform-settings/platform-settings.component';
 import { CoursesStatisticsComponent } from './pages/courses-manage/courses-statistics/courses-statistics.component';
 import { ViolationsStatisticsComponent } from './pages/violations-manage/violations-statistics/violations-statistics.component';
-import { ViolationsListComponent } from './pages/violations-manage/violations-list/violations-list.component';
+import { ViolationsListComponent } from './pages/violations-manage/violations-statistics/violations-list/violations-list.component';
 import { ViolationsService } from './core/services/violations.service';
-import { ViolationDetailsComponent } from './pages/violations-manage/violations-list/violation-details/violation-details.component';
+import { ViolationDetailsComponent } from './pages/violations-manage/violations-statistics/violations-list/violation-details/violation-details.component';
 import { PlatformStatisticsComponent } from './pages/platform-settings/platform-statistics/platform-statistics.component';
 import { LevelSettingsComponent } from './pages/platform-settings/level-settings/level-settings.component';
 import { QuestsSettingsComponent } from './pages/platform-settings/quests-settings/quests-settings.component';
@@ -179,6 +179,7 @@ import { CreateCouponComponent } from './pages/platform-settings/coupons-setting
 import { PricingComponent } from './pages/pricing/pricing.component';
 import { LabelSwitchComponent } from './components/label-switch/label-switch.component';
 import { AdvanceSettingsComponent } from './pages/platform-settings/advance-settings/advance-settings.component';
+import { CreateNewQuestComponent } from './pages/platform-settings/quests-settings/create-new-quest/create-new-quest.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -317,6 +318,7 @@ export const AppDeclarations = [
   AdvanceSettingsComponent,
   CouponsSettingsComponent,
   CreateCouponComponent,
+  CreateNewQuestComponent,
   // Pricing
   PricingComponent
 ];

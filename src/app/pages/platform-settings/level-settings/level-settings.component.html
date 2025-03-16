@@ -4,10 +4,18 @@
       [ngTemplateOutlet]="isEdit ? editBtns : notEditBtns"
     ></ng-container>
   </div>
+
   <app-table
     [changePage]="changePage$"
-    [columns]="isEdit ? editingColumns : tableColumns"
-    [data]="isEdit ? editingLevels : levels"
+    [columns]="tableColumns"
+    [data]="levels"
+    *ngIf="!isEdit"
+  />
+  <app-table
+    [changePage]="changePage$"
+    [columns]="editingColumns"
+    [data]="editingLevels"
+    *ngIf="isEdit"
   />
 </div>
 
@@ -35,7 +43,14 @@
           {{ "SHOP_ITEMS." + opt.label.toUpperCase() | translate }}
         </option>
       </select>
-      } @case('coupon') {} @case('booster'){
+      } @case('coupon') {
+        <input
+        style="min-width: none !important; width: 70px !important"
+        [(ngModel)]="row.rewardValue[i]"
+        type="number"
+      />
+      %
+    } @case('booster'){
       <select [(ngModel)]="row.rewardValue[i]">
         <option *ngFor="let opt of boosterTypeOptions" [ngValue]="opt.value">
           {{ opt.label | translate }}
