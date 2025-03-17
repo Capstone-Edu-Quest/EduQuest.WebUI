@@ -14,14 +14,17 @@ export class PlatformSettingsComponent implements OnInit, OnDestroy {
 
   defaultTabs: any[] = [
     { label: 'LABEL.STATISTICS', link: '/platform-settings' },
+  ];
+
+  staffTabs: any[] = [
     { label: 'LABEL.LEVEL_EXP', link: 'level' },
     { label: 'LABEL.QUESTS', link: 'quests' },
     { label: 'LABEL.SHOP_ITEMS', link: 'shop-items' },
     { label: 'LABEL.COUPONS', link: 'coupons' },
-  ];
+  ]
 
   adminTabs: any[] = [
-    { label: 'LABEL.ADVANCE_SETTINGS', link: 'advance-settings' },
+    { label: 'LABEL.PACKAGES_SETTINGS', link: 'packages-settings' },
   ];
 
   tabs: any[] = [];
@@ -35,15 +38,14 @@ export class PlatformSettingsComponent implements OnInit, OnDestroy {
   listenToUser() {
     this.subscription$.add(
       this.user.user$.subscribe((user) => {
-        this.tabs = [];
+        this.tabs = [...this.defaultTabs];
         if (user) {
           switch (user.roleId) {
             case WebRole.ADMIN:
-              this.tabs.push(...this.defaultTabs);
               this.tabs.push(...this.adminTabs);
               break;
             case WebRole.STAFF:
-              this.tabs.push(...this.defaultTabs);
+              this.tabs.push(...this.staffTabs);
               break;
           }
         }

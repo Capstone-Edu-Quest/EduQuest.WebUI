@@ -25,17 +25,16 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   defaultTabs = [
     { name: 'LABEL.ABOUT', link: '/about' },
+    { name: 'LABEL.PRICING', link: '/pricing' },
     // { name: 'LABEL.CONTACT', link: '/contact' },
     { name: 'LABEL.HELP', link: '/help' },
     { name: 'LABEL.PRIVACY', link: '/privacy' },
     { name: 'LABEL.TERMS', link: '/terms' },
   ];
 
-  normalUserTabs = [
-    { name: 'LABEL.PRICING', link: '/pricing' }
-  ]
+  normalUserTabs = []
 
-  eduquestLink: any[] = [];
+  eduquestLink: any[] = [...this.defaultTabs];
 
   private subscription$: Subscription = new Subscription();
   currentLanguage: string = this.translate.currentLang;
@@ -53,7 +52,7 @@ export class FooterComponent implements OnInit, OnDestroy {
       })
     );
 
-    this.listenToUser();
+    // this.listenToUser();
   }
 
   listenToUser() {

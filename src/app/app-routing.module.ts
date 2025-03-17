@@ -50,6 +50,7 @@ import { ShopSettingsComponent } from './pages/platform-settings/shop-settings/s
 import { CouponsSettingsComponent } from './pages/platform-settings/coupons-settings/coupons-settings.component';
 import { PricingComponent } from './pages/pricing/pricing.component';
 import { AdvanceSettingsComponent } from './pages/platform-settings/advance-settings/advance-settings.component';
+import { PlatformLogsComponent } from './pages/platform-logs/platform-logs.component';
 
 const routes: Routes = [
   {
@@ -137,7 +138,7 @@ const routes: Routes = [
       {
         path: 'approval',
         canActivate: [RoleGuard],
-        data: { allowedRoles: [WebRole.EXPERT] },
+        data: { allowedRoles: [WebRole.EXPERT, WebRole.STAFF] },
         component: CoursesApprovalComponent,
       },
       {
@@ -365,22 +366,30 @@ const routes: Routes = [
       },
       {
         path: 'level',
+        canActivate: [RoleGuard],
+        data: { allowedRoles: [WebRole.STAFF] },
         component: LevelSettingsComponent,
       },
       {
         path: 'quests',
+        canActivate: [RoleGuard],
+        data: { allowedRoles: [WebRole.STAFF] },
         component: QuestsSettingsComponent,
       },
       {
         path: 'shop-items',
+        canActivate: [RoleGuard],
+        data: { allowedRoles: [WebRole.STAFF] },
         component: ShopSettingsComponent,
       },
       {
         path: 'coupons',
+        canActivate: [RoleGuard],
+        data: { allowedRoles: [WebRole.STAFF] },
         component: CouponsSettingsComponent,
       },
       {
-        path: 'advance-settings',
+        path: 'packages-settings',
         canActivate: [RoleGuard],
         data: { allowedRoles: [WebRole.ADMIN] },
         component: AdvanceSettingsComponent,
@@ -394,6 +403,14 @@ const routes: Routes = [
       allowedRoles: [WebRole.GUEST, WebRole.LEARNER, WebRole.INSTRUCTOR],
     },
     component: PricingComponent,
+  },
+  {
+    path: 'logs',
+    canActivate: [RoleGuard],
+    data: {
+      allowedRoles: [WebRole.ADMIN],
+    },
+    component: PlatformLogsComponent,
   },
 ];
 

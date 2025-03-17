@@ -11,8 +11,21 @@
 </div>
 
 <ng-template #buttons let-row="row">
-  <div class="ref-btns-ctn">
-    <fa-icon (click)="onReject($event, row)" [icon]="acceptIcon" style="color: var(--success)"></fa-icon>
-    <fa-icon (click)="onAccept($event, row)" [icon]="rejectIcon" style="color: var(--alert)"></fa-icon>
+  <div class="ref-btns-ctn" *ngIf="!isStaffView">
+    <fa-icon
+      (click)="onReject($event, row)"
+      [icon]="acceptIcon"
+      style="color: var(--success)"
+    ></fa-icon>
+    <fa-icon
+      (click)="onAccept($event, row)"
+      [icon]="rejectIcon"
+      style="color: var(--alert)"
+    ></fa-icon>
+  </div>
+  <div class="assign-expert" *ngIf="isStaffView" (click)="onAssignExpert($event, row)">
+    <i class="unset" *ngIf="!row.expert">{{ "LABEL.UNSET" | translate }}</i>
+    <div class="expert-name" *ngIf="row.expert">{{row.expert.name}}</div>
+    <fa-icon [icon]="editIcon"></fa-icon>
   </div>
 </ng-template>

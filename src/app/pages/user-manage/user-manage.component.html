@@ -37,13 +37,13 @@
     </div>
     <app-table
       (onRowClick)="onViewDetails($event)"
-      [columns]="usersTableColumns"
+      [columns]="columns"
       [data]="usersTableData"
     ></app-table>
   </div>
 </div>
 
-<ng-template #action let-row="row">
+<ng-template #actionOnUser let-row="row">
   <div style="display: flex; gap: 8px">
     <app-button (click)="onWarn($event, row)">{{
       "BUTTON.WARN" | translate
@@ -52,6 +52,14 @@
       "BUTTON.SUSPEND" | translate
     }}</app-button>
   </div>
+</ng-template>
+
+<ng-template #roleManagement let-row="row">
+  <select class="role-manage" (click)="$event.stopPropagation()" >
+    <option *ngFor="let opt of roleOptions" [value]="opt.value" [attr.selected]="row.roleId === opt.value ? true : null">
+      {{ opt.label | translate }}
+    </option>
+  </select>
 </ng-template>
 
 <!-- 

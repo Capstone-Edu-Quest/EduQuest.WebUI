@@ -5,6 +5,7 @@ import {
   type OnInit,
   TemplateRef,
   AfterViewInit,
+  OnDestroy,
 } from '@angular/core';
 import {
   ILineChartDataSet,
@@ -19,14 +20,22 @@ import { IUser } from '../../shared/interfaces/user.interfaces';
 import { TableColumn } from '../../shared/interfaces/others.interfaces';
 import { WebRole } from '../../shared/enums/user.enum';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-user-manage',
   templateUrl: './user-manage.component.html',
   styleUrl: './user-manage.component.scss',
 })
-export class UserManageComponent implements OnInit, AfterViewInit {
-  @ViewChild('action') actionRef!: TemplateRef<any>;
+export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
+  @ViewChild('actionOnUser') actionRef!: TemplateRef<any>;
+  @ViewChild('roleManagement') roleManagementRef!: TemplateRef<any>;
+
+  subscription$: Subscription = new Subscription();
+
+  isAdminView: boolean = false;
+
+  roleOptions: any[] = [];
 
   searchText: string = '';
 
@@ -87,13 +96,9 @@ export class UserManageComponent implements OnInit, AfterViewInit {
       label: 'LABEL.PHONE',
       key: 'phone',
     },
-    {
-      label: 'LABEL.ROLE',
-      key: 'role',
-      translateLabel: (data: IUser) =>
-        this.UserService.getRoleLabel(data.roleId),
-    },
   ];
+
+  columns: TableColumn[] = [];
   usersTableData: IUser[] = [
     {
       id: 'u1',
@@ -153,14 +158,69 @@ export class UserManageComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     console.log(this.usersTableData);
+    this.listenToUser();
+    this.initRoleOptions();
   }
 
   ngAfterViewInit(): void {
-    this.usersTableColumns.push({
+    this.initColumns();
+  }
+
+  listenToUser() {
+    this.subscription$.add(
+      this.UserService.user$.subscribe((user) => {
+        this.isAdminView = user?.roleId === WebRole.ADMIN;
+        this.initColumns();
+      })
+    );
+  }
+
+  initColumns() {
+    this.columns = [...this.usersTableColumns];
+
+    if (this.isAdminView) {
+      this.columns.push({
+        label: 'LABEL.ROLE',
+        key: 'role',
+        elementRef: this.roleManagementRef,
+      });
+    } else {
+      // Staff
+      this.columns.push({
+        label: 'LABEL.ROLE',
+        key: 'role',
+        isSwitchData: true,
+        translateLabel: (data: IUser) =>
+          this.UserService.getRoleLabel(data.roleId),
+      });
+    }
+    this.columns.push({
       label: '',
       key: 'action',
       elementRef: this.actionRef,
     });
+  }
+
+  initRoleOptions() {
+    Object.keys(WebRole).forEach((key) => {
+      const _k = key as keyof typeof WebRole;
+
+      if (isNaN(Number(WebRole[_k]))) {
+        this.roleOptions.push({
+          label: this.UserService.getRoleLabel(Number(_k)),
+          value: Number(_k),
+        });
+      }
+    });
+
+    this.roleOptions = this.roleOptions.filter((r) => r.label !== '');
+
+    console.log(this.roleOptions);
+  }
+
+  onGetRole(r: any) {
+    // console.log(r);
+    return 2;
   }
 
   onViewDetails(u: IUser) {
@@ -178,5 +238,9 @@ export class UserManageComponent implements OnInit, AfterViewInit {
   onSuspend(e: Event, u: IUser) {
     e.stopPropagation();
     console.log('suspend', u);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
   }
 }

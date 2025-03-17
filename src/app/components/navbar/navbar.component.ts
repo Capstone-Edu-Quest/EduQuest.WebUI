@@ -131,6 +131,25 @@ export class NavbarComponent implements OnInit {
     },
   ];
 
+  adminNavItems = [
+    {
+      label: 'LABEL.HOME',
+      routerLink: '',
+    },
+    {
+      label: 'LABEL.USERS_MANAGE',
+      routerLink: '/users-manage',
+    },
+    {
+      label: 'LABEL.PLATFORM_SETTINGS',
+      routerLink: '/platform-settings',
+    },
+    {
+      label: 'LABEL.LOGS',
+      routerLink: '/logs',
+    },
+  ];
+
   middleNavigationItems: any = [];
 
   iconItems: any[] = [];
@@ -184,6 +203,10 @@ export class NavbarComponent implements OnInit {
       case WebRole.STAFF:
         this.iconItems = this.instructorItems;
         this.middleNavigationItems = this.staffNavItems;
+        break;
+      case WebRole.ADMIN:
+        this.iconItems = this.instructorItems;
+        this.middleNavigationItems = this.adminNavItems;
         break;
       default:
         this.iconItems = [];
@@ -280,6 +303,7 @@ export class NavbarComponent implements OnInit {
       case WebRole.EXPERT:
       case WebRole.STAFF:
       case WebRole.INSTRUCTOR:
+      case WebRole.ADMIN:
         return this.instructorMid;
       default:
         return this.emptyRef;

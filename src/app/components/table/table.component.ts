@@ -10,13 +10,12 @@ import {
 import { TableColumn } from '../../shared/interfaces/others.interfaces';
 import { faAngleLeft, faAngleRight, faSort } from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
-import { ModalService } from '../../core/services/modal.service';
 
 @Component({
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent implements OnInit, OnDestroy {
   @Input() changePage!: EventEmitter<number>;

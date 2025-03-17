@@ -30,10 +30,11 @@ export class CoursesManageComponent implements OnInit, OnDestroy {
   initTabs(userRoleId: WebRole) {
     this.tabs = [];
 
-    if (userRoleId === WebRole.EXPERT) {
-      this.tabs.push({ label: 'LABEL.COUSRE_APPROVAL', link: 'approval' });
-    }
-
+    // if (userRoleId === WebRole.EXPERT) {
+    // }
+    
+    this.tabs.push({ label: 'LABEL.COUSRE_APPROVAL', link: 'approval' });
+    
     if([WebRole.ADMIN, WebRole.STAFF].includes(userRoleId)) {
       this.tabs.push({ label: 'LABEL.COUSRE_STATISTICS', link: 'statistics' });
     }

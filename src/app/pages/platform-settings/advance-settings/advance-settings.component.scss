@@ -1,0 +1,21 @@
+.package-settings {
+  padding: 25px 10px;
+  box-sizing: border-box;
+
+  .group-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+
+    .group-name {
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    fa-icon {
+        font-size: 11px;
+        margin-right: 5px;
+    }
+  }
+}

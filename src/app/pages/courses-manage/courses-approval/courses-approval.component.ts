@@ -6,22 +6,27 @@ import {
   TemplateRef,
   AfterViewInit,
 } from '@angular/core';
-import { ICourse } from '../../../shared/interfaces/course.interfaces';
+import { ICourse, ICourseApproval } from '../../../shared/interfaces/course.interfaces';
 import { TableColumn } from '../../../shared/interfaces/others.interfaces';
 import { Router } from '@angular/router';
-import { faCheck, faClose } from '@fortawesome/free-solid-svg-icons';
+import { faCheck, faClose, faPen } from '@fortawesome/free-solid-svg-icons';
 import { fadeInOutAnimation } from '../../../shared/constants/animations.constant';
+import { UserService } from '../../../core/services/user.service';
+import { Subscription } from 'rxjs';
+import { WebRole } from '../../../shared/enums/user.enum';
 
 @Component({
   selector: 'app-courses-approval',
   templateUrl: './courses-approval.component.html',
   styleUrl: './courses-approval.component.scss',
-  animations: [fadeInOutAnimation]
+  animations: [fadeInOutAnimation],
 })
 export class CoursesApprovalComponent implements OnInit, AfterViewInit {
   @ViewChild('buttons') buttonsRef!: TemplateRef<any>;
 
-  sampleCourses: ICourse[] = [
+  subscription$: Subscription = new Subscription();
+
+  sampleCourses: ICourseApproval[] = [
     {
       id: 'course1',
       name: 'Introduction to JavaScript',
@@ -48,6 +53,7 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
         },
         { id: 'tag2', name: 'Beginner', description: 'Suitable for beginners' },
       ],
+      expert: null
     },
     {
       id: 'course2',
@@ -79,6 +85,7 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
           description: 'For experienced developers',
         },
       ],
+      expert: null
     },
     {
       id: 'course3',
@@ -101,6 +108,7 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
         { id: 'tag5', name: 'HTML', description: 'Hypertext Markup Language' },
         { id: 'tag6', name: 'CSS', description: 'Cascading Style Sheets' },
       ],
+      expert: null
     },
     {
       id: 'course4',
@@ -127,6 +135,7 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
         },
         { id: 'tag8', name: 'Frontend', description: 'Frontend development' },
       ],
+      expert: null
     },
     {
       id: 'course5',
@@ -153,6 +162,10 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
         },
         { id: 'tag10', name: 'Backend', description: 'Backend development' },
       ],
+      expert: {
+        id: 'expert1',
+        name: 'John Doe',
+      }
     },
   ];
 
@@ -162,7 +175,8 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
     {
       key: 'name',
       label: 'LABEL.COURSE_NAME',
-    },{
+    },
+    {
       key: 'description',
       label: 'LABEL.DESCRIPTION',
     },
@@ -179,7 +193,7 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
     {
       key: 'duration',
       label: 'LABEL.DURATION',
-      translateLabel: 'SIGNATURE.HOURS'
+      translateLabel: 'SIGNATURE.HOURS',
     },
     {
       key: 'stageCount',
@@ -189,10 +203,14 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
 
   acceptIcon = faCheck;
   rejectIcon = faClose;
+  editIcon = faPen;
 
-  constructor(private router: Router) {}
+  isStaffView: boolean = false;
+
+  constructor(private router: Router, private user: UserService) {}
 
   ngOnInit(): void {
+    this.listenToUser();
     this.initCourses();
   }
 
@@ -200,10 +218,18 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
     this.initTableAction();
   }
 
+  listenToUser() {
+    this.subscription$.add(
+      this.user.user$.subscribe((user) => {
+        this.isStaffView = user?.roleId === WebRole.STAFF;
+      })
+    );
+  }
+
   initTableAction() {
     this.tableColumns.push({
       key: 'btns',
-      label: '',
+      label: this.isStaffView ? 'LABEL.ASSIGNED_EXERT' : '',
       elementRef: this.buttonsRef,
     });
   }
@@ -211,7 +237,7 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
   initCourses(): void {
     this.courses = this.sampleCourses;
 
-    console.log(this.courses)
+    console.log(this.courses);
     this.initTableData();
   }
 
@@ -222,13 +248,17 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
 
   onReject(e: Event, data: ICourse) {
     e.stopPropagation();
-    console.log(data)
+    console.log(data);
   }
 
   onAccept(e: Event, data: ICourse) {
     e.stopPropagation();
-    console.log(data)
+    console.log(data);
   }
 
   initTableData() {}
+
+  onAssignExpert(e: Event, data: ICourse) {
+    e.stopPropagation();
+  }
 }

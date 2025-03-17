@@ -180,6 +180,8 @@ import { PricingComponent } from './pages/pricing/pricing.component';
 import { LabelSwitchComponent } from './components/label-switch/label-switch.component';
 import { AdvanceSettingsComponent } from './pages/platform-settings/advance-settings/advance-settings.component';
 import { CreateNewQuestComponent } from './pages/platform-settings/quests-settings/create-new-quest/create-new-quest.component';
+import { HomeAdminComponent } from './pages/home/home-admin/home-admin.component';
+import { PlatformLogsComponent } from './pages/platform-logs/platform-logs.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -228,6 +230,7 @@ export const AppDeclarations = [
   HomeInsOthersComponent,
   HomeStaffUserComponent,
   HomeOverviewComponent,
+  HomeAdminComponent,
   // Courses
   CoursesComponent,
   CoursesSearchPannelComponent,
@@ -320,7 +323,9 @@ export const AppDeclarations = [
   CreateCouponComponent,
   CreateNewQuestComponent,
   // Pricing
-  PricingComponent
+  PricingComponent,
+  // Logs
+  PlatformLogsComponent
 ];
 export const NGIcons = [
   EnterOutline,

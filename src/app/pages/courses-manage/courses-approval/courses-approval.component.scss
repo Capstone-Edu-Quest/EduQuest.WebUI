@@ -18,3 +18,19 @@
   font-size: 15px;
   cursor: pointer;
 }
+
+.assign-expert {
+  color: var(--secondary-text);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  fa-icon {
+    font-size: 11px;
+    cursor: pointer;
+  }
+
+  .expert-name {
+    color: var(--primary-text);
+  }
+}

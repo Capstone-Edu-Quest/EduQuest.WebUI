@@ -29,6 +29,13 @@ export interface ICourse {
   tags: ITag[];
 }
 
+export interface ICourseApproval extends ICourse {
+  expert: {
+    id: string;
+    name: string;
+  } | null
+}
+
 export interface ICourseCreate {
   name: string;
   description: string;

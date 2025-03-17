@@ -150,6 +150,8 @@ export class UserService {
         return 'LABEL.LEARNER';
       case WebRole.EXPERT:
         return 'LABEL.EXPERT';
+      case WebRole.STAFF:
+        return 'LABEL.STAFF';
       default:
         return '';
     }

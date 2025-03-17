@@ -1,1 +1,37 @@
-<p>advance-settings works!</p>,
+<div class="package-settings">
+  <div class="group-header">
+    <div class="group-name">{{ "LABEL.PACKAGE_PRICE" | translate }}</div>
+    <app-button type="primary" (click)="onEditPrice()">
+      <fa-icon [icon]="editIcon"></fa-icon>
+      {{ "BUTTON.EDIT" | translate }}</app-button
+    >
+  </div>
+
+  <app-table
+    [columns]="priceTableColumns"
+    [data]="displayPriceData"
+  ></app-table>
+
+  <div class="group-header" style="margin-top: 35px;">
+    <div class="group-name">{{ "LABEL.PACKAGE_BENEFITS" | translate }}</div>
+    <app-button type="primary" (click)="onEditPrice()">
+      <fa-icon [icon]="editIcon"></fa-icon>
+      {{ "BUTTON.EDIT" | translate }}</app-button
+    >
+  </div>
+  <app-table [columns]="benefitsTableColumns" [data]="displayBenefitsData"></app-table>
+</div>
+
+<!-- Pro Package price  -->
+<!-- Pro package & normal package statistics -->
+
+<!-- 
+    Instructor
+    - Commision fee (Pro & Normal)
+    - Number of marketing email send per month
+
+    Learner Pro
+    - Amount & % of coupons every month
+    - Extra gold & Exp %
+    - % of trial course and number of course can try/month
+ -->
