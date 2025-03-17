@@ -120,7 +120,7 @@
               <b>{{ _coupon.code }}</b>
               {{ "LABEL.CODE_IS_APPLIED" | translate }}
             </div>
-            <div class="discount">-{{ _coupon?.discount ?? 0 }}%</div>
+            <div class="discount">-{{ _coupon.discount || 0 }}%</div>
           </div>
           <i nz-icon nzType="close" (click)="removeCoupon()"></i>
         </div>

@@ -90,6 +90,8 @@ export class AdvanceSettingsComponent implements OnInit {
   ngOnInit(): void {
     this.initPriceData();
     this.initBenefitsData();
+
+    console.log(this.APIsPackageNumbers, this.APIsPackagePrice);
   }
 
   initPriceData() {
@@ -145,8 +147,6 @@ export class AdvanceSettingsComponent implements OnInit {
         this.displayBenefitsData.push(data)
       });
     });
-
-    console.log(this.displayBenefitsData);
   }
 
   onGetPackageLabel(type: PackageTypeEnum, role: WebRole) {

@@ -562,13 +562,13 @@
     "PACKAGE_BENEFITS": "Package Benefits",
     "PACKAGE_INSTRUCTOR_FREE": "Instructor Free",
     "COMMISIONFEE": "Commision Fee (%)",
-    "MARKETINGEMAILPERMONTH": "Marketing Email Per Month",
-    "COUPONPERMONTH": "Coupon Per Month",
+    "MARKETINGEMAILPERMONTH": "Marketing Emails / Month",
+    "COUPONPERMONTH": "Coupons / Month",
     "COUPONDISCOUNTUPTO": "Max coupon discount (%)",
     "EXTRAGOLDANDEXP": "Extra Gold and Exp (%)",
-    "TRIALCOURSEPERCENTAGE": "Max trial per Course (%)",
-    "COURSETRIALPERMONTH": "Course Trial Per Month",
-    "BENEFIT": "Benefit",
+    "TRIALCOURSEPERCENTAGE": "Max trial / Course (%)",
+    "COURSETRIALPERMONTH": "Course Trial / Month",
+    "BENEFIT": "Benefits",
     "VALUE": "Value"
   },
   "MESSAGE": {
