@@ -5,7 +5,6 @@ import {
   type OnInit,
   EventEmitter,
   OnDestroy,
-  ChangeDetectionStrategy,
 } from '@angular/core';
 import { TableColumn } from '../../shared/interfaces/others.interfaces';
 import { faAngleLeft, faAngleRight, faSort } from '@fortawesome/free-solid-svg-icons';
@@ -15,7 +14,6 @@ import { Subscription } from 'rxjs';
   selector: 'app-table',
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
-  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent implements OnInit, OnDestroy {
   @Input() changePage!: EventEmitter<number>;

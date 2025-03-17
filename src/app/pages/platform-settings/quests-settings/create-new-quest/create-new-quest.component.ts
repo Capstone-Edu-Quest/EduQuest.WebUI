@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, ViewChild, type OnInit, ElementRef, TemplateRef } from '@angular/core';
+import { Component, type OnInit } from '@angular/core';
 import { faAngleDown, faMinus, faPlus, faRetweet } from '@fortawesome/free-solid-svg-icons';
 import { QuestMissionEnum, QuestTypeEnum, RewardTypeEnum } from '../../../../shared/enums/others.enum';
 import { QuestsService } from '../../../../core/services/quests.service';
@@ -12,7 +12,6 @@ import { MessageService } from '../../../../core/services/message.service';
   selector: 'app-create-new-quest',
   templateUrl: './create-new-quest.component.html',
   styleUrl: './create-new-quest.component.scss',
-  changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [fadeInOutAnimation],
 })
 export class CreateNewQuestComponent implements OnInit {
