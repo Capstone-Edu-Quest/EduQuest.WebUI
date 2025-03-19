@@ -1,14 +1,14 @@
 <div class="course" *ngIf="course" (click)="onViewCourseDetails()">
   <div class="image-wrapper">
-    <img [src]="course.image" />
+    <img [src]="course.photoUrl" />
   </div>
   <div class="course-info">
     <div class="info">
       <div class="course-name">
-        {{ course.name }}
+        {{ course.title }}
       </div>
       <div class="description">{{ course.description }}</div>
-      <div class="author">{{ course.author.name }}</div>
+      <div class="author">{{ course.author }}</div>
       <div class="feedback-ctn">
         <div class="stars-number">{{ course.rating }}</div>
         <div class="stars-ctn">
@@ -18,16 +18,16 @@
           ></fa-icon>
         </div>
         <div class="feedbacks-number">
-          ({{ course.numberOfRating.toLocaleString() }})
+          ({{ course.totalReview.toLocaleString() }})
         </div>
       </div>
       <div class="others-info">
         <div class="time">
-          {{ "LABEL.TOTAL_TIME_IN_HOUR" | translate : { hour: 59.2 } }}
+          {{ "LABEL.TOTAL_TIME_IN_HOUR" | translate : { hour: course.totalTime } }}
         </div>
         <div>·</div>
         <div class="lesson">
-          {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: 48 } }}
+          {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: course.totalLesson } }}
         </div>
       </div>
       <div class="add-to-cart-group">

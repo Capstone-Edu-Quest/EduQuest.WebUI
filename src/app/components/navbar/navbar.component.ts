@@ -7,6 +7,7 @@ import { CartService } from '../../core/services/cart.service';
 import {
   ICourse,
   ICourseCart,
+  ICourseOverview,
 } from '../../shared/interfaces/course.interfaces';
 import { WishlistService } from '../../core/services/wishlist.service';
 import { IUser } from '../../shared/interfaces/user.interfaces';
@@ -263,7 +264,7 @@ export class NavbarComponent implements OnInit {
 
   listenWishlistItems() {
     this.subscription$.add(
-      this.wishlist.wishlist$.subscribe((wishlist: ICourse[]) => {
+      this.wishlist.wishlist$.subscribe((wishlist: ICourseOverview[]) => {
         let wlItem = this.iconItems.find((i) => i.routerLink === 'wishlist');
         if (wlItem) {
           wlItem.badge = wishlist.length;

@@ -3,8 +3,8 @@ import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 import { CartService } from '../../core/services/cart.service';
 import {
   ICoupon,
-  ICourse,
   ICourseCart,
+  ICourseOverview,
 } from '../../shared/interfaces/course.interfaces';
 import { Subscription } from 'rxjs';
 import { WishlistService } from '../../core/services/wishlist.service';
@@ -20,7 +20,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class CartComponent implements OnInit, OnDestroy {
   _cart!: ICourseCart;
-  _wishlist!: ICourse[];
+  _wishlist!: ICourseOverview[];
   subsription$: Subscription = new Subscription();
   discountAmout: number = 0;
   _coupon: ICoupon | null = null;

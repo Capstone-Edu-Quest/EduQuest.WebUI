@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { ICourse } from '../../../shared/interfaces/course.interfaces';
+import { ICourseOverview } from '../../../shared/interfaces/course.interfaces';
 
 @Component({
   selector: 'app-coursesList',
@@ -8,7 +8,7 @@ import { ICourse } from '../../../shared/interfaces/course.interfaces';
 })
 export class CoursesListComponent implements OnInit {
   @Input('notShowFooter') notShowFooter: boolean = false;
-  @Input('courses') courses: ICourse[] = [];
+  @Input('courses') courses: ICourseOverview[] = [];
   currentViewIndex: number = 0;
 
   constructor() {}

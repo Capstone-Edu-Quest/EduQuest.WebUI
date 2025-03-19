@@ -1,6 +1,14 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { ICoupon } from '../../shared/interfaces/course.interfaces';
+import {
+  ICoupon,
+  ICouponCreate,
+  ICouponUpdate,
+  ISearchCouponParams,
+} from '../../shared/interfaces/course.interfaces';
+import { HttpService } from './http.service';
+import { endPoints } from 'src/app/shared/constants/endPoints.constant';
+import { onConvertObjectToQueryParams } from '../utils/data.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -20,20 +28,38 @@ export class CouponService {
     // whitelistUserIds: null,
     // whitelistCourseIds: null,
   };
-  public inUseCoupon$: BehaviorSubject<ICoupon | null> = new BehaviorSubject<ICoupon | null> (null);
-  constructor() {}
+  public inUseCoupon$: BehaviorSubject<ICoupon | null> =
+    new BehaviorSubject<ICoupon | null>(null);
+  constructor(private http: HttpService) {}
 
   useCoupon(couponId: string | null) {
     if (!couponId) {
       this.inUseCoupon$.next(null);
     } else {
-      const coupon: ICoupon = this.getCouponById(couponId);
-      this.inUseCoupon$.next(coupon);
+      this.getCouponById(couponId).subscribe((response) => {
+        const coupons = response.payload;
+        if (!coupons || coupons?.length === 0) return;
+        this.inUseCoupon$.next(coupons[0]);
+      });
     }
   }
 
-  getCouponById(id: string): ICoupon {
-    // return this.coupons.find((coupon) => coupon.id === id);
-    return this.defaultCoupon;
+  getCouponById(id: string) {
+    const queryParam: ISearchCouponParams = { code: id };
+    return this.searchCoupons(queryParam);
+  }
+
+  searchCoupons(params: ISearchCouponParams) {
+    return this.http.get<ICoupon[]>(
+      endPoints.coupon + onConvertObjectToQueryParams(params)
+    );
+  }
+
+  createCoupon(coupon: ICouponCreate) {
+    return this.http.post<ICoupon>(endPoints.coupon, coupon);
+  }
+
+  updateCoupon(coupon: ICouponUpdate) {
+    return this.http.update<ICoupon>(endPoints.coupon, coupon.code, coupon);
   }
 }

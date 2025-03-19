@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
-import { ICourse } from '../../shared/interfaces/course.interfaces';
+import { ICourse, ICourseOverview } from '../../shared/interfaces/course.interfaces';
 import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WishlistService {
-  private courses: ICourse[] = [];
-  public wishlist$: BehaviorSubject<ICourse[]> = new BehaviorSubject(
+  private courses: ICourseOverview[] = [];
+  public wishlist$: BehaviorSubject<ICourseOverview[]> = new BehaviorSubject(
     this.courses
   );
 
@@ -17,7 +17,7 @@ export class WishlistService {
     // Call API
   }
 
-  updateWishlist(course: ICourse) {
+  updateWishlist(course: ICourseOverview) {
     const index = this.courses.findIndex((c) => c.id === course.id);
     if (index === -1) {
       this.courses.push(course);
@@ -28,7 +28,7 @@ export class WishlistService {
     this.wishlist$.next(this.courses);
   }
 
-  remove(course: ICourse) {
+  remove(course: ICourseOverview) {
     const index = this.courses.findIndex((c) => c.id === course.id);
     if (index !== -1) {
       this.courses.splice(index, 1);

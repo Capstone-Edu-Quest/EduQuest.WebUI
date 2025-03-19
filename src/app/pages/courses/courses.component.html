@@ -2,22 +2,22 @@
   <div class="found-course" *ngIf="searchKeyword.trim().length > 0">
     {{
       "LABEL.FOUND_COURSES"
-        | translate : { courses: sampleCourses.length, keyword: searchKeyword }
+        | translate : { courses: courses.length, keyword: searchKeyword }
     }}
   </div>
   <div class="courses-search-ctn">
     <div class="filter">
-      <app-courses-search-pannel></app-courses-search-pannel>
+      <app-courses-search-pannel (onChange)="handleFilterChange($event)"></app-courses-search-pannel>
     </div>
     <div class="courses-list">
       <div class="num-courses">
         {{
           "LABEL.NUMBER_OF_COURSES"
-            | translate : { courses: sampleCourses.length }
+            | translate : { courses: courses.length }
         }}
       </div>
       <div class="courses-list">
-        <app-course-search-item *ngFor="let course of sampleCourses" [course]="course"></app-course-search-item>
+        <app-course-search-item *ngFor="let course of courses" [course]="course"></app-course-search-item>
       </div>
     </div>
   </div>

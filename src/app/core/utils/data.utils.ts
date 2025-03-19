@@ -22,7 +22,7 @@ export function convertToObjectOrArray(str: string) {
       console.error('Invalid object format');
       return null;
     }
-  } 
+  }
   // Check if it's an array-like string (starts with [ and ends with ])
   else if (trimmedStr.startsWith('[') && trimmedStr.endsWith(']')) {
     try {
@@ -32,7 +32,7 @@ export function convertToObjectOrArray(str: string) {
       console.error('Invalid array format');
       return null;
     }
-  } 
+  }
   // Otherwise, just return the original string
   else {
     return str;
@@ -92,3 +92,12 @@ export function deepEqual(value1: any, value2: any) {
   // For primitive values (numbers, strings, etc.)
   return false;
 }
+
+export const onConvertObjectToQueryParams = (obj: object) => {
+  const searchParamsString = [];
+  for (const key in obj) {
+    searchParamsString.push(`${key}=${obj[key as keyof typeof obj]}`);
+  }
+
+  return '?' + searchParamsString.join('&');
+};

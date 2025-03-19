@@ -1,4 +1,4 @@
-import { MissionStatus } from '../enums/course.enum';
+import { CourseSortEnum, MissionStatus } from '../enums/course.enum';
 import { AssignmentLanguageEnum } from '../enums/materials.enum';
 import { IUserStat } from './user.interfaces';
 
@@ -9,6 +9,22 @@ export interface ITableMaterialData {
   time: string;
   type: materialType;
   data: string;
+}
+
+export interface ICourseOverview {
+  id: string;
+  title: string;
+  description: string;
+  photoUrl: string;
+  author: string;
+  createdBy: string;
+  price: number;
+  discountPrice: number | null;
+  rating: number;
+  totalLesson: number;
+  totalTime: number;
+  totalReview: number;
+  progress: number | null;
 }
 
 export interface ICourse {
@@ -159,7 +175,7 @@ export interface ITagCount extends ITag {
 }
 
 export interface ICourseCart {
-  courses: ICourse[];
+  courses: ICourseOverview[];
   total: number;
 }
 
@@ -182,10 +198,23 @@ export interface ICouponCreate {
   // whitelistCourseIds: string[] | null; // Courses can apply coupon, null = all courses
 }
 
+export interface ICouponUpdate extends Omit<ICouponCreate, 'code'> {
+  code: string
+}
+
 export interface ICouponCreateState
   extends Omit<ICouponCreate, 'startTime' | 'expireTime'> {
   startTime: string;
   expireTime: string | null;
+}
+
+export interface ISearchCouponParams {
+  code?: string;
+  discount?: number;
+  startTime?: string;
+  expireTime?: string;
+  pageNo?: number;
+  eachPage?: number;
 }
 
 export interface IReview {
@@ -229,4 +258,22 @@ export interface ITrendingCourse {
   };
   enrollments: number;
   tags: ITag[];
+}
+
+export interface IFilterCourseOption {
+  sort: CourseSortEnum | null;
+  ratingOpt: string;
+  selectedTags: string[];
+}
+
+export interface ISearchCourseParams {
+  KeywordName?: string;
+  DateTo?: string;
+  DateFrom?: string;
+  TagListId?: string[];
+  Author?: string;
+  Rating?: number;
+  Sort?: CourseSortEnum;
+  pageNo?: number;
+  eachPage?: number;
 }

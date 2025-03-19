@@ -8,6 +8,7 @@ import { EMPTY } from 'rxjs';
 import { LoadingService } from './loading.service';
 import { MessageService } from './message.service';
 import { TranslateService } from '@ngx-translate/core';
+import { TokenEnum } from 'src/app/shared/enums/localStorage.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -33,14 +34,9 @@ export class HttpService {
       .pipe(this.handleResponse<TPayload>());
   }
 
-  get<TPayload>(
-    endpoint: string,
-    id?: string
-  ): Observable<BaseReponse<TPayload>> {
+  get<TPayload>(endpoint: string): Observable<BaseReponse<TPayload>> {
     this.loading.addLoading();
-    const url = id
-      ? `${this.apiUrl}/${endpoint}/${id}`
-      : `${this.apiUrl}/${endpoint}`;
+    const url = `${this.apiUrl}/${endpoint}`;
     return this.http
       .get<BaseReponse<TPayload>>(url, { headers: this.getHeaders() })
       .pipe(this.handleResponse<TPayload>());
@@ -77,6 +73,7 @@ export class HttpService {
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
+      "Authorization": `Bearer ${localStorage.getItem(TokenEnum.ACCESS_TOKEN)}`
     });
   }
 

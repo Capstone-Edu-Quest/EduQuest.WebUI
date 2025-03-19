@@ -3,11 +3,11 @@
     <div class="no-course" *ngIf="_cart.courses.length === 0">{{'LABEL.NO_COURSE' | translate}}</div>
     <div *ngFor="let course of _cart.courses" class="navbar-cart-item" (click)="viewCourseDetails(course.id)">
       <div class="img-wrapper">
-        <img [src]="course.image" />
+        <img [src]="course.photoUrl" />
       </div>
       <div class="info">
-        <div class="name">{{ course.name }}</div>
-        <div class="author">{{ course.author.name }}</div>
+        <div class="name">{{ course.title }}</div>
+        <div class="author">{{ course.author }}</div>
         <div class="price">
           <div class="discounted">
             {{

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { CourseSortEnum } from 'src/app/shared/enums/course.enum';
+import { IFilterCourseOption } from 'src/app/shared/interfaces/course.interfaces';
 
 @Component({
   selector: 'app-courses-search-pannel',
@@ -6,21 +8,23 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./courses-search-pannel.component.scss'],
 })
 export class CoursesSearchPannelComponent implements OnInit {
+  @Output() onChange: EventEmitter<IFilterCourseOption> = new EventEmitter();
+
   sortBy: string = '';
   ratingOpt: string = '';
   selectedTags: string[] = ['DSA', "React", '.Net'];
 
   sortOptions = [
     {
-      value: 'SORT_MOST_FEEDBACKS',
+      value: CourseSortEnum.SORT_MOST_FEEDBACKS,
       label: 'SORT_MOST_FEEDBACKS',
     },
     {
-      value: 'SORT_NEWEST',
+      value: CourseSortEnum.SORT_NEWEST,
       label: 'SORT_NEWEST',
     },
     {
-      value: 'SORT_HIGHEST_RATING',
+      value: CourseSortEnum.SORT_HIGHEST_RATING,
       label: 'SORT_HIGHEST_RATING',
     },
   ];
@@ -56,7 +60,7 @@ export class CoursesSearchPannelComponent implements OnInit {
   constructor() {}
   ngOnInit() {}
 
-  handleFilterChange(key: string, val: string) {
+  handleFilterChange(key: string, val: any) {
     switch (key) {
       case 'SORT':
         this.sortBy = val;
@@ -65,5 +69,11 @@ export class CoursesSearchPannelComponent implements OnInit {
         this.ratingOpt = val;
         break;
     }
+
+    this.onChange.emit({
+      sort: Number(this.sortBy) as CourseSortEnum,
+      ratingOpt: this.ratingOpt,
+      selectedTags: this.selectedTags,
+    })
   }
 }

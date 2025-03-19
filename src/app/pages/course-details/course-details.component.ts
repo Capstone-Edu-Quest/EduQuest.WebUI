@@ -7,6 +7,7 @@ import {
   ICourse,
   ICourseCart,
   ICourseDetails,
+  ICourseOverview,
 } from '../../shared/interfaces/course.interfaces';
 import { CouponService } from '../../core/services/coupon.service';
 import { CartService } from '../../core/services/cart.service';
@@ -251,7 +252,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
 
   listenToWishList() {
     this.subscription$.add(
-      this.wishlist.wishlist$.subscribe((wishlist: ICourse[]) => {
+      this.wishlist.wishlist$.subscribe((wishlist: ICourseOverview[]) => {
         this.isInWishlist = wishlist.some(
           (c) => c.id === this.courseDetails?.id
         );
@@ -283,15 +284,15 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     }
 
     if (!this.course) return;
-    this.cart.updateCart(this.courseDetails);
+    this.cart.updateCart(this.course.onConvertCourseDetailsToCourseOverview(this.courseDetails));
     // Remove from wishlist if exist
-    this.isInWishlist && this.wishlist.updateWishlist(this.courseDetails);
+    this.isInWishlist && this.wishlist.updateWishlist(this.course.onConvertCourseDetailsToCourseOverview(this.courseDetails));
   }
 
   onAddToWishlist(event: Event) {
     event.stopPropagation();
     if (!this.course) return;
-    this.wishlist.updateWishlist(this.courseDetails);
+    this.wishlist.updateWishlist(this.course.onConvertCourseDetailsToCourseOverview(this.courseDetails));
   }
 
   goToCart() {

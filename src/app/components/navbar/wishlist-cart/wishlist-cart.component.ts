@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CouponService } from '../../../core/services/coupon.service';
 import { Subscription } from 'rxjs';
 import { WishlistService } from '../../../core/services/wishlist.service';
-import { ICourse } from '../../../shared/interfaces/course.interfaces';
+import { ICourseOverview } from '../../../shared/interfaces/course.interfaces';
 import { CartService } from '../../../core/services/cart.service';
 import { Router } from '@angular/router';
 
@@ -13,7 +13,7 @@ import { Router } from '@angular/router';
 })
 export class WishlistCartComponent implements OnInit {
   subscription$: Subscription = new Subscription();
-  _wishlist: ICourse[] = [];
+  _wishlist: ICourseOverview[] = [];
   discountAmout: number = 0;
 
   constructor(
@@ -47,7 +47,7 @@ export class WishlistCartComponent implements OnInit {
     this.router.navigate(['/courses', courseId]);
   }
 
-  onAddToCart(course: ICourse, event: Event) {
+  onAddToCart(course: ICourseOverview, event: Event) {
     event.stopPropagation();
     this.cart.updateCart(course);
     this.wishlist.remove(course);

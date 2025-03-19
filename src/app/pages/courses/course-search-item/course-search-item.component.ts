@@ -1,7 +1,8 @@
 import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import {
-  ICourse,
+  ICourseOverview,
   ICourseCart,
+  ICourse,
 } from '../../../shared/interfaces/course.interfaces';
 import { faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
@@ -17,7 +18,7 @@ import { CouponService } from '../../../core/services/coupon.service';
   styleUrls: ['./course-search-item.component.scss'],
 })
 export class CourseSearchItemComponent implements OnInit, OnDestroy {
-  @Input('course') course: ICourse | null = null;
+  @Input('course') course: ICourseOverview | null = null;
 
   @ViewChild('item') item!: ElementRef;
 
@@ -79,7 +80,7 @@ export class CourseSearchItemComponent implements OnInit, OnDestroy {
 
   listenToWishList() {
     this.subscription$.add(
-      this.wishlist.wishlist$.subscribe((wishlist: ICourse[]) => {
+      this.wishlist.wishlist$.subscribe((wishlist: (ICourse | ICourseOverview)[]) => {
         this.isInWishlist = wishlist.some((c) => c.id === this.course?.id);
       })
     );

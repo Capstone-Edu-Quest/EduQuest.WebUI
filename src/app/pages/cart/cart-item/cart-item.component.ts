@@ -1,5 +1,5 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { ICourse } from '../../../shared/interfaces/course.interfaces';
+import { ICourseOverview } from '../../../shared/interfaces/course.interfaces';
 import { faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { CartService } from '../../../core/services/cart.service';
@@ -14,7 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./cart-item.component.scss'],
 })
 export class CartItemComponent implements OnInit, OnDestroy {
-  @Input('course') course: ICourse | null = null;
+  @Input('course') course: ICourseOverview | null = null;
   @Input('isInCart') isInCart: boolean = false;
 
   star = faStar;

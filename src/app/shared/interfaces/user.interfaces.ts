@@ -21,7 +21,7 @@ export interface IUser {
   statistic: IUserStatistics;
   lastActive?: string;
   mascotItem: string[];
-  isPremium: boolean
+  isPremium: boolean;
 }
 
 export interface IUserStatistics {
@@ -34,9 +34,14 @@ export interface IUserStatistics {
   exp: number;
   level: number;
   studyTime: number;
+  totalCompletedCourses: number;
+  currentStreak: number;
+  longestStreak: number;
+
   totalCourseCreated: number;
   totalLearner: number;
   totalReview: number;
+  lastActive: string | null;
 }
 
 export interface IUserStat extends IUser {

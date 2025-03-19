@@ -1,5 +1,5 @@
 import { ElementRef, Injectable } from '@angular/core';
-import { ICourse, ICourseCart } from '../../shared/interfaces/course.interfaces';
+import { ICourse, ICourseCart, ICourseOverview } from '../../shared/interfaces/course.interfaces';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { WishlistService } from './wishlist.service';
 
@@ -19,7 +19,7 @@ export class CartService {
     // Call API
   }
 
-  updateCart(course: ICourse) {
+  updateCart(course: ICourseOverview) {
     const index = this.cart.courses.findIndex((c) => c.id === course.id);
     if (index === -1) {
       this.cart.courses.push(course);

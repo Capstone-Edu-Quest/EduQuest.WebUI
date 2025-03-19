@@ -2,6 +2,7 @@ import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@ang
 import {
   ICourse,
   ICourseCart,
+  ICourseOverview,
 } from '../../../shared/interfaces/course.interfaces';
 import { faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
@@ -18,7 +19,7 @@ import { CouponService } from '../../../core/services/coupon.service';
 })
 export class CoursesCardComponent implements OnInit, OnDestroy {
   @Input('isStaffView') isStaffView: boolean = false;
-  @Input('course') course: ICourse | null = null;
+  @Input('course') course: ICourseOverview | null = null;
   @Input('isWishlistView') isWishlistView: boolean = false;
   @Input('notShowFooter') notShowFooter: boolean = false;
   @ViewChild('item') item!: ElementRef;
@@ -68,7 +69,7 @@ export class CoursesCardComponent implements OnInit, OnDestroy {
 
   listenToWishList() {
     this.subscription$.add(
-      this.wishlist.wishlist$.subscribe((wishlist: ICourse[]) => {
+      this.wishlist.wishlist$.subscribe((wishlist: (ICourse | ICourseOverview)[]) => {
         this.isInWishlist = wishlist.some((c) => c.id === this.course?.id);
       })
     );

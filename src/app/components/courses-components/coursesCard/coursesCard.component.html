@@ -1,18 +1,18 @@
 <div class="course-card" *ngIf="course" #item (click)="viewCourseDetails()">
   <div class="image-ctn">
-    <img [src]="course.image" />
+    <img [src]="course.photoUrl" />
   </div>
   <div class="info-ctn">
-    <div class="name">{{ course.name }}</div>
-    <div class="author">{{ course.author.name }}</div>
+    <div class="name">{{ course.title }}</div>
+    <div class="author">{{ course.author }}</div>
 
     <div class="others-info" *ngIf="isWishlistView">
       <div class="time">
-        {{ "LABEL.TOTAL_TIME_IN_HOUR" | translate : { hour: course.duration } }}
+        {{ "LABEL.TOTAL_TIME_IN_HOUR" | translate : { hour: course.totalTime} }}
       </div>
       <div>·</div>
       <div class="lesson">
-        {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: course.stageCount } }}
+        {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: course.totalLesson} }}
       </div>
     </div>
 
@@ -22,7 +22,7 @@
         <fa-icon *ngFor="let starIcon of starsList" [icon]="starIcon"></fa-icon>
       </div>
       <div class="feedbacks-number">
-        ({{ course.numberOfRating.toLocaleString() }})
+        ({{ course.totalReview.toLocaleString() }})
       </div>
     </div>
     @if(!notShowFooter) {
@@ -37,7 +37,7 @@
   <div class="progress" *ngIf="course">
     <div class="header">
       <div class="label">{{ "LABEL.PROGRESS" | translate }}</div>
-      <div class="percent">{{ course.progress }}%</div>
+      <div class="percent">{{ course.progress ?? 0 }}%</div>
     </div>
     <div class="progress-bar-ctn">
       <div

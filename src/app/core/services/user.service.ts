@@ -65,7 +65,7 @@ export class UserService {
     }
   }
 
-  getUserById(uid: string) {
+  getUserById(uid: string): IUser {
     return {
       id: 'u1',
       username: 'david_teacher',
@@ -88,6 +88,10 @@ export class UserService {
         totalCourseCreated: 8,
         totalLearner: 1500,
         totalReview: 300,
+        totalCompletedCourses: 15,
+        currentStreak: 10,
+        longestStreak: 20,
+        lastActive: '2025-03-03T12:00:00Z',
       },
       lastActive: '2025-03-03T12:00:00Z',
       mascotItem: ['wings', 'katana'],

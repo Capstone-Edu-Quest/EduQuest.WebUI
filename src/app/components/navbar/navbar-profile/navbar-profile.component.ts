@@ -166,6 +166,10 @@ export class NavbarProfileComponent implements OnInit, OnDestroy {
       },
       action: () => this.theme.onGoToNextTheme(),
     },
+    {
+      name: 'LABEL.LOGOUT',
+      action: () => this.UserService.logout(),
+    },
   ]
 
   onInitRouteItems() {

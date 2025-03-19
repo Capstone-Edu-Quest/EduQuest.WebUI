@@ -9,6 +9,7 @@ import {
 import {
   ICourse,
   ICourseCart,
+  ICourseOverview,
 } from '../../../shared/interfaces/course.interfaces';
 import { CartService } from '../../../core/services/cart.service';
 import { WishlistService } from '../../../core/services/wishlist.service';
@@ -17,7 +18,7 @@ import { CouponService } from '../../../core/services/coupon.service';
 import { Subscription } from 'rxjs';
 import { faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
-
+import { CoursesService } from '../../../core/services/courses.service';
 @Component({
   selector: 'app-path-course-item',
   templateUrl: './path-course-item.component.html',
@@ -46,7 +47,8 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
     private cart: CartService,
     private wishlist: WishlistService,
     private router: Router,
-    private coupon: CouponService
+    private coupon: CouponService,
+    private courseService: CoursesService
   ) {}
 
   ngOnInit() {
@@ -91,7 +93,7 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
 
   listenToWishList() {
     this.subscription$.add(
-      this.wishlist.wishlist$.subscribe((wishlist: ICourse[]) => {
+      this.wishlist.wishlist$.subscribe((wishlist: ICourseOverview[]) => {
         this.isInWishlist = wishlist.some((c) => c.id === this.course?.id);
       })
     );
@@ -111,16 +113,16 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
     }
 
     if (!this.course) return;
-    this.cart.updateCart(this.course);
+    this.cart.updateCart(this.courseService.onConvertCourseDetailsToCourseOverview(this.course));
     this.cart.addToCartAnimation(this.item);
     // Remove from wishlist if exist
-    this.isInWishlist && this.wishlist.updateWishlist(this.course);
+    this.isInWishlist && this.wishlist.updateWishlist(this.courseService.onConvertCourseDetailsToCourseOverview(this.course));
   }
 
   onAddToWishlist(event: Event) {
     event.stopPropagation();
     if (!this.course) return;
-    this.wishlist.updateWishlist(this.course);
+    this.wishlist.updateWishlist(this.courseService.onConvertCourseDetailsToCourseOverview(this.course));
   }
 
   goToCart() {
