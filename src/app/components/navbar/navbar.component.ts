@@ -274,6 +274,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onConfirmSearchCourse(e: KeyboardEvent) {
+    console.log(this.searchText, e.key);
     if (e.key !== 'Enter' || !this.searchText.trim()) return;
     this.router.navigate(['/courses'], {
       queryParams: { keyword: encodeURIComponent(this.searchText) },
@@ -297,7 +298,7 @@ export class NavbarComponent implements OnInit {
   }
 
   onGetMiddleNavigation() {
-    if (!this.user) return this.emptyRef;
+    if (!this.user) return this.leanerMid;
     switch (this.user.roleId) {
       case WebRole.LEARNER:
         return this.leanerMid;
@@ -307,7 +308,7 @@ export class NavbarComponent implements OnInit {
       case WebRole.ADMIN:
         return this.instructorMid;
       default:
-        return this.emptyRef;
+        return this.leanerMid;
     }
   }
 
