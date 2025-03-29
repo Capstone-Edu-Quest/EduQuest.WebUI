@@ -1,0 +1,43 @@
+<div class="signin-container">
+  <img src="../../../../assets/images/logo.webp" alt="logo" class="logo" />
+  <div>
+    <div class="title">{{ "LABEL.WELCOME_BACK" | translate }}</div>
+    <div class="subtitle">{{ "LABEL.SIGNIN_SUB" | translate }}</div>
+  </div>
+
+  <div class="form-container">
+    <input type="text" placeholder="{{ 'LABEL.EMAIL' | translate }}" />
+    <div>
+      <input type="password" placeholder="{{ 'LABEL.PASSWORD' | translate }}" />
+      <div class="forgot-password" (click)="onForgotPassword()">
+        {{ "LABEL.FORGOT_PASSWORD" | translate }}
+      </div>
+    </div>
+
+    <app-button
+      [ngStyle]="{ width: '320px' }"
+      [style]="{ width: '320px', borderColor: 'var(--brand)' }"
+      [type]="'primary'"
+      >{{ "LABEL.SIGNIN" | translate }}</app-button
+    >
+  </div>
+
+  <div
+    style="width: 320px; height: 1px; background: var(--stage-body-locked)"
+  ></div>
+
+  <app-button
+    [ngStyle]="{ width: '320px' }"
+    [style]="{
+      width: '320px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '8px'
+    }"
+    [type]="'secondary'"
+    (click)="onSignInWithGoogle()"
+    ><fa-icon [icon]="googleIcon"></fa-icon>
+    {{ "LABEL.SIGNIN_WITH_GOOGLE" | translate }}</app-button
+  >
+</div>

@@ -293,10 +293,6 @@ export class NavbarComponent implements OnInit {
     });
   }
 
-  onSignIn() {
-    this.UserService.signInWithGoogle();
-  }
-
   onGetMiddleNavigation() {
     if (!this.user) return this.leanerMid;
     switch (this.user.roleId) {
@@ -310,6 +306,10 @@ export class NavbarComponent implements OnInit {
       default:
         return this.leanerMid;
     }
+  }
+
+  onSignIn() {
+    this.router.navigate(['/signin']);
   }
 
   isRouteActive(route: string): boolean {

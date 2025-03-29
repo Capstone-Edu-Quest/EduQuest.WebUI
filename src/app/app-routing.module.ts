@@ -51,6 +51,8 @@ import { CouponsSettingsComponent } from './pages/platform-settings/coupons-sett
 import { PricingComponent } from './pages/pricing/pricing.component';
 import { AdvanceSettingsComponent } from './pages/platform-settings/advance-settings/advance-settings.component';
 import { PlatformLogsComponent } from './pages/platform-logs/platform-logs.component';
+import { SigninComponent } from './pages/auth/signin/signin.component';
+import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
 
 const routes: Routes = [
   {
@@ -411,6 +413,14 @@ const routes: Routes = [
       allowedRoles: [WebRole.ADMIN],
     },
     component: PlatformLogsComponent,
+  },
+  {
+    path: 'signin',
+    component: SigninComponent,
+  },
+  {
+    path: 'forgot-password',
+    component: ForgotPasswordComponent,
   },
 ];
 

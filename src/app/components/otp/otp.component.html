@@ -1,0 +1,11 @@
+<div class="otp-container">
+  <input
+    *ngFor="let num of otp; let i = index;trackBy: trackByIdx"
+    type="text"
+    class="otp-input"
+    maxlength="1"
+    (input)="onInput(i, $event)"
+    (keydown)="onKeyDown(i, $event)"
+    #otpInput
+  />
+</div>

@@ -182,10 +182,14 @@ import { AdvanceSettingsComponent } from './pages/platform-settings/advance-sett
 import { CreateNewQuestComponent } from './pages/platform-settings/quests-settings/create-new-quest/create-new-quest.component';
 import { HomeAdminComponent } from './pages/home/home-admin/home-admin.component';
 import { PlatformLogsComponent } from './pages/platform-logs/platform-logs.component';
+import { OtpComponent } from './components/otp/otp.component';
+import { SigninComponent } from './pages/auth/signin/signin.component';
+import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
 
 export const AppDeclarations = [
   AppComponent,
   NavbarComponent,
+  OtpComponent,
   FooterComponent,
   CoursesListComponent,
   CoursesCardComponent,
@@ -325,7 +329,10 @@ export const AppDeclarations = [
   // Pricing
   PricingComponent,
   // Logs
-  PlatformLogsComponent
+  PlatformLogsComponent,
+  // Auth
+  SigninComponent,
+  ForgotPasswordComponent
 ];
 export const NGIcons = [
   EnterOutline,

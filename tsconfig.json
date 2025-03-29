@@ -25,6 +25,7 @@
     ],
     "baseUrl": "./",
     "paths": {
+      "@/*": ["./*"],
       "zone.js/node": ["node_modules/zone.js/dist/zone-node.js"]
     }
   },
