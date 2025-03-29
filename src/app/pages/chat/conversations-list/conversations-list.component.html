@@ -6,23 +6,26 @@
   />
 
   <div class="list">
+    <div *ngIf="!conversations.length" class="no-conversations">
+      {{ "LABEL.NO_CONVERSATION" | translate }}
+    </div>
     <div
       class="chat"
       [ngClass]="{
         isView: conv.id === currentViewId
       }"
       *ngFor="let conv of conversations"
-      (click)="viewChatMessage(conv.id)"
+      (click)="viewChatMessage(conv.id ?? '')"
     >
-      <app-avatar-by-name [name]="'Gia Khang'"></app-avatar-by-name>
+      <app-avatar-by-name [name]="getOtherUser(conv)"></app-avatar-by-name>
       <div class="info">
-        <div class="name">Gia Khang</div>
+        <div class="name">{{ getOtherUser(conv) }}</div>
         <div class="last-message">
-          {{ "LABEL.YOU" | translate }}: Hello · 11:22
+          {{ isMeSendMessage(conv) ? ('LABEL.YOU' | translate) + ':' : '' }} {{ conv.lastMessage?.content }} · {{ conv.lastMessage?.time | date : "HH:mm" }}
         </div>
       </div>
 
-      <div class="dot"></div>
+      <div class="dot" *ngIf="isSeen(conv)"></div>
     </div>
   </div>
 </div>

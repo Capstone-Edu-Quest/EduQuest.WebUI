@@ -67,12 +67,12 @@ export class UserService {
 
   getUserById(uid: string): IUser {
     return {
-      id: 'u1',
-      username: 'david_teacher',
-      email: 'david@example.com',
+      id: '5e7ca4f0-2fca-42e9-b0a5-59be4c4cc037',
+      username: 'Khang Gia',
+      email: 'khanggia85@gmail.com',
       phone: '+1234567890',
-      avatarUrl: 'https://example.com/avatars/david.png',
-      roleId: WebRole.LEARNER,
+      avatarUrl: 'https://lh3.googleusercontent.com/a/ACg8ocKNlNJCtGxIJwK52KQazwL9UvrZLoyzQ-WOjKYzJHV56FKQy5RJ=s96-c',
+      roleId: WebRole.INSTRUCTOR,
       isPremium: true,
       status: 'active',
       statistic: {

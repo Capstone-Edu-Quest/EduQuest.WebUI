@@ -1,27 +1,32 @@
-import { MessageService } from '@/src/app/core/services/message.service';
-import { validateEmail } from '@/src/app/core/utils/string.utils';
 import { Component, type OnInit } from '@angular/core';
+import { faGoogle } from '@fortawesome/free-brands-svg-icons';
+import { UserService } from 'src/app/core/services/user.service';
 import { Router } from '@angular/router';
+import { MessageService } from '@/src/app/core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
+
 @Component({
-  selector: 'app-forgot-password',
-  templateUrl: './forgot-password.component.html',
-  styleUrl: './forgot-password.component.scss',
+  selector: 'app-signup',
+  templateUrl: './signup.component.html',
+  styleUrl: './signup.component.scss',
 })
-export class ForgotPasswordComponent implements OnInit {
-  currentStep: number = 1;
+export class SignupComponent implements OnInit {
+  signUpInfo = {
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+  };
 
-  email: string = '';
-
+  currentStep = 2;
   otp: string[] = new Array(6).fill(null);
-
-  newPassword: string = '';
-  confirmPassword: string = '';
-
   resendTime: number = 0;
   resendOTPInterval: any;
 
+  googleIcon = faGoogle;
+
   constructor(
+    private UserService: UserService,
     private router: Router,
     private message: MessageService,
     private translate: TranslateService
@@ -29,21 +34,31 @@ export class ForgotPasswordComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  backToSignIn() {
+  onSignInWithGoogle() {
+    this.UserService.signInWithGoogle();
+  }
+
+  onBackToSignin() {
     this.router.navigate(['/signin']);
   }
 
   onContinue() {
     if (this.currentStep === 1) {
-      if (!validateEmail(this.email)) {
+      if (
+        this.signUpInfo.name === '' ||
+        this.signUpInfo.email === '' ||
+        this.signUpInfo.password === '' ||
+        this.signUpInfo.confirmPassword === ''
+      ) {
         this.message.addMessage(
           'error',
-          this.translate.instant('MESSAGE.INVALID_EMAIL')
+          this.translate.instant('MESSAGE.PLEASE_FILL_IN_ALL_FIELDS')
         );
         return;
       }
-      this.currentStep++;
       this.resendOTP();
+      this.currentStep = 2;
+
       return;
     }
 
@@ -57,17 +72,6 @@ export class ForgotPasswordComponent implements OnInit {
       }
 
       this.currentStep++;
-      return;
-    }
-
-    if (this.currentStep === 3) {
-      if (this.newPassword !== this.confirmPassword) {
-        this.message.addMessage(
-          'error',
-          this.translate.instant('MESSAGE.PASSWORD_NOT_MATCH')
-        );
-        return;
-      }
       return;
     }
   }

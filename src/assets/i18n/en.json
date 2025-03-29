@@ -583,7 +583,14 @@
     "WELCOME_BACK": "Welcome back",
     "SIGNIN_SUB": "Sign in to your account to continue",
     "NEW_PASSWORD": "New Password",
-    "CONFIRM_PASSWORD": "Confirm Password"
+    "CONFIRM_PASSWORD": "Confirm Password",
+    "FORGOT_PASSWORD_SUB_2": "Enter the OTP sent to your email",
+    "FORGOT_PASSWORD_SUB_3": "Enter your new password",
+    "SIGNUP": "Create new account",
+    "SIGNUP_SUB": "Create an account to continue",
+    "BACK_TO_SIGNIN": "Already have an account? Sign in",
+    "WELCOME_TO_EDUQUEST": "Welcome to EduQuest",
+    "NO_CONVERSATION": "No conversation to display"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",
@@ -624,9 +631,10 @@
     "DUPLICATE_REWARD": "Reward type can not be duplicate",
     "EXP_ZERO": "Exp must be greater than 0",
     "REWARD_ZERO": "Reward value must be greater than 0",
-    "INVALID_EMAIL": "Invalid email",
+    "INVALID_EMAIL": "Please enter a valid email",
     "INVALID_OTP": "Invalid OTP",
-    "PASSWORD_NOT_MATCH": "Password not match"
+    "PASSWORD_NOT_MATCH": "Password not match",
+    "PLEASE_FILL_IN_ALL_FIELDS": "Please fill in all fields"
   },
   "BUTTON": {
     "CONTINUE": "Continue",
@@ -666,7 +674,8 @@
     "CREATE": "Create",
     "ADD_QUEST": "Add Quest",
     "CREATE_COUPON":"Create Coupon",
-    "EDIT": "Edit"
+    "EDIT": "Edit",
+    "SEND_MESSAGE": "Send Message"
   },
   "LANGUAGES": {
     "EN": "English",

@@ -185,6 +185,7 @@ import { PlatformLogsComponent } from './pages/platform-logs/platform-logs.compo
 import { OtpComponent } from './components/otp/otp.component';
 import { SigninComponent } from './pages/auth/signin/signin.component';
 import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
+import { SignupComponent } from './pages/auth/signup/signup.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -332,7 +333,8 @@ export const AppDeclarations = [
   PlatformLogsComponent,
   // Auth
   SigninComponent,
-  ForgotPasswordComponent
+  ForgotPasswordComponent,
+  SignupComponent
 ];
 export const NGIcons = [
   EnterOutline,

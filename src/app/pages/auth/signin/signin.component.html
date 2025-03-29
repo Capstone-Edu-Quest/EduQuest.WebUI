@@ -26,18 +26,33 @@
     style="width: 320px; height: 1px; background: var(--stage-body-locked)"
   ></div>
 
-  <app-button
-    [ngStyle]="{ width: '320px' }"
-    [style]="{
-      width: '320px',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      gap: '8px'
-    }"
-    [type]="'secondary'"
-    (click)="onSignInWithGoogle()"
-    ><fa-icon [icon]="googleIcon"></fa-icon>
-    {{ "LABEL.SIGNIN_WITH_GOOGLE" | translate }}</app-button
-  >
+  <div style="display: flex; gap: 8px; flex-direction: column;">
+    <app-button
+      [ngStyle]="{ width: '320px' }"
+      [style]="{
+        width: '320px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '8px'
+      }"
+      [type]="'secondary'"
+      (click)="onSignInWithGoogle()"
+      ><fa-icon [icon]="googleIcon"></fa-icon>
+      {{ "LABEL.SIGNIN_WITH_GOOGLE" | translate }}</app-button
+    ><app-button
+      [ngStyle]="{ width: '320px' }"
+      [style]="{
+        width: '320px',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        gap: '8px'
+      }"
+      [type]="'secondary'"
+      (click)="onSignUp()"
+    >
+      {{ "LABEL.SIGNUP" | translate }}</app-button
+    >
+  </div>
 </div>

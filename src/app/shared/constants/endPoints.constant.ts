@@ -4,6 +4,7 @@ export const endPoints = {
   signout: 'auth/sign-out',
 
   cart: 'cart',
+  addToCart: 'cart/add-cartItem',
 
   course: 'course',
   searchCourse: 'course/searchCourse',
@@ -11,7 +12,7 @@ export const endPoints = {
   getCourseById: 'course/byCourseId',
   getMyCourse: 'course/createdByMe',
 
-  learningMaterial: 'learningMaterial',
+  material: 'material',
 
   coupon: 'coupon',
 
@@ -27,15 +28,21 @@ export const endPoints = {
   duplicateLearningPath: 'learningPath/dup',
   learningPathDetails: 'learningPath/detail',
 
+  level: 'level',
+  getLevel: 'level/filter',
+
   getAllUser: 'user/all',
   getMyInfo: 'user/me',
   switchRole: 'user/switch',
   user: 'user',
 
+  userMetaStreak: 'userMeta/streak',
+  userMetaProgress: 'userMeta/userProgress',
+
   tag: 'tag',
   searchTag: 'tag/filter',
 
-  getSubscriptionsPackage: 'subscription',
+  subscription: 'subscription',
 
   webUserStatistic: 'webStatistic/user',
   webOverallStatistic: 'webStatistic/overall',

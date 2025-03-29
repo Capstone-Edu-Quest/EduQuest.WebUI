@@ -5,7 +5,8 @@ import { UserService } from '../../../core/services/user.service';
 import { Subscription } from 'rxjs';
 import { IUser, IUserStat } from '../../../shared/interfaces/user.interfaces';
 import { Router } from '@angular/router';
-
+import { ChatService } from '../../../core/services/chat.service';
+import { IParticipant } from '@/src/app/shared/interfaces/others.interfaces';
 @Component({
   selector: 'app-instructor-profile',
   templateUrl: './instructor-profile.component.html',
@@ -100,11 +101,31 @@ export class InstructorProfileComponent implements OnInit, OnDestroy {
     },
   ];
   star = faStar;
-  constructor() {}
+
+  constructor(private chat: ChatService, private userService: UserService) {}
 
   ngOnInit() {}
 
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();
+  }
+
+  onSendMessage() {
+    if (!this.user || !this.userService.user$.value) return;
+
+    const participants: IParticipant[] = [
+      {
+        id: this.user.id,
+        name: this.user.username,
+        avatar: this.user.avatarUrl,
+      },
+      {
+        id: this.userService.user$.value.id,
+        name: this.userService.user$.value.username,
+        avatar: this.userService.user$.value.avatarUrl,
+      },
+    ];
+
+    this.chat.addConversation(participants);
   }
 }

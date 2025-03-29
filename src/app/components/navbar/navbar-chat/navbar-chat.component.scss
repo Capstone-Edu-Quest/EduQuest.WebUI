@@ -34,6 +34,11 @@
     gap: 3px;
     margin-top: 12px;
 
+    .no-conversations {
+      text-align: center;
+      color: var(--secondary-text);
+    }
+
     .conversation {
       display: flex;
       gap: 8px;

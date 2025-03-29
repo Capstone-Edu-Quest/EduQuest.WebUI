@@ -1,0 +1,87 @@
+<div class="signin-container">
+  <img src="../../../../assets/images/logo.webp" alt="logo" class="logo" />
+  <div>
+    <div class="title">{{ "LABEL.WELCOME_TO_EDUQUEST" | translate }}</div>
+    <div class="subtitle">
+      {{
+        currentStep === 1
+          ? "LABEL.SIGNUP_SUB"
+          : ("LABEL.FORGOT_PASSWORD_SUB_2" | translate)
+      }}
+    </div>
+  </div>
+
+  <div class="form-container" *ngIf="currentStep === 1">
+    <input
+      type="text"
+      placeholder="{{ 'LABEL.NAME' | translate }}"
+      [(ngModel)]="signUpInfo.name"
+    />
+    <input
+      type="text"
+      placeholder="{{ 'LABEL.EMAIL' | translate }}"
+      [(ngModel)]="signUpInfo.email"
+    />
+    <input
+      type="password"
+      placeholder="{{ 'LABEL.PASSWORD' | translate }}"
+      [(ngModel)]="signUpInfo.password"
+    />
+    <div>
+      <input
+        type="password"
+        placeholder="{{ 'LABEL.CONFIRM_PASSWORD' | translate }}"
+        [(ngModel)]="signUpInfo.confirmPassword"
+      />
+      <div class="forgot-password" (click)="onBackToSignin()">
+        {{ "LABEL.BACK_TO_SIGNIN" | translate }}
+      </div>
+    </div>
+
+    <app-button
+      [ngStyle]="{ width: '320px' }"
+      [style]="{ width: '320px', borderColor: 'var(--brand)' }"
+      [type]="'primary'"
+      (click)="onContinue()"
+      >{{ "LABEL.CONTINUE" | translate }}</app-button
+    >
+  </div>
+
+  <div class="form-container" *ngIf="currentStep === 2">
+    <div style="margin-bottom: 6px">
+      <div class="otp-text">We have sent an OTP to {{ signUpInfo.email }}</div>
+      <app-otp (onKeyChange)="onOtpChange($event)"></app-otp>
+      <div class="resend-otp" (click)="resendOTP()">
+        Resend OTP ({{ resendTime }}s)
+      </div>
+    </div>
+
+    <app-button
+      [ngStyle]="{ width: '320px' }"
+      [style]="{ width: '320px', borderColor: 'var(--brand)' }"
+      [type]="'primary'"
+      (click)="onContinue()"
+      >{{ "LABEL.CONTINUE" | translate }}</app-button
+    >
+  </div>
+
+  <div
+    *ngIf="currentStep === 1"
+    style="width: 320px; height: 1px; background: var(--stage-body-locked)"
+  ></div>
+  <app-button
+    *ngIf="currentStep === 1"
+    [ngStyle]="{ width: '320px' }"
+    [style]="{
+      width: '320px',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      gap: '8px'
+    }"
+    [type]="'secondary'"
+    (click)="onSignInWithGoogle()"
+    ><fa-icon [icon]="googleIcon"></fa-icon>
+    {{ "LABEL.SIGNIN_WITH_GOOGLE" | translate }}</app-button
+  >
+</div>

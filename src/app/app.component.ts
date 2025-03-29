@@ -45,8 +45,8 @@ export class AppComponent implements OnInit, OnDestroy {
     this.ThemeService.onInitTheme();
     this.onInitLanguage();
     this.initAOS();
-    this.listenToUser();
     this.firebase.init();
+    this.listenToUser();
   }
 
   listenToLoading() {

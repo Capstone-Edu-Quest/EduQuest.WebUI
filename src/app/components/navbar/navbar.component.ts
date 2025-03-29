@@ -274,7 +274,6 @@ export class NavbarComponent implements OnInit {
   }
 
   onConfirmSearchCourse(e: KeyboardEvent) {
-    console.log(this.searchText, e.key);
     if (e.key !== 'Enter' || !this.searchText.trim()) return;
     this.router.navigate(['/courses'], {
       queryParams: { keyword: encodeURIComponent(this.searchText) },

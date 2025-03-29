@@ -2,6 +2,7 @@
   margin-top: 10px;
   padding: 0;
   box-sizing: border-box;
+  height: 100%;
 
   .search-name {
     width: calc(100% - 24px);
@@ -21,6 +22,11 @@
     display: flex;
     flex-direction: column;
 
+    .no-conversations {
+      text-align: center;
+      color: var(--secondary-text);
+    }
+
     .chat {
       padding: 8px 12px;
       box-sizing: border-box;
@@ -37,15 +43,21 @@
       }
 
       .info {
+        width: calc(100% - 30px);
         .name {
           font-weight: 500;
           font-size: 13px;
           margin-bottom: 1px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+          width: calc(100% - 30px);
         }
 
         .last-message {
           font-size: 10px;
           color: var(--secondary-text);
+          display: flex;
         }
       }
 

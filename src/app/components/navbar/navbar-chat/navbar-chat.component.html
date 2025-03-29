@@ -6,12 +6,15 @@
     </a>
   </div>
   <div class="conversations-list">
-    <div class="conversation" *ngFor="let conv of conversations" (click)="viewConversation(conv.id)">
-      <app-avatar-by-name [name]="'Gia Khang'"></app-avatar-by-name>
+    <div *ngIf="!conversations.length" class="no-conversations">
+      {{ "LABEL.NO_CONVERSATION" | translate }}
+    </div>
+    <div class="conversation" *ngFor="let conv of conversations" (click)="viewConversation(conv.id ?? '')">
+      <app-avatar-by-name [name]="getOtherUser(conv)"></app-avatar-by-name>
       <div class="info">
         <div class="name">Gia Khang</div>
         <div class="last-message">
-          {{ "LABEL.YOU" | translate }}: Hello · 11:22
+          {{ "LABEL.YOU" | translate }}: {{ conv.lastMessage?.content }} · {{ conv.lastMessage?.time | date : "HH:mm" }}
         </div>
       </div>
 

@@ -53,6 +53,7 @@ import { AdvanceSettingsComponent } from './pages/platform-settings/advance-sett
 import { PlatformLogsComponent } from './pages/platform-logs/platform-logs.component';
 import { SigninComponent } from './pages/auth/signin/signin.component';
 import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
+import { SignupComponent } from './pages/auth/signup/signup.component';
 
 const routes: Routes = [
   {
@@ -416,11 +417,21 @@ const routes: Routes = [
   },
   {
     path: 'signin',
+    canActivate: [RoleGuard],
+    data: { blockedRoles: [WebRole.LEARNER, WebRole.INSTRUCTOR, WebRole.EXPERT, WebRole.STAFF, WebRole.ADMIN] },
     component: SigninComponent,
   },
   {
     path: 'forgot-password',
+    canActivate: [RoleGuard],
+    data: { blockedRoles: [WebRole.LEARNER, WebRole.INSTRUCTOR, WebRole.EXPERT, WebRole.STAFF, WebRole.ADMIN] },
     component: ForgotPasswordComponent,
+  },
+  {
+    path: 'signup',
+    canActivate: [RoleGuard],
+    data: { blockedRoles: [WebRole.LEARNER, WebRole.INSTRUCTOR, WebRole.EXPERT, WebRole.STAFF, WebRole.ADMIN] },
+    component: SignupComponent,
   },
 ];
 

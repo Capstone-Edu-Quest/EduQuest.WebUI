@@ -5,8 +5,10 @@
   .left {
     grid-column: 1/10;
     display: flex;
-    justify-content: center;
-    align-items: start;
+    flex-direction: column;
+    gap: 24px;
+    justify-content: start;
+    align-items: center;
   }
   .right {
     grid-column: 10/24;

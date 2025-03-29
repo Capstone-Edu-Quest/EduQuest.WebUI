@@ -62,6 +62,14 @@ export class FirebaseService {
     this.app.delete();
   }
 
+  getRealtimeChatDB() {
+    return this.realTimeChatDB;
+  }
+
+  getRealtimeNotiDB() {
+    return this.realTimeNotiDB;
+  }
+
   // Auth
   signInWithPopupGoogle() {
     const provider = new GoogleAuthProvider();

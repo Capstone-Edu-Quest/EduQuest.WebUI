@@ -1,6 +1,7 @@
 <div class="instructor-profile" *ngIf="user">
   <div class="left">
     <app-avatar-by-name [name]="user.username" [size]="'200px'" />
+    <app-button (click)="onSendMessage()">{{ "BUTTON.SEND_MESSAGE" | translate }}</app-button>
   </div>
 
   <div class="right">
@@ -27,15 +28,15 @@
     </div>
 
     @if(isStaffView) {
-      <div class="other-info">
-        <div class="label">{{ "LABEL.EMAIL" | translate }}</div>
-        <div class="content">{{ user.email }}</div>
-      </div>
-      
-      <div class="other-info">
-        <div class="label">{{ "LABEL.PHONE" | translate }}</div>
-        <div class="content">{{ user.phone }}</div>
-      </div>
+    <div class="other-info">
+      <div class="label">{{ "LABEL.EMAIL" | translate }}</div>
+      <div class="content">{{ user.email }}</div>
+    </div>
+
+    <div class="other-info">
+      <div class="label">{{ "LABEL.PHONE" | translate }}</div>
+      <div class="content">{{ user.phone }}</div>
+    </div>
     }
 
     <!--  -->
@@ -56,6 +57,10 @@
 
 <div class="courses-title">{{ "LABEL.COURSES" | translate }}</div>
 <div class="courses">
-  <app-coursesCard [isStaffView]="isStaffView" *ngFor="let course of sampleCourses" [course]="course" />
+  <app-coursesCard
+    [isStaffView]="isStaffView"
+    *ngFor="let course of sampleCourses"
+    [course]="course"
+  />
 </div>
 <!-- Name, email, job title, descript, total leaners, reviews, avg reviews, courses -->

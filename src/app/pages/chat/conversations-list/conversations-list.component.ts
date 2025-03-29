@@ -2,8 +2,8 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ChatService } from '../../../core/services/chat.service';
 import { Subscription } from 'rxjs';
 import { IChatConversation } from '../../../shared/interfaces/others.interfaces';
-import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
-
+import { NavigationEnd, Router } from '@angular/router';
+import { UserService } from '../../../core/services/user.service';
 @Component({
   selector: 'app-conversations-list',
   templateUrl: './conversations-list.component.html',
@@ -18,8 +18,8 @@ export class ConversationsListComponent implements OnInit, OnDestroy {
 
   constructor(
     private chat: ChatService,
-    private route: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private user: UserService
   ) {}
 
   ngOnInit() {
@@ -53,6 +53,27 @@ export class ConversationsListComponent implements OnInit, OnDestroy {
 
   viewChatMessage(conversationId: string) {
     this.router.navigate(['chat', conversationId]);
+  }
+
+  getOtherUser(conversation: IChatConversation) {
+    const otherUser = Object.keys(conversation.participants).find(
+      (key) => key !== this.user.user$.value?.id
+    );
+    return conversation.participants[otherUser as string].name ?? 'Unknown';
+  }
+
+  isMeSendMessage(conversation: IChatConversation) {
+    return conversation.lastMessage?.senderId === this.user.user$.value?.id;
+  }
+
+  isSeen(conversation: IChatConversation) {
+    const lastSeen =
+      conversation.participants[this.user.user$.value?.id as string].lastSeen;
+    const lastMessageTime = conversation.lastMessage?.time;
+
+    if (!lastSeen || !lastMessageTime) return true;
+
+    return new Date(lastSeen).getTime() < new Date(lastMessageTime).getTime() && conversation.lastMessage?.senderId !== this.user.user$.value?.id;
   }
 
   ngOnDestroy(): void {

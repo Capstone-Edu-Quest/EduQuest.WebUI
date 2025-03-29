@@ -1,22 +1,25 @@
-<div class="chat-content" *ngIf="currentConversation" @fadeInOut>
-  <div class="messages-list">
+<div class="chat-content" @fadeInOut>
+  <div class="messages-list" #messagesList>
     <div
       class="message-row"
       [ngClass]="{
         'my-message': mess.senderId === currentUserId
       }"
-      *ngFor="let mess of currentConversation.messages"
+      *ngFor="let mess of messages"
     >
       <div class="message">
         <div class="content">{{ mess.content }}</div>
-        <div class="time">{{ mess.time| date: 'HH:mm' }}</div>
+        <div class="time">{{ mess.time | date : "HH:mm" }}</div>
       </div>
     </div>
   </div>
+
   <div class="texting-input">
     <input
       class="send-text"
       placeholder="{{ 'LABEL.ENTER_MESSAGE' | translate }}"
+      [(ngModel)]="currentTextingMessage"
+      (keydown)="onSendMessage($event)"
     />
 
     <div class="guide">

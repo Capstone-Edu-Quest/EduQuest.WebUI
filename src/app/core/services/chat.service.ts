@@ -1,7 +1,24 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
-import { IChatConversation } from '../../shared/interfaces/others.interfaces';
-
+import {
+  IChatConversation,
+  IChatMessage,
+  IParticipant,
+} from '../../shared/interfaces/others.interfaces';
+import {
+  Database,
+  get,
+  ref,
+  onValue,
+  DatabaseReference,
+  off,
+  push,
+  update,
+} from 'firebase/database';
+import { FirebaseService } from './firebase.service';
+import { UserService } from './user.service';
+import { LoadingService } from './loading.service';
+import { Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
@@ -41,103 +58,232 @@ export class ChatService {
   //       time: 2025-02-02T08:05:00Z
   //       content: Hey, how are you?
 
-  demoConversations: IChatConversation[] = [
-    {
-      id: 'conv-001',
-      participants: {
-        'user-123': {
-          id: 'user-123',
-          name: 'Alice',
-          avatar: 'https://example.com/avatars/alice.png',
-          lastSeen: '2025-02-02T08:10:00Z',
-        },
-        'user-456': {
-          id: 'user-456',
-          name: 'Bob',
-          avatar: 'https://example.com/avatars/bob.png',
-          lastSeen: '2025-02-02T08:09:00Z',
-        },
-      },
-      createdAt: '2025-02-02T08:00:00Z',
-      messages: [
-        {
-          id: 'msg-001',
-          senderId: 'user-123',
-          time: '2025-02-02T08:05:00Z',
-          content: 'Hey, how are you?',
-        },
-        {
-          id: 'msg-002',
-          senderId: 'user-456',
-          time: '2025-02-02T08:06:30Z',
-          content: "I'm good! Just working on a project. You?",
-        },
-        {
-          id: 'msg-003',
-          senderId: 'user-123',
-          time: '2025-02-02T08:07:45Z',
-          content: 'Same here. Trying to debug an issue in Angular.',
-        },
-        {
-          id: 'msg-004',
-          senderId: 'user-456',
-          time: '2025-02-02T08:09:15Z',
-          content: 'Need help? I ran into something similar last week.',
-        },
-      ],
-    },
-    {
-      id: 'conv-002',
-      participants: {
-        'user-789': {
-          id: 'user-789',
-          name: 'Charlie',
-          avatar: 'https://example.com/avatars/charlie.png',
-          lastSeen: '2025-02-02T09:10:00Z',
-        },
-        'user-456': {
-          id: 'user-456',
-          name: 'Bob',
-          avatar: 'https://example.com/avatars/bob.png',
-          lastSeen: '2025-02-02T09:12:00Z',
-        },
-      },
-      createdAt: '2025-02-02T09:00:00Z',
-      messages: [
-        {
-          id: 'msg-005',
-          senderId: 'user-789',
-          time: '2025-02-02T09:10:00Z',
-          content: 'Hey, did you check out the new Firebase update?',
-        },
-        {
-          id: 'msg-006',
-          senderId: 'user-456',
-          time: '2025-02-02T09:12:30Z',
-          content: 'Not yet, what’s new in it?',
-        },
-        {
-          id: 'msg-007',
-          senderId: 'user-789',
-          time: '2025-02-02T09:15:45Z',
-          content:
-            'It has better performance for real-time DB and new security features.',
-        },
-      ],
-    },
-  ];
-
   conversations$: BehaviorSubject<IChatConversation[]> = new BehaviorSubject<
     IChatConversation[]
   >([]);
+  messages$: BehaviorSubject<IChatMessage[]> = new BehaviorSubject<
+    IChatMessage[]
+  >([]);
 
-  constructor() {}
+  conversationRefs: DatabaseReference[] = [];
+  messageRefs: DatabaseReference[] = [];
+
+  private realTimeChatDB!: Database;
+
+  constructor(
+    private firebaseService: FirebaseService,
+    private user: UserService,
+    private loading: LoadingService,
+    private router: Router
+  ) {}
 
   initChat() {
-    this.conversations$.next(this.demoConversations);
+    if (!this.user.user$.value) {
+      return;
+    }
+
+    const userId = this.user.user$.value.id; // Replace with dynamic user ID if needed
+    this.realTimeChatDB = this.firebaseService.getRealtimeChatDB();
+
+    if (!this.realTimeChatDB) {
+      console.error('Firebase Realtime DB is not initialized');
+      return;
+    }
+
+    this.loading.addLoading();
+
+    this.conversationRefs.forEach((ref) => {
+      off(ref);
+    });
+    const conversationsRef = ref(this.realTimeChatDB, 'conversations');
+    this.conversationRefs.push(conversationsRef);
+
+    // Set up real-time listener
+    onValue(
+      conversationsRef,
+      (snapshot) => {
+        if (!snapshot.exists()) {
+          this.conversations$.next([]); // Clear if no data exists
+          return;
+        }
+
+        const conversations = snapshot.val();
+        const userConversations: IChatConversation[] = [];
+
+        Object.keys(conversations).forEach((key) => {
+          const participants = Object.keys(conversations[key].participants);
+          if (participants.includes(userId)) {
+            userConversations.push({ ...conversations[key], id: key });
+          }
+        });
+
+        this.conversations$.next(userConversations); // Update state reactively
+        this.loading.removeLoading();
+      },
+      (error) => {
+        console.error('Error fetching real-time conversations:', error);
+        this.loading.removeLoading();
+      }
+    );
+  }
+
+  initMessages(conversationId: string) {
+    if (!this.user.user$.value) {
+      return;
+    }
+
+    this.realTimeChatDB = this.firebaseService.getRealtimeChatDB();
+
+    if (!this.realTimeChatDB) {
+      console.error('Firebase Realtime DB is not initialized');
+      return;
+    }
+
+    this.loading.addLoading();
+    this.messageRefs.forEach((ref) => {
+      off(ref);
+    });
+
+    // Set seen time
+    const lastSeenPath = `conversations/${conversationId}/participants/${this.user.user$.value?.id}/lastSeen`;
+    const updates: any = {};
+    updates[lastSeenPath] = new Date().toISOString();
+
+    update(ref(this.realTimeChatDB), updates)
+      .then(() => console.log('Last seen updated'))
+      .catch((error) => console.error('Error updating last seen:', error));
+
+    // Get messages
+    const messagesRef = ref(this.realTimeChatDB, `messages/${conversationId}`);
+    this.messageRefs.push(messagesRef);
+
+    // Set up real-time listener
+    onValue(
+      messagesRef,
+      (snapshot) => {
+        if (!snapshot.exists()) {
+          this.messages$.next([]); // Clear messages if none exist
+          this.loading.removeLoading();
+          return;
+        }
+
+        const messagesData = snapshot.val();
+        const messagesList = Object.keys(messagesData).map((key) => ({
+          id: key,
+          ...messagesData[key],
+        }));
+
+        // Sort messages by timestamp (optional, if not sorted in Firebase)
+        messagesList.sort(
+          (a, b) => new Date(a.time).getTime() - new Date(b.time).getTime()
+        );
+
+        this.messages$.next(messagesList); // Update messages in real-time
+        this.loading.removeLoading();
+      },
+      (error) => {
+        console.error('Error fetching real-time messages:', error);
+        this.loading.removeLoading();
+      }
+    );
+  }
+
+  addConversation(participants: IParticipant[]) {
+    if (!this.realTimeChatDB) {
+      console.error('Firebase Realtime DB is not initialized');
+      return;
+    }
+
+    const conversationsRef = ref(this.realTimeChatDB, 'conversations');
+
+    const participant: any = {};
+    participants.forEach((p) => {
+      participant[p.id] = {
+        id: p.id,
+        name: p.name,
+        avatar: p.avatar,
+        lastSeen: new Date().toISOString(),
+      };
+    });
+
+    const newConversation: IChatConversation = {
+      participants: participant,
+      createdAt: new Date().toISOString(),
+      lastMessage: null, // No message initially
+    };
+
+    const newConvRef = push(conversationsRef, newConversation);
+    this.router.navigate(['/chat', newConvRef.key]);
+  }
+
+  addMessage(conversationId: string, messageData: IChatMessage) {
+    if (!this.realTimeChatDB) {
+      console.error('Firebase Realtime DB is not initialized');
+      return;
+    }
+
+    const messagesRef = ref(this.realTimeChatDB, `messages/${conversationId}`);
+    const conversationRef = ref(
+      this.realTimeChatDB,
+      `conversations/${conversationId}`
+    );
+
+    // Push the new message
+    push(messagesRef, messageData)
+      .then(() => {
+        // Update only the lastMessage field in the conversation
+        update(conversationRef, { lastMessage: messageData })
+          .then(() => console.log('Last message updated'))
+          .catch((error) =>
+            console.error('Error updating lastMessage:', error)
+          );
+      })
+      .catch((error) => console.error('Error adding message:', error));
+  }
+
+  // use to move to conversation page when click on send message button of a profile
+  getConversationIdByUsers(user1: string, user2: string) {
+    const conversationsRef = ref(this.realTimeChatDB, 'conversations');
+
+    get(conversationsRef).then((snapshot) => {
+      if (!snapshot.exists()) return;
+
+      const conversationId = Object.keys(snapshot.val()).find(
+        (id) =>
+          snapshot.val()[id].participants?.[user1] &&
+          snapshot.val()[id].participants?.[user2]
+      );
+
+      // if (conversationId) {
+      //   console.log('Conversation ID:', conversationId);
+      //   // Process conversation here (e.g., store in state, navigate, etc.)
+      // }
+    });
+  }
+
+  checkUserInConversation(conversationId: string, userId: string) {
+    const conversationRef = ref(
+      this.realTimeChatDB,
+      `conversations/${conversationId}/participants`
+    );
+
+    return get(conversationRef).then((snapshot) => {
+      return !!(snapshot.exists() && snapshot.val()?.[userId]);
+    });
+  }
+
+  clearAllQueues() {
+    this.conversationRefs.forEach((ref) => {
+      off(ref);
+    });
+    this.messageRefs.forEach((ref) => {
+      off(ref);
+    });
   }
 
   destroyChat() {
+    this.clearAllQueues();
     this.conversations$.next([]);
+    this.messages$.next([]);
   }
 }
