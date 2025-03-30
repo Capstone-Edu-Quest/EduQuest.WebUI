@@ -15,7 +15,6 @@ export interface INotification {
   time: string;
   content: string; // MESSAGE CODE
   value?: any[];
-  isRead: boolean;
 }
 
 export interface IChatMessage {
