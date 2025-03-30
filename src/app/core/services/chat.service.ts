@@ -113,8 +113,11 @@ export class ChatService {
         Object.keys(conversations).forEach((key) => {
           const participants = Object.keys(conversations[key].participants);
           if (participants.includes(userId)) {
-            const conv = { ...conversations[key], id: key, isMeSeen: false }
-            userConversations.push({...conv, isMeSeen: this.checkIsSeen(conv)});
+            const conv = { ...conversations[key], id: key, isMeSeen: false };
+            userConversations.push({
+              ...conv,
+              isMeSeen: this.checkIsSeen(conv),
+            });
           }
         });
 
@@ -242,11 +245,28 @@ export class ChatService {
       .catch((error) => console.error('Error adding message:', error));
   }
 
+  async handleSendMessage(
+    participant1: IParticipant,
+    participant2: IParticipant
+  ) {
+    const conversationId = await this.getConversationIdByUsers(
+      participant1.id,
+      participant2.id
+    );
+
+    if (!conversationId) {
+      this.addConversation([participant1, participant2]);
+      return;
+    }
+;
+    this.router.navigate(['/chat', conversationId]);
+  }
+
   // use to move to conversation page when click on send message button of a profile
   getConversationIdByUsers(user1: string, user2: string) {
     const conversationsRef = ref(this.realTimeChatDB, 'conversations');
 
-    get(conversationsRef).then((snapshot) => {
+    return get(conversationsRef).then((snapshot) => {
       if (!snapshot.exists()) return;
 
       const conversationId = Object.keys(snapshot.val()).find(
@@ -255,10 +275,7 @@ export class ChatService {
           snapshot.val()[id].participants?.[user2]
       );
 
-      // if (conversationId) {
-      //   console.log('Conversation ID:', conversationId);
-      //   // Process conversation here (e.g., store in state, navigate, etc.)
-      // }
+      return conversationId;
     });
   }
 

@@ -1,10 +1,11 @@
+import { UserService } from 'src/app/core/services/user.service';
 import { FoxService } from './../../../../core/services/fox.service';
 import { Subscription } from 'rxjs';
-import { UserService } from './../../../../core/services/user.service';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { IUser, IUserStat } from '../../../../shared/interfaces/user.interfaces';
-import { ActivatedRoute, Router } from '@angular/router';
-
+import { IUser } from '../../../../shared/interfaces/user.interfaces';
+import { ActivatedRoute } from '@angular/router';
+import { ChatService } from 'src/app/core/services/chat.service';
+import { IParticipant } from '@/src/app/shared/interfaces/others.interfaces';
 @Component({
   selector: 'app-leaner-profile-info',
   templateUrl: './leaner-profile-info.component.html',
@@ -13,10 +14,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
   @Input('isStaffView') isStaffView: boolean = false;
   @Input('user') user: IUser | null = null;
-  
+
   subscription$: Subscription = new Subscription();
 
   isUseTempEquipment: boolean = false;
+  isViewingSelf: boolean = false;
 
   statItems = [
     {
@@ -46,15 +48,29 @@ export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
     },
   ];
 
-  constructor(private FoxService: FoxService, private route: ActivatedRoute) {}
+  constructor(
+    private FoxService: FoxService,
+    private route: ActivatedRoute,
+    private UserService: UserService,
+    private chat: ChatService
+  ) {}
 
   ngOnInit() {
+    this.listenToUser();
     this.onInitFoxByOtherProfile();
+  }
+
+  listenToUser() {
+    this.subscription$.add(
+      this.UserService.user$.subscribe((user) => {
+        this.isViewingSelf = user?.id === this.user?.id;
+      })
+    );
   }
 
   onInitFoxByOtherProfile() {
     const userId = this.route.snapshot.paramMap.get('userId');
-    if(!userId) return;
+    if (!userId) return;
 
     this.onUpdateFoxItems();
     this.isUseTempEquipment = true;
@@ -62,10 +78,28 @@ export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
 
   onUpdateFoxItems() {
     setTimeout(() => {
-      console.log('init')
-      if(!this.user) return;
+      if (!this.user) return;
       this.FoxService.tempEquipItem(this.user.mascotItem);
     }, 110);
+  }
+
+  onSendMessage() {
+    if (!this.user || !this.UserService.user$.value) return;
+
+    const participants: IParticipant[] = [
+      {
+        id: this.user.id,
+        name: this.user.username,
+        avatar: this.user.avatarUrl,
+      },
+      {
+        id: this.UserService.user$.value.id,
+        name: this.UserService.user$.value.username,
+        avatar: this.UserService.user$.value.avatarUrl,
+      },
+    ];
+
+    this.chat.handleSendMessage(participants[0], participants[1]);
   }
 
   ngOnDestroy(): void {

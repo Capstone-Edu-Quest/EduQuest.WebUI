@@ -72,7 +72,7 @@ export class UserService {
       email: 'khanggia85@gmail.com',
       phone: '+1234567890',
       avatarUrl: 'https://lh3.googleusercontent.com/a/ACg8ocKNlNJCtGxIJwK52KQazwL9UvrZLoyzQ-WOjKYzJHV56FKQy5RJ=s96-c',
-      roleId: WebRole.INSTRUCTOR,
+      roleId: WebRole.LEARNER,
       isPremium: true,
       status: 'active',
       statistic: {

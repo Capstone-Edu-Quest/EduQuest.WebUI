@@ -126,6 +126,6 @@ export class InstructorProfileComponent implements OnInit, OnDestroy {
       },
     ];
 
-    this.chat.addConversation(participants);
+    this.chat.handleSendMessage(participants[0], participants[1]);
   }
 }
