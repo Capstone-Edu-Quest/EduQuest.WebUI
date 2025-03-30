@@ -108,7 +108,7 @@ body {
   input {
     background-color: var(--tertiary-bg) !important;
     border: 1px solid var(--tertiary-text) !important;
-    outline: none;
+    outline: none !important;
     padding: 3px 6px !important;
     box-sizing: border-box;
     border-radius: 4px;
@@ -167,7 +167,10 @@ ngx-toggle-command {
   }
 }
 
-app-bar-chart, app-line-chart, app-pie-chart, app-radar-chart {
+app-bar-chart,
+app-line-chart,
+app-pie-chart,
+app-radar-chart {
   display: block;
   width: 100%;
 }
@@ -181,6 +184,12 @@ input {
   border-radius: 6px;
   color: var(--primary-text) !important;
   font-family: "Be Vietnam Pro", sans-serif !important;
+
+  &.formated-input {
+    border: 1px solid var(--tertiary-text) !important;
+    font-size: 12px !important;
+    padding: 4px 6px !important;
+  }
 
   &:disabled {
     color: var(--tertiary-text) !important;
@@ -262,7 +271,8 @@ input {
     }
   }
 
-  input, .time-ctn {
+  input,
+  .time-ctn {
     font-size: 12px !important;
     grid-column: 10/25;
 
@@ -295,4 +305,13 @@ input {
 /* On hover */
 ::-webkit-scrollbar-thumb:hover {
   background: var(--brand-05);
+}
+
+select option {
+  background-color: var(--secondary-bg) !important;
+  color: var(--primary-text) !important;
+
+  &:hover {
+    background-color: var(--quaternary-bg) !important;
+  }
 }

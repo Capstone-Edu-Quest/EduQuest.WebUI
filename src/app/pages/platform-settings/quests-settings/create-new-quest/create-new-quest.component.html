@@ -5,7 +5,7 @@
     <!-- Quest Name -->
     <div class="form-input-group">
       <label>{{ "LABEL.QUEST_NAME" | translate }}</label>
-      <input [(ngModel)]="newQuest.title" [placeholder]="'LABEL.QUEST_NAME' | translate" />
+      <input [(ngModel)]="newQuest.title" [placeholder]="'LABEL.QUEST_NAME' | translate" class="formated-input" />
     </div>
 
     <!-- Quest Type -->
@@ -42,6 +42,7 @@
               *ngIf="text === '[]'"
               type="number"
               [(ngModel)]="newQuest.questValue[getInputIndex(i)]"
+              class="formated-input"
             />
           </div>
         </div>
@@ -95,7 +96,7 @@
     <div class="divider"></div>
 
     @switch(onGetInputType(i)) { @case('input') {
-    <input [(ngModel)]="newQuest.rewardValue[i]" type="number" />
+    <input [(ngModel)]="newQuest.rewardValue[i]" type="number" class="formated-input" />
     } @case('item') {
     <select [(ngModel)]="newQuest.rewardValue[i]">
       <option *ngFor="let opt of foxItemOptions" [ngValue]="opt.value">
@@ -103,7 +104,7 @@
       </option>
     </select>
     } @case('coupon') {
-      <input [(ngModel)]="newQuest.rewardValue[i]" type="number" /> %
+      <input [(ngModel)]="newQuest.rewardValue[i]" type="number" class="formated-input" /> %
     } @case('booster'){
     <select [(ngModel)]="newQuest.rewardValue[i]">
       <option *ngFor="let opt of boosterTypeOptions" [ngValue]="opt.value">

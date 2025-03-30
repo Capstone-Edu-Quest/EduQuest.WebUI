@@ -19,12 +19,12 @@
     <label>{{ "LABEL." + key.toUpperCase() | translate }}</label>
     <div class="time-ctn">
       @if(key === 'startTime' ) {
-        <input type="time" [(ngModel)]="startTime" />
-        <input type="date" [(ngModel)]="startDate" />
+        <input type="time" [(ngModel)]="startTime" class="formated-input" />
+        <input type="date" [(ngModel)]="startDate" class="formated-input" />
       }
       @if(key === 'expireTime') {
-        <input type="time" [(ngModel)]="expireTime" />
-        <input type="date" [(ngModel)]="expireDate" />
+        <input type="time" [(ngModel)]="expireTime" class="formated-input" />
+        <input type="date" [(ngModel)]="expireDate" class="formated-input" />
       }
     </div>
   </div>
@@ -38,6 +38,7 @@
         [placeholder]="'LABEL.' + key.toUpperCase() | translate"
         *ngIf="key !== 'code' || coupon.code !== null"
         [(ngModel)]="coupon[getCouponKey(key)]"
+        class="formated-input"
       />
       @if(key === 'code') {
       <!-- Remove code -->
@@ -77,6 +78,7 @@
         [placeholder]="'LABEL.' + key.toUpperCase() | translate"
         type="number"
         [(ngModel)]="coupon[getCouponKey(key)]"
+        class="formated-input"
       />
 
       <!-- Remove limit -->

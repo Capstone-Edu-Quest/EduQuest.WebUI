@@ -25,7 +25,7 @@
       <div class="price">
         <fa-icon [icon]="coinIcon"></fa-icon>
         <div class="number" *ngIf="!isEdit">{{ item.price }}</div>
-        <input *ngIf="isEdit" [(ngModel)]="item.price" type="number" />
+        <input *ngIf="isEdit" [(ngModel)]="item.price" type="number" class="formated-input"/>
       </div>
 
       <fa-icon
