@@ -13,7 +13,7 @@ import { WishlistService } from '../../core/services/wishlist.service';
 import { IUser } from '../../shared/interfaces/user.interfaces';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { WebRole } from '../../shared/enums/user.enum';
-
+import { ChatService } from '../../core/services/chat.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -165,7 +165,8 @@ export class NavbarComponent implements OnInit {
     private route: ActivatedRoute,
     private cart: CartService,
     private wishlist: WishlistService,
-    private UserService: UserService
+    private UserService: UserService,
+    private chat: ChatService
   ) {}
   subscription$: Subscription = new Subscription();
 
@@ -173,11 +174,23 @@ export class NavbarComponent implements OnInit {
     this.listenCartItems();
     this.listenWishlistItems();
     this.listenToUser();
+    this.listenToChat();
     this.subscription$.add(
       this.route.queryParams.subscribe((params) => {
         this.searchText = params['keyword']
           ? decodeURIComponent(params['keyword'])
           : '';
+      })
+    );
+  }
+
+  listenToChat() {
+    this.subscription$.add(
+      this.chat.conversations$.subscribe((conversations) => {
+        const chatItem = this.iconItems.find((i) => i.routerLink === 'chat');
+        if(chatItem) {
+          chatItem.badge = conversations.filter((c) => c.isMeSeen).length;
+        }
       })
     );
   }

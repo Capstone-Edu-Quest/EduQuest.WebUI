@@ -42,6 +42,10 @@ export class NavbarChatComponent implements OnInit, OnDestroy {
     this.router.navigate(['/chat', id]);
   }
 
+  isMeSendMessage(conversation: IChatConversation) {
+    return conversation.lastMessage?.senderId === this.user.user$.value?.id;
+  }
+
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();
   }

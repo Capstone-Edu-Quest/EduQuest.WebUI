@@ -28,6 +28,7 @@ export interface IChatMessage {
 export interface IChatConversation {
   createdAt: string;
   id?: string;
+  isMeSeen?: boolean;
   participants: {
     [userId: string]: {
       id: string;

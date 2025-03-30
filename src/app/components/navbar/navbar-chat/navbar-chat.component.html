@@ -14,11 +14,11 @@
       <div class="info">
         <div class="name">Gia Khang</div>
         <div class="last-message">
-          {{ "LABEL.YOU" | translate }}: {{ conv.lastMessage?.content }} · {{ conv.lastMessage?.time | date : "HH:mm" }}
+          {{ isMeSendMessage(conv) ? ('LABEL.YOU' | translate) + ':' : '' }} {{ conv.lastMessage?.content }} · {{ conv.lastMessage?.time | date : "HH:mm" }}
         </div>
       </div>
 
-      <div class="dot"></div>
+      <div class="dot" *ngIf="conv.isMeSeen"></div>
     </div>
   </div>
 </div>

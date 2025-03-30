@@ -113,7 +113,8 @@ export class ChatService {
         Object.keys(conversations).forEach((key) => {
           const participants = Object.keys(conversations[key].participants);
           if (participants.includes(userId)) {
-            userConversations.push({ ...conversations[key], id: key });
+            const conv = { ...conversations[key], id: key, isMeSeen: false }
+            userConversations.push({...conv, isMeSeen: this.checkIsSeen(conv)});
           }
         });
 
@@ -279,6 +280,19 @@ export class ChatService {
     this.messageRefs.forEach((ref) => {
       off(ref);
     });
+  }
+
+  checkIsSeen(conversation: IChatConversation) {
+    const lastSeen =
+      conversation.participants[this.user.user$.value?.id as string].lastSeen;
+    const lastMessageTime = conversation.lastMessage?.time;
+
+    if (!lastSeen || !lastMessageTime) return true;
+
+    return (
+      new Date(lastSeen).getTime() < new Date(lastMessageTime).getTime() &&
+      conversation.lastMessage?.senderId !== this.user.user$.value?.id
+    );
   }
 
   destroyChat() {

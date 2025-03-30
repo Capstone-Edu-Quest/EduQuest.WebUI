@@ -272,3 +272,27 @@ input {
     }
   }
 }
+
+/* For WebKit browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  width: 5px; /* Scrollbar width */
+  height: 5px; /* For horizontal scrollbars */
+}
+
+/* Thumb (draggable part) */
+::-webkit-scrollbar-thumb {
+  transition: all 0.1s linear;
+  background: var(--brand-02); /* Change thumb color */
+  border-radius: 5px; /* Rounded corners */
+}
+
+/* Track (the area where thumb moves) */
+::-webkit-scrollbar-track {
+  background: transparent; /* Track color */
+  border-radius: 5px;
+}
+
+/* On hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--brand-05);
+}

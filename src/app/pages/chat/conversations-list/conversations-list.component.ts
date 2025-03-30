@@ -66,16 +66,6 @@ export class ConversationsListComponent implements OnInit, OnDestroy {
     return conversation.lastMessage?.senderId === this.user.user$.value?.id;
   }
 
-  isSeen(conversation: IChatConversation) {
-    const lastSeen =
-      conversation.participants[this.user.user$.value?.id as string].lastSeen;
-    const lastMessageTime = conversation.lastMessage?.time;
-
-    if (!lastSeen || !lastMessageTime) return true;
-
-    return new Date(lastSeen).getTime() < new Date(lastMessageTime).getTime() && conversation.lastMessage?.senderId !== this.user.user$.value?.id;
-  }
-
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();
   }
