@@ -57,7 +57,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
     this.course
       .onSearchCourse(courseParams)
-      .subscribe((res) => this.courses = res.payload ?? []);
+      .subscribe((res) => this.courses = res?.payload ?? []);
   }
 
   ngOnDestroy(): void {

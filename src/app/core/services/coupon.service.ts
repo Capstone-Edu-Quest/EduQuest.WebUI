@@ -37,7 +37,7 @@ export class CouponService {
       this.inUseCoupon$.next(null);
     } else {
       this.getCouponById(couponId).subscribe((response) => {
-        const coupons = response.payload;
+        const coupons = response?.payload;
         if (!coupons || coupons?.length === 0) return;
         this.inUseCoupon$.next(coupons[0]);
       });

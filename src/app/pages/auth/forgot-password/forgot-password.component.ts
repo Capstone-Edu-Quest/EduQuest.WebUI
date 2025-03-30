@@ -1,4 +1,5 @@
 import { MessageService } from '@/src/app/core/services/message.service';
+import { UserService } from '@/src/app/core/services/user.service';
 import { validateEmail } from '@/src/app/core/utils/string.utils';
 import { Component, type OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -24,7 +25,8 @@ export class ForgotPasswordComponent implements OnInit {
   constructor(
     private router: Router,
     private message: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private userService: UserService
   ) {}
 
   ngOnInit(): void {}
@@ -34,6 +36,7 @@ export class ForgotPasswordComponent implements OnInit {
   }
 
   onContinue() {
+    // send otp
     if (this.currentStep === 1) {
       if (!validateEmail(this.email)) {
         this.message.addMessage(
@@ -42,11 +45,29 @@ export class ForgotPasswordComponent implements OnInit {
         );
         return;
       }
-      this.currentStep++;
-      this.resendOTP();
-      return;
+
+      const sendingResult = this.userService.forgetPassword(this.email);
+
+      sendingResult.subscribe((res) => {
+        if(!res || res.isError) return;
+
+        this.message.addMessage('success', this.translate.instant('MESSAGE.' + res?.message?.content));
+        this.currentStep++;
+
+        if (this.resendTime > 0) return;
+        this.resendTime = 60;
+        this.resendOTPInterval = setInterval(() => {
+          this.resendTime--;
+          if (this.resendTime <= 0) {
+            clearInterval(this.resendOTPInterval);
+          }
+        }, 1000);
+
+        return;
+      });
     }
 
+    // Validate otp
     if (this.currentStep === 2) {
       if (this.otp.some((otp) => otp === null)) {
         this.message.addMessage(
@@ -56,7 +77,15 @@ export class ForgotPasswordComponent implements OnInit {
         return;
       }
 
-      this.currentStep++;
+      const validatingOtp = this.userService.validateOtp(this.email, this.otp.join(''));
+
+      validatingOtp.subscribe((res) => {
+        if(!res || res.isError) return;
+
+        this.message.addMessage('success', this.translate.instant('MESSAGE.' + res?.message?.content));
+        this.currentStep++;
+      });
+
       return;
     }
 
@@ -79,12 +108,16 @@ export class ForgotPasswordComponent implements OnInit {
   resendOTP() {
     if (this.resendTime > 0) return;
 
-    this.resendTime = 60;
-    this.resendOTPInterval = setInterval(() => {
-      this.resendTime--;
-      if (this.resendTime <= 0) {
-        clearInterval(this.resendOTPInterval);
-      }
-    }, 1000);
+    const sendingResult = this.userService.forgetPassword(this.email);
+    sendingResult.subscribe((res) => {
+      this.message.addMessage('success', this.translate.instant('MESSAGE.' + res?.message?.content));
+      this.resendTime = 60;
+      this.resendOTPInterval = setInterval(() => {
+        this.resendTime--;
+        if (this.resendTime <= 0) {
+          clearInterval(this.resendOTPInterval);
+        }
+      }, 1000);
+    });
   }
 }

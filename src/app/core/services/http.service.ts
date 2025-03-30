@@ -26,7 +26,7 @@ export class HttpService {
   post<TPayload>(
     endpoint: string,
     data: any
-  ): Observable<BaseReponse<TPayload>> {
+  ): Observable<BaseReponse<TPayload> | undefined> {
     this.loading.addLoading();
     const url = `${this.apiUrl}/${endpoint}`;
     return this.http
@@ -34,7 +34,9 @@ export class HttpService {
       .pipe(this.handleResponse<TPayload>());
   }
 
-  get<TPayload>(endpoint: string): Observable<BaseReponse<TPayload>> {
+  get<TPayload>(
+    endpoint: string
+  ): Observable<BaseReponse<TPayload> | undefined> {
     this.loading.addLoading();
     const url = `${this.apiUrl}/${endpoint}`;
     return this.http
@@ -42,19 +44,19 @@ export class HttpService {
       .pipe(this.handleResponse<TPayload>());
   }
 
-  getOutside<T>(url: string): Observable<T> {
-    this.loading.addLoading();
-    return this.http.get<T>(url, { headers: this.getHeaders() }).pipe(
-      catchError((error) => this.handleHttpError(error)),
-      finalize(() => this.loading.removeLoading())
-    );
-  }
+  // getOutside<T>(url: string): Observable<T> | undefined {
+  //   this.loading.addLoading();
+  //   return this.http.get<T>(url, { headers: this.getHeaders() }).pipe(
+  //     catchError((error) => this.handleHttpError(error)),
+  //     finalize(() => this.loading.removeLoading())
+  //   );
+  // }
 
   update<TPayload>(
     endpoint: string,
     id: string,
     data: any
-  ): Observable<BaseReponse<TPayload>> {
+  ): Observable<BaseReponse<TPayload> | undefined> {
     this.loading.addLoading();
     const url = `${this.apiUrl}/${endpoint}/${id}`;
     return this.http
@@ -62,7 +64,10 @@ export class HttpService {
       .pipe(this.handleResponse<TPayload>());
   }
 
-  delete<TPayload>(endpoint: string, id: string): Observable<BaseReponse<any>> {
+  delete<TPayload>(
+    endpoint: string,
+    id: string
+  ): Observable<BaseReponse<any> | undefined> {
     this.loading.addLoading();
     const url = `${this.apiUrl}/${endpoint}/${id}`;
     return this.http
@@ -73,7 +78,7 @@ export class HttpService {
   private getHeaders(): HttpHeaders {
     return new HttpHeaders({
       'Content-Type': 'application/json',
-      "Authorization": `Bearer ${localStorage.getItem(TokenEnum.ACCESS_TOKEN)}`
+      Authorization: `Bearer ${localStorage.getItem(TokenEnum.ACCESS_TOKEN)}`,
     });
   }
 
@@ -82,16 +87,18 @@ export class HttpService {
       source$.pipe(
         switchMap((response) => {
           if (response.isError) {
-            return this.handleUserError(response);
+            return this.handleUserError(response); // Ensure this returns an observable
           }
-          return of(response);
+          return of(response); // Continue the observable chain
         }),
-        catchError((error) => this.handleHttpError(error)),
-        finalize(() => this.loading.removeLoading())
+        catchError((error) => of(this.handleHttpError(error))), // Handle error and return undefined
+        finalize(() => {
+          this.loading.removeLoading()
+        })
       );
   }
 
-  handleHttpError(error: any): Observable<never> {
+  handleHttpError(error: any) {
     console.error('Error occurred: ', error);
     switch (error.status) {
       case 401:
@@ -125,12 +132,22 @@ export class HttpService {
         );
         break;
     }
-    throw EMPTY;
+
+    return undefined; // Ensure a value is returned
   }
 
-  private handleUserError<TPayload>(
-    payload: BaseReponse<TPayload>
-  ): Observable<never> {
-    throw EMPTY;
+  private handleUserError<TPayload>(payload: BaseReponse<TPayload>) {
+    console.log(payload);
+    if (payload.isError) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant(
+          `MESSAGE.${payload.message?.content}`,
+          payload.message?.values
+        )
+      );
+    }
+    this.loading.removeLoading();
+    return of(undefined);
   }
 }

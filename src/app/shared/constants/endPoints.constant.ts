@@ -1,6 +1,10 @@
 export const endPoints = {
   signin: 'auth/sign-in',
+  signInPassword: 'auth/sign-in/password',
+  validateOtp: 'auth/validate-otp',
   refresh: 'auth/refresh',
+  changePassword: 'auth/change-password',
+  resetPassword: 'auth/reset-password',
   signout: 'auth/sign-out',
 
   cart: 'cart',

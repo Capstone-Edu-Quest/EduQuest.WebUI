@@ -71,7 +71,8 @@ export class UserService {
       username: 'Khang Gia',
       email: 'khanggia85@gmail.com',
       phone: '+1234567890',
-      avatarUrl: 'https://lh3.googleusercontent.com/a/ACg8ocKNlNJCtGxIJwK52KQazwL9UvrZLoyzQ-WOjKYzJHV56FKQy5RJ=s96-c',
+      avatarUrl:
+        'https://lh3.googleusercontent.com/a/ACg8ocKNlNJCtGxIJwK52KQazwL9UvrZLoyzQ-WOjKYzJHV56FKQy5RJ=s96-c',
       roleId: WebRole.LEARNER,
       isPremium: true,
       status: 'active',
@@ -115,8 +116,38 @@ export class UserService {
       .finally(() => this.loading.removeLoading());
   }
 
-  private signInHandler(response: BaseReponse<ILoginRes>) {
-    const payload = response.payload;
+  signInWithPassword(email: string, password: string) {
+    this.http
+      .post<ILoginRes>(endPoints.signInPassword, { email, password })
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+
+  forgetPassword(email: string) {
+    return this.http
+      .post<ILoginRes>(endPoints.resetPassword, { email })
+      .pipe((res) => {
+        return res;
+      });
+  }
+
+  // resendOtp(email: string) {
+  //   return this.http
+  //     .post<ILoginRes>(endPoints.otp, { email })
+  //     .pipe((res) => {
+  //       return res;
+  //     })
+  // }
+
+  validateOtp(email: string, otp: string) {
+    return this.http
+      .post<ILoginRes>(endPoints.validateOtp, { email, otp })
+      .pipe((res) => res);
+  }
+
+  private signInHandler(response: BaseReponse<ILoginRes> | undefined) {
+    const payload = response?.payload;
     if (!payload) return;
 
     this.updateUser({

@@ -6,9 +6,9 @@
   </div>
 
   <div class="form-container">
-    <input type="text" placeholder="{{ 'LABEL.EMAIL' | translate }}" />
+    <input type="text" placeholder="{{ 'LABEL.EMAIL' | translate }}" [(ngModel)]="email" />
     <div>
-      <input type="password" placeholder="{{ 'LABEL.PASSWORD' | translate }}" />
+      <input type="password" placeholder="{{ 'LABEL.PASSWORD' | translate }}" [(ngModel)]="password" />
       <div class="forgot-password" (click)="onForgotPassword()">
         {{ "LABEL.FORGOT_PASSWORD" | translate }}
       </div>
@@ -18,6 +18,7 @@
       [ngStyle]="{ width: '320px' }"
       [style]="{ width: '320px', borderColor: 'var(--brand)' }"
       [type]="'primary'"
+      (click)="onSignIn()"
       >{{ "LABEL.SIGNIN" | translate }}</app-button
     >
   </div>

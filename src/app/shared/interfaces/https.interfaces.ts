@@ -2,7 +2,7 @@ export interface BaseReponse<TData = any> {
   isError: boolean;
   payload: TData | null;
   errors: IErrors;
-  message: string | null;
+  message: {content: string, values: object} | null;
 }
 
 export interface IErrors {

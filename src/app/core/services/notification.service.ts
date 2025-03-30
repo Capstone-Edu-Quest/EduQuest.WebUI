@@ -42,6 +42,12 @@ export class NotificationService {
     this.loading.addLoading();
 
     onValue(notificationsRef, (snapshot) => {
+      if (!snapshot.exists()) {
+        this.notification$.next([]); 
+        this.loading.removeLoading();
+        return;
+      }
+
       const notifications = snapshot.val();
 
       const notificationsList: INotification[] = [];

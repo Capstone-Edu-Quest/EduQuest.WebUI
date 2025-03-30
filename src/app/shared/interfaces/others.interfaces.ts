@@ -9,7 +9,7 @@ export interface IMessage {
 export type MessageType = 'success' | 'error' | 'warn';
 
 export interface INotification {
-  id: string;
+  id?: string;
   receiverId: string;
   url: string;
   time: string;
