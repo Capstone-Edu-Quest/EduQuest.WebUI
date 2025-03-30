@@ -5,8 +5,11 @@
       [ngClass]="{
         'my-message': mess.senderId === currentUserId
       }"
-      *ngFor="let mess of messages"
+      *ngFor="let mess of messages; let i = index"
     >
+      <div class="date" *ngIf="isDateDifferentFromPreviousMessage(mess.time, messages[i-1]?.time)">
+        {{ mess.time | date : "dd/MM/yyyy" }}
+      </div>
       <div class="message">
         <div class="content">{{ mess.content }}</div>
         <div class="time">{{ mess.time | date : "HH:mm" }}</div>

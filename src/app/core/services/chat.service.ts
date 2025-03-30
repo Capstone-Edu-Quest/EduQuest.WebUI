@@ -262,7 +262,6 @@ export class ChatService {
     this.router.navigate(['/chat', conversationId]);
   }
 
-  // use to move to conversation page when click on send message button of a profile
   getConversationIdByUsers(user1: string, user2: string) {
     const conversationsRef = ref(this.realTimeChatDB, 'conversations');
 

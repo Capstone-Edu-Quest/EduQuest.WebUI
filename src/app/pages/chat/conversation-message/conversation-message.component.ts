@@ -1,4 +1,12 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  AfterViewChecked,
+  AfterViewInit,
+  Component,
+  ElementRef,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ChatService } from '../../../core/services/chat.service';
@@ -15,9 +23,11 @@ import { UserService } from '../../../core/services/user.service';
   styleUrls: ['./conversation-message.component.scss'],
   animations: [fadeInOutAnimation],
 })
-export class ConversationMessageComponent implements OnInit, OnDestroy, AfterViewChecked, AfterViewInit {
+export class ConversationMessageComponent
+  implements OnInit, OnDestroy, AfterViewChecked, AfterViewInit
+{
   @ViewChild('messagesList') messagesListRef!: ElementRef;
-  
+
   subscription$: Subscription = new Subscription();
 
   currentTextingMessage: string = '';
@@ -96,12 +106,32 @@ export class ConversationMessageComponent implements OnInit, OnDestroy, AfterVie
     try {
       setTimeout(() => {
         if (this.messagesListRef) {
-          this.messagesListRef.nativeElement.scrollTop = this.messagesListRef.nativeElement.scrollHeight;
+          this.messagesListRef.nativeElement.scrollTop =
+            this.messagesListRef.nativeElement.scrollHeight;
         }
       }, 0);
     } catch (err) {
       console.error('Error scrolling to bottom:', err);
     }
+  }
+
+  isDateDifferentFromPreviousMessage(date1: string | Date, date2: string | Date | undefined) {
+    if (!date1 || !date2) return true;
+
+    const d1 = new Date(date1);
+    const d2 = new Date(date2);
+
+    // return {
+    //   day: d1.getDate() !== d2.getDate(),
+    //   month: d1.getMonth() !== d2.getMonth(),
+    //   year: d1.getFullYear() !== d2.getFullYear(),
+    // };
+
+    return (
+      d1.getDate() !== d2.getDate() ||
+      d1.getMonth() !== d2.getMonth() ||
+      d1.getFullYear() !== d2.getFullYear()
+    );
   }
 
   onSendMessage(e: KeyboardEvent) {
