@@ -14,6 +14,7 @@ import { IUser } from '../../shared/interfaces/user.interfaces';
 import { faGoogle } from '@fortawesome/free-brands-svg-icons';
 import { WebRole } from '../../shared/enums/user.enum';
 import { ChatService } from '../../core/services/chat.service';
+import { NotificationService } from '../../core/services/notification.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
@@ -166,7 +167,8 @@ export class NavbarComponent implements OnInit {
     private cart: CartService,
     private wishlist: WishlistService,
     private UserService: UserService,
-    private chat: ChatService
+    private chat: ChatService,
+    private notification: NotificationService
   ) {}
   subscription$: Subscription = new Subscription();
 
@@ -175,6 +177,7 @@ export class NavbarComponent implements OnInit {
     this.listenWishlistItems();
     this.listenToUser();
     this.listenToChat();
+    this.listenToNotification();
     this.subscription$.add(
       this.route.queryParams.subscribe((params) => {
         this.searchText = params['keyword']
@@ -190,6 +193,17 @@ export class NavbarComponent implements OnInit {
         const chatItem = this.iconItems.find((i) => i.routerLink === 'chat');
         if(chatItem) {
           chatItem.badge = conversations.filter((c) => c.isMeSeen).length;
+        }
+      })
+    );
+  }
+
+  listenToNotification() {
+    this.subscription$.add(
+      this.notification.notification$.subscribe((notifications) => {
+        const notiItem = this.iconItems.find((i) => i.routerLink === 'notification');
+        if(notiItem) {
+          notiItem.badge = notifications.length;
         }
       })
     );
