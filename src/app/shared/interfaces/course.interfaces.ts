@@ -29,20 +29,30 @@ export interface ICourseOverview {
 
 export interface ICourse {
   id: string;
-  name: string;
-  author: IUserStat | any; // TODO: User interface
+  title: string;
   description: string;
-  duration: number;
-  stageCount?: number;
-  image: string;
+  photoUrl: string;
+  requirementList: string[];
+  feature: string;
+  lastUpdated: string | null;
   price: number;
-  createdDate: string;
-  lastUpdated: string;
+  discountPrice: number | null;
+  author: {
+    id: string;
+    username: string;
+    headline: string;
+    description: string;
+    totalCourseCreated: number;
+    totalLearner: number;
+    rating: number | null;
+    totalReview: number;
+  };
+  listLesson: string[];
+  listTag: ITag[];
+  totalLearner: number;
   rating: number;
-  numberOfRating: number;
-  isCompleted: boolean;
-  progress: number; // %
-  tags: ITag[];
+  totalReview: number;
+  progress: number | null;
 }
 
 export interface ICourseApproval extends ICourse {
@@ -71,12 +81,6 @@ export interface IModifyStage {
   materialsId: string[];
 }
 
-export interface ICourseDetails extends ICourse {
-  stages: IStage[];
-  requirements: string[];
-  leanerCount: number;
-  totalTime: number; // hours
-}
 
 export interface ICourseTagData {
   id: string;
@@ -145,7 +149,7 @@ export interface IAssignment {
   expectedAnswer: any; // Expected answer from code, can be null
 }
 
-export interface ICourseManageDetails extends Omit<ICourseDetails, 'author'> {
+export interface ICourseManageDetails extends Omit<ICourse, 'author'> {
   isPublic: boolean;
   totalInWhislist: number;
   totalInCart: number;

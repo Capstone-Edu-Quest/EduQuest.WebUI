@@ -60,140 +60,9 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
     requirements: [],
   };
 
-  fullStagesInfo: IStage[] = [];
+  fullStagesInfo: [] = [];
 
-  demoCourse: ICourseManageDetails = {
-    id: 'course-001',
-    name: 'Mastering TypeScript',
-    leanerCount: 1253,
-    isPublic: true,
-    totalInCart: 88,
-    totalInWhislist: 122,
-    totalEnrolled: 1253,
-    courseEnrollOverTime: [
-      { time: 'Oct 2024', count: 120 },
-      { time: 'Nov 2024', count: 652 },
-      { time: 'Dec 2024', count: 781 },
-      { time: 'Jan 2025', count: 992 },
-      { time: 'Feb 2025', count: 1211 },
-    ],
-    courseRatingOverTime: [
-      { time: 'Oct 2024', count: 44 },
-      { time: 'Nov 2024', count: 86 },
-      { time: 'Dec 2024', count: 122 },
-      { time: 'Jan 2025', count: 322 },
-      { time: 'Feb 2025', count: 452 },
-    ],
-    description:
-      'A complete guide to mastering TypeScript, from basics to advanced concepts.',
-    duration: 12,
-    stageCount: 3,
-    image: '/assets/images/demo-course-thumb.webp',
-    price: 49.99,
-    createdDate: '2024-01-01T00:00:00Z',
-    lastUpdated: '2025-01-20T10:00:00Z',
-    rating: 4.8,
-    numberOfRating: 1520,
-    isCompleted: false,
-    progress: 25, // 25% completed
-    tags: [
-      {
-        id: 'tag-1',
-        name: 'TypeScript',
-        description: 'Strongly-typed JavaScript',
-      },
-      { id: 'tag-2', name: 'Frontend', description: 'For frontend developers' },
-      { id: 'tag-3', name: 'Backend', description: 'For backend developers' },
-    ],
-    totalTime: 12, // Total time in hours
-    requirements: [
-      'Basic knowledge of JavaScript',
-      'Familiarity with ES6+ syntax',
-      'A code editor (VS Code recommended)',
-    ],
-    stages: [
-      {
-        id: 'stage-001',
-        title: 'Introduction to TypeScript',
-        time: 3, // 3 hours
-        mission: [
-          {
-            id: 'mission-001',
-            title: 'What is TypeScript?',
-            type: 'video',
-            mission: 'Learn the basics and advantages of TypeScript.',
-            time: 120,
-          },
-          {
-            id: 'mission-002',
-            title: 'Setting up TypeScript',
-            type: 'document',
-            mission: 'Guide to installing and configuring TypeScript.',
-            time: 120,
-          },
-          {
-            id: 'mission-003',
-            title: 'TypeScript Quiz 1',
-            type: 'quiz',
-            mission: 'Test your understanding of TypeScript basics.',
-            time: 120,
-          },
-          {
-            id: 'mission-004',
-            title: 'TypeScript Quiz 1',
-            type: 'assignment',
-            mission: 'Test your understanding of TypeScript basics.',
-            time: 120,
-          },
-        ],
-      },
-      {
-        id: 'stage-002',
-        title: 'TypeScript in Action',
-        time: 4, // 4 hours
-        mission: [
-          {
-            id: 'mission-004',
-            title: 'TypeScript Type System',
-            type: 'video',
-            mission:
-              'Understand types, interfaces, and type inference in TypeScript.',
-            time: 120,
-          },
-          {
-            id: 'mission-005',
-            title: 'Practical TypeScript Examples',
-            type: 'document',
-            mission:
-              'Explore real-world TypeScript applications and best practices.',
-            time: 120,
-          },
-        ],
-      },
-      {
-        id: 'stage-003',
-        title: 'Advanced TypeScript',
-        time: 5, // 5 hours
-        mission: [
-          {
-            id: 'mission-006',
-            title: 'Generics & Advanced Types',
-            type: 'video',
-            mission:
-              'Deep dive into generics, mapped types, and utility types.',
-            time: 120,
-          },
-          {
-            id: 'mission-007',
-            title: 'TypeScript Quiz 2',
-            type: 'quiz',
-            mission: 'Assess your knowledge of advanced TypeScript topics.',
-            time: 120,
-          },
-        ],
-      },
-    ],
-  };
+  courseDetails: ICourseManageDetails | null = null;
 
   constructor(
     private location: Location,
@@ -232,14 +101,14 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
   }
 
   initCourse(courseId: string) {
-    this.courseInfo = {
-      name: this.demoCourse.name,
-      description: this.demoCourse.description,
-      price: this.demoCourse.price,
-      image: this.demoCourse.image,
-      requirements: this.demoCourse.requirements,
-    };
-    this.fullStagesInfo = this.demoCourse.stages;
+    // this.courseInfo = {
+    //   name: this.courseDetails?.title ?? '',
+    //   description: this.courseDetails?.description ?? '',
+    //   price: this.courseDetails?.price ?? 0,
+    //   image: this.courseDetails?.photoUrl ?? '',
+    //   requirements: this.courseDetails?.requirementList ?? [],
+    // };
+    // this.fullStagesInfo = this.courseDetails?.listLesson ?? [];
   }
 
   onClickAddImage() {
@@ -401,33 +270,33 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
   }
 
   onUpdate() {
-    const newCourseInfo: ICourseUpdate = {
-      id: this.demoCourse.id,
-      ...this.courseInfo,
-      stages: this.fullStagesInfo.map((stage) => {
-        return {
-          name: stage.title,
-          description: '',
-          materialsId: stage.mission.map((mission) => mission.id),
-        } as IModifyStage;
-      }),
-    };
+    // const newCourseInfo: ICourseUpdate = {
+    //   id: this.course.id,
+    //   ...this.courseInfo,
+    //   stages: this.fullStagesInfo.map((stage) => {
+    //     return {
+    //       name: stage.title,
+    //       description: '',
+    //       materialsId: stage.mission.map((mission) => mission.id),
+    //     } as IModifyStage;
+    //   }),
+    // };
 
-    if (!this.onValidateCourseInfo(newCourseInfo)) return;
+    // if (!this.onValidateCourseInfo(newCourseInfo)) return;
 
-    const emptyStage = newCourseInfo.stages.findIndex(
-      (stage) => stage.name === '' || stage.materialsId.length === 0
-    );
+    // const emptyStage = newCourseInfo.stages.findIndex(
+    //   (stage) => stage.name === '' || stage.materialsId.length === 0
+    // );
 
-    if (emptyStage !== -1) {
-      this.message.addMessage(
-        'error',
-        this.translate.instant('MESSAGE.INVALID_STAGES')
-      );
-      return;
-    }
+    // if (emptyStage !== -1) {
+    //   this.message.addMessage(
+    //     'error',
+    //     this.translate.instant('MESSAGE.INVALID_STAGES')
+    //   );
+    //   return;
+    // }
 
-    console.log(newCourseInfo);
+    // console.log(newCourseInfo);
   }
 
   onCancel() {
@@ -435,17 +304,17 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
   }
 
   onEditStage(event: IStage | string) {
-    if (typeof event === 'string') {
-      this.fullStagesInfo = this.fullStagesInfo.filter(
-        (stage) => stage.id !== event
-      );
-      return;
-    }
+    // if (typeof event === 'string') {
+    //   this.fullStagesInfo = this.fullStagesInfo.filter(
+    //     (stage) => stage.id !== event
+    //   );
+    //   return;
+    // }
 
-    const idx = this.fullStagesInfo.findIndex((stage) => stage.id === event.id);
-    if (idx === -1) return;
+    // const idx = this.fullStagesInfo.findIndex((stage) => stage.id === event.id);
+    // if (idx === -1) return;
 
-    this.fullStagesInfo[idx] = event;
+    // this.fullStagesInfo[idx] = event;
   }
 
   trackStageChange(index: number, item: IStage) {
@@ -464,32 +333,32 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
   onDropStage(e: Event) {
     e.preventDefault();
 
-    const droppedElement = e.target as HTMLElement;
-    const droppedOnStageId = droppedElement
-      .closest('.stage-wrapper')
-      ?.getAttribute('stageId');
+    // const droppedElement = e.target as HTMLElement;
+    // const droppedOnStageId = droppedElement
+    //   .closest('.stage-wrapper')
+    //   ?.getAttribute('stageId');
 
-    if (this.currentDragStageId) {
-      const dropIndx = this.fullStagesInfo.findIndex(
-        (c) => c.id === droppedOnStageId
-      );
+    // if (this.currentDragStageId) {
+    //   const dropIndx = this.fullStagesInfo.findIndex(
+    //     (c) => c.id === droppedOnStageId
+    //   );
 
-      const dragStage = this.fullStagesInfo.find(
-        (s) => s.id === this.currentDragStageId
-      );
+    //   const dragStage = this.fullStagesInfo.find(
+    //     (s) => s.id === this.currentDragStageId
+    //   );
 
-      this.fullStagesInfo = this.fullStagesInfo.filter(
-        (c) => c.id !== this.currentDragStageId
-      );
+    //   this.fullStagesInfo = this.fullStagesInfo.filter(
+    //     (c) => c.id !== this.currentDragStageId
+    //   );
 
-      this.fullStagesInfo = [
-        ...this.fullStagesInfo.slice(0, dropIndx),
-        dragStage as IStage,
-        ...this.fullStagesInfo.slice(dropIndx),
-      ];
-    }
+    //   this.fullStagesInfo = [
+    //     ...this.fullStagesInfo.slice(0, dropIndx),
+    //     dragStage as IStage,
+    //     ...this.fullStagesInfo.slice(dropIndx),
+    //   ];
+    // }
 
-    this.currentDragStageId = null;
+    // this.currentDragStageId = null;
   }
 
   onAddNewStage() {
@@ -500,7 +369,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
       mission: [],
     };
 
-    this.fullStagesInfo.push(newStage);
+    // this.fullStagesInfo.push(newStage);
   }
 
   ngOnDestroy(): void {

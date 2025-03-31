@@ -6,6 +6,7 @@ import {
 } from '../../shared/interfaces/three.interfaces';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { FoxItems } from '../../components/fox-3d/3d-setup/fox-3d.config';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -41,12 +42,23 @@ export class FoxService {
     foxIsLoaded: false,
   };
 
-  constructor() {}
+  constructor(private user: UserService) {}
+
+  initFox() {
+    this.user.user$.subscribe((user) => {
+      if (!user) {
+        // remove all items
+        this.resetItems();
+      } else {
+        // equip items
+      }
+    });
+  }
 
   triggerFoxLoaded(isDestroy?: boolean) {
     this.loadedCheck.foxIsLoaded = !isDestroy;
-    
-    if(!this.loadedCheck.foxIsLoaded) {
+
+    if (!this.loadedCheck.foxIsLoaded) {
       this.loadedCheck.waitingStack = [];
       return;
     }
@@ -83,7 +95,6 @@ export class FoxService {
   };
 
   tempEquipItem(itemId: string[] | null) {
-
     if (!this.loadedCheck.foxIsLoaded && itemId) {
       this.loadedCheck.waitingStack.push(() => this.tempEquipItem(itemId));
       return;
@@ -103,14 +114,13 @@ export class FoxService {
     this.resetItems();
 
     itemId.forEach((id) => this.equipItem(id));
-
   }
 
   resetItems() {
     const equipmentItems = this.currentEquipedItem$.value;
     Object.keys(equipmentItems).forEach((key) => {
       if (equipmentItems[key]) {
-        console.log('remove', equipmentItems[key]?.id);
+        // console.log('remove', equipmentItems[key]?.id);
         this.equipItem(equipmentItems[key]?.id);
       }
     });

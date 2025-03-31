@@ -11,12 +11,12 @@
             'translateX(calc((50% + 10px) * -' + currentViewIndex + '))'
         }"
       >
-        <div class="course" *ngFor="let course of sampleCourses" (click)="viewCourseDetails(course.id)">
+        <div class="course" *ngFor="let course of sampleCourses" (click)="viewCourseDetails(course?.id ?? '')">
           <div class="image-wrapper">
-            <img [src]="course.image" />
+            <img [src]="course?.photoUrl" />
           </div>
-          <div class="course-name">{{course.name}}</div>
-          <div class="course-author">{{course.author.name}}</div>
+          <div class="course-name">{{course?.title}}</div>
+          <div class="course-author">{{course?.author?.username}}</div>
         </div>
       </div>
     </div>

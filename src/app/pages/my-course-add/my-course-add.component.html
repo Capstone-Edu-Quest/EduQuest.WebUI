@@ -103,7 +103,7 @@
 
   <div class="input-label" *ngIf="isEdit">{{ "LABEL.STAGES" | translate }}</div>
   <div class="stages-ctn" *ngIf="isEdit">
-    <div
+    <!-- <div
       class="stage-wrapper"
       *ngFor="
         let stage of fullStagesInfo;
@@ -131,7 +131,7 @@
     <div class="add-stage" (click)="onAddNewStage()">
       <fa-icon [icon]="addIcon"></fa-icon>{{ "LABEL.ADD_STAGE" | translate }}
     </div>
-  </div>
+  </div> -->
 
   <div class="btn-ctn">
     <app-button [style]="{ width: '100%' }" (click)="onCancel()">

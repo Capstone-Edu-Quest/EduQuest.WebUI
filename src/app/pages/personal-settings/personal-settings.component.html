@@ -1,0 +1,14 @@
+<div class="personal-settings">
+  <div class="tabs">
+    <a
+      class="tab"
+      [routerLink]="tab.link"
+      *ngFor="let tab of tabs"
+      [routerLinkActive]="['active']"
+    >
+      {{ tab.label | translate }}
+    </a>
+  </div>
+
+  <router-outlet></router-outlet>
+</div>

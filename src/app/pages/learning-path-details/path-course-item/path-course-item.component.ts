@@ -113,16 +113,16 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
     }
 
     if (!this.course) return;
-    this.cart.updateCart(this.courseService.onConvertCourseDetailsToCourseOverview(this.course));
+    // this.cart.updateCart(this.courseService.onConvertCourseDetailsToCourseOverview(this.course));
     this.cart.addToCartAnimation(this.item);
     // Remove from wishlist if exist
-    this.isInWishlist && this.wishlist.updateWishlist(this.courseService.onConvertCourseDetailsToCourseOverview(this.course));
+    // this.isInWishlist && this.wishlist.updateWishlist(this.courseService.onConvertCourseDetailsToCourseOverview(this.course));
   }
 
   onAddToWishlist(event: Event) {
     event.stopPropagation();
     if (!this.course) return;
-    this.wishlist.updateWishlist(this.courseService.onConvertCourseDetailsToCourseOverview(this.course));
+    // this.wishlist.updateWishlist(this.courseService.onConvertCourseDetailsToCourseOverview(this.course));
   }
 
   goToCart() {

@@ -1,5 +1,5 @@
 <div class="my-course-details">
-  <div class="name">{{ course.name }}</div>
+  <div class="name">{{ course?.title }}</div>
   <div class="last-updated"></div>
 
   <ng-container [ngTemplateOutlet]="dropdown"></ng-container>
@@ -12,13 +12,13 @@
     }}
     <div>·</div>
     <div class="course-status">
-      {{ (course.isPublic ? "LABEL.PUBLIC" : "LABEL.PRIVATE") | translate }}
+      {{ (course?.isPublic ? "LABEL.PUBLIC" : "LABEL.PRIVATE") | translate }}
     </div>
     <div>·</div>
     <div class="course-status">
       {{
         "SIGNATURE.MONEY_VALUE"
-          | translate : { value: course.price | currencyExchange }
+          | translate : { value: course?.price ?? 0 | currencyExchange }
       }}
     </div>
   </div>
@@ -27,7 +27,7 @@
     <div class="stats-number-section" *ngFor="let stat of statsItem">
       <div class="label">{{ stat.label | translate }}</div>
       <div class="value">
-        {{ course[stat.index]?.toLocaleString() }}
+        {{ course?.[stat.index]?.toLocaleString() }}
         <fa-icon [icon]="stat.icon"></fa-icon>
       </div>
     </div>
@@ -45,7 +45,7 @@
       <div class="time">
         {{
           "LABEL.RATING_VALUE"
-            | translate : { value: course.numberOfRating.toLocaleString() }
+            | translate : { value: course?.totalReview?.toLocaleString() }
         }}
       </div>
     </div>
@@ -55,38 +55,38 @@
   <div class="section">
     <div class="label">{{ "LABEL.STAGES" | translate }}</div>
     <div class="other-info">
-      <div class="time">
-        {{ "LABEL.TOTAL_TIME_IN_HOUR" | translate : { hour: course.duration } }}
-      </div>
+      <!-- <div class="time">
+        {{ "LABEL.TOTAL_TIME_IN_HOUR" | translate : { hour: course?.totalTime  } }}
+      </div> -->
       <div>·</div>
       <div class="lesson">
-        {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: course.stageCount } }}
+        {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: course?.listLesson?.length } }}
       </div>
     </div>
     <div class="sections-ctn">
-      <app-course-section
-        *ngFor="let stage of course.stages; let i = index"
+      <!-- <app-course-section
+        *ngFor="let stage of course?.listLesson; let i = index"
         [index]="i"
         [stage]="stage"
-      ></app-course-section>
+      ></app-course-section> -->
     </div>
   </div>
 
   <div class="section">
     <div class="label">{{ "LABEL.REQUIREMENTS" | translate }}</div>
     <ol>
-      <li *ngFor="let item of course.requirements">{{ item }}</li>
+      <li *ngFor="let item of course?.requirementList">{{ item }}</li>
     </ol>
   </div>
 
   <div class="section">
     <div class="label">{{ "LABEL.DESCRIPTION" | translate }}</div>
-    <div class="value">{{ course.description }}</div>
+    <div class="value">{{ course?.description }}</div>
   </div>
 
   <div class="section">
     <div class="label">{{ "LABEL.THUMBNAIL" | translate }}</div>
-    <img class="thumbnail" [src]="course.image" />
+    <img class="thumbnail" [src]="course?.photoUrl" />
   </div>
 </div>
 

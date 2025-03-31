@@ -14,7 +14,7 @@ import { ChatService } from './core/services/chat.service';
 import { ModalService } from './core/services/modal.service';
 import { FirebaseService } from './core/services/firebase.service';
 import { LoadingService } from './core/services/loading.service';
-
+import { FoxService } from './core/services/fox.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -36,7 +36,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private chat: ChatService,
     public modal: ModalService,
     private firebase: FirebaseService,
-    private loading: LoadingService
+    private loading: LoadingService,
+    private fox: FoxService
   ) {}
 
   ngOnInit(): void {
@@ -82,6 +83,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.wishlist.initWishlist();
     this.notification.initNotifications();
     this.chat.initChat();
+    this.fox.initFox();
   }
 
   resetUserData() {

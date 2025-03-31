@@ -4,7 +4,7 @@
 
     <div class="gold-ctn">
       <fa-icon [icon]="coinIcon"></fa-icon>
-      <div class="number">224</div>
+      <div class="number">{{ user?.statistic?.gold ?? 0 }}</div>
       <!-- <fa-icon class="add" [icon]="addIcon"></fa-icon> -->
     </div>
   </div>

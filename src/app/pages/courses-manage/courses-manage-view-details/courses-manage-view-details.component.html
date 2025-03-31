@@ -28,10 +28,10 @@
     </div>
   </div>
 
-  <div class="course-name">{{ course?.name }}</div>
+  <div class="course-name">{{ course?.title }}</div>
 
   <div class="hashtag">
-    <div class="tag" *ngFor="let tag of course?.tags || []">
+    <div class="tag" *ngFor="let tag of course?.listTag || []">
       #{{ tag.name }}
     </div>
   </div>

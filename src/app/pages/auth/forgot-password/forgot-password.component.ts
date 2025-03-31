@@ -10,7 +10,7 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './forgot-password.component.scss',
 })
 export class ForgotPasswordComponent implements OnInit {
-  currentStep: number = 1;
+  currentStep: number = 3;
 
   email: string = '';
 

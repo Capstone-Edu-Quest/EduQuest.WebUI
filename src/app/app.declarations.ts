@@ -186,7 +186,8 @@ import { OtpComponent } from './components/otp/otp.component';
 import { SigninComponent } from './pages/auth/signin/signin.component';
 import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-password.component';
 import { SignupComponent } from './pages/auth/signup/signup.component';
-
+import { PersonalSettingsComponent } from './pages/personal-settings/personal-settings.component';
+import { ManagePasswordComponent } from './pages/personal-settings/manage-password/manage-password.component';
 export const AppDeclarations = [
   AppComponent,
   NavbarComponent,
@@ -334,7 +335,10 @@ export const AppDeclarations = [
   // Auth
   SigninComponent,
   ForgotPasswordComponent,
-  SignupComponent
+  SignupComponent,
+  // Settings
+  PersonalSettingsComponent,
+  ManagePasswordComponent
 ];
 export const NGIcons = [
   EnterOutline,

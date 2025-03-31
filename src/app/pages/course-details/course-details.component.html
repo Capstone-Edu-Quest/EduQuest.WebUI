@@ -1,26 +1,26 @@
 <div class="course-details" @fadeInOut>
   <div class="course-info">
-    <div class="course-name">{{ courseDetails.name }}</div>
+    <div class="course-name">{{ courseDetails?.title }}</div>
     <div class="feedback-ctn">
-      <div class="stars-number">{{ courseDetails.rating }}</div>
+      <div class="stars-number">{{ courseDetails?.rating }}</div>
       <div class="stars-ctn">
         <fa-icon *ngFor="let starIcon of starsList" [icon]="starIcon"></fa-icon>
       </div>
       <a
-        [routerLink]="'/feedback/' + courseDetails.id"
+        [routerLink]="'/feedback/' + courseDetails?.id"
         class="feedbacks-number"
       >
         ({{
           "LABEL.REVIEWS_COUNT"
             | translate
-              : { value: courseDetails.numberOfRating.toLocaleString() }
+              : { value: courseDetails?.totalReview }
         }})
       </a>
       <div>·</div>
       <div>
         {{
           "LABEL.LEANERS_COUNT"
-            | translate : { value: courseDetails.leanerCount.toLocaleString() }
+            | translate : { value: courseDetails?.totalLearner }
         }}
       </div>
     </div>
@@ -52,57 +52,57 @@
     <!--  -->
     <div class="description-title">{{ "LABEL.INSTRUCTOR" | translate }}</div>
     <div class="instructor-info-wrapper">
-      <app-avatar-by-name [name]="courseDetails.author.name" [size]="'50px'" />
+      <app-avatar-by-name [name]="courseDetails?.author?.username ?? ''" [size]="'50px'" />
       <div class="info">
-        <a [routerLink]="'/profile/' + courseDetails.author.id" class="name">{{
-          courseDetails.author.name
+        <a [routerLink]="'/profile/' + courseDetails?.author?.id" class="name">{{
+          courseDetails?.author?.username
         }}</a>
-        <div class="job-title">{{ courseDetails.author.jobTitle }}</div>
+        <div class="job-title">{{ courseDetails?.author?.headline }}</div>
       </div>
     </div>
     <div class="instructor-statistics">
-      <div
+      <!-- <div
         class="stat"
-        *ngFor="let stat of courseDetails.author.statistics; let i = index"
+        *ngFor="let stat of courseDetails?.author?.; let i = index"
       >
         <i nz-icon nzType="{{ authorStatsIcon[i] }}"></i>
         {{ stat.label | translate : { value: stat.value } }}
-      </div>
+      </div> -->
     </div>
     <div class="instructor-description">
-      {{ courseDetails.author.description }}
+      {{ courseDetails?.author?.description }}
     </div>
 
     <div class="description-title">{{ "LABEL.DESCRIPTION" | translate }}</div>
-    <div class="description-content">{{ courseDetails.description }}</div>
+    <div class="description-content">{{ courseDetails?.description }}</div>
 
     <div class="requirements-title">{{ "LABEL.REQUIREMENTS" | translate }}</div>
     <div class="requirements">
-      <div class="req-item" *ngFor="let req of courseDetails.requirements">
+      <div class="req-item" *ngFor="let req of courseDetails?.requirementList">
         <i nz-icon nzType="exclamation-circle"></i>{{ req }}
       </div>
     </div>
 
     <div class="description-title">{{ "LABEL.STAGES" | translate }}</div>
     <div class="sections-ctn">
-      <app-course-section
-        *ngFor="let stage of courseDetails.stages; let i = index"
+      <!-- <app-course-section
+        *ngFor="let stage of courseDetails?.listLesson; let i = index"
         [index]="i"
         [stage]="stage"
-      ></app-course-section>
+      ></app-course-section> -->
     </div>
 
     <div class="description-title">{{ "LABEL.REVIEW" | translate }}</div>
     <div class="rating-stat">
       <div class="rating">
-        {{ courseDetails.rating }} <fa-icon [icon]="star"></fa-icon>
+        {{ courseDetails?.rating }} <fa-icon [icon]="star"></fa-icon>
       </div>
       <div>·</div>
       <div class="reviews-number">
         {{
           "LABEL.REVIEWS_COUNT"
             | translate
-              : { value: courseDetails.numberOfRating.toLocaleString() }
+              : { value: courseDetails?.totalReview }
         }}
       </div>
     </div>
@@ -120,7 +120,7 @@
   >
     <div class="info-card">
       <div class="image-wrapper">
-        <img [src]="courseDetails.image" />
+        <img [src]="courseDetails?.photoUrl" />
       </div>
 
       <div class="price">
@@ -130,7 +130,7 @@
               | translate
                 : {
                     value:
-                      courseDetails.price * (1 - discountAmount / 100)
+                      courseDetails?.price ?? 0
                       | currencyExchange
                   }
           }}
@@ -138,7 +138,7 @@
         <div class="original" *ngIf="discountAmount > 0">
           {{
             "SIGNATURE.MONEY_VALUE"
-              | translate : { value: courseDetails.price | currencyExchange }
+              | translate : { value: courseDetails?.price ?? 0 | currencyExchange }
           }}
         </div>
       </div>

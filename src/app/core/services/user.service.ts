@@ -119,9 +119,7 @@ export class UserService {
   signInWithPassword(email: string, password: string) {
     this.http
       .post<ILoginRes>(endPoints.signInPassword, { email, password })
-      .subscribe((res) => {
-        console.log(res);
-      });
+      .subscribe((res) => this.signInHandler(res));
   }
 
   forgetPassword(email: string) {
@@ -132,6 +130,18 @@ export class UserService {
       });
   }
 
+  changePassword(oldPassword: string, newPassword: string) {
+    if (!this.user$.value) return;
+    
+    return this.http
+      .post<ILoginRes>(endPoints.changePassword, {
+        userId: this.user$.value?.id,
+        oldPassword,
+        newPassword,
+      })
+      .pipe((res) => res);
+  }
+
   // resendOtp(email: string) {
   //   return this.http
   //     .post<ILoginRes>(endPoints.otp, { email })
@@ -140,9 +150,9 @@ export class UserService {
   //     })
   // }
 
-  validateOtp(email: string, otp: string) {
+  validateOtp(email: string, otp: string, isChangePassword: boolean = false) {
     return this.http
-      .post<ILoginRes>(endPoints.validateOtp, { email, otp })
+      .post<ILoginRes>(endPoints.validateOtp, { email, otp, isChangePassword })
       .pipe((res) => res);
   }
 
@@ -163,6 +173,7 @@ export class UserService {
         name: payload.userData.username,
       })
     );
+    this.router.navigate(['/']);
   }
 
   logout() {
