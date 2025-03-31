@@ -24,27 +24,27 @@ export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
     {
       icon: 'trophy',
       label: 'LABEL.RANK',
-      value: '#1',
+      value: '#1 (--no-api)',
     },
     {
       icon: 'fire',
       label: 'LABEL.HIGHEST_LEARNING_STREAK',
-      value: '15 days',
+      value: '15 days (--no-api)',
     },
     {
       icon: 'clock-circle',
       label: 'LABEL.TOTAL_LEARNING_TIME',
-      value: '232 minutes',
+      value: '232 minutes (--no-api)',
     },
     {
       icon: 'book',
       label: 'LABEL.TOTAL_LEARNING_COURSES',
-      value: '3 courses',
+      value: '3 courses (--no-api)',
     },
     {
       icon: 'heart',
       label: 'LABEL.FAVOURITE_TOPICS',
-      value: 'Reacts, Angular, Vue',
+      value: 'Reacts, Angular, Vue (--no-api)',
     },
   ];
 

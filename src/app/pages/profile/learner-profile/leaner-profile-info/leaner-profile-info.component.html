@@ -5,7 +5,7 @@
     <div class="email">{{ user.email }}</div>
     <div class="level">
       <i nz-icon nzType="thunderbolt"></i
-      >{{ "LABEL.LEVEL" | translate : { level: user.statistic.level} }}
+      >{{ "LABEL.LEVEL" | translate : { level: user.statistic.level || 1} }}
     </div>
   </div>
 </div>
