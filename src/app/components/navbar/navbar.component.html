@@ -32,9 +32,7 @@
       "LABEL.EXPLORE_MORE" | translate
     }}</app-button>
     <app-button [type]="'primary'" (click)="onSignIn()">
-      <fa-icon
-        style="font-size: 12px; margin-right: 3px"
-      ></fa-icon>
+      <fa-icon style="font-size: 12px; margin-right: 3px"></fa-icon>
       {{ "LABEL.SIGN_IN" | translate }}</app-button
     >
   </div>
@@ -57,7 +55,7 @@
   </app-dropdownMenu>
   <div class="level" *ngIf="user && user.roleId === 3">
     <i nz-icon nzType="thunderbolt"></i>
-    {{ "LABEL.LEVEL" | translate : { level: user?.statistic?.level ||1} }}
+    {{ "LABEL.LEVEL" | translate : { level: user.statistic.level || 1 } }}
   </div>
 
   <app-dropdownMenu [dropdown]="getTemplate('profile')">

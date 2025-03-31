@@ -25,10 +25,10 @@
   </div>
 
   <div class="image-ctn">
-    <img [src]="course?.photoUrl" />
+    <img [src]="course.photoUrl" />
   </div>
   <div class="info-ctn">
-    <div class="name">{{ course?.title }}</div>
+    <div class="name">{{ course.title }}</div>
 
     <div class="other-info">
       <!-- <div class="time">
@@ -36,7 +36,7 @@
       </div> -->
       <div>·</div>
       <div class="lesson">
-        {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: (course?.listLesson ?? []).length } }}
+        {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: course.listLesson.length } }}
       </div>
       <div>·</div>
       <div class="leaners">
@@ -56,7 +56,7 @@
         <fa-icon *ngFor="let starIcon of starsList" [icon]="starIcon"></fa-icon>
       </div>
       <div class="feedbacks-number">
-        ({{ course?.totalReview?.toLocaleString() }})
+        ({{ course.totalReview.toLocaleString() }})
       </div>
     </div>
   </div>
