@@ -7,6 +7,7 @@ import {
 import { BehaviorSubject, Subject } from 'rxjs';
 import { FoxItems } from '../../components/fox-3d/3d-setup/fox-3d.config';
 import { UserService } from './user.service';
+import { WebRole } from '../../shared/enums/user.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -46,11 +47,12 @@ export class FoxService {
 
   initFox() {
     this.user.user$.subscribe((user) => {
-      if (!user) {
+      if (!user || this.user.user$.value?.roleId !== WebRole.LEARNER) {
         // remove all items
         this.resetItems();
       } else {
         // equip items
+        user.equippedItems.forEach((item) => this.equipItem(item));
       }
     });
   }

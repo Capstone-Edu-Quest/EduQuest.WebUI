@@ -187,6 +187,13 @@
     font-weight: 600;
   }
 
+  .no-quest {
+    font-size: 12px;
+    display: block;
+    color: var(--tertiary-text);
+    margin-top: 4px;
+  }
+
   .quest {
     margin-top: 10px;
     background-color: var(--tertiary-bg);
@@ -205,7 +212,7 @@
 
       .info {
         gap: 3px;
-        font-size: 13px;
+        font-size: 12px;
         font-weight: 400;
         color: var(--secondary-text);
       }

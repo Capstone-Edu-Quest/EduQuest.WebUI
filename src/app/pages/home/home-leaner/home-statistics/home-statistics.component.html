@@ -40,10 +40,13 @@
   <!-- Daily quest -->
   <div class="section-container">
     <div class="section-label">{{ "LABEL.DAILY_QUESTS" | translate }}</div>
+    <i class="no-quest" *ngIf="dailyQuests.length === 0">{{
+      "LABEL.NO_DAILY_QUESTS" | translate
+    }}</i>
     <div class="quest" *ngFor="let quest of dailyQuests">
       <div class="info-wrapper">
         <i nz-icon nzType="aim"></i>
-        <div class="info">{{ quest.quest }}</div>
+        <div class="info">{{ quest.quest | translate : quest.questValue }}</div>
       </div>
       <div class="progress">{{ quest.current }}/{{ quest.max }}</div>
     </div>
@@ -76,7 +79,10 @@
         <div
           class="progress-heart"
           [style.width]="
-            ((user?.statistic?.exp ?? 0) / (user?.statistic?.maxExpLevel ?? 0) * 100) + '%'
+            ((user?.statistic?.exp ?? 0) /
+              (user?.statistic?.maxExpLevel ?? 0)) *
+              100 +
+            '%'
           "
         ></div>
         <div class="exp">

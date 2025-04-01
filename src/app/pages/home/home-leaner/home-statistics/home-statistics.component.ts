@@ -1,4 +1,10 @@
-import { Component, OnDestroy, OnInit, TemplateRef, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnDestroy,
+  OnInit,
+  TemplateRef,
+  ViewChild,
+} from '@angular/core';
 import {
   faBoxOpen,
   faCertificate,
@@ -10,6 +16,8 @@ import { ModalService } from '../../../../core/services/modal.service';
 import { Subscription } from 'rxjs';
 import { IUser } from '../../../../shared/interfaces/user.interfaces';
 import { UserService } from '../../../../core/services/user.service';
+import { QuestsService } from '../../../../core/services/quests.service';
+import { QuestTypeEnum } from '@/src/app/shared/enums/others.enum';
 @Component({
   selector: 'app-home-statistics',
   templateUrl: './home-statistics.component.html',
@@ -23,18 +31,7 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
   currentStreak = 15; // days
   numTest = 1;
 
-  dailyQuests = [
-    {
-      quest: '--no-api-response',
-      current: -1,
-      max: -1,
-    },
-    {
-      quest: '--no-api-response',
-      current: -1,
-      max: -1,
-    },
-  ];
+  dailyQuests: any[] = [];
 
   levelIcon = faCertificate;
   coinIcon = faCoins;
@@ -64,16 +61,43 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
       value: '--no-api-response',
     },
   ];
-  constructor(private modal: ModalService, private userService: UserService) {}
+  constructor(
+    private modal: ModalService,
+    private userService: UserService,
+    private quests: QuestsService
+  ) {}
 
   ngOnInit() {
     this.listenToUser();
+    this.listenToQuests();
   }
 
   listenToUser() {
     this.subscription$.add(
       this.userService.user$.subscribe((user) => {
         this.user = user;
+      })
+    );
+  }
+
+  listenToQuests() {
+    this.subscription$.add(
+      this.quests.userQuests$.subscribe((quests) => {
+        this.dailyQuests = [];
+        quests.forEach((quest) => {
+          if (quest.type === QuestTypeEnum.DAILY) {
+            let questValue = {};
+            quest.questValue.forEach((q, idx) => {
+              questValue = { ...questValue, [`${idx}`]: q };
+            });
+            this.dailyQuests.push({
+              quest: this.quests.getMissionLabel(quest.questType),
+              questValue,
+              current: quest.currentPoint,
+              max: quest.pointToComplete,
+            });
+          }
+        });
       })
     );
   }

@@ -97,6 +97,7 @@ export class UserService {
       },
       lastActive: '2025-03-03T12:00:00Z',
       mascotItem: ['wings', 'katana'],
+      equippedItems: ['wings'],
     };
   }
 

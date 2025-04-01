@@ -9,7 +9,7 @@ import { LoadingService } from './loading.service';
 import { MessageService } from './message.service';
 import { TranslateService } from '@ngx-translate/core';
 import { TokenEnum } from 'src/app/shared/enums/localStorage.enum';
-
+import { StorageService } from './storage.service';
 @Injectable({
   providedIn: 'root',
 })
@@ -20,7 +20,8 @@ export class HttpService {
     private http: HttpClient,
     private loading: LoadingService,
     private message: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private storage: StorageService
   ) {}
 
   post<TPayload>(
@@ -75,11 +76,11 @@ export class HttpService {
       .pipe(this.handleResponse<TPayload>());
   }
 
-  private getHeaders(): HttpHeaders {
-    return new HttpHeaders({
+  private getHeaders(): any {
+    return {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${localStorage.getItem(TokenEnum.ACCESS_TOKEN)}`,
-    });
+      Authorization: `Bearer ${this.storage.getCookie(TokenEnum.ACCESS_TOKEN)}`,
+    };
   }
 
   private handleResponse<TPayload>() {
@@ -93,7 +94,7 @@ export class HttpService {
         }),
         catchError((error) => of(this.handleHttpError(error))), // Handle error and return undefined
         finalize(() => {
-          this.loading.removeLoading()
+          this.loading.removeLoading();
         })
       );
   }

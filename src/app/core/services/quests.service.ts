@@ -8,12 +8,50 @@ import {
 import { Injectable } from '@angular/core';
 import { RewardValueType } from '../../shared/interfaces/Platform.interface';
 import { FoxItems } from '../../components/fox-3d/3d-setup/fox-3d.config';
-
+import { HttpService } from './http.service';
+import { endPoints } from '../../shared/constants/endPoints.constant';
+import {
+  IQuestOfUser,
+  IQuestOfUserQuery,
+} from '../../shared/interfaces/quests.interface';
+import { UserService } from './user.service';
+import { WebRole } from '../../shared/enums/user.enum';
+import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root',
 })
 export class QuestsService {
-  constructor(private translate: TranslateService) {}
+  constructor(
+    private translate: TranslateService,
+    private http: HttpService,
+    private user: UserService
+  ) {}
+
+  userQuests$: BehaviorSubject<IQuestOfUser[]> = new BehaviorSubject<
+    IQuestOfUser[]
+  >([]);
+
+  initUserQuest() {
+    // Call API
+    if (this.user.user$.value?.roleId !== WebRole.LEARNER) return;
+    const api$ = this.getQuestOfUser({});
+    api$.subscribe((res) => {
+      if (!res?.payload) return;
+      this.userQuests$.next(res.payload);
+    });
+  }
+
+  getQuestOfUser(query: IQuestOfUserQuery) {
+    const params: string[] = [];
+    Object.keys(query).forEach((key) => {
+      if (query[key as keyof IQuestOfUserQuery]) {
+        params.push(`${key}=${query[key as keyof IQuestOfUserQuery]}`);
+      }
+    });
+    return this.http.get<IQuestOfUser[]>(
+      endPoints.getQuestOfUser + '?' + params.join('&')
+    );
+  }
 
   getRewardTypeLabel(reward: RewardTypeEnum): string {
     switch (reward) {
@@ -115,9 +153,7 @@ export class QuestsService {
     }
   }
 
-  getMissionLabel(
-    mission: QuestMissionEnum,
-  ) {
+  getMissionLabel(mission: QuestMissionEnum) {
     const label = 'MISSION.' + QuestMissionEnum[mission];
 
     return label;
