@@ -1,5 +1,5 @@
 <div class="home-statistics">
-  <div class="section-container">
+  <div class="ctn-1">
     <div class="welcome-back text-gradient">
       {{ "MESSAGE.WELCOME_BACK" | translate : { name: user?.username ?? "" } }}
       <i
@@ -8,52 +8,60 @@
         *ngIf="user?.statistic?.currentStreak ?? 0 >= 5"
       ></i>
     </div>
-    <div class="section-label">{{ "LABEL.STATISTICS" | translate }}</div>
-    <!-- Streak -->
-    <div class="streak">
-      <i nz-icon nzType="fire"></i>
-      <div class="info">
-        <div class="current">
-          {{
-            "LABEL.STREAK_COUNT"
-              | translate : { streak: user?.statistic?.currentStreak ?? 0 }
-          }}
-        </div>
-        <div class="longest">
-          {{
-            "LABEL.LONGEST_STREAK"
-              | translate : { streak: user?.statistic?.longestStreak ?? 0 }
-          }}
-        </div>
-      </div>
-    </div>
-    <!-- Statistics -->
-    <div class="quest" *ngFor="let stat of statistics">
-      <div class="info-wrapper">
-        <i nz-icon nzType="{{ stat.icon }}"></i>
-        <div class="info">{{ stat.label | translate }}</div>
-      </div>
-      <div class="progress">{{ stat.value }}</div>
-    </div>
-  </div>
 
-  <!-- Daily quest -->
-  <div class="section-container">
-    <div class="section-label">{{ "LABEL.DAILY_QUESTS" | translate }}</div>
-    <i class="no-quest" *ngIf="dailyQuests.length === 0">{{
-      "LABEL.NO_DAILY_QUESTS" | translate
-    }}</i>
-    <div class="quest" *ngFor="let quest of dailyQuests">
-      <div class="info-wrapper">
-        <i nz-icon nzType="aim"></i>
-        <div class="info">{{ quest.quest | translate : quest.questValue }}</div>
+    <div class="ctn-1-child">
+      <div class="section-container">
+        <div class="section-label">{{ "LABEL.STATISTICS" | translate }}</div>
+        <!-- Streak -->
+        <div class="streak">
+          <i nz-icon nzType="fire"></i>
+          <div class="info">
+            <div class="current">
+              {{
+                "LABEL.STREAK_COUNT"
+                  | translate : { streak: user?.statistic?.currentStreak ?? 0 }
+              }}
+            </div>
+            <div class="longest">
+              {{
+                "LABEL.LONGEST_STREAK"
+                  | translate : { streak: user?.statistic?.longestStreak ?? 0 }
+              }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Statistics -->
+        <div class="quest" *ngFor="let stat of statistics">
+          <div class="info-wrapper">
+            <i nz-icon nzType="{{ stat.icon }}"></i>
+            <div class="info">{{ stat.label | translate }}</div>
+          </div>
+          <div class="progress">{{ stat.value }}</div>
+        </div>
       </div>
-      <div class="progress">{{ quest.current }}/{{ quest.max }}</div>
+
+      <!-- Daily quest -->
+      <div class="section-container">
+        <div class="section-label">{{ "LABEL.DAILY_QUESTS" | translate }}</div>
+        <i class="no-quest" *ngIf="dailyQuests.length === 0">{{
+          "LABEL.NO_DAILY_QUESTS" | translate
+        }}</i>
+        <div class="quest" *ngFor="let quest of dailyQuests">
+          <div class="info-wrapper">
+            <i nz-icon nzType="aim"></i>
+            <div class="info">
+              {{ quest.quest | translate : quest.questValue }}
+            </div>
+          </div>
+          <div class="progress">{{ quest.current }}/{{ quest.max }}</div>
+        </div>
+      </div>
     </div>
   </div>
 
   <!-- Fox -->
-  <div class="section-container">
+  <div class="section-container fox">
     <app-fox-3d></app-fox-3d>
     <div class="pannel-ctn">
       <div class="gold-ctn">
