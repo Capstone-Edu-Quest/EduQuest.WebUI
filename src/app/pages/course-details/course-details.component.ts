@@ -34,7 +34,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     {
       icon: 'clock-circle',
       label: 'LABEL.TOTAL_HOUR',
-      value: 21,
+      value: 0,
     },
     {
       icon: 'field-time',
@@ -101,6 +101,12 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     const result = this.course.onGetCourse(id);
     result.subscribe((data) => {
       this.courseDetails = data?.payload ?? null;
+      const totalTimeItem = this.guaranteeItems.find(
+        (_item) => _item.label === 'LABEL.TOTAL_HOUR'
+      );
+
+      if (!totalTimeItem) return;
+      totalTimeItem.value = this.courseDetails?.totalTime ?? 0;
     });
   }
 

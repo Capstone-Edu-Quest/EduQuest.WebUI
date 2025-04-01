@@ -21,7 +21,7 @@ export class MaterialsDocumentComponent implements OnInit {
       id: 'doc-001',
       name: 'Introduction to TypeScript',
       description: 'A beginner-friendly introduction to TypeScript.',
-      type: 'document',
+      type: 'Document',
       data: {
         content:
           '<h1>Welcome to TypeScript</h1><p>TypeScript is a typed superset of JavaScript...</p>',
@@ -32,7 +32,7 @@ export class MaterialsDocumentComponent implements OnInit {
       name: 'Angular Basics',
       description:
         'Understanding components, modules, and services in Angular.',
-      type: 'document',
+      type: 'Document',
       data: {
         content:
           '<h2>Angular Overview</h2><p>Angular is a popular front-end framework...</p>',
@@ -42,7 +42,7 @@ export class MaterialsDocumentComponent implements OnInit {
       id: 'doc-003',
       name: 'Web Security Essentials',
       description: 'Learn the fundamentals of securing web applications.',
-      type: 'document',
+      type: 'Document',
       data: {
         content:
           '<h3>Security Best Practices</h3><ul><li>Use HTTPS</li><li>Validate Inputs</li></ul>',

@@ -37,6 +37,7 @@ export interface IUserStatistics {
   totalCompletedCourses: number;
   currentStreak: number;
   longestStreak: number;
+  maxExpLevel: number;
 
   totalCourseCreated: number;
   totalLearner: number;

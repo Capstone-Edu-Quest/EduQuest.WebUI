@@ -24,13 +24,13 @@ export class CoursesService {
 
   onGetMaterialIcon(materialType: materialType) {
     switch (materialType) {
-      case 'video':
+      case 'Video':
         return faCirclePlay;
-      case 'quiz':
+      case 'Quiz':
         return faRocket;
-      case 'assignment':
+      case 'Assignment':
         return faCode;
-      case 'document':
+      case 'Document':
       default:
         return faFile;
     }

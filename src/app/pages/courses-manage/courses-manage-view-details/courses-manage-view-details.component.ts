@@ -180,7 +180,7 @@ export class CoursesManageViewDetailsComponent implements OnInit {
   ): Promise<string> {
     return new Promise((resolve) => {
       switch (material.type) {
-        case 'video':
+        case 'Video':
           this.translate
             .get('LABEL.QUESTIONS_COUNT', {
               value: (material.data as IVideo).questions.length,
@@ -188,11 +188,11 @@ export class CoursesManageViewDetailsComponent implements OnInit {
             .subscribe((res) => resolve(res));
           break;
 
-        case 'document':
+        case 'Document':
           resolve('');
           break;
 
-        case 'quiz':
+        case 'Quiz':
           this.translate
             .get('LABEL.QUESTIONS_COUNT', {
               value: (material.data as IQuiz).questions.length,
@@ -204,7 +204,7 @@ export class CoursesManageViewDetailsComponent implements OnInit {
             });
           break;
 
-        case 'assignment':
+        case 'Assignment':
           resolve(
             `${(material.data as IAssignment).question} (${
               (material.data as IAssignment).answerLanguage
@@ -220,17 +220,17 @@ export class CoursesManageViewDetailsComponent implements OnInit {
 
   onGetDataTime(material: IMaterial<IVideo | IDocument | IQuiz | IAssignment>) {
     switch (material.type) {
-      case 'video':
+      case 'Video':
         return this.translate.instant('SIGNATURE.MINUTES', {
           value: ((material.data as IVideo).duration / 60).toFixed(0),
         });
-      case 'document':
+      case 'Document':
         return '';
-      case 'quiz':
+      case 'Quiz':
         return this.translate.instant('SIGNATURE.MINUTES', {
           value: (material.data as IQuiz).timeLimit.toFixed(0),
         });
-      case 'assignment':
+      case 'Assignment':
         return ``;
       default:
         return '';

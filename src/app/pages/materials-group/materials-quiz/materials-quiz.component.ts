@@ -26,7 +26,7 @@ export class MaterialsQuizComponent implements OnInit {
       id: 'quiz-1',
       name: 'JavaScript Basics',
       description: 'A quiz to test your fundamental JavaScript knowledge.',
-      type: 'quiz',
+      type: 'Quiz',
       data: {
         timeLimit: 15, // minutes
         passingPercentages: 70,
@@ -58,7 +58,7 @@ export class MaterialsQuizComponent implements OnInit {
       id: 'quiz-2',
       name: 'Angular Fundamentals',
       description: 'Test your knowledge of Angular framework basics.',
-      type: 'quiz',
+      type: 'Quiz',
       data: {
         timeLimit: 20,
         passingPercentages: 75,
@@ -92,7 +92,7 @@ export class MaterialsQuizComponent implements OnInit {
       id: 'quiz-3',
       name: 'TypeScript Essentials',
       description: 'Check your understanding of TypeScript concepts.',
-      type: 'quiz',
+      type: 'Quiz',
       data: {
         timeLimit: 10,
         passingPercentages: 80,

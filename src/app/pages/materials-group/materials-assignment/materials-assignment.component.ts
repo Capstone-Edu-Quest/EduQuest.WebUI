@@ -28,7 +28,7 @@ export class MaterialsAssignmentComponent implements OnInit {
       id: '1',
       name: 'JavaScript Basics',
       description: 'An assignment on fundamental JavaScript syntax.',
-      type: 'assignment',
+      type: 'Assignment',
       data: {
         inputArguments: [],
         question: 'Write a function that returns the sum of two numbers.',
@@ -40,7 +40,7 @@ export class MaterialsAssignmentComponent implements OnInit {
       id: '2',
       name: 'Python Loops',
       description: 'Practice problem on loops in Python.',
-      type: 'assignment',
+      type: 'Assignment',
       data: {
         inputArguments: [],
         question:
@@ -53,7 +53,7 @@ export class MaterialsAssignmentComponent implements OnInit {
       id: '3',
       name: 'TypeScript Interfaces',
       description: 'Understanding TypeScript interfaces and how to use them.',
-      type: 'assignment',
+      type: 'Assignment',
       data: {
         inputArguments: [],
         question:
@@ -66,7 +66,7 @@ export class MaterialsAssignmentComponent implements OnInit {
       id: '4',
       name: 'Writing a Summary',
       description: 'Practice writing a short summary on a given topic.',
-      type: 'assignment',
+      type: 'Assignment',
       data: {
         inputArguments: [],
         question: 'Write a short summary about the importance of clean code.',

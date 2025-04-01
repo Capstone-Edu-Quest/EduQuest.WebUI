@@ -59,15 +59,38 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
       if (!changePassword$) return;
 
       changePassword$.subscribe((res) => {
-        if (!res?.isError && res?.payload) {
+        if (!res?.isError) {
           this.message.addMessage(
             'success',
             this.translate.instant(
-              res.message?.content ?? '',
-              res.message?.values ?? {}
+              'MESSAGE.' + (res?.message?.content ?? ''),
+              res?.message?.values ?? {}
             )
           );
+          this.resendTime = 60;
           this.currentStep = 2;
+        }
+      });
+    }
+
+    if (this.currentStep === 2) {
+      const validateOtp$ = this.userService.validateOtp(
+        this.email,
+        this.otp.join(''),
+        true
+      );
+      if (!validateOtp$) return;
+
+      validateOtp$.subscribe((res) => {
+        if (!res?.isError) {
+          this.message.addMessage(
+            'success',
+            this.translate.instant(
+              'MESSAGE.' + (res?.message?.content ?? ''),
+              res?.message?.values ?? {}
+            )
+          );
+          this.currentStep = 3;
         }
       });
     }
@@ -84,7 +107,7 @@ export class ManagePasswordComponent implements OnInit, OnDestroy {
       this.oldPassword,
       this.password
     );
-    
+
     if (!changePassword$) return;
 
     changePassword$.subscribe((res) => {

@@ -2,7 +2,11 @@
   <div class="section-container">
     <div class="welcome-back text-gradient">
       {{ "MESSAGE.WELCOME_BACK" | translate : { name: user?.username ?? "" } }}
-      <i nz-icon nzType="fire" *ngIf="user?.statistic?.currentStreak ?? 0 >= 5"></i>
+      <i
+        nz-icon
+        nzType="fire"
+        *ngIf="user?.statistic?.currentStreak ?? 0 >= 5"
+      ></i>
     </div>
     <div class="section-label">{{ "LABEL.STATISTICS" | translate }}</div>
     <!-- Streak -->
@@ -10,10 +14,16 @@
       <i nz-icon nzType="fire"></i>
       <div class="info">
         <div class="current">
-          {{ "LABEL.STREAK_COUNT" | translate : { streak: user?.statistic?.currentStreak ?? 0 } }}
+          {{
+            "LABEL.STREAK_COUNT"
+              | translate : { streak: user?.statistic?.currentStreak ?? 0 }
+          }}
         </div>
         <div class="longest">
-          {{ "LABEL.LONGEST_STREAK" | translate : { streak: user?.statistic?.longestStreak ?? 0 } }}
+          {{
+            "LABEL.LONGEST_STREAK"
+              | translate : { streak: user?.statistic?.longestStreak ?? 0 }
+          }}
         </div>
       </div>
     </div>
@@ -59,10 +69,21 @@
     </div>
 
     <div class="level">
-      <div class="label">{{ "LABEL.LEVEL" | translate : { level: user?.statistic?.level || 1 } }}</div>
+      <div class="label">
+        {{ "LABEL.LEVEL" | translate : { level: user?.statistic?.level || 1 } }}
+      </div>
       <div class="progress">
-        <div class="progress-heart"></div>
-        <div class="exp">{{ user?.statistic?.exp ?? 0 }}/{{ -1 }}</div>
+        <div
+          class="progress-heart"
+          [style.width]="
+            ((user?.statistic?.exp ?? 0) / (user?.statistic?.maxExpLevel ?? 0) * 100) + '%'
+          "
+        ></div>
+        <div class="exp">
+          {{ user?.statistic?.exp ?? 0 }}/{{
+            user?.statistic?.maxExpLevel ?? 0
+          }}
+        </div>
       </div>
     </div>
   </div>

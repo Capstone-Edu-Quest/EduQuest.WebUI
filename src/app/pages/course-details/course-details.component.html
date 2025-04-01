@@ -2,7 +2,7 @@
   <div class="course-info">
     <div class="course-name">{{ courseDetails?.title }}</div>
     <div class="feedback-ctn">
-      <div class="stars-number">{{ courseDetails?.rating }}</div>
+      <div class="stars-number">{{ courseDetails?.rating ?? 0 }}</div>
       <div class="stars-ctn">
         <fa-icon *ngFor="let starIcon of starsList" [icon]="starIcon"></fa-icon>
       </div>
@@ -12,15 +12,14 @@
       >
         ({{
           "LABEL.REVIEWS_COUNT"
-            | translate
-              : { value: courseDetails?.totalReview }
+            | translate : { value: courseDetails?.totalReview ?? 0 }
         }})
       </a>
       <div>·</div>
       <div>
         {{
           "LABEL.LEANERS_COUNT"
-            | translate : { value: courseDetails?.totalLearner }
+            | translate : { value: courseDetails?.totalLearner ?? 0 }
         }}
       </div>
     </div>
@@ -52,22 +51,49 @@
     <!--  -->
     <div class="description-title">{{ "LABEL.INSTRUCTOR" | translate }}</div>
     <div class="instructor-info-wrapper">
-      <app-avatar-by-name [name]="courseDetails?.author?.username ?? ''" [size]="'50px'" />
+      <app-avatar-by-name
+      *ngIf="courseDetails?.author?.username"
+        [name]="courseDetails?.author?.username || ''"
+        [size]="'50px'"
+      />
       <div class="info">
-        <a [routerLink]="'/profile/' + courseDetails?.author?.id" class="name">{{
-          courseDetails?.author?.username
-        }}</a>
-        <div class="job-title">{{ courseDetails?.author?.headline }}</div>
+        <a
+          [routerLink]="'/profile/' + courseDetails?.author?.id"
+          class="name"
+          >{{ courseDetails?.author?.username }}</a
+        >
+        <div class="job-title">{{ courseDetails?.author?.headline ?? '' }}</div>
       </div>
     </div>
     <div class="instructor-statistics">
-      <!-- <div
-        class="stat"
-        *ngFor="let stat of courseDetails?.author?.; let i = index"
-      >
-        <i nz-icon nzType="{{ authorStatsIcon[i] }}"></i>
-        {{ stat.label | translate : { value: stat.value } }}
-      </div> -->
+      <div class="stat">
+        <i nz-icon nzType="{{ authorStatsIcon[0] }}"></i>
+        {{
+          "LABEL.TOTAL_LEARNER_STATS"
+            | translate : { value: courseDetails?.author?.totalLearner ?? 0 }
+        }}
+      </div>
+      <div class="stat">
+        <i nz-icon nzType="{{ authorStatsIcon[1] }}"></i>
+        {{
+          "LABEL.TOTAL_COURSES_STATS"
+            | translate : { value: courseDetails?.author?.totalCourseCreated ?? 0 }
+        }}
+      </div>
+      <div class="stat">
+        <i nz-icon nzType="{{ authorStatsIcon[2] }}"></i>
+        {{
+          "LABEL.TOTAL_REVIEWS_STATS"
+            | translate : { value: courseDetails?.author?.totalReview ?? 0 }
+        }}
+      </div>
+      <div class="stat">
+        <i nz-icon nzType="{{ authorStatsIcon[3] }}"></i>
+        {{
+          "LABEL.AVERAGE_RATINGS_STATS"
+            | translate : { value: courseDetails?.author?.rating ?? 0}
+        }}
+      </div>
     </div>
     <div class="instructor-description">
       {{ courseDetails?.author?.description }}
@@ -85,24 +111,23 @@
 
     <div class="description-title">{{ "LABEL.STAGES" | translate }}</div>
     <div class="sections-ctn">
-      <!-- <app-course-section
-        *ngFor="let stage of courseDetails?.listLesson; let i = index"
+      <app-course-section
+        *ngFor="let lesson of courseDetails?.listLesson; let i = index"
         [index]="i"
-        [stage]="stage"
-      ></app-course-section> -->
+        [lesson]="lesson"
+      ></app-course-section>
     </div>
 
     <div class="description-title">{{ "LABEL.REVIEW" | translate }}</div>
     <div class="rating-stat">
       <div class="rating">
-        {{ courseDetails?.rating }} <fa-icon [icon]="star"></fa-icon>
+        {{ courseDetails?.rating ?? 0 }} <fa-icon [icon]="star"></fa-icon>
       </div>
       <div>·</div>
       <div class="reviews-number">
         {{
           "LABEL.REVIEWS_COUNT"
-            | translate
-              : { value: courseDetails?.totalReview }
+            | translate : { value: courseDetails?.totalReview ?? 0 }
         }}
       </div>
     </div>
@@ -129,16 +154,15 @@
             "SIGNATURE.MONEY_VALUE"
               | translate
                 : {
-                    value:
-                      courseDetails?.price ?? 0
-                      | currencyExchange
+                    value: courseDetails?.price ?? 0 | currencyExchange
                   }
           }}
         </div>
         <div class="original" *ngIf="discountAmount > 0">
           {{
             "SIGNATURE.MONEY_VALUE"
-              | translate : { value: courseDetails?.price ?? 0 | currencyExchange }
+              | translate
+                : { value: courseDetails?.price ?? 0 | currencyExchange }
           }}
         </div>
       </div>
@@ -153,7 +177,8 @@
             (isInCart ? "BUTTON.GO_TO_CART" : "BUTTON.ADD_TO_CART") | translate
           }}</app-button
         >
-        <i nz-icon
+        <i
+          nz-icon
           nzType="heart"
           [ngClass]="{ favorited: isInWishlist }"
           [nzTheme]="isInWishlist ? 'fill' : 'outline'"

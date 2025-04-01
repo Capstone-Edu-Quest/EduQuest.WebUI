@@ -25,7 +25,7 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
   material: IMaterial<IQuiz> | IMaterialCreate<IQuiz> = {
     name: '',
     description: '',
-    type: 'quiz',
+    type: 'Quiz',
     data: {
       timeLimit: 0, // minutes
       passingPercentages: 0,
@@ -66,7 +66,7 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
       id: 'quiz-3',
       name: 'TypeScript Essentials',
       description: 'Check your understanding of TypeScript concepts.',
-      type: 'quiz',
+      type: 'Quiz',
       data: {
         timeLimit: 10,
         passingPercentages: 60,

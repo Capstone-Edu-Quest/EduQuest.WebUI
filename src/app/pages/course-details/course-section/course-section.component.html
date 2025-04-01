@@ -1,26 +1,26 @@
-<div class="stage" *ngIf="stage" (click)="onExpand()">
+<div class="stage" *ngIf="lesson" (click)="onExpand()">
   <i nz-icon nzType="{{ isDropDown ? 'down' : 'right' }}"></i>
   <div class="info">
     <div class="stage-name">
-      {{ "LABEL.STAGE_VALUE" | translate : { value: index + 1 } }} -
-      {{ stage.title }}
+      {{ "LABEL.STAGE_VALUE" | translate : { value: lesson.index} }} -
+      {{ lesson.name }}
     </div>
     <div class="time">
       <i nz-icon nzType="clock-circle"></i>
-      {{ "LABEL.MINUTE" | translate : { value: stage.time * 60 } }}
+      {{ "LABEL.MINUTE" | translate : { value: lesson.totalTime } }}
     </div>
   </div>
 </div>
 
-<div class="stage-missions-ctn" *ngIf="isDropDown && stage">
-  <div class="mission" *ngFor="let mission of stage.mission; let i = index">
+<div class="stage-missions-ctn" *ngIf="isDropDown && lesson">
+  <div class="mission" *ngFor="let material of lesson.materials; let i = index">
     <div class="mission-info">
-      <fa-icon [icon]="onGetIcon(mission.type)"></fa-icon>
-      <div class="mission-name">{{i + 1}}.{{ mission.mission }}</div>
+      <fa-icon [icon]="onGetIcon(material.type)"></fa-icon>
+      <div class="mission-name">{{i + 1}}.{{ material.title }}</div>
     </div>
     <div class="mission-time">
       <i nz-icon nzType="clock-circle"></i>
-      {{ 'LABEL.MINUTES' | translate:{value: mission.time} }}
+      {{ 'LABEL.MINUTES' | translate:{value: material.duration} }}
     </div>
   </div>
 </div>

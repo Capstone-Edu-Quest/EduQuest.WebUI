@@ -29,7 +29,7 @@ export class CreateDocumentComponent implements OnInit, OnDestroy {
   material: IMaterialCreate<IDocument> | IMaterial<IDocument> = {
     name: '',
     description: '',
-    type: 'document',
+    type: 'Document',
     data: {
       content: '',
     },
@@ -59,7 +59,7 @@ export class CreateDocumentComponent implements OnInit, OnDestroy {
       id: '1',
       name: '',
       description: '',
-      type: 'document',
+      type: 'Document',
       data: {
         content:
           '<h1>Welcome to my Typescript document</h1><p>What is your name?</p>',

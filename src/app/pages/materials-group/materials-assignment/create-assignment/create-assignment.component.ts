@@ -27,7 +27,7 @@ export class CreateAssignmentComponent implements OnInit, OnDestroy {
   material: IMaterialCreate<IAssignment> | IMaterial<IAssignment> = {
     name: '',
     description: '',
-    type: 'assignment',
+    type: 'Assignment',
     data: {
       question: '',
       answerLanguage: AssignmentLanguageEnum.TEXT,

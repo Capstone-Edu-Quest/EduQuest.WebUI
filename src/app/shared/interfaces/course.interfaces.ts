@@ -47,12 +47,13 @@ export interface ICourse {
     rating: number | null;
     totalReview: number;
   };
-  listLesson: string[];
+  listLesson: ILessonOverview[];
   listTag: ITag[];
   totalLearner: number;
   rating: number;
   totalReview: number;
   progress: number | null;
+  totalTime: number;
 }
 
 export interface ICourseApproval extends ICourse {
@@ -93,7 +94,7 @@ export interface ICourseManage extends ICourse {
   isPublic: boolean;
 }
 
-export type materialType = 'video' | 'document' | 'quiz' | 'assignment';
+export type materialType = 'Video' | 'Document' | 'Quiz' | 'Assignment';
 
 export interface IMaterial<T> {
   id: string;
@@ -241,6 +242,24 @@ export interface IStage {
   title: string;
   time: number; // hour
   mission: IStageMission[];
+}
+
+export interface ILessonOverview {
+  id: string,
+  index: number,
+  name: string,
+  totalTime: number,
+  materials: IMaterialOverview[]
+}
+
+export interface IMaterialOverview {
+  id: string;
+  type: materialType;
+  title: string;
+  description: string;
+  duration: number;
+  version: number;
+  originalMaterialId: string | null;
 }
 
 export interface IStageMission {

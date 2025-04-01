@@ -572,13 +572,11 @@
     "VALUE": "Value",
     "FORGOT_PASSWORD": "Forgot Password",
     "FORGOT_PASSWORD_SUB": "Enter your email to reset your password",
-    "BACK_TO_SIGNIN": "Back to sign in",
     "SIGNIN": "Sign in",
     "SIGNIN_WITH_GOOGLE": "Sign in with Google",
     "RESET_PASSWORD": "Reset Password",
     "RESET_PASSWORD_SUB": "Enter your email to reset your password",
     "CONTINUE": "Continue",
-    "EMAIL": "Email",
     "PASSWORD": "Password",
     "WELCOME_BACK": "Welcome back",
     "SIGNIN_SUB": "Sign in to your account to continue",
@@ -596,7 +594,8 @@
     "CHANGE_PASSWORD": "Change Password",
     "CHANGE_PASSWORD_SUB": "Enter your old password and new password to change",
     "OLD_PASSWORD": "Old Password",
-    "CHANGE_PASSWORD_SUB_2": "We have sent an OTP to {{email}}"
+    "CHANGE_PASSWORD_SUB_2": "We have sent an OTP to {{email}}",
+    "CHANGE_PASSWORD_SUB_3": "Changed password successfully"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",

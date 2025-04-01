@@ -24,7 +24,7 @@ export class MaterialsVideoComponent implements OnInit {
       name: 'Introduction to TypeScript',
       description:
         'A beginner-friendly introduction to TypeScript fundamentals.',
-      type: 'video',
+      type: 'Video',
       data: {
         url: 'https://example.com/videos/typescript-intro.mp4',
         duration: 10, // 10 seconds
@@ -36,7 +36,7 @@ export class MaterialsVideoComponent implements OnInit {
       name: 'React State Management',
       description:
         'Learn about state management in React using hooks and Redux.',
-      type: 'video',
+      type: 'Video',
       data: {
         url: 'https://example.com/videos/react-state.mp4',
         duration: 15, // 15 seconds
@@ -48,7 +48,7 @@ export class MaterialsVideoComponent implements OnInit {
       name: 'Understanding Asynchronous JavaScript',
       description:
         'Explore promises, async/await, and event loops in JavaScript.',
-      type: 'video',
+      type: 'Video',
       data: {
         url: 'https://example.com/videos/async-js.mp4',
         duration: 12.5, // 12.5 seconds

@@ -111,6 +111,7 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
       isPremium: false,
       statistic: {
         userId: 'u1',
+        maxExpLevel: 20000,
         totalActiveDay: 180,
         maxStudyStreakDay: 45,
         lastLearningDay: '2025-03-02',
@@ -141,6 +142,7 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
       isPremium: false,
       statistic: {
         userId: 'u2',
+        maxExpLevel: 20000,
         totalActiveDay: 90,
         maxStudyStreakDay: 25,
         lastLearningDay: '2025-03-03',

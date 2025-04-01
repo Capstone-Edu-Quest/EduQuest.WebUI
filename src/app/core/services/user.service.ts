@@ -84,6 +84,7 @@ export class UserService {
         completedCourses: 15,
         gold: 7000,
         exp: 18000,
+        maxExpLevel: 20000,
         level: 18,
         studyTime: 360, // hours
         totalCourseCreated: 8,
@@ -135,7 +136,7 @@ export class UserService {
     
     return this.http
       .post<ILoginRes>(endPoints.changePassword, {
-        userId: this.user$.value?.id,
+        email: this.user$.value?.email,
         oldPassword,
         newPassword,
       })
