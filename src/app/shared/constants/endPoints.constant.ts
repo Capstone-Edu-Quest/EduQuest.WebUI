@@ -15,6 +15,7 @@ export const endPoints = {
   getRecommendedCourse: 'course/recommendedCourse',
   getCourseById: 'course/byCourseId',
   getMyCourse: 'course/createdByMe',
+  getStudyingCourse: 'course/studying',
 
   material: 'material',
 

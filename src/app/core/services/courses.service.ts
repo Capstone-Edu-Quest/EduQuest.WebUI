@@ -1,5 +1,10 @@
 import { Injectable } from '@angular/core';
-import { ICourse, ICourseOverview, ISearchCourseParams, materialType } from '../../shared/interfaces/course.interfaces';
+import {
+  ICourse,
+  ICourseOverview,
+  ISearchCourseParams,
+  materialType,
+} from '../../shared/interfaces/course.interfaces';
 import {
   faChartBar,
   faCirclePlay,
@@ -42,7 +47,12 @@ export class CoursesService {
   }
 
   onSearchCourse(params: ISearchCourseParams) {
-    const urlStr = endPoints.searchCourse + onConvertObjectToQueryParams(params);
-    return this.http.get<ICourseOverview[]>(urlStr)
+    const urlStr =
+      endPoints.searchCourse + onConvertObjectToQueryParams(params);
+    return this.http.get<ICourseOverview[]>(urlStr);
+  }
+
+  onGetStudyingCourses() {
+    return this.http.get<ICourseOverview[]>(endPoints.getStudyingCourse);
   }
 }

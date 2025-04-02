@@ -55,11 +55,11 @@ export class HttpService {
 
   update<TPayload>(
     endpoint: string,
-    id: string,
-    data: any
+    data: any,
+    id?: string,
   ): Observable<BaseReponse<TPayload> | undefined> {
     this.loading.addLoading();
-    const url = `${this.apiUrl}/${endpoint}/${id}`;
+    const url = `${this.apiUrl}/${endpoint}/${id ?? ''}`;
     return this.http
       .put<BaseReponse<TPayload>>(url, data, { headers: this.getHeaders() })
       .pipe(this.handleResponse<TPayload>());

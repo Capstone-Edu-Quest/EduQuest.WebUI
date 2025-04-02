@@ -1,3 +1,4 @@
+import { CoursesService } from './../../../../core/services/courses.service';
 import { Component, OnInit } from '@angular/core';
 import {
   ICourse,
@@ -93,7 +94,19 @@ export class HomeSuggestedComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  courses: ICourseOverview[] = [];
 
-  ngOnInit() {}
+  constructor(private CoursesService: CoursesService) {}
+
+  ngOnInit() {
+    this.initCoursesList();
+  }
+
+  initCoursesList() {
+    const course$ = this.CoursesService.onSearchCourse({pageNo: 1, eachPage: 5});
+    course$.subscribe((res) => {
+      if(!res || !res?.payload) return;
+      this.courses = res.payload;
+    })
+  }
 }

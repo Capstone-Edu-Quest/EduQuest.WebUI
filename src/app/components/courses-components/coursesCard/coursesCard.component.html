@@ -27,7 +27,7 @@
     </div>
     @if(!notShowFooter) {
     <ng-container
-      *ngTemplateOutlet="course.progress === -1 ? price : progress"
+      *ngTemplateOutlet="course.progress === null || course.progress === undefined ? price : progress"
     ></ng-container>
     }
   </div>

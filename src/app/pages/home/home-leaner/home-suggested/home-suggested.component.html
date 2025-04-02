@@ -5,5 +5,9 @@
       {{ "BUTTON.DISCOVER" | translate }} <i nz-icon nzType="right"></i>
     </a>
   </div>
-  <app-coursesList [courses]="sampleCourses"></app-coursesList>
+  <div class="no-course" *ngIf="courses.length === 0">{{ "LABEL.NO_COURSE_TO_DISPLAY" }}</div>
+  <app-coursesList
+    *ngIf="courses.length > 0"
+    [courses]="courses"
+  ></app-coursesList>
 </div>

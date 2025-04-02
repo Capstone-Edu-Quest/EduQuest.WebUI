@@ -1,38 +1,61 @@
 import { Injectable } from '@angular/core';
-import { ICourse, ICourseOverview } from '../../shared/interfaces/course.interfaces';
+import {
+  ICourse,
+  ICourseOverview,
+} from '../../shared/interfaces/course.interfaces';
 import { BehaviorSubject } from 'rxjs';
+import { HttpService } from './http.service';
+import { endPoints } from '../../shared/constants/endPoints.constant';
 
 @Injectable({
   providedIn: 'root',
 })
 export class WishlistService {
-  private courses: ICourseOverview[] = [];
-  public wishlist$: BehaviorSubject<ICourseOverview[]> = new BehaviorSubject(
-    this.courses
-  );
+  public wishlist$: BehaviorSubject<ICourseOverview[]> = new BehaviorSubject<
+    ICourseOverview[]
+  >([]);
 
-  constructor() {}
+  constructor(private http: HttpService) {}
 
   initWishlist() {
     // Call API
+    this.http
+      .get<ICourseOverview[]>(endPoints.favoriteList)
+      .subscribe((res) => {
+        if (!res?.payload) return;
+
+        this.wishlist$.next(res.payload);
+      });
   }
 
   updateWishlist(course: ICourseOverview) {
-    const index = this.courses.findIndex((c) => c.id === course.id);
+    const courses = this.wishlist$.value;
+    const index = courses.findIndex((c) => c.id === course.id);
+
     if (index === -1) {
-      this.courses.push(course);
+      courses.push(course);
     } else {
-      this.courses.splice(index, 1);
+      courses.splice(index, 1);
     }
-    
-    this.wishlist$.next(this.courses);
+
+    const ids = courses.map((c) => c.id);
+    this.http.update(endPoints.favoriteList, ids).subscribe((res) => {
+      if (!res || res.isError) return;
+      this.wishlist$.next(courses);
+    });
   }
 
   remove(course: ICourseOverview) {
-    const index = this.courses.findIndex((c) => c.id === course.id);
+    const courses = this.wishlist$.value;
+    const index = courses.findIndex((c) => c.id === course.id);
     if (index !== -1) {
-      this.courses.splice(index, 1);
-      this.wishlist$.next(this.courses);
+      courses.splice(index, 1);
+
+      const ids = courses.map((c) => c.id);
+      this.http.update(endPoints.favoriteList, ids).subscribe((res) => {
+        if (!res || res.isError) return;
+        this.wishlist$.next(courses);
+      });
     }
   }
 

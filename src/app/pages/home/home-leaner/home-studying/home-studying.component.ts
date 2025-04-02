@@ -1,5 +1,9 @@
+import { CoursesService } from 'src/app/core/services/courses.service';
 import { Component, OnInit } from '@angular/core';
-import { ICourse, ICourseOverview } from '../../../../shared/interfaces/course.interfaces';
+import {
+  ICourse,
+  ICourseOverview,
+} from '../../../../shared/interfaces/course.interfaces';
 
 @Component({
   selector: 'app-home-studying',
@@ -7,86 +11,20 @@ import { ICourse, ICourseOverview } from '../../../../shared/interfaces/course.i
   styleUrls: ['./home-studying.component.scss'],
 })
 export class HomeStudyingComponent implements OnInit {
-  sampleCourses: ICourseOverview[] = [
-    {
-      id: 'course1',
-      title: 'Introduction to JavaScript',
-      price: 15.99,
-      author: 'Maxmilian Dopamine',
-      description:
-        'Learn the fundamentals of JavaScript, the programming language of the web.',
-      totalTime: 120, // minutes
-      photoUrl: '/assets/images/demo-course-thumb.webp',
-      createdBy: 'Maxmilian Dopamine',
-      rating: 2.2,
-      totalReview: 22531,
-      totalLesson: 10,
-      progress: -1, // %
-      discountPrice: 0, 
-    }, {
-      id: 'course1',
-      title: 'Introduction to JavaScript',
-      price: 15.99,
-      author: 'Maxmilian Dopamine',
-      description:
-        'Learn the fundamentals of JavaScript, the programming language of the web.',
-      totalTime: 120, // minutes
-      photoUrl: '/assets/images/demo-course-thumb.webp',
-      createdBy: 'Maxmilian Dopamine',
-      rating: 2.2,
-      totalReview: 22531,
-      totalLesson: 10,
-      progress: -1, // %
-      discountPrice: 0, 
-    }, {
-      id: 'course1',
-      title: 'Introduction to JavaScript',
-      price: 15.99,
-      author: 'Maxmilian Dopamine',
-      description:
-        'Learn the fundamentals of JavaScript, the programming language of the web.',
-      totalTime: 120, // minutes
-      photoUrl: '/assets/images/demo-course-thumb.webp',
-      createdBy: 'Maxmilian Dopamine',
-      rating: 2.2,
-      totalReview: 22531,
-      totalLesson: 10,
-      progress: -1, // %
-      discountPrice: 0, 
-    }, {
-      id: 'course1',
-      title: 'Introduction to JavaScript',
-      price: 15.99,
-      author: 'Maxmilian Dopamine',
-      description:
-        'Learn the fundamentals of JavaScript, the programming language of the web.',
-      totalTime: 120, // minutes
-      photoUrl: '/assets/images/demo-course-thumb.webp',
-      createdBy: 'Maxmilian Dopamine',
-      rating: 2.2,
-      totalReview: 22531,
-      totalLesson: 10,
-      progress: -1, // %
-      discountPrice: 0, 
-    }, {
-      id: 'course1',
-      title: 'Introduction to JavaScript',
-      price: 15.99,
-      author: 'Maxmilian Dopamine',
-      description:
-        'Learn the fundamentals of JavaScript, the programming language of the web.',
-      totalTime: 120, // minutes
-      photoUrl: '/assets/images/demo-course-thumb.webp',
-      createdBy: 'Maxmilian Dopamine',
-      rating: 2.2,
-      totalReview: 22531,
-      totalLesson: 10,
-      progress: -1, // %
-      discountPrice: 0, 
-    },
-  ];
-  
-  constructor() {}
+  courses: ICourseOverview[] = [];
 
-  ngOnInit() {}
+  constructor(private CoursesService: CoursesService) {}
+
+  ngOnInit() {
+    this.initCourse();
+  }
+
+  initCourse() {
+    const course$ = this.CoursesService.onGetStudyingCourses();
+    course$.subscribe((res) => {
+      if (!res?.payload) return;
+
+      this.courses = res.payload;
+    });
+  }
 }

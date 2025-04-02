@@ -60,6 +60,6 @@ export class CouponService {
   }
 
   updateCoupon(coupon: ICouponUpdate) {
-    return this.http.update<ICoupon>(endPoints.coupon, coupon.code, coupon);
+    return this.http.update<ICoupon>(endPoints.coupon, coupon, coupon.code);
   }
 }

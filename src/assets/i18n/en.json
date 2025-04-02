@@ -596,7 +596,8 @@
     "OLD_PASSWORD": "Old Password",
     "CHANGE_PASSWORD_SUB_2": "We have sent an OTP to {{email}}",
     "CHANGE_PASSWORD_SUB_3": "Changed password successfully",
-    "NO_DAILY_QUESTS": "You have completed all daily quests"
+    "NO_DAILY_QUESTS": "You have completed all daily quests",
+    "NO_COURSE_TO_DISPLAY": "There is no course to display at the moment"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",

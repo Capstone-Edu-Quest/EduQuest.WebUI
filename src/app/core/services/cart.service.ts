@@ -2,6 +2,8 @@ import { ElementRef, Injectable } from '@angular/core';
 import { ICourse, ICourseCart, ICourseOverview } from '../../shared/interfaces/course.interfaces';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { WishlistService } from './wishlist.service';
+import { endPoints } from '../../shared/constants/endPoints.constant';
+import { HttpService } from './http.service';
 
 @Injectable({
   providedIn: 'root',
@@ -13,10 +15,12 @@ export class CartService {
   };
   public cart$: BehaviorSubject<ICourseCart> = new BehaviorSubject(this.cart);
 
-  constructor(private wishlist: WishlistService) {}
+  constructor(private wishlist: WishlistService, private http: HttpService) {}
 
   initCart() {
-    // Call API
+    // this.http.get(endPoints.cart).subscribe((cart) => {
+    //   console.log(cart)
+    // })
   }
 
   updateCart(course: ICourseOverview) {
