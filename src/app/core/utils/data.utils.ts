@@ -102,16 +102,15 @@ export const onConvertObjectToQueryParams = (obj: object) => {
   return '?' + searchParamsString.join('&');
 };
 
-export function autoMapObject<T extends object, U extends object>(
-  source: T
-): U {
+export function autoMapObject<T extends object, U extends Partial<T>>(source: T, reference: U): U {
   const target = {} as U;
 
-  (Object.keys(source) as (keyof T)[]).forEach((key) => {
-    if (key in ({} as U)) {
-      (target as any)[key] = source[key];
+  Object.keys(reference).forEach((key) => {
+    if (key in source) {
+      (target as any)[key] = (source as any)[key]; // Safe casting
     }
   });
 
   return target;
 }
+

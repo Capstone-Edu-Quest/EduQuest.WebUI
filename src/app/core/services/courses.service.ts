@@ -55,4 +55,15 @@ export class CoursesService {
   onGetStudyingCourses() {
     return this.http.get<ICourseOverview[]>(endPoints.getStudyingCourse);
   }
+
+  onConvertDetailToOverview(course: ICourse) {
+    const fields = ["id", "title", "description", "photoUrl", "author", "createdBy", "price", "discountPrice", "rating", "totalLesson", "totalTime", "totalReview", "progressPercentage"]
+    const courseOverview: any = {};
+
+    fields.forEach(f => {
+      courseOverview[f] = course[f as keyof typeof course]
+    });
+
+    return courseOverview
+  }
 }

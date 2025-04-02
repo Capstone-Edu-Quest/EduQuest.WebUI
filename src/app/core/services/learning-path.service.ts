@@ -65,7 +65,7 @@ export class LearningPathService {
     this.http
       .update(
         endPoints.learningPath,
-        courseIds.map((c) => ({ courseId: c, action })),
+        courseIds.map((c) => ({ courseId: c, action, courseOrder: -1 })),
         pathId
       )
       .subscribe((res) => console.log(res));

@@ -1,3 +1,4 @@
+import { ICourseOverview } from './../../shared/interfaces/course.interfaces';
 import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesService } from '../../core/services/courses.service';
@@ -6,7 +7,6 @@ import {
   ICoupon,
   ICourse,
   ICourseCart,
-  ICourseOverview,
 } from '../../shared/interfaces/course.interfaces';
 import { CouponService } from '../../core/services/coupon.service';
 import { CartService } from '../../core/services/cart.service';
@@ -31,6 +31,7 @@ import {
   IModifyLearningPath,
 } from '../../shared/interfaces/learning-path.interfaces';
 import { LearningPathService } from '../../core/services/learning-path.service';
+import { autoMapObject } from '../../core/utils/data.utils';
 
 @Component({
   selector: 'app-course-details',
@@ -120,9 +121,18 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   initCourse() {
     const id = this.route.snapshot.paramMap.get('courseId');
     if (!id) return;
-    const result = this.course.onGetCourse(id);
-    result.subscribe((data) => {
+
+    this.course.onGetCourse(id).subscribe((data) => {
       this.courseDetails = data?.payload ?? null;
+
+      this.isInWishlist = this.wishlist.wishlist$.value.some(
+        (c) => c.id === this.courseDetails?.id
+      );
+
+      this.isInCart = this.cart.cart$.value.courses.some(
+        (c) => c.id === this.courseDetails?.id
+      );
+
       const totalTimeItem = this.guaranteeItems.find(
         (_item) => _item.label === 'LABEL.TOTAL_HOUR'
       );
@@ -197,23 +207,25 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (!this.course) return;
-    // this.cart.updateCart(
-    //   // this.course.onConvertCourseDetailsToCourseOverview(this.courseDetails)
-    // );
+    if (!this.courseDetails) return;
+    this.cart.updateCart(
+      this.course.onConvertDetailToOverview(this.courseDetails)
+    );
+
     // Remove from wishlist if exist
-    // this.isInWishlist &&
-    //   this.wishlist.updateWishlist(
-    //     this.course.onConvertCourseDetailsToCourseOverview(this.courseDetails)
-    //   );
+    this.isInWishlist &&
+      this.wishlist.updateWishlist(
+        this.course.onConvertDetailToOverview(this.courseDetails)
+      );
   }
 
   onAddToWishlist(event: Event) {
     event.stopPropagation();
-    if (!this.course) return;
-    // this.wishlist.updateWishlist(
-    //   this.course.onConvertCourseDetailsToCourseOverview(this.courseDetails)
-    // );
+    if (!this.courseDetails) return;
+
+    this.wishlist.updateWishlist(
+      this.course.onConvertDetailToOverview(this.courseDetails)
+    );
   }
 
   goToCart() {
