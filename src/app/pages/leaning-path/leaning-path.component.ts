@@ -1,4 +1,4 @@
-import { Component, type OnInit } from '@angular/core';
+import { Component, OnDestroy, type OnInit } from '@angular/core';
 import {
   defaultLearningPathMode,
   learningPathModeTabs,
@@ -10,6 +10,7 @@ import {
 import { LearningPathModeEnum } from '../../shared/enums/learning-path.enum';
 import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 import { LearningPathService } from '../../core/services/learning-path.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-leaning-path',
@@ -17,7 +18,9 @@ import { LearningPathService } from '../../core/services/learning-path.service';
   styleUrl: './leaning-path.component.scss',
   animations: [fadeInOutAnimation],
 })
-export class LeaningPathComponent implements OnInit {
+export class LeaningPathComponent implements OnInit, OnDestroy {
+  subscription$: Subscription = new Subscription();
+
   currentViewTab: string | LearningPathModeEnum = defaultLearningPathMode;
   tabs: IPathTab[] = learningPathModeTabs;
 
@@ -26,13 +29,23 @@ export class LeaningPathComponent implements OnInit {
   enrolledLearningPath: ILearningPath[] = [];
 
   constructor(private learningPath: LearningPathService) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.listenToMylearningPath();
+    this.initPublicLearningPath();
+  }
 
-  initMyLearningPath() {
-    this.learningPath.getMyLearningPath().subscribe((res) => {
+  listenToMylearningPath() {
+    this.subscription$.add(
+      this.learningPath.myLearningPaths$.subscribe(
+        (l) => (this.myLearningPath = l)
+      )
+    );
+  }
+
+  initPublicLearningPath() {
+    this.learningPath.getPublicLearningPath().subscribe((res) => {
       if (!res?.payload) return;
-
-      this.myLearningPath = res.payload;
+      this.publicLearningPath = res.payload;
     });
   }
 
@@ -47,5 +60,9 @@ export class LeaningPathComponent implements OnInit {
       default:
         return [];
     }
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
   }
 }

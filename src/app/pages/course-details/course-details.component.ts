@@ -12,12 +12,25 @@ import { CouponService } from '../../core/services/coupon.service';
 import { CartService } from '../../core/services/cart.service';
 import { WishlistService } from '../../core/services/wishlist.service';
 import { BehaviorSubject, Subscription } from 'rxjs';
-import { faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
-import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
+import {
+  faBookBookmark,
+  faPlus,
+  faStar,
+  faStarHalfStroke,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  faBookmark,
+  faStar as faStarRegular,
+} from '@fortawesome/free-regular-svg-icons';
 import { handleCastDateString } from '../../core/utils/time.utils';
 import { MessageService } from '../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
 import { WebRole } from '../../shared/enums/user.enum';
+import {
+  ILearningPath,
+  IModifyLearningPath,
+} from '../../shared/interfaces/learning-path.interfaces';
+import { LearningPathService } from '../../core/services/learning-path.service';
 
 @Component({
   selector: 'app-course-details',
@@ -54,6 +67,9 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   star = faStar;
   starNone = faStarRegular;
   starHalf = faStarHalfStroke;
+  bookMark = faBookmark;
+  bookMarkFilled = faBookBookmark;
+  addIcon = faPlus;
 
   starsList: any[] = [];
 
@@ -67,6 +83,10 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   inputCoupon: string = '';
   _coupon: ICoupon | null = null;
 
+  myLearningPaths: ILearningPath[] = [];
+
+  newLearningPathName: string = '';
+
   constructor(
     private route: ActivatedRoute,
     private course: CoursesService,
@@ -75,7 +95,8 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     private coupon: CouponService,
     private router: Router,
     private message: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private learningPath: LearningPathService
   ) {}
 
   ngOnInit() {
@@ -84,6 +105,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     this.listenToCart();
     this.listenToWishList();
     this.listenToCoupon();
+    this.listenToMyLearningPath();
   }
 
   @HostListener('window:scroll', [])
@@ -122,6 +144,14 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
         if (rating > 0) return this.starHalf;
         return this.starNone;
       });
+  }
+
+  listenToMyLearningPath() {
+    this.subscription$.add(
+      this.learningPath.myLearningPaths$.subscribe(
+        (l) => (this.myLearningPaths = l)
+      )
+    );
   }
 
   listenToCart() {
@@ -203,6 +233,35 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   onPressEnterCoupon(e: KeyboardEvent) {
     if (e.key !== 'Enter') return;
     this.applyNewCoupon();
+  }
+
+  onAddCourseTolearningPath(pathId: string) {
+    if (!this.courseDetails) return;
+
+    this.learningPath.modifyCoursesToLearningPath(
+      pathId,
+      [this.courseDetails.id],
+      'add'
+    );
+  }
+
+  onAddNewLearningPath() {
+    if (!this.courseDetails) return;
+
+    const newLearningPath: IModifyLearningPath = {
+      name: this.newLearningPathName,
+      description: '',
+      isPublic: false,
+      courses: [
+        {
+          courseId: this.courseDetails.id,
+          courseOrder: 0,
+        },
+      ],
+    };
+
+    this.learningPath.addNewLearningPath(newLearningPath);
+    this.newLearningPathName = '';
   }
 
   removeCoupon() {

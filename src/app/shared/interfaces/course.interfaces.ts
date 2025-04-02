@@ -24,7 +24,7 @@ export interface ICourseOverview {
   totalLesson: number;
   totalTime: number;
   totalReview: number;
-  progress: number | null;
+  progressPercentage: number | null;
 }
 
 export interface ICourse {

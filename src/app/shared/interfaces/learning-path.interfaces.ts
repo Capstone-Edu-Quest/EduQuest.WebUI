@@ -33,3 +33,16 @@ export interface ILCourseObject {
   order: number;
   course: ICourse;
 }
+
+export interface IModifyLearningPath {
+  name?: string;
+  description?: string;
+  isPublic?: boolean;
+  courses?: IModifyLearningPathCourse[]
+}
+
+export interface IModifyLearningPathCourse {
+  courseId: string;
+  courseOrder?: number;
+  action?: 'add' | 'delete'
+}

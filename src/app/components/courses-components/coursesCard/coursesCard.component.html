@@ -27,7 +27,7 @@
     </div>
     @if(!notShowFooter) {
     <ng-container
-      *ngTemplateOutlet="course.progress === null || course.progress === undefined ? price : progress"
+      *ngTemplateOutlet="course.progressPercentage === null || course.progressPercentage === undefined ? price : progress"
     ></ng-container>
     }
   </div>
@@ -37,18 +37,18 @@
   <div class="progress" *ngIf="course">
     <div class="header">
       <div class="label">{{ "LABEL.PROGRESS" | translate }}</div>
-      <div class="percent">{{ course.progress ?? 0 }}%</div>
+      <div class="percent">{{ course.progressPercentage ?? 0 }}%</div>
     </div>
     <div class="progress-bar-ctn">
       <div
         class="progress-bar text-gradient"
-        [ngStyle]="{ width: course.progress + '%' }"
+        [ngStyle]="{ width: course.progressPercentage + '%' }"
       ></div>
     </div>
   </div>
 
   <app-button *ngIf="course" [type]="'primary'" [style]="{ width: '100%' }">{{
-    (course.progress === 100 ? "BUTTON.VIEW_CERTIFICATE" : "BUTTON.CONTINUE")
+    (course.progressPercentage === 100 ? "BUTTON.VIEW_CERTIFICATE" : "BUTTON.CONTINUE")
       | translate
   }}</app-button>
 </ng-template>

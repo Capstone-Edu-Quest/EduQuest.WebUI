@@ -32,7 +32,7 @@ export class InstructorProfileComponent implements OnInit, OnDestroy {
       rating: 2.2,
       totalReview: 22531,
       totalLesson: 10,
-      progress: -1, // %
+      progressPercentage: -1, // %
       discountPrice: 0,
     },
     {
@@ -48,7 +48,7 @@ export class InstructorProfileComponent implements OnInit, OnDestroy {
       rating: 2.2,
       totalReview: 22531,
       totalLesson: 10,
-      progress: -1, // %
+      progressPercentage: -1, // %
       discountPrice: 0,
     },
     {
@@ -64,7 +64,7 @@ export class InstructorProfileComponent implements OnInit, OnDestroy {
       rating: 2.2,
       totalReview: 22531,
       totalLesson: 10,
-      progress: -1, // %
+      progressPercentage: -1, // %
       discountPrice: 0,
     },
     {
@@ -80,7 +80,7 @@ export class InstructorProfileComponent implements OnInit, OnDestroy {
       rating: 2.2,
       totalReview: 22531,
       totalLesson: 10,
-      progress: -1, // %
+      progressPercentage: -1, // %
       discountPrice: 0,
     },
     {
@@ -96,7 +96,7 @@ export class InstructorProfileComponent implements OnInit, OnDestroy {
       rating: 2.2,
       totalReview: 22531,
       totalLesson: 10,
-      progress: -1, // %
+      progressPercentage: -1, // %
       discountPrice: 0,
     },
   ];

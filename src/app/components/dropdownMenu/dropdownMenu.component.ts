@@ -16,6 +16,7 @@ import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 })
 export class DropdownMenuComponent implements OnInit {
   @Input('dropdown') dropdown: TemplateRef<any> | null = null;
+  @Input('colorVariable') colorVariable: string | null = null;
 
   position = 'center';
 
@@ -40,9 +41,8 @@ export class DropdownMenuComponent implements OnInit {
     const rect = this.dropdownMenu.nativeElement.getBoundingClientRect();
     const screenWidth = window.innerWidth;
 
-    if(rect.right >  screenWidth) {
+    if (rect.right > screenWidth) {
       this.position = 'left';
     }
-
   }
 }

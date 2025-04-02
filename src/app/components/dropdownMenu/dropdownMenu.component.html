@@ -4,11 +4,16 @@
   (mouseleave)="updateHoverStatus(false)"
 >
   <ng-content></ng-content>
-  <div
-    [ngClass]="position"
-    class="menu-ctn"
-  >
-    <div *ngIf="isHovering && dropdown" class="menu" @fadeInOut #dropdownMenu>
+  <div [ngClass]="position" class="menu-ctn">
+    <div
+      *ngIf="isHovering && dropdown"
+      class="menu"
+      @fadeInOut
+      #dropdownMenu
+      [ngStyle]="{
+        background: 'var(--' + (colorVariable ?? 'secondary-bg') + ')'
+      }"
+    >
       <ng-container *ngTemplateOutlet="dropdown"></ng-container>
     </div>
   </div>

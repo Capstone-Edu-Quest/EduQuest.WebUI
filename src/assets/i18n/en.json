@@ -599,7 +599,10 @@
     "NO_DAILY_QUESTS": "You have completed all daily quests",
     "NO_COURSE_TO_DISPLAY": "There is no course to display at the moment",
     "NO_ACHIEVEMENTS": "There is no achievement to display",
-    "NO_LEARNING_PATH": "No learning path found"
+    "NO_LEARNING_PATH": "No learning path found",
+    "SELECT_LEARNING_PATH": "Select learning path to add:",
+    "ADD_LEARNING_PATH": "Add new learning path",
+    "NEW_LEARNING_PATH_NAME": "New learning path name"
   },
   "MESSAGE": {
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",

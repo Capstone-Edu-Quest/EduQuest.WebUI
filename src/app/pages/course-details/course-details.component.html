@@ -52,7 +52,7 @@
     <div class="description-title">{{ "LABEL.INSTRUCTOR" | translate }}</div>
     <div class="instructor-info-wrapper">
       <app-avatar-by-name
-      *ngIf="courseDetails?.author?.username"
+        *ngIf="courseDetails?.author?.username"
         [name]="courseDetails?.author?.username || ''"
         [size]="'50px'"
       />
@@ -62,7 +62,7 @@
           class="name"
           >{{ courseDetails?.author?.username }}</a
         >
-        <div class="job-title">{{ courseDetails?.author?.headline ?? '' }}</div>
+        <div class="job-title">{{ courseDetails?.author?.headline ?? "" }}</div>
       </div>
     </div>
     <div class="instructor-statistics">
@@ -77,7 +77,8 @@
         <i nz-icon nzType="{{ authorStatsIcon[1] }}"></i>
         {{
           "LABEL.TOTAL_COURSES_STATS"
-            | translate : { value: courseDetails?.author?.totalCourseCreated ?? 0 }
+            | translate
+              : { value: courseDetails?.author?.totalCourseCreated ?? 0 }
         }}
       </div>
       <div class="stat">
@@ -91,7 +92,7 @@
         <i nz-icon nzType="{{ authorStatsIcon[3] }}"></i>
         {{
           "LABEL.AVERAGE_RATINGS_STATS"
-            | translate : { value: courseDetails?.author?.rating ?? 0}
+            | translate : { value: courseDetails?.author?.rating ?? 0 }
         }}
       </div>
     </div>
@@ -185,6 +186,17 @@
           (click)="onAddToWishlist($event)"
           *ngIf="!isInCart"
         ></i>
+        <app-dropdownMenu
+          [dropdown]="dropdownLearningPath"
+          colorVariable="quaternary-bg"
+          style="transform: translateY(-1px)"
+        >
+          <fa-icon
+            style="font-size: 14px; cursor: pointer"
+            [ngStyle]="{ color: 'var(--secondary-text)' }"
+            [icon]="bookMark"
+          ></fa-icon>
+        </app-dropdownMenu>
       </div>
 
       <div class="included-title">
@@ -229,6 +241,34 @@
           >{{ "BUTTON.APPLY" | translate }}</app-button
         >
       </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #dropdownLearningPath>
+  <div style="width: 300px">
+    <div style="font-size: 14px">{{ "LABEL.LEARNING_PATH" | translate }}</div>
+    <div style="font-size: 12px; color: var(--secondary-text); margin-top: 2px">
+      {{ "LABEL.SELECT_LEARNING_PATH" | translate }}
+    </div>
+
+    <div style="margin-top: 8px; display: flex; gap: 8px; flex-direction: column;">
+      <div
+        *ngIf="!myLearningPaths.length"
+        style="font-size: 11px; color: var(--secondary-text)"
+      >
+        {{ "LABEL.NO_LEARNING_PATH" | translate }}
+      </div>
+      <div *ngFor="let path of myLearningPaths" (click)="onAddCourseTolearningPath(path.id)" style="display: flex; justify-content: space-between; align-items: center;">
+        <div style="font-size: 12px; cursor: pointer;">{{ path.name }} ({{'LABEL.COURSES_COUNT' | translate:{value: path.totalCourses} }})</div>
+        <i style="font-size: 10px; color: var(--secondary-text)">{{'LABEL.ADDED' | translate}}</i>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div style="display: flex; gap: 4px">
+      <input [(ngModel)]="newLearningPathName" class="formated-input" placeholder="{{'LABEL.NEW_LEARNING_PATH_NAME' | translate}}" style="width: 80%; height: 29px" />
+      <app-button (click)="onAddNewLearningPath()" type="primary">Add</app-button>
     </div>
   </div>
 </ng-template>

@@ -29,9 +29,10 @@ export const endPoints = {
   feedback: 'feedback',
 
   learningPath: 'learningPath',
-  myLearningPath: 'learningPath/me',
+  myLearningPath: 'learningPath/my',
   duplicateLearningPath: 'learningPath/dup',
   learningPathDetails: 'learningPath/detail',
+  publicLearningPath: 'learningPath/public',
 
   level: 'level',
   getLevel: 'level/filter',

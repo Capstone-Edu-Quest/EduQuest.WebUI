@@ -41,6 +41,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private loading: LoadingService,
     private fox: FoxService,
     private quests: QuestsService,
+    private learningPath: LearningPathService
   ) {}
 
   ngOnInit(): void {
@@ -88,6 +89,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.chat.initChat();
     this.fox.initFox();
     this.quests.initUserQuest();
+    this.learningPath.initMyLearningPath();
   }
 
   resetUserData() {
