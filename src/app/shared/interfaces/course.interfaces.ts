@@ -60,7 +60,7 @@ export interface ICourseApproval extends ICourse {
   expert: {
     id: string;
     name: string;
-  } | null
+  } | null;
 }
 
 export interface ICourseCreate {
@@ -81,7 +81,6 @@ export interface IModifyStage {
   description: string;
   materialsId: string[];
 }
-
 
 export interface ICourseTagData {
   id: string;
@@ -182,6 +181,8 @@ export interface ITagCount extends ITag {
 export interface ICourseCart {
   courses: ICourseOverview[];
   total: number;
+  numOfCourse: number;
+  id: string;
 }
 
 export interface ICoupon extends ICouponCreate {
@@ -204,7 +205,7 @@ export interface ICouponCreate {
 }
 
 export interface ICouponUpdate extends Omit<ICouponCreate, 'code'> {
-  code: string
+  code: string;
 }
 
 export interface ICouponCreateState
@@ -245,11 +246,11 @@ export interface IStage {
 }
 
 export interface ILessonOverview {
-  id: string,
-  index: number,
-  name: string,
-  totalTime: number,
-  materials: IMaterialOverview[]
+  id: string;
+  index: number;
+  name: string;
+  totalTime: number;
+  materials: IMaterialOverview[];
 }
 
 export interface IMaterialOverview {

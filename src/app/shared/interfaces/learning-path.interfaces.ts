@@ -1,5 +1,5 @@
 import { LearningPathModeEnum } from '../enums/learning-path.enum';
-import { ICourse } from './course.interfaces';
+import { ICourse, ITag } from './course.interfaces';
 
 export interface ILearningPath {
   id: string;
@@ -10,12 +10,14 @@ export interface ILearningPath {
   isPublic: boolean;
   totalTime: number;
   totalCourses: number;
+  createdByExpert: boolean;
   createdBy: {
     id: string;
-    name: string;
-    avatar: string;
+    username: string;
+    avatarUrl: string;
   };
   isEnrolled: boolean;
+  tags: ITag[]
 }
 
 export interface IPathTab {

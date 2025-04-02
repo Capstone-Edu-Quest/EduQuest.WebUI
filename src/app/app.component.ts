@@ -16,6 +16,7 @@ import { FirebaseService } from './core/services/firebase.service';
 import { LoadingService } from './core/services/loading.service';
 import { FoxService } from './core/services/fox.service';
 import { QuestsService } from './core/services/quests.service';
+import { LearningPathService } from './core/services/learning-path.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -39,7 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private firebase: FirebaseService,
     private loading: LoadingService,
     private fox: FoxService,
-    private quests: QuestsService
+    private quests: QuestsService,
   ) {}
 
   ngOnInit(): void {

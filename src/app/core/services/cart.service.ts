@@ -1,5 +1,9 @@
 import { ElementRef, Injectable } from '@angular/core';
-import { ICourse, ICourseCart, ICourseOverview } from '../../shared/interfaces/course.interfaces';
+import {
+  ICourse,
+  ICourseCart,
+  ICourseOverview,
+} from '../../shared/interfaces/course.interfaces';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { WishlistService } from './wishlist.service';
 import { endPoints } from '../../shared/constants/endPoints.constant';
@@ -9,30 +13,40 @@ import { HttpService } from './http.service';
   providedIn: 'root',
 })
 export class CartService {
-  private cart: ICourseCart = {
-    courses: [],
-    total: 0,
-  };
-  public cart$: BehaviorSubject<ICourseCart> = new BehaviorSubject(this.cart);
+  public cart$: BehaviorSubject<ICourseCart> = new BehaviorSubject<ICourseCart>(
+    {
+      courses: [],
+      total: 0,
+      numOfCourse: 0,
+      id: '',
+    }
+  );
 
   constructor(private wishlist: WishlistService, private http: HttpService) {}
 
   initCart() {
-    // this.http.get(endPoints.cart).subscribe((cart) => {
-    //   console.log(cart)
-    // })
+    this.http.get<ICourseCart>(endPoints.cart).subscribe((res) => {
+      if (!res?.payload) return;
+      this.cart$.next(res.payload);
+    });
   }
 
   updateCart(course: ICourseOverview) {
-    const index = this.cart.courses.findIndex((c) => c.id === course.id);
+    const cart = this.cart$.value;
+    const index = cart.courses.findIndex((c) => c.id === course.id);
     if (index === -1) {
-      this.cart.courses.push(course);
+      cart.courses.push(course);
     } else {
-      this.cart.courses.splice(index, 1);
+      cart.courses.splice(index, 1);
     }
 
-    this.cart.total = this.cart.courses.reduce((acc, c) => acc + c.price, 0);
-    this.cart$.next(this.cart);
+    const ids = cart.courses.map((c) => c.id);
+    this.http.update<ICourseOverview[]>(endPoints.addToCart, ids).subscribe((res) => {
+      if(!res?.payload) return;
+      
+      cart.total = cart.courses.reduce((acc, c) => acc + c.price, 0);
+      this.cart$.next(cart);
+    });
   }
 
   addToCartAnimation(courseItem: ElementRef) {
@@ -75,7 +89,12 @@ export class CartService {
     }, 1000);
   }
 
-  destroyCart(){
-    this.cart$.next(this.cart)
+  destroyCart() {
+    this.cart$.next({
+      courses: [],
+      total: 0,
+      numOfCourse: 0,
+      id: '',
+    });
   }
 }

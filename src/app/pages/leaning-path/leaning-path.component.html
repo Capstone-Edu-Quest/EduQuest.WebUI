@@ -14,7 +14,13 @@
     </div>
   </div>
 
-  <div class="paths-ctn">
-    <app-path-item *ngFor="let path of demoLearningPaths" [path]="path"></app-path-item>
+  <div class="paths-ctn" *ngIf="getLearningPathList() as learningPaths">
+    <div *ngIf="learningPaths.length === 0" style="color: var(--secondary-text); font-size: 12px;">
+      {{ "LABEL.NO_LEARNING_PATH" | translate }}
+    </div>
+    <app-path-item
+      *ngFor="let path of learningPaths"
+      [path]="path"
+    ></app-path-item>
   </div>
 </div>
