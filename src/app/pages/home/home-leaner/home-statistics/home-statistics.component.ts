@@ -76,6 +76,20 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
     this.subscription$.add(
       this.userService.user$.subscribe((user) => {
         this.user = user;
+
+        if(!user) return;
+        this.statistics = [
+          {
+            label: 'LABEL.CURRENT_RANK',
+            icon: 'trophy',
+            value: `${user.statistic.rank}`,
+          },
+          {
+            label: 'LABEL.BOOSTER',
+            icon: 'thunderbolt',
+            value: `${user.statistic.booster.boostExp}% exp | ${user.statistic.booster.boostGold}% gold`,
+          }
+        ]
       })
     );
   }

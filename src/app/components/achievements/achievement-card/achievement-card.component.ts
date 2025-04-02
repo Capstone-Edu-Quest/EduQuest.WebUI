@@ -1,5 +1,7 @@
+import { QuestsService } from './../../../core/services/quests.service';
+import { QuestMissionEnum } from './../../../shared/enums/others.enum';
 import { Component, Input, OnInit } from '@angular/core';
-import { IAchievement } from '../../../shared/interfaces/quests.interfaces';
+import { IQuestOfUser } from '@/src/app/shared/interfaces/quests.interface';
 
 @Component({
   selector: 'app-achievement-card',
@@ -7,22 +9,35 @@ import { IAchievement } from '../../../shared/interfaces/quests.interfaces';
   styleUrls: ['./achievement-card.component.scss'],
 })
 export class AchievementCardComponent implements OnInit {
-  @Input('achievement') achievement: IAchievement | null = null;
-  constructor() {}
+  @Input('achievement') achievement: IQuestOfUser | null = null;
+
+  constructor(private QuestsService: QuestsService) {}
 
   rewardedTime = {
     date: '',
     month: '',
-    year: ''
+    year: '',
   };
+
   ngOnInit() {
-    if(this.achievement) {
-      const time = new Date(this.achievement.rewardedAt).toLocaleDateString().split('/')
+    if (this.achievement) {
+      const time = new Date(this.achievement.dueDate as string)
+        .toLocaleDateString()
+        .split('/');
       this.rewardedTime = {
         date: Number(time[0]) < 10 ? `0${time[0]}` : time[0],
         month: Number(time[1]) < 10 ? `0${time[1]}` : time[1],
-        year: Number(time[2]) < 10 ? `0${time[2]}` : time[2]
+        year: Number(time[2]) < 10 ? `0${time[2]}` : time[2],
       };
     }
   }
+
+  getQuestLabel() {
+    if (!this.achievement) return '';
+    
+    return this.QuestsService.getMissionLabel(this.achievement.questType);
+  }
+
+  // quest: this.quests.getMissionLabel(quest.questType),
+  //             questValue
 }

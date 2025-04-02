@@ -1,4 +1,7 @@
-<div class="achievement-list-ctn">
+<div *ngIf="achievements.length === 0" class="no-achievement">
+  {{ "LABEL.NO_ACHIEVEMENTS" | translate }}
+</div>
+<div class="achievement-list-ctn" *ngIf="achievements.length > 0">
   <i nz-icon nzType="left" nzTheme="outline" (click)="updateViewIndex(-1)"></i>
   <div class="achievement-list-wrapper">
     <div

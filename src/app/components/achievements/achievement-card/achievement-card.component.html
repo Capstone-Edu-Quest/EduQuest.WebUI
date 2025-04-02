@@ -2,8 +2,10 @@
   <div class="achievement-logo">
     <i nz-icon nzType="trophy"></i>
   </div>
-  <div class="achievement-name">{{ achievement.name }}</div>
-  <div class="achievement-description">{{ achievement.description }}</div>
+  <div class="achievement-name">{{ achievement.title }}</div>
+  <div class="achievement-description">
+    {{ getQuestLabel() | translate : achievement.questValue }}
+  </div>
   <div class="achievement-rewardedat">
     {{
       "LABEL.REWARDED_AT"

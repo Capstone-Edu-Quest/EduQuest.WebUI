@@ -1,6 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IAchievement } from '../../../../shared/interfaces/quests.interfaces';
 import { IUser } from '../../../../shared/interfaces/user.interfaces';
+import { IQuestOfUser } from '@/src/app/shared/interfaces/quests.interface';
 
 @Component({
   selector: 'app-leaner-achievements',
@@ -10,38 +11,8 @@ import { IUser } from '../../../../shared/interfaces/user.interfaces';
 export class LeanerAchievementsComponent implements OnInit {
   @Input('user') user: IUser | null = null;
 
-  demoAchievements: IAchievement[] = [
-    // {
-    //   id: '1',
-    //   name: 'Quick Learner',
-    //   description: 'Complete 5 lessons in 1 hour',
-    //   rewardedAt: new Date().toISOString()
-    // },
-    // {
-    //   id: '2',
-    //   name: 'Quick Learner',
-    //   description: 'Complete 5 lessons in 1 hour',
-    //   rewardedAt: new Date().toISOString()
-    // },
-    // {
-    //   id: '3',
-    //   name: 'Quick Learner',
-    //   description: 'Complete 5 lessons in 1 hour',
-    //   rewardedAt: new Date().toISOString()
-    // },
-    // {
-    //   id: '4',
-    //   name: 'Quick Learner',
-    //   rewardedAt: new Date().toISOString(),
-    //   description: 'Complete 5 lessons in 1 hour'
-    // },
-    // {
-    //   id: '5',
-    //   name: 'Quick Learner',
-    //   description: 'Complete 5 lessons in 1 hour',
-    //   rewardedAt: new Date().toISOString()
-    // },
-  ]
+  completedQuests: IQuestOfUser[] = [];
+  
   constructor() { }
 
   ngOnInit() {

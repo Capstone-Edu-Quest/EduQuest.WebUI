@@ -94,6 +94,11 @@ export class UserService {
         currentStreak: 10,
         longestStreak: 20,
         lastActive: '2025-03-03T12:00:00Z',
+        booster: {
+          boostGold: 0,
+          boostExp: 0
+        },
+        rank: 0
       },
       lastActive: '2025-03-03T12:00:00Z',
       mascotItem: ['wings', 'katana'],

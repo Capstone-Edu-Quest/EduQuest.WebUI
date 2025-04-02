@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IAchievement } from '../../../shared/interfaces/quests.interfaces';
+import { IQuestOfUser } from '@/src/app/shared/interfaces/quests.interface';
 
 @Component({
   selector: 'app-achievements-list',
@@ -7,7 +8,7 @@ import { IAchievement } from '../../../shared/interfaces/quests.interfaces';
   styleUrls: ['./achievements-list.component.scss'],
 })
 export class AchievementsListComponent implements OnInit {
-  @Input('achievements') achievements: IAchievement[] = [];
+  @Input('achievements') achievements: IQuestOfUser[] = [];
   @Input('appearPerRow') appearPerRow: number = 4;
   currentViewIndex: number = 0;
 

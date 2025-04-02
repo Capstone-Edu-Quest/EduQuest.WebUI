@@ -1,41 +1,45 @@
 .achievement-list-ctn {
-    box-sizing: border-box;
-    display: flex;
-    gap: 5px;
-    align-items: center;
-  
-    i {
-      font-size: 18px;
-      color: var(--secondary-text);
-      cursor: pointer;
-      transition: all 0.1s linear;
-  
-      &:hover {
-        color: var(--brand-light);
-      }
+  box-sizing: border-box;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+
+  i {
+    font-size: 18px;
+    color: var(--secondary-text);
+    cursor: pointer;
+    transition: all 0.1s linear;
+
+    &:hover {
+      color: var(--brand-light);
     }
-  
-    .achievement-list-wrapper {
-      overflow: hidden;
-      width: 100%;
-  
-      .achievements-list {
-        min-width: 100%;
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        transition: all 0.3s ease-in-out;
+  }
 
-        app-achievement-card {
-          flex-grow: 1;
-          min-width: calc(100% / 2 - 20px);
-          max-width: calc(100% / 2 - 20px);
+  .achievement-list-wrapper {
+    overflow: hidden;
+    width: 100%;
 
-          &:nth-child(1) {
-            margin-left: 10px;
-          }
+    .achievements-list {
+      min-width: 100%;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      transition: all 0.3s ease-in-out;
+
+      app-achievement-card {
+        flex-grow: 1;
+        min-width: calc(100% / 2 - 20px);
+        max-width: calc(100% / 2 - 20px);
+
+        &:nth-child(1) {
+          margin-left: 10px;
         }
       }
     }
   }
-  
+}
+
+.no-achievement {
+  color: var(--secondary-text);
+  font-size: 12px;
+}

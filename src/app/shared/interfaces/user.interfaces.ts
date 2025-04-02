@@ -44,6 +44,12 @@ export interface IUserStatistics {
   totalLearner: number;
   totalReview: number;
   lastActive: string | null;
+
+  rank: number;
+  booster: {
+    boostExp: number;
+    boostGold: number;
+  };
 }
 
 export interface IUserStat extends IUser {
