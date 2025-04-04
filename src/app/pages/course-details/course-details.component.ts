@@ -125,6 +125,8 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     this.course.onGetCourse(id).subscribe((data) => {
       this.courseDetails = data?.payload ?? null;
 
+      console.log(this.courseDetails);
+
       this.isInWishlist = this.wishlist.wishlist$.value.some(
         (c) => c.id === this.courseDetails?.id
       );
@@ -247,8 +249,32 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     this.applyNewCoupon();
   }
 
+  isCourseExistedInPath(pathId: string) {
+    const currentLearningPath = this.learningPath.myLearningPaths$.value.find(
+      (lp) => lp.id === pathId
+    );
+
+    if (!currentLearningPath) return;
+
+    const index = currentLearningPath.learningPathCourses.findIndex(
+      (c) => c.courseId === this.courseDetails?.id
+    );
+
+    return index !== -1;
+  }
+
   onAddCourseTolearningPath(pathId: string) {
     if (!this.courseDetails) return;
+
+    const isCourseExisted = this.isCourseExistedInPath(pathId)
+
+    if (isCourseExisted) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.COURSE_EXISTED_LEARNINGPATH')
+      );
+      return;
+    }
 
     this.learningPath.modifyCoursesToLearningPath(
       pathId,

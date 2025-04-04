@@ -33,8 +33,7 @@ export class LearningPathService {
   }
 
   getPublicLearningPath() {
-    return this.http
-    .get<ILearningPath[]>(endPoints.publicLearningPath)
+    return this.http.get<ILearningPath[]>(endPoints.publicLearningPath);
   }
 
   addNewLearningPath(learningPathInfo: IModifyLearningPath) {
@@ -63,11 +62,65 @@ export class LearningPathService {
     action: 'add' | 'delete'
   ) {
     this.http
-      .update(
-        endPoints.learningPath,
-        courseIds.map((c) => ({ courseId: c, action, courseOrder: -1 })),
-        pathId
+      .update<ILearningPath>(
+        endPoints.learningPath + `?learningPathId=${pathId}`,
+        {
+          courses: courseIds.map((c) => ({
+            courseId: c,
+            action,
+            courseOrder: -1,
+          })),
+        }
       )
-      .subscribe((res) => console.log(res));
+      .subscribe((res) => {
+        if (!res?.payload) return;
+
+        const paths = [...this.myLearningPaths$.value];
+        const pathIndex = paths.findIndex((p) => p.id === pathId);
+        paths[pathIndex] = res.payload;
+
+        this.myLearningPaths$.next(paths);
+
+        this.message.addMessage(
+          'success',
+          this.translate.instant('MESSAGE.ADDED_SUCCESSFULLY')
+        );
+      });
+  }
+
+  cloneLearningPath(pathId: string) {
+    this.http
+      .post<ILearningPath>(
+        endPoints.duplicateLearningPath + `?learningPathId=${pathId}`,
+        {}
+      )
+      .subscribe((res) => {
+        if (!res?.payload) return;
+
+        const paths = [...this.myLearningPaths$.value, res.payload];
+        this.myLearningPaths$.next(paths);
+        this.message.addMessage(
+          'success',
+          this.translate.instant('MESSAGE.CLONED_SUCCESSFULLY')
+        );
+      });
+  }
+
+  deleteLearningPath(pathId: string) {
+    this.http
+      .delete(endPoints.learningPath + `?learningPathId=${pathId}`)
+      .subscribe((res) => {
+        if (res?.isError) return;
+
+        const paths = this.myLearningPaths$.value.filter(
+          (p) => p.id !== pathId
+        );
+        this.myLearningPaths$.next(paths);
+
+        this.message.addMessage(
+          'success',
+          this.translate.instant('MESSAGE.DELETED_SUCCESSFULLY')
+        );
+      });
   }
 }

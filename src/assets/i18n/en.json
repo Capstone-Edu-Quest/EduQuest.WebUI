@@ -602,9 +602,13 @@
     "NO_LEARNING_PATH": "No learning path found",
     "SELECT_LEARNING_PATH": "Select learning path to add:",
     "ADD_LEARNING_PATH": "Add new learning path",
-    "NEW_LEARNING_PATH_NAME": "New learning path name"
+    "NEW_LEARNING_PATH_NAME": "New learning path name",
+    "ADDED": "Added"
   },
   "MESSAGE": {
+    "ADDED_SUCCESSFULLY": "Added successfully",
+    "CLONED_SUCCESSFULLY": "Duplicated learning path successfully",
+    "COURSE_EXISTED_LEARNINGPATH": "This course already existed in this learning path",
     "DROP_VIDEO": "Drop video here or click to upload (Video should be landscape)",
     "SEARCH_COURSE": "Search Courses (Enter to search)",
     "WELCOME_BACK": "Welcome back, {{name}}",

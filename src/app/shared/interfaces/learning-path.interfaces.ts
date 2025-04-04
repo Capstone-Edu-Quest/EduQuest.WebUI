@@ -17,7 +17,8 @@ export interface ILearningPath {
     avatarUrl: string;
   };
   isEnrolled: boolean;
-  tags: ITag[]
+  tags: ITag[];
+  learningPathCourses: IModifyLearningPathCourse[];
 }
 
 export interface IPathTab {
@@ -38,11 +39,11 @@ export interface IModifyLearningPath {
   name?: string;
   description?: string;
   isPublic?: boolean;
-  courses?: IModifyLearningPathCourse[]
+  courses?: IModifyLearningPathCourse[];
 }
 
 export interface IModifyLearningPathCourse {
   courseId: string;
   courseOrder?: number;
-  action?: 'add' | 'delete'
+  action?: 'add' | 'delete';
 }

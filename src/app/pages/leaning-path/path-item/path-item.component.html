@@ -18,7 +18,7 @@
         }"
         (click)="opt.action($event)"
       >
-        <fa-icon [icon]="opt.icon"></fa-icon>
+        <fa-icon *ngIf="opt.icon" [icon]="opt.icon"></fa-icon>
         {{ opt.label | translate }}
       </div>
     </div>
@@ -26,7 +26,7 @@
 
   <div class="item-name">{{ path.name }}</div>
   <div class="created-by">
-    {{ "LABEL.CREATED_BY" | translate : { value: path.name } }}
+    {{ "LABEL.CREATED_BY" | translate : { value: path.createdBy.username} }}
   </div>
 
   <div class="others-info">
@@ -38,7 +38,7 @@
       {{ "LABEL.COURSES_COUNT" | translate : { value: path.totalCourses } }}
     </div>
   </div>
-  <div class="description">{{ path.description }}</div>
+  <div class="description">{{ path.description.trim() === '' ? '-' : path.description }}</div>
 
   <app-button
     type="primary"

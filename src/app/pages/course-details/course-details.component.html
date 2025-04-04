@@ -261,7 +261,7 @@
       </div>
       <div *ngFor="let path of myLearningPaths" (click)="onAddCourseTolearningPath(path.id)" style="display: flex; justify-content: space-between; align-items: center;">
         <div style="font-size: 12px; cursor: pointer;">{{ path.name }} ({{'LABEL.COURSES_COUNT' | translate:{value: path.totalCourses} }})</div>
-        <i style="font-size: 10px; color: var(--secondary-text)">{{'LABEL.ADDED' | translate}}</i>
+        <i style="font-size: 10px; color: var(--secondary-text)" *ngIf="isCourseExistedInPath(path.id)">{{'LABEL.ADDED' | translate}}</i>
       </div>
     </div>
 

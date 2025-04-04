@@ -1,5 +1,6 @@
+import { LearningPathService } from './../../../core/services/learning-path.service';
 import { CommonModule } from '@angular/common';
-import { Component, Input, type OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, type OnInit } from '@angular/core';
 import { ILearningPath } from '../../../shared/interfaces/learning-path.interfaces';
 import {
   faClone,
@@ -8,19 +9,23 @@ import {
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
 import { Router } from '@angular/router';
+import { UserService } from '@/src/app/core/services/user.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-path-item',
   templateUrl: './path-item.component.html',
   styleUrl: './path-item.component.scss',
 })
-export class PathItemComponent implements OnInit {
+export class PathItemComponent implements OnInit, OnDestroy {
   @Input('path') path!: ILearningPath;
   @Input('isViewExpert') isViewExpert: boolean = false;
 
+  subscription$: Subscription = new Subscription();
+
   menu: any[] = [];
 
-  commonMenu = [
+  manageMenu = [
     {
       icon: faPen,
       label: 'LABEL.EDIT',
@@ -33,7 +38,7 @@ export class PathItemComponent implements OnInit {
     },
   ];
 
-  learnerMenu = [
+  commonMenu = [
     {
       icon: faClone,
       label: 'LABEL.CLONE',
@@ -46,20 +51,42 @@ export class PathItemComponent implements OnInit {
     },
   ];
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private LearningPathService: LearningPathService,
+    private user: UserService
+  ) {}
 
   ngOnInit(): void {
-    this.onInitMenu();
+    this.listenToUser();
   }
 
   onEnroll(e: Event) {
     e.stopPropagation();
   }
 
+  listenToUser() {
+    this.subscription$.add(
+      this.user.user$.subscribe((user) => {
+        this.menu = [];
+        if (!user) return;
+
+        if (user.id === this.path.createdBy.id) {
+          this.menu = [...this.manageMenu, ...this.commonMenu];
+          return;
+        }
+
+        this.menu = [...this.commonMenu];
+
+        console.log(this.menu)
+      })
+    );
+  }
+
   onInitMenu() {
-    this.menu = this.commonMenu;
+    this.menu = this.manageMenu;
     if (!this.isViewExpert) {
-      this.menu = [...this.menu, ...this.learnerMenu];
+      this.menu = [...this.menu, ...this.commonMenu];
     }
   }
 
@@ -80,10 +107,12 @@ export class PathItemComponent implements OnInit {
 
   onDelete(e: Event) {
     e.stopPropagation();
+    this.LearningPathService.deleteLearningPath(this.path.id)
   }
 
   onClone(e: Event) {
     e.stopPropagation();
+    this.LearningPathService.cloneLearningPath(this.path.id);
   }
 
   onShare(e: Event) {
@@ -95,5 +124,9 @@ export class PathItemComponent implements OnInit {
       this.isViewExpert ? '/learning-path-manage' : '/learning-path',
       this.path.id,
     ]);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
   }
 }
