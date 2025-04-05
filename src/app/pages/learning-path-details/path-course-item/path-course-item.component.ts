@@ -5,9 +5,10 @@ import {
   ViewChild,
   type OnInit,
   OnDestroy,
+  Output,
+  EventEmitter,
 } from '@angular/core';
 import {
-  ICourse,
   ICourseCart,
   ICourseOverview,
 } from '../../../shared/interfaces/course.interfaces';
@@ -19,15 +20,18 @@ import { Subscription } from 'rxjs';
 import { faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { CoursesService } from '../../../core/services/courses.service';
+import { ILCourseObject } from '@/src/app/shared/interfaces/learning-path.interfaces';
 @Component({
   selector: 'app-path-course-item',
   templateUrl: './path-course-item.component.html',
   styleUrl: './path-course-item.component.scss',
 })
 export class PathCourseItemComponent implements OnInit, OnDestroy {
-  @Input('course') course: ICourse | null = null;
+  @Input('course') course: ILCourseObject | null = null;
   @Input('isEdit') isEdit!: boolean;
   @Input('isExpertView') isExpertView: boolean = false;
+  @Output('onRemoveCourse') onRemoveCourse: EventEmitter<ILCourseObject> =
+    new EventEmitter();
 
   @ViewChild('item') item!: ElementRef;
 
@@ -53,7 +57,7 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.initStars();
-    
+
     if (!this.isExpertView) {
       this.listenToCart();
       this.listenToWishList();
@@ -101,7 +105,17 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
 
   viewCourseDetails() {
     if (!this.course || this.isEdit) return;
-    this.router.navigate([this.isExpertView ? '/courses-manage/explore' : '/courses', this.course.id]);
+    this.router.navigate([
+      this.isExpertView ? '/courses-manage/explore' : '/courses',
+      this.course.id,
+    ]);
+  }
+
+  handleRemoveCourse(e: Event) {
+    e.stopPropagation();
+    
+    if (!this.course) return;
+    this.onRemoveCourse.emit(this.course);
   }
 
   onAddToCart(event: Event) {
@@ -113,16 +127,16 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
     }
 
     if (!this.course) return;
-    // this.cart.updateCart(this.courseService.onConvertCourseDetailsToCourseOverview(this.course));
+    this.cart.updateCart(this.course);
     this.cart.addToCartAnimation(this.item);
     // Remove from wishlist if exist
-    // this.isInWishlist && this.wishlist.updateWishlist(this.courseService.onConvertCourseDetailsToCourseOverview(this.course));
+    this.isInWishlist && this.wishlist.updateWishlist(this.course);
   }
 
   onAddToWishlist(event: Event) {
     event.stopPropagation();
     if (!this.course) return;
-    // this.wishlist.updateWishlist(this.courseService.onConvertCourseDetailsToCourseOverview(this.course));
+    this.wishlist.updateWishlist(this.course);
   }
 
   goToCart() {

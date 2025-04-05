@@ -1,80 +1,93 @@
 <div class="course" *ngIf="course" #item (click)="viewCourseDetails()">
-    <div class="image-wrapper">
-      <img [src]="course.photoUrl" />
-    </div>
-    <div class="course-info">
-      <div class="info">
-        <div class="course-name">
-          {{ course.title }}
+  <div class="image-wrapper">
+    <img [src]="course.photoUrl" />
+  </div>
+  <div class="course-info">
+    <div class="info">
+      <div class="course-name">
+        {{ course.title }}
+      </div>
+      <div class="description">{{ course.description }}</div>
+      <div class="author">{{ course.author }}</div>
+      <div class="feedback-ctn">
+        <div class="stars-number">{{ course.rating }}</div>
+        <div class="stars-ctn">
+          <fa-icon
+            *ngFor="let starIcon of starsList"
+            [icon]="starIcon"
+          ></fa-icon>
         </div>
-        <div class="description">{{ course.description }}</div>
-        <div class="author">{{ course.author.username }}</div>
-        <div class="feedback-ctn">
-          <div class="stars-number">{{ course.rating }}</div>
-          <div class="stars-ctn">
-            <fa-icon
-              *ngFor="let starIcon of starsList"
-              [icon]="starIcon"
-            ></fa-icon>
-          </div>
-          <div class="feedbacks-number">
-            ({{ course.totalReview.toLocaleString() }})
-          </div>
-        </div>
-        <div class="others-info">
-          <!-- <div class="time">
-            {{ "LABEL.TOTAL_TIME_IN_HOUR" | translate : { hour: course.totalTime } }}
-          </div> -->
-          <div>·</div>
-          <div class="lesson">
-            {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: course.listLesson.length } }}
-          </div>
-        </div>
-        <div class="add-to-cart-group" *ngIf="!isEdit && !isExpertView">
-          <app-button
-            [ngStyle]="{ width: 'calc(100%)' }"
-            [type]="'primary'"
-            [style]="{ width: '100%' }"
-            (click)="onAddToCart($event)"
-            >{{
-              (isInCart ? "BUTTON.GO_TO_CART" : "BUTTON.ADD_TO_CART") | translate
-            }}</app-button
-          >
-          <i nz-icon
-            nzType="heart"
-            [ngClass]="{ favorited: isInWishlist }"
-            [nzTheme]="isInWishlist ? 'fill' : 'outline'"
-            (click)="onAddToWishlist($event)"
-            *ngIf="!isInCart"
-          ></i>
+        <div class="feedbacks-number">
+          ({{ course.totalReview.toLocaleString() }})
         </div>
       </div>
-      <div class="price">
-        <div class="final-price">
-          {{
-            "SIGNATURE.MONEY_VALUE"
-              | translate
-                : {
-                    value: (
-                      course.price * (1 - discountAmount/100) | currencyExchange
-                    ).toLocaleString()
-                  }
-          }}
+      <div class="others-info">
+        <div class="time">
+          {{ "LABEL.MINUTES" | translate : { value: course.totalTime } }}
         </div>
-        <div class="current-price" *ngIf="discountAmount > 0">
+        <div>·</div>
+        <div class="lesson">
           {{
-            "SIGNATURE.MONEY_VALUE"
-              | translate
-                : {
-                    value: (course.price | currencyExchange).toLocaleString()
-                  }
+            "LABEL.TOTAL_LESSONS" | translate : { lesson: course.totalLesson }
           }}
         </div>
       </div>
 
-      <div class="tags" *ngIf="isExpertView">
-        <div class="tag" *ngFor="let tag of course.listTag">#{{ tag.name }}</div>
+      <div class="add-to-cart-group" *ngIf="!isEdit && !isExpertView">
+        <app-button
+          [ngStyle]="{ width: 'calc(100%)' }"
+          [type]="'primary'"
+          [style]="{ width: '100%' }"
+          (click)="onAddToCart($event)"
+          >{{
+            (isInCart ? "BUTTON.GO_TO_CART" : "BUTTON.ADD_TO_CART") | translate
+          }}</app-button
+        >
+        <i
+          nz-icon
+          nzType="heart"
+          [ngClass]="{ favorited: isInWishlist }"
+          [nzTheme]="isInWishlist ? 'fill' : 'outline'"
+          (click)="onAddToWishlist($event)"
+          *ngIf="!isInCart"
+        ></i>
+      </div>
+
+      <div class="add-to-cart-group" *ngIf="isEdit && !isExpertView">
+        <app-button
+          [ngStyle]="{ width: 'calc(100%)' }"
+          [type]="'danger'"
+          [style]="{ width: '100%', background: 'none', color: 'var(--alert)' }"
+          (click)="handleRemoveCourse($event)"
+          >{{ "BUTTON.REMOVE" | translate }}</app-button
+        >
       </div>
     </div>
+    <div class="price">
+      <div class="final-price">
+        {{
+          "SIGNATURE.MONEY_VALUE"
+            | translate
+              : {
+                  value: (
+                    course.price * (1 - discountAmount / 100) | currencyExchange
+                  ).toLocaleString()
+                }
+        }}
+      </div>
+      <div class="current-price" *ngIf="discountAmount > 0">
+        {{
+          "SIGNATURE.MONEY_VALUE"
+            | translate
+              : {
+                  value: (course.price | currencyExchange).toLocaleString()
+                }
+        }}
+      </div>
+    </div>
+
+    <div class="tags" *ngIf="isExpertView">
+      <!-- <div class="tag" *ngFor="let tag of course.t">#{{ tag.name }}</div> -->
+    </div>
   </div>
-  
+</div>

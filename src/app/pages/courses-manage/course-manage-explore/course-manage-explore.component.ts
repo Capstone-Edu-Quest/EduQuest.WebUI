@@ -1,6 +1,7 @@
 import { Component, type OnInit } from '@angular/core';
-import { ICourse } from '../../../shared/interfaces/course.interfaces';
+import { ICourse, ICourseOverview } from '../../../shared/interfaces/course.interfaces';
 import { fadeInOutAnimation } from '../../../shared/constants/animations.constant';
+import { ILCourseObject } from '@/src/app/shared/interfaces/learning-path.interfaces';
 
 @Component({
   selector: 'app-course-manage-explore',
@@ -12,7 +13,7 @@ export class CourseManageExploreComponent implements OnInit {
   searchText: string = '';
   currentResultSearch: string = ''
 
-  sampleCourses: ICourse[] = [];
+  sampleCourses: ILCourseObject[] = [];
 
   ngOnInit(): void { }
 

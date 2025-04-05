@@ -90,7 +90,7 @@ export class HttpService {
           }
           return of(response); // Continue the observable chain
         }),
-        catchError((error) => of(this.handleHttpError(error))), // Handle error and return undefined
+        catchError((error) => of(this.handleHttpError(error?.error))), // Handle error and return undefined
         finalize(() => {
           this.loading.removeLoading();
         })
@@ -99,7 +99,7 @@ export class HttpService {
 
   handleHttpError(error: any) {
     console.error('Error occurred: ', error);
-    switch (error.status) {
+    switch (error.errors.statusCode) {
       case 401:
         this.message.addMessage(
           'error',
@@ -127,7 +127,7 @@ export class HttpService {
       default:
         this.message.addMessage(
           'error',
-          this.translate.instant('MESSAGE.UNKNOWN_ERROR')
+          this.translate.instant('MESSAGE.' + (error?.message?.content ?? ''), error?.message?.values ?? {})
         );
         break;
     }
@@ -136,7 +136,6 @@ export class HttpService {
   }
 
   private handleUserError<TPayload>(payload: BaseReponse<TPayload>) {
-    console.log(payload);
     if (payload.isError) {
       this.message.addMessage(
         'error',

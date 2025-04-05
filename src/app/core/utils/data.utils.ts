@@ -114,3 +114,31 @@ export function autoMapObject<T extends object, U extends Partial<T>>(source: T,
   return target;
 }
 
+export const copyToClipboard = (text: string) => {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        // console.log('Copied to clipboard:', text);
+      })
+      .catch((err) => {
+        console.error('Failed to copy:', err);
+      });
+  } else {
+    // Fallback for older browsers
+    const textarea = document.createElement('textarea');
+    textarea.value = text;
+    textarea.style.position = 'fixed'; // Prevent scrolling to bottom
+    document.body.appendChild(textarea);
+    textarea.focus();
+    textarea.select();
+
+    try {
+      const successful = document.execCommand('copy');
+      // console.log('Fallback: Copying was ' + (successful ? 'successful' : 'unsuccessful'));
+    } catch (err) {
+      console.error('Fallback: Unable to copy', err);
+    }
+
+    document.body.removeChild(textarea);
+  }
+}

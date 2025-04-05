@@ -1,7 +1,7 @@
 import { LearningPathModeEnum } from '../enums/learning-path.enum';
 import { IPathTab } from '../interfaces/learning-path.interfaces';
 
-export const defaultLearningPathMode = LearningPathModeEnum.PUBLIC;
+export const defaultLearningPathMode = LearningPathModeEnum.PRIVATE;
 export const defaultSortOrder = 'newest';
 export const learningPathModeTabs: IPathTab[] = [
   {

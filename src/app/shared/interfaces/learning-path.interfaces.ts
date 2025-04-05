@@ -1,5 +1,5 @@
 import { LearningPathModeEnum } from '../enums/learning-path.enum';
-import { ICourse, ITag } from './course.interfaces';
+import { ICourse, ICourseOverview, ITag } from './course.interfaces';
 
 export interface ILearningPath {
   id: string;
@@ -30,9 +30,8 @@ export interface ILearningPathDetails extends ILearningPath {
   courses: ILCourseObject[];
 }
 
-export interface ILCourseObject {
+export interface ILCourseObject extends ICourseOverview {
   order: number;
-  course: ICourse;
 }
 
 export interface IModifyLearningPath {
@@ -45,5 +44,5 @@ export interface IModifyLearningPath {
 export interface IModifyLearningPathCourse {
   courseId: string;
   courseOrder?: number;
-  action?: 'add' | 'delete';
+  action?: 'add' | 'delete' | 'update';
 }

@@ -280,7 +280,7 @@
     "OLDEST": "Oldest",
     "ENTER_KEYWORD": "Enter keyword",
     "PUBLIC_PATH": "Public Learning Paths",
-    "PRIVATE_PATH": "Your Learning Paths",
+    "PRIVATE_PATH": "My Learning Paths",
     "ENROLLED_PATH": "Enrolled Learning Paths",
     "COURSES_COUNT": "{{value}} courses",
     "CREATED_BY": "Created by {{value}}",
@@ -650,7 +650,8 @@
     "INVALID_EMAIL": "Please enter a valid email",
     "INVALID_OTP": "Invalid OTP",
     "PASSWORD_NOT_MATCH": "Password not match",
-    "PLEASE_FILL_IN_ALL_FIELDS": "Please fill in all fields"
+    "PLEASE_FILL_IN_ALL_FIELDS": "Please fill in all fields",
+    "COPIED_URL": "Copied url successfully"
   },
   "BUTTON": {
     "CONTINUE": "Continue",

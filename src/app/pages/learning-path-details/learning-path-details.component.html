@@ -42,7 +42,7 @@
       <fa-icon [icon]="timeIcon"></fa-icon>
       <label>
         {{
-          "LABEL.HOURS_VALUE"
+          "LABEL.MINUTES"
             | translate : { value: learningPathDetails?.totalTime }
         }}</label
       >
@@ -84,13 +84,13 @@
     <div
       class="course-wrapper"
       *ngFor="let course of tempCourseList || learningPathDetails?.courses"
-      [attr.courseId]="course.course.id"
+      [attr.courseId]="course.id"
       [attr.draggable]="isEdit"
       (dragstart)="onDragStart($event, course)"
       (dragover)="onDragOver($event)"
       (drop)="onDrop($event)"
       [ngClass]="{
-        dragging: course.course.id === currentDragCourse?.course?.id
+        dragging: course.id === currentDragCourse?.id
       }"
     >
       <div class="drag-point" *ngIf="isEdit">
@@ -101,8 +101,9 @@
           cursor: isEdit ? 'grab' : 'pointer'
         }"
         [isEdit]="isEdit"
-        [course]="course.course"
+        [course]="course"
         [isExpertView]="isExpertView"
+        (onRemoveCourse)="onRemoveCourse($event)"
       ></app-path-course-item>
     </div>
   </div>

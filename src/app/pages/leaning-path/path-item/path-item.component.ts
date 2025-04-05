@@ -11,6 +11,9 @@ import {
 import { Router } from '@angular/router';
 import { UserService } from '@/src/app/core/services/user.service';
 import { Subscription } from 'rxjs';
+import { copyToClipboard } from '@/src/app/core/utils/data.utils';
+import { MessageService } from '@/src/app/core/services/message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-path-item',
@@ -54,7 +57,9 @@ export class PathItemComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private LearningPathService: LearningPathService,
-    private user: UserService
+    private user: UserService,
+    private message: MessageService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -77,8 +82,6 @@ export class PathItemComponent implements OnInit, OnDestroy {
         }
 
         this.menu = [...this.commonMenu];
-
-        console.log(this.menu)
       })
     );
   }
@@ -117,6 +120,10 @@ export class PathItemComponent implements OnInit, OnDestroy {
 
   onShare(e: Event) {
     e.stopPropagation();
+    const url = window.location.host + '/learning-path/' + this.path?.id;
+
+    copyToClipboard(url);
+    this.message.addMessage('success', this.translate.instant('MESSAGE.COPIED_URL'))
   }
 
   onViewDetails() {
