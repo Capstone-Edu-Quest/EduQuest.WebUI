@@ -261,6 +261,7 @@ export interface IMaterialOverview {
   duration: number;
   version: number;
   originalMaterialId: string | null;
+  status?: MissionStatus
 }
 
 export interface IStageMission {

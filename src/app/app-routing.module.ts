@@ -56,6 +56,7 @@ import { ForgotPasswordComponent } from './pages/auth/forgot-password/forgot-pas
 import { SignupComponent } from './pages/auth/signup/signup.component';
 import { PersonalSettingsComponent } from './pages/personal-settings/personal-settings.component';
 import { ManagePasswordComponent } from './pages/personal-settings/manage-password/manage-password.component';
+import { ViewCourseScreenComponent } from './pages/view-course-screen/view-course-screen.component';
 
 const routes: Routes = [
   {
@@ -75,16 +76,17 @@ const routes: Routes = [
       },
       {
         path: ':courseId',
-        children: [
-          {
-            path: '',
-            component: CourseDetailsComponent,
-          },
-          {
-            path: 'stages',
-            component: CourseStageComponent,
-          },
-        ],
+        component: ViewCourseScreenComponent,
+        // children: [
+        //   {
+        //     path: '',
+        //     component: CourseDetailsComponent,
+        //   },
+        //   {
+        //     path: 'stages',
+        //     component: CourseStageComponent,
+        //   },
+        // ],
       },
     ],
   },

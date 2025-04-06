@@ -189,6 +189,7 @@ import { SignupComponent } from './pages/auth/signup/signup.component';
 import { PersonalSettingsComponent } from './pages/personal-settings/personal-settings.component';
 import { ManagePasswordComponent } from './pages/personal-settings/manage-password/manage-password.component';
 import { LearningPathService } from './core/services/learning-path.service';
+import { ViewCourseScreenComponent } from './pages/view-course-screen/view-course-screen.component';
 export const AppDeclarations = [
   AppComponent,
   NavbarComponent,
@@ -257,6 +258,7 @@ export const AppDeclarations = [
   CoursesManageViewDetailsComponent,
   CourseManageExploreComponent,
   CoursesStatisticsComponent,
+  ViewCourseScreenComponent,
   // Cart
   CartComponent,
   CartItemComponent,

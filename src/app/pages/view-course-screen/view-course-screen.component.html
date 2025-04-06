@@ -1,0 +1,10 @@
+@if(courseDetails) {
+<app-course-details
+  *ngIf="
+    courseDetails.progress === null || courseDetails.progress === undefined
+  "
+  [courseDetails]="courseDetails"
+></app-course-details>
+
+<app-course-stage *ngIf="courseDetails.progress !== null" [courseDetails]="courseDetails"> </app-course-stage>
+}

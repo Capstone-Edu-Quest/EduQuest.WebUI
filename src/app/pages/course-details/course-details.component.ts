@@ -1,5 +1,5 @@
 import { ICourseOverview } from './../../shared/interfaces/course.interfaces';
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, Input, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesService } from '../../core/services/courses.service';
 import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
@@ -40,7 +40,7 @@ import { autoMapObject } from '../../core/utils/data.utils';
   animations: [fadeInOutAnimation],
 })
 export class CourseDetailsComponent implements OnInit, OnDestroy {
-  courseDetails: ICourse | null = null;
+  @Input('courseDetails') courseDetails!: ICourse;
 
   authorStatsIcon = ['play-circle', 'user', 'comment', 'star'];
 
@@ -89,7 +89,6 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   newLearningPathName: string = '';
 
   constructor(
-    private route: ActivatedRoute,
     private course: CoursesService,
     private cart: CartService,
     private wishlist: WishlistService,
@@ -101,12 +100,12 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
-    this.initCourse();
     this.initStars();
     this.listenToCart();
     this.listenToWishList();
     this.listenToCoupon();
     this.listenToMyLearningPath();
+    this.initCourseDetailsUI();
   }
 
   @HostListener('window:scroll', [])
@@ -118,30 +117,21 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     }, 1000);
   }
 
-  initCourse() {
-    const id = this.route.snapshot.paramMap.get('courseId');
-    if (!id) return;
+  initCourseDetailsUI() {
+    this.isInWishlist = this.wishlist.wishlist$.value.some(
+      (c) => c.id === this.courseDetails?.id
+    );
 
-    this.course.onGetCourse(id).subscribe((data) => {
-      this.courseDetails = data?.payload ?? null;
+    this.isInCart = this.cart.cart$.value.courses.some(
+      (c) => c.id === this.courseDetails?.id
+    );
 
-      console.log(this.courseDetails);
+    const totalTimeItem = this.guaranteeItems.find(
+      (_item) => _item.label === 'LABEL.TOTAL_HOUR'
+    );
 
-      this.isInWishlist = this.wishlist.wishlist$.value.some(
-        (c) => c.id === this.courseDetails?.id
-      );
-
-      this.isInCart = this.cart.cart$.value.courses.some(
-        (c) => c.id === this.courseDetails?.id
-      );
-
-      const totalTimeItem = this.guaranteeItems.find(
-        (_item) => _item.label === 'LABEL.TOTAL_HOUR'
-      );
-
-      if (!totalTimeItem) return;
-      totalTimeItem.value = this.courseDetails?.totalTime ?? 0;
-    });
+    if (!totalTimeItem) return;
+    totalTimeItem.value = this.courseDetails?.totalTime ?? 0;
   }
 
   initStars() {

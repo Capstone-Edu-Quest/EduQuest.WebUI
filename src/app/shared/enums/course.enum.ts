@@ -1,5 +1,5 @@
 export enum MissionStatus {
-    DONE,
+    DONE = 1,
     CURRENT,
     LOCKED
 }
