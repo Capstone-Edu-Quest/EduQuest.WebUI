@@ -1,8 +1,15 @@
 import { Component, OnDestroy, type OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
-import { ICourseManageDetails } from '../../shared/interfaces/course.interfaces';
 import {
+  ICourseInstructor,
+  ICourseManageDetails,
+  IReview,
+  IReviewQuery,
+} from '../../shared/interfaces/course.interfaces';
+import {
+  faAngleLeft,
+  faAngleRight,
   faCartShopping,
   faHeart,
   faPen,
@@ -10,11 +17,9 @@ import {
   faTrash,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
-import { ChartConfiguration, ChartData, ChartType } from 'chart.js';
-import { TranslateService } from '@ngx-translate/core';
-import { ThemeService } from '../../core/services/theme.service';
-import { handleCastDateString } from '../../core/utils/time.utils';
+import { formatTime, handleCastDateString } from '../../core/utils/time.utils';
 import { CoursesService } from '../../core/services/courses.service';
+import { ILineChartDataSet } from '../../shared/interfaces/chart.interface';
 @Component({
   selector: 'app-my-course-details',
   templateUrl: './my-course-details.component.html',
@@ -23,8 +28,15 @@ import { CoursesService } from '../../core/services/courses.service';
 export class MyCourseDetailsComponent implements OnInit, OnDestroy {
   subscription$: Subscription = new Subscription();
 
+  moreIcon = faAngleRight;
+  backIcon = faAngleLeft;
+
   courseId!: string | null;
-  course: ICourseManageDetails | null = null;
+  course: ICourseInstructor | null = null;
+  reviews: IReview[] = [];
+
+  isViewAllReviews: boolean = false;
+  allReviews: IReview[] = [];
 
   lastUpdated = {
     date: 0,
@@ -32,47 +44,31 @@ export class MyCourseDetailsComponent implements OnInit, OnDestroy {
     year: 0,
   };
 
-  statsItem: { label: string; index: keyof ICourseManageDetails; icon: any }[] =
-    [
-      {
-        label: 'LABEL.TOTAL_LEANERS',
-        index: 'totalEnrolled',
-        icon: faUser,
-      },
-      {
-        label: 'LABEL.TOTAL_IN_CART',
-        index: 'totalInCart',
-        icon: faCartShopping,
-      },
-      {
-        label: 'LABEL.TOTAL_IN_WISHLIST',
-        index: 'totalInWhislist',
-        icon: faHeart,
-      },
-      {
-        label: 'LABEL.AVERAGE_RATING',
-        index: 'rating',
-        icon: faStar,
-      },
-    ];
-
-  // Chart
-  chartOptions: ChartConfiguration['options'] = {
-    responsive: true,
-    plugins: {
-      legend: { display: true, position: 'top' },
-      tooltip: { enabled: true },
+  statsItem: { label: string; index: keyof ICourseInstructor; icon: any }[] = [
+    {
+      label: 'LABEL.TOTAL_LEANERS',
+      index: 'totalLearner',
+      icon: faUser,
     },
-    scales: {
-      x: { grid: { display: false } },
-      y: { beginAtZero: true },
+    {
+      label: 'LABEL.TOTAL_IN_CART',
+      index: 'totalInCart',
+      icon: faCartShopping,
     },
-  };
+    {
+      label: 'LABEL.TOTAL_IN_WISHLIST',
+      index: 'totalInWishList',
+      icon: faHeart,
+    },
+    {
+      label: 'LABEL.AVERAGE_RATING',
+      index: 'rating',
+      icon: faStar,
+    },
+  ];
 
-  chartData: ChartData<'line'> = {
-    labels: [],
-    datasets: [],
-  };
+  chartLabels: string[] = [];
+  chartDatasets: ILineChartDataSet[] = [];
 
   pannelBtn = [
     {
@@ -96,20 +92,17 @@ export class MyCourseDetailsComponent implements OnInit, OnDestroy {
     //   action: (e: Event) => this.onShare(e),
     // },
   ];
-  
+
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private theme: ThemeService,
-    private translate: TranslateService,
     private courseService: CoursesService
   ) {}
 
   ngOnInit(): void {
-    this.initCourse();
     this.listenToRoute();
-    this.listenToTheme();
-    this.listenToTranslate();
+    this.initCourse();
+    this.initFeedbacks();
   }
 
   listenToRoute() {
@@ -122,83 +115,79 @@ export class MyCourseDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  listenToTheme() {
-    this.subscription$.add(
-      this.theme.currentTheme$.subscribe(() => {
-        this.updateChartLanguageAndTheme();
-      })
-    );
-  }
-
-  listenToTranslate() {
-    this.subscription$.add(
-      this.translate.onLangChange.subscribe(() => {
-        this.updateChartLanguageAndTheme();
-      })
-    );
-  }
-
   initCourse() {
-    // Fetch course details from API
     if (!this.courseId) return;
-    const result = this.courseService.onGetCourseById(this.courseId);
-    result.subscribe((data) => {
-      // this.course = data?.payload ?? null;
-    });
+    this.courseService
+      .onGetInstructorCourseDetails(this.courseId)
+      .subscribe((res) => {
+        if (!res?.payload) return;
+
+        this.course = res.payload;
+
+        const [date, month, year] = formatTime(res.payload.lastUpdated).split(
+          '/'
+        );
+        this.lastUpdated = { date: Number(date), month: Number(month), year: Number(year) };
+
+        const labelsSet = new Set<string>();
+        this.chartDatasets = [
+          {
+            label: 'LABEL.LEARNERS',
+            data: [],
+          },
+          {
+            label: 'LABEL.RATING',
+            data: [],
+          },
+        ];
+
+        for (
+          let i = 0;
+          i <
+          Math.max(
+            res.payload.courseEnrollOverTime.length,
+            res.payload.courseRatingOverTime.length
+          );
+          i++
+        ) {
+          if (res.payload.courseEnrollOverTime.length > i) {
+            labelsSet.add(res.payload.courseEnrollOverTime[i].time);
+          }
+
+          if (res.payload.courseRatingOverTime.length > i) {
+            labelsSet.add(res.payload.courseRatingOverTime[i].time);
+          }
+
+          this.chartDatasets[0].data.push(
+            Number(res.payload.courseEnrollOverTime[i]?.count ?? 0)
+          );
+
+          this.chartDatasets[1].data.push(
+            Number(res.payload.courseRatingOverTime[i]?.count ?? 0)
+          );
+        }
+
+        this.chartLabels = [...labelsSet];
+      });
     this.convertTime();
   }
 
-  updateChartLanguageAndTheme() {
-    const currentTheme = this.theme.getCurrentTheme();
-    if (!currentTheme) return;
+  initFeedbacks() {
+    if(!this.courseId) return;
+    const query: IReviewQuery = {
+      courseId: this.courseId,
+      eachPage: 6,
+      pageNo: 1
+    }
 
-    const gridColor = {
-      grid: {
-        color: currentTheme.theme['--quaternary-text'],
-      },
-      ticks: {
-        color: currentTheme.theme['--secondary-text'],
-      },
-    };
+    this.courseService.onGetCourseReviews(query).subscribe(res => {
+      if(!res?.payload) {
+        this.reviews = [];
+        return;
+      }
 
-    this.chartOptions = {
-      ...this.chartOptions,
-      plugins: {
-        ...this.chartOptions?.plugins,
-        legend: {
-          ...this.chartOptions?.plugins?.legend,
-          labels: { color: currentTheme.theme['--secondary-text'] },
-        },
-      },
-      scales: {
-        x: gridColor,
-        y: gridColor,
-      },
-    };
-
-    this.chartData = {
-      labels: this.course?.courseEnrollOverTime?.map((item) => item.time) ?? [],
-      datasets: [
-        {
-          label: this.translate.instant('LABEL.LEARNERS'),
-          data: this.course?.courseEnrollOverTime?.map((item) => item.count) ?? [],
-          borderColor: currentTheme?.theme['--brand-05'],
-          pointBackgroundColor: currentTheme?.theme['--brand-hover'],
-          pointBorderColor: currentTheme?.theme['--brand-light'],
-          backgroundColor: currentTheme?.theme['--brand-05'],
-          borderWidth: 1,
-        },
-        {
-          label: this.translate.instant('LABEL.REVIEWS'),
-          data: this.course?.courseRatingOverTime?.map((item) => item.count) ?? [],
-          borderColor: currentTheme?.theme['--warning'],
-          pointBackgroundColor: currentTheme?.theme['--warning'],
-          pointBorderColor: currentTheme?.theme['--warning'],
-          backgroundColor: currentTheme?.theme['--warning'],
-          borderWidth: 1,
-        },
-      ],
-    };
+      this.reviews = res.payload;
+    })
   }
 
   convertTime() {
@@ -214,6 +203,27 @@ export class MyCourseDetailsComponent implements OnInit, OnDestroy {
 
   onDelete(e: Event) {
     e.stopPropagation();
+  }
+
+  onViewMoreFeedbacks() {
+    if(!this.courseId) return;
+
+    this.isViewAllReviews = !this.isViewAllReviews;
+    const query: IReviewQuery = {
+      courseId: this.courseId,
+      eachPage: 1000,
+      pageNo: 1
+    }
+
+    if(!this.isViewAllReviews) return;
+    this.courseService.onGetCourseReviews(query).subscribe(res => {
+      if(!res?.payload) {
+        this.reviews = [];
+        return;
+      }
+
+      this.allReviews = res.payload;
+    })
   }
 
   ngOnDestroy(): void {

@@ -54,6 +54,16 @@ export interface ICourse {
   totalReview: number;
   progress: number | null;
   totalTime: number;
+  isPublic: boolean;
+}
+
+export interface ICourseInstructor extends ICourse {
+  status: 1;
+  totalLesson: number;
+  totalInCart: number;
+  totalInWishList: number;
+  courseEnrollOverTime: { time: string; count: string }[];
+  courseRatingOverTime: { time: string; count: string }[];
 }
 
 export interface ICourseApproval extends ICourse {
@@ -95,9 +105,38 @@ export interface ICourseManage extends ICourse {
 
 export type materialType = 'Video' | 'Document' | 'Quiz' | 'Assignment';
 
+export interface IMaterialResponse {
+  videos: {
+    total: number;
+    items: {
+      id: string;
+      title: string;
+      description: string;
+      duration: number;
+    }[];
+  };
+  document: {
+    total: number;
+    items: { id: string; title: string; description: string }[];
+  };
+  quiz: {
+    total: number;
+    items: {
+      id: string;
+      title: string;
+      description: string;
+      questionCount: number;
+    }[];
+  };
+  assignment: {
+    total: number;
+    items: { id: string; title: string; description: string }[];
+  };
+}
+
 export interface IMaterial<T> {
   id: string;
-  name: string;
+  title: string;
   description: string;
   type: materialType;
   data: T;
@@ -223,20 +262,6 @@ export interface ISearchCouponParams {
   eachPage?: number;
 }
 
-export interface IReview {
-  id: string;
-  user: {
-    id: string;
-    name: string;
-    avatar: string;
-  };
-  courseId: string;
-  rating: number;
-  content: string;
-  createdDate: string;
-  lastUpdated: string;
-}
-
 // Remove later
 export interface IStage {
   id: string;
@@ -261,7 +286,7 @@ export interface IMaterialOverview {
   duration: number;
   version: number;
   originalMaterialId: string | null;
-  status?: MissionStatus
+  status?: MissionStatus;
 }
 
 export interface IStageMission {
@@ -301,4 +326,25 @@ export interface ISearchCourseParams {
   Sort?: CourseSortEnum;
   pageNo?: number;
   eachPage?: number;
+}
+
+export interface IReviewQuery {
+  courseId: string;
+  rating?: number;
+  comment?: string;
+  pageNo?: number;
+  eachPage?: number;
+}
+
+export interface IReview {
+  id: string;
+  courseId: string;
+  rating: number;
+  comment: string;
+  createdBy: {
+    id: string;
+    username: string;
+    avatarUrl: string;
+  };
+  createdAt: string;
 }

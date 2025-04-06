@@ -1,6 +1,12 @@
 import { TranslateService } from '@ngx-translate/core';
 import { ThemeService } from './core/services/theme.service';
-import { Component, Host, HostListener, OnDestroy, OnInit } from '@angular/core';
+import {
+  Component,
+  Host,
+  HostListener,
+  OnDestroy,
+  OnInit,
+} from '@angular/core';
 import { defaultLanguage } from './shared/constants/languages.constant';
 import { StorageService } from './core/services/storage.service';
 import { localStorageEnum } from './shared/enums/localStorage.enum';
@@ -17,6 +23,9 @@ import { LoadingService } from './core/services/loading.service';
 import { FoxService } from './core/services/fox.service';
 import { QuestsService } from './core/services/quests.service';
 import { LearningPathService } from './core/services/learning-path.service';
+import { CoursesService } from './core/services/courses.service';
+import { IUser } from './shared/interfaces/user.interfaces';
+import { WebRole } from './shared/enums/user.enum';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -41,7 +50,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private loading: LoadingService,
     private fox: FoxService,
     private quests: QuestsService,
-    private learningPath: LearningPathService
+    private learningPath: LearningPathService,
+    private course: CoursesService
   ) {}
 
   ngOnInit(): void {
@@ -74,7 +84,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.subscription$.add(
       this.user.user$.subscribe((user) => {
         if (user) {
-          this.initUserData();
+          this.initUserData(user);
         } else {
           this.resetUserData();
         }
@@ -82,14 +92,22 @@ export class AppComponent implements OnInit, OnDestroy {
     );
   }
 
-  initUserData() {
-    this.cart.initCart();
-    this.wishlist.initWishlist();
+  initUserData(user: IUser) {
+    switch (user.roleId) {
+      case WebRole.LEARNER:
+        this.cart.initCart();
+        this.wishlist.initWishlist();
+        this.fox.initFox();
+        this.quests.initUserQuest();
+        this.learningPath.initMyLearningPath();
+        break;
+      case WebRole.INSTRUCTOR:
+        this.course.onInitMyMaterials();
+        break;
+    }
+
     this.notification.initNotifications();
     this.chat.initChat();
-    this.fox.initFox();
-    this.quests.initUserQuest();
-    this.learningPath.initMyLearningPath();
   }
 
   resetUserData() {
@@ -110,7 +128,7 @@ export class AppComponent implements OnInit, OnDestroy {
       this.storage.setToLocalStorage(localStorageEnum.LANGUAGE, event.lang)
     );
   }
-  
+
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();
   }

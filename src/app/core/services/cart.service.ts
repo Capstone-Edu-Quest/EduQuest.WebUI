@@ -8,6 +8,8 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { WishlistService } from './wishlist.service';
 import { endPoints } from '../../shared/constants/endPoints.constant';
 import { HttpService } from './http.service';
+import { UserService } from './user.service';
+import { WebRole } from '../../shared/enums/user.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +24,7 @@ export class CartService {
     }
   );
 
-  constructor(private wishlist: WishlistService, private http: HttpService) {}
+  constructor(private wishlist: WishlistService, private http: HttpService, private user: UserService) {}
 
   initCart() {
     this.http.get<ICourseCart>(endPoints.cart).subscribe((res) => {

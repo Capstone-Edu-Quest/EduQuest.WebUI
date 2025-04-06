@@ -1,0 +1,54 @@
+.review-item {
+  width: 100%;
+  padding: 12px;
+  box-sizing: border-box;
+  border-radius: 10px;
+  background-color: var(--secondary-bg);
+
+  .metadata {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+
+    img {
+        height: 40px;
+        aspect-ratio: 1;
+        border-radius: 50%;
+    }
+
+    .info {
+        display: flex;
+        flex-direction: column;
+        justify-items: center;
+        gap: 2px;
+
+        .name {
+            font-size: 12px;
+            font-weight: 600;
+        }
+
+        .time {
+            font-size: 10px;
+            color: var(--secondary-text);
+        }
+    }
+  }
+
+  .stars-ctn {
+    margin-top: 12px;
+    display: flex;
+    gap: 2px;
+    align-items: center;
+    transform: translateY(-1px);
+
+    fa-icon {
+      color: var(--brand-light);
+    }
+  }
+
+  .comment {
+    font-size: 12px;
+    margin-top: 4px;
+  }
+}

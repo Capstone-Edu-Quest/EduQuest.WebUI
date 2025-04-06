@@ -23,7 +23,7 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
   isEdit: boolean = false;
 
   material: IMaterial<IQuiz> | IMaterialCreate<IQuiz> = {
-    name: '',
+    title: '',
     description: '',
     type: 'Quiz',
     data: {
@@ -64,7 +64,7 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
     // this.material = this.materialService.getMaterial(quizId);
     this.material = {
       id: 'quiz-3',
-      name: 'TypeScript Essentials',
+      title: 'TypeScript Essentials',
       description: 'Check your understanding of TypeScript concepts.',
       type: 'Quiz',
       data: {
@@ -163,7 +163,7 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
 
   onValidate() {
     if (
-      this.material.name.trim() === '' ||
+      this.material.title.trim() === '' ||
       this.material.description.trim() === ''
     ) {
       this.message.addMessage(

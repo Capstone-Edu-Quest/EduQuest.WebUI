@@ -1,76 +1,58 @@
-import { Component, type OnInit } from '@angular/core';
+import { Component, OnDestroy, type OnInit } from '@angular/core';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { faPen, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
 import {
   IMaterial,
+  IMaterialResponse,
   IVideo,
 } from '../../../shared/interfaces/course.interfaces';
 import { Router } from '@angular/router';
+import { CoursesService } from '@/src/app/core/services/courses.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-materials-video',
   templateUrl: './materials-video.component.html',
   styleUrl: './materials-video.component.scss',
 })
-export class MaterialsVideoComponent implements OnInit {
+export class MaterialsVideoComponent implements OnInit, OnDestroy {
+  subscription$: Subscription = new Subscription();
+
   addIcon = faPlus;
   clockIcon = faClock;
   editIcon = faPen;
   deleteIcon = faTrash;
 
-  videoMaterials: IMaterial<IVideo>[] = [
-    {
-      id: '1',
-      name: 'Introduction to TypeScript',
-      description:
-        'A beginner-friendly introduction to TypeScript fundamentals.',
-      type: 'Video',
-      data: {
-        url: 'https://example.com/videos/typescript-intro.mp4',
-        duration: 10, // 10 seconds
-        questions: []
-      },
-    },
-    {
-      id: '2',
-      name: 'React State Management',
-      description:
-        'Learn about state management in React using hooks and Redux.',
-      type: 'Video',
-      data: {
-        url: 'https://example.com/videos/react-state.mp4',
-        duration: 15, // 15 seconds
-        questions: []
-      },
-    },
-    {
-      id: '3',
-      name: 'Understanding Asynchronous JavaScript',
-      description:
-        'Explore promises, async/await, and event loops in JavaScript.',
-      type: 'Video',
-      data: {
-        url: 'https://example.com/videos/async-js.mp4',
-        duration: 12.5, // 12.5 seconds
-        questions: []
-      },
-    },
-  ];
+  constructor(private router: Router, private course: CoursesService) {}
 
-  constructor(private router: Router) {}
+  materials: IMaterialResponse | null = null;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.listenToMaterialsList();
+  }
+
+  listenToMaterialsList() {
+    this.subscription$.add(
+      this.course.myMaterials$.subscribe((materials) => {
+        this.materials = materials;
+      })
+    );
+  }
 
   onCreate() {
-    this.router.navigate(['/materials/video/new']);
+    this.router.navigate(['/materials/videos/new']);
   }
 
   onEdit(e: Event, id: string) {
     e.stopPropagation();
-    this.router.navigate(['/materials/video/', id]);
+    this.router.navigate(['/materials/videos/', id]);
   }
 
   onDelete(e: Event) {
     e.stopPropagation();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
   }
 }

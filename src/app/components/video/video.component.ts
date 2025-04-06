@@ -311,6 +311,10 @@ export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isExpand = !this.isExpand;
   }
 
+  onHandleVideoError() {
+    console.log('error')
+  }
+
   ngOnDestroy() {
     this.subscriptions$.unsubscribe();
   }

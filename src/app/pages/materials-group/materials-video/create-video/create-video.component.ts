@@ -44,7 +44,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   correctIcon = faCheck;
 
   material: IMaterialCreate<IVideo> | IMaterial<IVideo> = {
-    name: '',
+    title: '',
     description: '',
     type: 'Video',
     data: {
@@ -111,7 +111,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   initMaterial(videoId: string) {
     const testMaterial: IMaterial<IVideo> = {
       id: 'material-1',
-      name: 'Test Video',
+      title: 'Test Video',
       description: 'Test Description',
       type: 'Video',
       data: {
@@ -238,7 +238,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
     }
 
     if (
-      this.material.name.trim() === '' ||
+      this.material.title.trim() === '' ||
       this.material.description.trim() === ''
     ) {
       this.message.addMessage(

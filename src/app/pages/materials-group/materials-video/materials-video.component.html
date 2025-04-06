@@ -10,15 +10,15 @@
   </div>
 
   <div class="material-items-ctn">
-    <div class="material-row" *ngFor="let material of videoMaterials">
+    <div class="material-row" *ngFor="let material of (materials?.videos?.items ?? [])">
       <div class="info">
-        <div class="name">{{ material.name }}</div>
+        <div class="name">{{ material.title }}</div>
         <div class="description">{{ material.description }}</div>
         <div class="time">
           <fa-icon [icon]="clockIcon"></fa-icon>
-          <div class="duration">
+          <div class="duration" style="margin-left: 4px">
             {{
-              "LABEL.MINUTES" | translate : { value: material.data.duration }
+              "LABEL.MINUTES" | translate : { value: material.duration }
             }}
           </div>
         </div>

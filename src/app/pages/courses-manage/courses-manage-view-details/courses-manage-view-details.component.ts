@@ -163,7 +163,7 @@ export class CoursesManageViewDetailsComponent implements OnInit {
     for (const [i, stage] of this.course.stages.entries()) {
       for (const material of stage.materials) {
         const materialData: ITableMaterialData = {
-          name: material.name,
+          name: material.title,
           type: material.type,
           stage: i + 1,
           description: material.description,

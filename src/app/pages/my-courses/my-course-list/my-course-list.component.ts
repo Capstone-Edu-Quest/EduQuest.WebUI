@@ -1,5 +1,6 @@
+import { CoursesService } from 'src/app/core/services/courses.service';
 import { Component, type OnInit } from '@angular/core';
-import { ICourseManage } from '../../../shared/interfaces/course.interfaces';
+import { ICourseOverview } from '../../../shared/interfaces/course.interfaces';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -8,11 +9,21 @@ import { faPlus } from '@fortawesome/free-solid-svg-icons';
   styleUrl: './my-course-list.component.scss',
 })
 export class MyCourseListComponent implements OnInit {
-  sampleCourses: ICourseManage[] = [];
 
-  addIcon = faPlus
+  addIcon = faPlus;
+  courses: ICourseOverview[] = []
 
-  constructor() { }
-  ngOnInit(): void { }
+  constructor(private CoursesService: CoursesService) { }
 
+  ngOnInit(): void {
+    this.onInitMyCourses()
+  }
+
+  onInitMyCourses() {
+    this.CoursesService.onGetCourseCreatedByMe().subscribe(res => {
+      if(!res?.payload) return;
+
+      this.courses = res.payload
+    }) 
+  }
 }

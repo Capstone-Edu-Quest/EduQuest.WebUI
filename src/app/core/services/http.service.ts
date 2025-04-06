@@ -99,7 +99,7 @@ export class HttpService {
 
   handleHttpError(error: any) {
     console.error('Error occurred: ', error);
-    switch (error.errors.statusCode) {
+    switch (error.errors.statusCode ?? error.code) {
       case 401:
         this.message.addMessage(
           'error',

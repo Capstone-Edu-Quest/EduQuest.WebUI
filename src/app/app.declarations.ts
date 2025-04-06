@@ -124,7 +124,6 @@ import { MyCourseListComponent } from './pages/my-courses/my-course-list/my-cour
 import { MyCourseItemComponent } from './pages/my-courses/my-course-list/my-course-item/my-course-item.component';
 import { MyCourseAddComponent } from './pages/my-course-add/my-course-add.component';
 import { MyCourseDetailsComponent } from './pages/my-course-details/my-course-details.component';
-import { ReviewItemComponent } from './components/review-item/review-item.component';
 import { ImageService } from './core/services/image.service';
 import { ManageStagesComponent } from './pages/my-course-add/manage-stages/manage-stages.component';
 import { MaterialsComponent } from './pages/materials/materials.component';
@@ -190,6 +189,8 @@ import { PersonalSettingsComponent } from './pages/personal-settings/personal-se
 import { ManagePasswordComponent } from './pages/personal-settings/manage-password/manage-password.component';
 import { LearningPathService } from './core/services/learning-path.service';
 import { ViewCourseScreenComponent } from './pages/view-course-screen/view-course-screen.component';
+import { ReviewsListComponent } from './components/reviews-list/reviews-list.component';
+import { ReviewItemComponent } from './components/reviews-list/review-item/review-item.component';
 export const AppDeclarations = [
   AppComponent,
   NavbarComponent,
@@ -211,7 +212,6 @@ export const AppDeclarations = [
   NavbarProfileComponent,
   AvatarByNameComponent,
   LoadingComponent,
-  ReviewItemComponent,
   TableComponent,
   VideoComponent,
   SliderComponent,
@@ -223,6 +223,8 @@ export const AppDeclarations = [
   BarChartComponent,
   RadarChartComponent,
   LabelSwitchComponent,
+  ReviewsListComponent,
+  ReviewItemComponent,
   // Home
   HomeComponent,
   HomeStatisticsComponent,

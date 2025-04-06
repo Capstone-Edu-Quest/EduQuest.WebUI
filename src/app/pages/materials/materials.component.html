@@ -14,30 +14,32 @@
         <fa-icon [icon]="viewAllIcon"></fa-icon>
       </a>
     </div>
-    @switch(section.id) { @case('video') {
+    @switch(section.id) { @case('videos') {
     <ng-container [ngTemplateOutlet]="video"></ng-container>
-    } @case('document') {
+    }
+     @case('document') {
     <ng-container [ngTemplateOutlet]="document"></ng-container>
     } @case('quiz') {
     <ng-container [ngTemplateOutlet]="quiz"></ng-container>
     } @case('assignment') {
     <ng-container [ngTemplateOutlet]="assignment"></ng-container>
-    } }
+    } 
+  }
   </div>
 </div>
 
 <ng-template #video>
   <div class="material-items-ctn">
-    <a [routerLink]="'video/' + material.id" class="material-row" *ngFor="let material of get3Materials('video')">
+    <a [routerLink]="'videos/' + material.id" class="material-row" *ngFor="let material of get3Materials('video')">
       <div class="info">
-        <div class="name">{{ material.name }}</div>
+        <div class="name">{{ material.title }}</div>
         <div class="description">{{ material.description }}</div>
       </div>
       <div class="add-on">
         <fa-icon [icon]="clockIcon"></fa-icon>
         <div class="duration">
           {{
-            "LABEL.MINUTES" | translate : { value: getNumber(material.data) }
+            "LABEL.MINUTES" | translate : { value: material.duration }
           }}
         </div>
       </div>
@@ -49,7 +51,7 @@
   <div class="material-items-ctn">
     <a [routerLink]="'document/' + material.id" class="material-row" *ngFor="let material of get3Materials('document')">
       <div class="info">
-        <div class="name">{{ material.name }}</div>
+        <div class="name">{{ material.title }}</div>
         <div class="description">{{ material.description }}</div>
       </div>
       <!-- <fa-icon [icon]="rightIcon"></fa-icon> -->
@@ -61,7 +63,7 @@
   <div class="material-items-ctn">
     <a [routerLink]="'quiz/' + material.id" class="material-row" *ngFor="let material of get3Materials('quiz')">
       <div class="info">
-        <div class="name">{{ material.name }}</div>
+        <div class="name">{{ material.title }}</div>
         <div class="description">{{ material.description }}</div>
       </div>
       <div class="add-on">
@@ -69,7 +71,7 @@
         <div class="duration">
           {{
             "LABEL.QUESTIONS_COUNT"
-              | translate : { value: getNumber(material.data) }
+              | translate : { value: material.questionCount }
           }}
         </div>
       </div>
@@ -85,15 +87,15 @@
       *ngFor="let material of get3Materials('assignment')"
     >
       <div class="info">
-        <div class="name">{{ material.name }}</div>
+        <div class="name">{{ material.title }}</div>
         <div class="description">{{ material.description }}</div>
       </div>
-      <div class="add-on">
+      <!-- <div class="add-on">
         <fa-icon [icon]="codeIcon"></fa-icon>
         <div class="duration">
           {{ material.data.answerLanguage }}
         </div>
-      </div>
+      </div> -->
     </a>
   </div>
 </ng-template>

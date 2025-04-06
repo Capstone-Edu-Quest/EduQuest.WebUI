@@ -25,7 +25,7 @@ export class CreateAssignmentComponent implements OnInit, OnDestroy {
 
   avaiableLangs = Object.values(AssignmentLanguageEnum);
   material: IMaterialCreate<IAssignment> | IMaterial<IAssignment> = {
-    name: '',
+    title: '',
     description: '',
     type: 'Assignment',
     data: {

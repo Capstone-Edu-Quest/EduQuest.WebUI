@@ -176,7 +176,7 @@ const routes: Routes = [
         component: MaterialsComponent,
       },
       {
-        path: 'video',
+        path: 'videos',
         children: [
           {
             path: '',

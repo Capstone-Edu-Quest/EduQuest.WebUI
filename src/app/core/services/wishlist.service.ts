@@ -6,6 +6,8 @@ import {
 import { BehaviorSubject } from 'rxjs';
 import { HttpService } from './http.service';
 import { endPoints } from '../../shared/constants/endPoints.constant';
+import { UserService } from './user.service';
+import { WebRole } from '../../shared/enums/user.enum';
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +20,6 @@ export class WishlistService {
   constructor(private http: HttpService) {}
 
   initWishlist() {
-    // Call API
     this.http
       .get<ICourseOverview[]>(endPoints.favoriteList)
       .subscribe((res) => {

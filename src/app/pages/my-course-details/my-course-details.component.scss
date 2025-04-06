@@ -3,6 +3,16 @@
   box-sizing: border-box;
   position: relative;
 
+  .back {
+    color: var(--secondary-text);
+    font-size: 14px;
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    margin-top: 12px;
+    cursor: pointer;
+  }
+
   .name {
     font-size: 18px;
     font-weight: 500;
@@ -77,6 +87,16 @@
       font-weight: 500;
       font-size: 18px;
       color: var(--brand-light);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+        .view-more {
+          font-size: 12px;
+          color: var(--secondary-text);
+          font-weight: 400;
+          cursor: pointer;
+        }
     }
 
     .value {

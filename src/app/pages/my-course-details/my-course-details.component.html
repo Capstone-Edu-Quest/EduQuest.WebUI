@@ -1,5 +1,5 @@
-<div class="my-course-details">
-  <div class="name">{{ course?.title }}</div>
+<div class="my-course-details" *ngIf="course">
+  <div class="name">{{ course.title }}</div>
   <div class="last-updated"></div>
 
   <ng-container [ngTemplateOutlet]="dropdown"></ng-container>
@@ -12,82 +12,20 @@
     }}
     <div>·</div>
     <div class="course-status">
-      {{ (course?.isPublic ? "LABEL.PUBLIC" : "LABEL.PRIVATE") | translate }}
+      {{ (course.isPublic ? "LABEL.PUBLIC" : "LABEL.PRIVATE") | translate }}
     </div>
     <div>·</div>
     <div class="course-status">
       {{
         "SIGNATURE.MONEY_VALUE"
-          | translate : { value: course?.price ?? 0 | currencyExchange }
+          | translate : { value: course.price | currencyExchange }
       }}
     </div>
   </div>
 
-  <div class="stats-ctn">
-    <div class="stats-number-section" *ngFor="let stat of statsItem">
-      <div class="label">{{ stat.label | translate }}</div>
-      <div class="value">
-        {{ course?.[stat.index]?.toLocaleString() }}
-        <fa-icon [icon]="stat.icon"></fa-icon>
-      </div>
-    </div>
-  </div>
-
-  <div class="chart-ctn">
-    <div class="title">{{ "LABEL.STATISTICS_OVERTIME" | translate }}</div>
-    <canvas baseChart [data]="chartData" [options]="chartOptions" type="line">
-    </canvas>
-  </div>
-
-  <div class="section">
-    <div class="label">{{ "LABEL.REVIEWS" | translate }}</div>
-    <div class="other-info">
-      <div class="time">
-        {{
-          "LABEL.RATING_VALUE"
-            | translate : { value: course?.totalReview?.toLocaleString() }
-        }}
-      </div>
-    </div>
-    <div class="value">---</div>
-  </div>
-
-  <div class="section">
-    <div class="label">{{ "LABEL.STAGES" | translate }}</div>
-    <div class="other-info">
-      <!-- <div class="time">
-        {{ "LABEL.TOTAL_TIME_IN_HOUR" | translate : { hour: course?.totalTime  } }}
-      </div> -->
-      <div>·</div>
-      <div class="lesson">
-        {{ "LABEL.TOTAL_LESSONS" | translate : { lesson: course?.listLesson?.length } }}
-      </div>
-    </div>
-    <div class="sections-ctn">
-      <!-- <app-course-section
-        *ngFor="let stage of course?.listLesson; let i = index"
-        [index]="i"
-        [stage]="stage"
-      ></app-course-section> -->
-    </div>
-  </div>
-
-  <div class="section">
-    <div class="label">{{ "LABEL.REQUIREMENTS" | translate }}</div>
-    <ol>
-      <li *ngFor="let item of course?.requirementList">{{ item }}</li>
-    </ol>
-  </div>
-
-  <div class="section">
-    <div class="label">{{ "LABEL.DESCRIPTION" | translate }}</div>
-    <div class="value">{{ course?.description }}</div>
-  </div>
-
-  <div class="section">
-    <div class="label">{{ "LABEL.THUMBNAIL" | translate }}</div>
-    <img class="thumbnail" [src]="course?.photoUrl" />
-  </div>
+  <ng-container
+    [ngTemplateOutlet]="isViewAllReviews ? viewReviews : viewDetails"
+  ></ng-container>
 </div>
 
 <ng-template #dropdown>
@@ -114,5 +52,106 @@
         {{ opt.label | translate }}
       </div>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #viewReviews>
+  <div class="back" (click)="onViewMoreFeedbacks()">
+    <fa-icon [icon]="backIcon"></fa-icon>{{ "LABEL.BACK" | translate }}
+  </div>
+  <div class="section" *ngIf="course">
+    <div class="label">
+      {{ "LABEL.REVIEWS" | translate }}
+    </div>
+    <div class="other-info" style="margin-bottom: 8px">
+      <div class="time">
+        {{
+          "LABEL.REVIEWS_COUNT"
+            | translate : { value: course.totalReview.toLocaleString() }
+        }}
+      </div>
+    </div>
+    <app-reviews-list [reviews]="allReviews"></app-reviews-list>
+  </div>
+</ng-template>
+
+<ng-template #viewDetails>
+  <div class="stats-ctn" *ngIf="course">
+    <div class="stats-number-section" *ngFor="let stat of statsItem">
+      <div class="label">{{ stat.label | translate }}</div>
+      <div class="value">
+        {{ course[stat.index]?.toLocaleString() }}
+        <fa-icon [icon]="stat.icon"></fa-icon>
+      </div>
+    </div>
+  </div>
+
+  <div class="chart-ctn">
+    <div class="title">
+      {{ "LABEL.STATISTICS_OVERTIME" | translate }}
+    </div>
+    <app-line-chart
+      [labels]="chartLabels"
+      [dataSet]="chartDatasets"
+    ></app-line-chart>
+  </div>
+
+  <div class="section" *ngIf="course">
+    <div class="label">
+      {{ "LABEL.REVIEWS" | translate }}
+      <div class="view-more" (click)="onViewMoreFeedbacks()">
+        {{ "LABEL.VIEW_MORE" | translate }}
+        <fa-icon [icon]="moreIcon"></fa-icon>
+      </div>
+    </div>
+    <div class="other-info" style="margin-bottom: 8px">
+      <div class="time">
+        {{
+          "LABEL.REVIEWS_COUNT"
+            | translate : { value: course.totalReview.toLocaleString() }
+        }}
+      </div>
+    </div>
+    <app-reviews-list [reviews]="reviews"></app-reviews-list>
+  </div>
+
+  <div class="section" *ngIf="course">
+    <div class="label">{{ "LABEL.STAGES" | translate }}</div>
+    <div class="other-info">
+      <div class="time">
+        {{ "LABEL.MINUTES" | translate : { value: course.totalTime } }}
+      </div>
+      <div>·</div>
+      <div class="lesson">
+        {{
+          "LABEL.TOTAL_LESSONS"
+            | translate : { lesson: course.listLesson.length }
+        }}
+      </div>
+    </div>
+    <div class="sections-ctn">
+      <app-course-section
+        *ngFor="let lesson of course?.listLesson; let i = index"
+        [index]="i"
+        [lesson]="lesson"
+      ></app-course-section>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="label">{{ "LABEL.REQUIREMENTS" | translate }}</div>
+    <ol>
+      <li *ngFor="let item of course?.requirementList">{{ item }}</li>
+    </ol>
+  </div>
+
+  <div class="section" *ngIf="course">
+    <div class="label">{{ "LABEL.DESCRIPTION" | translate }}</div>
+    <div class="value">{{ course.description }}</div>
+  </div>
+
+  <div class="section" *ngIf="course">
+    <div class="label">{{ "LABEL.THUMBNAIL" | translate }}</div>
+    <img class="thumbnail" [src]="course.photoUrl" />
   </div>
 </ng-template>

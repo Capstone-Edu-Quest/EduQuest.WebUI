@@ -27,7 +27,7 @@ export class CreateDocumentComponent implements OnInit, OnDestroy {
   isEdit: boolean = false;
 
   material: IMaterialCreate<IDocument> | IMaterial<IDocument> = {
-    name: '',
+    title: '',
     description: '',
     type: 'Document',
     data: {
@@ -57,7 +57,7 @@ export class CreateDocumentComponent implements OnInit, OnDestroy {
     // this.material = this.materialService.getMaterial(docId);
     this.material = {
       id: '1',
-      name: '',
+      title: '',
       description: '',
       type: 'Document',
       data: {

@@ -19,7 +19,7 @@ export class MaterialsDocumentComponent implements OnInit {
   documentMaterials: IMaterial<IDocument>[] = [
     {
       id: 'doc-001',
-      name: 'Introduction to TypeScript',
+      title: 'Introduction to TypeScript',
       description: 'A beginner-friendly introduction to TypeScript.',
       type: 'Document',
       data: {
@@ -29,7 +29,7 @@ export class MaterialsDocumentComponent implements OnInit {
     },
     {
       id: 'doc-002',
-      name: 'Angular Basics',
+      title: 'Angular Basics',
       description:
         'Understanding components, modules, and services in Angular.',
       type: 'Document',
@@ -40,7 +40,7 @@ export class MaterialsDocumentComponent implements OnInit {
     },
     {
       id: 'doc-003',
-      name: 'Web Security Essentials',
+      title: 'Web Security Essentials',
       description: 'Learn the fundamentals of securing web applications.',
       type: 'Document',
       data: {

@@ -24,7 +24,7 @@ export class MaterialsQuizComponent implements OnInit {
   quizMaterials: IMaterial<IQuiz>[] = [
     {
       id: 'quiz-1',
-      name: 'JavaScript Basics',
+      title: 'JavaScript Basics',
       description: 'A quiz to test your fundamental JavaScript knowledge.',
       type: 'Quiz',
       data: {
@@ -56,7 +56,7 @@ export class MaterialsQuizComponent implements OnInit {
     },
     {
       id: 'quiz-2',
-      name: 'Angular Fundamentals',
+      title: 'Angular Fundamentals',
       description: 'Test your knowledge of Angular framework basics.',
       type: 'Quiz',
       data: {
@@ -90,7 +90,7 @@ export class MaterialsQuizComponent implements OnInit {
     },
     {
       id: 'quiz-3',
-      name: 'TypeScript Essentials',
+      title: 'TypeScript Essentials',
       description: 'Check your understanding of TypeScript concepts.',
       type: 'Quiz',
       data: {

@@ -16,6 +16,8 @@ export const endPoints = {
   getCourseById: 'course/byCourseId',
   getMyCourse: 'course/createdByMe',
   getStudyingCourse: 'course/studying',
+  courseStatsOverview: 'course/courseStatisticOverview',
+  courseDetaialsForInstructor: 'course/courseDetailForInstructor',
 
   material: 'material',
 
@@ -26,7 +28,7 @@ export const endPoints = {
 
   favoriteList: 'favoriteList',
 
-  feedback: 'feedback',
+  review: 'feedback',
 
   learningPath: 'learningPath',
   myLearningPath: 'learningPath/my',

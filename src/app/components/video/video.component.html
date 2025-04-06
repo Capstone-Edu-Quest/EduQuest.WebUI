@@ -16,6 +16,7 @@
     (playing)="hideLoading()"
     (pause)="hideLoading()"
     (progress)="checkBuffered()"
+    (error)="onHandleVideoError()"
   >
     <source
       *ngFor="let source of sources"

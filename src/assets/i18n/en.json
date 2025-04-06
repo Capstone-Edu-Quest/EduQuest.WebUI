@@ -328,7 +328,8 @@
     "VIDEOS": "Videos",
     "VIDEOS_DESCRIPTION": "Total {{value}} videos",
     "DOCUMENTS": "Documents",
-    "DOCUMENTS_DESCRIPTION": "Total {{value}} documents",
+    "DOCUMENT": "Documents",
+    "DOCUMENT_DESCRIPTION": "Total {{value}} documents",
     "QUIZ": "Quizzes",
     "QUIZ_DESCRIPTION": "Total {{value}} quizzes",
     "ASSIGNMENT": "Assignments",
@@ -603,7 +604,8 @@
     "SELECT_LEARNING_PATH": "Select learning path to add:",
     "ADD_LEARNING_PATH": "Add new learning path",
     "NEW_LEARNING_PATH_NAME": "New learning path name",
-    "ADDED": "Added"
+    "ADDED": "Added",
+    "VIEW_MORE": "View more"
   },
   "MESSAGE": {
     "ADDED_SUCCESSFULLY": "Added successfully",

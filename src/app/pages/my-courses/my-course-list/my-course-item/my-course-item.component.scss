@@ -3,7 +3,7 @@
   width: 100%;
   height: 100%;
   border-radius: 15px;
-//   overflow: hidden;
+  overflow: hidden;
   background: var(--primary-bg);
   transition: all 0.1s linear;
   cursor: pointer;
@@ -109,7 +109,7 @@
   .option {
     position: absolute;
     right: 12px;
-    bottom: 6px;
+    top: 12px;
     display: flex;
     align-items: center;
     gap: 3px;

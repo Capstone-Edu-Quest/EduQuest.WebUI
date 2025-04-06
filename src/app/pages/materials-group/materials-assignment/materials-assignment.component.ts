@@ -26,7 +26,7 @@ export class MaterialsAssignmentComponent implements OnInit {
   materials: IMaterial<IAssignment>[] = [
     {
       id: '1',
-      name: 'JavaScript Basics',
+      title: 'JavaScript Basics',
       description: 'An assignment on fundamental JavaScript syntax.',
       type: 'Assignment',
       data: {
@@ -38,7 +38,7 @@ export class MaterialsAssignmentComponent implements OnInit {
     },
     {
       id: '2',
-      name: 'Python Loops',
+      title: 'Python Loops',
       description: 'Practice problem on loops in Python.',
       type: 'Assignment',
       data: {
@@ -51,7 +51,7 @@ export class MaterialsAssignmentComponent implements OnInit {
     },
     {
       id: '3',
-      name: 'TypeScript Interfaces',
+      title: 'TypeScript Interfaces',
       description: 'Understanding TypeScript interfaces and how to use them.',
       type: 'Assignment',
       data: {
@@ -64,7 +64,7 @@ export class MaterialsAssignmentComponent implements OnInit {
     },
     {
       id: '4',
-      name: 'Writing a Summary',
+      title: 'Writing a Summary',
       description: 'Practice writing a short summary on a given topic.',
       type: 'Assignment',
       data: {

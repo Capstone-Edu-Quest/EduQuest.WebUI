@@ -1,0 +1,9 @@
+.reviews-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  app-review-item {
+    min-width: calc(100% / 2 - 8px);
+  }
+}
