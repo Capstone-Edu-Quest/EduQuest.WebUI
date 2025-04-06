@@ -3,7 +3,7 @@
     <img [src]="review.createdBy.avatarUrl" />
     <div class="info">
       <div class="name">{{ review.createdBy.username }}</div>
-      <div class="time">10/03/2025</div>
+      <div class="time">{{'SIGNATURE.DATE_FORMAT' | translate:getTime()}}</div>
     </div>
   </div>
 

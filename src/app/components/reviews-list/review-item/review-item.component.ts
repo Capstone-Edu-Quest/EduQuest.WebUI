@@ -1,11 +1,9 @@
 import { IReview } from '@/src/app/shared/interfaces/course.interfaces';
 import { Component, Input, type OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import {
-  faStar,
-  faStarHalfStroke,
-} from '@fortawesome/free-solid-svg-icons';
+import { faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
+import { formatTime } from '@/src/app/core/utils/time.utils';
 
 @Component({
   selector: 'app-review-item',
@@ -15,7 +13,7 @@ import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 export class ReviewItemComponent implements OnInit {
   @Input('review') review!: IReview;
 
-  starsList: any[] = []
+  starsList: any[] = [];
 
   star = faStar;
   starNone = faStarRegular;
@@ -27,9 +25,9 @@ export class ReviewItemComponent implements OnInit {
   }
 
   onViewProfile() {
-    if(!this.review) return;
+    if (!this.review) return;
 
-    this.router.navigate(['profile', this.review.createdBy.id])
+    this.router.navigate(['profile', this.review.createdBy.id]);
   }
 
   initStars() {
@@ -46,4 +44,12 @@ export class ReviewItemComponent implements OnInit {
       });
   }
 
+  getTime() {
+    const [date, month, year] = formatTime(this.review.createdAt).split('/');
+    return {
+      date,
+      month,
+      year,
+    };
+  }
 }
