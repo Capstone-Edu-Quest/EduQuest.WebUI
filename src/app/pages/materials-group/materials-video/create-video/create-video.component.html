@@ -8,8 +8,8 @@
         dragOver: isDragOverImgInput
       }"
       [ngStyle]="{
-        aspectRatio: material.data.url === '' && !uploadedFile ? '16/9' : 'unset',
-        borderWidth: material.data.url === '' && !uploadedFile ? '1px' : '0px'
+        aspectRatio: material.videoRequest?.urlMaterial === '' && !uploadedFile ? '16/9' : 'unset',
+        borderWidth: material.videoRequest?.urlMaterial === '' && !uploadedFile ? '1px' : '0px'
       }"
       (click)="onClickAddVideo()"
       (dragover)="onDragOver($event)"
@@ -20,7 +20,7 @@
         class="instruction"
         *ngIf="
           !uploadedFile &&
-          material.data.url === ''
+          material.videoRequest?.urlMaterial === ''
         "
       >
         <input
@@ -34,16 +34,16 @@
       </div>
 
       <app-video
-        *ngIf="material.data.url !== '' || uploadedFile"
-        [sources]="[{ url: uploadedFile ? uploadedFile.url : material.data.url, label: '1080p' }]"
+        *ngIf="material.videoRequest?.urlMaterial !== '' || uploadedFile"
+        [sources]="[{ url: uploadedFile ? uploadedFile.url : material.videoRequest?.urlMaterial ?? '', label: '1080p' }]"
         [defaultSpeed]="1.0"
-        [onLoad]="onLoadedVideo"
+        (onLoad)="onLoadedVideo($event)"
       ></app-video>
       <app-button
         (click)="onRemoveVideo($event)"
         class="remove-image-btn"
         type="danger"
-        *ngIf="material.data.url !== '' || uploadedFile"
+        *ngIf="material.videoRequest?.urlMaterial !== '' || uploadedFile"
         >{{ "BUTTON.REMOVE_VIDEO" | translate }}</app-button
       >
     </div>
@@ -64,10 +64,10 @@
     rows="4"
   ></textarea>
 
-  <div class="input-label">{{ "LABEL.FAST_QUESTIONS" | translate }}</div>
-  <div class="input-label-sub">{{ "LABEL.FAST_SUB" | translate }}</div>
+  <!-- <div class="input-label">{{ "LABEL.FAST_QUESTIONS" | translate }}</div>
+  <div class="input-label-sub">{{ "LABEL.FAST_SUB" | translate }}</div> -->
 
-  <div class="questions">
+  <!-- <div class="questions">
     <div
       class="question"
       *ngFor="let q of material.data.questions; let i = index"
@@ -81,11 +81,11 @@
         ></fa-icon>
       </div>
 
-      <!-- Answers container -->
+
       <div class="answers">
-        <!-- Each Answer -->
+
         <div class="answer" *ngFor="let a of q.answers; let z = index">
-          <!-- Icon check -> set correct state -->
+
           <fa-icon
             [ngClass]="{
               correct: a.isCorrect
@@ -94,10 +94,10 @@
             [icon]="correctIcon"
             (click)="onSetCorrectAnswer(i, z)"
           ></fa-icon>
-          <!-- Answer -->
+
           <div class="id">{{ getQuestionAlphabet(z) }}.</div>
           <input [(ngModel)]="q.answers[z].answer" />
-          <!-- Remove answer btn -->
+
           <fa-icon
             class="remove"
             [icon]="removeIcon"
@@ -105,17 +105,17 @@
           ></fa-icon>
         </div>
       </div>
-      <!-- Add answer btn -->
+
       <div class="add add-answer" (click)="onAddFQAnswer(i)">
         <fa-icon [icon]="addIcon"></fa-icon>{{ "LABEL.ADD_ANSWER" | translate }}
       </div>
     </div>
 
-    <!-- Add Question Btn -->
+
     <div class="add" (click)="onAddFastQuestion()">
       <fa-icon [icon]="addIcon"></fa-icon>{{ "LABEL.ADD_QUESTION" | translate }}
     </div>
-  </div>
+  </div> -->
 
   <div class="btn-ctn">
     <app-button [style]="{ width: '100%' }" (click)="onCancel()">

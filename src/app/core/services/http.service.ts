@@ -35,6 +35,17 @@ export class HttpService {
       .pipe(this.handleResponse<TPayload>());
   }
 
+  upload<TPayload>(
+    endpoint: string,
+    data: any
+  ): Observable<BaseReponse<TPayload> | undefined> {
+    this.loading.addLoading();
+    const url = `${this.apiUrl}/${endpoint}`;
+    return this.http
+      .post<BaseReponse<TPayload>>(url, data, { headers: this.getFormDataHeaders() })
+      .pipe(this.handleResponse<TPayload>());
+  }
+
   get<TPayload>(
     endpoint: string
   ): Observable<BaseReponse<TPayload> | undefined> {
@@ -77,6 +88,12 @@ export class HttpService {
   private getHeaders(): any {
     return {
       'Content-Type': 'application/json',
+      Authorization: `Bearer ${this.storage.getCookie(TokenEnum.ACCESS_TOKEN)}`,
+    };
+  }
+
+  private getFormDataHeaders(): any {
+    return {
       Authorization: `Bearer ${this.storage.getCookie(TokenEnum.ACCESS_TOKEN)}`,
     };
   }

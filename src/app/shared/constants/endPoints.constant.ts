@@ -20,6 +20,7 @@ export const endPoints = {
   courseDetaialsForInstructor: 'course/courseDetailForInstructor',
 
   material: 'material',
+  uploadVideo: 'material/uploadVideo',
 
   coupon: 'coupon',
 
@@ -54,6 +55,7 @@ export const endPoints = {
 
   webUserStatistic: 'webStatistic/user',
   webOverallStatistic: 'webStatistic/overall',
+  platformSettingStatistic: 'webStatistic/platform/setting',
 
   shopitem: 'shopItem',
   equipItem: 'mascot/equip',

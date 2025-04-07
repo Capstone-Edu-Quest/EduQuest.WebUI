@@ -38,7 +38,7 @@ export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() sources: { url: string; label: string }[] = [];
   @Input() defaultSpeed: number = 1.0;
-  @Input() onLoad: (initState: any) => void = () => {};
+  @Output() onLoad: EventEmitter<any> = new EventEmitter();
 
   @Output() speedChange = new EventEmitter<number>();
   @Output() qualityChange = new EventEmitter<string>();
@@ -115,7 +115,7 @@ export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
           volume: this.currentVolume,
           isMuted: this.isMuted,
         };
-        this.onLoad(initState);
+        this.onLoad.emit(initState);
       })
     );
 

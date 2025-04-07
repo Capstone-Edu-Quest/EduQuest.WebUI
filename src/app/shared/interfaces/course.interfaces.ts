@@ -1,4 +1,8 @@
-import { CourseSortEnum, MissionStatus } from '../enums/course.enum';
+import {
+  CourseSortEnum,
+  MaterialTypeEnum,
+  MissionStatus,
+} from '../enums/course.enum';
 import { AssignmentLanguageEnum } from '../enums/materials.enum';
 import { IUserStat } from './user.interfaces';
 
@@ -354,4 +358,44 @@ export interface IMyCourseChartsStats {
   coursesReview: { time: string; count: string }[];
   learnerStatus: { status: string; count: string }[];
   topCourseInfo: { ttile: string; ratingCount: number; learnerCount: number }[];
+}
+
+export interface ILearningMaterial {
+  type: MaterialTypeEnum;
+  title: string;
+  description: string;
+  videoRequest?: VideoRequest;
+  content?: string;
+  quizRequest?: QuizRequest;
+  assignmentRequest?: AssignmentRequest;
+}
+
+interface VideoRequest {
+  urlMaterial: string;
+  duration?: number;
+  thumbnail?: string;
+}
+
+interface QuizRequest {
+  timeLimit: number;
+  passingPercentage: number;
+  questionRequest: QuestionRequest[];
+}
+
+interface QuestionRequest {
+  questionTitle: string;
+  multipleAnswers: boolean;
+  answerRequest: AnswerRequest[];
+}
+
+interface AnswerRequest {
+  answerContent: string;
+  isCorrect: boolean;
+}
+
+interface AssignmentRequest {
+  timeLimit?: number;
+  question?: string;
+  answerLanguage?: string;
+  expectedAnswer?: string;
 }

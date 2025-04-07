@@ -39,6 +39,10 @@ export class MaterialsVideoComponent implements OnInit, OnDestroy {
     );
   }
 
+  getVideoTime(time: number) {
+    return Math.ceil(time)
+  }
+
   onCreate() {
     this.router.navigate(['/materials/videos/new']);
   }

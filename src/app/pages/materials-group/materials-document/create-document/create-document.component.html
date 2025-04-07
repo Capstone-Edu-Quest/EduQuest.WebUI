@@ -1,7 +1,22 @@
 <div class="create-document">
   <div class="title text-gradient">{{ "LABEL.DOCUMENTS" | translate }}</div>
 
-  <app-text-editor #textEditor [htmlContent]="material.data.content" ></app-text-editor>
+  <div class="input-label">{{ "LABEL.MATERIAL_NAME" | translate }}</div>
+  <input
+    class="material-input material-name"
+    [placeholder]="'LABEL.MATERIAL_NAME' | translate"
+    [(ngModel)]="material.title"
+  />
+
+  <div class="input-label">{{ "LABEL.MATERIAL_DESCRIPTION" | translate }}</div>
+  <textarea
+    class="material-input material-description"
+    [placeholder]="'LABEL.MATERIAL_DESCRIPTION' | translate"
+    [(ngModel)]="material.description"
+    rows="4"
+  ></textarea>
+
+  <app-text-editor *ngIf="material.content" #textEditor [htmlContent]="material.content" ></app-text-editor>
 
   <div class="btn-ctn">
     <app-button [style]="{ width: '100%' }" (click)="onCancel()">

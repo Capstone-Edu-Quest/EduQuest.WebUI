@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import {
   IAssignment,
+  ILearningMaterial,
   IMaterial,
   IMaterialCreate,
 } from '../../../../shared/interfaces/course.interfaces';
@@ -11,6 +12,8 @@ import { AssignmentLanguageEnum } from '../../../../shared/enums/materials.enum'
 import { faAngleLeft, faClose, faPlay, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { MessageService } from '../../../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
+import { MaterialTypeEnum } from '@/src/app/shared/enums/course.enum';
+import { CoursesService } from '@/src/app/core/services/courses.service';
 
 @Component({
   selector: 'app-create-assignment',
@@ -24,16 +27,16 @@ export class CreateAssignmentComponent implements OnInit, OnDestroy {
   isTestingAssignment: boolean = false;
 
   avaiableLangs = Object.values(AssignmentLanguageEnum);
-  material: IMaterialCreate<IAssignment> | IMaterial<IAssignment> = {
+  material: ILearningMaterial = {
     title: '',
     description: '',
-    type: 'Assignment',
-    data: {
+    type: MaterialTypeEnum.ASSIGNMENT,
+    assignmentRequest: {
+      timeLimit: 0,
       question: '',
-      answerLanguage: AssignmentLanguageEnum.TEXT,
-      expectedAnswer: null,
-      inputArguments: [],
-    },
+      answerLanguage: 'text',
+      expectedAnswer: ''
+    }
   };
 
   addIcon = faPlus;
@@ -41,7 +44,7 @@ export class CreateAssignmentComponent implements OnInit, OnDestroy {
   backIcon = faAngleLeft;
   removeIcon = faClose;
 
-  constructor(private route: ActivatedRoute, private location: Location, private message: MessageService, private translate: TranslateService) {}
+  constructor(private route: ActivatedRoute, private location: Location, private message: MessageService, private translate: TranslateService, private course: CoursesService) {}
 
   ngOnInit(): void {
     this.listenToRoute();
@@ -61,33 +64,25 @@ export class CreateAssignmentComponent implements OnInit, OnDestroy {
 
   onInitAssignment(id: string) {}
 
-  onAddArgument() {
-    this.material.data.inputArguments!.push('');
-  }
-
   onCancel() {
     this.location.back();
   }
 
-  onTestAssignment() {
-    if(!this.material.data.expectedAnswer || this.material.data.expectedAnswer?.trim() === '' || this.material.data.inputArguments.length === 0 || this.material.data.inputArguments.some(arg => arg?.trim() === '')) {
-      this.message.addMessage('error', this.translate.instant('MESSAGE.NO_EXPECTED_ANSWER_OR_ARGUMENTS'));
+  onValidate() {
+    if(!this.material.title.trim() || !this.material.description.trim() || !this.material?.assignmentRequest?.question?.trim()) {
+      this.message.addMessage('error', this.translate.instant('MESSAGE.MISSING_FIELDS'));
       return;
     }
 
-    this.isTestingAssignment = true;
-  }
-
-  trackByIdx(idx: number) {}
-
-  onRemoveArg(idx: number) {
-    this.material.data.inputArguments.splice(idx, 1);
+    return true;
   }
 
   onUpdate() {}
 
   onCreate() {
-    console.log(this.material)
+    if(!this.onValidate()) return;
+
+    this.course.createMaterial(this.material)
   }
 
   ngOnDestroy(): void {

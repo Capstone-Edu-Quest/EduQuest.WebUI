@@ -1,16 +1,6 @@
-<div class="create-assignment">
+<div class="create-assignment" *ngIf="material.assignmentRequest">
   <div class="title text-gradient">{{ "LABEL.ASSIGNMENT" | translate }}</div>
 
-  @if(isTestingAssignment) {
-  <div class="back" (click)="isTestingAssignment = false">
-    <fa-icon [icon]="backIcon"></fa-icon>{{ "LABEL.BACK" | translate }}
-  </div>
-  <app-code-editor
-    [language]="material.data.answerLanguage"
-    [arguments]="material.data.inputArguments || []"
-    [expectedAnswer]="material.data.expectedAnswer"
-  ></app-code-editor>
-  } @else {
   <div class="input-label">{{ "LABEL.MATERIAL_NAME" | translate }}</div>
   <input
     class="material-input material-name"
@@ -26,72 +16,25 @@
     rows="4"
   ></textarea>
 
-  <!-- <div class="input-label">
-    {{ "LABEL.ASSIGNMENT_ANSWER_LANGUAGE" | translate }}
-  </div>
-  <div class="input-label-sub">
-    {{ "LABEL.ASSIGNMENT_ANSWER_LANGUAGE_SUB" | translate }}
-  </div>
-  <select [(ngModel)]="material.data.answerLanguage">
-    <option *ngFor="let lang of avaiableLangs" [value]="lang">
-      {{ lang }}
-    </option>
-  </select> -->
-<!-- 
-  @if(material.data.answerLanguage !== 'Text') {
-  <div class="input-label">
-    {{ "LABEL.ASSIGNMENT_INPUT_ARGUMENT" | translate }}
-  </div>
-  <div class="input-label-sub">
-    {{ "LABEL.ASSIGNMENT_INPUT_ARGUMENT_SUB" | translate }}
-  </div>
-  <div class="args-ctn">
-    <div
-      class="arg-input-wrapper"
-      *ngFor="
-        let arg of material.data.inputArguments;
-        let i = index;
-        trackBy: trackByIdx
-      "
-    >
-      <input
-        class="material-input material-name"
-        [placeholder]="
-          ('LABEL.ASSIGNMENT_INPUT_ARGUMENT' | translate) + ' ' + (i + 1)
-        "
-        [(ngModel)]="material.data.inputArguments[i]"
-      />
-      <fa-icon [icon]="removeIcon" (click)="onRemoveArg(i)"></fa-icon>
-    </div>
-    <div class="add" (click)="onAddArgument()">
-      <fa-icon [icon]="addIcon"></fa-icon>{{ "LABEL.ADD_ARGUMENT" | translate }}
-    </div>
-  </div>
-
-  <div class="input-label">
-    {{ "LABEL.ASSIGNMENT_EXPECTED_ANSWER" | translate }}
-  </div>
-  <div class="input-label-sub">
-    {{ "LABEL.ASSIGNMENT_EXPECTED_ANSWER_SUB" | translate }}
-  </div>
+  <div class="input-label">{{ "LABEL.QUESTION" | translate }}</div>
   <input
     class="material-input material-name"
-    [placeholder]="'LABEL.ASSIGNMENT_EXPECTED_ANSWER' | translate"
-    [(ngModel)]="material.data.expectedAnswer"
+    [placeholder]="'LABEL.QUESTION' | translate"
+    [(ngModel)]="material.assignmentRequest.question"
   />
-  } -->
+
+  <div class="input-label">{{ "LABEL.TIME_LIMIT" | translate }}</div>
+  <div class="input-label-sub">{{ "LABEL.TIME_LIMIT_SUB" | translate }}</div>
+  <input
+    class="material-input material-name"
+    [placeholder]="'LABEL.TIME_LIMIT' | translate"
+    [(ngModel)]="material.assignmentRequest.timeLimit"
+    type="number"
+  />
 
   <div class="btn-ctn">
     <app-button [style]="{ width: '100%' }" (click)="onCancel()">
       {{ "BUTTON.CANCEL" | translate }}
-    </app-button>
-    <app-button
-      *ngIf="this.material.data.answerLanguage !== 'Text'"
-      [style]="{ width: '100%' }"
-      (click)="onTestAssignment()"
-    >
-      <fa-icon [icon]="playIcon"></fa-icon>
-      {{ "BUTTON.TEST_ASSIGNMENT" | translate }}
     </app-button>
     <app-button
       [style]="{ width: '100%' }"
@@ -103,5 +46,4 @@
       }}</app-button
     >
   </div>
-  }
 </div>

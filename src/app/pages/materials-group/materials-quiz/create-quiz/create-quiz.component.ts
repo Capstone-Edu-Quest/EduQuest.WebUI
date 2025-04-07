@@ -3,14 +3,14 @@ import { Component, OnDestroy, type OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import {
-  IMaterial,
-  IMaterialCreate,
-  IQuiz,
+  ILearningMaterial,
 } from '../../../../shared/interfaces/course.interfaces';
 import { faCheck, faClose, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { getAlphabetByIndex } from '../../../../core/utils/quiz.utils';
 import { MessageService } from '../../../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
+import { MaterialTypeEnum } from '@/src/app/shared/enums/course.enum';
+import { CoursesService } from '@/src/app/core/services/courses.service';
 
 @Component({
   selector: 'app-create-quiz',
@@ -22,15 +22,15 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
 
   isEdit: boolean = false;
 
-  material: IMaterial<IQuiz> | IMaterialCreate<IQuiz> = {
+  material: ILearningMaterial = {
     title: '',
     description: '',
-    type: 'Quiz',
-    data: {
-      timeLimit: 0, // minutes
-      passingPercentages: 0,
-      questions: [],
-    },
+    type: MaterialTypeEnum.QUIZ,
+    quizRequest: {
+      timeLimit: 0,
+      passingPercentage: 0,
+      questionRequest: []
+    }
   };
 
   addIcon = faPlus;
@@ -41,7 +41,8 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private location: Location,
     private message: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private course: CoursesService
   ) {}
 
   ngOnInit(): void {
@@ -61,53 +62,21 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
   }
 
   onInitQuiz(quizId: string) {
-    // this.material = this.materialService.getMaterial(quizId);
-    this.material = {
-      id: 'quiz-3',
-      title: 'TypeScript Essentials',
-      description: 'Check your understanding of TypeScript concepts.',
-      type: 'Quiz',
-      data: {
-        timeLimit: 10,
-        passingPercentages: 60,
-        questions: [
-          {
-            id: 'q1',
-            question: 'What does the `readonly` modifier do in TypeScript?',
-            answers: [
-              {
-                id: 'a1',
-                content: 'Makes a property immutable',
-                isCorrect: true,
-              },
-              { id: 'a2', content: 'Removes the property', isCorrect: false },
-              { id: 'a3', content: 'Hides the property', isCorrect: false },
-            ],
-          },
-          {
-            id: 'q2',
-            question: 'Which type allows both numbers and strings?',
-            answers: [
-              { id: 'b1', content: 'union type', isCorrect: true },
-              { id: 'b2', content: 'any', isCorrect: false },
-              { id: 'b3', content: 'object', isCorrect: false },
-            ],
-          },
-        ],
-      },
-    };
+
   }
 
   onAddQuestion() {
-    this.material.data.questions.push({
-      question: '',
-      answers: [
+    if(!this.material.quizRequest) return;
+    this.material.quizRequest.questionRequest.push({
+      questionTitle: '',
+      multipleAnswers: false,
+      answerRequest: [
         {
-          content: '',
+          answerContent: '',
           isCorrect: false,
         },
         {
-          content: '',
+          answerContent: '',
           isCorrect: false,
         },
       ],
@@ -115,11 +84,15 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
   }
 
   onRemoveQuestion(index: number) {
-    this.material.data.questions.splice(index, 1);
+    if(!this.material.quizRequest) return;
+
+    this.material.quizRequest.questionRequest.splice(index, 1);
   }
 
   onSetCorrectAnswer(questionIndex: number, answerIndex: number) {
-    this.material.data.questions[questionIndex].answers.forEach(
+    if(!this.material.quizRequest) return;
+
+    this.material.quizRequest.questionRequest[questionIndex].answerRequest.forEach(
       (answer, idx) => {
         answer.isCorrect = idx === answerIndex;
       }
@@ -131,14 +104,16 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
   }
 
   onAddAnswer(questionIndex: number) {
-    this.material.data.questions[questionIndex].answers.push({
-      content: '',
+    if(!this.material.quizRequest) return
+    this.material.quizRequest.questionRequest[questionIndex].answerRequest.push({
+      answerContent: '',
       isCorrect: false,
     });
   }
 
   onRemoveAnswer(questionIndex: number, answerIndex: number) {
-    this.material.data.questions[questionIndex].answers.splice(answerIndex, 1);
+    if(!this.material.quizRequest) return
+    this.material.quizRequest.questionRequest[questionIndex].answerRequest.splice(answerIndex, 1);
   }
 
   onCancel() {
@@ -158,10 +133,12 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
       return;
     }
 
-    console.log(this.material);
+    this.course.createMaterial(this.material);
   }
 
   onValidate() {
+    if(!this.material.quizRequest) return
+
     if (
       this.material.title.trim() === '' ||
       this.material.description.trim() === ''
@@ -173,7 +150,7 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.material.data.timeLimit < 0) {
+    if (this.material.quizRequest.timeLimit < 0) {
       this.message.addMessage(
         'error',
         this.translate.instant('MESSAGE.INVALID_TIME_LIMIT')
@@ -181,7 +158,7 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.material.data.passingPercentages < 0) {
+    if (this.material.quizRequest.passingPercentage < 0 || this.material.quizRequest.passingPercentage > 100) {
       this.message.addMessage(
         'error',
         this.translate.instant('MESSAGE.INVALID_PASSING_PERCENTAGE')
@@ -189,7 +166,7 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
       return;
     }
 
-    if (this.material.data.questions.length < 2) {
+    if (this.material.quizRequest.questionRequest.length < 2) {
       this.message.addMessage(
         'error',
         this.translate.instant('MESSAGE.NEED_ALEAST_QUESTIONS', { value: 2 })
@@ -197,10 +174,10 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
       return;
     }
 
-    for (let i = 0; i < this.material.data.questions.length; i++) {
-      const q = this.material.data.questions[i];
+    for (let i = 0; i < this.material.quizRequest.questionRequest.length; i++) {
+      const q = this.material.quizRequest.questionRequest[i];
 
-      if (q.answers.length < 2) {
+      if (q.answerRequest.length < 2) {
         this.message.addMessage(
           'error',
           this.translate.instant('MESSAGE.NEED_ALEAST_ANSWERS', { value: 2 })
@@ -209,7 +186,7 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
       }
 
       let correctIdx = -1;
-      if (q.question.trim() === '') {
+      if (q.questionTitle.trim() === '') {
         this.message.addMessage(
           'error',
           this.translate.instant('MESSAGE.MISSING_QUESTION')
@@ -217,9 +194,9 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
         return;
       }
 
-      for (let j = 0; j < q.answers.length; j++) {
-        const a = q.answers[j];
-        if (a.content.trim() === '') {
+      for (let j = 0; j < q.answerRequest.length; j++) {
+        const a = q.answerRequest[j];
+        if (a.answerContent.trim() === '') {
           this.message.addMessage(
             'error',
             this.translate.instant('MESSAGE.MISSING_ANSWER')

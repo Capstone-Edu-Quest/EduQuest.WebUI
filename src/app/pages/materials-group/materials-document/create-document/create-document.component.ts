@@ -7,12 +7,17 @@ import {
 } from '@angular/core';
 import {
   IDocument,
+  ILearningMaterial,
   IMaterial,
   IMaterialCreate,
 } from '../../../../shared/interfaces/course.interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Location } from '@angular/common';
+import { MaterialTypeEnum } from '@/src/app/shared/enums/course.enum';
+import { MessageService } from '@/src/app/core/services/message.service';
+import { TranslateService } from '@ngx-translate/core';
+import { CoursesService } from '@/src/app/core/services/courses.service';
 
 @Component({
   selector: 'app-create-document',
@@ -26,16 +31,20 @@ export class CreateDocumentComponent implements OnInit, OnDestroy {
 
   isEdit: boolean = false;
 
-  material: IMaterialCreate<IDocument> | IMaterial<IDocument> = {
+  material: ILearningMaterial = {
     title: '',
     description: '',
-    type: 'Document',
-    data: {
-      content: '',
-    },
+    type: MaterialTypeEnum.DOCUMENT,
+    content: ' ',
   };
 
-  constructor(private route: ActivatedRoute, private location: Location) {}
+  constructor(
+    private route: ActivatedRoute,
+    private location: Location,
+    private message: MessageService,
+    private translate: TranslateService,
+    private course: CoursesService
+  ) {}
 
   ngOnInit(): void {
     this.listenToRoute();
@@ -53,32 +62,32 @@ export class CreateDocumentComponent implements OnInit, OnDestroy {
     );
   }
 
-  onInitDocument(docId: string) {
-    // this.material = this.materialService.getMaterial(docId);
-    this.material = {
-      id: '1',
-      title: '',
-      description: '',
-      type: 'Document',
-      data: {
-        content:
-          '<h1>Welcome to my Typescript document</h1><p>What is your name?</p>',
-      },
-    };
-  }
+  onInitDocument(docId: string) {}
 
   onCancel() {
     this.location.back();
   }
 
   onUpdate() {
-    this.material.data.content = (this.textEditor as any).htmlContent;
+    this.material.content = (this.textEditor as any).htmlContent;
     console.log(this.material);
   }
 
   onCreate() {
-    this.material.data.content = (this.textEditor as any).htmlContent;
-    console.log(this.material);
+    this.material.content = (this.textEditor as any).htmlContent;
+
+    if (
+      this.material.title.trim() === '' ||
+      this.material.description.trim() === ''
+    ) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.MISSING_FIELDS')
+      );
+      return;
+    }
+
+    this.course.createMaterial(this.material)
   }
 
   ngOnDestroy(): void {

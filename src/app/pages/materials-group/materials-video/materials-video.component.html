@@ -18,7 +18,7 @@
           <fa-icon [icon]="clockIcon"></fa-icon>
           <div class="duration" style="margin-left: 4px">
             {{
-              "LABEL.MINUTES" | translate : { value: material.duration }
+              "LABEL.MINUTES" | translate : { value: getVideoTime(material.duration)}
             }}
           </div>
         </div>

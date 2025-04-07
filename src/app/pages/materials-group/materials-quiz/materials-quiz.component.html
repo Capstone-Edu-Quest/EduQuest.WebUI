@@ -1,4 +1,4 @@
-<div class="material-ctn">
+<div class="material-ctn" *ngIf="materials">
   <div class="header">
     <div class="title text-gradient">
       {{ "LABEL.DOCUMENT_MATERIAL" | translate }}
@@ -10,30 +10,31 @@
   </div>
 
   <div class="material-items-ctn">
-    <div class="material-row" *ngFor="let material of quizMaterials">
+    <div class="material-row" *ngFor="let material of materials.quiz.items">
       <div class="info">
         <div class="name">{{ material.title }}</div>
         <div class="description">{{ material.description }}</div>
         <div class="add-on">
           <!-- <fa-icon [icon]="checkIcon"></fa-icon> -->
-          <div class="duration">{{ 'LABEL.OVER_PERCENTAGES' | translate:{value: material.data.passingPercentages} }}</div>
+          <div class="duration">
+            {{ "LABEL.OVER_PERCENTAGES" | translate : { value: "--no-api" } }}
+          </div>
         </div>
         <div class="add-on">
           <fa-icon [icon]="clockIcon"></fa-icon>
           <div class="duration">
-            {{
-              "LABEL.MINUTES" | translate : { value: material.data.timeLimit }
-            }}
+            {{ "LABEL.MINUTES" | translate : { value: "--no-api" } }}
           </div>
         </div>
         <div class="add-on">
-            <fa-icon [icon]="questionIcon"></fa-icon>
-            <div class="duration">
-              {{
-                "LABEL.QUESTIONS_COUNT" | translate : { value: material.data.questions.length}
-              }}
-            </div>
+          <fa-icon [icon]="questionIcon"></fa-icon>
+          <div class="duration">
+            {{
+              "LABEL.QUESTIONS_COUNT"
+                | translate : { value: material.questionCount }
+            }}
           </div>
+        </div>
       </div>
       <div class="btn-ctn">
         <fa-icon

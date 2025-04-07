@@ -6,7 +6,9 @@ import { BehaviorSubject } from 'rxjs';
 import { timeStringToSeconds } from '../utils/time.utils';
 import { MessageService } from './message.service';
 import { TranslateService } from '@ngx-translate/core';
-import { splitFileToChunks } from '../utils/data.utils';
+import { blobToBase64, splitFileToChunks } from '../utils/data.utils';
+import { HttpService } from './http.service';
+import { endPoints } from '../../shared/constants/endPoints.constant';
 
 @Injectable({
   providedIn: 'root',
@@ -22,7 +24,8 @@ export class VideoService {
   constructor(
     private firebase: FirebaseService,
     private message: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private http: HttpService
   ) {}
 
   stopCompressing() {
@@ -153,30 +156,47 @@ export class VideoService {
     return compressedFile;
   }
 
-  async uploadVideoToFirebaseStorage(
-    folder: FirebaseStorageFolder,
-    file: File,
-    fileName: string
-  ) {
-    // this.compressingProgress$.next('0.00');
-
-    // const compressedFile = await this.compressVideo(file);
-    
-    // this.ffmpeg.FS('writeFile', 'input.mp4', await fetchFile(file));
-
-    const filePath = `${folder}/${fileName}`;
-
-    this.compressingProgress$.next(null);
-    const { progress$, downloadURL$ } = this.firebase.uploadFile(
-      filePath,
-      file
-    );
-
-    return { progress$, downloadURL$ };
-  }
-
   uploadVideo(file: File) {
-    const uploadingChunks = splitFileToChunks(file);
-    console.log(uploadingChunks)
+    let uploaded = 0,
+      url: string | null = null;
+
+    const uploadingChunks = splitFileToChunks(file); 
+    const uploadProgress$: BehaviorSubject<any> = new BehaviorSubject({
+      uploaded: 0,
+      total: uploadingChunks.length,
+      isCompleted: false,
+      uploadUrl: null,
+    });
+
+    uploadingChunks.forEach((chunkData, index) => {
+      const formData = new FormData();
+      formData.append('totalChunks', String(chunkData.totalChunks));
+      formData.append('chunkIndex', String(chunkData.chunkIndex));
+      formData.append('fileId', chunkData.fileId);
+      formData.append(
+        'chunk',
+        chunkData.chunk,
+      );
+
+      this.http
+        .upload<{ url: string | null }>(endPoints.uploadVideo, formData)
+        .subscribe((res) => {
+          if (res?.isError || !res) return;
+
+          if (res.payload?.url) {
+            url = res.payload.url;
+          }
+
+          uploaded++;
+          uploadProgress$.next({
+            uploaded: uploaded,
+            total: uploadingChunks.length,
+            isCompleted: index + 1 === uploadingChunks.length,
+            uploadUrl: url,
+          });
+        });
+    });
+
+    return uploadProgress$;
   }
 }

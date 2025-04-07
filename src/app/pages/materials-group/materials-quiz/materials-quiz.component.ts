@@ -1,130 +1,44 @@
-import { Component, type OnInit } from '@angular/core';
+import { Component, OnDestroy, type OnInit } from '@angular/core';
 import {
   faPen,
   faPlus,
   faQuestion,
   faTrash,
 } from '@fortawesome/free-solid-svg-icons';
-import { IMaterial, IQuiz } from '../../../shared/interfaces/course.interfaces';
+import { IMaterial, IMaterialResponse, IQuiz } from '../../../shared/interfaces/course.interfaces';
 import { faClock } from '@fortawesome/free-regular-svg-icons';
 import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
+import { CoursesService } from '@/src/app/core/services/courses.service';
 
 @Component({
   selector: 'app-materials-quiz',
   templateUrl: './materials-quiz.component.html',
   styleUrl: './materials-quiz.component.scss',
 })
-export class MaterialsQuizComponent implements OnInit {
+export class MaterialsQuizComponent implements OnInit, OnDestroy {
+  subscription$: Subscription = new Subscription();
   addIcon = faPlus;
   editIcon = faPen;
   deleteIcon = faTrash;
   clockIcon = faClock;
   questionIcon = faQuestion;
 
-  quizMaterials: IMaterial<IQuiz>[] = [
-    {
-      id: 'quiz-1',
-      title: 'JavaScript Basics',
-      description: 'A quiz to test your fundamental JavaScript knowledge.',
-      type: 'Quiz',
-      data: {
-        timeLimit: 15, // minutes
-        passingPercentages: 70,
-        questions: [
-          {
-            id: 'q1',
-            question: 'What is the output of `console.log(typeof null)`?',
-            answers: [
-              { id: 'a', content: "'null'", isCorrect: false },
-              { id: 'b', content: "'object'", isCorrect: false },
-              { id: 'c', content: "'undefined'", isCorrect: false },
-              { id: 'd', content: "'string'", isCorrect: true },
-            ],
-          },
-          {
-            id: 'q2',
-            question: 'Which keyword is used to declare a variable in ES6?',
-            answers: [
-              { id: 'a', content: "'null'", isCorrect: false },
-              { id: 'b', content: "'object'", isCorrect: false },
-              { id: 'c', content: "'undefined'", isCorrect: false },
-              { id: 'd', content: "'string'", isCorrect: true },
-            ],
-          },
-        ],
-      },
-    },
-    {
-      id: 'quiz-2',
-      title: 'Angular Fundamentals',
-      description: 'Test your knowledge of Angular framework basics.',
-      type: 'Quiz',
-      data: {
-        timeLimit: 20,
-        passingPercentages: 75,
-        questions: [
-          {
-            id: 'q1',
-            question:
-              'Which directive is used for looping through an array in Angular?',
-            answers: [
-              { id: 'a', content: "'null'", isCorrect: false },
-              { id: 'b', content: "'object'", isCorrect: false },
-              { id: 'c', content: "'undefined'", isCorrect: false },
-              { id: 'd', content: "'string'", isCorrect: true },
-            ],
-          },
-          {
-            id: 'q2',
-            question:
-              'What is the default change detection strategy in Angular?',
-            answers: [
-              { id: 'a', content: "'null'", isCorrect: false },
-              { id: 'b', content: "'object'", isCorrect: false },
-              { id: 'c', content: "'undefined'", isCorrect: false },
-              { id: 'd', content: "'string'", isCorrect: true },
-            ],
-          },
-        ],
-      },
-    },
-    {
-      id: 'quiz-3',
-      title: 'TypeScript Essentials',
-      description: 'Check your understanding of TypeScript concepts.',
-      type: 'Quiz',
-      data: {
-        timeLimit: 10,
-        passingPercentages: 80,
-        questions: [
-          {
-            id: 'q1',
-            question: 'What does the `readonly` modifier do in TypeScript?',
-            answers: [
-              { id: 'a', content: "'null'", isCorrect: false },
-              { id: 'b', content: "'object'", isCorrect: false },
-              { id: 'c', content: "'undefined'", isCorrect: false },
-              { id: 'd', content: "'string'", isCorrect: true },
-            ],
-          },
-          {
-            id: 'q2',
-            question: 'Which type allows both numbers and strings?',
-            answers: [
-              { id: 'a', content: "'null'", isCorrect: false },
-              { id: 'b', content: "'object'", isCorrect: false },
-              { id: 'c', content: "'undefined'", isCorrect: false },
-              { id: 'd', content: "'string'", isCorrect: true },
-            ],
-          },
-        ],
-      },
-    },
-  ];
+  constructor(private router: Router, private course: CoursesService) {}
 
-  constructor(private router: Router) {}
+  materials: IMaterialResponse | null = null;
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.listenToMaterialsList();
+  }
+
+  listenToMaterialsList() {
+    this.subscription$.add(
+      this.course.myMaterials$.subscribe((materials) => {
+        this.materials = materials;
+      })
+    );
+  }
 
   onCreate() {
     this.router.navigate(['materials', 'quiz', 'new']);
@@ -137,5 +51,9 @@ export class MaterialsQuizComponent implements OnInit {
 
   onDelete(e: Event, id: string) {
     e.stopPropagation();
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
   }
 }

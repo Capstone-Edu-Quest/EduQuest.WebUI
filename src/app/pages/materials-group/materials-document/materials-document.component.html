@@ -1,4 +1,4 @@
-<div class="material-ctn">
+<div class="material-ctn" *ngIf="materials">
   <div class="header">
     <div class="title text-gradient">
       {{ "LABEL.DOCUMENT_MATERIAL" | translate }}
@@ -10,7 +10,7 @@
   </div>
 
   <div class="material-items-ctn">
-    <div class="material-row" *ngFor="let material of documentMaterials">
+    <div class="material-row" *ngFor="let material of materials.document.items">
       <div class="info">
         <div class="name">{{ material.title }}</div>
         <div class="description">{{ material.description }}</div>

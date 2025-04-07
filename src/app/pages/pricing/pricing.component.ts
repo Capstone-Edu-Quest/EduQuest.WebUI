@@ -56,8 +56,6 @@ export class PricingComponent implements OnInit, OnDestroy {
       this.featuresDescriptionValues = res.payload.find(
         (p) => p.name === SubscribtionNameEnum.NUMBERS
       )?.data;
-
-      console.log(this.packagePrice, this.featuresDescriptionValues)
     });
   }
 

@@ -1,5 +1,4 @@
 import { VideoService } from './../../../../core/services/video.service';
-import { UserService } from './../../../../core/services/user.service';
 import {
   Component,
   ElementRef,
@@ -9,25 +8,20 @@ import {
 } from '@angular/core';
 import { MessageService } from '../../../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
-import { FirebaseService } from '../../../../core/services/firebase.service';
 import {
   faCheck,
   faPlus,
   faRemove,
   faVideo,
 } from '@fortawesome/free-solid-svg-icons';
-import { FirebaseStorageFolder } from '../../../../shared/enums/firebase.enum';
 import { Subscription } from 'rxjs';
 import { IUser } from '../../../../shared/interfaces/user.interfaces';
-import {
-  IMaterial,
-  IMaterialCreate,
-  IVideo,
-} from '../../../../shared/interfaces/course.interfaces';
+import { ILearningMaterial } from '../../../../shared/interfaces/course.interfaces';
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { getAlphabetByIndex } from '../../../../core/utils/quiz.utils';
-import { splitFileToChunks } from '@/src/app/core/utils/data.utils';
+import { CoursesService } from '@/src/app/core/services/courses.service';
+import { MaterialTypeEnum } from '@/src/app/shared/enums/course.enum';
 
 @Component({
   selector: 'app-create-video',
@@ -44,14 +38,14 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   cameraIcon = faVideo;
   correctIcon = faCheck;
 
-  material: IMaterialCreate<IVideo> | IMaterial<IVideo> = {
+  material: ILearningMaterial = {
     title: '',
     description: '',
-    type: 'Video',
-    data: {
-      url: '',
+    type: MaterialTypeEnum.VIDEO,
+    videoRequest: {
+      urlMaterial: '',
       duration: 0,
-      questions: [],
+      thumbnail: '',
     },
   };
 
@@ -60,7 +54,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   isEdit: boolean = false;
   isDragOverImgInput: boolean = false;
 
-  uploadedFile: null | {file: File, url: string} = null;
+  uploadedFile: null | { file: File; url: string } = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -68,6 +62,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
     private message: MessageService,
     private translate: TranslateService,
     private VideoService: VideoService,
+    private course: CoursesService
   ) {}
 
   ngOnInit(): void {
@@ -86,27 +81,10 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
     );
   }
 
-  initMaterial(videoId: string) {
-    const testMaterial: IMaterial<IVideo> = {
-      id: 'material-1',
-      title: 'Test Video',
-      description: 'Test Description',
-      type: 'Video',
-      data: {
-        url: 'https://firebasestorage.googleapis.com/v0/b/eduquest-1a0bd.firebasestorage.app/o/course-video%2Fa70b6e26-ec51-4ddd-bb7b-05646f614fb3_1740246588021?alt=media&token=adc5efe9-14e3-4786-b1ed-dfa3cc5eec59',
-        duration: 14,
-        questions: [],
-      },
-    };
-
-    this.material = testMaterial;
-  }
+  initMaterial(videoId: string) {}
 
   onClickAddVideo() {
-    if (
-      !this.fileInput.nativeElement ||
-      this.material.data.url !== ''
-    )
+    if (!this.fileInput.nativeElement || this.material.videoRequest?.urlMaterial !== '')
       return;
     this.fileInput?.nativeElement?.click();
   }
@@ -159,19 +137,21 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
     const videoUrl = URL.createObjectURL(file);
     this.uploadedFile = {
       url: videoUrl,
-      file
-    }
-    // this.VideoService.uploadVideo(file);
+      file,
+    };
   }
 
   onUploadSuccess(url: string) {
-    this.material.data.url = url;
+    if(!this.material.videoRequest) return;
+    this.material.videoRequest.urlMaterial = url;
   }
 
   onRemoveVideo(e: Event) {
+    if(!this.material.videoRequest) return;
+
     e.stopPropagation();
-    this.material.data.url = '';
-    this.material.data.duration = 0;
+    this.material.videoRequest.urlMaterial = '';
+    this.material.videoRequest.duration = 0;
     this.uploadedFile = null;
   }
 
@@ -181,9 +161,9 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   }
 
   onLoadedVideo(initState: any) {
-    if (initState && this.material) {
-      this.material.data.duration = initState.duration;
-    }
+    if(!this.material.videoRequest) return;
+
+    this.material.videoRequest.duration = initState.duration/60;
   }
 
   onCancel() {
@@ -191,7 +171,9 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   }
 
   onValidate() {
-    if (this.material.data.url === '') {
+    if(!this.material.videoRequest) return;
+
+    if (this.material.videoRequest.urlMaterial === '' && !this.uploadedFile) {
       this.message.addMessage(
         'error',
         this.translate.instant('MESSAGE.NEED_TO_UPLOAD_VIDEO')
@@ -210,49 +192,49 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
       return;
     }
 
-    for (let i = 0; i < this.material.data.questions.length; i++) {
-      const q = this.material.data.questions[i];
+    // for (let i = 0; i < this.material.data.questions.length; i++) {
+    //   const q = this.material.data.questions[i];
 
-      if(q.answers.length < 2) {
-        this.message.addMessage(
-          'error',
-          this.translate.instant('MESSAGE.NEED_ALEAST_ANSWERS', {value: 2})
-        );
-        return;
-      }
+    //   if(q.answers.length < 2) {
+    //     this.message.addMessage(
+    //       'error',
+    //       this.translate.instant('MESSAGE.NEED_ALEAST_ANSWERS', {value: 2})
+    //     );
+    //     return;
+    //   }
 
-      let correctIdx = -1;
-      if (q.question.trim() === '') {
-        this.message.addMessage(
-          'error',
-          this.translate.instant('MESSAGE.MISSING_QUESTION')
-        );
-        return;
-      }
+    //   let correctIdx = -1;
+    //   if (q.question.trim() === '') {
+    //     this.message.addMessage(
+    //       'error',
+    //       this.translate.instant('MESSAGE.MISSING_QUESTION')
+    //     );
+    //     return;
+    //   }
 
-      for (let j = 0; j < q.answers.length; j++) {
-        const a = q.answers[j];
-        if (a.answer.trim() === '') {
-          this.message.addMessage(
-            'error',
-            this.translate.instant('MESSAGE.MISSING_ANSWER')
-          );
-          return;
-        }
+    //   for (let j = 0; j < q.answers.length; j++) {
+    //     const a = q.answers[j];
+    //     if (a.answer.trim() === '') {
+    //       this.message.addMessage(
+    //         'error',
+    //         this.translate.instant('MESSAGE.MISSING_ANSWER')
+    //       );
+    //       return;
+    //     }
 
-        if(a.isCorrect) {
-          correctIdx = j;
-        }
-      }
+    //     if(a.isCorrect) {
+    //       correctIdx = j;
+    //     }
+    //   }
 
-      if(correctIdx === -1) {
-        this.message.addMessage(
-          'error',
-          this.translate.instant('MESSAGE.MISSING_CORRECT_ANSWER')
-        );
-        return;
-      }
-    }
+    //   if(correctIdx === -1) {
+    //     this.message.addMessage(
+    //       'error',
+    //       this.translate.instant('MESSAGE.MISSING_CORRECT_ANSWER')
+    //     );
+    //     return;
+    //   }
+    // }
 
     return true;
   }
@@ -264,29 +246,38 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   }
 
   onCreate() {
-    if (!this.onValidate()) return;
+    if (!this.onValidate() || !this.uploadedFile) return;
 
-    console.log(this.material);
-  }
+    const uploadProgress$ = this.VideoService.uploadVideo(
+      this.uploadedFile.file
+    );
+    uploadProgress$.subscribe((data) => {
+      if (data.uploadUrl && this.material.videoRequest) {
+        this.material.videoRequest.urlMaterial = data.uploadUrl;
 
-  onAddFastQuestion() {
-    this.material.data.questions.push({
-      question: '',
-      answers: [
-        {
-          answer: '',
-          isCorrect: false,
-        },
-        {
-          answer: '',
-          isCorrect: false,
-        },
-      ],
+        this.course.createMaterial(this.material);
+      }
     });
   }
 
+  onAddFastQuestion() {
+    // this.material.data.questions.push({
+    //   question: '',
+    //   answers: [
+    //     {
+    //       answer: '',
+    //       isCorrect: false,
+    //     },
+    //     {
+    //       answer: '',
+    //       isCorrect: false,
+    //     },
+    //   ],
+    // });
+  }
+
   onRemoveFastQuestion(qIdx: number) {
-    this.material.data.questions.splice(qIdx, 1);
+    // this.material.data.questions.splice(qIdx, 1);
   }
 
   getQuestionAlphabet(aIdx: number) {
@@ -294,20 +285,20 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   }
 
   onAddFQAnswer(qIdx: number) {
-    this.material.data.questions[qIdx].answers.push({
-      answer: '',
-      isCorrect: false,
-    });
+    // this.material.data.questions[qIdx].answers.push({
+    //   answer: '',
+    //   isCorrect: false,
+    // });
   }
 
   onRemoveFQAnswer(qIdx: number, aIdx: number) {
-    this.material.data.questions[qIdx].answers.splice(aIdx, 1);
+    // this.material.data.questions[qIdx].answers.splice(aIdx, 1);
   }
 
   onSetCorrectAnswer(qIdx: number, aIdx: number) {
-    this.material.data.questions[qIdx].answers.forEach((a, idx) => {
-      a.isCorrect = idx === aIdx;
-    });
+    // this.material.data.questions[qIdx].answers.forEach((a, idx) => {
+    //   a.isCorrect = idx === aIdx;
+    // });
   }
 
   ngOnDestroy() {

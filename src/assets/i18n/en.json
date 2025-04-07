@@ -386,7 +386,7 @@
     "PASS_PERCENTAGES": "Passing Percentages",
     "PASS_PERCENTAGES_SUB": "The correct percentages that leaner need to pass the quiz",
     "TIME_LIMIT": "Time Limit (minutes)",
-    "TIME_LIMIT_SUB": "The maximum time leaner can spend on this quiz, 0 for unlimited",
+    "TIME_LIMIT_SUB": "The maximum time leaner can spend to answer, 0 for unlimited",
     "QUESTIONS": "Questions",
     "ID": "ID",
     "DESCRIPTION": "Description",
@@ -537,6 +537,7 @@
     "FREE_PACKAGE_DESCRIBE_TEXT": "Free package provided",
     "PREMIUM_PACKAGE_DESCRIBE_TEXT": "All free benefits and",
     "APPLIED": "Applied",
+    "QUESTION": "Question",
     "FREE_PACKAGE": "Free Package",
     "FREE_LEARNER_DESCRIPTION": "Find the perfect courses tailored to your interests | Customize your own learning path or follow expert-created ones | Earn EXP, Gold, and level up as you progress | Get free Fox characters and exclusive in-game items | Track your personal learning statistics and progress | Compete with others on the leaderboard and rankings | Complete quests to earn rewards and boost motivation | Unlock achievements and collect special badges",
     "FREE_INSTRUCTOR_DESCRIPTION": "Create unlimited courses and learning materials | Reuse materials effortlessly across multiple courses | Upload videos, documents, quizzes, and assignments with ease | Get detailed course statistics, including revenue and learner insights | Access comprehensive revenue reports to track earnings | Engage learners with interactive and gamified course elements | Manage and organize courses seamlessly with an intuitive dashboard | Receive feedback and ratings to improve your courses | Connect with a growing community of passionate educators | Earn revenue with just an {{commisionFee}}% commission fee.",
@@ -608,6 +609,7 @@
     "VIEW_MORE": "View more"
   },
   "MESSAGE": {
+    "CREATED_SUCCESSFULLY": "Created successfully",
     "ADDED_SUCCESSFULLY": "Added successfully",
     "CLONED_SUCCESSFULLY": "Duplicated learning path successfully",
     "COURSE_EXISTED_LEARNINGPATH": "This course already existed in this learning path",
