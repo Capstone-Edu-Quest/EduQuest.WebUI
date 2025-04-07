@@ -1,4 +1,4 @@
-<div class="create-assignment" *ngIf="material.assignmentRequest">
+<div class="create-assignment" *ngIf="material.assignment">
   <div class="title text-gradient">{{ "LABEL.ASSIGNMENT" | translate }}</div>
 
   <div class="input-label">{{ "LABEL.MATERIAL_NAME" | translate }}</div>
@@ -20,7 +20,7 @@
   <input
     class="material-input material-name"
     [placeholder]="'LABEL.QUESTION' | translate"
-    [(ngModel)]="material.assignmentRequest.question"
+    [(ngModel)]="material.assignment.question"
   />
 
   <div class="input-label">{{ "LABEL.TIME_LIMIT" | translate }}</div>
@@ -28,7 +28,7 @@
   <input
     class="material-input material-name"
     [placeholder]="'LABEL.TIME_LIMIT' | translate"
-    [(ngModel)]="material.assignmentRequest.timeLimit"
+    [(ngModel)]="material.assignment.timeLimit"
     type="number"
   />
 

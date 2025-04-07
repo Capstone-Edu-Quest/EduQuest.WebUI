@@ -17,17 +17,14 @@ import { Subscription } from 'rxjs';
 import { MessageService } from '../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
 import { ImageService } from '../../core/services/image.service';
-import { FirebaseStorageFolder } from '../../shared/enums/firebase.enum';
 import { IUser } from '../../shared/interfaces/user.interfaces';
-import { FirebaseService } from '../../core/services/firebase.service';
 import {
   ICourseCreate,
-  ICourseManageDetails,
-  ICourseUpdate,
-  IModifyStage,
-  IStage,
+  ICourseCreateLesson,
+  ILessonOverview,
 } from '../../shared/interfaces/course.interfaces';
 import { Location } from '@angular/common';
+import { CoursesService } from '../../core/services/courses.service';
 
 @Component({
   selector: 'app-my-course-add',
@@ -47,22 +44,20 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
 
   isEdit: boolean = false;
   isDragOverImgInput: boolean = false;
-  imageName: string = `userid_${Date.now()}`;
-  isUploadedFirstTime: boolean = false;
-  uploadProgress: number | null = null;
   currentDragStageId: string | null = null;
 
+  uploadedFile: { file: File; url: string } | null = null;
+
   courseInfo: ICourseCreate = {
-    name: '',
+    title: '',
     description: '',
     price: 0,
-    image: '',
-    requirements: [],
+    photoUrl: '',
+    requirementList: [],
+    lessonCourse: [],
   };
 
-  fullStagesInfo: [] = [];
-
-  courseDetails: ICourseManageDetails | null = null;
+  fullLessons: ILessonOverview[] = [];
 
   constructor(
     private location: Location,
@@ -71,7 +66,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private ImageService: ImageService,
     private UserService: UserService,
-    private firebase: FirebaseService
+    private CourseService: CoursesService
   ) {}
 
   ngOnInit(): void {
@@ -83,7 +78,6 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
     this.subscription$.add(
       this.UserService.user$.subscribe((user) => {
         this.user = user;
-        this.imageName = this.imageName.replace('userid', user?.id || 'userid');
       })
     );
   }
@@ -101,14 +95,29 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
   }
 
   initCourse(courseId: string) {
-    // this.courseInfo = {
-    //   name: this.courseDetails?.title ?? '',
-    //   description: this.courseDetails?.description ?? '',
-    //   price: this.courseDetails?.price ?? 0,
-    //   image: this.courseDetails?.photoUrl ?? '',
-    //   requirements: this.courseDetails?.requirementList ?? [],
-    // };
-    // this.fullStagesInfo = this.courseDetails?.listLesson ?? [];
+    this.CourseService.onGetInstructorCourseDetails(courseId).subscribe(
+      (res) => {
+        if (!res?.payload) return;
+
+        this.courseInfo = {
+          title: res.payload.title,
+          description: res.payload.description,
+          price: res.payload.price,
+          photoUrl: res.payload.photoUrl,
+          requirementList: res.payload.requirementList,
+          lessonCourse: res.payload.listLesson.map((l) => {
+            return {
+              id: l.id,
+              name: l.name,
+              description: '',
+              materialIds: l.materials.map((m) => m.id),
+            };
+          }),
+        };
+
+        this.fullLessons = res.payload.listLesson;
+      }
+    );
   }
 
   onClickAddImage() {
@@ -161,51 +170,24 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
     }
 
     const croppedFile = await this.ImageService.cropImageTo16by9(file);
-    const { progress$, downloadURL$ } =
-      this.ImageService.uploadImageToFirebaseStorage(
-        FirebaseStorageFolder.COURSE_THUMBNAIL,
-        croppedFile,
-        this.imageName
-      );
-
-    this.subscription$.add(
-      progress$.subscribe((progress: any) => {
-        this.uploadProgress = progress.toFixed(2);
-      })
-    );
-
-    this.subscription$.add(
-      downloadURL$.subscribe((url: string) => {
-        this.onUploadSuccess(url);
-      })
-    );
-
-    // Create a name for img and keep that name
-    // Upload image with that name to storage, change image also upload as the same name
-    // Then save the url to firebase db
-    // When click create course, remove url from firebase db
-    // 1. When user leave the page, as soon as when the user enter web again, trigger to db and remove url + image from storage
-    // 2. Or use beforeunload event & onDestroy event to remove url + image from storage
-  }
-
-  onUploadSuccess(url: string) {
-    this.uploadProgress = null;
-    this.courseInfo.image = url;
-    !this.isUploadedFirstTime && this.firebase.addCacheImage(url);
-    this.isUploadedFirstTime = true;
+    this.uploadedFile = {
+      url: URL.createObjectURL(croppedFile),
+      file: croppedFile,
+    };
   }
 
   onRemoveImage(e: Event) {
     e.stopPropagation();
-    this.courseInfo.image = '';
+    this.courseInfo.photoUrl = '';
+    this.uploadedFile = null;
   }
 
   onAddRequirement() {
-    this.courseInfo.requirements.push('');
+    this.courseInfo.requirementList.push('');
   }
 
   onRemoveRequirement(idx: number) {
-    this.courseInfo.requirements.splice(idx, 1);
+    this.courseInfo.requirementList.splice(idx, 1);
   }
 
   RequirementTrackIdx(index: number, item: string) {
@@ -213,7 +195,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
   }
 
   onValidateCourseInfo(course: any) {
-    const courseKey = Object.keys(course);
+    const courseKey = Object.keys(course).filter((k) => k !== 'photoUrl');
     if (course.image === '') {
       this.message.addMessage(
         'error',
@@ -260,13 +242,16 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
   }
 
   onCreateCourse() {
-    const course: any = {
-      ...this.courseInfo,
-      // instructor: this.user.id,
-    };
+    if (!this.onValidateCourseInfo(this.courseInfo) || !this.uploadedFile?.file)
+      return;
 
-    if (!this.onValidateCourseInfo(course)) return;
-    console.log(course);
+    this.ImageService.uploadImage(this.uploadedFile.file).subscribe((res) => {
+      if (!res?.payload) return;
+
+      this.courseInfo.photoUrl = res.payload.url;
+
+      this.CourseService.createCourse(this.courseInfo);
+    });
   }
 
   onUpdate() {
@@ -281,13 +266,10 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
     //     } as IModifyStage;
     //   }),
     // };
-
     // if (!this.onValidateCourseInfo(newCourseInfo)) return;
-
     // const emptyStage = newCourseInfo.stages.findIndex(
     //   (stage) => stage.name === '' || stage.materialsId.length === 0
     // );
-
     // if (emptyStage !== -1) {
     //   this.message.addMessage(
     //     'error',
@@ -295,7 +277,6 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
     //   );
     //   return;
     // }
-
     // console.log(newCourseInfo);
   }
 
@@ -303,22 +284,20 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
     this.location.back();
   }
 
-  onEditStage(event: IStage | string) {
-    // if (typeof event === 'string') {
-    //   this.fullStagesInfo = this.fullStagesInfo.filter(
-    //     (stage) => stage.id !== event
-    //   );
-    //   return;
-    // }
-
-    // const idx = this.fullStagesInfo.findIndex((stage) => stage.id === event.id);
-    // if (idx === -1) return;
-
-    // this.fullStagesInfo[idx] = event;
+  onEditLesson(event: ILessonOverview | string) {
+    if (typeof event === 'string') {
+      this.fullLessons = this.fullLessons.filter(
+        (lesson) => lesson.id !== event
+      );
+      return;
+    }
+    const idx = this.fullLessons.findIndex((lesson) => lesson.id === event.id);
+    if (idx === -1) return;
+    this.fullLessons[idx] = event;
   }
 
-  trackStageChange(index: number, item: IStage) {
-    return item.id;
+  trackStageChange(index: number) {
+    return index;
   }
 
   onDragStageStart(e: Event, stageId: string) {
@@ -333,43 +312,43 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
   onDropStage(e: Event) {
     e.preventDefault();
 
-    // const droppedElement = e.target as HTMLElement;
-    // const droppedOnStageId = droppedElement
-    //   .closest('.stage-wrapper')
-    //   ?.getAttribute('stageId');
+    const droppedElement = e.target as HTMLElement;
+    const droppedOnStageId = droppedElement
+      .closest('.stage-wrapper')
+      ?.getAttribute('stageId');
 
-    // if (this.currentDragStageId) {
-    //   const dropIndx = this.fullStagesInfo.findIndex(
-    //     (c) => c.id === droppedOnStageId
-    //   );
+    if (this.currentDragStageId) {
+      const dropIndx = this.fullLessons.findIndex(
+        (c) => c.id === droppedOnStageId
+      );
 
-    //   const dragStage = this.fullStagesInfo.find(
-    //     (s) => s.id === this.currentDragStageId
-    //   );
+      const dragStage = this.fullLessons.find(
+        (s) => s.id === this.currentDragStageId
+      );
 
-    //   this.fullStagesInfo = this.fullStagesInfo.filter(
-    //     (c) => c.id !== this.currentDragStageId
-    //   );
+      this.fullLessons = this.fullLessons.filter(
+        (c) => c.id !== this.currentDragStageId
+      );
 
-    //   this.fullStagesInfo = [
-    //     ...this.fullStagesInfo.slice(0, dropIndx),
-    //     dragStage as IStage,
-    //     ...this.fullStagesInfo.slice(dropIndx),
-    //   ];
-    // }
+      this.fullLessons = [
+        ...this.fullLessons.slice(0, dropIndx),
+        dragStage as ILessonOverview,
+        ...this.fullLessons.slice(dropIndx),
+      ];
+    }
 
-    // this.currentDragStageId = null;
+    this.currentDragStageId = null;
   }
 
   onAddNewStage() {
-    const newStage: IStage = {
-      id: `stage-${this.fullStagesInfo.length + 1}`,
-      title: '',
-      time: 0,
-      mission: [],
+    const newStage: ILessonOverview = {
+      id: `stage-${this.fullLessons.length + 1}`,
+      name: '',
+      totalTime: 0,
+      index: this.fullLessons.length,
+      materials: [],
     };
-
-    // this.fullStagesInfo.push(newStage);
+    this.fullLessons.push(newStage);
   }
 
   ngOnDestroy(): void {

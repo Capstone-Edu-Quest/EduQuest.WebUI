@@ -1,12 +1,14 @@
 import { Injectable } from '@angular/core';
 import { FirebaseStorageFolder } from '../../shared/enums/firebase.enum';
 import { FirebaseService } from './firebase.service';
+import { HttpService } from './http.service';
+import { endPoints } from '../../shared/constants/endPoints.constant';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ImageService {
-  constructor(private firebase: FirebaseService) {}
+  constructor(private firebase: FirebaseService, private http: HttpService) {}
 
   validateImage(file: File): boolean {
     if (file.type.match(/image\/*/) == null) {
@@ -96,5 +98,12 @@ export class ImageService {
     );
 
     return { progress$, downloadURL$ };
+  }
+
+  uploadImage(file: File) {
+    const formData = new FormData();
+    formData.append('ImageFile', file);
+    return this.http
+      .upload<{url: string}>(endPoints.uploadImage, formData)
   }
 }

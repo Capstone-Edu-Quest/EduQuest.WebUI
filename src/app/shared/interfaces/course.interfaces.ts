@@ -1,10 +1,10 @@
 import {
   CourseSortEnum,
+  InstructorCourseStatus,
   MaterialTypeEnum,
   MissionStatus,
 } from '../enums/course.enum';
 import { AssignmentLanguageEnum } from '../enums/materials.enum';
-import { IUserStat } from './user.interfaces';
 
 export interface ITableMaterialData {
   stage: number;
@@ -19,6 +19,8 @@ export interface ICourseOverview {
   id: string;
   title: string;
   description: string;
+  isPublic: boolean;
+  status: InstructorCourseStatus;
   photoUrl: string;
   author: string;
   createdBy: string;
@@ -62,7 +64,7 @@ export interface ICourse {
 }
 
 export interface ICourseInstructor extends ICourse {
-  status: 1;
+  status: InstructorCourseStatus;
   totalLesson: number;
   totalInCart: number;
   totalInWishList: number;
@@ -78,11 +80,19 @@ export interface ICourseApproval extends ICourse {
 }
 
 export interface ICourseCreate {
+  title: string;
+  description: string;
+  photoUrl: string;
+  price: number;
+  requirementList: string[];
+  lessonCourse: ICourseCreateLesson[];
+}
+
+export interface ICourseCreateLesson {
+  id: string;
   name: string;
   description: string;
-  image: string;
-  price: number;
-  requirements: string[];
+  materialIds: string[];
 }
 
 export interface ICourseUpdate extends ICourseCreate {
@@ -364,36 +374,36 @@ export interface ILearningMaterial {
   type: MaterialTypeEnum;
   title: string;
   description: string;
-  videoRequest?: VideoRequest;
+  video?: video;
   content?: string;
-  quizRequest?: QuizRequest;
-  assignmentRequest?: AssignmentRequest;
+  quiz?: quiz;
+  assignment?: assignment;
 }
 
-interface VideoRequest {
+interface video {
   urlMaterial: string;
   duration?: number;
   thumbnail?: string;
 }
 
-interface QuizRequest {
+interface quiz {
   timeLimit: number;
   passingPercentage: number;
-  questionRequest: QuestionRequest[];
+  questions: questions[];
 }
 
-interface QuestionRequest {
+interface questions {
   questionTitle: string;
   multipleAnswers: boolean;
-  answerRequest: AnswerRequest[];
+  answers: answers[];
 }
 
-interface AnswerRequest {
+interface answers {
   answerContent: string;
   isCorrect: boolean;
 }
 
-interface AssignmentRequest {
+interface assignment {
   timeLimit?: number;
   question?: string;
   answerLanguage?: string;

@@ -12,7 +12,7 @@
     >
       <div
         class="instruction"
-        *ngIf="uploadProgress === null && courseInfo.image === ''"
+        *ngIf="!uploadedFile && courseInfo.photoUrl === ''"
       >
         <input
           type="file"
@@ -25,26 +25,16 @@
       </div>
 
       <img
-        [src]="courseInfo.image"
+        [src]="uploadedFile?.url ?? courseInfo.photoUrl"
         class="thumbnail"
-        *ngIf="courseInfo.image !== ''"
+        *ngIf="courseInfo.photoUrl !== '' || uploadedFile"
       />
-
-      <div class="progress" *ngIf="uploadProgress !== null">
-        <div
-          class="running-progress"
-          [ngStyle]="{
-            width: uploadProgress + '%'
-          }"
-        ></div>
-        <div class="label-progress">{{ uploadProgress }}%</div>
-      </div>
 
       <app-button
         (click)="onRemoveImage($event)"
         class="remove-image-btn"
         type="danger"
-        *ngIf="courseInfo.image !== ''"
+        *ngIf="courseInfo.photoUrl !== '' || uploadedFile"
         >{{ "BUTTON.REMOVE_IMAGE" | translate }}</app-button
       >
     </div>
@@ -54,7 +44,7 @@
   <input
     class="course-input course-name"
     [placeholder]="'LABEL.COURSE_NAME' | translate"
-    [(ngModel)]="courseInfo.name"
+    [(ngModel)]="courseInfo.title"
   />
 
   <div class="input-label">{{ "LABEL.COURSE_DESCRIPTION" | translate }}</div>
@@ -69,7 +59,7 @@
   <div
     class="req-row"
     *ngFor="
-      let req of courseInfo.requirements;
+      let req of courseInfo.requirementList;
       let i = index;
       trackBy: RequirementTrackIdx
     "
@@ -77,7 +67,7 @@
     <input
       class="course-input"
       [placeholder]="('LABEL.REQUIREMENTS' | translate) + ' ' + (i + 1)"
-      [(ngModel)]="courseInfo.requirements[i]"
+      [(ngModel)]="courseInfo.requirementList[i]"
     />
     <fa-icon (click)="onRemoveRequirement(i)" [icon]="removeIcon"></fa-icon>
   </div>
@@ -103,20 +93,20 @@
 
   <div class="input-label" *ngIf="isEdit">{{ "LABEL.STAGES" | translate }}</div>
   <div class="stages-ctn" *ngIf="isEdit">
-    <!-- <div
+    <div
       class="stage-wrapper"
       *ngFor="
-        let stage of fullStagesInfo;
+        let lesson of fullLessons;
         let i = index;
         trackBy: trackStageChange
       "
-      [attr.stageId]="stage.id"
+      [attr.stageId]="lesson.id"
       [attr.draggable]="true"
-      (dragstart)="onDragStageStart($event, stage.id)"
+      (dragstart)="onDragStageStart($event, lesson.id)"
       (dragover)="onDragStageOver($event)"
       (drop)="onDropStage($event)"
       [ngStyle]="{
-        opacity: currentDragStageId === stage.id ? 0.5 : 1
+        opacity: currentDragStageId === lesson.id ? 0.5 : 1
       }"
     >
       <div class="drag-point">
@@ -124,14 +114,14 @@
       </div>
       <app-manage-stages
         [index]="i"
-        [stage]="stage"
-        (onEdit)="onEditStage($event)"
+        [stage]="lesson"
+        (onEdit)="onEditLesson($event)"
       ></app-manage-stages>
     </div>
     <div class="add-stage" (click)="onAddNewStage()">
       <fa-icon [icon]="addIcon"></fa-icon>{{ "LABEL.ADD_STAGE" | translate }}
     </div>
-  </div> -->
+  </div>
 
   <div class="btn-ctn">
     <app-button [style]="{ width: '100%' }" (click)="onCancel()">

@@ -44,10 +44,10 @@
           "LABEL.LEANERS_COUNT" | translate : { value: (2212).toLocaleString() }
         }}
       </div>
-      <!-- <div>·</div> -->
-      <!-- <div class="course-status">
-        {{ (course.isPubloc ? "LABEL.PUBLIC" : "LABEL.PRIVATE") | translate }}
-      </div> -->
+      <div>·</div>
+      <div class="course-status">
+        {{ ('LABEL.' + course.status.toUpperCase()) | translate }}
+      </div>
     </div>
 
     <div class="feedback-ctn">

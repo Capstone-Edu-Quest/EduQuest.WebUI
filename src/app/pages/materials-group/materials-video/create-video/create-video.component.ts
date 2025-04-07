@@ -42,7 +42,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
     title: '',
     description: '',
     type: MaterialTypeEnum.VIDEO,
-    videoRequest: {
+    video: {
       urlMaterial: '',
       duration: 0,
       thumbnail: '',
@@ -81,10 +81,16 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
     );
   }
 
-  initMaterial(videoId: string) {}
+  initMaterial(videoId: string) {
+    this.course.getMaterialById(videoId).subscribe(res => {
+      if(!res?.payload) return;
+
+      this.material = res.payload;
+    })
+  }
 
   onClickAddVideo() {
-    if (!this.fileInput.nativeElement || this.material.videoRequest?.urlMaterial !== '')
+    if (!this.fileInput.nativeElement || this.material.video?.urlMaterial !== '')
       return;
     this.fileInput?.nativeElement?.click();
   }
@@ -142,16 +148,16 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   }
 
   onUploadSuccess(url: string) {
-    if(!this.material.videoRequest) return;
-    this.material.videoRequest.urlMaterial = url;
+    if(!this.material.video) return;
+    this.material.video.urlMaterial = url;
   }
 
   onRemoveVideo(e: Event) {
-    if(!this.material.videoRequest) return;
+    if(!this.material.video) return;
 
     e.stopPropagation();
-    this.material.videoRequest.urlMaterial = '';
-    this.material.videoRequest.duration = 0;
+    this.material.video.urlMaterial = '';
+    this.material.video.duration = 0;
     this.uploadedFile = null;
   }
 
@@ -161,9 +167,9 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   }
 
   onLoadedVideo(initState: any) {
-    if(!this.material.videoRequest) return;
+    if(!this.material.video) return;
 
-    this.material.videoRequest.duration = initState.duration/60;
+    this.material.video.duration = initState.duration/60;
   }
 
   onCancel() {
@@ -171,9 +177,9 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   }
 
   onValidate() {
-    if(!this.material.videoRequest) return;
+    if(!this.material.video) return;
 
-    if (this.material.videoRequest.urlMaterial === '' && !this.uploadedFile) {
+    if (this.material.video.urlMaterial === '' && !this.uploadedFile) {
       this.message.addMessage(
         'error',
         this.translate.instant('MESSAGE.NEED_TO_UPLOAD_VIDEO')
@@ -252,8 +258,8 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
       this.uploadedFile.file
     );
     uploadProgress$.subscribe((data) => {
-      if (data.uploadUrl && this.material.videoRequest) {
-        this.material.videoRequest.urlMaterial = data.uploadUrl;
+      if (data.uploadUrl && this.material.video) {
+        this.material.video.urlMaterial = data.uploadUrl;
 
         this.course.createMaterial(this.material);
       }

@@ -18,7 +18,7 @@ export enum MaterialTypeEnum {
 }
 
 export enum InstructorCourseStatus {
-    DRAFT = 1,
-    PENDING,
-    PUBLIC
+    DRAFT = "Draft",
+    PENDING = "Pending",
+    PUBLIC = "Public"
 }

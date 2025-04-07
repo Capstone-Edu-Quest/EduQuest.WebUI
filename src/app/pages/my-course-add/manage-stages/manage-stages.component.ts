@@ -6,7 +6,8 @@ import {
   EventEmitter,
 } from '@angular/core';
 import {
-  IStage,
+  ICourseCreateLesson,
+  ILessonOverview,
   materialType,
 } from '../../../shared/interfaces/course.interfaces';
 import { CoursesService } from '../../../core/services/courses.service';
@@ -18,10 +19,10 @@ import { faClose, faPlus } from '@fortawesome/free-solid-svg-icons';
   styleUrl: './manage-stages.component.scss',
 })
 export class ManageStagesComponent implements OnInit {
-  @Input('stage') stage: IStage | null = null;
+  @Input('stage') lesson: ILessonOverview | null = null;
   @Input('index') index: number = 0;
-  @Output('onEdit') onEdit: EventEmitter<IStage | string> = new EventEmitter<
-    IStage | string
+  @Output('onEdit') onEdit: EventEmitter<ILessonOverview | string> = new EventEmitter<
+  ILessonOverview | string
   >();
 
   isDropDown: boolean = true;
@@ -41,22 +42,30 @@ export class ManageStagesComponent implements OnInit {
   }
 
   onChangeName(e: any) {
-    if (!this.stage) return;
+    if (!this.lesson) return;
 
-    this.onEdit.emit({ ...this.stage, title: e.target.value });
+    this.onEdit.emit({ ...this.lesson, name: e.target.value });
   }
 
   onRemoveMaterial(materialId: string) {
-    if (!this.stage) return;
+    if (!this.lesson) return;
 
-    const newMission = this.stage.mission.filter((m) => m.id !== materialId);
-    this.onEdit.emit({ ...this.stage, mission: newMission });
+    const newMaterials = this.lesson.materials.filter((m) => m.id !== materialId);
+    this.onEdit.emit({ ...this.lesson, materials: newMaterials });
   }
 
   onRemoveStage() {
-    if (!this.stage) return;
+    if (!this.lesson) return;
 
-    this.onEdit.emit(this.stage.id);
+    this.onEdit.emit(this.lesson.id);
+  }
+
+  onGetMaterialInfo(materialId: string) {
+    if(!this.course.myMaterials$.value) return;
+    const {assignment, document, quiz, videos} = this.course.myMaterials$.value;
+    const allMaterials = [...assignment.items, ...document.items, ...quiz.items, ...videos.items];
+
+    return allMaterials.find(material => material.id === materialId)
   }
 
   onPreventProp(e: Event) {

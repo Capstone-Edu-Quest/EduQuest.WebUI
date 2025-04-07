@@ -606,7 +606,10 @@
     "ADD_LEARNING_PATH": "Add new learning path",
     "NEW_LEARNING_PATH_NAME": "New learning path name",
     "ADDED": "Added",
-    "VIEW_MORE": "View more"
+    "VIEW_MORE": "View more",
+    "DRAFT": "Draft",
+    "PENDING": "Pending",
+    "PUBLIC": "Public"
   },
   "MESSAGE": {
     "CREATED_SUCCESSFULLY": "Created successfully",

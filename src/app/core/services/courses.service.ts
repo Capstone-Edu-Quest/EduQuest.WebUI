@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   ICourse,
+  ICourseCreate,
   ICourseInstructor,
   ICourseOverview,
   ILearningMaterial,
@@ -97,7 +98,7 @@ export class CoursesService {
   }
 
   onGetCourseById(courseId: string) {
-    const urlStr = endPoints.getCourseById + '/' + courseId;
+    const urlStr = endPoints.getCourseById + '?courseId=' + courseId;
     return this.http.get<ICourse>(urlStr);
   }
 
@@ -164,14 +165,35 @@ export class CoursesService {
     });
   }
 
+  getMaterialById(materialId: string) {
+    return this.http
+      .get<ILearningMaterial>(
+        endPoints.getMaterialDetails + `?materialId=${materialId}`
+      )
+  }
+
   deleteMaterial(materialId: string) {
-    this.http.delete(endPoints.material + `?materialId=${materialId}`).subscribe((res) => {
+    this.http
+      .delete(endPoints.material + `?materialId=${materialId}`)
+      .subscribe((res) => {
+        if (!res?.payload) return;
+        this.onInitMyMaterials();
+        this.message.addMessage(
+          'success',
+          this.translate.instant('MESSAGE.DELETED_SUCCESSFULLY')
+        );
+      });
+  }
+
+  createCourse(course: ICourseCreate) {
+    this.http.post<ICourseOverview>(endPoints.course, course).subscribe((res) => {
       if (!res?.payload) return;
-      this.onInitMyMaterials();
+
+      this.router.navigate(['my-courses', res.payload.id])
       this.message.addMessage(
         'success',
-        this.translate.instant('MESSAGE.DELETED_SUCCESSFULLY')
+        this.translate.instant('MESSAGE.CREATED_SUCCESSFULLY')
       );
-    })
+    });
   }
 }

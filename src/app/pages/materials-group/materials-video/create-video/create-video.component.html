@@ -8,8 +8,8 @@
         dragOver: isDragOverImgInput
       }"
       [ngStyle]="{
-        aspectRatio: material.videoRequest?.urlMaterial === '' && !uploadedFile ? '16/9' : 'unset',
-        borderWidth: material.videoRequest?.urlMaterial === '' && !uploadedFile ? '1px' : '0px'
+        aspectRatio: material.video?.urlMaterial === '' && !uploadedFile ? '16/9' : 'unset',
+        borderWidth: material.video?.urlMaterial === '' && !uploadedFile ? '1px' : '0px'
       }"
       (click)="onClickAddVideo()"
       (dragover)="onDragOver($event)"
@@ -20,7 +20,7 @@
         class="instruction"
         *ngIf="
           !uploadedFile &&
-          material.videoRequest?.urlMaterial === ''
+          material.video?.urlMaterial === ''
         "
       >
         <input
@@ -34,8 +34,8 @@
       </div>
 
       <app-video
-        *ngIf="material.videoRequest?.urlMaterial !== '' || uploadedFile"
-        [sources]="[{ url: uploadedFile ? uploadedFile.url : material.videoRequest?.urlMaterial ?? '', label: '1080p' }]"
+        *ngIf="material.video?.urlMaterial !== '' || uploadedFile"
+        [sources]="[{ url: uploadedFile ? uploadedFile.url : material.video?.urlMaterial ?? '', label: '1080p' }]"
         [defaultSpeed]="1.0"
         (onLoad)="onLoadedVideo($event)"
       ></app-video>
@@ -43,7 +43,7 @@
         (click)="onRemoveVideo($event)"
         class="remove-image-btn"
         type="danger"
-        *ngIf="material.videoRequest?.urlMaterial !== '' || uploadedFile"
+        *ngIf="material.video?.urlMaterial !== '' || uploadedFile"
         >{{ "BUTTON.REMOVE_VIDEO" | translate }}</app-button
       >
     </div>

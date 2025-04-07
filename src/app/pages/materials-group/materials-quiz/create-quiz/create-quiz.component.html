@@ -1,4 +1,4 @@
-<div class="create-quiz" *ngIf="material.quizRequest">
+<div class="create-quiz" *ngIf="material.quiz">
   <div class="title text-gradient">{{ "LABEL.QUIZ" | translate }}</div>
 
   <div class="input-label">{{ "LABEL.MATERIAL_NAME" | translate }}</div>
@@ -23,7 +23,7 @@
   <input
     class="material-input material-name"
     [placeholder]="'LABEL.PASS_PERCENTAGES' | translate"
-    [(ngModel)]="material.quizRequest.passingPercentage"
+    [(ngModel)]="material.quiz.passingPercentage"
     style="max-width: 250px"
     type="number"
   />
@@ -33,21 +33,21 @@
   <input
     class="material-input material-name"
     [placeholder]="'LABEL.TIME_LIMIT' | translate"
-    [(ngModel)]="material.quizRequest.timeLimit"
+    [(ngModel)]="material.quiz.timeLimit"
     style="max-width: 250px"
     type="number"
   />
 
   <div class="input-label">
-    {{ "LABEL.QUESTIONS" | translate }} ({{ material.quizRequest.questionRequest.length }})
+    {{ "LABEL.QUESTIONS" | translate }} ({{ material.quiz.questions.length }})
   </div>
   <div class="questions">
     <div
       class="question"
-      *ngFor="let q of material.quizRequest.questionRequest; let i = index"
+      *ngFor="let q of material.quiz.questions; let i = index"
     >
       <div class="input-wrapper">
-        <input [(ngModel)]="material.quizRequest.questionRequest[i].questionTitle" />
+        <input [(ngModel)]="material.quiz.questions[i].questionTitle" />
         <fa-icon
           class="remove"
           [icon]="removeIcon"
@@ -58,7 +58,7 @@
       <!-- Answers container -->
       <div class="answers">
         <!-- Each Answer -->
-        <div class="answer" *ngFor="let a of q.answerRequest; let z = index">
+        <div class="answer" *ngFor="let a of q.answers; let z = index">
           <!-- Icon check -> set correct state -->
           <fa-icon
             [ngClass]="{
@@ -70,7 +70,7 @@
           ></fa-icon>
           <!-- Answer -->
           <div class="id">{{ getQuestionAlphabet(z) }}.</div>
-          <input [(ngModel)]="q.answerRequest[z].answerContent" />
+          <input [(ngModel)]="q.answers[z].answerContent" />
           <!-- Remove answer btn -->
           <fa-icon
             class="remove"

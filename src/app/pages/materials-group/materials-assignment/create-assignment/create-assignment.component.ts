@@ -9,7 +9,12 @@ import {
   IMaterialCreate,
 } from '../../../../shared/interfaces/course.interfaces';
 import { AssignmentLanguageEnum } from '../../../../shared/enums/materials.enum';
-import { faAngleLeft, faClose, faPlay, faPlus } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleLeft,
+  faClose,
+  faPlay,
+  faPlus,
+} from '@fortawesome/free-solid-svg-icons';
 import { MessageService } from '../../../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MaterialTypeEnum } from '@/src/app/shared/enums/course.enum';
@@ -31,12 +36,12 @@ export class CreateAssignmentComponent implements OnInit, OnDestroy {
     title: '',
     description: '',
     type: MaterialTypeEnum.ASSIGNMENT,
-    assignmentRequest: {
+    assignment: {
       timeLimit: 0,
       question: '',
       answerLanguage: 'text',
-      expectedAnswer: ''
-    }
+      expectedAnswer: '',
+    },
   };
 
   addIcon = faPlus;
@@ -44,7 +49,13 @@ export class CreateAssignmentComponent implements OnInit, OnDestroy {
   backIcon = faAngleLeft;
   removeIcon = faClose;
 
-  constructor(private route: ActivatedRoute, private location: Location, private message: MessageService, private translate: TranslateService, private course: CoursesService) {}
+  constructor(
+    private route: ActivatedRoute,
+    private location: Location,
+    private message: MessageService,
+    private translate: TranslateService,
+    private course: CoursesService
+  ) {}
 
   ngOnInit(): void {
     this.listenToRoute();
@@ -62,15 +73,28 @@ export class CreateAssignmentComponent implements OnInit, OnDestroy {
     );
   }
 
-  onInitAssignment(id: string) {}
+  onInitAssignment(id: string) {
+    this.course.getMaterialById(id).subscribe((res) => {
+      if (!res?.payload) return;
+
+      this.material = res.payload;
+    });
+  }
 
   onCancel() {
     this.location.back();
   }
 
   onValidate() {
-    if(!this.material.title.trim() || !this.material.description.trim() || !this.material?.assignmentRequest?.question?.trim()) {
-      this.message.addMessage('error', this.translate.instant('MESSAGE.MISSING_FIELDS'));
+    if (
+      !this.material.title.trim() ||
+      !this.material.description.trim() ||
+      !this.material?.assignment?.question?.trim()
+    ) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.MISSING_FIELDS')
+      );
       return;
     }
 
@@ -80,9 +104,9 @@ export class CreateAssignmentComponent implements OnInit, OnDestroy {
   onUpdate() {}
 
   onCreate() {
-    if(!this.onValidate()) return;
+    if (!this.onValidate()) return;
 
-    this.course.createMaterial(this.material)
+    this.course.createMaterial(this.material);
   }
 
   ngOnDestroy(): void {

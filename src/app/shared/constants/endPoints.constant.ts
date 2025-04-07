@@ -20,7 +20,9 @@ export const endPoints = {
   courseDetaialsForInstructor: 'course/courseDetailForInstructor',
 
   material: 'material',
+  getMaterialDetails: 'material/materialById',
   uploadVideo: 'material/uploadVideo',
+  uploadImage: 'material/uploadImage',
 
   coupon: 'coupon',
 

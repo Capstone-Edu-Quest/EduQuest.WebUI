@@ -62,7 +62,13 @@ export class CreateDocumentComponent implements OnInit, OnDestroy {
     );
   }
 
-  onInitDocument(docId: string) {}
+  onInitDocument(docId: string) {
+    this.course.getMaterialById(docId).subscribe((res) => {
+      if (!res?.payload) return;
+
+      this.material = res.payload;
+    });
+  }
 
   onCancel() {
     this.location.back();
