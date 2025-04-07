@@ -30,6 +30,9 @@ export class ViewCourseScreenComponent implements OnInit {
 
     this.course.onGetCourse(id).subscribe((data) => {
       this.courseDetails = data?.payload ?? null;
+
+      if(!this.courseDetails) return;
+      this.courseDetails.listLesson.sort((a, b) => a.index - b.index)
     });
   }
 }

@@ -26,7 +26,7 @@
     rows="4"
   ></textarea>
 
-  <div class="input-label">
+  <!-- <div class="input-label">
     {{ "LABEL.ASSIGNMENT_ANSWER_LANGUAGE" | translate }}
   </div>
   <div class="input-label-sub">
@@ -36,10 +36,9 @@
     <option *ngFor="let lang of avaiableLangs" [value]="lang">
       {{ lang }}
     </option>
-  </select>
-
+  </select> -->
+<!-- 
   @if(material.data.answerLanguage !== 'Text') {
-  <!--  -->
   <div class="input-label">
     {{ "LABEL.ASSIGNMENT_INPUT_ARGUMENT" | translate }}
   </div>
@@ -69,7 +68,6 @@
     </div>
   </div>
 
-  <!--  -->
   <div class="input-label">
     {{ "LABEL.ASSIGNMENT_EXPECTED_ANSWER" | translate }}
   </div>
@@ -81,7 +79,7 @@
     [placeholder]="'LABEL.ASSIGNMENT_EXPECTED_ANSWER' | translate"
     [(ngModel)]="material.data.expectedAnswer"
   />
-  }
+  } -->
 
   <div class="btn-ctn">
     <app-button [style]="{ width: '100%' }" (click)="onCancel()">

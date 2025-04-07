@@ -96,8 +96,9 @@ export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
       videoEl.addEventListener('timeupdate', () => {
         this.currentTime = videoEl.currentTime;
         this.progressChange.emit(this.currentTime);
-        if (this.currentTime === this.duration) {
+        if (Math.round(this.currentTime) === Math.round(this.duration)) {
           this.isPlaying = false;
+          this.pauseEvent.emit();
         }
       })
     );

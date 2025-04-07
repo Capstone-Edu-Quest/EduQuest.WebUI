@@ -1,4 +1,5 @@
 import { TemplateRef } from '@angular/core';
+import { SubscribtionNameEnum } from '../enums/others.enum';
 
 export interface IMessage {
   id?: string;
@@ -58,4 +59,49 @@ export interface TableColumn {
   elementRef?: TemplateRef<any>;
   customClass?: (val: any) => string | string;
   isSwitchData?: boolean;
+}
+
+export interface IChunkFile {
+  fileId: string;
+  chunks: Blob[];
+}
+
+export interface IUploadingChunk {
+  totalChunks: number;
+  chunkIndex: number;
+  fileId: string;
+  chunk: Blob;
+}
+
+export interface IPackageConfig {
+  name: SubscribtionNameEnum;
+  data: {
+    Instructor?: InstructorPackageData;
+    Learner?: LearnerPackageData;
+  };
+}
+
+interface InstructorPackageData {
+  monthly?: number;
+  yearly?: number;
+  free?: {
+    CommissionFee: number;
+  };
+  pro?: {
+    CommissionFee: number;
+    MarketingEmailPerMonth: number;
+  };
+}
+
+interface LearnerPackageData {
+  monthly?: number;
+  yearly?: number;
+  free?: Record<string, never>; // empty object
+  pro?: {
+    CouponPerMonth: number;
+    CouponDiscountUpto: number;
+    ExtraGoldAndExp: number;
+    TrialCoursePercentage: number;
+    CourseTrialPerMonth: number;
+  };
 }

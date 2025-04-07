@@ -1,4 +1,4 @@
-<div class="course-chart">
+<div class="course-chart" *ngIf="isLoadedSuccess">
   <div class="section">
     <div class="title">{{ "LABEL.TOTAL_COURSE_LEANER" | translate }}</div>
     <app-line-chart

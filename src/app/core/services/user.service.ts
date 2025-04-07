@@ -16,6 +16,7 @@ import {
 } from '../../shared/enums/localStorage.enum';
 import { BaseReponse } from '../../shared/interfaces/https.interfaces';
 import { LoadingService } from './loading.service';
+import { IPackageConfig } from '../../shared/interfaces/others.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -63,6 +64,10 @@ export class UserService {
         this.firebase.removeCachedImage();
       }, 1000);
     }
+  }
+
+  getSubscriptions() {
+    return this.http.get<IPackageConfig[]>(endPoints.subscription)
   }
 
   getUserById(uid: string): IUser {

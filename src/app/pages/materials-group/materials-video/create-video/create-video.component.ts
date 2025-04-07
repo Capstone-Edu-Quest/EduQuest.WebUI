@@ -27,6 +27,7 @@ import {
 import { Location } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { getAlphabetByIndex } from '../../../../core/utils/quiz.utils';
+import { splitFileToChunks } from '@/src/app/core/utils/data.utils';
 
 @Component({
   selector: 'app-create-video',
@@ -58,10 +59,8 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
 
   isEdit: boolean = false;
   isDragOverImgInput: boolean = false;
-  videoName: string = `userid_${Date.now()}`;
-  isUploadedFirstTime: boolean = false;
-  compressProgress: string | null = null;
-  uploadProgress: number | null = null;
+
+  uploadedFile: null | {file: File, url: string} = null;
 
   constructor(
     private route: ActivatedRoute,
@@ -69,31 +68,10 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
     private message: MessageService,
     private translate: TranslateService,
     private VideoService: VideoService,
-    private UserService: UserService,
-    private firebase: FirebaseService
   ) {}
 
   ngOnInit(): void {
     this.initView();
-    this.listenToVideoCompressingProgress();
-    this.listenToUser();
-  }
-
-  listenToUser() {
-    this.subscription$.add(
-      this.UserService.user$.subscribe((user) => {
-        this.user = user;
-        this.videoName = this.videoName.replace('userid', user?.id || 'userid');
-      })
-    );
-  }
-
-  listenToVideoCompressingProgress() {
-    this.subscription$.add(
-      this.VideoService.compressingProgress$.subscribe((progress) => {
-        this.compressProgress = progress;
-      })
-    );
   }
 
   initView() {
@@ -127,8 +105,6 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   onClickAddVideo() {
     if (
       !this.fileInput.nativeElement ||
-      this.uploadProgress ||
-      this.compressProgress ||
       this.material.data.url !== ''
     )
       return;
@@ -159,7 +135,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   }
 
   async onHandleFile(files: FileList | undefined) {
-    if (!files || !this.user) return;
+    if (!files) return;
 
     if (files.length > 1) {
       this.message.addMessage(
@@ -180,37 +156,23 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
       return;
     }
 
-    const { progress$, downloadURL$ } =
-      await this.VideoService.uploadVideoToFirebaseStorage(
-        FirebaseStorageFolder.COURSE_VIDEO,
-        file,
-        this.videoName
-      );
-
-    this.subscription$.add(
-      progress$.subscribe((progress: any) => {
-        this.uploadProgress = progress.toFixed(2);
-      })
-    );
-
-    this.subscription$.add(
-      downloadURL$.subscribe((url: string) => {
-        this.onUploadSuccess(url);
-      })
-    );
+    const videoUrl = URL.createObjectURL(file);
+    this.uploadedFile = {
+      url: videoUrl,
+      file
+    }
+    // this.VideoService.uploadVideo(file);
   }
 
   onUploadSuccess(url: string) {
-    this.uploadProgress = null;
     this.material.data.url = url;
-    !this.isUploadedFirstTime && this.firebase.addCacheImage(url);
-    this.isUploadedFirstTime = true;
   }
 
   onRemoveVideo(e: Event) {
     e.stopPropagation();
     this.material.data.url = '';
     this.material.data.duration = 0;
+    this.uploadedFile = null;
   }
 
   onCancelCompressVideo(e: Event) {

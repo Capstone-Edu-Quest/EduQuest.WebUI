@@ -6,6 +6,7 @@ import { BehaviorSubject } from 'rxjs';
 import { timeStringToSeconds } from '../utils/time.utils';
 import { MessageService } from './message.service';
 import { TranslateService } from '@ngx-translate/core';
+import { splitFileToChunks } from '../utils/data.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -172,5 +173,10 @@ export class VideoService {
     );
 
     return { progress$, downloadURL$ };
+  }
+
+  uploadVideo(file: File) {
+    const uploadingChunks = splitFileToChunks(file);
+    console.log(uploadingChunks)
   }
 }

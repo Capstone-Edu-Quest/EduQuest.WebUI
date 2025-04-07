@@ -25,13 +25,11 @@ import {
 import { handleCastDateString } from '../../core/utils/time.utils';
 import { MessageService } from '../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
-import { WebRole } from '../../shared/enums/user.enum';
 import {
   ILearningPath,
   IModifyLearningPath,
 } from '../../shared/interfaces/learning-path.interfaces';
 import { LearningPathService } from '../../core/services/learning-path.service';
-import { autoMapObject } from '../../core/utils/data.utils';
 
 @Component({
   selector: 'app-course-details',
@@ -47,7 +45,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
   guaranteeItems = [
     {
       icon: 'clock-circle',
-      label: 'LABEL.TOTAL_HOUR',
+      label: 'LABEL.MINUTES',
       value: 0,
     },
     {
@@ -127,7 +125,7 @@ export class CourseDetailsComponent implements OnInit, OnDestroy {
     );
 
     const totalTimeItem = this.guaranteeItems.find(
-      (_item) => _item.label === 'LABEL.TOTAL_HOUR'
+      (_item) => _item.label === 'LABEL.MINUTES'
     );
 
     if (!totalTimeItem) return;

@@ -34,3 +34,8 @@ export enum BoosterEnum {
     EXP = 1,
     GOLD
 }
+
+export enum SubscribtionNameEnum {
+    PRICE = 'APIsPackagePrice',
+    NUMBERS = 'APIsPackageNumbers'
+}

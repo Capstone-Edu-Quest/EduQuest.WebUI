@@ -8,8 +8,8 @@
         dragOver: isDragOverImgInput
       }"
       [ngStyle]="{
-        aspectRatio: material.data.url === '' ? '16/9' : 'unset',
-        borderWidth: material.data.url === '' ? '1px' : '0px'
+        aspectRatio: material.data.url === '' && !uploadedFile ? '16/9' : 'unset',
+        borderWidth: material.data.url === '' && !uploadedFile ? '1px' : '0px'
       }"
       (click)="onClickAddVideo()"
       (dragover)="onDragOver($event)"
@@ -19,8 +19,7 @@
       <div
         class="instruction"
         *ngIf="
-          uploadProgress === null &&
-          compressProgress === null &&
+          !uploadedFile &&
           material.data.url === ''
         "
       >
@@ -35,53 +34,16 @@
       </div>
 
       <app-video
-        *ngIf="material.data.url !== ''"
-        [sources]="[{ url: material.data.url, label: '1080p' }]"
+        *ngIf="material.data.url !== '' || uploadedFile"
+        [sources]="[{ url: uploadedFile ? uploadedFile.url : material.data.url, label: '1080p' }]"
         [defaultSpeed]="1.0"
         [onLoad]="onLoadedVideo"
       ></app-video>
-      <!-- (speedChange)="onSpeedChange($event)"
-      (qualityChange)="onQualityChange($event)"
-      (progressChange)="onProgressChange($event)"
-      (playEvent)="onPlay()"
-      (pauseEvent)="onPause()" -->
-
-      <div
-        *ngIf="uploadProgress !== null || compressProgress !== null"
-        class="label-progress"
-      >
-        {{
-          (uploadProgress ? "LABEL.UPLOADING" : "LABEL.COMPRESSING")
-            | translate
-        }}...
-      </div>
-      <div
-        class="progress"
-        *ngIf="uploadProgress !== null || compressProgress !== null"
-      >
-        <div
-          class="running-progress"
-          [ngStyle]="{
-            width: (uploadProgress ?? compressProgress) + '%'
-          }"
-        ></div>
-        <div class="label-progress">
-          {{ uploadProgress ?? compressProgress }}%
-        </div>
-      </div>
-      <app-button
-        (click)="onCancelCompressVideo($event)"
-        *ngIf="compressProgress"
-        type="danger"
-        class="cancel-btn"
-        >{{ "BUTTON.CANCEL" | translate }}</app-button
-      >
-
       <app-button
         (click)="onRemoveVideo($event)"
         class="remove-image-btn"
         type="danger"
-        *ngIf="material.data.url !== ''"
+        *ngIf="material.data.url !== '' || uploadedFile"
         >{{ "BUTTON.REMOVE_VIDEO" | translate }}</app-button
       >
     </div>

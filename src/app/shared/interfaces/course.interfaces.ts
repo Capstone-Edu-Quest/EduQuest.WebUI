@@ -348,3 +348,10 @@ export interface IReview {
   };
   createdAt: string;
 }
+
+export interface IMyCourseChartsStats {
+  coursesEnroll: { time: string; count: string }[];
+  coursesReview: { time: string; count: string }[];
+  learnerStatus: { status: string; count: string }[];
+  topCourseInfo: { ttile: string; ratingCount: number; learnerCount: number }[];
+}

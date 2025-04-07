@@ -1,3 +1,9 @@
+import {
+  IChunkFile,
+  IUploadingChunk,
+} from '../../shared/interfaces/others.interfaces';
+import { v4 as uuidv4, v4 } from 'uuid';
+
 export function CastJson(jsonString: string) {
   try {
     const parsed = JSON.parse(jsonString); // Parse the JSON string
@@ -102,7 +108,10 @@ export const onConvertObjectToQueryParams = (obj: object) => {
   return '?' + searchParamsString.join('&');
 };
 
-export function autoMapObject<T extends object, U extends Partial<T>>(source: T, reference: U): U {
+export function autoMapObject<T extends object, U extends Partial<T>>(
+  source: T,
+  reference: U
+): U {
   const target = {} as U;
 
   Object.keys(reference).forEach((key) => {
@@ -116,7 +125,8 @@ export function autoMapObject<T extends object, U extends Partial<T>>(source: T,
 
 export const copyToClipboard = (text: string) => {
   if (navigator.clipboard) {
-    navigator.clipboard.writeText(text)
+    navigator.clipboard
+      .writeText(text)
       .then(() => {
         // console.log('Copied to clipboard:', text);
       })
@@ -141,4 +151,35 @@ export const copyToClipboard = (text: string) => {
 
     document.body.removeChild(textarea);
   }
-}
+};
+
+export const splitFileToChunks = (currentFile: File): IUploadingChunk[] => {
+  const fileChunkSize = 1024 * 25;
+
+  const chunks: Blob[] = [];
+  let currentPosition = 0,
+    currentChunkTails = 0;
+
+  while (currentPosition < currentFile.size) {
+    currentChunkTails = Math.min(
+      currentFile.size,
+      currentPosition + fileChunkSize
+    );
+    const chunk = currentFile.slice(currentPosition, currentChunkTails);
+
+    chunks.push(chunk);
+    currentPosition = currentChunkTails;
+  }
+
+  const fileId = v4();
+  const uploadingChunks: IUploadingChunk[] = chunks.map((chunk, index) => {
+    return {
+      fileId,
+      chunkIndex: index,
+      totalChunks: chunks.length,
+      chunk,
+    };
+  });
+
+  return uploadingChunks;
+};

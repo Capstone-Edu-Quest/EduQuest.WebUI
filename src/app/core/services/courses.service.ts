@@ -4,6 +4,7 @@ import {
   ICourseInstructor,
   ICourseOverview,
   IMaterialResponse,
+  IMyCourseChartsStats,
   IReview,
   IReviewQuery,
   ISearchCourseParams,
@@ -40,7 +41,7 @@ export class CoursesService {
   }
 
   onGetCourseOverviewStats() {
-    // this.http.get<any>(endPoints.courseStatsOverview)
+    return this.http.get<IMyCourseChartsStats>(endPoints.courseStatsOverview)
   }
 
   onGetInstructorCourseDetails(courseId: string) {

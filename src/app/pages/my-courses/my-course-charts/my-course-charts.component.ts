@@ -6,6 +6,7 @@ import {
   IPieChartDataSet,
   IRadarChartDataSet,
 } from '../../../shared/interfaces/chart.interface';
+import { CoursesService } from '@/src/app/core/services/courses.service';
 
 @Component({
   selector: 'app-my-course-charts',
@@ -15,35 +16,16 @@ import {
 export class MyCourseChartsComponent implements OnInit {
   subscription$: Subscription = new Subscription();
 
-  ratingsChartLabel: string[] = ['1', '2', '3', '4', '5'];
-  ratinsChartData: IBarChartDataSet[] = [
-    {
-      label: 'LABEL.LEARNERS',
-      data: [25, 50, 75, 100, 125],
-    },
-  ];
+  isLoadedSuccess: boolean = false;
 
-  totalCourseLeanersLabel: string[] = [
-    'Oct 2024',
-    'Nov 2024',
-    'Dec 2024',
-    'Jan 2025',
-    'Feb 2025',
-  ];
-  totalCourseLeanersDataSet: ILineChartDataSet[] = [
-    {
-      label: 'LABEL.LEARNERS',
-      data: [50, 75, 110, 120, 223],
-    },
-  ];
+  ratingsChartLabel: string[] = [];
+  ratinsChartData: IBarChartDataSet[] = [];
 
-  learnerStatisticsLabel: string[] = ['In Progress', 'Completed'];
-  leanerStatisticsData: IPieChartDataSet[] = [
-    {
-      label: `LABEL.LEARNERS`,
-      data: [50, 75],
-    },
-  ];
+  totalCourseLeanersLabel: string[] = [];
+  totalCourseLeanersDataSet: ILineChartDataSet[] = [];
+
+  learnerStatisticsLabel: string[] = [];
+  leanerStatisticsData: IPieChartDataSet[] = [];
 
   top3CoursesLabels: string[] = ['Leaners', 'Rating (3 - 5)', 'Rating (1 - 3)'];
   top3CoursesDataSet: IRadarChartDataSet[] = [
@@ -61,7 +43,56 @@ export class MyCourseChartsComponent implements OnInit {
     },
   ];
 
-  constructor() {}
+  constructor(private course: CoursesService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.initCharts();
+  }
+
+  initCharts() {
+    this.course.onGetCourseOverviewStats().subscribe((res) => {
+      if (!res?.payload) return;
+      this.isLoadedSuccess = true;
+
+      const { coursesEnroll, coursesReview, learnerStatus, topCourseInfo } =
+        res.payload;
+
+      this.totalCourseLeanersLabel = [];
+      this.totalCourseLeanersDataSet = [
+        {
+          label: 'LABEL.LEARNERS',
+          data: [],
+        },
+      ];
+      coursesEnroll.forEach((stat) => {
+        this.totalCourseLeanersLabel.push(stat.time);
+        this.totalCourseLeanersDataSet[0].data.push(Number(stat.count));
+      });
+
+      this.ratingsChartLabel = [];
+      this.ratinsChartData = [
+        {
+          label: 'LABEL.LEARNERS',
+          data: [],
+        },
+      ];
+      coursesReview.forEach((stat) => {
+        this.ratingsChartLabel.push(stat.time);
+        this.ratinsChartData[0].data.push(Number(stat.count));
+      });
+
+      this.learnerStatisticsLabel = [];
+      this.leanerStatisticsData = [
+        {
+          label: `LABEL.LEARNERS`,
+          data: [],
+        },
+      ];
+      learnerStatus.forEach((stat) => {
+        this.learnerStatisticsLabel.push(stat.status);
+        this.leanerStatisticsData[0].data.push(Number(stat.count));
+      });
+
+    });
+  }
 }

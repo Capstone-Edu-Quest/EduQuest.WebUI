@@ -123,6 +123,7 @@ export class MyCourseDetailsComponent implements OnInit, OnDestroy {
         if (!res?.payload) return;
 
         this.course = res.payload;
+        this.course.listLesson.sort((a, b) => a.index - b.index)
 
         const [date, month, year] = formatTime(res.payload.lastUpdated).split(
           '/'

@@ -3,6 +3,7 @@ import { UserService } from '../../core/services/user.service';
 import { Subscription } from 'rxjs';
 import { WebRole } from '../../shared/enums/user.enum';
 import { faBoltLightning } from '@fortawesome/free-solid-svg-icons';
+import { SubscribtionNameEnum } from '../../shared/enums/others.enum';
 
 @Component({
   selector: 'app-pricing',
@@ -15,43 +16,13 @@ export class PricingComponent implements OnInit, OnDestroy {
   isInstructor = false;
   isViewMonthly = true;
 
-  packagePrice = {
-    instructor: {
-      monthly: 10,
-      yearly: 95,
-    },
-    learner: {
-      monthly: 5,
-      yearly: 50,
-    },
-  }
+  packagePrice: any = null;
+  featuresDescriptionValues: any = null;
 
-  featuresDescriptionValues = {
-    instructor: {
-      free: {
-        commisionFee: 18 // %
-      },
-      pro: {
-        commisionFee: 12, // %
-        marketingEmailPerMonth: 3,
-      }
-    },
-    learner: {
-      free: {},
-      pro: {
-        couponPerMonth: 3,
-        couponDiscountUpto: 90, // %
-        extraGoldAndExp: 10, // %
-        trialCoursePercentage: 15, // %
-        courseTrialPerMonth: 5
-      }
-    }
-  }
-
-  switchValues: {key: number | string, label: string}[] = [
-    {key: 1, label: 'LABEL.MONTHLY'},
-    {key: 2, label: 'LABEL.YEARLY'}
-  ]
+  switchValues: { key: number | string; label: string }[] = [
+    { key: 1, label: 'LABEL.MONTHLY' },
+    { key: 2, label: 'LABEL.YEARLY' },
+  ];
 
   lightningIcon = faBoltLightning;
 
@@ -59,6 +30,7 @@ export class PricingComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.listenToUser();
+    this.initSubscription();
   }
 
   onValueChange(value: number | string): void {
@@ -73,6 +45,22 @@ export class PricingComponent implements OnInit, OnDestroy {
     });
   }
 
+  initSubscription() {
+    this.user.getSubscriptions().subscribe((res) => {
+      if (!res?.payload) return;
+
+      this.packagePrice = res.payload.find(
+        (p) => p.name === SubscribtionNameEnum.PRICE
+      )?.data;
+
+      this.featuresDescriptionValues = res.payload.find(
+        (p) => p.name === SubscribtionNameEnum.NUMBERS
+      )?.data;
+
+      console.log(this.packagePrice, this.featuresDescriptionValues)
+    });
+  }
+
   getPackageInfo(type: 'free' | 'premium') {
     const currentView = this.isViewMonthly ? 'monthly' : 'yearly';
 
@@ -84,22 +72,33 @@ export class PricingComponent implements OnInit, OnDestroy {
           packageTime: 'LABEL.FOREVER',
           action: 'LABEL.APPLIED',
           packageDescribe: 'LABEL.FREE_PACKAGE_DESCRIBE_TEXT',
-          packageDescribeValue: this.isInstructor ? this.featuresDescriptionValues.instructor.free : this.featuresDescriptionValues.learner.free,
-          features: this.isInstructor ? 'LABEL.FREE_INSTRUCTOR_DESCRIPTION' : 'LABEL.FREE_LEARNER_DESCRIPTION'
-        }
+          packageDescribeValue: this.isInstructor
+            ? this.featuresDescriptionValues.Instructor.free
+            : this.featuresDescriptionValues.Learner.free,
+          features: this.isInstructor
+            ? 'LABEL.FREE_INSTRUCTOR_DESCRIPTION'
+            : 'LABEL.FREE_LEARNER_DESCRIPTION',
+        };
       case 'premium':
         return {
           packageName: 'LABEL.PREMIUM_PACKAGE',
-          price: this.isInstructor ? this.packagePrice.instructor[currentView] : this.packagePrice.learner[currentView],
+          price: this.isInstructor
+            ? this.packagePrice.Instructor[currentView]
+            : this.packagePrice.Learner[currentView],
           packageTime: this.isViewMonthly ? 'LABEL.MONTHLY' : 'LABEL.YEARLY',
-          action: this.user.user$.value?.isPremium ? 'LABEL.APPLIED' : 'LABEL.UPGRADE',
+          action: this.user.user$.value?.isPremium
+            ? 'LABEL.APPLIED'
+            : 'LABEL.UPGRADE',
           packageDescribe: 'LABEL.PREMIUM_PACKAGE_DESCRIBE_TEXT',
-          packageDescribeValue: this.isInstructor ? this.featuresDescriptionValues.instructor.pro : this.featuresDescriptionValues.learner.pro,
-          features: this.isInstructor ? 'LABEL.PREMIUM_INSTRUCTOR_DESCRIPTION' : 'LABEL.PREMIUM_LEARNER_DESCRIPTION'
-        }
+          packageDescribeValue: this.isInstructor
+            ? this.featuresDescriptionValues.Instructor.pro
+            : this.featuresDescriptionValues.Learner.pro,
+          features: this.isInstructor
+            ? 'LABEL.PREMIUM_INSTRUCTOR_DESCRIPTION'
+            : 'LABEL.PREMIUM_LEARNER_DESCRIPTION',
+        };
     }
   }
-
 
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();

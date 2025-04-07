@@ -50,7 +50,7 @@ export const endPoints = {
   tag: 'tag',
   searchTag: 'tag/filter',
 
-  subscription: 'subscription',
+  subscription: 'subcription',
 
   webUserStatistic: 'webStatistic/user',
   webOverallStatistic: 'webStatistic/overall',
