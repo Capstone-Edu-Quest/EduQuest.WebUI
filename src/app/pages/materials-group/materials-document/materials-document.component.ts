@@ -46,8 +46,9 @@ export class MaterialsDocumentComponent implements OnInit, OnDestroy {
     this.router.navigate(['materials', 'document', id]);
   }
 
-  onDelete(e: Event) {
+  onDelete(e: Event, id: string) {
     e.stopPropagation();
+    this.course.deleteMaterial(id)
   }
 
   ngOnDestroy(): void {

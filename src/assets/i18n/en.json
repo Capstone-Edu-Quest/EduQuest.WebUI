@@ -610,6 +610,7 @@
   },
   "MESSAGE": {
     "CREATED_SUCCESSFULLY": "Created successfully",
+    "DELETED_SUCCESSFULLY": "Deleted successfully",
     "ADDED_SUCCESSFULLY": "Added successfully",
     "CLONED_SUCCESSFULLY": "Duplicated learning path successfully",
     "COURSE_EXISTED_LEARNINGPATH": "This course already existed in this learning path",

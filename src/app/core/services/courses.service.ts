@@ -163,4 +163,15 @@ export class CoursesService {
       );
     });
   }
+
+  deleteMaterial(materialId: string) {
+    this.http.delete(endPoints.material + `?materialId=${materialId}`).subscribe((res) => {
+      if (!res?.payload) return;
+      this.onInitMyMaterials();
+      this.message.addMessage(
+        'success',
+        this.translate.instant('MESSAGE.DELETED_SUCCESSFULLY')
+      );
+    })
+  }
 }

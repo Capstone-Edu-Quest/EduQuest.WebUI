@@ -51,6 +51,7 @@ export class MaterialsQuizComponent implements OnInit, OnDestroy {
 
   onDelete(e: Event, id: string) {
     e.stopPropagation();
+    this.course.deleteMaterial(id)
   }
 
   ngOnDestroy(): void {

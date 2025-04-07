@@ -52,8 +52,9 @@ export class MaterialsVideoComponent implements OnInit, OnDestroy {
     this.router.navigate(['/materials/videos/', id]);
   }
 
-  onDelete(e: Event) {
+  onDelete(e: Event, id: string) {
     e.stopPropagation();
+    this.course.deleteMaterial(id)
   }
 
   ngOnDestroy(): void {
