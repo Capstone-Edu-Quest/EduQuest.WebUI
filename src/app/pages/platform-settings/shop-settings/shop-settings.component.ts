@@ -15,6 +15,7 @@ import { MessageService } from '../../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
 import { PlatformService } from '@/src/app/core/services/platform.service';
 import { v4 } from 'uuid';
+import { IUpdateShopItem } from '@/src/app/shared/interfaces/others.interfaces';
 
 @Component({
   selector: 'app-shop-settings',
@@ -129,12 +130,19 @@ export class ShopSettingsComponent implements OnInit {
       (item) => !this.deleteItems.includes(item.id)
     );
 
-    console.log('changedItemId: ', changeItems);
-    console.log('deleteItems: ', this.deleteItems);
-    console.log('items: ', this.items);
-
     this.deleteItems = [];
     this.isEdit = false;
+
+    const updatedData: IUpdateShopItem = {
+      items: this.items.map((item) => ({ name: item.name, price: item.price })),
+    };
+
+    this.platform.updateShopItems(updatedData).subscribe((res) => {
+      this.message.addMessage(
+        'success',
+        this.translate.instant('MESSAGE.UPDATED_SUCCESSFULLY')
+      );
+    });
   }
 
   onDelete(item: IShopItemEdit) {

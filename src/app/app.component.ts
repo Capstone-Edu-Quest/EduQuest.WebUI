@@ -37,6 +37,8 @@ export class AppComponent implements OnInit, OnDestroy {
   subscription$: Subscription = new Subscription();
   isLoading: boolean = false;
 
+  timeOut: any = null;
+
   constructor(
     private ThemeService: ThemeService,
     private translate: TranslateService,
@@ -85,8 +87,9 @@ export class AppComponent implements OnInit, OnDestroy {
   listenToUser() {
     this.subscription$.add(
       this.user.user$.subscribe((user) => {
+        clearTimeout(this.timeOut);
         if (user) {
-          this.initUserData(user);
+          this.timeOut = setTimeout(() => this.initUserData(user), 1000);
         } else {
           this.resetUserData();
         }

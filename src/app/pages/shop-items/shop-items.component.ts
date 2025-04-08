@@ -5,6 +5,7 @@ import { folderPath } from '../../shared/constants/path.constant';
 import { IUser } from '../../shared/interfaces/user.interfaces';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../core/services/user.service';
+import { PlatformService } from '../../core/services/platform.service';
 @Component({
   selector: 'app-shop-items',
   templateUrl: './shop-items.component.html',
@@ -22,7 +23,10 @@ export class ShopItemsComponent implements OnInit, OnDestroy {
 
   items: IShopItem[] = [];
 
-  constructor(private userService: UserService) {}
+  constructor(
+    private userService: UserService,
+    private platform: PlatformService
+  ) {}
 
   ngOnInit(): void {
     this.listenToUser();
@@ -38,8 +42,13 @@ export class ShopItemsComponent implements OnInit, OnDestroy {
   }
 
   initItems() {
-    this.items.forEach((item) => {
-      item.isOwned = this.user?.mascotItem?.includes(item.id) ?? false;
+    this.platform.getShopItems().subscribe((data) => {
+      if (!data?.payload) return;
+
+      this.items = data.payload.map((item) => ({
+        ...item,
+        isOwned: this.user?.mascotItem?.includes(item.id) ?? false,
+      }));
     });
   }
 

@@ -106,7 +106,6 @@ interface LearnerPackageData {
   };
 }
 
-
 export interface AdminDashboardResponse {
   adminDasboardUsers: AdminDashboardUsers;
   adminDashboardCourses: AdminDashboardCourses;
@@ -132,8 +131,6 @@ export interface AdminDashboardCourses {
   newCoursesThisMonth: number;
   mostPopularCategory: string; // or you can replace with a union type if there are fixed categories
 }
-
-
 
 export interface IPlatformSettingsStats {
   levelExp: LevelExpStats;
@@ -205,4 +202,11 @@ export interface CouponGraphData {
   newCoupons: number;
   expiredCoupons: number;
   date: string; // e.g., "Oct 2024"
+}
+
+export interface IUpdateShopItem {
+  items: {
+    name: string;
+    price: number;
+  }[];
 }

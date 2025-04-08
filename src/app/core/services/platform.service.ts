@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { endPoints } from '../../shared/constants/endPoints.constant';
-import { IPlatformSettingsStats } from '../../shared/interfaces/others.interfaces';
+import { IPlatformSettingsStats, IUpdateShopItem } from '../../shared/interfaces/others.interfaces';
 import { BehaviorSubject } from 'rxjs';
 import { IShopItem, IShopItemEdit } from '../../shared/interfaces/three.interfaces';
 import { ILevel } from '../../shared/interfaces/Platform.interface';
@@ -25,6 +25,10 @@ export class PlatformService {
 
   getShopItems() {
     return this.http.get<IShopItemEdit[]>(endPoints.filterShopItem)
+  }
+
+  updateShopItems(data: IUpdateShopItem) {
+    return this.http.update(endPoints.shopitem, data)
   }
   
   getLevels() {

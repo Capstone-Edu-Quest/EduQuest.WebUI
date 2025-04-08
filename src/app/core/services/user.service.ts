@@ -52,6 +52,17 @@ export class UserService {
     this.firebase = this.injector.get(FirebaseService);
   }
 
+  reloadMyData() {
+    this.http.get<IUser>(endPoints.getMyInfo).subscribe((res) => {
+      if (!res?.payload) {
+        this.logout();
+        return;
+      }
+
+      this.updateUser({...res.payload, roleId: Number(res.payload.roleId)});
+    });
+  }
+
   updateUser(user: IUser | null) {
     this.user$.next(user);
     this.storage.setToLocalStorage(
@@ -68,13 +79,9 @@ export class UserService {
 
     if (userData) {
       this.updateUser(JSON.parse(userData));
-
-      if (JSON.parse(userData).roleId !== WebRole.INSTRUCTOR) return;
-
-      setTimeout(() => {
-        this.firebase.removeCachedImage();
-      }, 1000);
     }
+
+    this.reloadMyData();
   }
 
   getSubscriptions() {
