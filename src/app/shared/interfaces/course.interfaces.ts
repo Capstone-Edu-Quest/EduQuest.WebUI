@@ -225,7 +225,7 @@ export interface ICourseFullMetarialsView extends ICourse {
 export interface ITag {
   id: string;
   name: string;
-  description?: string;
+  courses?: number;
 }
 
 export interface ITagCount extends ITag {

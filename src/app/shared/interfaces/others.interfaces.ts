@@ -132,3 +132,77 @@ export interface AdminDashboardCourses {
   newCoursesThisMonth: number;
   mostPopularCategory: string; // or you can replace with a union type if there are fixed categories
 }
+
+
+
+export interface IPlatformSettingsStats {
+  levelExp: LevelExpStats;
+  quests: QuestStats;
+  shopItems: ShopItemStats;
+  pricing: PricingStats;
+  coupons: CouponStats;
+}
+
+export interface LevelExpStats {
+  totalEarnedExp: number;
+  avarageExpPerDay: number;
+  totalEarnedLevel: number;
+  averageLevel: number;
+  userLevels: UserLevel[];
+}
+
+export interface UserLevel {
+  level: number;
+  count: number;
+}
+
+export interface QuestStats {
+  totalCreatedQuests: number;
+  totalCompletedQuests: number;
+  averageCompletedQuestsPerUser: number;
+  questCompletion: QuestCompletion[];
+}
+
+export interface QuestCompletion {
+  date: string; // ISO timestamp string
+  count: number;
+}
+
+export interface ShopItemStats {
+  totalItemSold: number;
+  averageItemsPerUser: number;
+  mostPurchasedItem: string;
+  totalGoldFromSales: number;
+  bestSaleItems: BestSaleItem[];
+}
+
+export interface BestSaleItem {
+  name: string;
+  count: number;
+}
+
+export interface PricingStats {
+  instructorProSold: number | null;
+  learnerProSold: number | null;
+  renewRate: number | null;
+  subscription: SubscriptionData[];
+}
+
+export interface SubscriptionData {
+  date: string; // e.g., "2025-04-09"
+  count: number;
+}
+
+export interface CouponStats {
+  createdCoupons: number;
+  expiredCoupons: number;
+  redeemedTimes: number;
+  graphData: CouponGraphData[];
+}
+
+export interface CouponGraphData {
+  redeemTimes: number;
+  newCoupons: number;
+  expiredCoupons: number;
+  date: string; // e.g., "Oct 2024"
+}

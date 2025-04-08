@@ -26,6 +26,7 @@ import { LearningPathService } from './core/services/learning-path.service';
 import { CoursesService } from './core/services/courses.service';
 import { IUser } from './shared/interfaces/user.interfaces';
 import { WebRole } from './shared/enums/user.enum';
+import { PlatformService } from './core/services/platform.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -51,7 +52,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private fox: FoxService,
     private quests: QuestsService,
     private learningPath: LearningPathService,
-    private course: CoursesService
+    private course: CoursesService,
+    private platform: PlatformService
   ) {}
 
   ngOnInit(): void {
@@ -107,6 +109,7 @@ export class AppComponent implements OnInit, OnDestroy {
       case WebRole.ADMIN:
       case WebRole.STAFF:
         this.user.initAdminDashboards();
+        this.platform.initPlatformStats();
     }
 
     this.notification.initNotifications();

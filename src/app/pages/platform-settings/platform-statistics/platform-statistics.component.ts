@@ -1,3 +1,4 @@
+import { map } from 'rxjs/operators';
 import { Component, type OnInit } from '@angular/core';
 import {
   faBarsProgress,
@@ -23,6 +24,7 @@ import {
   ILineChartDataSet,
   IPieChartDataSet,
 } from '../../../shared/interfaces/chart.interface';
+import { PlatformService } from '@/src/app/core/services/platform.service';
 
 @Component({
   selector: 'app-platform-statistics',
@@ -30,219 +32,205 @@ import {
   styleUrl: './platform-statistics.component.scss',
 })
 export class PlatformStatisticsComponent implements OnInit {
-  levelExpBarChartDataSet: IBarChartDataSet[] = [
-    {
-      label: 'LABEL.USERS',
-      data: [50, 75, 77, 53, 12, 50, 75, 77, 53, 12, 50, 75, 77, 53, 12],
-    },
-  ];
+  isLoaded: boolean = false;
 
-  questsLineChartDataSet: ILineChartDataSet[] = [
-    {
-      label: 'LABEL.QUESTS_COMPLETION',
-      data: [50, 75, 77, 53, 12, 60],
-    },
-  ];
+  questsLineChartDataSet: ILineChartDataSet[] = [];
 
-  shopItemsPieChartDataSet: IPieChartDataSet[] = [
-    {
-      label: `LABEL.PURCHASED`,
-      data: [553, 75, 99, 123, 75, 12],
-    },
-  ];
+  shopItemsPieChartDataSet: IPieChartDataSet[] = [];
 
-  subscriptionsLineChartDataSet: ILineChartDataSet[] = [
-    {
-      label: 'LABEL.SUBSCRIPTIONS',
-      data: [50, 75, 77, 53, 12, 60],
-    },
-  ];
+  subscriptionsLineChartDataSet: ILineChartDataSet[] = [];
 
-  couponsBarChartDataSet: IBarChartDataSet[] = [
-    {
-      label: 'LABEL.REDEEMED_COUPONS',
-      data: [22, 8, 2, 11, 22, 87],
-    },
-    {
-      label: 'LABEL.NEW_COUPONS',
-      data: [2, 1, 0, 5, 2, 3],
-    },
-    {
-      label: 'LABEL.EXPIRED_COUPONS',
-      data: [0, 3, 0, 2, 3, 5],
-    },
-  ];
+  couponsBarChartDataSet: IBarChartDataSet[] = [];
 
-  sections = [
-    {
-      id: 'LEVEL_EXP',
-      stats: [
-        {
-          id: 'TOTAL_EARNED_EXP',
-          icon: faVials,
-          value: (8392).toLocaleString(),
-        },
-        {
-          id: 'AVERAGE_EARNED_EXP_DAY',
-          icon: faVial,
-          value: (222).toLocaleString(),
-        },
-        {
-          id: 'TOTAL_EARNED_LEVELS',
-          icon: faBarsProgress,
-          value: (223).toLocaleString(),
-        },
-        {
-          id: 'AVERAGE_LEVEL',
-          icon: faGauge,
-          value: (12).toLocaleString(),
-        },
-      ],
-      graph: {
-        title: 'LABEL.USERS_LEVEL',
-        type: 'bar',
-        labels: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
-        dataSets: this.levelExpBarChartDataSet,
-      },
-    },
-    {
-      id: 'QUESTS',
-      stats: [
-        {
-          id: 'TOTAL_CREATED_QUESTS',
-          icon: faScroll,
-          value: (24).toLocaleString(),
-        },
-        {
-          id: 'TOTAL_COMPLETED_QUESTS',
-          icon: faStapler,
-          value: (222).toLocaleString(),
-        },
-        {
-          id: 'AVERAGE_COMPLETED_QUESTS_PER_USER',
-          icon: faPaperPlane,
-          value: (223).toLocaleString(),
-        },
-      ],
-      graph: {
-        title: 'LABEL.QUESTS_COMPLETION',
-        type: 'line',
-        labels: [
-          'Oct 2024',
-          'Nov 2024',
-          'Dec 2024',
-          'Jan 2025',
-          'Feb 2025',
-          'Mar 2025',
-        ],
-        dataSets: this.questsLineChartDataSet,
-      },
-    },
-    {
-      id: 'SHOP_ITEMS',
-      stats: [
-        {
-          id: 'TOTAL_ITEMS_SOLD',
-          icon: faBoxesStacked,
-          value: (555).toLocaleString(),
-        },
-        {
-          id: 'AVERAGE_ITEM_PER_USER',
-          icon: faBoxOpen,
-          value: (4).toLocaleString(),
-        },
-        {
-          id: 'MOST_PURCHASED_ITEM',
-          icon: faDolly,
-          value: 'wings',
-        },
-        {
-          id: 'TOTAL_GOLD_FROM_SALES',
-          icon: faCoins,
-          value: (2294).toLocaleString(),
-        },
-      ],
-      graph: {
-        title: 'LABEL.BEST_SALE_ITEMS',
-        type: 'pie',
-        labels: [
-          'wings',
-          'katana',
-          'samurai hat',
-          'apollos-shield',
-          'gold-belt',
-          '...',
-        ],
-        dataSets: this.shopItemsPieChartDataSet,
-      },
-    },
-    {
-      id: 'PRICING',
-      stats: [
-        {
-          id: 'INSTRUCTOR_PREMIUM_SOLD',
-          icon: faGraduationCap,
-          value: (555).toLocaleString(),
-        },
-        {
-          id: 'LEARNER_PREMIUM_SOLD',
-          icon: faSchool,
-          value: (4).toLocaleString(),
-        },
-        {
-          id: 'RENEW_RATE',
-          icon: faRotate,
-          value: '32%',
-        },
-      ],
-      graph: {
-        title: 'LABEL.SUBSCRIPTIONS',
-        type: 'line',
-        labels: [
-          'Oct 2024',
-          'Nov 2024',
-          'Dec 2024',
-          'Jan 2025',
-          'Feb 2025',
-          'Mar 2025',
-        ],
-        dataSets: this.subscriptionsLineChartDataSet,
-      },
-    },
-    {
-      id: 'COUPONS',
-      stats: [
-        {
-          id: 'CREATED_COUPONS',
-          icon: faGift,
-          value: (12).toLocaleString(),
-        },
-        {
-          id: 'EXPIRED_COUPONS',
-          icon: faSackXmark,
-          value: (8).toLocaleString(),
-        },
-        {
-          id: 'REDEEMED_COUPONS',
-          icon: faCheckDouble,
-          value: (322).toLocaleString(),
-        },
-      ],
-      graph: {
-        title: '',
-        type: 'bar',
-        labels: [
-          'Oct 2024',
-          'Nov 2024',
-          'Dec 2024',
-          'Jan 2025',
-          'Feb 2025',
-          'Mar 2025',
-        ],
-        dataSets: this.couponsBarChartDataSet,
-      },
-    },
-  ];
+  sections: any[] = [];
 
-  ngOnInit(): void {}
+  constructor(private platform: PlatformService) {}
+
+  ngOnInit(): void {
+    this.listenToPlatformStats();
+  }
+
+  listenToPlatformStats() {
+    this.platform.platformStats$.subscribe((data) => {
+      if (!data) return;
+
+      this.sections = [
+        {
+          id: 'LEVEL_EXP',
+          stats: [
+            {
+              id: 'TOTAL_EARNED_EXP',
+              icon: faVials,
+              value: data.levelExp.totalEarnedExp.toLocaleString(),
+            },
+            {
+              id: 'AVERAGE_EARNED_EXP_DAY',
+              icon: faVial,
+              value: data.levelExp.avarageExpPerDay.toLocaleString(),
+            },
+            {
+              id: 'TOTAL_EARNED_LEVELS',
+              icon: faBarsProgress,
+              value: data.levelExp.totalEarnedLevel.toLocaleString(),
+            },
+            {
+              id: 'AVERAGE_LEVEL',
+              icon: faGauge,
+              value: data.levelExp.averageLevel.toLocaleString(),
+            },
+          ],
+          graph: {
+            title: 'LABEL.USERS_LEVEL',
+            type: 'bar',
+            labels: data.levelExp.userLevels.map((l) => l.level),
+            dataSets: [
+              {
+                label: 'LABEL.USERS',
+                data: data.levelExp.userLevels.map((l) => l.count),
+              },
+            ],
+          },
+        },
+        {
+          id: 'QUESTS',
+          stats: [
+            {
+              id: 'TOTAL_CREATED_QUESTS',
+              icon: faScroll,
+              value: data.quests.totalCreatedQuests.toLocaleString(),
+            },
+            {
+              id: 'TOTAL_COMPLETED_QUESTS',
+              icon: faStapler,
+              value: data.quests.totalCompletedQuests.toLocaleString(),
+            },
+            {
+              id: 'AVERAGE_COMPLETED_QUESTS_PER_USER',
+              icon: faPaperPlane,
+              value: data.quests.averageCompletedQuestsPerUser.toLocaleString(),
+            },
+          ],
+          graph: {
+            title: 'LABEL.QUESTS_COMPLETION',
+            type: 'line',
+            labels: data.quests.questCompletion.map((q) => q.date),
+            dataSets: [
+              {
+                label: 'LABEL.QUESTS_COMPLETION',
+                data: data.quests.questCompletion.map((q) => q.count),
+              },
+            ],
+          },
+        },
+        {
+          id: 'SHOP_ITEMS',
+          stats: [
+            {
+              id: 'TOTAL_ITEMS_SOLD',
+              icon: faBoxesStacked,
+              value: data.shopItems.totalItemSold.toLocaleString(),
+            },
+            {
+              id: 'AVERAGE_ITEM_PER_USER',
+              icon: faBoxOpen,
+              value: data.shopItems.averageItemsPerUser.toLocaleString(),
+            },
+            {
+              id: 'MOST_PURCHASED_ITEM',
+              icon: faDolly,
+              value: data.shopItems.mostPurchasedItem,
+            },
+            {
+              id: 'TOTAL_GOLD_FROM_SALES',
+              icon: faCoins,
+              value: data.shopItems.totalGoldFromSales.toLocaleString(),
+            },
+          ],
+          graph: {
+            title: 'LABEL.BEST_SALE_ITEMS',
+            type: 'pie',
+            labels: data.shopItems.bestSaleItems.map((i) => i.name),
+            dataSets: [
+              {
+                label: `LABEL.PURCHASED`,
+                data: data.shopItems.bestSaleItems.map((i) => i.count),
+              },
+            ],
+          },
+        },
+        {
+          id: 'PRICING',
+          stats: [
+            {
+              id: 'INSTRUCTOR_PREMIUM_SOLD',
+              icon: faGraduationCap,
+              value: (data.pricing.instructorProSold ?? 0).toLocaleString(),
+            },
+            {
+              id: 'LEARNER_PREMIUM_SOLD',
+              icon: faSchool,
+              value: (data.pricing.learnerProSold ?? 0).toLocaleString(),
+            },
+            {
+              id: 'RENEW_RATE',
+              icon: faRotate,
+              value: (data.pricing.renewRate ?? 0) + '%',
+            },
+          ],
+          graph: {
+            title: 'LABEL.SUBSCRIPTIONS',
+            type: 'line',
+            labels: data.pricing.subscription.map((s) => s.date),
+            dataSets: [
+              {
+                label: 'LABEL.SUBSCRIPTIONS',
+                data: data.pricing.subscription.map((s) => s.count),
+              },
+            ],
+          },
+        },
+        {
+          id: 'COUPONS',
+          stats: [
+            {
+              id: 'CREATED_COUPONS',
+              icon: faGift,
+              value: data.coupons.createdCoupons.toLocaleString(),
+            },
+            {
+              id: 'EXPIRED_COUPONS',
+              icon: faSackXmark,
+              value: data.coupons.expiredCoupons.toLocaleString(),
+            },
+            {
+              id: 'REDEEMED_COUPONS',
+              icon: faCheckDouble,
+              value: data.coupons.redeemedTimes.toLocaleString(),
+            },
+          ],
+          graph: {
+            title: '',
+            type: 'bar',
+            labels: data.coupons.graphData.map((c) => c.date),
+            dataSets: [
+              {
+                label: 'LABEL.REDEEMED_COUPONS',
+                data: data.coupons.graphData.map((c) => c.redeemTimes),
+              },
+              {
+                label: 'LABEL.NEW_COUPONS',
+                data: data.coupons.graphData.map((c) => c.newCoupons),
+              },
+              {
+                label: 'LABEL.EXPIRED_COUPONS',
+                data: data.coupons.graphData.map((c) => c.expiredCoupons),
+              },
+            ],
+          },
+        },
+      ];
+
+      this.isLoaded = true;
+    });
+  }
 }

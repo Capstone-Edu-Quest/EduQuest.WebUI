@@ -39,31 +39,33 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
       label: 'LABEL.TAGS',
     },
     {
-      key: 'numberOfCourses',
+      key: 'courses',
       label: 'LABEL.COURSES',
     },
   ];
 
   courseTableColumns: TableColumn[] = [
     {
-      key: 'name',
+      key: 'title',
       label: 'LABEL.COURSE_NAME',
     },
     {
       key: 'description',
       label: 'LABEL.DESCRIPTION',
     },
-    {
-      key: 'tags',
-      label: 'LABEL.TAGS',
-      render: (data: ICourseTagData) =>
-        data.tags.map((tag) => `#${tag.name}`).join(' '),
-    },
+    // {
+    //   key: 'tags',
+    //   label: 'LABEL.TAGS',
+    //   render: (data: ICourseTagData) =>
+    //     data.tags.map((tag) => `#${tag.name}`).join(' '),
+    // },
   ];
 
   tagsData: ITag[] = [];
 
   coursesData: ICourseOverview[] = [];
+
+  isShowCourse: boolean = false
 
   constructor(private CourseService: CoursesService) {}
 
@@ -80,11 +82,11 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
         elementRef: this.initCourseByTagRef,
       },
     ];
-    this.courseTableColumns.push({
-      key: 'actions',
-      label: '',
-      elementRef: this.editRef,
-    });
+    // this.courseTableColumns.push({
+    //   key: 'actions',
+    //   label: '',
+    //   elementRef: this.editRef,
+    // });
   }
 
   onEdit(e: Event, data: ICourseTagData, idx: number) {
@@ -102,16 +104,18 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
 
   onConfirmSearchCourse(tag: ITag): void {
     const courseParams: ISearchCourseParams = {
-      TagListId: [tag.id],
+      TagListId: [tag.id, '111'],
       pageNo: 1,
       eachPage: 10,
     };
 
+    this.isShowCourse = false;
     this.CourseService.onSearchCourse(courseParams).subscribe(res => {
       if(!res?.payload) return;
 
       console.log(res.payload)
-      this.coursesData = res.payload
+      this.coursesData = res.payload;
+      this.isShowCourse = true;
     })
   }
 }

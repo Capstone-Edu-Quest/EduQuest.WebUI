@@ -23,7 +23,7 @@
     <div class="label">{{ "LABEL.COURSES" | translate }}</div>
     <div class="sub-label">{{ "LABEL.COURSES_SUB" | translate }}</div>
 
-    <app-table [columns]="courseTableColumns" [data]="coursesData"></app-table>
+    <app-table *ngIf="isShowCourse" [columns]="courseTableColumns" [data]="coursesData"></app-table>
   </div>
 </div>
 

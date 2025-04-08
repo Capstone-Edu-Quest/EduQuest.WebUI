@@ -1,0 +1,23 @@
+import { Injectable } from '@angular/core';
+import { HttpService } from './http.service';
+import { endPoints } from '../../shared/constants/endPoints.constant';
+import { IPlatformSettingsStats } from '../../shared/interfaces/others.interfaces';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class PlatformService {
+  platformStats$: BehaviorSubject<IPlatformSettingsStats | null> =
+    new BehaviorSubject<IPlatformSettingsStats | null>(null);
+
+  constructor(private http: HttpService) {}
+
+  initPlatformStats() {
+    this.http
+      .get<IPlatformSettingsStats>(endPoints.platformSettingStatistic)
+      .subscribe((res) => {
+        this.platformStats$.next(res?.payload ?? null);
+      });
+  }
+}
