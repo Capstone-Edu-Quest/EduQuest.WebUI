@@ -5,6 +5,7 @@ import {
   ViewChild,
   type OnInit,
   ElementRef,
+  TemplateRef,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -24,6 +25,7 @@ import {
 } from '../../shared/interfaces/course.interfaces';
 import { Location } from '@angular/common';
 import { CoursesService } from '../../core/services/courses.service';
+import { ModalService } from '../../core/services/modal.service';
 
 @Component({
   selector: 'app-my-course-add',
@@ -65,7 +67,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private ImageService: ImageService,
     private UserService: UserService,
-    private CourseService: CoursesService
+    private CourseService: CoursesService,
   ) {}
 
   ngOnInit(): void {

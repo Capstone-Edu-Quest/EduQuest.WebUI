@@ -141,11 +141,20 @@ export interface IMaterialResponse {
       title: string;
       description: string;
       questionCount: number;
+      timeLimit: number;
+      passingPercentage: number
     }[];
   };
   assignment: {
     total: number;
-    items: { id: string; title: string; description: string }[];
+    items: {
+      id: string;
+      title: string;
+      description: string;
+      timeLimit: number;
+      answerLanguage: string;
+      language: string;
+    }[];
   };
 }
 

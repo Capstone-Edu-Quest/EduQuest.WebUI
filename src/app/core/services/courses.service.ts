@@ -193,6 +193,7 @@ export class CoursesService {
         'success',
         this.translate.instant('MESSAGE.UPDATED_SUCCESSFULLY')
       );
+      this.router.navigate(['my-courses', course.courseId])
     });
   }
 

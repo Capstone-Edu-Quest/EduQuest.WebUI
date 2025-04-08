@@ -39,9 +39,71 @@
     </div>
   </div>
   <div class="mission add">
-    <div style="display: flex; align-items: center; gap: 8px">
+    <div
+      style="display: flex; align-items: center; gap: 8px"
+      (click)="onClickAddMaterial()"
+    >
       <fa-icon [icon]="PlusIcon"></fa-icon>
       <div class="mission-name">{{ "LABEL.ADD_MATERIAL" | translate }}</div>
     </div>
   </div>
 </div>
+
+<ng-template #SearchMaterials>
+  <div style="display: flex; width: 100%; margin-top: 20px">
+    <nz-input-group [nzSuffix]="suffixIconButton" style="width: 100%">
+      <input
+        style="width: 80%; margin: 0 0 0 0"
+        nz-input
+        placeholder="{{ 'LABEL.SEARCH_MATERIALS' | translate }}"
+        [(ngModel)]="searchText"
+      />
+    </nz-input-group>
+    <ng-template #suffixIconButton>
+      <i nz-icon nzType="search" style="color: var(--secondary-text)"></i>
+    </ng-template>
+  </div>
+
+  <div class="stage-missions-ctn" style="margin-top: 20px; border-radius: 12px">
+    <div
+      (click)="onAddMaterials(material)"
+      class="mission"
+      *ngFor="let material of filterBySearch(); let i = index"
+      style="cursor: pointer"
+      [ngStyle]="{
+        opacity: getOpacity(material.id)
+      }"
+    >
+      <div style="display: flex; justify-content: space-between; width: 100%">
+        <div class="mission-info">
+          <fa-icon [icon]="onGetIcon(material.type)"></fa-icon>
+          <div class="mission-name">{{ i + 1 }}.{{ material?.title }}</div>
+        </div>
+
+        <div class="right-ctn">
+          <div class="mission-time">
+            <i nz-icon nzType="clock-circle"></i>
+            {{
+              "LABEL.MINUTES"
+                | translate
+                  : {
+                      value: getTime(
+                        material?.duration ?? material.timeLimit ?? 0
+                      )
+                    }
+            }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="btn-ctn-add-material">
+    <app-button (click)="onCancelAdd()">{{
+      "BUTTON.CANCEL" | translate
+    }}</app-button>
+    <app-button (click)="onConfirmAdd()" type="primary">{{
+      "BUTTON.SAVE" | translate
+    }}</app-button>
+  </div>
+</ng-template>

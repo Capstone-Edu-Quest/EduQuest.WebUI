@@ -55,6 +55,10 @@ export class CouponService {
     );
   }
 
+  initCoupons() {
+    return this.http.get<ICoupon[]>(endPoints.coupon)
+  }
+
   createCoupon(coupon: ICouponCreate) {
     return this.http.post<ICoupon>(endPoints.coupon, coupon);
   }

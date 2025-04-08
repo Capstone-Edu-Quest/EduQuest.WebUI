@@ -4,6 +4,7 @@ import { endPoints } from '../../shared/constants/endPoints.constant';
 import { IPlatformSettingsStats } from '../../shared/interfaces/others.interfaces';
 import { BehaviorSubject } from 'rxjs';
 import { IShopItem, IShopItemEdit } from '../../shared/interfaces/three.interfaces';
+import { ILevel } from '../../shared/interfaces/Platform.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -25,4 +26,9 @@ export class PlatformService {
   getShopItems() {
     return this.http.get<IShopItemEdit[]>(endPoints.filterShopItem)
   }
+  
+  getLevels() {
+    return this.http.get<ILevel[]>(endPoints.getLevel + '?Page=1&EachPage=100');
+  }
+  
 }

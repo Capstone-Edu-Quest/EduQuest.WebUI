@@ -1,4 +1,4 @@
-<div class="level-section">
+<div class="level-section" *ngIf="isLoaded">
   <div class="btn-ctn">
     <ng-container
       [ngTemplateOutlet]="isEdit ? editBtns : notEditBtns"
@@ -20,7 +20,7 @@
 </div>
 
 <ng-template #expInput let-row="row">
-  <input type="number" [(ngModel)]="row.exp" class="formated-input"/>
+  <input type="number" [(ngModel)]="row.exp" class="formated-input" />
 </ng-template>
 
 <ng-template #rewardInput let-row="row">
@@ -44,13 +44,12 @@
         </option>
       </select>
       } @case('coupon') {
-        <input
+      <input
         style="min-width: none !important; width: 70px !important"
         [(ngModel)]="row.rewardValue[i]"
         type="number"
       />
-      %
-    } @case('booster'){
+      % } @case('booster'){
       <select [(ngModel)]="row.rewardValue[i]">
         <option *ngFor="let opt of boosterTypeOptions" [ngValue]="opt.value">
           {{ opt.label | translate }}

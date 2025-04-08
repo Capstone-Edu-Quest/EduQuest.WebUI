@@ -2,6 +2,7 @@ import { Component, ViewChild, type OnInit, TemplateRef } from '@angular/core';
 import { ICouponCreateState } from '../../../../shared/interfaces/course.interfaces';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ModalService } from '../../../../core/services/modal.service';
+import { CouponService } from '@/src/app/core/services/coupon.service';
 
 @Component({
   selector: 'app-create-coupon',
@@ -36,7 +37,7 @@ export class CreateCouponComponent implements OnInit {
   newIcon = faPlus;
   removeIcon = faMinus;
 
-  constructor(private modal: ModalService) {}
+  constructor(private modal: ModalService, private CouponService: CouponService) {}
 
   ngOnInit(): void {}
 
@@ -87,6 +88,10 @@ export class CreateCouponComponent implements OnInit {
   onCreate() {
     this.coupon.startTime = new Date(`${this.startDate}T${this.startTime}:00Z`).toISOString();
     this.coupon.expireTime = new Date(`${this.expireDate}T${this.expireTime}:00Z`).toISOString();
+
+    this.CouponService.createCoupon(this.coupon).subscribe(res => {
+      console.log(res)
+    })
   }
 
   onCancel() {

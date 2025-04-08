@@ -20,6 +20,7 @@ import {
 import { Subscription } from 'rxjs';
 import { MessageService } from '../../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
+import { PlatformService } from '@/src/app/core/services/platform.service';
 
 @Component({
   selector: 'app-level-settings',
@@ -33,6 +34,7 @@ export class LevelSettingsComponent
   @ViewChild('rewardInput') rewardInputRef!: TemplateRef<any>;
   @ViewChild('deleteLevel') deleteLevelRef!: TemplateRef<any>;
 
+  isLoaded: boolean = false;
   subscription$: Subscription = new Subscription();
   changePage$: EventEmitter<number> = new EventEmitter<number>();
 
@@ -42,7 +44,7 @@ export class LevelSettingsComponent
 
   tableColumns: TableColumn[] = [
     {
-      key: 'id',
+      key: 'level',
       label: 'LABEL.LEVELS',
     },
     {
@@ -59,87 +61,7 @@ export class LevelSettingsComponent
   ];
 
   // -------------
-  levels: ILevel[] = [
-    { id: 1, exp: 0, rewardType: [RewardTypeEnum.GOLD], rewardValue: [5] },
-    { id: 2, exp: 150, rewardType: [RewardTypeEnum.GOLD], rewardValue: [10] },
-    {
-      id: 3,
-      exp: 400,
-      rewardType: [RewardTypeEnum.GOLD, RewardTypeEnum.BOOSTER],
-      rewardValue: [300, 1],
-    },
-    { id: 4, exp: 800, rewardType: [RewardTypeEnum.GOLD], rewardValue: [15] },
-    {
-      id: 5,
-      exp: 1300,
-      rewardType: [RewardTypeEnum.GOLD, RewardTypeEnum.ITEM],
-      rewardValue: [20, 'balloon'],
-    },
-    {
-      id: 6,
-      exp: 1900,
-      rewardType: [RewardTypeEnum.GOLD],
-      rewardValue: [25],
-    },
-    {
-      id: 7,
-      exp: 2600,
-      rewardType: [RewardTypeEnum.GOLD, RewardTypeEnum.BOOSTER],
-      rewardValue: [30, 1],
-    },
-    {
-      id: 8,
-      exp: 3400,
-      rewardType: [RewardTypeEnum.GOLD],
-      rewardValue: [35],
-    },
-    {
-      id: 9,
-      exp: 4300,
-      rewardType: [RewardTypeEnum.GOLD, RewardTypeEnum.ITEM],
-      rewardValue: [40, 'wings'],
-    },
-    {
-      id: 10,
-      exp: 5300,
-      rewardType: [RewardTypeEnum.GOLD],
-      rewardValue: [45],
-    },
-    {
-      id: 11,
-      exp: 6400,
-      rewardType: [RewardTypeEnum.GOLD, RewardTypeEnum.BOOSTER],
-      rewardValue: [50, 1],
-    },
-    {
-      id: 12,
-      exp: 7600,
-      rewardType: [RewardTypeEnum.GOLD],
-      rewardValue: [55],
-    },
-    {
-      id: 13,
-      exp: 8900,
-      rewardType: [RewardTypeEnum.GOLD, RewardTypeEnum.ITEM],
-      rewardValue: [60, 'katana'],
-    },
-    {
-      id: 14,
-      exp: 10300,
-      rewardType: [RewardTypeEnum.GOLD],
-      rewardValue: [65],
-    },
-    {
-      id: 15,
-      exp: 11800,
-      rewardType: [
-        RewardTypeEnum.GOLD,
-        RewardTypeEnum.BOOSTER,
-        RewardTypeEnum.ITEM,
-      ],
-      rewardValue: [70, 1, 'gold-belt'],
-    },
-  ];
+  levels: ILevel[] = [];
 
   editingLevels: ILevel[] = [];
   deletedLevels: number[] = [];
@@ -157,18 +79,19 @@ export class LevelSettingsComponent
   constructor(
     private quests: QuestsService,
     private message: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private platform: PlatformService
   ) {}
   ngOnInit(): void {
+    this.initLevel();
     this.onInitSelectOptions();
-    console.log(this.levels);
   }
 
   ngAfterViewInit(): void {
     this.editingColumns.push(
       ...[
         {
-          key: 'id',
+          key: 'level',
           label: 'LABEL.LEVELS',
           customClass: (row: ILevel) => this.onGetDeletedState(row),
         },
@@ -191,6 +114,15 @@ export class LevelSettingsComponent
         },
       ]
     );
+  }
+
+  initLevel() {
+    this.platform.getLevels().subscribe((data) => {
+      if (!data?.payload) return;
+
+      this.levels = data.payload;
+      this.isLoaded = true;
+    });
   }
 
   onGetDeletedState(row: ILevel) {

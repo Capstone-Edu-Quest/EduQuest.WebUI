@@ -116,6 +116,7 @@
         [index]="i"
         [stage]="lesson"
         (onEdit)="onEditLesson($event)"
+        [exemptLessons]="fullLessons"
       ></app-manage-stages>
     </div>
     <div class="add-stage" (click)="onAddNewStage()">
