@@ -31,6 +31,7 @@ export interface IItemInUse {
 
 export interface IShopItem {
   id: string;
+  name: string;
   price: number;
   isOwned: boolean;
 }

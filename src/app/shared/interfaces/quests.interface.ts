@@ -1,7 +1,7 @@
 import { QuestMissionEnum, QuestTypeEnum, RewardTypeEnum } from "../enums/others.enum";
 
 export interface IQuest {
-    id: string;
+    id?: string;
     title: string;
     type: QuestTypeEnum;
     questType: QuestMissionEnum;

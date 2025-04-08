@@ -3,6 +3,7 @@ import { HttpService } from './http.service';
 import { endPoints } from '../../shared/constants/endPoints.constant';
 import { IPlatformSettingsStats } from '../../shared/interfaces/others.interfaces';
 import { BehaviorSubject } from 'rxjs';
+import { IShopItem, IShopItemEdit } from '../../shared/interfaces/three.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -19,5 +20,9 @@ export class PlatformService {
       .subscribe((res) => {
         this.platformStats$.next(res?.payload ?? null);
       });
+  }
+
+  getShopItems() {
+    return this.http.get<IShopItemEdit[]>(endPoints.filterShopItem)
   }
 }

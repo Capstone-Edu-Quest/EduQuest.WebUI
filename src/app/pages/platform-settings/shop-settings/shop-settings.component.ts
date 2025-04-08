@@ -13,6 +13,8 @@ import { FoxItems } from '../../../components/fox-3d/3d-setup/fox-3d.config';
 import { ModalService } from '../../../core/services/modal.service';
 import { MessageService } from '../../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
+import { PlatformService } from '@/src/app/core/services/platform.service';
+import { v4 } from 'uuid';
 
 @Component({
   selector: 'app-shop-settings',
@@ -35,84 +37,7 @@ export class ShopSettingsComponent implements OnInit {
   availableItemsToAdd: IShopItemEdit[] = [];
   selectedIdToAddItems: string[] = [];
 
-  items: IShopItemEdit[] = [
-    {
-      id: 'orange-vest',
-      price: 5,
-    },
-    {
-      id: 'wings',
-      price: 30,
-    },
-    {
-      id: 'police-vest',
-      price: 25,
-    },
-    {
-      id: 'leather-vest',
-      price: 12,
-    },
-    {
-      id: 'donut-necklace',
-      price: 12,
-    },
-    {
-      id: 'cow-boy-hat',
-      price: 30,
-    },
-    {
-      id: 'samurai-hat',
-      price: 30,
-    },
-    {
-      id: 'clown-hat',
-      price: 5,
-    },
-    {
-      id: 'arrow-hat',
-      price: 8,
-    },
-    {
-      id: 'tinker-glasses',
-      price: 18,
-    },
-    {
-      id: 'sun-glasses',
-      price: 12,
-    },
-    {
-      id: 'bicycle-hat',
-      price: 15,
-    },
-    {
-      id: 'katana',
-      price: 12,
-    },
-    {
-      id: 'miraz-sword',
-      price: 16,
-    },
-    {
-      id: 'persian-sword',
-      price: 30,
-    },
-    // {
-    //   id: 'balloon',
-    //   price: 5,
-    // },
-    // {
-    //   id: 'goblin-shield',
-    //   price: 30,
-    // },
-    // {
-    //   id: 'apollos-shield',
-    //   price: 22,
-    // },
-    // {
-    //   id: 'gold-belt',
-    //   price: 30,
-    // },
-  ];
+  items: IShopItemEdit[] = [];
 
   tempItems: IShopItemEdit[] = [];
 
@@ -121,10 +46,21 @@ export class ShopSettingsComponent implements OnInit {
   constructor(
     private modal: ModalService,
     private message: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private platform: PlatformService
   ) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.onInitItems();
+  }
+
+  onInitItems() {
+    this.platform.getShopItems().subscribe((res) => {
+      if (!res?.payload) return;
+
+      this.items = res.payload;
+    });
+  }
 
   onAdd() {
     const searchList = this.isEdit ? this.tempItems : this.items;
@@ -134,7 +70,7 @@ export class ShopSettingsComponent implements OnInit {
       const idx = searchList.findIndex((item) => item.id === _i.id);
 
       if (idx === -1) {
-        this.availableItemsToAdd.push({ id: _i.id, price: 0 });
+        this.availableItemsToAdd.push({ id: v4(), name: _i.id, price: 0 });
       }
     });
 
@@ -168,7 +104,7 @@ export class ShopSettingsComponent implements OnInit {
 
     !this.isEdit && this.onEdit();
     this.tempItems.push(
-      ...this.selectedIdToAddItems.map((id) => ({ id, price: 0 }))
+      ...this.selectedIdToAddItems.map((name) => ({ id: v4(), name, price: 0 }))
     );
     this.modal.updateModalContent(null);
     this.selectedIdToAddItems = [];
@@ -184,7 +120,7 @@ export class ShopSettingsComponent implements OnInit {
     const changeItems: string[] = [];
 
     this.tempItems.forEach((item, i) => {
-      if (item.price !== this.items[i].price) {
+      if (item?.price !== this.items[i]?.price) {
         changeItems.push(item.id);
       }
     });

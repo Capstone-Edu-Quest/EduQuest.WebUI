@@ -174,6 +174,11 @@ export class CreateNewQuestComponent implements OnInit {
       return;
     }
 
-    console.log(this.newQuest);
+    this.quest.createNewQuest(this.newQuest).subscribe(res => {
+      if(!res?.payload) return;
+
+      this.message.addMessage('success', this.translate.instant('MESSAGE.CREATED_SUCCESSFULLY'));
+      this.modal.updateModalContent(null)
+    })
   }
 }

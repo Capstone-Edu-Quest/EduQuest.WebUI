@@ -17,10 +17,10 @@
       *ngFor="let item of isEdit ? tempItems : items"
     >
       <div class="img-wrapper">
-        <img [src]="thumbnailPath + item.id + '.png'" />
+        <img [src]="thumbnailPath + item.name + '.png'" />
       </div>
       <div class="item-name">
-        {{ "SHOP_ITEMS." + item.id.toUpperCase() | translate }}
+        {{ "SHOP_ITEMS." + item.name.toUpperCase() | translate }}
       </div>
       <div class="price">
         <fa-icon [icon]="coinIcon"></fa-icon>
@@ -77,16 +77,16 @@
       class="item"
       *ngFor="let item of availableItemsToAdd"
       [ngClass]="{
-        selected: selectedIdToAddItems.includes(item.id)
+        selected: selectedIdToAddItems.includes(item.name)
       }"
       [ngStyle]="{ cursor: 'pointer' }"
-      (click)="onSelectToAdd(item.id)"
+      (click)="onSelectToAdd(item.name)"
     >
       <div class="img-wrapper">
-        <img [src]="thumbnailPath + item.id + '.png'" />
+        <img [src]="thumbnailPath + item.name + '.png'" />
       </div>
       <div class="item-name">
-        {{ "SHOP_ITEMS." + item.id.toUpperCase() | translate }}
+        {{ "SHOP_ITEMS." + item.name.toUpperCase() | translate }}
       </div>
     </div>
   </div>

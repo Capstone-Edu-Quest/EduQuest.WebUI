@@ -4,7 +4,7 @@
 
     <div class="input-group">
       <!-- <select></select> -->
-      <nz-input-group [nzSuffix]="suffixIconButton" style="width: 32vw">
+      <!-- <nz-input-group [nzSuffix]="suffixIconButton" style="width: 32vw">
         <input
           [(ngModel)]="searchText"
           (keydown)="onConfirmSearch($event)"
@@ -15,14 +15,14 @@
 
       <ng-template #suffixIconButton>
         <i nz-icon nzType="search" style="color: var(--secondary-text)"></i>
-      </ng-template>
+      </ng-template> -->
     </div>
     <app-button type="primary" (click)="onAddQuest()"
       ><fa-icon [icon]="addIcon"></fa-icon
       >{{ "BUTTON.ADD_QUEST" | translate }}</app-button
     >
   </div>
-  <app-table [columns]="tableColumns" [data]="quests"></app-table>
+  <app-table *ngIf="isLoaded" [columns]="tableColumns" [data]="quests"></app-table>
 </div>
 
 <ng-template #addQuestModal>

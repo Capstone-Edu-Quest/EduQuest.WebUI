@@ -11,6 +11,7 @@ import { FoxItems } from '../../components/fox-3d/3d-setup/fox-3d.config';
 import { HttpService } from './http.service';
 import { endPoints } from '../../shared/constants/endPoints.constant';
 import {
+  IQuest,
   IQuestOfUser,
   IQuestOfUserQuery,
 } from '../../shared/interfaces/quests.interface';
@@ -30,6 +31,10 @@ export class QuestsService {
   userQuests$: BehaviorSubject<IQuestOfUser[]> = new BehaviorSubject<
     IQuestOfUser[]
   >([]);
+
+  getQuestsForManage() {
+    return this.http.get<IQuest[]>(endPoints.quest + '?pageNo=1&eachPage=100')
+  }
 
   initUserQuest() {
     // Call API
@@ -77,7 +82,7 @@ export class QuestsService {
       case BoosterEnum.GOLD:
         return 'LABEL.GOLD_BOOSTER';
       default:
-        return '';
+        return 'LABEL.NOT_FOUND';
     }
   }
 
@@ -157,5 +162,9 @@ export class QuestsService {
     const label = 'MISSION.' + QuestMissionEnum[mission];
 
     return label;
+  }
+
+  createNewQuest(newQuest: IQuest) {
+    return this.http.post(endPoints.quest, newQuest)
   }
 }

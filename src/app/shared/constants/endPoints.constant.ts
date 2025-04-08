@@ -62,6 +62,7 @@ export const endPoints = {
   adminHome: 'webStatistic/admin/home',
 
   shopitem: 'shopItem',
+  filterShopItem: 'shopItem/filter',
   equipItem: 'mascot/equip',
   purchaseItem: 'mascot/purchase',
 
