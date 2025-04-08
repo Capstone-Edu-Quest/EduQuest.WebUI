@@ -1,8 +1,19 @@
-<div class="leaner-courses">
+<div class="leaner-courses" *ngIf="user">
   <div class="title">{{ "LABEL.RECENT_COURSES" | translate }}</div>
 
+  <div
+    *ngIf="user.recentCourses.length === 0"
+    style="color: var(--secondary-text); font-size: 12px; text-align: left"
+  >
+    {{ "LABEL.NO_COURSE" | translate }}
+  </div>
   <div class="course-scroller">
-    <i nz-icon nzType="left" (click)="updateViewIndex(-1)"></i>
+    <i
+      *ngIf="sampleCourses.length > 3"
+      nz-icon
+      nzType="left"
+      (click)="updateViewIndex(-1)"
+    ></i>
     <div class="courses-list-wrapper">
       <div
         class="courses-list"
@@ -11,15 +22,24 @@
             'translateX(calc((50% + 10px) * -' + currentViewIndex + '))'
         }"
       >
-        <div class="course" *ngFor="let course of sampleCourses" (click)="viewCourseDetails(course?.id ?? '')">
+        <div
+          class="course"
+          *ngFor="let course of user.recentCourses"
+          (click)="viewCourseDetails(course?.id ?? '')"
+        >
           <div class="image-wrapper">
             <img [src]="course?.photoUrl" />
           </div>
-          <div class="course-name">{{course?.title}}</div>
-          <div class="course-author">{{course?.author?.username}}</div>
+          <div class="course-name">{{ course?.title }}</div>
+          <div class="course-author">{{ course?.author }}</div>
         </div>
       </div>
     </div>
-    <i nz-icon nzType="right" (click)="updateViewIndex(1)"></i>
+    <i
+      *ngIf="sampleCourses.length > 3"
+      nz-icon
+      nzType="right"
+      (click)="updateViewIndex(1)"
+    ></i>
   </div>
 </div>

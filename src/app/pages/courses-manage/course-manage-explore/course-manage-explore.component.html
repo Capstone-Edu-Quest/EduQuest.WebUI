@@ -18,12 +18,12 @@
     {{
       "LABEL.FOUND_COURSES"
         | translate
-          : { courses: sampleCourses.length, keyword: currentResultSearch }
+          : { courses: courses.length, keyword: currentResultSearch }
     }}
   </div>
   <div class="courses-list">
     <app-path-course-item
-      *ngFor="let course of sampleCourses"
+      *ngFor="let course of courses"
       [course]="course"
       [isExpertView]="true"
     ></app-path-course-item>

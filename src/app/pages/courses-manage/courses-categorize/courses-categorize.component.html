@@ -12,32 +12,32 @@
         >{{ "BUTTON.ADD_TAG" | translate }}</app-button
       >
     </div>
-    <app-table [columns]="tagTableColumns" [data]="tagsData"></app-table>
+    <app-table
+      *ngIf="this.tagsData.length > 0"
+      [columns]="tagTableColumns"
+      [data]="tagsData"
+    ></app-table>
   </div>
 
   <div class="section">
     <div class="label">{{ "LABEL.COURSES" | translate }}</div>
     <div class="sub-label">{{ "LABEL.COURSES_SUB" | translate }}</div>
 
-    <div class="input-ctn">
-      <nz-input-group [nzSuffix]="suffixIconButton" style="width: 40%">
-        <input
-          [(ngModel)]="searchText"
-          (keydown)="onConfirmSearchCourse($event)"
-          nz-input
-          placeholder="{{ 'MESSAGE.SEARCH_COURSE' | translate }}"
-        />
-      </nz-input-group>
-
-      <ng-template #suffixIconButton>
-        <i nz-icon nzType="search" style="color: var(--secondary-text)"></i>
-      </ng-template>
-    </div>
-
     <app-table [columns]="courseTableColumns" [data]="coursesData"></app-table>
   </div>
 </div>
 
+<ng-template #initCourseByTag let-row="row" let-index="index">
+  <div style="cursor: pointer; display: flex; align-items: center; gap: 6px; color: var(--secondary-text); text-align: right; width: 100%" (click)="onConfirmSearchCourse(row)">
+    {{ "LABEL.GET_COURSE_HAVE_THIS_TAG" | translate }}
+    <fa-icon [icon]="rightIcon"></fa-icon>
+  </div>
+</ng-template>
+
 <ng-template #edit let-row="row" let-index="index">
-  <fa-icon style="cursor: pointer" (click)="onEdit($event, row, index)" [icon]="editIcon"></fa-icon>
+  <fa-icon
+    style="cursor: pointer"
+    (click)="onEdit($event, row, index)"
+    [icon]="editIcon"
+  ></fa-icon>
 </ng-template>

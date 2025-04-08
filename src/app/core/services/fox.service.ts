@@ -48,11 +48,13 @@ export class FoxService {
   initFox() {
     this.user.user$.subscribe((user) => {
       if (!user || this.user.user$.value?.roleId !== WebRole.LEARNER) {
-        // remove all items
         this.resetItems();
       } else {
-        // equip items
-        user.equippedItems.forEach((item) => this.equipItem(item));
+        if (!this.loadedCheck.foxIsLoaded) {
+          user.equippedItems.forEach((item) => {
+            this.loadedCheck.waitingStack.push(() => this.equipItem(item));
+          });
+        }
       }
     });
   }
@@ -65,10 +67,10 @@ export class FoxService {
       return;
     }
 
-    this.loadedCheck.waitingStack.forEach((f) => {
-      this.loadedCheck.waitingStack.pop();
+    while(this.loadedCheck.waitingStack.length > 0) {
+      const f = this.loadedCheck.waitingStack.pop();
       f();
-    });
+    }
   }
 
   // trigger from outside to trigger update equipment

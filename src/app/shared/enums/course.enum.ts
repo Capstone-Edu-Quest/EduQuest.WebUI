@@ -1,7 +1,7 @@
 export enum MissionStatus {
-    DONE = 1,
-    CURRENT,
-    LOCKED
+    DONE = 'Done',
+    CURRENT = 'Current',
+    LOCKED = 'Locked'
 }
 
 export enum CourseSortEnum {

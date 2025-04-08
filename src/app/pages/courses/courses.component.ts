@@ -53,6 +53,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
       // TagListId: this.otherFilters.selectedTags,
       pageNo: 1,
       eachPage: 10,
+      isPublic: true
     };
 
     this.course

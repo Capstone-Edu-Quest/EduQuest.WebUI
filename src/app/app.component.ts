@@ -104,6 +104,9 @@ export class AppComponent implements OnInit, OnDestroy {
       case WebRole.INSTRUCTOR:
         this.course.onInitMyMaterials();
         break;
+      case WebRole.ADMIN:
+      case WebRole.STAFF:
+        this.user.initAdminDashboards();
     }
 
     this.notification.initNotifications();

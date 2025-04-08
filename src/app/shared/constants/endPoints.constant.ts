@@ -46,6 +46,7 @@ export const endPoints = {
   getMyInfo: 'user/me',
   switchRole: 'user/switch',
   user: 'user',
+  getProfile: 'user/profile',
 
   userMetaStreak: 'userMeta/streak',
   userMetaProgress: 'userMeta/userProgress',
@@ -58,6 +59,7 @@ export const endPoints = {
   webUserStatistic: 'webStatistic/user',
   webOverallStatistic: 'webStatistic/overall',
   platformSettingStatistic: 'webStatistic/platform/setting',
+  adminHome: 'webStatistic/admin/home',
 
   shopitem: 'shopItem',
   equipItem: 'mascot/equip',

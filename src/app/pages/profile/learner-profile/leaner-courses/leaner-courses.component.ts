@@ -1,7 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { ICourse } from '../../../../shared/interfaces/course.interfaces';
 import { Router } from '@angular/router';
-import { IUser } from '../../../../shared/interfaces/user.interfaces';
+import { IProfile, IUser } from '../../../../shared/interfaces/user.interfaces';
 
 @Component({
   selector: 'app-leaner-courses',
@@ -10,14 +10,15 @@ import { IUser } from '../../../../shared/interfaces/user.interfaces';
 })
 export class LeanerCoursesComponent implements OnInit {
   @Input('isStaffView') isStaffView: boolean = false;
-  @Input('user') user: IUser | null = null;
+  @Input('user') user: IProfile | null = null;
 
   currentViewIndex: number = 0;
   sampleCourses: ICourse[] = []
 
   constructor(private router: Router) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   updateViewIndex(value: number) {
     if (this.sampleCourses.length <= 2) return;

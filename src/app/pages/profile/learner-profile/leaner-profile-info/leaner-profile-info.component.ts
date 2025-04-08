@@ -2,7 +2,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { FoxService } from './../../../../core/services/fox.service';
 import { Subscription } from 'rxjs';
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { IUser } from '../../../../shared/interfaces/user.interfaces';
+import { IProfile, IUser } from '../../../../shared/interfaces/user.interfaces';
 import { ActivatedRoute } from '@angular/router';
 import { ChatService } from 'src/app/core/services/chat.service';
 import { IParticipant } from '@/src/app/shared/interfaces/others.interfaces';
@@ -13,7 +13,7 @@ import { IParticipant } from '@/src/app/shared/interfaces/others.interfaces';
 })
 export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
   @Input('isStaffView') isStaffView: boolean = false;
-  @Input('user') user: IUser | null = null;
+  @Input('user') user: IProfile | null = null;
 
   subscription$: Subscription = new Subscription();
 
@@ -24,27 +24,27 @@ export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
     {
       icon: 'trophy',
       label: 'LABEL.RANK',
-      value: '#1 (--no-api)',
+      value: `#${this.user?.statistic.rank}`,
     },
     {
       icon: 'fire',
       label: 'LABEL.HIGHEST_LEARNING_STREAK',
-      value: '15 days (--no-api)',
+      value: `${this.user?.statistics.longestStreak} days`,
     },
     {
       icon: 'clock-circle',
       label: 'LABEL.TOTAL_LEARNING_TIME',
-      value: '232 minutes (--no-api)',
+      value: `${this.user?.statistics.totalLearningTime} minutes`,
     },
     {
       icon: 'book',
       label: 'LABEL.TOTAL_LEARNING_COURSES',
-      value: '3 courses (--no-api)',
+      value: `${this.user?.statistics.totalLearningCourses} courses`,
     },
     {
       icon: 'heart',
       label: 'LABEL.FAVOURITE_TOPICS',
-      value: 'Reacts, Angular, Vue (--no-api)',
+      value: `${this.user?.statistics.favoriteTopics ?? ''}`,
     },
   ];
 
@@ -58,6 +58,37 @@ export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.listenToUser();
     this.onInitFoxByOtherProfile();
+    this.initStats();
+  }
+
+  initStats() {
+    this.statItems = [
+      {
+        icon: 'trophy',
+        label: 'LABEL.RANK',
+        value: `#${this.user?.statistics.rank}`,
+      },
+      {
+        icon: 'fire',
+        label: 'LABEL.HIGHEST_LEARNING_STREAK',
+        value: `${this.user?.statistics.longestStreak} days`,
+      },
+      {
+        icon: 'clock-circle',
+        label: 'LABEL.TOTAL_LEARNING_TIME',
+        value: `${this.user?.statistics.totalLearningTime} minutes`,
+      },
+      {
+        icon: 'book',
+        label: 'LABEL.TOTAL_LEARNING_COURSES',
+        value: `${this.user?.statistics.totalLearningCourses} courses`,
+      },
+      {
+        icon: 'heart',
+        label: 'LABEL.FAVOURITE_TOPICS',
+        value: `${this.user?.statistics.favoriteTopics ?? '-'}`,
+      },
+    ];
   }
 
   listenToUser() {
@@ -79,7 +110,8 @@ export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
   onUpdateFoxItems() {
     setTimeout(() => {
       if (!this.user) return;
-      this.FoxService.tempEquipItem(this.user.mascotItem);
+      console.log(this.user.equippedItems)
+      this.FoxService.tempEquipItem(this.user.equippedItems);
     }, 110);
   }
 

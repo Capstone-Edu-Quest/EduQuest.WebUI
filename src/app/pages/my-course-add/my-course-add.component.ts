@@ -20,7 +20,6 @@ import { ImageService } from '../../core/services/image.service';
 import { IUser } from '../../shared/interfaces/user.interfaces';
 import {
   ICourseCreate,
-  ICourseCreateLesson,
   ILessonOverview,
 } from '../../shared/interfaces/course.interfaces';
 import { Location } from '@angular/common';
@@ -100,6 +99,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
         if (!res?.payload) return;
 
         this.courseInfo = {
+          courseId: res.payload.id,
           title: res.payload.title,
           description: res.payload.description,
           price: res.payload.price,
@@ -109,13 +109,16 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
             return {
               id: l.id,
               name: l.name,
+              index: l.index,
               description: '',
               materialIds: l.materials.map((m) => m.id),
             };
           }),
         };
 
-        this.fullLessons = res.payload.listLesson;
+        this.fullLessons = res.payload.listLesson.sort(
+          (a, b) => a.index - b.index
+        );
       }
     );
   }
@@ -255,29 +258,20 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
   }
 
   onUpdate() {
-    // const newCourseInfo: ICourseUpdate = {
-    //   id: this.course.id,
-    //   ...this.courseInfo,
-    //   stages: this.fullStagesInfo.map((stage) => {
-    //     return {
-    //       name: stage.title,
-    //       description: '',
-    //       materialsId: stage.mission.map((mission) => mission.id),
-    //     } as IModifyStage;
-    //   }),
-    // };
-    // if (!this.onValidateCourseInfo(newCourseInfo)) return;
-    // const emptyStage = newCourseInfo.stages.findIndex(
-    //   (stage) => stage.name === '' || stage.materialsId.length === 0
-    // );
-    // if (emptyStage !== -1) {
-    //   this.message.addMessage(
-    //     'error',
-    //     this.translate.instant('MESSAGE.INVALID_STAGES')
-    //   );
-    //   return;
-    // }
-    // console.log(newCourseInfo);
+    this.courseInfo = {
+      ...this.courseInfo,
+      lessonCourse: this.fullLessons.map((lesson, index) => {
+        return {
+          id: lesson.id,
+          name: lesson.name,
+          index,
+          description: '',
+          materialIds: lesson.materials.map((material) => material.id),
+        };
+      }),
+    };
+
+    this.CourseService.updateCourse(this.courseInfo);
   }
 
   onCancel() {

@@ -105,3 +105,30 @@ interface LearnerPackageData {
     CourseTrialPerMonth: number;
   };
 }
+
+
+export interface AdminDashboardResponse {
+  adminDasboardUsers: AdminDashboardUsers;
+  adminDashboardCourses: AdminDashboardCourses;
+  pendingViolations: number;
+}
+
+export interface AdminDashboardUsers {
+  totalUsers: number;
+  graphData: UserGraphData[];
+  monthlyActiveUsers: number;
+  thisMonthNewUsers: number;
+}
+
+export interface UserGraphData {
+  totalActiveUser: number;
+  totalProUser: number;
+  totalUser: number;
+  date: string; // e.g., "Mar 2025"
+}
+
+export interface AdminDashboardCourses {
+  totalCourses: number;
+  newCoursesThisMonth: number;
+  mostPopularCategory: string; // or you can replace with a union type if there are fixed categories
+}

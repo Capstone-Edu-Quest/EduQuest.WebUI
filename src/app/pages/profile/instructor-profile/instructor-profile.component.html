@@ -1,7 +1,9 @@
 <div class="instructor-profile" *ngIf="user">
   <div class="left">
     <app-avatar-by-name [name]="user.username" [size]="'200px'" />
-    <app-button (click)="onSendMessage()">{{ "BUTTON.SEND_MESSAGE" | translate }}</app-button>
+    <app-button (click)="onSendMessage()">{{
+      "BUTTON.SEND_MESSAGE" | translate
+    }}</app-button>
   </div>
 
   <div class="right">
@@ -10,20 +12,22 @@
     </div>
     <!--  -->
     <div class="name">{{ user.username }}</div>
-    <div class="headline">Software Engineer &#64;FPT Software</div>
+    <div class="headline">{{ user.headline ?? "" }}</div>
     <!--  -->
     <div class="numeric">
       <div class="part">
         <div class="title">{{ "LABEL.TOTAL_LEANERS" | translate }}</div>
-        <div class="data">123.456.789</div>
+        <div class="data">{{ user.totalLearners }}</div>
       </div>
       <div class="part">
         <div class="title">{{ "LABEL.TOTAL_REVIEWS" | translate }}</div>
-        <div class="data">654.321</div>
+        <div class="data">{{ user.totalReviews }}</div>
       </div>
       <div class="part">
         <div class="title">{{ "LABEL.AVERAGE_REVIEWS" | translate }}</div>
-        <div class="data">4.5 <fa-icon [icon]="star"></fa-icon></div>
+        <div class="data">
+          {{ user.avarageReviews }} <fa-icon [icon]="star"></fa-icon>
+        </div>
       </div>
     </div>
 
@@ -42,15 +46,7 @@
     <!--  -->
     <div class="about-me-title">{{ "LABEL.ABOUT_ME" | translate }}</div>
     <div class="about-me-content">
-      Khang is a skilled Front-End Developer with expertise in HTML, CSS,
-      JavaScript, and TypeScript, specializing in modern frameworks like ReactJS
-      and Angular. With a solid understanding of accessibility and web security,
-      Khang creates secure, efficient, and elegant code tailored to user needs.
-      His keen problem-solving ability, adaptability, and experience in medical
-      software projects reflect his dedication to delivering high-quality,
-      user-focused solutions. Always eager to learn, Khang is currently
-      expanding his knowledge in C#, .NET, and backend development to become a
-      well-rounded software engineer.
+      {{ user.description }}
     </div>
   </div>
 </div>
@@ -59,7 +55,7 @@
 <div class="courses">
   <app-coursesCard
     [isStaffView]="isStaffView"
-    *ngFor="let course of sampleCourses"
+    *ngFor="let course of (user?.courses ?? [])"
     [course]="course"
   />
 </div>

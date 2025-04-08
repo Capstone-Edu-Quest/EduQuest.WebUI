@@ -7,12 +7,11 @@ import {
 import { AssignmentLanguageEnum } from '../enums/materials.enum';
 
 export interface ITableMaterialData {
-  stage: number;
+  lesson: number;
   name: string;
   description: string;
-  time: string;
+  time: number;
   type: materialType;
-  data: string;
 }
 
 export interface ICourseOverview {
@@ -80,6 +79,7 @@ export interface ICourseApproval extends ICourse {
 }
 
 export interface ICourseCreate {
+  courseId?: string;
   title: string;
   description: string;
   photoUrl: string;
@@ -89,6 +89,7 @@ export interface ICourseCreate {
 }
 
 export interface ICourseCreateLesson {
+  index: number;
   id: string;
   name: string;
   description: string;
@@ -332,6 +333,7 @@ export interface IFilterCourseOption {
 
 export interface ISearchCourseParams {
   KeywordName?: string;
+  isPublic?: boolean;
   DateTo?: string;
   DateFrom?: string;
   TagListId?: string[];

@@ -1,6 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { IAchievement } from '../../../../shared/interfaces/quests.interfaces';
-import { IUser } from '../../../../shared/interfaces/user.interfaces';
+import { IProfile, IUser } from '../../../../shared/interfaces/user.interfaces';
 import { IQuestOfUser } from '@/src/app/shared/interfaces/quests.interface';
 
 @Component({
@@ -9,7 +9,7 @@ import { IQuestOfUser } from '@/src/app/shared/interfaces/quests.interface';
   styleUrls: ['./leaner-achievements.component.scss']
 })
 export class LeanerAchievementsComponent implements OnInit {
-  @Input('user') user: IUser | null = null;
+  @Input('user') user: IProfile | null = null;
 
   completedQuests: IQuestOfUser[] = [];
   

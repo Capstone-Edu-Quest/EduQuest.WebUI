@@ -70,6 +70,7 @@ export class FoxItemsComponent implements OnInit, OnDestroy {
     this.allowedItemsId = [...(this.user?.mascotItem ?? [])];
 
     // Equipped items
+    this.equippedItems = [];
     Object.keys(this.currentEquipedItem).forEach((key) => {
       if (this.currentEquipedItem[key]) {
         this.equippedItems.push(this.currentEquipedItem[key]?.id as string);

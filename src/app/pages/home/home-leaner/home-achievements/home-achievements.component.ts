@@ -1,49 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { IAchievement } from '../../../../shared/interfaces/quests.interfaces';
+import { QuestsService } from '@/src/app/core/services/quests.service';
+import { IQuestOfUser } from '@/src/app/shared/interfaces/quests.interface';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home-achievements',
   templateUrl: './home-achievements.component.html',
-  styleUrls: ['./home-achievements.component.scss']
+  styleUrls: ['./home-achievements.component.scss'],
 })
-export class HomeAchievementsComponent implements OnInit {
+export class HomeAchievementsComponent implements OnInit, OnDestroy {
+  subscription$: Subscription = new Subscription();
 
-  demoAchievements: IAchievement[] = [
-    {
-      id: '1',
-      name: 'Quick Learner',
-      description: 'Complete 5 lessons in 1 hour',
-      rewardedAt: new Date().toISOString()
-    },
-    {
-      id: '1',
-      name: 'Quick Learner',
-      description: 'Complete 5 lessons in 1 hour',
-      rewardedAt: new Date().toISOString()
-    },
-    {
-      id: '1',
-      name: 'Quick Learner',
-      description: 'Complete 5 lessons in 1 hour',
-      rewardedAt: new Date().toISOString()
-    },
-    {
-      id: '1',
-      name: 'Quick Learner',
-      rewardedAt: new Date().toISOString(),
-      description: 'Complete 5 lessons in 1 hour'
-    },
-    {
-      id: '1',
-      name: 'Quick Learner',
-      description: 'Complete 5 lessons in 1 hour',
-      rewardedAt: new Date().toISOString()
-    },
-  ]
+  achievements: IQuestOfUser[] = [];
 
-  constructor() { }
+  constructor(private quest: QuestsService) {}
 
   ngOnInit() {
+    this.listenToQuest();
   }
 
+  listenToQuest() {
+    this.subscription$.add(
+      this.quest.userQuests$.subscribe((quests) => {
+        this.achievements = quests.filter((q) => q.isCompleted);
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
+  }
 }

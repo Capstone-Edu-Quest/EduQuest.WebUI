@@ -6,7 +6,7 @@ import {
   onAddZeroToTime,
   onGetLabelByMonth,
 } from '../../../../core/utils/time.utils';
-import { IUser } from '../../../../shared/interfaces/user.interfaces';
+import { IProfile, IUser } from '../../../../shared/interfaces/user.interfaces';
 
 @Component({
   selector: 'app-learning-heatmap',
@@ -14,37 +14,28 @@ import { IUser } from '../../../../shared/interfaces/user.interfaces';
   styleUrls: ['./learning-heatmap.component.scss'],
 })
 export class LearningHeatmapComponent implements OnInit {
-  @Input('user') user: IUser | null = null;
+  @Input('user') user: IProfile | null = null;
 
   heatmapDates: any[] = [];
-  learningData = [
-    { date: '10/02/2025', count: 95 },
-    { date: '15/04/2025', count: 42 },
-    { date: '23/03/2025', count: 19 },
-    { date: '01/06/2025', count: 27 },
-    { date: '19/05/2025', count: 33 },
-    { date: '07/09/2025', count: 21 },
-    { date: '18/11/2025', count: 66 },
-    { date: '04/07/2025', count: 30 },
-    { date: '26/12/2025', count: 46 },
-    { date: '12/01/2025', count: 123 },
-    { date: '28/03/2025', count: 35 },
-    { date: '06/02/2025', count: 23 },
-    { date: '16/08/2025', count: 41 },
-    { date: '22/10/2025', count: 38 },
-    { date: '03/11/2025', count: 29 },
-    { date: '20/05/2025', count: 221 },
-    { date: '14/09/2025', count: 34 },
-    { date: '08/12/2025', count: 19 },
-    { date: '11/04/2025', count: 31 },
-    { date: '25/06/2025', count: 43 },
-    { date: '02/10/2025', count: 40 },
-    { date: '17/07/2025', count: 28 },
-  ];
+  learningData: { date: string; count: number }[] = [];
   constructor() {}
 
   ngOnInit() {
+    this.initFormattedValues();
     this.initHeatmap();
+  }
+
+  initFormattedValues() {
+    this.learningData = [];
+    this.user?.learningData.forEach((data) => {
+      const date = new Date(data.date);
+      const formattedDate = `${String(date.getDate()).padStart(
+        2,
+        '0'
+      )}/${String(date.getMonth() + 1).padStart(2, '0')}/${date.getFullYear()}`;
+
+      this.learningData.push({ date: formattedDate, count: data.count });
+    });
   }
 
   initHeatmap() {
@@ -68,7 +59,9 @@ export class LearningHeatmapComponent implements OnInit {
       // Init days (1 - end)
       for (let i = 1; i <= datesOfMonths[month]; i++) {
         const currentDateDay = getDayByDates(i, month, currentYear);
-        const fullDate = `${onAddZeroToTime(i)}/${onAddZeroToTime(month + 1)}/${currentYear}`;
+        const fullDate = `${onAddZeroToTime(i)}/${onAddZeroToTime(
+          month + 1
+        )}/${currentYear}`;
         const learningTime = this.learningData.find(
           (ld) => ld.date === fullDate
         );
@@ -122,6 +115,6 @@ export class LearningHeatmapComponent implements OnInit {
   }
 
   getDateNumber(fullDate: string) {
-    return handleCastDateString(fullDate)
+    return handleCastDateString(fullDate);
   }
 }

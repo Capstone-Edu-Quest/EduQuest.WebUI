@@ -1,8 +1,8 @@
-<div class="leaner-achievements">
+<div class="leaner-achievements" *ngIf="user">
   <div class="title">{{ "LABEL.RECENT_ACHIEVEMENTS" | translate }}</div>
 
   <app-achievements-list
-    [achievements]="[]"
+    [achievements]="user.completedQuest"
     [appearPerRow]="2"
   ></app-achievements-list>
 </div>

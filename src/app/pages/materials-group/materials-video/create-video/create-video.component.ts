@@ -82,15 +82,18 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   }
 
   initMaterial(videoId: string) {
-    this.course.getMaterialById(videoId).subscribe(res => {
-      if(!res?.payload) return;
+    this.course.getMaterialById(videoId).subscribe((res) => {
+      if (!res?.payload) return;
 
       this.material = res.payload;
-    })
+    });
   }
 
   onClickAddVideo() {
-    if (!this.fileInput.nativeElement || this.material.video?.urlMaterial !== '')
+    if (
+      !this.fileInput.nativeElement ||
+      this.material.video?.urlMaterial !== ''
+    )
       return;
     this.fileInput?.nativeElement?.click();
   }
@@ -148,12 +151,12 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   }
 
   onUploadSuccess(url: string) {
-    if(!this.material.video) return;
+    if (!this.material.video) return;
     this.material.video.urlMaterial = url;
   }
 
   onRemoveVideo(e: Event) {
-    if(!this.material.video) return;
+    if (!this.material.video) return;
 
     e.stopPropagation();
     this.material.video.urlMaterial = '';
@@ -167,9 +170,9 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   }
 
   onLoadedVideo(initState: any) {
-    if(!this.material.video) return;
+    if (!this.material.video) return;
 
-    this.material.video.duration = initState.duration/60;
+    this.material.video.duration = initState.duration / 60;
   }
 
   onCancel() {
@@ -177,7 +180,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   }
 
   onValidate() {
-    if(!this.material.video) return;
+    if (!this.material.video) return;
 
     if (this.material.video.urlMaterial === '' && !this.uploadedFile) {
       this.message.addMessage(
@@ -254,15 +257,11 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   onCreate() {
     if (!this.onValidate() || !this.uploadedFile) return;
 
-    const uploadProgress$ = this.VideoService.uploadVideo(
-      this.uploadedFile.file
-    );
-    uploadProgress$.subscribe((data) => {
-      if (data.uploadUrl && this.material.video) {
-        this.material.video.urlMaterial = data.uploadUrl;
+    this.VideoService.uploadVideo(this.uploadedFile.file).subscribe((url) => {
+      if (!this.material.video) return;
+      this.material.video.urlMaterial = url;
 
-        this.course.createMaterial(this.material);
-      }
+      this.course.createMaterial(this.material);
     });
   }
 

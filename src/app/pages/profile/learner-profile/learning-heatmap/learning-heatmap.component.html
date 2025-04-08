@@ -1,10 +1,12 @@
 <div class="learning-heatmap">
   <div class="header">
     <div class="title">
-      <b>22</b> {{ "LABEL.LEARNING_DAYS_THIS_YEAR" | translate }}
+      <b>{{ user?.totalDays }}</b>
+      {{ "LABEL.LEARNING_DAYS_THIS_YEAR" | translate }}
     </div>
     <div class="sub-title">
-      {{ "LABEL.TOTAL" | translate }}: <b>{{'LABEL.MINUTES' | translate:{value: 623} }}</b>
+      {{ "LABEL.TOTAL" | translate }}:
+      <b>{{ "LABEL.MINUTES" | translate : { value: user?.totalMinutes } }}</b>
     </div>
   </div>
 

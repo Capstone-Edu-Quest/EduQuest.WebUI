@@ -3,7 +3,7 @@ import { ICourseOverview } from '../../../shared/interfaces/course.interfaces';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../../core/services/user.service';
 import { Subscription } from 'rxjs';
-import { IUser, IUserStat } from '../../../shared/interfaces/user.interfaces';
+import { IProfile, IUser, IUserStat } from '../../../shared/interfaces/user.interfaces';
 import { Router } from '@angular/router';
 import { ChatService } from '../../../core/services/chat.service';
 import { IParticipant } from '@/src/app/shared/interfaces/others.interfaces';
@@ -13,7 +13,7 @@ import { IParticipant } from '@/src/app/shared/interfaces/others.interfaces';
   styleUrls: ['./instructor-profile.component.scss'],
 })
 export class InstructorProfileComponent implements OnInit, OnDestroy {
-  @Input('user') user: IUser | null = null;
+  @Input('user') user: IProfile | null = null;
   @Input('isStaffView') isStaffView: boolean = false;
 
   subscription$: Subscription = new Subscription();
@@ -23,7 +23,8 @@ export class InstructorProfileComponent implements OnInit, OnDestroy {
 
   constructor(private chat: ChatService, private userService: UserService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();

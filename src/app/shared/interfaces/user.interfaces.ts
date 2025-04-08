@@ -1,4 +1,6 @@
 import { WebRole } from '../enums/user.enum';
+import { ICourseOverview } from './course.interfaces';
+import { IQuestOfUser } from './quests.interface';
 
 export interface ILoginRes {
   token: IToken;
@@ -23,6 +25,28 @@ export interface IUser {
   mascotItem: string[];
   equippedItems: string[];
   isPremium: boolean;
+}
+
+export interface IProfile extends IUser {
+  headline: string | null;
+  totalLearners: number;
+  totalReviews: Number;
+  avarageReviews: number;
+  description: string | null;
+  courses: ICourseOverview[];
+  completedQuest: IQuestOfUser[];
+  level: number | null;
+  recentCourses: ICourseOverview[];
+  learningData: { date: string; count: number }[];
+  totalMinutes: number;
+  totalDays: number;
+  statistics: {
+    rank: number;
+    longestStreak: number;
+    totalLearningTime: number;
+    totalLearningCourses: number;
+    favoriteTopics: string | null;
+  };
 }
 
 export interface IUserStatistics {

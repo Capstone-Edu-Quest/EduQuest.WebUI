@@ -27,10 +27,10 @@ import { ILCourseObject } from '@/src/app/shared/interfaces/learning-path.interf
   styleUrl: './path-course-item.component.scss',
 })
 export class PathCourseItemComponent implements OnInit, OnDestroy {
-  @Input('course') course: ILCourseObject | null = null;
+  @Input('course') course: ICourseOverview | null = null;
   @Input('isEdit') isEdit!: boolean;
   @Input('isExpertView') isExpertView: boolean = false;
-  @Output('onRemoveCourse') onRemoveCourse: EventEmitter<ILCourseObject> =
+  @Output('onRemoveCourse') onRemoveCourse: EventEmitter<ICourseOverview> =
     new EventEmitter();
 
   @ViewChild('item') item!: ElementRef;

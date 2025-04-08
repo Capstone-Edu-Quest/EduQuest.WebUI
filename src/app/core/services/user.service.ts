@@ -1,5 +1,9 @@
 import { Injectable, Injector } from '@angular/core';
-import { ILoginRes, IUser } from '../../shared/interfaces/user.interfaces';
+import {
+  ILoginRes,
+  IProfile,
+  IUser,
+} from '../../shared/interfaces/user.interfaces';
 import { WebRole } from '../../shared/enums/user.enum';
 import { BehaviorSubject } from 'rxjs';
 import { MessageService } from './message.service';
@@ -16,7 +20,10 @@ import {
 } from '../../shared/enums/localStorage.enum';
 import { BaseReponse } from '../../shared/interfaces/https.interfaces';
 import { LoadingService } from './loading.service';
-import { IPackageConfig } from '../../shared/interfaces/others.interfaces';
+import {
+  AdminDashboardResponse,
+  IPackageConfig,
+} from '../../shared/interfaces/others.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -25,6 +32,10 @@ export class UserService {
   user$: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(
     null
   );
+
+  adminDashboard$: BehaviorSubject<AdminDashboardResponse | null> =
+    new BehaviorSubject<AdminDashboardResponse | null>(null);
+
   private firebase!: FirebaseService;
 
   constructor(
@@ -67,48 +78,7 @@ export class UserService {
   }
 
   getSubscriptions() {
-    return this.http.get<IPackageConfig[]>(endPoints.subscription)
-  }
-
-  getUserById(uid: string): IUser {
-    return {
-      id: '5e7ca4f0-2fca-42e9-b0a5-59be4c4cc037',
-      username: 'Khang Gia',
-      email: 'khanggia85@gmail.com',
-      phone: '+1234567890',
-      avatarUrl:
-        'https://lh3.googleusercontent.com/a/ACg8ocKNlNJCtGxIJwK52KQazwL9UvrZLoyzQ-WOjKYzJHV56FKQy5RJ=s96-c',
-      roleId: WebRole.LEARNER,
-      isPremium: true,
-      status: 'active',
-      statistic: {
-        userId: 'u1',
-        totalActiveDay: 180,
-        maxStudyStreakDay: 45,
-        lastLearningDay: '2025-03-02',
-        completedCourses: 15,
-        gold: 7000,
-        exp: 18000,
-        maxExpLevel: 20000,
-        level: 18,
-        studyTime: 360, // hours
-        totalCourseCreated: 8,
-        totalLearner: 1500,
-        totalReview: 300,
-        totalCompletedCourses: 15,
-        currentStreak: 10,
-        longestStreak: 20,
-        lastActive: '2025-03-03T12:00:00Z',
-        booster: {
-          boostGold: 0,
-          boostExp: 0
-        },
-        rank: 0
-      },
-      lastActive: '2025-03-03T12:00:00Z',
-      mascotItem: ['wings', 'katana'],
-      equippedItems: ['wings'],
-    };
+    return this.http.get<IPackageConfig[]>(endPoints.subscription);
   }
 
   signInWithGoogle() {
@@ -144,7 +114,7 @@ export class UserService {
 
   changePassword(oldPassword: string, newPassword: string) {
     if (!this.user$.value) return;
-    
+
     return this.http
       .post<ILoginRes>(endPoints.changePassword, {
         email: this.user$.value?.email,
@@ -213,5 +183,17 @@ export class UserService {
       default:
         return '';
     }
+  }
+
+  getUserProfile(userId: string) {
+    return this.http.get<IProfile>(endPoints.getProfile + `?userId=${userId}`);
+  }
+
+  initAdminDashboards() {
+    this.http
+      .get<AdminDashboardResponse>(endPoints.adminHome)
+      .subscribe((res) => {
+        this.adminDashboard$.next(res?.payload ?? null);
+      });
   }
 }

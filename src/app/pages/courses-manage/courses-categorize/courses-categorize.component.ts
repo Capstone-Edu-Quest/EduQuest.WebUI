@@ -7,33 +7,36 @@ import {
 } from '@angular/core';
 import { TableColumn } from '../../../shared/interfaces/others.interfaces';
 import {
+  ICourseOverview,
   ICourseTagData,
+  ISearchCourseParams,
+  ITag,
   ITagCount,
 } from '../../../shared/interfaces/course.interfaces';
-import { faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faAngleRight, faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { fadeInOutAnimation } from '../../../shared/constants/animations.constant';
+import { CoursesService } from '@/src/app/core/services/courses.service';
 
 @Component({
   selector: 'app-courses-categorize',
   templateUrl: './courses-categorize.component.html',
   styleUrl: './courses-categorize.component.scss',
-  animations: [fadeInOutAnimation]
+  animations: [fadeInOutAnimation],
 })
 export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
   @ViewChild('edit') editRef!: TemplateRef<any>;
+  @ViewChild('initCourseByTag') initCourseByTagRef!: TemplateRef<any>;
   searchText = '';
 
   editIcon = faPen;
   addIcon = faPlus;
 
+  rightIcon = faAngleRight;
+
   tagTableColumns: TableColumn[] = [
     {
       key: 'name',
       label: 'LABEL.TAGS',
-    },
-    {
-      key: 'description',
-      label: 'LABEL.DESCRIPTION',
     },
     {
       key: 'numberOfCourses',
@@ -58,65 +61,25 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
     },
   ];
 
-  tagsData: ITagCount[] = [
-    {
-      id: 'tag1',
-      name: 'JavaScript',
-      description: 'Programming language for the web',
-      numberOfCourses: 12,
-    },
-    {
-      id: 'tag2',
-      name: 'Beginner',
-      description: 'Suitable for beginners',
-      numberOfCourses: 25,
-    },
-  ];
+  tagsData: ITag[] = [];
 
-  coursesData: ICourseTagData[] = [
-    {
-      id: 'course1',
-      name: 'Introduction to JavaScript',
-      description:
-        'Learn the fundamentals of JavaScript, the programming language of the web.',
-      tags: [
-        {
-          id: 'tag1',
-          name: 'JavaScript',
-          description: 'Programming language for the web',
-        },
-        {
-          id: 'tag2',
-          name: 'Beginner',
-          description: 'Suitable for beginners',
-        },
-      ],
-    },
-    {
-      id: 'course2',
-      name: 'Mastering TypeScript',
-      description:
-        'Deep dive into TypeScript and learn how to build robust, type-safe applications.',
-      tags: [
-        {
-          id: 'tag3',
-          name: 'TypeScript',
-          description: 'A superset of JavaScript',
-        },
-        {
-          id: 'tag4',
-          name: 'Advanced',
-          description: 'For experienced developers',
-        },
-      ],
-    },
-  ];
+  coursesData: ICourseOverview[] = [];
+
+  constructor(private CourseService: CoursesService) {}
 
   ngOnInit(): void {
     this.onInitData();
   }
 
   ngAfterViewInit(): void {
+    this.tagTableColumns = [
+      ...this.tagTableColumns,
+      {
+        key: 'initCourseByTag',
+        label: '',
+        elementRef: this.initCourseByTagRef,
+      },
+    ];
     this.courseTableColumns.push({
       key: 'actions',
       label: '',
@@ -126,14 +89,29 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
 
   onEdit(e: Event, data: ICourseTagData, idx: number) {
     e.stopPropagation();
-    console.log(idx, data)
+    console.log(idx, data);
   }
 
   onInitData() {
-    console.log(this.tagsData, this.coursesData);
+    this.CourseService.onGetTags().subscribe((res) => {
+      if (!res?.payload) return;
+
+      this.tagsData = res.payload;
+    });
   }
 
-  onConfirmSearchCourse(e: KeyboardEvent): void {
-    console.log('Search course:', this.searchText);
+  onConfirmSearchCourse(tag: ITag): void {
+    const courseParams: ISearchCourseParams = {
+      TagListId: [tag.id],
+      pageNo: 1,
+      eachPage: 10,
+    };
+
+    this.CourseService.onSearchCourse(courseParams).subscribe(res => {
+      if(!res?.payload) return;
+
+      console.log(res.payload)
+      this.coursesData = res.payload
+    })
   }
 }

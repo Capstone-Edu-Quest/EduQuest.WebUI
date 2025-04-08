@@ -26,6 +26,7 @@ import { IUser } from '../../shared/interfaces/user.interfaces';
 import { MessageService } from '../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
 import { copyToClipboard } from '../../core/utils/data.utils';
+import { ICourseOverview } from '../../shared/interfaces/course.interfaces';
 
 @Component({
   selector: 'app-learning-path-details',
@@ -48,9 +49,9 @@ export class LearningPathDetailsComponent implements OnInit {
   isEdit: boolean = false;
   isExpertView: boolean = false;
 
-  currentDragCourse: ILCourseObject | null = null;
-  tempCourseList: ILCourseObject[] | null = null;
-  deletedCourseList: ILCourseObject[] = [];
+  currentDragCourse: ICourseOverview | null = null;
+  tempCourseList: ICourseOverview[] | null = null;
+  deletedCourseList: ICourseOverview[] = [];
   tempEditMeta = {
     name: '',
     description: '',
@@ -170,7 +171,7 @@ export class LearningPathDetailsComponent implements OnInit {
     this.location.back();
   }
 
-  onRemoveCourse(course: ILCourseObject) {
+  onRemoveCourse(course: ICourseOverview) {
     if (!this.tempCourseList) return;
 
     this.tempCourseList = this.tempCourseList.filter((c) => c.id !== course.id);
@@ -247,7 +248,7 @@ export class LearningPathDetailsComponent implements OnInit {
     this.message.addMessage('success', this.translate.instant('MESSAGE.COPIED_URL'))
   }
 
-  onDragStart(e: Event, course: ILCourseObject) {
+  onDragStart(e: Event, course: ICourseOverview) {
     this.currentDragCourse = course;
   }
 

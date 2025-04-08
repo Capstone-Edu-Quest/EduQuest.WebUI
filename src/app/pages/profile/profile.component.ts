@@ -2,7 +2,7 @@ import { UserService } from './../../core/services/user.service';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 import { Subscription } from 'rxjs';
-import { IUser, IUserStat } from '../../shared/interfaces/user.interfaces';
+import { IProfile, IUser, IUserStat } from '../../shared/interfaces/user.interfaces';
 import { WebRole } from '../../shared/enums/user.enum';
 import { ActivatedRoute } from '@angular/router';
 
@@ -18,9 +18,12 @@ export class ProfileComponent implements OnInit, OnDestroy {
 
   isStaffView: boolean = false;
   user: IUser | null = null;
-  currentViewProfile: IUser | null = null
+  currentViewProfile: IProfile | null = null;
 
-  constructor(private UserService: UserService, private route: ActivatedRoute) {}
+  constructor(
+    private UserService: UserService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit() {
     this.listenToUser();
@@ -37,15 +40,15 @@ export class ProfileComponent implements OnInit, OnDestroy {
   }
 
   initProfileByRoute() {
-    const userId = this.route.snapshot.paramMap.get('userId');
-    if(!userId) {
-      this.currentViewProfile = this.user;
-      this.isInstructor = this.user?.roleId === WebRole.INSTRUCTOR;
-      return;
-    }
+    const userId = this.route.snapshot.paramMap.get('userId') ?? this.user?.id;
+    if (!userId) return;
 
-    this.currentViewProfile = this.UserService.getUserById(userId);
-    this.isInstructor = this.currentViewProfile?.roleId === WebRole.INSTRUCTOR;
+    this.UserService.getUserProfile(userId).subscribe((res) => {
+      if (!res?.payload) return;
+
+      this.currentViewProfile = res.payload;
+      this.isInstructor = Number(res.payload.roleId) === WebRole.INSTRUCTOR;
+    });
   }
 
   ngOnDestroy(): void {

@@ -2,7 +2,7 @@
   {{ "LABEL.NO_ACHIEVEMENTS" | translate }}
 </div>
 <div class="achievement-list-ctn" *ngIf="achievements.length > 0">
-  <i nz-icon nzType="left" nzTheme="outline" (click)="updateViewIndex(-1)"></i>
+  <i *ngIf="achievements.length>= appearPerRow" nz-icon nzType="left" nzTheme="outline" (click)="updateViewIndex(-1)"></i>
   <div class="achievement-list-wrapper">
     <div
       class="achievements-list"
@@ -25,5 +25,5 @@
       ></app-achievement-card>
     </div>
   </div>
-  <i nz-icon nzType="right" nzTheme="outline" (click)="updateViewIndex(1)"></i>
+  <i *ngIf="achievements.length>= appearPerRow" nz-icon nzType="right" nzTheme="outline" (click)="updateViewIndex(1)"></i>
 </div>

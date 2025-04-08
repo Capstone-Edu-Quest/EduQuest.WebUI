@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { EventEmitter, Injectable } from '@angular/core';
 import { FirebaseStorageFolder } from '../../shared/enums/firebase.enum';
 import { FirebaseService } from './firebase.service';
 import { createFFmpeg, fetchFile } from '@ffmpeg/ffmpeg';
@@ -161,12 +161,7 @@ export class VideoService {
       url: string | null = null;
 
     const uploadingChunks = splitFileToChunks(file); 
-    const uploadProgress$: BehaviorSubject<any> = new BehaviorSubject({
-      uploaded: 0,
-      total: uploadingChunks.length,
-      isCompleted: false,
-      uploadUrl: null,
-    });
+    const uploadUrl$: EventEmitter<string> = new EventEmitter<string>()
 
     uploadingChunks.forEach((chunkData, index) => {
       const formData = new FormData();
@@ -184,19 +179,11 @@ export class VideoService {
           if (res?.isError || !res) return;
 
           if (res.payload?.url) {
-            url = res.payload.url;
+            uploadUrl$.emit(res.payload.url);
           }
-
-          uploaded++;
-          uploadProgress$.next({
-            uploaded: uploaded,
-            total: uploadingChunks.length,
-            isCompleted: index + 1 === uploadingChunks.length,
-            uploadUrl: url,
-          });
         });
     });
 
-    return uploadProgress$;
+    return uploadUrl$;
   }
 }

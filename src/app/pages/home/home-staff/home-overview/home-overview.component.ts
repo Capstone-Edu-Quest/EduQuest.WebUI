@@ -1,36 +1,64 @@
-import { Component, type OnInit } from '@angular/core';
-import { faBook, faBookMedical, faHashtag, faUser, faUserPlus, faUsersRays, faWarning } from '@fortawesome/free-solid-svg-icons';
+import { UserService } from '@/src/app/core/services/user.service';
+import { Component, OnDestroy, type OnInit } from '@angular/core';
+import {
+  faBook,
+  faBookMedical,
+  faHashtag,
+  faUser,
+  faUserPlus,
+  faUsersRays,
+  faWarning,
+} from '@fortawesome/free-solid-svg-icons';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-home-overview',
   templateUrl: './home-overview.component.html',
   styleUrl: './home-overview.component.scss',
 })
-export class HomeOverviewComponent implements OnInit {
+export class HomeOverviewComponent implements OnInit, OnDestroy {
+  subscription$: Subscription = new Subscription();
 
-  statsItem = [
-    {
-      label: 'LABEL.PENDING_VIOLATIONS',
-      value: 12,
-      icon: faWarning
-    },
-    {
-      label: 'LABEL.TOTAL_COURSES',
-      value: 434,
-      icon: faBook
-    },
-    {
-      label: 'LABEL.NEW_COURSES_THIS_MONTH',
-      value: 23,
-      icon: faBookMedical
-    },
-    {
-      label: 'LABEL.MOST_POPULAR_CATEGORY',
-      value: '#typescript',
-      icon: faHashtag
-    },
-  ]
+  statsItem: any[] = [];
 
-  ngOnInit(): void { }
+  constructor(private user: UserService) {}
 
+  ngOnInit(): void {
+    this.listenToAdminDashboard();
+  }
+
+  listenToAdminDashboard() {
+    this.subscription$.add(
+      this.user.adminDashboard$.subscribe((res) => {
+        if (!res) return;
+
+        this.statsItem = [
+          {
+            label: 'LABEL.PENDING_VIOLATIONS',
+            value: res.pendingViolations,
+            icon: faWarning,
+          },
+          {
+            label: 'LABEL.TOTAL_COURSES',
+            value: res.adminDashboardCourses.totalCourses,
+            icon: faBook,
+          },
+          {
+            label: 'LABEL.NEW_COURSES_THIS_MONTH',
+            value: res.adminDashboardCourses.newCoursesThisMonth,
+            icon: faBookMedical,
+          },
+          {
+            label: 'LABEL.MOST_POPULAR_CATEGORY',
+            value: res.adminDashboardCourses.mostPopularCategory,
+            icon: faHashtag,
+          },
+        ];
+      })
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription$.unsubscribe();
+  }
 }

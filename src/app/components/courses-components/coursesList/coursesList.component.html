@@ -1,5 +1,5 @@
 <div class="course-list-ctn">
-  <i nz-icon nzType="left" nzTheme="outline" (click)="updateViewIndex(-1)"></i>
+  <i *ngIf="courses.length > 3" nz-icon nzType="left" nzTheme="outline" (click)="updateViewIndex(-1)"></i>
   <div class="course-list-wrapper">
     <div class="courses-list" [ngStyle]="{transform: 'translateX(calc(((100vw - 110px - 45px) / 3 + 20px) * -' + currentViewIndex + '))'}">
       <app-coursesCard
@@ -9,5 +9,5 @@
       ></app-coursesCard>
     </div>
   </div>
-  <i nz-icon nzType="right" nzTheme="outline" (click)="updateViewIndex(1)"></i>
+  <i *ngIf="courses.length > 3" nz-icon nzType="right" nzTheme="outline" (click)="updateViewIndex(1)"></i>
 </div>

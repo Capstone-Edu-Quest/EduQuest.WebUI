@@ -1,4 +1,4 @@
-<div class="course-details-explore" @fadeInOut>
+<div class="course-details-explore" @fadeInOut *ngIf="course">
   <div class="back" (click)="onBack()">
     <fa-icon [icon]="backIcon"></fa-icon>{{ "BUTTON.BACK" | translate }}
   </div>
@@ -28,27 +28,27 @@
     </div>
   </div>
 
-  <div class="course-name">{{ course?.title }}</div>
+  <div class="course-name">{{ course.title }}</div>
 
   <div class="hashtag">
-    <div class="tag" *ngFor="let tag of course?.listTag || []">
+    <div class="tag" *ngFor="let tag of course.listTag || []">
       #{{ tag.name }}
     </div>
   </div>
 
-  <div class="course-description">{{ course?.description }}</div>
+  <div class="course-description">{{ course.description }}</div>
 
   <div class="instructor-info">
     <app-avatar-by-name name="Khang" size="40px"></app-avatar-by-name>
     <div class="info">
-      <div class="name">Gia Khang</div>
-      <div class="bio">Software Engineer of ABC Company</div>
+      <div class="name">{{course.author.username}}</div>
+      <div class="bio">{{course.author.headline}}</div>
     </div>
   </div>
 
   <div class="label">{{ "LABEL.REQUIREMENTS" | translate }}</div>
   <div class="reqs">
-    <div class="req" *ngFor="let req of course?.requirements || []">
+    <div class="req" *ngFor="let req of course.requirementList">
       <fa-icon [icon]="reqIcon"></fa-icon>{{ req }}
     </div>
   </div>
@@ -62,7 +62,3 @@
     [columns]="tableColumns"
   ></app-table>
 </div>
-
-<!-- Show details course, materials, try materials, can modify tags -->
-<!-- Expert can approve course if in pending -->
-<!-- Staff can suspend course (public -> suspend) if needed -->

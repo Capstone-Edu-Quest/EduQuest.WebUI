@@ -3,6 +3,7 @@ import { Component, type OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   IAssignment,
+  ICourse,
   ICourseFullMetarialsView,
   IDocument,
   IMaterial,
@@ -28,12 +29,13 @@ import { Subscription } from 'rxjs';
 import { WebRole } from '../../../shared/enums/user.enum';
 import { IUser } from '../../../shared/interfaces/user.interfaces';
 import { fadeInOutAnimation } from '../../../shared/constants/animations.constant';
+import { CoursesService } from '@/src/app/core/services/courses.service';
 
 @Component({
   selector: 'app-courses-manage-view-details',
   templateUrl: './courses-manage-view-details.component.html',
   styleUrl: './courses-manage-view-details.component.scss',
-  animations: [fadeInOutAnimation]
+  animations: [fadeInOutAnimation],
 })
 export class CoursesManageViewDetailsComponent implements OnInit {
   subscription$: Subscription = new Subscription();
@@ -49,7 +51,7 @@ export class CoursesManageViewDetailsComponent implements OnInit {
 
   tableColumns: TableColumn[] = [
     {
-      key: 'stage',
+      key: 'lesson',
       label: 'LABEL.STAGES',
     },
     {
@@ -68,19 +70,15 @@ export class CoursesManageViewDetailsComponent implements OnInit {
       key: 'time',
       label: 'LABEL.TIME',
     },
-    {
-      key: 'data',
-      label: 'LABEL.MATERIAL_INFO',
-    },
-    {
-      key: 'view',
-      label: '',
-      icon: this.rightIcon,
-    },
+    // {
+    //   key: 'view',
+    //   label: '',
+    //   icon: this.rightIcon,
+    // },
   ];
   materialsData: ITableMaterialData[] = [];
 
-  course: ICourseFullMetarialsView | null = null;
+  course: ICourse | null = null;
 
   approvalMenu = [
     {
@@ -102,14 +100,14 @@ export class CoursesManageViewDetailsComponent implements OnInit {
       action: (e: Event) => this.onModifyHashtag(e),
     },
   ];
-  
+
   staffMenu = [
     {
       icon: faWarning,
       label: 'LABEL.SUSPEND_COURSE',
       action: (e: Event) => this.onSuspendCourse(e),
     },
-  ]
+  ];
 
   menu: any[] = [];
 
@@ -117,7 +115,8 @@ export class CoursesManageViewDetailsComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private translate: TranslateService,
-    private UserService: UserService
+    private UserService: UserService,
+    private CourseService: CoursesService
   ) {}
 
   ngOnInit(): void {
@@ -136,7 +135,14 @@ export class CoursesManageViewDetailsComponent implements OnInit {
     const id = this.route.snapshot.paramMap.get('courseId');
     this.course = this.exampleCourse;
 
-    this.onInitMaterialsData();
+    if (!id) return;
+    this.CourseService.onGetCourse(id).subscribe((res) => {
+      if (!res?.payload) return;
+
+      this.course = res.payload;
+      this.onInitMaterialsData();
+    });
+
     this.initMenu();
   };
 
@@ -160,19 +166,19 @@ export class CoursesManageViewDetailsComponent implements OnInit {
   async onInitMaterialsData() {
     if (!this.course) return;
 
-    for (const [i, stage] of this.course.stages.entries()) {
-      for (const material of stage.materials) {
+    this.course.listLesson.forEach((lesson) => {
+      lesson.materials.forEach((material) => {
         const materialData: ITableMaterialData = {
           name: material.title,
+          lesson: lesson.index,
           type: material.type,
-          stage: i + 1,
           description: material.description,
-          data: await this.onGetDataInfo(material),
-          time: this.onGetDataTime(material),
+          time: material.duration,
         };
+
         this.materialsData.push(materialData);
-      }
-    }
+      });
+    });
   }
 
   onGetDataInfo(

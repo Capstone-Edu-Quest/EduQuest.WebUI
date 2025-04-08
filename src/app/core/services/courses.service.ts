@@ -10,6 +10,7 @@ import {
   IReview,
   IReviewQuery,
   ISearchCourseParams,
+  ITag,
   materialType,
 } from '../../shared/interfaces/course.interfaces';
 import {
@@ -104,7 +105,7 @@ export class CoursesService {
 
   onSearchCourse(params: ISearchCourseParams) {
     const urlStr =
-      endPoints.searchCourse + onConvertObjectToQueryParams(params);
+      endPoints.searchCourse + onConvertObjectToQueryParams({ ...params });
     return this.http.get<ICourseOverview[]>(urlStr);
   }
 
@@ -140,7 +141,7 @@ export class CoursesService {
   onGetMaterialType(type: MaterialTypeEnum) {
     switch (type) {
       case MaterialTypeEnum.VIDEO:
-        return 'video';
+        return 'videos';
       case MaterialTypeEnum.ASSIGNMENT:
         return 'assignment';
       case MaterialTypeEnum.DOCUMENT:
@@ -166,10 +167,9 @@ export class CoursesService {
   }
 
   getMaterialById(materialId: string) {
-    return this.http
-      .get<ILearningMaterial>(
-        endPoints.getMaterialDetails + `?materialId=${materialId}`
-      )
+    return this.http.get<ILearningMaterial>(
+      endPoints.getMaterialDetails + `?materialId=${materialId}`
+    );
   }
 
   deleteMaterial(materialId: string) {
@@ -185,15 +185,32 @@ export class CoursesService {
       });
   }
 
-  createCourse(course: ICourseCreate) {
-    this.http.post<ICourseOverview>(endPoints.course, course).subscribe((res) => {
+  updateCourse(course: ICourseCreate) {
+    this.http.update(endPoints.course, course).subscribe((res) => {
       if (!res?.payload) return;
 
-      this.router.navigate(['my-courses', res.payload.id])
       this.message.addMessage(
         'success',
-        this.translate.instant('MESSAGE.CREATED_SUCCESSFULLY')
+        this.translate.instant('MESSAGE.UPDATED_SUCCESSFULLY')
       );
     });
+  }
+
+  createCourse(course: ICourseCreate) {
+    this.http
+      .post<ICourseOverview>(endPoints.course, course)
+      .subscribe((res) => {
+        if (!res?.payload) return;
+
+        this.router.navigate(['my-courses', res.payload.id]);
+        this.message.addMessage(
+          'success',
+          this.translate.instant('MESSAGE.CREATED_SUCCESSFULLY')
+        );
+      });
+  }
+
+  onGetTags() {
+    return this.http.get<ITag[]>(endPoints.searchTag)
   }
 }

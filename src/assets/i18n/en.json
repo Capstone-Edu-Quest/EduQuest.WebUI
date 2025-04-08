@@ -609,7 +609,8 @@
     "VIEW_MORE": "View more",
     "DRAFT": "Draft",
     "PENDING": "Pending",
-    "PUBLIC": "Public"
+    "PUBLIC": "Public",
+    "GET_COURSE_HAVE_THIS_TAG": "Find course have this tag"
   },
   "MESSAGE": {
     "CREATED_SUCCESSFULLY": "Created successfully",
