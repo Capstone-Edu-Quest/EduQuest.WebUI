@@ -193,6 +193,7 @@ import { ReviewsListComponent } from './components/reviews-list/reviews-list.com
 import { ReviewItemComponent } from './components/reviews-list/review-item/review-item.component';
 import { PlatformService } from './core/services/platform.service';
 import { PaymentService } from './core/services/payment.service';
+import { StudyingMaterialComponent } from './pages/course-stage/studying-material/studying-material.component';
 export const AppDeclarations = [
   AppComponent,
   NavbarComponent,
@@ -345,7 +346,9 @@ export const AppDeclarations = [
   SignupComponent,
   // Settings
   PersonalSettingsComponent,
-  ManagePasswordComponent
+  ManagePasswordComponent,
+
+  StudyingMaterialComponent
 ];
 export const NGIcons = [
   EnterOutline,

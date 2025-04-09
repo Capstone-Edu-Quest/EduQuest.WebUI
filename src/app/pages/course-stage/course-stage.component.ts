@@ -1,5 +1,6 @@
 import {
   ICourse,
+  ILearningMaterial,
   IMaterial,
   IMaterialOverview,
   IStageMission,
@@ -15,6 +16,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { MissionStatus } from '../../shared/enums/course.enum';
 import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
+import { ActivatedRoute, Router } from '@angular/router';
+import { CoursesService } from '../../core/services/courses.service';
 
 @Component({
   selector: 'app-course-stage',
@@ -24,6 +27,8 @@ import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 })
 export class CourseStageComponent implements OnInit {
   @Input('courseDetails') courseDetails!: ICourse;
+
+  viewingMaterial: ILearningMaterial | null = null;
 
   lockIcon = faLock;
   doneIcon = faCheck;
@@ -38,17 +43,39 @@ export class CourseStageComponent implements OnInit {
 
   currentMaterials: IMaterialOverview[] = [];
 
-  constructor() {}
+  constructor(
+    private route: ActivatedRoute,
+    private course: CoursesService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.initMaterials();
-    this.initRow();
+
+    this.route.queryParams.subscribe((params) => {
+      const materialId = params['materialId'];
+
+      if (!materialId) {
+        this.viewingMaterial = null;
+        return;
+      }
+      this.course.getMaterialById(materialId).subscribe((res) => {
+        if (!res?.payload) {
+          this.viewingMaterial = null;
+          return;
+        }
+
+        this.viewingMaterial = res.payload;
+      });
+    });
   }
 
   initMaterials() {
     this.currentMaterials =
       this.courseDetails.listLesson[this.currentLesson - 1].materials;
     this.totalLessons = this.courseDetails.listLesson.length;
+
+    this.initRow();
   }
 
   initRow() {
@@ -70,12 +97,11 @@ export class CourseStageComponent implements OnInit {
     for (let i = this.rows[this.rows.length - 1].length; i < itemPerRow; i++) {
       this.rows[this.rows.length - 1].push(null);
     }
-
-    console.log(this.rows)
   }
 
   updateCurrentStage(value: number) {
     this.currentLesson += value;
+    this.initMaterials();
   }
 
   getRowLength(row: any[]) {
@@ -108,5 +134,10 @@ export class CourseStageComponent implements OnInit {
           class: 'locked',
         };
     }
+  }
+
+  handleLessonClick(material: IMaterialOverview) {
+    if (material.status !== MissionStatus.CURRENT) return;
+    this.router.navigate([], { queryParams: { materialId: material.id } });
   }
 }

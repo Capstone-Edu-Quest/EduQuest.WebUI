@@ -55,7 +55,7 @@
   </app-dropdownMenu>
   <div class="level" *ngIf="user && user.roleId === 3">
     <i nz-icon nzType="thunderbolt"></i>
-    {{ "LABEL.LEVEL" | translate : { level: user.statistic?.level || 1 } }}
+    {{ "LABEL.LEVEL" | translate : { level: user.statistic.level || 1 } }}
   </div>
 
   <app-dropdownMenu [dropdown]="getTemplate('profile')">

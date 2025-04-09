@@ -1,0 +1,37 @@
+<div
+  *ngIf="currentMaterials() === 'Video' && viewingMaterial"
+  class="video-material"
+>
+  <div class="back" (click)="onBack()">
+    <fa-icon [icon]="backIcon"></fa-icon> Back
+  </div>
+  <app-video
+    *ngIf="viewingMaterial.video"
+    [sources]="[
+      {
+        url: viewingMaterial.video.urlMaterial,
+        label: ''
+      }
+    ]"
+  ></app-video>
+
+  <div class="material-name">{{ viewingMaterial.title }}</div>
+  <div class="material-description">{{ viewingMaterial.description }}</div>
+</div>
+
+<div
+  *ngIf="currentMaterials() === 'Document' && viewingMaterial"
+  class="document-material"
+>
+  <div class="back" (click)="onBack()">
+    <fa-icon [icon]="backIcon"></fa-icon> Back
+  </div>
+
+  <div class="material-name">{{ viewingMaterial.title }}</div>
+  <div class="material-description">{{ viewingMaterial.description }}</div>
+
+  <div
+    class="editor-loader-wrapper"
+    [innerHTML]="viewingMaterial.content"
+  ></div>
+</div>

@@ -1,4 +1,9 @@
-<div class="stage-ctn" @fadeInOut>
+<app-studying-material
+  *ngIf="viewingMaterial"
+  [viewingMaterial]="viewingMaterial"
+></app-studying-material>
+
+<div class="stage-ctn" @fadeInOut *ngIf="!viewingMaterial">
   <div class="course-name">{{ courseDetails.title }}</div>
   <div class="current-stage">
     {{ "LABEL.STAGE_COUNT" | translate : { value: currentLesson } }}:
@@ -44,7 +49,7 @@
         @if(!material) {
         <div class="blank-item"></div>
         } @else {
-        <div class="stage-item" [ngClass]="material.class">
+        <div class="stage-item" [ngClass]="material.class" (click)="handleLessonClick(material)">
           <div class="you-are-here">{{ "LABEL.YOU_ARE_HERE" | translate }}</div>
           <div class="stage-surface">
             <fa-icon [icon]="material.icon"></fa-icon>

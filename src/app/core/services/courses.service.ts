@@ -193,7 +193,7 @@ export class CoursesService {
         'success',
         this.translate.instant('MESSAGE.UPDATED_SUCCESSFULLY')
       );
-      this.router.navigate(['my-courses', course.courseId])
+      this.router.navigate(['my-courses', course.courseId]);
     });
   }
 
@@ -212,6 +212,25 @@ export class CoursesService {
   }
 
   onGetTags() {
-    return this.http.get<ITag[]>(endPoints.searchTag)
+    return this.http.get<ITag[]>(endPoints.searchTag);
+  }
+
+  updateMaterial(data: ILearningMaterial) {
+    this.http.update(endPoints.material, [data]).subscribe((res) => {
+      if (!res?.payload) return;
+
+      this.onInitMyMaterials();
+      this.router.navigate(['materials', this.onGetMaterialType(data.type)]);
+      this.message.addMessage(
+        'success',
+        this.translate.instant('MESSAGE.UPDATED_SUCCESSFULLY')
+      );
+    });
+  }
+
+  onGetMaterialDetailsById(id: string) {
+    return this.http.get<ILearningMaterial>(
+      endPoints.getMaterialDetails + `/materialId=${id}`
+    );
   }
 }
