@@ -233,4 +233,14 @@ export class CoursesService {
       endPoints.getMaterialDetails + `/materialId=${id}`
     );
   }
+
+  onApprove(cousreId: string, isApprove: boolean) {}
+
+  onSubmitCourseToExpert(courseId: string) {
+
+  }
+
+  onAssignCourseToExpert(courseId: string, expertId: string) {
+
+  }
 }

@@ -9,6 +9,8 @@ import {
 import { HttpService } from './http.service';
 import { endPoints } from 'src/app/shared/constants/endPoints.constant';
 import { onConvertObjectToQueryParams } from '../utils/data.utils';
+import { MessageService } from './message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -16,17 +18,29 @@ import { onConvertObjectToQueryParams } from '../utils/data.utils';
 export class CouponService {
   public inUseCoupon$: BehaviorSubject<ICoupon | null> =
     new BehaviorSubject<ICoupon | null>(null);
-  constructor(private http: HttpService) {}
+  constructor(
+    private http: HttpService,
+    private message: MessageService,
+    private translate: TranslateService
+  ) {}
 
-  useCoupon(couponId: string | null) {
-    if (!couponId) {
+  useCoupon(code: string | null) {
+    if (!code) {
       this.inUseCoupon$.next(null);
     } else {
-      this.getCouponById(couponId).subscribe((response) => {
-        const coupons = response?.payload;
-        if (!coupons || coupons?.length === 0) return;
-        this.inUseCoupon$.next(coupons[0]);
-      });
+      this.http
+        .get<ICoupon>(endPoints.couponLearner + `?Code=${code}`)
+        .subscribe((res) => {
+          if (!res?.payload) {
+            this.message.addMessage(
+              'error',
+              this.translate.instant('MESSAGE.INVALID_COUPON')
+            );
+            return;
+          }
+
+          this.inUseCoupon$.next(res.payload);
+        });
     }
   }
 
@@ -42,7 +56,7 @@ export class CouponService {
   }
 
   initCoupons() {
-    return this.http.get<ICoupon[]>(endPoints.coupon)
+    return this.http.get<ICoupon[]>(endPoints.coupon);
   }
 
   createCoupon(coupon: ICouponCreate) {
@@ -50,6 +64,9 @@ export class CouponService {
   }
 
   updateCoupon(coupon: ICouponUpdate) {
-    return this.http.update<ICoupon>(endPoints.coupon + `/${coupon.code}`, coupon);
+    return this.http.update<ICoupon>(
+      endPoints.coupon + `/${coupon.code}`,
+      coupon
+    );
   }
 }

@@ -18,6 +18,8 @@ export const endPoints = {
   getStudyingCourse: 'course/studying',
   courseStatsOverview: 'course/courseStatisticOverview',
   courseDetaialsForInstructor: 'course/courseDetailForInstructor',
+  assignCourseToExpert: 'course/assign',
+  approveCourse: 'course/approve',
 
   material: 'material',
   getMaterialDetails: 'material/materialById',
@@ -25,6 +27,7 @@ export const endPoints = {
   uploadImage: 'material/uploadImage',
 
   coupon: 'coupon',
+  couponLearner: 'coupon/learner',
 
   searchCertificate: 'certiciate/filter',
   certificate: 'certificate',
