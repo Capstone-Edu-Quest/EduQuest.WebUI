@@ -1,10 +1,16 @@
+import { CoursesService } from 'src/app/core/services/courses.service';
 import { getAlphabetByIndex } from '@/src/app/core/utils/quiz.utils';
 import { onAddZeroToTime } from '@/src/app/core/utils/time.utils';
 import { MaterialTypeEnum } from '@/src/app/shared/enums/course.enum';
-import { ILearningMaterial } from '@/src/app/shared/interfaces/course.interfaces';
+import {
+  ICourse,
+  ILearningMaterial,
+  ISubmitQuizReq,
+} from '@/src/app/shared/interfaces/course.interfaces';
 import { Component, Input, type OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { faAngleLeft, faCircle } from '@fortawesome/free-solid-svg-icons';
+import { UserService } from '@/src/app/core/services/user.service';
 
 @Component({
   selector: 'app-studying-material',
@@ -12,6 +18,7 @@ import { faAngleLeft, faCircle } from '@fortawesome/free-solid-svg-icons';
   styleUrl: './studying-material.component.scss',
 })
 export class StudyingMaterialComponent implements OnInit {
+  @Input('courseDetails') courseDetails!: ICourse;
   @Input('viewingMaterial') viewingMaterial: ILearningMaterial | null = null;
 
   quizAnswersId: { questionId: string; answerId: string }[] = [];
@@ -20,7 +27,15 @@ export class StudyingMaterialComponent implements OnInit {
   isQuizStarted: boolean = false;
   countdownInterval: any = null;
 
-  constructor(private router: Router) {}
+  videoDuration: number = 0;
+  isUpdatedStatus: boolean = false;
+
+  constructor(
+    private router: Router,
+    private CoursesService: CoursesService,
+    private user: UserService
+  ) {}
+
   ngOnInit(): void {
     if (this.viewingMaterial?.assignment) {
       this.countdown = Number(this.viewingMaterial?.assignment?.timeLimit) * 60;
@@ -112,5 +127,70 @@ export class StudyingMaterialComponent implements OnInit {
 
   getQuestionAlphabet(aIdx: number) {
     return getAlphabetByIndex(aIdx);
+  }
+
+  handleSubmitQuiz() {
+    if (!this.viewingMaterial?.quiz) return;
+
+    let lessonId = null;
+
+    this.courseDetails.listLesson.forEach((l) => {
+      const index = l.materials.findIndex(
+        (m) => m.id === this.viewingMaterial?.id
+      );
+      if (index !== -1) {
+        lessonId = l.id;
+      }
+    });
+
+    if (!lessonId) return;
+    const quizData: ISubmitQuizReq = {
+      quizId: this.viewingMaterial.quiz.id as string,
+      totalTime: Math.ceil(
+        Math.abs(
+          (this.countdown - this.viewingMaterial.quiz.timeLimit * 60) / 60
+        )
+      ),
+      answers: this.quizAnswersId,
+    };
+
+    this.CoursesService.onSubmitQuiz(quizData, lessonId as string).subscribe(
+      (res) => {
+        console.log(res);
+      }
+    );
+  }
+
+  handleVideoLoaded(e: any) {
+    this.videoDuration = e.duration;
+  }
+
+  trackVideoProgress(time: number) {
+    if (time / this.videoDuration <= 0.9 || this.isUpdatedStatus) return;
+
+    
+    const lessonId = this.getLessonIdByMaterialId();
+    if (!lessonId || !this.viewingMaterial?.id) return;
+    
+    this.isUpdatedStatus = true;
+    this.user
+      .updateUserLearningProgress(this.viewingMaterial.id, lessonId, null)
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+
+  getLessonIdByMaterialId() {
+    let lessonId = null;
+    this.courseDetails.listLesson.forEach((l) => {
+      const index = l.materials.findIndex(
+        (m) => m.id === this.viewingMaterial?.id
+      );
+      if (index !== -1) {
+        lessonId = l.id;
+      }
+    });
+
+    return lessonId;
   }
 }

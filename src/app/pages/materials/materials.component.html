@@ -39,7 +39,7 @@
         <fa-icon [icon]="clockIcon"></fa-icon>
         <div class="duration">
           {{
-            "LABEL.MINUTES" | translate : { value: material.duration }
+            "LABEL.MINUTES" | translate : { value: round(material.duration) }
           }}
         </div>
       </div>

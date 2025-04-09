@@ -207,6 +207,20 @@ export class UserService {
   }
 
   getUserByRoleId(roleId: WebRole) {
-    return this.http.get<IUser[]>(endPoints.getUserByRoleId + `?roleId=${roleId}`);
+    return this.http.get<IUser[]>(
+      endPoints.getUserByRoleId + `?roleId=${roleId}`
+    );
+  }
+
+  updateUserLearningProgress(
+    materialId: string,
+    lessonId: string,
+    time: number | null
+  ) {
+    return this.http.update(endPoints.userProgress, {
+      materialId,
+      lessonId,
+      time,
+    });
   }
 }

@@ -112,6 +112,10 @@ export class CoursesCardComponent implements OnInit, OnDestroy {
     this.router.navigate([this.isStaffView ? '/courses-manage/explore' : '/courses', this.course.id]);
   }
 
+  round(val: number) {
+    return val.toFixed(2)
+  }
+
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();
   }

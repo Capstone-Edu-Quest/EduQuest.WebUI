@@ -23,7 +23,11 @@ export class PaymentService {
       cartId,
       couponCode,
       configEnum: null,
+      successUrl: 'https://edu-quest-webui.vercel.app/',
+      cancelUrl: 'https://edu-quest-webui.vercel.app/cart',
     };
+
+    console.log(checkOutItem);
 
     this.http
       .post<string>(endPoints.checkout, checkOutItem)
@@ -39,6 +43,8 @@ export class PaymentService {
       cartId: null,
       couponCode: null,
       configEnum: buyType,
+      successUrl: 'https://edu-quest-webui.vercel.app/',
+      cancelUrl: 'https://edu-quest-webui.vercel.app/cart',
     };
 
     this.http

@@ -142,7 +142,7 @@ export interface IMaterialResponse {
       description: string;
       questionCount: number;
       timeLimit: number;
-      passingPercentage: number
+      passingPercentage: number;
     }[];
   };
   assignment: {
@@ -382,6 +382,7 @@ export interface IMyCourseChartsStats {
 }
 
 export interface ILearningMaterial {
+  id?: string;
   type: MaterialTypeEnum;
   title: string;
   description: string;
@@ -398,6 +399,7 @@ interface video {
 }
 
 interface quiz {
+  id?: string;
   timeLimit: number;
   passingPercentage: number;
   questions: questions[];
@@ -421,4 +423,10 @@ interface assignment {
   question?: string;
   answerLanguage?: string;
   expectedAnswer?: string;
+}
+
+export interface ISubmitQuizReq {
+  quizId: string;
+  totalTime: number;
+  answers: { questionId: string; answerId: string }[];
 }

@@ -1,6 +1,7 @@
 <app-studying-material
   *ngIf="viewingMaterial"
   [viewingMaterial]="viewingMaterial"
+  [courseDetails]="courseDetails"
 ></app-studying-material>
 
 <div class="stage-ctn" @fadeInOut *ngIf="!viewingMaterial">
@@ -62,7 +63,7 @@
             </div>
             <div class="type">
               <fa-icon [icon]="clockIcon"></fa-icon
-              >{{ "LABEL.MINUTES" | translate : { value: material.duration } }}
+              >{{ "LABEL.MINUTES" | translate : { value: round(material.duration) } }}
             </div>
           </div>
         </div>

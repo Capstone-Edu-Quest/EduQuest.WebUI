@@ -38,8 +38,8 @@ export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
 
   @Input() sources: { url: string; label: string }[] = [];
   @Input() defaultSpeed: number = 1.0;
+  
   @Output() onLoad: EventEmitter<any> = new EventEmitter();
-
   @Output() speedChange = new EventEmitter<number>();
   @Output() qualityChange = new EventEmitter<string>();
   @Output() progressChange = new EventEmitter<number>();
@@ -104,7 +104,7 @@ export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
     );
 
     this.subscriptions$.add(
-      videoEl.addEventListener('loadedmetadata', () => {
+      videoEl.addEventListener('loadedmetadata', (e) => {
         this.duration = videoEl.duration || 0;
         const initState = {
           videoEl,
@@ -202,14 +202,14 @@ export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
     const videoEl = this.videoRef.nativeElement;
     const progressBar = this.progressBarRef.nativeElement;
     if (!progressBar || !videoEl) return;
-    
+
     const rect = progressBar.getBoundingClientRect();
     const clickX = event.clientX - rect.left;
-    
+
     const percentage = clickX / rect.width;
     const seekTime = percentage * this.duration;
-    
-    videoEl.currentTime = 30;
+
+    videoEl.currentTime = seekTime;
     this.progressChange.emit(seekTime);
 
     const isBuffered = this.isTimeBuffered(videoEl.currentTime);
@@ -265,6 +265,11 @@ export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
     const videoEl = this.videoRef.nativeElement;
     if (this.isTimeBuffered(videoEl.currentTime)) {
       this.hideLoading();
+    }
+
+    const seekable = videoEl.seekable;
+    if (seekable.length) {
+      console.log('Buffered range:', seekable.start(0), seekable.end(0));
     }
   }
 

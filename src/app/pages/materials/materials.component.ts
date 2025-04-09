@@ -78,6 +78,10 @@ export class MaterialsComponent implements OnInit, OnDestroy {
     }
   }
 
+  round(val: number) {
+    return Math.ceil(val)
+  }
+
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();
   }

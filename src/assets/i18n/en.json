@@ -614,7 +614,8 @@
     "PUBLIC": "Public",
     "GET_COURSE_HAVE_THIS_TAG": "Find course have this tag",
     "SEARCH_MATERIALS": "Enter materials name",
-    "WAITING_FOR_APPROVAL": "Waiting for approval..."
+    "WAITING_FOR_APPROVAL": "Waiting for approval...",
+    "RATING": "Rating"
   },
   "MESSAGE": {
     "ASSIGNED_SUCCESSFULLY": "Assigned successfully",

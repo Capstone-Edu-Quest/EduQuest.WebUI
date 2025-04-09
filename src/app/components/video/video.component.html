@@ -9,6 +9,7 @@
   <img class="logo-video" src="/assets/images/logo.webp" />
   <video
     #videoElement
+    preload="auto"
     (click)="togglePlay()"
     (waiting)="showLoading()"
     (stalled)="showLoading()"
@@ -17,13 +18,9 @@
     (pause)="hideLoading()"
     (progress)="checkBuffered()"
     (error)="onHandleVideoError()"
-  >
-    <source
-      *ngFor="let source of sources"
-      [src]="source.url"
-      type="video/mp4"
-    />
-  </video>
+    preload="auto"
+    [src]="sources[0].url"
+  ></video>
 
   <div class="loading" *ngIf="isLoading">
     <ul class="dots">
@@ -89,4 +86,3 @@
     </div>
   </div>
 </div>
-

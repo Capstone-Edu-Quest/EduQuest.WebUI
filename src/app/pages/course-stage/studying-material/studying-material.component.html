@@ -13,6 +13,8 @@
         label: ''
       }
     ]"
+    (progressChange)="trackVideoProgress($event)"
+    (onLoad)="handleVideoLoaded($event)"
   ></app-video>
 
   <div class="material-name">{{ viewingMaterial.title }}</div>
@@ -107,9 +109,12 @@
     </div>
   </div>
 
-  <app-button [style]="{ width: '100%' }" type="primary">{{
-    "BUTTON.SUBMIT" | translate
-  }}</app-button>
+  <app-button
+    (click)="handleSubmitQuiz()"
+    [style]="{ width: '100%' }"
+    type="primary"
+    >{{ "BUTTON.SUBMIT" | translate }}</app-button
+  >
   }
   <!--  -->
 </div>

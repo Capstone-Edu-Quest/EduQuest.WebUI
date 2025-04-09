@@ -37,7 +37,7 @@
   <div class="progress" *ngIf="course">
     <div class="header">
       <div class="label">{{ "LABEL.PROGRESS" | translate }}</div>
-      <div class="percent">{{ course.progressPercentage ?? 0 }}%</div>
+      <div class="percent">{{ round(course.progressPercentage ?? 0) }}%</div>
     </div>
     <div class="progress-bar-ctn">
       <div

@@ -266,8 +266,10 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   onCreate() {
     if (!this.onValidate() || !this.uploadedFile) return;
 
+    console.log('call create')
     this.VideoService.uploadVideo(this.uploadedFile.file).subscribe((url) => {
       if (!this.material.video) return;
+      console.log(url)
       this.material.video.urlMaterial = url;
 
       this.course.createMaterial(this.material);

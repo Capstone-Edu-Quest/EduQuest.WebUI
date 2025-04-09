@@ -56,7 +56,7 @@ export const endPoints = {
   getUserByRoleId: 'user/byRoleId',
 
   userMetaStreak: 'userMeta/streak',
-  userMetaProgress: 'userMeta/userProgress',
+  userProgress: 'userMeta/userProgress',
 
   tag: 'tag',
   searchTag: 'tag/filter',
@@ -78,4 +78,6 @@ export const endPoints = {
 
   checkout: 'payment/checkout',
   refund: 'payment/refund',
+
+  submitQuiz: 'course/quiz/attemt'
 };

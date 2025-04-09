@@ -10,6 +10,7 @@ import {
   IReview,
   IReviewQuery,
   ISearchCourseParams,
+  ISubmitQuizReq,
   ITag,
   materialType,
 } from '../../shared/interfaces/course.interfaces';
@@ -260,5 +261,9 @@ export class CoursesService {
 
   onGetCourseAssignedToMe() {
     return this.http.get<ICourseOverview[]>(endPoints.assignCourseToExpert);
+  }
+
+  onSubmitQuiz(data: ISubmitQuizReq, lessonId: string) {
+    return this.http.post(endPoints.submitQuiz + `?lessonId=${lessonId}`, data)
   }
 }

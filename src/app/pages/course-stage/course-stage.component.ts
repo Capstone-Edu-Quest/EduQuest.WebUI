@@ -136,8 +136,12 @@ export class CourseStageComponent implements OnInit {
     }
   }
 
+  round(val: number) {
+    return Math.ceil(val)
+  }
+
   handleLessonClick(material: IMaterialOverview) {
-    if (material.status !== MissionStatus.CURRENT) return;
+    if (material.status === MissionStatus.LOCKED) return;
     this.router.navigate([], { queryParams: { materialId: material.id } });
   }
 }
