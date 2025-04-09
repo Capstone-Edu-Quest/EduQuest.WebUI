@@ -22,6 +22,7 @@ export class CouponsSettingsComponent implements OnInit, AfterViewInit {
   @ViewChild('createCoupon') createCouponRef!: TemplateRef<any>;
 
   tableColumns: TableColumn[] = [];
+  isLoaded: boolean = false;
 
   coupons: ICoupon[] = [];
 
@@ -35,10 +36,12 @@ export class CouponsSettingsComponent implements OnInit, AfterViewInit {
   }
 
   initCoupons() {
+    this.isLoaded = false;
     this.CouponService.initCoupons().subscribe((data) => {
       if (!data?.payload) return;
 
       this.coupons = data.payload;
+      this.isLoaded = true;
     });
   }
 
@@ -55,7 +58,7 @@ export class CouponsSettingsComponent implements OnInit, AfterViewInit {
       {
         key: 'discount',
         label: 'LABEL.DISCOUNT',
-        render: (coupon: ICoupon) => `${(coupon?.discount ?? 0) * 100}%`,
+        render: (coupon: ICoupon) => `${(coupon?.discount ?? 0)}%`,
       },
       {
         key: 'use_per_user',
@@ -66,7 +69,7 @@ export class CouponsSettingsComponent implements OnInit, AfterViewInit {
         key: 'usages',
         label: 'LABEL.USAGES',
         render: (coupon: ICoupon) =>
-          `${coupon.usages}/${coupon.limit === -1 ? '∞' : coupon.limit}`,
+          `${coupon.usages ?? '∞' }/${coupon.limit === -1 ? '∞' : coupon.limit}`,
       },
       {
         key: 'available',

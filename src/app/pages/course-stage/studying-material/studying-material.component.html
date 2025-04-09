@@ -19,6 +19,7 @@
   <div class="material-description">{{ viewingMaterial.description }}</div>
 </div>
 
+<!-- Document -->
 <div
   *ngIf="currentMaterials() === 'Document' && viewingMaterial"
   class="document-material"
@@ -34,4 +35,105 @@
     class="editor-loader-wrapper"
     [innerHTML]="viewingMaterial.content"
   ></div>
+</div>
+
+<!-- Quiz -->
+<div
+  *ngIf="currentMaterials() === 'Quiz' && viewingMaterial"
+  class="quiz-material"
+>
+  <div class="back" (click)="onBack()">
+    <fa-icon [icon]="backIcon"></fa-icon> Back
+  </div>
+
+  <div class="material-name">{{ viewingMaterial.title }}</div>
+  <div class="material-description">{{ viewingMaterial.description }}</div>
+
+  <!--  -->
+  @if(!isQuizStarted) {
+  <div class="info-title">{{ "LABEL.QUIZ_INFO" | translate }}</div>
+  <div class="quiz-infos">
+    <div>
+      -
+      {{
+        "LABEL.OVER_PERCENTAGES"
+          | translate : { value: viewingMaterial.quiz?.passingPercentage }
+      }}
+    </div>
+    <div>
+      -
+      {{
+        "LABEL.MAX_MINUTE"
+          | translate : { value: viewingMaterial.quiz?.timeLimit }
+      }}
+    </div>
+    <div>
+      -
+      {{
+        "LABEL.QUESTIONS_COUNT"
+          | translate : { value: viewingMaterial.quiz?.questions?.length }
+      }}
+    </div>
+  </div>
+
+  <app-button
+    (click)="onStartQuiz()"
+    [style]="{ width: '100%' }"
+    type="primary"
+    >{{ "BUTTON.START_QUIZ" | translate }}</app-button
+  >
+  <!--  -->
+  } @else {
+  <div class="countdown">{{ convertTimeToCountdown() }}</div>
+  <div
+    class="question-ctn"
+    *ngFor="let question of viewingMaterial.quiz?.questions; let i = index"
+  >
+    <div class="question">{{ i + 1 }}. {{ question.questionTitle }}</div>
+    <div
+      class="answer"
+      *ngFor="let answer of question.answers; let z = index"
+      (click)="onSelectAnswer(question.id, answer.id)"
+    >
+      <fa-icon
+        [icon]="circleIcon"
+        [ngStyle]="{
+          color: onCheckIsAnswerSelected(question.id, answer.id)
+            ? 'var(--brand-light)'
+            : 'var(--tertiary-text)'
+        }"
+      ></fa-icon>
+      <b>{{ getQuestionAlphabet(z) }}.</b> {{ answer.answerContent }}
+    </div>
+  </div>
+
+  <app-button [style]="{ width: '100%' }" type="primary">{{
+    "BUTTON.SUBMIT" | translate
+  }}</app-button>
+  }
+  <!--  -->
+</div>
+
+<!-- Assignment -->
+<div
+  *ngIf="currentMaterials() === 'Assignment' && viewingMaterial"
+  class="quiz-material"
+>
+  <div class="back" (click)="onBack()">
+    <fa-icon [icon]="backIcon"></fa-icon> Back
+  </div>
+
+  <div class="material-name">{{ viewingMaterial.title }}</div>
+  <div class="material-description">{{ viewingMaterial.description }}</div>
+
+  <div class="assignment-question">
+    {{ viewingMaterial.assignment?.question }}
+  </div>
+  <app-text-editor #textEditor [htmlContent]="''"></app-text-editor>
+
+  <div class="countdown">{{ convertTimeToCountdown() }}</div>
+
+  <app-button [style]="{ width: '100%' }" type="primary">{{
+    "BUTTON.SUBMIT" | translate
+  }}</app-button>
 </div>

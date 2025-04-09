@@ -337,6 +337,7 @@
     "ADD": "New",
     "VIEW_ALL": "View All",
     "QUESTIONS_COUNT": "{{value}} questions",
+    "QUIZ_INFO": "Quiz Informations",
     "TOTAL_REVENUE": "Total Revenue",
     "REVENUE_THIS_MONTH": "Revenue This Month",
     "REVENUE_7_DAYS": "Revenue 7 Days",
@@ -383,6 +384,7 @@
     "PASSED": "Passed",
     "FAILED": "Failed",
     "OVER_PERCENTAGES": "Over or equals {{value}}% to pass",
+    "MAX_MINUTE": "Maximum {{value}} minutes",
     "PASS_PERCENTAGES": "Passing Percentages",
     "PASS_PERCENTAGES_SUB": "The correct percentages that leaner need to pass the quiz",
     "TIME_LIMIT": "Time Limit (minutes)",
@@ -668,6 +670,8 @@
     "COPIED_URL": "Copied url successfully"
   },
   "BUTTON": {
+    "START_QUIZ": "Start Quiz",
+    "SUBMIT": "Submit",
     "CONTINUE": "Continue",
     "VIEW_CERTIFICATE": "View Certificate",
     "ADD_TO_CART": "Add to cart",

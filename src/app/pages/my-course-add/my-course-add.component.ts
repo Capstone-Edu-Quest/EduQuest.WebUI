@@ -247,7 +247,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
   }
 
   onCreateCourse() {
-    if (!this.onValidateCourseInfo(this.courseInfo) || !this.uploadedFile?.file)
+    if (!this.uploadedFile?.file)
       return;
 
     this.ImageService.uploadImage(this.uploadedFile.file).subscribe((res) => {

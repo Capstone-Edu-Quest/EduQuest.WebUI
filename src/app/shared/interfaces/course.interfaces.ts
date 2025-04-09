@@ -404,6 +404,7 @@ interface quiz {
 }
 
 interface questions {
+  id?: string;
   questionTitle: string;
   multipleAnswers: boolean;
   answers: answers[];
@@ -412,6 +413,7 @@ interface questions {
 interface answers {
   answerContent: string;
   isCorrect: boolean;
+  id?: string;
 }
 
 interface assignment {

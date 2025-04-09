@@ -1,8 +1,10 @@
-import { Component, ViewChild, type OnInit, TemplateRef } from '@angular/core';
+import { Component, ViewChild, type OnInit, TemplateRef, Output, EventEmitter } from '@angular/core';
 import { ICouponCreateState } from '../../../../shared/interfaces/course.interfaces';
 import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { ModalService } from '../../../../core/services/modal.service';
 import { CouponService } from '@/src/app/core/services/coupon.service';
+import { MessageService } from '@/src/app/core/services/message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-coupon',
@@ -15,6 +17,8 @@ export class CreateCouponComponent implements OnInit {
   @ViewChild('numberInput') numberInputRef!: TemplateRef<any>;
   @ViewChild('arrayInput') arrayInputRef!: TemplateRef<any>;
   @ViewChild('none') noneRef!: TemplateRef<any>;
+
+  @Output('created') created = new EventEmitter();
 
   coupon: ICouponCreateState = {
     code: null,
@@ -37,7 +41,7 @@ export class CreateCouponComponent implements OnInit {
   newIcon = faPlus;
   removeIcon = faMinus;
 
-  constructor(private modal: ModalService, private CouponService: CouponService) {}
+  constructor(private modal: ModalService, private CouponService: CouponService, private message: MessageService, private translate: TranslateService) {}
 
   ngOnInit(): void {}
 
@@ -90,7 +94,11 @@ export class CreateCouponComponent implements OnInit {
     this.coupon.expireTime = new Date(`${this.expireDate}T${this.expireTime}:00Z`).toISOString();
 
     this.CouponService.createCoupon(this.coupon).subscribe(res => {
-      console.log(res)
+      if(!res?.payload) return;
+
+      this.modal.updateModalContent(null);
+      this.created.emit('');
+      this.message.addMessage('success', this.translate.instant('MESSAGE.CREATED_SUCCESSFULLY'));
     })
   }
 
