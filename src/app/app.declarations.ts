@@ -194,6 +194,7 @@ import { ReviewItemComponent } from './components/reviews-list/review-item/revie
 import { PlatformService } from './core/services/platform.service';
 import { PaymentService } from './core/services/payment.service';
 import { StudyingMaterialComponent } from './pages/course-stage/studying-material/studying-material.component';
+import { UploadProgressComponent } from './components/upload-progress/upload-progress.component';
 export const AppDeclarations = [
   AppComponent,
   NavbarComponent,
@@ -228,6 +229,7 @@ export const AppDeclarations = [
   LabelSwitchComponent,
   ReviewsListComponent,
   ReviewItemComponent,
+  UploadProgressComponent,
   // Home
   HomeComponent,
   HomeStatisticsComponent,

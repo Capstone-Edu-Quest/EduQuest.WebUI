@@ -25,7 +25,6 @@ import {
 } from '../../shared/interfaces/course.interfaces';
 import { Location } from '@angular/common';
 import { CoursesService } from '../../core/services/courses.service';
-import { ModalService } from '../../core/services/modal.service';
 
 @Component({
   selector: 'app-my-course-add',

@@ -104,7 +104,7 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
 
   onConfirmSearchCourse(tag: ITag): void {
     const courseParams: ISearchCourseParams = {
-      TagListId: [tag.id, '111'],
+      TagListId: [tag.id],
       pageNo: 1,
       eachPage: 10,
     };

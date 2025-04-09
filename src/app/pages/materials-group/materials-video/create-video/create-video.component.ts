@@ -91,7 +91,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
 
   onClickAddVideo() {
     if (
-      !this.fileInput.nativeElement ||
+      !this.fileInput?.nativeElement ||
       this.material.video?.urlMaterial !== ''
     )
       return;

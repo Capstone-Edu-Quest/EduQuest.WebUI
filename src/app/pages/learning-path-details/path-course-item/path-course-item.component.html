@@ -31,6 +31,12 @@
             "LABEL.TOTAL_LESSONS" | translate : { lesson: course.totalLesson }
           }}
         </div>
+        @if(isExpertView) {
+        <div>·</div>
+        <div class="lesson">
+          {{ (course.isPublic ? "LABEL.PUBLIC" : "LABEL.PRIVATE") | translate }}
+        </div>
+        }
       </div>
 
       <div class="add-to-cart-group" *ngIf="!isEdit && !isExpertView">

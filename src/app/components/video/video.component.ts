@@ -187,7 +187,7 @@ export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
     const isPlaying = !videoEl.paused;
 
     videoEl.src = url;
-    videoEl.load();
+    // videoEl.load();
     videoEl.currentTime = currentTime;
 
     if (isPlaying) {
@@ -199,18 +199,19 @@ export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   seek(event: MouseEvent) {
+    const videoEl = this.videoRef.nativeElement;
     const progressBar = this.progressBarRef.nativeElement;
-    if (!progressBar || !this.videoRef.nativeElement) return;
-
+    if (!progressBar || !videoEl) return;
+    
     const rect = progressBar.getBoundingClientRect();
     const clickX = event.clientX - rect.left;
+    
     const percentage = clickX / rect.width;
     const seekTime = percentage * this.duration;
-
-    this.videoRef.nativeElement.currentTime = seekTime;
+    
+    videoEl.currentTime = 30;
     this.progressChange.emit(seekTime);
 
-    const videoEl = this.videoRef.nativeElement;
     const isBuffered = this.isTimeBuffered(videoEl.currentTime);
 
     if (!isBuffered) {
@@ -313,7 +314,7 @@ export class VideoComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onHandleVideoError() {
-    console.log('error')
+    console.log('error');
   }
 
   ngOnDestroy() {

@@ -1,0 +1,27 @@
+.upload-progress {
+  z-index: 999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 50vw;
+  height: 20px;
+  background-color: var(--tertiary-bg);
+  border: 1px solid var(--quaternary-text);
+  border-radius: 10px;
+  overflow: hidden;
+
+  .progress {
+    height: 100%;
+    width: 80%;
+    background: var(--brand-light);
+  }
+
+  .progress-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-weight: 600;
+  }
+}

@@ -3,6 +3,10 @@
   box-sizing: border-box;
   position: relative;
 
+  app-button {
+    width: 100%;
+  }
+
   .back {
     color: var(--secondary-text);
     font-size: 14px;

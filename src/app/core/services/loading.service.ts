@@ -9,7 +9,14 @@ export class LoadingService {
   public readonly loading$: BehaviorSubject<boolean> =
     new BehaviorSubject<boolean>(false);
 
+  public readonly progress$: BehaviorSubject<number | null> =
+    new BehaviorSubject<number | null>(null);
+
   constructor() {}
+
+  updateProgress(value: number | null) {
+    this.progress$.next(value);
+  }
 
   addLoading() {
     this.loadingCount++;

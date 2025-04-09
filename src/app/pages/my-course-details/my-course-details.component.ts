@@ -20,6 +20,9 @@ import {
 import { formatTime, handleCastDateString } from '../../core/utils/time.utils';
 import { CoursesService } from '../../core/services/courses.service';
 import { ILineChartDataSet } from '../../shared/interfaces/chart.interface';
+import { MessageService } from '../../core/services/message.service';
+import { TranslateService } from '@ngx-translate/core';
+import { InstructorCourseStatus } from '../../shared/enums/course.enum';
 @Component({
   selector: 'app-my-course-details',
   templateUrl: './my-course-details.component.html',
@@ -96,7 +99,9 @@ export class MyCourseDetailsComponent implements OnInit, OnDestroy {
   constructor(
     private router: Router,
     private route: ActivatedRoute,
-    private courseService: CoursesService
+    private courseService: CoursesService,
+    private message: MessageService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -123,12 +128,16 @@ export class MyCourseDetailsComponent implements OnInit, OnDestroy {
         if (!res?.payload) return;
 
         this.course = res.payload;
-        this.course.listLesson.sort((a, b) => a.index - b.index)
+        this.course.listLesson.sort((a, b) => a.index - b.index);
 
         const [date, month, year] = formatTime(res.payload.lastUpdated).split(
           '/'
         );
-        this.lastUpdated = { date: Number(date), month: Number(month), year: Number(year) };
+        this.lastUpdated = {
+          date: Number(date),
+          month: Number(month),
+          year: Number(year),
+        };
 
         const labelsSet = new Set<string>();
         this.chartDatasets = [
@@ -174,21 +183,21 @@ export class MyCourseDetailsComponent implements OnInit, OnDestroy {
   }
 
   initFeedbacks() {
-    if(!this.courseId) return;
+    if (!this.courseId) return;
     const query: IReviewQuery = {
       courseId: this.courseId,
       eachPage: 6,
-      pageNo: 1
-    }
+      pageNo: 1,
+    };
 
-    this.courseService.onGetCourseReviews(query).subscribe(res => {
-      if(!res?.payload) {
+    this.courseService.onGetCourseReviews(query).subscribe((res) => {
+      if (!res?.payload) {
         this.reviews = [];
         return;
       }
 
       this.reviews = res.payload;
-    })
+    });
   }
 
   convertTime() {
@@ -207,24 +216,43 @@ export class MyCourseDetailsComponent implements OnInit, OnDestroy {
   }
 
   onViewMoreFeedbacks() {
-    if(!this.courseId) return;
+    if (!this.courseId) return;
 
     this.isViewAllReviews = !this.isViewAllReviews;
     const query: IReviewQuery = {
       courseId: this.courseId,
       eachPage: 1000,
-      pageNo: 1
-    }
+      pageNo: 1,
+    };
 
-    if(!this.isViewAllReviews) return;
-    this.courseService.onGetCourseReviews(query).subscribe(res => {
-      if(!res?.payload) {
+    if (!this.isViewAllReviews) return;
+    this.courseService.onGetCourseReviews(query).subscribe((res) => {
+      if (!res?.payload) {
         this.reviews = [];
         return;
       }
 
       this.allReviews = res.payload;
-    })
+    });
+  }
+
+  onPublishCourse() {
+    if (!this.course) return;
+
+    this.courseService
+      .onSubmitCourseForApproval(this.course.id)
+      .subscribe((res) => {
+        if (res?.isError || !res) return;
+
+        this.message.addMessage(
+          'success',
+          this.translate.instant('MESSAGE.SENT_APPROVAL_SUCCESSFULLY')
+        );
+
+        if (this.course) {
+          this.course.status = InstructorCourseStatus.PENDING;
+        }
+      });
   }
 
   ngOnDestroy(): void {

@@ -110,8 +110,6 @@ export class ChatService {
         const conversations = snapshot.val();
         const userConversations: IChatConversation[] = [];
 
-        console.log(conversations)
-
         Object.keys(conversations).forEach((key) => {
           const participants = Object.keys(conversations[key].participants);
           if (participants.includes(userId)) {
@@ -122,8 +120,6 @@ export class ChatService {
             });
           }
         });
-
-        console.log(userConversations)
 
         this.conversations$.next(userConversations); // Update state reactively
         this.loading.removeLoading();

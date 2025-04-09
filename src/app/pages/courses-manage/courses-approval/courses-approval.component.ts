@@ -1,3 +1,4 @@
+import { MessageService } from './../../../core/services/message.service';
 import {
   Component,
   ViewChild,
@@ -6,7 +7,11 @@ import {
   TemplateRef,
   AfterViewInit,
 } from '@angular/core';
-import { ICourse, ICourseApproval } from '../../../shared/interfaces/course.interfaces';
+import {
+  ICourse,
+  ICourseApproval,
+  ICourseOverview,
+} from '../../../shared/interfaces/course.interfaces';
 import { TableColumn } from '../../../shared/interfaces/others.interfaces';
 import { Router } from '@angular/router';
 import { faCheck, faClose, faPen } from '@fortawesome/free-solid-svg-icons';
@@ -14,6 +19,10 @@ import { fadeInOutAnimation } from '../../../shared/constants/animations.constan
 import { UserService } from '../../../core/services/user.service';
 import { Subscription } from 'rxjs';
 import { WebRole } from '../../../shared/enums/user.enum';
+import { CoursesService } from '@/src/app/core/services/courses.service';
+import { InstructorCourseStatus } from '@/src/app/shared/enums/course.enum';
+import { IUser } from '@/src/app/shared/interfaces/user.interfaces';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-courses-approval',
@@ -23,16 +32,18 @@ import { WebRole } from '../../../shared/enums/user.enum';
 })
 export class CoursesApprovalComponent implements OnInit, AfterViewInit {
   @ViewChild('buttons') buttonsRef!: TemplateRef<any>;
+  @ViewChild('SelectExpert') SelectExpertRef!: ElementRef<any>;
 
   subscription$: Subscription = new Subscription();
+  isLoaded: boolean = false;
 
-  sampleCourses: ICourseApproval[] = [];
+  expertsList: IUser[] = [];
 
-  courses: ICourse[] = [];
+  courses: ICourseOverview[] = [];
 
   tableColumns: TableColumn[] = [
     {
-      key: 'name',
+      key: 'title',
       label: 'LABEL.COURSE_NAME',
     },
     {
@@ -40,9 +51,8 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
       label: 'LABEL.DESCRIPTION',
     },
     {
-      key: 'instructor',
+      key: 'author',
       label: 'LABEL.INSTRUCTOR',
-      render: (c: ICourse) => c.author.username,
     },
     {
       key: 'price',
@@ -50,12 +60,12 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
       isMoney: true,
     },
     {
-      key: 'duration',
+      key: 'totalTime',
       label: 'LABEL.DURATION',
-      translateLabel: 'SIGNATURE.HOURS',
+      translateLabel: 'SIGNATURE.MINUTES',
     },
     {
-      key: 'stageCount',
+      key: 'totalLesson',
       label: 'LABEL.STAGES',
     },
   ];
@@ -66,7 +76,13 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
 
   isStaffView: boolean = false;
 
-  constructor(private router: Router, private user: UserService) {}
+  constructor(
+    private router: Router,
+    private user: UserService,
+    private CourseService: CoursesService,
+    private message: MessageService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
     this.listenToUser();
@@ -94,30 +110,74 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
   }
 
   initCourses(): void {
-    this.courses = this.sampleCourses;
+    if (!this.user.user$.value) return;
+    this.isLoaded = false;
+    this.courses = [];
+    this.expertsList = [];
 
-    console.log(this.courses);
+    switch (this.user.user$.value.roleId) {
+      case WebRole.STAFF:
+        this.CourseService.onGetCourseByStatus(
+          InstructorCourseStatus.PENDING
+        ).subscribe((res) => {
+          if (!res?.payload) return;
+
+          this.courses = res.payload;
+          this.isLoaded = true;
+        });
+
+        this.user.getUserByRoleId(WebRole.EXPERT).subscribe((res) => {
+          if (!res?.payload) return;
+          this.expertsList = res.payload;
+        });
+        break;
+      case WebRole.EXPERT:
+        this.CourseService.onGetCourseAssignedToMe().subscribe((res) => {
+          if (!res?.payload) return;
+
+          this.courses = res.payload;
+          this.isLoaded = true;
+        });
+        break;
+    }
+
     this.initTableData();
   }
 
   onViewDetails(course: ICourse): void {
     this.router.navigate(['/courses-manage/explore', course.id]);
-    console.log(course);
   }
 
-  onReject(e: Event, data: ICourse) {
+  onUpdateStatus(e: Event, data: ICourse, isApprove: boolean) {
     e.stopPropagation();
-    console.log(data);
+    this.CourseService.onApprove(data.id, isApprove).subscribe((res) => {
+      if(res?.isError || !res) return;
+
+      this.message.addMessage('success', this.translate.instant('MESSAGE.UPDATED_SUCCESSFULLY'));
+      this.initCourses();
+    });
   }
 
-  onAccept(e: Event, data: ICourse) {
+  stoppropa(e: Event) {
     e.stopPropagation();
-    console.log(data);
   }
 
   initTableData() {}
 
-  onAssignExpert(e: Event, data: ICourse) {
+  onAssignExpert(e: any, row: ICourseOverview) {
     e.stopPropagation();
+    const selectEl = e.target as HTMLSelectElement;
+    const selectedExpertId = selectEl.value;
+
+    this.CourseService.onAssignCourseToExpert(
+      row.id,
+      selectedExpertId
+    ).subscribe((res) => {
+      if (!res?.payload) return;
+      this.message.addMessage(
+        'success',
+        this.translate.instant('MESSAGE.ASSIGNED_SUCCESSFULLY')
+      );
+    });
   }
 }

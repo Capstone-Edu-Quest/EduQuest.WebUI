@@ -2,6 +2,20 @@
   <div class="name">{{ course.title }}</div>
   <div class="last-updated"></div>
 
+  @switch(course.status) { @case('Draft') {
+  <app-button
+    (click)="onPublishCourse()"
+    [style]="{ width: '100%', margin: '12px 0' }"
+    type="primary"
+    >{{ "BUTTON.PUBLISH_COURSE" | translate }}</app-button
+  >
+  } @case("Pending") {
+  <app-button
+    [style]="{ width: '100%', margin: '12px 0' }"
+    >{{ "LABEL.WAITING_FOR_APPROVAL" | translate }}</app-button
+  >
+  } }
+
   <ng-container [ngTemplateOutlet]="dropdown"></ng-container>
 
   <div class="other-info">

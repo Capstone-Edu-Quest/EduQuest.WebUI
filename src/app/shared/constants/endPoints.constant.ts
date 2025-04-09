@@ -20,6 +20,8 @@ export const endPoints = {
   courseDetaialsForInstructor: 'course/courseDetailForInstructor',
   assignCourseToExpert: 'course/assign',
   approveCourse: 'course/approve',
+  getCourseByStatus: 'course/status',
+  submitCourse: 'course/submitCourse',
 
   material: 'material',
   getMaterialDetails: 'material/materialById',
@@ -51,6 +53,7 @@ export const endPoints = {
   switchRole: 'user/switch',
   user: 'user',
   getProfile: 'user/profile',
+  getUserByRoleId: 'user/byRoleId',
 
   userMetaStreak: 'userMeta/streak',
   userMetaProgress: 'userMeta/userProgress',

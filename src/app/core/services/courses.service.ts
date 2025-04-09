@@ -24,7 +24,10 @@ import { endPoints } from 'src/app/shared/constants/endPoints.constant';
 import { onConvertObjectToQueryParams } from '../utils/data.utils';
 import { UserService } from './user.service';
 import { BehaviorSubject } from 'rxjs';
-import { MaterialTypeEnum } from '../../shared/enums/course.enum';
+import {
+  InstructorCourseStatus,
+  MaterialTypeEnum,
+} from '../../shared/enums/course.enum';
 import { Router } from '@angular/router';
 import { MessageService } from './message.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -234,13 +237,28 @@ export class CoursesService {
     );
   }
 
-  onApprove(cousreId: string, isApprove: boolean) {}
+  onGetCourseByStatus(status: InstructorCourseStatus) {
+    return this.http.get<ICourseOverview[]>(
+      endPoints.getCourseByStatus + `?Status=${status}`
+    );
+  }
 
-  onSubmitCourseToExpert(courseId: string) {
+  onApprove(courseId: string, isApprove: boolean) {
+    return this.http.update(endPoints.approveCourse, { courseId, isApprove });
+  }
 
+  onSubmitCourseForApproval(courseId: string) {
+    return this.http.update(endPoints.submitCourse, { courseId });
   }
 
   onAssignCourseToExpert(courseId: string, expertId: string) {
+    return this.http.update(endPoints.assignCourseToExpert, {
+      courseId,
+      assignTo: expertId,
+    });
+  }
 
+  onGetCourseAssignedToMe() {
+    return this.http.get<ICourseOverview[]>(endPoints.assignCourseToExpert);
   }
 }

@@ -59,7 +59,7 @@ export class UserService {
         return;
       }
 
-      this.updateUser({...res.payload, roleId: Number(res.payload.roleId)});
+      this.updateUser({ ...res.payload, roleId: Number(res.payload.roleId) });
     });
   }
 
@@ -174,7 +174,7 @@ export class UserService {
     this.storage.setToLocalStorage(localStorageEnum.USER_DATA, null);
     this.router.navigate(['/']);
     this.storage.setCookie(TokenEnum.ACCESS_TOKEN, null);
-    this.storage.setCookie(TokenEnum.REFRESH_TOKEN, null)
+    this.storage.setCookie(TokenEnum.REFRESH_TOKEN, null);
   }
 
   getRoleLabel(role: WebRole) {
@@ -204,5 +204,9 @@ export class UserService {
       .subscribe((res) => {
         this.adminDashboard$.next(res?.payload ?? null);
       });
+  }
+
+  getUserByRoleId(roleId: WebRole) {
+    return this.http.get<IUser[]>(endPoints.getUserByRoleId + `?roleId=${roleId}`);
   }
 }

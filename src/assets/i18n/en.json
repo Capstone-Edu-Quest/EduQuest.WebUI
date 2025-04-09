@@ -613,9 +613,12 @@
     "PENDING": "Pending",
     "PUBLIC": "Public",
     "GET_COURSE_HAVE_THIS_TAG": "Find course have this tag",
-    "SEARCH_MATERIALS": "Enter materials name"
+    "SEARCH_MATERIALS": "Enter materials name",
+    "WAITING_FOR_APPROVAL": "Waiting for approval..."
   },
   "MESSAGE": {
+    "ASSIGNED_SUCCESSFULLY": "Assigned successfully",
+    "SENT_APPROVAL_SUCCESSFULLY": "Created approval request successfully, waiting for approval...",
     "INVALID_COUPON": "Invalid coupon",
     "NO_COURSE_TO_CHECKOUT": "No course to checkout",
     "DELETED_FAIL": "Failed to delete",
@@ -670,6 +673,7 @@
     "COPIED_URL": "Copied url successfully"
   },
   "BUTTON": {
+    "PUBLISH_COURSE": "Publish Course",
     "START_QUIZ": "Start Quiz",
     "SUBMIT": "Submit",
     "CONTINUE": "Continue",
@@ -708,7 +712,7 @@
     "ADD": "Add",
     "CREATE": "Create",
     "ADD_QUEST": "Add Quest",
-    "CREATE_COUPON":"Create Coupon",
+    "CREATE_COUPON": "Create Coupon",
     "EDIT": "Edit",
     "SEND_MESSAGE": "Send Message"
   },

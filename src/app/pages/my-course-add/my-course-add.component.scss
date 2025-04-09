@@ -1,6 +1,7 @@
 .manage-course {
   padding: 35px 20vw;
   box-sizing: border-box;
+  position: relative;
 
   .image-wrapper {
     // padding: 0 15%;
@@ -185,5 +186,16 @@
         -webkit-user-drag: none;
       }
     }
+  }
+
+  .loading {
+    width: 60%;
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--tertiary-bg);
+    z-index: 999;
   }
 }

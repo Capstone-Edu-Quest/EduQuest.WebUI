@@ -1,0 +1,4 @@
+<div class="upload-progress" *ngIf="progressValue !== null">
+  <div class="progress" [ngStyle]="{ width: progressValue + '%' }"></div>
+  <div class="progress-label">{{ progressValue }}%</div>
+</div>

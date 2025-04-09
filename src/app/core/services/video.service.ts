@@ -9,6 +9,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { blobToBase64, splitFileToChunks } from '../utils/data.utils';
 import { HttpService } from './http.service';
 import { endPoints } from '../../shared/constants/endPoints.constant';
+import { LoadingService } from './loading.service';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +26,8 @@ export class VideoService {
     private firebase: FirebaseService,
     private message: MessageService,
     private translate: TranslateService,
-    private http: HttpService
+    private http: HttpService,
+    private loading: LoadingService
   ) {}
 
   stopCompressing() {
@@ -157,30 +159,33 @@ export class VideoService {
   }
 
   uploadVideo(file: File) {
-    let uploaded = 0,
-      url: string | null = null;
+    let count = 0;
+    const uploadingChunks = splitFileToChunks(file);
+    const uploadUrl$: EventEmitter<string> = new EventEmitter<string>();
 
-    const uploadingChunks = splitFileToChunks(file); 
-    const uploadUrl$: EventEmitter<string> = new EventEmitter<string>()
-
+    this.loading.updateProgress(0);
+    
     uploadingChunks.forEach((chunkData, index) => {
       const formData = new FormData();
       formData.append('totalChunks', String(chunkData.totalChunks));
       formData.append('chunkIndex', String(chunkData.chunkIndex));
       formData.append('fileId', chunkData.fileId);
-      formData.append(
-        'chunk',
-        chunkData.chunk,
-      );
+      formData.append('chunk', chunkData.chunk);
 
       this.http
         .upload<{ url: string | null }>(endPoints.uploadVideo, formData)
         .subscribe((res) => {
           if (res?.isError || !res) return;
 
+          this.loading.updateProgress(
+            Math.round((count / uploadingChunks.length) * 100)
+          );
           if (res.payload?.url) {
             uploadUrl$.emit(res.payload.url);
+            this.loading.updateProgress(null);
           }
+
+          count++;
         });
     });
 

@@ -1,9 +1,10 @@
 <div class="course-approval" @fadeInOut>
   <div class="title">
-    {{ "LABEL.PENDING_COURSES_COUNT" | translate : { value: 5 } }}
+    {{ "LABEL.PENDING_COURSES_COUNT" | translate : { value: courses.length } }}
   </div>
 
   <app-table
+    *ngIf="isLoaded"
     (onRowClick)="onViewDetails($event)"
     [data]="courses"
     [columns]="tableColumns"
@@ -13,19 +14,36 @@
 <ng-template #buttons let-row="row">
   <div class="ref-btns-ctn" *ngIf="!isStaffView">
     <fa-icon
-      (click)="onReject($event, row)"
+      (click)="onUpdateStatus($event, row, true)"
       [icon]="acceptIcon"
       style="color: var(--success)"
     ></fa-icon>
     <fa-icon
-      (click)="onAccept($event, row)"
+      (click)="onUpdateStatus($event, row, false)"
       [icon]="rejectIcon"
       style="color: var(--alert)"
     ></fa-icon>
   </div>
-  <div class="assign-expert" *ngIf="isStaffView" (click)="onAssignExpert($event, row)">
-    <i class="unset" *ngIf="!row.expert">{{ "LABEL.UNSET" | translate }}</i>
-    <div class="expert-name" *ngIf="row.expert">{{row.expert.name}}</div>
-    <fa-icon [icon]="editIcon"></fa-icon>
+  <div class="assign-expert" *ngIf="isStaffView" (click)="stoppropa($event)">
+    <!-- <i class="unset" *ngIf="!row.expert">{{ "LABEL.UNSET" | translate }}</i>
+    <div class="expert-name" *ngIf="row.expert">{{ row.expert.name }}</div>
+    <fa-icon [icon]="editIcon"></fa-icon> -->
+
+    <select
+      style="
+        padding: 3px;
+        background: var(--quaternary-bg);
+        outline: none;
+        border: var(--quaternary-text);
+        border-radius: 5px;
+        color: var(--primary-text);
+      "
+      (change)="onAssignExpert($event, row)"
+    >
+      <option></option>
+      <option *ngFor="let expert of expertsList" [value]="expert.id">
+        {{ expert.username }}
+      </option>
+    </select>
   </div>
 </ng-template>
