@@ -38,6 +38,7 @@ export const endPoints = {
   duplicateLearningPath: 'learningPath/dup',
   learningPathDetails: 'learningPath/detail',
   publicLearningPath: 'learningPath/public',
+  enrollLearningPath: 'learningPath/enroll',
 
   level: 'level',
   getLevel: 'level/filter',

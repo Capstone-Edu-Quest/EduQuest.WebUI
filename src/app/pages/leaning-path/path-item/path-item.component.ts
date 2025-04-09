@@ -68,6 +68,7 @@ export class PathItemComponent implements OnInit, OnDestroy {
 
   onEnroll(e: Event) {
     e.stopPropagation();
+    this.LearningPathService.onEnrollLearningPath(this.path.id);
   }
 
   listenToUser() {
@@ -110,7 +111,7 @@ export class PathItemComponent implements OnInit, OnDestroy {
 
   onDelete(e: Event) {
     e.stopPropagation();
-    this.LearningPathService.deleteLearningPath(this.path.id)
+    this.LearningPathService.deleteLearningPath(this.path.id);
   }
 
   onClone(e: Event) {
@@ -123,7 +124,10 @@ export class PathItemComponent implements OnInit, OnDestroy {
     const url = window.location.host + '/learning-path/' + this.path?.id;
 
     copyToClipboard(url);
-    this.message.addMessage('success', this.translate.instant('MESSAGE.COPIED_URL'))
+    this.message.addMessage(
+      'success',
+      this.translate.instant('MESSAGE.COPIED_URL')
+    );
   }
 
   onViewDetails() {

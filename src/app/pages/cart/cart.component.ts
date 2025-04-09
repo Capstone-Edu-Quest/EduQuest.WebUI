@@ -11,6 +11,7 @@ import { WishlistService } from '../../core/services/wishlist.service';
 import { CouponService } from '../../core/services/coupon.service';
 import { MessageService } from '../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
+import { PaymentService } from '../../core/services/payment.service';
 
 @Component({
   selector: 'app-cart',
@@ -32,7 +33,8 @@ export class CartComponent implements OnInit, OnDestroy {
     private wishlist: WishlistService,
     private coupon: CouponService,
     private message: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private payment: PaymentService
   ) {}
 
   ngOnInit() {
@@ -74,12 +76,21 @@ export class CartComponent implements OnInit, OnDestroy {
     if (this.inputCoupon.trim() === '') return;
     this.coupon.useCoupon(this.inputCoupon);
     this.inputCoupon = '';
-    this.message.addMessage('success', this.translate.instant('MESSAGE.APPLIED_COUPON'));
+    // this.message.addMessage('success', this.translate.instant('MESSAGE.APPLIED_COUPON'));
   }
 
   onPressEnterCoupon(e: KeyboardEvent) {
     if (e.key !== 'Enter') return;
     this.applyNewCoupon();
+  }
+
+  onCheckout() {
+    if(this.cart.cart$.value.courses.length === 0) {
+      this.message.addMessage('error', this.translate.instant('MESSAGE.NO_COURSE_TO_CHECKOUT'));
+      return;
+    }
+
+    this.payment.proceedCheckoutCart();
   }
 
   ngOnDestroy(): void {

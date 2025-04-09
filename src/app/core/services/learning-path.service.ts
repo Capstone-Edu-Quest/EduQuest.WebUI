@@ -152,6 +152,20 @@ export class LearningPathService {
       });
   }
 
+  onEnrollLearningPath(pathId: string) {
+    this.http
+      .post(endPoints.enrollLearningPath + `?learningPathId=${pathId}`, {})
+      .subscribe((res) => {
+        if (!res?.payload) return;
+
+        this.router.navigate(['learning-path', pathId]);
+        this.message.addMessage(
+          'success',
+          this.translate.instant('MESSAGE.ENROLLED_SUCCESSFULLY')
+        );
+      });
+  }
+
   getLearningPathDetails(pathId: string) {
     return this.http.get<ILearningPathDetails>(
       endPoints.learningPathDetails + `?learningPathId=${pathId}`

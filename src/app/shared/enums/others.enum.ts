@@ -39,3 +39,8 @@ export enum SubscribtionNameEnum {
     PRICE = 'APIsPackagePrice',
     NUMBERS = 'APIsPackageNumbers'
 }
+
+export enum PaymentConfigEnum {
+    PURCHASED_PRO_MONTHLY = 1,
+    PURCHASED_PRO_YEARLY = 2
+}

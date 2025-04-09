@@ -192,6 +192,7 @@ import { ViewCourseScreenComponent } from './pages/view-course-screen/view-cours
 import { ReviewsListComponent } from './components/reviews-list/reviews-list.component';
 import { ReviewItemComponent } from './components/reviews-list/review-item/review-item.component';
 import { PlatformService } from './core/services/platform.service';
+import { PaymentService } from './core/services/payment.service';
 export const AppDeclarations = [
   AppComponent,
   NavbarComponent,
@@ -413,7 +414,8 @@ export const appServices = [
   ViolationsService,
   QuestsService,
   LearningPathService,
-  PlatformService
+  PlatformService,
+  PaymentService
 ];
 
 export const appGuards = [

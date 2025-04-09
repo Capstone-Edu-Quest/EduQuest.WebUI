@@ -3,7 +3,11 @@ import { UserService } from '../../core/services/user.service';
 import { Subscription } from 'rxjs';
 import { WebRole } from '../../shared/enums/user.enum';
 import { faBoltLightning } from '@fortawesome/free-solid-svg-icons';
-import { SubscribtionNameEnum } from '../../shared/enums/others.enum';
+import {
+  PaymentConfigEnum,
+  SubscribtionNameEnum,
+} from '../../shared/enums/others.enum';
+import { PaymentService } from '../../core/services/payment.service';
 
 @Component({
   selector: 'app-pricing',
@@ -26,7 +30,7 @@ export class PricingComponent implements OnInit, OnDestroy {
 
   lightningIcon = faBoltLightning;
 
-  constructor(private user: UserService) {}
+  constructor(private user: UserService, private payment: PaymentService) {}
 
   ngOnInit(): void {
     this.listenToUser();
@@ -96,6 +100,16 @@ export class PricingComponent implements OnInit, OnDestroy {
             : 'LABEL.PREMIUM_LEARNER_DESCRIPTION',
         };
     }
+  }
+
+  onPurchase() {
+    if (this.user.user$.value?.isPremium) return;
+
+    this.payment.purchaseSubscription(
+      this.isViewMonthly
+        ? PaymentConfigEnum.PURCHASED_PRO_MONTHLY
+        : PaymentConfigEnum.PURCHASED_PRO_YEARLY
+    );
   }
 
   ngOnDestroy(): void {

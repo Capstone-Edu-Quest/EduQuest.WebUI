@@ -173,6 +173,8 @@ export class UserService {
     );
     this.storage.setToLocalStorage(localStorageEnum.USER_DATA, null);
     this.router.navigate(['/']);
+    this.storage.setCookie(TokenEnum.ACCESS_TOKEN, null);
+    this.storage.setCookie(TokenEnum.REFRESH_TOKEN, null)
   }
 
   getRoleLabel(role: WebRole) {

@@ -614,6 +614,7 @@
     "SEARCH_MATERIALS": "Enter materials name"
   },
   "MESSAGE": {
+    "NO_COURSE_TO_CHECKOUT": "No course to checkout",
     "DELETED_FAIL": "Failed to delete",
     "UPDATED_SUCCESSFULLY": "Updated Successfully",
     "CREATED_SUCCESSFULLY": "Created successfully",
