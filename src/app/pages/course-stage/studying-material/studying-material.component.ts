@@ -1,7 +1,10 @@
 import { CoursesService } from 'src/app/core/services/courses.service';
 import { getAlphabetByIndex } from '@/src/app/core/utils/quiz.utils';
 import { onAddZeroToTime } from '@/src/app/core/utils/time.utils';
-import { MaterialTypeEnum } from '@/src/app/shared/enums/course.enum';
+import {
+  MaterialTypeEnum,
+  MissionStatus,
+} from '@/src/app/shared/enums/course.enum';
 import {
   ICourse,
   ILearningMaterial,
@@ -166,12 +169,12 @@ export class StudyingMaterialComponent implements OnInit {
   }
 
   trackVideoProgress(time: number) {
-    if (time / this.videoDuration <= 0.9 || this.isUpdatedStatus) return;
+    if (this.viewingMaterial?.status === MissionStatus.DONE) return;
+    if (time / this.videoDuration <= 0.8 || this.isUpdatedStatus) return;
 
-    
     const lessonId = this.getLessonIdByMaterialId();
     if (!lessonId || !this.viewingMaterial?.id) return;
-    
+
     this.isUpdatedStatus = true;
     this.user
       .updateUserLearningProgress(this.viewingMaterial.id, lessonId, null)

@@ -346,6 +346,10 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
     this.fullLessons.push(newStage);
   }
 
+  round(val: number) {
+    return Math.ceil(val);
+  }
+
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();
   }

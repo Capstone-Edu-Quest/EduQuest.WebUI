@@ -7,7 +7,7 @@
     </div>
     <div class="time">
       <i nz-icon nzType="clock-circle"></i>
-      {{ "LABEL.MINUTE" | translate : { value: lesson.totalTime } }}
+      {{ "LABEL.MINUTE" | translate : { value: round(lesson.totalTime) } }}
     </div>
   </div>
 </div>
@@ -20,7 +20,7 @@
     </div>
     <div class="mission-time">
       <i nz-icon nzType="clock-circle"></i>
-      {{ 'LABEL.MINUTES' | translate:{value: material.duration} }}
+      {{ 'LABEL.MINUTES' | translate:{value: round(material.duration)} }}
     </div>
   </div>
 </div>

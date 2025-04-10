@@ -17,13 +17,13 @@
         <div class="add-on">
           <!-- <fa-icon [icon]="checkIcon"></fa-icon> -->
           <div class="duration">
-            {{ "LABEL.OVER_PERCENTAGES" | translate : { value: "--no-api" } }}
+            {{ "LABEL.OVER_PERCENTAGES" | translate : { value: material.passingPercentage} }}
           </div>
         </div>
         <div class="add-on">
           <fa-icon [icon]="clockIcon"></fa-icon>
           <div class="duration">
-            {{ "LABEL.MINUTES" | translate : { value: "--no-api" } }}
+            {{ "LABEL.MINUTES" | translate : { value: material.timeLimit} }}
           </div>
         </div>
         <div class="add-on">

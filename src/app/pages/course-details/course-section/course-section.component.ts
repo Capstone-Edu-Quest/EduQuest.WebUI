@@ -27,4 +27,8 @@ export class CourseSectionComponent implements OnInit {
   onGetIcon(type: materialType) {
     return this.course.onGetMaterialIcon(type);
   }
+
+  round(val: number) {
+    return Math.ceil(val)
+  }
 }

@@ -133,7 +133,7 @@
     <div class="label">{{ "LABEL.STAGES" | translate }}</div>
     <div class="other-info">
       <div class="time">
-        {{ "LABEL.MINUTES" | translate : { value: course.totalTime } }}
+        {{ "LABEL.MINUTES" | translate : { value: round(course.totalTime) } }}
       </div>
       <div>·</div>
       <div class="lesson">

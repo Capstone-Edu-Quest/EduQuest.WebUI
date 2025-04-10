@@ -384,6 +384,7 @@ export interface IMyCourseChartsStats {
 export interface ILearningMaterial {
   id?: string;
   type: MaterialTypeEnum;
+  status?: MissionStatus,
   title: string;
   description: string;
   video?: video;

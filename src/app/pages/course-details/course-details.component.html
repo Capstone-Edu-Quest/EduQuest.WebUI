@@ -92,7 +92,7 @@
         <i nz-icon nzType="{{ authorStatsIcon[3] }}"></i>
         {{
           "LABEL.AVERAGE_RATINGS_STATS"
-            | translate : { value: courseDetails.author.rating }
+            | translate : { value: courseDetails.author.rating ?? 0 }
         }}
       </div>
     </div>
