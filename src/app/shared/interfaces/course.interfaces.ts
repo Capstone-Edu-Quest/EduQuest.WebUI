@@ -32,6 +32,11 @@ export interface ICourseOverview {
   progressPercentage: number | null;
 }
 
+export interface ICourseApprovalStaff extends ICourseOverview {
+  expertName: string | null;
+  expertId: string | null;
+}
+
 export interface ICourse {
   id: string;
   title: string;

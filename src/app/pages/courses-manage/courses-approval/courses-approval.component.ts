@@ -10,6 +10,7 @@ import {
 import {
   ICourse,
   ICourseApproval,
+  ICourseApprovalStaff,
   ICourseOverview,
 } from '../../../shared/interfaces/course.interfaces';
 import { TableColumn } from '../../../shared/interfaces/others.interfaces';
@@ -39,7 +40,7 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
 
   expertsList: IUser[] = [];
 
-  courses: ICourseOverview[] = [];
+  courses: ICourseApprovalStaff[] = [];
 
   tableColumns: TableColumn[] = [
     {

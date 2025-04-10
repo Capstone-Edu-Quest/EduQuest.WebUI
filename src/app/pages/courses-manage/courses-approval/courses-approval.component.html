@@ -39,6 +39,7 @@
         color: var(--primary-text);
       "
       (change)="onAssignExpert($event, row)"
+      [(ngModel)]="row.expertId"
     >
       <option></option>
       <option *ngFor="let expert of expertsList" [value]="expert.id">

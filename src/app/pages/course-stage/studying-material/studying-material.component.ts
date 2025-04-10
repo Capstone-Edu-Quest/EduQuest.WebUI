@@ -179,7 +179,7 @@ export class StudyingMaterialComponent implements OnInit {
     this.user
       .updateUserLearningProgress(this.viewingMaterial.id, lessonId, null)
       .subscribe((res) => {
-        console.log(res);
+        console.log('Update Progress: ', res);
       });
   }
 

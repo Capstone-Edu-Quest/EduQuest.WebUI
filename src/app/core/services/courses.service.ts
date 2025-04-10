@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {
   ICourse,
+  ICourseApprovalStaff,
   ICourseCreate,
   ICourseInstructor,
   ICourseOverview,
@@ -239,7 +240,7 @@ export class CoursesService {
   }
 
   onGetCourseByStatus(status: InstructorCourseStatus) {
-    return this.http.get<ICourseOverview[]>(
+    return this.http.get<ICourseApprovalStaff[]>(
       endPoints.getCourseByStatus + `?Status=${status}`
     );
   }
@@ -260,7 +261,7 @@ export class CoursesService {
   }
 
   onGetCourseAssignedToMe() {
-    return this.http.get<ICourseOverview[]>(endPoints.assignCourseToExpert);
+    return this.http.get<ICourseApprovalStaff[]>(endPoints.assignCourseToExpert);
   }
 
   onSubmitQuiz(data: ISubmitQuizReq, lessonId: string) {
