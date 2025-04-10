@@ -53,12 +53,17 @@ export class CoursesComponent implements OnInit, OnDestroy {
       // TagListId: this.otherFilters.selectedTags,
       pageNo: 1,
       eachPage: 10,
-      isPublic: true
+      isPublic: true,
     };
 
     this.course
       .onSearchCourse(courseParams)
-      .subscribe((res) => this.courses = res?.payload ?? []);
+      .subscribe(
+        (res) =>
+          (this.courses = (res?.payload ?? []).filter(
+            (c) => c.progressPercentage === null
+          ))
+      );
   }
 
   ngOnDestroy(): void {
