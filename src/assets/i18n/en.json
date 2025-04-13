@@ -671,7 +671,9 @@
     "INVALID_OTP": "Invalid OTP",
     "PASSWORD_NOT_MATCH": "Password not match",
     "PLEASE_FILL_IN_ALL_FIELDS": "Please fill in all fields",
-    "COPIED_URL": "Copied url successfully"
+    "COPIED_URL": "Copied url successfully",
+     "PURSCHASED_SUCCESS": "Purchased successfully",
+    "PURSCHASE_FAILED": "Failed to purchase item"
   },
   "BUTTON": {
     "PUBLISH_COURSE": "Publish Course",
@@ -716,8 +718,7 @@
     "CREATE_COUPON": "Create Coupon",
     "EDIT": "Edit",
     "SEND_MESSAGE": "Send Message",
-    "PURSCHASED_SUCCESS": "Purchased successfully",
-    "PURSCHASE_FAILED": "Failed to purchase item"
+    "CREATE_QUEST": "Create quest"
   },
   "LANGUAGES": {
     "EN": "English",

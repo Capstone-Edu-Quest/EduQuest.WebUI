@@ -24,7 +24,7 @@ export class Fox3dComponent implements OnInit, OnDestroy {
   controls!: OrbitControls;
   animationFrameId!: number;
   pendingItemsId: string[] = [];
-  currentLoading: any[] = []
+  currentLoading: any[] = [];
 
   constructor(private FoxService: FoxService) {}
 
@@ -176,8 +176,11 @@ export class Fox3dComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.FoxService.triggerFoxLoaded(true);
-    this.currentLoading.forEach(f => f()); 
+    this.currentLoading.forEach((f) => f());
     this.disposeThree();
+
+    this.FoxService.isFoxInit = false;
+    this.FoxService.isSyncedItemAfterInit = false;
 
     const container = document.getElementById('three-container');
     if (container) {

@@ -53,12 +53,12 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
     {
       label: 'LABEL.CURRENT_RANK',
       icon: 'trophy',
-      value: '--no-api-response',
+      value: 'loading...',
     },
     {
       label: 'LABEL.BOOSTER',
       icon: 'thunderbolt',
-      value: '--no-api-response',
+      value: 'loading...',
     },
   ];
   constructor(
@@ -77,19 +77,22 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
       this.userService.user$.subscribe((user) => {
         this.user = user;
 
-        if(!user) return;
+        if (!user) return;
         this.statistics = [
           {
             label: 'LABEL.CURRENT_RANK',
             icon: 'trophy',
-            value: `${user.statistic.rank}`,
+            value: `#${user.statistic.rank}`,
           },
           {
             label: 'LABEL.BOOSTER',
             icon: 'thunderbolt',
-            value: `${user.statistic.booster.boostExp}% exp | ${user.statistic.booster.boostGold}% gold`,
-          }
-        ]
+            value: `${Math.max(
+              user.statistic.booster.boostGold,
+              user.statistic.booster.boostExp
+            )}%`,
+          },
+        ];
       })
     );
   }

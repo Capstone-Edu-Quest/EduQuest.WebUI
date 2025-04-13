@@ -226,7 +226,8 @@
       overflow: hidden;
       text-overflow: ellipsis;
       white-space: nowrap;
-      max-width: 50%;
+      width: 5ch;
+      text-align: right;
     }
   }
 }

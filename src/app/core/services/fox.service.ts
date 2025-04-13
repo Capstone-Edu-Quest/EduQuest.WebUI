@@ -31,8 +31,8 @@ export class FoxService {
   };
 
   private itemsAPIsSyncTimeout: any = null;
-  private isFoxInit: boolean = false;
-  private isSyncedItemAfterInit: boolean = false;
+  public isFoxInit: boolean = false;
+  public isSyncedItemAfterInit: boolean = false;
   private firstSyncedtimeout: any = null;
 
   // Store current equiped item
