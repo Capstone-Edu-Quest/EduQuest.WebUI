@@ -26,5 +26,5 @@
 </div>
 
 <ng-template #addQuestModal>
-  <app-create-new-quest></app-create-new-quest>
+  <app-create-new-quest (onCreated)="initQuest()"></app-create-new-quest>
 </ng-template>

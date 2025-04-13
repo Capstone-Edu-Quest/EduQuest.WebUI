@@ -715,7 +715,9 @@
     "ADD_QUEST": "Add Quest",
     "CREATE_COUPON": "Create Coupon",
     "EDIT": "Edit",
-    "SEND_MESSAGE": "Send Message"
+    "SEND_MESSAGE": "Send Message",
+    "PURSCHASED_SUCCESS": "Purchased successfully",
+    "PURSCHASE_FAILED": "Failed to purchase item"
   },
   "LANGUAGES": {
     "EN": "English",
@@ -733,7 +735,7 @@
     "COURSES": "Complete {{0}} courses",
     "COURSES_TIME": "Complete {{0}} courses in {{1}} minutes",
     "LEARNING_TIME": "Spend {{0}} minutes learning",
-    "LEARNING_TIME_TIME": "Spend {{0}} minutes learning in {{1}} minutes",
+    "LEARNING_TIME_TIME": "Study {{0}} minutes within {{1}} minutes",
     "STREAK": "Study for {{0}} consecutive days"
   },
   "SHOP_ITEMS": {

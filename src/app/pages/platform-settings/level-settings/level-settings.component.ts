@@ -126,7 +126,7 @@ export class LevelSettingsComponent
   }
 
   onGetDeletedState(row: ILevel) {
-    return this.deletedLevels.includes(row.id) ? 'isRemoved' : '';
+    return this.deletedLevels.includes(row.level) ? 'isRemoved' : '';
   }
 
   onAddLevel() {
@@ -134,11 +134,12 @@ export class LevelSettingsComponent
     this.changePage$.emit(-1);
 
     const newLevel: ILevel = {
-      id: this.levels.length + 1,
+      level: this.levels.length + 1,
       exp: 0,
       rewardType: [],
       rewardValue: [],
     };
+
     this.editingLevels = JSON.parse(
       JSON.stringify(this.isEdit ? [...this.levels, newLevel] : [])
     );
@@ -214,8 +215,6 @@ export class LevelSettingsComponent
     const result = this.validateSaveLevels();
 
     if (!result) return;
-
-    console.log('pass');
     const updatedLevels: ILevel[] = [];
 
     // compare
@@ -227,21 +226,27 @@ export class LevelSettingsComponent
 
     this.isEdit = false;
     this.levels = JSON.parse(JSON.stringify(this.editingLevels))
-      .filter((l: ILevel) => !this.deletedLevels.includes(l.id))
-      .map((level: ILevel, i: number) => ({ ...level, id: i + 1 }));
+      .filter((l: ILevel) => !this.deletedLevels.includes(l.level))
+      .map((level: ILevel, i: number) => ({ ...level, level: i + 1 }));
 
-    console.log('modified:', JSON.parse(JSON.stringify(this.editingLevels)));
-    console.log('result (re-ordered):', this.levels);
-    console.log('deleted:', this.deletedLevels);
+    // console.log('modified:', JSON.parse(JSON.stringify(this.editingLevels)));
+    // console.log('result (re-ordered):', this.levels);
+    // console.log('deleted:', this.deletedLevels);
 
     this.deletedLevels = [];
+
+    this.platform.saveLevels(this.levels).subscribe((res) => {
+      if(!res) return;
+
+      this.message.addMessage('success', this.translate.instant('MESSAGE.UPDATED_SUCCESSFULLY'))
+    });
   }
 
   onDeleteLevel(level: ILevel) {
-    const idx = this.deletedLevels.findIndex((l) => l === level.id);
+    const idx = this.deletedLevels.findIndex((l) => l === level.level);
 
     if (idx === -1) {
-      this.deletedLevels.push(level.id);
+      this.deletedLevels.push(level.level);
       return;
     }
 

@@ -18,7 +18,40 @@ export class MaterialsComponent implements OnInit, OnDestroy {
   questionIcon = faQuestionCircle;
   codeIcon = faCode;
 
-  materialsSection: any[] = [];
+  materialsSection: any[] = [
+    {
+      id: 'videos',
+      label: `LABEL.VIDEOS`,
+      description: `LABEL.VIDEOS_DESCRIPTION`,
+      value: {
+        value: 0,
+      },
+    },
+    {
+      id: 'document',
+      label: `LABEL.DOCUMENT`,
+      description: `LABEL.DOCUMENT_DESCRIPTION`,
+      value: {
+        value: 0,
+      },
+    },
+    {
+      id: 'quiz',
+      label: `LABEL.QUIZ`,
+      description: `LABEL.QUIZ_DESCRIPTION`,
+      value: {
+        value: 0,
+      },
+    },
+    {
+      id: 'assignment',
+      label: `LABEL.ASSIGNMENT`,
+      description: `LABEL.ASSIGNMENT_DESCRIPTION`,
+      value: {
+        value: 0,
+      },
+    },
+  ];
 
   constructor(private course: CoursesService) {}
 
@@ -29,8 +62,8 @@ export class MaterialsComponent implements OnInit, OnDestroy {
   listenToMaterialsList() {
     this.subscription$.add(
       this.course.myMaterials$.subscribe((materials) => {
-        this.materialsSection = [];
         if (!materials) return;
+        this.materialsSection = [];
 
         const materialsList = Object.keys(materials);
         materialsList.forEach((section) => {
@@ -79,7 +112,7 @@ export class MaterialsComponent implements OnInit, OnDestroy {
   }
 
   round(val: number) {
-    return Math.ceil(val)
+    return Math.ceil(val);
   }
 
   ngOnDestroy(): void {

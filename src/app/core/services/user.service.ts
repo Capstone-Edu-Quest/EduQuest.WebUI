@@ -223,4 +223,26 @@ export class UserService {
       time,
     });
   }
+
+  equipItem(itemsName: string[]) {
+    const currentUser = this.user$.value;
+    if (!currentUser) return;
+
+    console.log(itemsName)
+    return this.http
+      .post(endPoints.equipItem, { items: itemsName })
+      .subscribe((res) => {
+        if (!res) {
+          this.message.addMessage(
+            'error',
+            this.translate.instant('MESSAGE.EQUIPED_FAILED')
+          );
+        } else {
+          currentUser.equippedItems = itemsName;
+          this.updateUser(currentUser);
+        }
+
+        return res;
+      });
+  }
 }

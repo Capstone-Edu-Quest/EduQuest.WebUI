@@ -68,6 +68,7 @@ export class QuestsSettingsComponent implements OnInit {
   }
 
   initQuest() {
+    this.isLoaded = false;
     this.QuestsService.getQuestsForManage().subscribe((data) => {
       if (!data?.payload) return;
 

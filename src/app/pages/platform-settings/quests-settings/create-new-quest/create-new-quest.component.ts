@@ -1,6 +1,15 @@
-import { Component, type OnInit } from '@angular/core';
-import { faAngleDown, faMinus, faPlus, faRetweet } from '@fortawesome/free-solid-svg-icons';
-import { QuestMissionEnum, QuestTypeEnum, RewardTypeEnum } from '../../../../shared/enums/others.enum';
+import { Component, EventEmitter, Output, type OnInit } from '@angular/core';
+import {
+  faAngleDown,
+  faMinus,
+  faPlus,
+  faRetweet,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  QuestMissionEnum,
+  QuestTypeEnum,
+  RewardTypeEnum,
+} from '../../../../shared/enums/others.enum';
 import { QuestsService } from '../../../../core/services/quests.service';
 import { TranslateService } from '@ngx-translate/core';
 import { fadeInOutAnimation } from '../../../../shared/constants/animations.constant';
@@ -15,9 +24,11 @@ import { MessageService } from '../../../../core/services/message.service';
   animations: [fadeInOutAnimation],
 })
 export class CreateNewQuestComponent implements OnInit {
-  mockValue = {0: '|[]|', 1: '|[]|', 2: '|[]|', 3: '|[]|'}
+  @Output('onCreated') onCreated$: EventEmitter<boolean> =
+    new EventEmitter<boolean>();
+  mockValue = { 0: '|[]|', 1: '|[]|', 2: '|[]|', 3: '|[]|' };
 
-  missionTypeOptions: any[]  = [];
+  missionTypeOptions: any[] = [];
 
   addIcon = faPlus;
   downIcon = faAngleDown;
@@ -32,7 +43,7 @@ export class CreateNewQuestComponent implements OnInit {
     questValue: [0, 1],
     rewardType: [],
     rewardValue: [],
-  }
+  };
 
   inputIndexSupport = 0;
 
@@ -40,7 +51,12 @@ export class CreateNewQuestComponent implements OnInit {
   boosterTypeOptions: { value: string | number; label: string }[] = [];
   foxItemOptions: { value: string | number; label: string }[] = [];
 
-  constructor(private quest: QuestsService, private translate: TranslateService, private modal: ModalService, private message: MessageService) {}
+  constructor(
+    private quest: QuestsService,
+    private translate: TranslateService,
+    private modal: ModalService,
+    private message: MessageService
+  ) {}
 
   ngOnInit(): void {
     this.onInitMissionTypeOpt();
@@ -64,12 +80,15 @@ export class CreateNewQuestComponent implements OnInit {
   }
 
   onInitMissionTypeOpt() {
-    this.missionTypeOptions= [];
+    this.missionTypeOptions = [];
 
     Object.keys(QuestMissionEnum).forEach((key) => {
-      if(!isNaN(Number(key))) return;
+      if (!isNaN(Number(key))) return;
       const _k = key as keyof typeof QuestMissionEnum;
-      this.missionTypeOptions.push({ value: QuestMissionEnum[_k], label: `MISSION.${_k}` });
+      this.missionTypeOptions.push({
+        value: QuestMissionEnum[_k],
+        label: `MISSION.${_k}`,
+      });
     });
   }
 
@@ -80,33 +99,49 @@ export class CreateNewQuestComponent implements OnInit {
   onSwitchOption(key: QuestMissionEnum) {
     this.newQuest.questType = key;
 
-    const newKeyInputs = this.translate.instant(this.quest.getMissionLabel(key), this.mockValue).split('|');
-    this.newQuest.questValue = newKeyInputs.filter((v: string) => v === '[]').map((a: string) => Math.round(Math.random() * 10));
+    const newKeyInputs = this.translate
+      .instant(this.quest.getMissionLabel(key), this.mockValue)
+      .split('|');
+    this.newQuest.questValue = newKeyInputs
+      .filter((v: string) => v === '[]')
+      .map((a: string) => Math.round(Math.random() * 10));
 
     this.inputIndexSupport = 0;
   }
 
   getInputIndex(idx: number) {
-    const newKeyInputs = this.translate.instant(this.quest.getMissionLabel(this.newQuest.questType), this.mockValue).split('|');
+    const newKeyInputs = this.translate
+      .instant(
+        this.quest.getMissionLabel(this.newQuest.questType),
+        this.mockValue
+      )
+      .split('|');
 
     let inputCount = 0;
-    for(let i = 0; i <= idx; i++) {
-      if(newKeyInputs[i] === '[]') inputCount++;
+    for (let i = 0; i <= idx; i++) {
+      if (newKeyInputs[i] === '[]') inputCount++;
     }
 
     return inputCount - 1;
   }
 
   onGetQuestTypeLabel() {
-    return Object.keys(QuestTypeEnum).find(key => QuestTypeEnum[key as keyof typeof QuestTypeEnum] === this.newQuest.type);
+    return Object.keys(QuestTypeEnum).find(
+      (key) =>
+        QuestTypeEnum[key as keyof typeof QuestTypeEnum] === this.newQuest.type
+    );
   }
 
   onSwapQuestType() {
-    this.newQuest.type = this.newQuest.type === QuestTypeEnum.DAILY ? QuestTypeEnum.ONE_TIME : QuestTypeEnum.DAILY;
+    this.newQuest.type =
+      this.newQuest.type === QuestTypeEnum.DAILY
+        ? QuestTypeEnum.ONE_TIME
+        : QuestTypeEnum.DAILY;
   }
 
   onAddReward() {
-    if (this.newQuest.rewardType.length >= this.rewardTypeSelectOptions.length) return;
+    if (this.newQuest.rewardType.length >= this.rewardTypeSelectOptions.length)
+      return;
 
     this.newQuest.rewardType.push(RewardTypeEnum.GOLD);
     this.newQuest.rewardValue.push(1);
@@ -140,45 +175,62 @@ export class CreateNewQuestComponent implements OnInit {
 
   onCreate() {
     // Check empty
-    if(this.newQuest.title.trim() === '') {
-      this.message.addMessage('error', this.translate.instant('MESSAGE.EMPTY_QUESTNAME'));
+    if (this.newQuest.title.trim() === '') {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.EMPTY_QUESTNAME')
+      );
       return;
     }
 
     // check reward type
-    if(this.newQuest.rewardType.length === 0) {
-      this.message.addMessage('error', this.translate.instant('MESSAGE.EMPTY_REWARD'));
+    if (this.newQuest.rewardType.length === 0) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.EMPTY_REWARD')
+      );
       return;
     }
 
     // check reward value
-    if(this.newQuest.rewardValue.some(val => val === 0)) {
-      this.message.addMessage('error', this.translate.instant('MESSAGE.NO_REWARD_VALUE'));
+    if (this.newQuest.rewardValue.some((val) => val === 0)) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.NO_REWARD_VALUE')
+      );
       return;
     }
 
-    if(this.newQuest.rewardValue.some((v) =>
-    typeof v === 'string' ? v.length <= 0 : v <= 0
-  )) {
-
-  }
+    if (
+      this.newQuest.rewardValue.some((v) =>
+        typeof v === 'string' ? v.length <= 0 : v <= 0
+      )
+    ) {
+    }
 
     const dupRewardErr = [];
     this.newQuest.rewardType.forEach((type, idx) => {
-      if(this.newQuest.rewardType.filter(t => t === type).length > 1) {
+      if (this.newQuest.rewardType.filter((t) => t === type).length > 1) {
         dupRewardErr.push(type);
       }
     });
-    if(dupRewardErr.length > 0) {
-      this.message.addMessage('error', this.translate.instant('MESSAGE.DUPLICATE_REWARD'));
+    if (dupRewardErr.length > 0) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.DUPLICATE_REWARD')
+      );
       return;
     }
 
-    this.quest.createNewQuest(this.newQuest).subscribe(res => {
-      if(!res?.payload) return;
+    this.quest.createNewQuest(this.newQuest).subscribe((res) => {
+      this.onCreated$.emit(!!res?.payload);
+      if (!res?.payload) return;
 
-      this.message.addMessage('success', this.translate.instant('MESSAGE.CREATED_SUCCESSFULLY'));
-      this.modal.updateModalContent(null)
-    })
+      this.message.addMessage(
+        'success',
+        this.translate.instant('MESSAGE.CREATED_SUCCESSFULLY')
+      );
+      this.modal.updateModalContent(null);
+    });
   }
 }

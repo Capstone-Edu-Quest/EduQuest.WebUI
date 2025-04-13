@@ -25,7 +25,7 @@
       <div class="owned" *ngIf="item.isOwned">
         {{ "LABEL.PURCHASED" | translate }}
       </div>
-      <button class="buy-btn" *ngIf="!item.isOwned">
+      <button class="buy-btn" *ngIf="!item.isOwned" (click)="onPurchase(item.name)">
         {{ "BUTTON.PURCHASE" | translate }}
       </button>
     </div>

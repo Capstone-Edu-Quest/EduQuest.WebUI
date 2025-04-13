@@ -47,8 +47,27 @@ export class ShopItemsComponent implements OnInit, OnDestroy {
 
       this.items = data.payload.map((item) => ({
         ...item,
-        isOwned: this.user?.mascotItem?.includes(item.id) ?? false,
+        isOwned: this.user?.mascotItem?.includes(item.name) ?? false,
       }));
+    });
+  }
+
+  onPurchase(itemName: string) {
+    const request$ = this.platform.purchaseShopItems(itemName);
+    if (!request$) return;
+
+    request$.subscribe((res) => {
+      if (!res) {
+        return;
+      }
+      
+      this.items = this.items.map((item) => {
+        if (item.name === itemName) {
+          return { ...item, isOwned: true };
+        }
+
+        return item;
+      });
     });
   }
 

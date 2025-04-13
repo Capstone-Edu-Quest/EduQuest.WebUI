@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import {
   IEquipmentPosition,
   IEquipmentServiceItem,
-  equipmentType,
 } from '../../shared/interfaces/three.interfaces';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { FoxItems } from '../../components/fox-3d/3d-setup/fox-3d.config';
@@ -31,6 +30,11 @@ export class FoxService {
     feet: null,
   };
 
+  private itemsAPIsSyncTimeout: any = null;
+  private isFoxInit: boolean = false;
+  private isSyncedItemAfterInit: boolean = false;
+  private firstSyncedtimeout: any = null;
+
   // Store current equiped item
   public currentEquipedItem$: BehaviorSubject<IEquipmentServiceItem> =
     new BehaviorSubject<IEquipmentServiceItem>(this.defaultCurrentEquipedItem);
@@ -47,14 +51,23 @@ export class FoxService {
 
   initFox() {
     this.user.user$.subscribe((user) => {
-      if (!user || this.user.user$.value?.roleId !== WebRole.LEARNER) {
+      if (!user || user.roleId !== WebRole.LEARNER) {
         this.resetItems();
+        this.isFoxInit = false;
       } else {
-        if (!this.loadedCheck.foxIsLoaded) {
+        if (this.isFoxInit) return;
+        if (this.loadedCheck.foxIsLoaded) {
+          user.equippedItems.forEach((item) => {
+            this.equipItem(item);
+          });
+        } else {
           user.equippedItems.forEach((item) => {
             this.loadedCheck.waitingStack.push(() => this.equipItem(item));
           });
         }
+
+        this.isSyncedItemAfterInit = user.equippedItems.length === 0;
+        this.isFoxInit = true;
       }
     });
   }
@@ -67,7 +80,7 @@ export class FoxService {
       return;
     }
 
-    while(this.loadedCheck.waitingStack.length > 0) {
+    while (this.loadedCheck.waitingStack.length > 0) {
       const f = this.loadedCheck.waitingStack.pop();
       f();
     }
@@ -84,6 +97,8 @@ export class FoxService {
   // trigger when three updated equipment
   // Only use in fox
   syncItem = (equipment: IEquipmentPosition) => {
+    clearTimeout(this.itemsAPIsSyncTimeout);
+
     const currentEquipment = { ...this.currentEquipedItem$.value };
 
     Object.keys(equipment).forEach((key) => {
@@ -96,6 +111,27 @@ export class FoxService {
     });
 
     this.currentEquipedItem$.next(currentEquipment);
+
+    if (!this.isSyncedItemAfterInit) {
+      clearTimeout(this.firstSyncedtimeout);
+      this.firstSyncedtimeout = setTimeout(() => {
+        this.isSyncedItemAfterInit = true;
+      }, 1000);
+
+      return;
+    }
+
+    this.itemsAPIsSyncTimeout = setTimeout(() => {
+      const itemIds: string[] = [];
+      Object.keys(currentEquipment).forEach((key) => {
+        const item = currentEquipment[key];
+        if (item) {
+          itemIds.push(item.id);
+        }
+      });
+
+      this.user.equipItem(itemIds);
+    }, 1000);
   };
 
   tempEquipItem(itemId: string[] | null) {

@@ -68,7 +68,7 @@ export class ShopSettingsComponent implements OnInit {
     this.availableItemsToAdd = [];
 
     FoxItems.forEach((_i) => {
-      const idx = searchList.findIndex((item) => item.id === _i.id);
+      const idx = searchList.findIndex((item) => item.name === _i.id);
 
       if (idx === -1) {
         this.availableItemsToAdd.push({ id: v4(), name: _i.id, price: 0 });
