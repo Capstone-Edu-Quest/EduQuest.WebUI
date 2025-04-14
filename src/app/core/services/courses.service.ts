@@ -11,7 +11,9 @@ import {
   IReview,
   IReviewQuery,
   ISearchCourseParams,
+  ISubmitAssignment,
   ISubmitQuizReq,
+  ISubmittedQuestResponse,
   ITag,
   materialType,
 } from '../../shared/interfaces/course.interfaces';
@@ -261,10 +263,39 @@ export class CoursesService {
   }
 
   onGetCourseAssignedToMe() {
-    return this.http.get<ICourseApprovalStaff[]>(endPoints.assignCourseToExpert);
+    return this.http.get<ICourseApprovalStaff[]>(
+      endPoints.assignCourseToExpert
+    );
   }
 
   onSubmitQuiz(data: ISubmitQuizReq, lessonId: string) {
-    return this.http.post(endPoints.submitQuiz + `?lessonId=${lessonId}`, data)
+    return this.http
+      .post<ISubmittedQuestResponse>(
+        endPoints.submitQuiz + `?lessonId=${lessonId}`,
+        data
+      )
+      .pipe((res) => {
+        if (res) {
+          this.message.addMessage(
+            'success',
+            this.translate.instant('MESSAGE.SUBMITTED_SUCCESSFULLY')
+          );
+        }
+        return res;
+      });
+  }
+
+  onSubmitAssignment(data: ISubmitAssignment, lessonId: string) {
+    return this.http
+      .post(endPoints.submitAssignment + `?lessonId=${lessonId}`, data)
+      .pipe((res) => {
+        if (res) {
+          this.message.addMessage(
+            'success',
+            this.translate.instant('MESSAGE.SUBMITTED_SUCCESSFULLY')
+          );
+        }
+        return res;
+      });
   }
 }

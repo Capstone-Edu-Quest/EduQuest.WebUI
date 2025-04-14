@@ -8,9 +8,17 @@ import {
 import {
   ICourse,
   ILearningMaterial,
+  ISubmitAssignment,
   ISubmitQuizReq,
+  ISubmittedQuestResponse,
 } from '@/src/app/shared/interfaces/course.interfaces';
-import { Component, Input, type OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+  type OnInit,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import { faAngleLeft, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '@/src/app/core/services/user.service';
@@ -23,15 +31,22 @@ import { UserService } from '@/src/app/core/services/user.service';
 export class StudyingMaterialComponent implements OnInit {
   @Input('courseDetails') courseDetails!: ICourse;
   @Input('viewingMaterial') viewingMaterial: ILearningMaterial | null = null;
+  @Output('onFinish') onFinish: EventEmitter<string> =
+    new EventEmitter<string>();
 
   quizAnswersId: { questionId: string; answerId: string }[] = [];
 
   countdown: number = 0;
   isQuizStarted: boolean = false;
   countdownInterval: any = null;
+  isNoTimeLimit: boolean = false;
 
   videoDuration: number = 0;
   isUpdatedStatus: boolean = false;
+
+  quizResult: null | ISubmittedQuestResponse = null;
+
+  assignmentContent: string = '';
 
   constructor(
     private router: Router,
@@ -40,15 +55,22 @@ export class StudyingMaterialComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isNoTimeLimit = false;
     if (this.viewingMaterial?.assignment) {
-      this.countdown = Number(this.viewingMaterial?.assignment?.timeLimit) * 60;
-      this.countdownInterval = setInterval(() => {
-        this.countdown--;
+      if (Number(this.viewingMaterial?.assignment?.timeLimit) > 0) {
+        this.countdown =
+          Number(this.viewingMaterial?.assignment?.timeLimit) * 60;
 
-        if (this.countdown === 0) {
-          clearInterval(this.countdownInterval);
-        }
-      }, 1000);
+        this.countdownInterval = setInterval(() => {
+          this.countdown--;
+
+          if (this.countdown === 0) {
+            clearInterval(this.countdownInterval);
+          }
+        }, 1000);
+      } else {
+        this.isNoTimeLimit = true;
+      }
     }
   }
 
@@ -82,16 +104,20 @@ export class StudyingMaterialComponent implements OnInit {
     if (!this.viewingMaterial?.quiz) return;
 
     this.isQuizStarted = true;
-    this.countdown = this.viewingMaterial.quiz?.timeLimit * 60;
     this.quizAnswersId = [];
+    if (this.viewingMaterial.quiz?.timeLimit > 0) {
+      this.countdown = this.viewingMaterial.quiz?.timeLimit * 60;
 
-    this.countdownInterval = setInterval(() => {
-      this.countdown--;
+      this.countdownInterval = setInterval(() => {
+        this.countdown--;
 
-      if (this.countdown === 0) {
-        clearInterval(this.countdownInterval);
-      }
-    }, 1000);
+        if (this.countdown === 0) {
+          clearInterval(this.countdownInterval);
+        }
+      }, 1000);
+    } else {
+      this.isNoTimeLimit = true;
+    }
   }
 
   convertTimeToCountdown() {
@@ -157,9 +183,14 @@ export class StudyingMaterialComponent implements OnInit {
       answers: this.quizAnswersId,
     };
 
+    clearInterval(this.countdownInterval);
     this.CoursesService.onSubmitQuiz(quizData, lessonId as string).subscribe(
       (res) => {
-        console.log(res);
+        if (!res?.payload) {
+          return;
+        }
+
+        this.quizResult = res.payload;
       }
     );
   }
@@ -180,6 +211,7 @@ export class StudyingMaterialComponent implements OnInit {
       .updateUserLearningProgress(this.viewingMaterial.id, lessonId, null)
       .subscribe((res) => {
         console.log('Update Progress: ', res);
+        this.triggerFinish();
       });
   }
 
@@ -195,5 +227,58 @@ export class StudyingMaterialComponent implements OnInit {
     });
 
     return lessonId;
+  }
+
+  onSubmitAssignment() {
+    if (!this.viewingMaterial?.assignment) return;
+
+    let lessonId = null;
+
+    this.courseDetails.listLesson.forEach((l) => {
+      const index = l.materials.findIndex(
+        (m) => m.id === this.viewingMaterial?.id
+      );
+      if (index !== -1) {
+        lessonId = l.id;
+      }
+    });
+
+    if (!lessonId || !this.viewingMaterial?.assignment?.id) return;
+
+    const result: ISubmitAssignment = {
+      assignmentId: this.viewingMaterial.assignment.id,
+      totalTime: Math.ceil(
+        Math.abs(
+          (this.countdown -
+            (this.viewingMaterial.assignment?.timeLimit ?? 0) * 60) /
+            60
+        )
+      ),
+      answerContent: this.assignmentContent,
+    };
+
+    this.CoursesService.onSubmitAssignment(result, lessonId).subscribe(
+      (res) => {
+        if (res?.payload) {
+          this.triggerFinish();
+        }
+      }
+    );
+  }
+
+  onTriggerFinishQuiz() {
+    if (this.quizResult?.isPassed) {
+      this.triggerFinish();
+      return;
+    }
+
+    this.isQuizStarted = false;
+    this.quizResult = null;
+    clearInterval(this.countdownInterval);
+  }
+
+  triggerFinish() {
+    const mId = this.viewingMaterial?.id;
+    this.onFinish.emit(mId);
   }
 }

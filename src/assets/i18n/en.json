@@ -615,7 +615,10 @@
     "GET_COURSE_HAVE_THIS_TAG": "Find course have this tag",
     "SEARCH_MATERIALS": "Enter materials name",
     "WAITING_FOR_APPROVAL": "Waiting for approval...",
-    "RATING": "Rating"
+    "RATING": "Rating",
+    "RESULT": "Result",
+    "CORRECT": "Correct",
+    "TOTAL_TIME": "Total time"
   },
   "MESSAGE": {
     "ASSIGNED_SUCCESSFULLY": "Assigned successfully",
@@ -718,7 +721,8 @@
     "CREATE_COUPON": "Create Coupon",
     "EDIT": "Edit",
     "SEND_MESSAGE": "Send Message",
-    "CREATE_QUEST": "Create quest"
+    "CREATE_QUEST": "Create quest",
+    "RETRY": "Retry"
   },
   "LANGUAGES": {
     "EN": "English",

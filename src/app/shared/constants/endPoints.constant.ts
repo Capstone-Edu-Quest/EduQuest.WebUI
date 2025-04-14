@@ -79,5 +79,6 @@ export const endPoints = {
   checkout: 'payment/checkout',
   refund: 'payment/refund',
 
-  submitQuiz: 'course/quiz/attemt'
+  submitQuiz: 'course/quiz/attemt',
+  submitAssignment: 'course/assignment/attemt',
 };

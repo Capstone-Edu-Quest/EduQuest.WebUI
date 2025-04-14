@@ -11,9 +11,7 @@ import {
   styleUrls: ['./home-suggested.component.scss'],
 })
 export class HomeSuggestedComponent implements OnInit {
-  sampleCourses: ICourseOverview[] = [
-    
-  ];
+  sampleCourses: ICourseOverview[] = [];
 
   courses: ICourseOverview[] = [];
 
@@ -24,10 +22,14 @@ export class HomeSuggestedComponent implements OnInit {
   }
 
   initCoursesList() {
-    const course$ = this.CoursesService.onSearchCourse({pageNo: 1, eachPage: 5});
+    const course$ = this.CoursesService.onSearchCourse({
+      pageNo: 1,
+      eachPage: 10,
+      isPublic: true,
+    });
     course$.subscribe((res) => {
-      if(!res || !res?.payload) return;
-      this.courses = res.payload;
-    })
+      if (!res || !res?.payload) return;
+      this.courses = res.payload.filter((c) => c.progressPercentage === null);
+    });
   }
 }

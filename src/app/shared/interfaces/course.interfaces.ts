@@ -389,7 +389,7 @@ export interface IMyCourseChartsStats {
 export interface ILearningMaterial {
   id?: string;
   type: MaterialTypeEnum;
-  status?: MissionStatus,
+  status?: MissionStatus;
   title: string;
   description: string;
   video?: video;
@@ -425,6 +425,7 @@ interface answers {
 }
 
 interface assignment {
+  id?: string;
   timeLimit?: number;
   question?: string;
   answerLanguage?: string;
@@ -435,4 +436,20 @@ export interface ISubmitQuizReq {
   quizId: string;
   totalTime: number;
   answers: { questionId: string; answerId: string }[];
+}
+
+export interface ISubmittedQuestResponse {
+  attemptNo: number;
+  correctAnswers: number;
+  incorrectAnswers: number;
+  isPassed: boolean;
+  percentage: number;
+  submitAt: string; // ISO 8601 date string
+  totalTime: number; // in seconds or minutes, depending on your context
+}
+
+export interface ISubmitAssignment {
+  assignmentId: string;
+  totalTime: number;
+  answerContent: string;
 }

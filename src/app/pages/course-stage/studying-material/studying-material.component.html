@@ -52,7 +52,42 @@
   <div class="material-description">{{ viewingMaterial.description }}</div>
 
   <!--  -->
-  @if(!isQuizStarted) {
+  @if(quizResult) {
+  <div class="quiz-infos">
+    <div class="info-title">{{ "LABEL.RESULT" | translate }}:</div>
+    <div style="color: var(--primary-text); font-size: 13px">
+      - {{ "LABEL.CORRECT" | translate }}: {{ quizResult.correctAnswers }}/{{
+        quizResult.incorrectAnswers + quizResult.correctAnswers
+      }}
+      ({{ quizResult.percentage }}%)
+    </div>
+    <div style="font-size: 13px; color: var(--primary-text);">
+      - {{ "LABEL.STATUS" | translate }}:
+      <b
+        [ngStyle]="{
+          color: quizResult.isPassed ? 'var(--success)' : 'var(--alert)',
+          fontWeight: 600
+        }"
+        >{{
+          (quizResult.isPassed ? "LABEL.PASSED" : "LABEL.FAILED") | translate
+        }}</b
+      >
+    </div>
+    <div style="color: var(--primary-text); font-size: 13px">
+      - {{ "LABEL.TOTAL_TIME" | translate }}:
+      {{ "SIGNATURE.MINUTES" | translate : { value: quizResult.totalTime } }}
+    </div>
+    <app-button
+      (click)="onStartQuiz()"
+      [style]="{ width: '100%' }"
+      type="primary"
+      (click)="onTriggerFinishQuiz()"
+      >{{
+        (!quizResult.isPassed ? "BUTTON.RETRY" : "BUTTON.CONTINUE") | translate
+      }}</app-button
+    >
+  </div>
+  } @else if(!isQuizStarted) {
   <div class="info-title">{{ "LABEL.QUIZ_INFO" | translate }}</div>
   <div class="quiz-infos">
     <div>
@@ -86,7 +121,9 @@
   >
   <!--  -->
   } @else {
-  <div class="countdown">{{ convertTimeToCountdown() }}</div>
+  <div *ngIf="!isNoTimeLimit" class="countdown">
+    {{ convertTimeToCountdown() }}
+  </div>
   <div
     class="question-ctn"
     *ngFor="let question of viewingMaterial.quiz?.questions; let i = index"
@@ -134,11 +171,13 @@
   <div class="assignment-question">
     {{ viewingMaterial.assignment?.question }}
   </div>
-  <app-text-editor #textEditor [htmlContent]="''"></app-text-editor>
+  <app-text-editor (onChange)="assignmentContent = $event" #textEditor [htmlContent]="''"></app-text-editor>
 
-  <div class="countdown">{{ convertTimeToCountdown() }}</div>
+  <div *ngIf="!isNoTimeLimit" class="countdown">
+    {{ convertTimeToCountdown() }}
+  </div>
 
-  <app-button [style]="{ width: '100%' }" type="primary">{{
+  <app-button [style]="{ width: '100%' }" type="primary" (click)="onSubmitAssignment()">{{
     "BUTTON.SUBMIT" | translate
   }}</app-button>
 </div>

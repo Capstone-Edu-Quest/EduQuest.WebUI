@@ -2,6 +2,7 @@
   *ngIf="viewingMaterial"
   [viewingMaterial]="viewingMaterial"
   [courseDetails]="courseDetails"
+  (onFinish)="onNextMaterial($event)"
 ></app-studying-material>
 
 <div class="stage-ctn" @fadeInOut *ngIf="!viewingMaterial">
