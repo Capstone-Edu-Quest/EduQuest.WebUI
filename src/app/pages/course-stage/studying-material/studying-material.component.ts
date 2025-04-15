@@ -8,6 +8,7 @@ import {
 import {
   ICourse,
   ILearningMaterial,
+  IMarkedAssignment,
   ISubmitAssignment,
   ISubmitQuizReq,
   ISubmittedQuestResponse,
@@ -47,6 +48,7 @@ export class StudyingMaterialComponent implements OnInit {
   quizResult: null | ISubmittedQuestResponse = null;
 
   assignmentContent: string = '';
+  answeredAssignment: IMarkedAssignment | null = null;
 
   constructor(
     private router: Router,
@@ -55,23 +57,8 @@ export class StudyingMaterialComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.checkIfFinishedMaterials();
     this.isNoTimeLimit = false;
-    if (this.viewingMaterial?.assignment) {
-      if (Number(this.viewingMaterial?.assignment?.timeLimit) > 0) {
-        this.countdown =
-          Number(this.viewingMaterial?.assignment?.timeLimit) * 60;
-
-        this.countdownInterval = setInterval(() => {
-          this.countdown--;
-
-          if (this.countdown === 0) {
-            clearInterval(this.countdownInterval);
-          }
-        }, 1000);
-      } else {
-        this.isNoTimeLimit = true;
-      }
-    }
   }
 
   backIcon = faAngleLeft;
@@ -79,6 +66,46 @@ export class StudyingMaterialComponent implements OnInit {
 
   onBack() {
     this.router.navigate([], { queryParams: {} });
+  }
+
+  checkIfFinishedMaterials() {
+    const materialId = this.viewingMaterial?.assignment?.id;
+    let lessonId = null;
+
+    this.courseDetails.listLesson.forEach((l) => {
+      const index = l.materials.findIndex(
+        (m) => m.id === this.viewingMaterial?.id
+      );
+      if (index !== -1) {
+        lessonId = l.id;
+      }
+    });
+
+    if (!materialId || !lessonId) return;
+
+    this.CoursesService.onGetMyAssignment(materialId, lessonId).subscribe(
+      (res) => {
+        if (!res?.payload) {
+          if (Number(this.viewingMaterial?.assignment?.timeLimit) > 0) {
+            this.countdown =
+              Number(this.viewingMaterial?.assignment?.timeLimit) * 60;
+
+            this.countdownInterval = setInterval(() => {
+              this.countdown--;
+
+              if (this.countdown === 0) {
+                clearInterval(this.countdownInterval);
+              }
+            }, 1000);
+          } else {
+            this.isNoTimeLimit = true;
+          }
+          return;
+        }
+
+        this.answeredAssignment = res.payload;
+      }
+    );
   }
 
   currentMaterials() {
@@ -281,4 +308,5 @@ export class StudyingMaterialComponent implements OnInit {
     const mId = this.viewingMaterial?.id;
     this.onFinish.emit(mId);
   }
+  
 }

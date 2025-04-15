@@ -424,7 +424,7 @@ interface answers {
   id?: string;
 }
 
-interface assignment {
+export interface assignment {
   id?: string;
   timeLimit?: number;
   question?: string;
@@ -451,5 +451,12 @@ export interface ISubmittedQuestResponse {
 export interface ISubmitAssignment {
   assignmentId: string;
   totalTime: number;
+  answerContent: string;
+}
+
+export interface IMarkedAssignment {
+  id: string;
+  totalTime: number;
+  answerScore: number;
   answerContent: string;
 }

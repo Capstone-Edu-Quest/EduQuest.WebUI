@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import {
+  assignment,
   ICourse,
   ICourseApprovalStaff,
   ICourseCreate,
   ICourseInstructor,
   ICourseOverview,
   ILearningMaterial,
+  IMarkedAssignment,
   IMaterialResponse,
   IMyCourseChartsStats,
   IReview,
@@ -297,5 +299,9 @@ export class CoursesService {
         }
         return res;
       });
+  }
+
+  onGetMyAssignment(assignmentId: string, lessonId: string) {
+    return this.http.get<IMarkedAssignment>(endPoints.getAssignment + `?assignmentId=${assignmentId}&lessonId=${lessonId}`);
   }
 }

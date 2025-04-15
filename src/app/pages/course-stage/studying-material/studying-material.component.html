@@ -61,7 +61,7 @@
       }}
       ({{ quizResult.percentage }}%)
     </div>
-    <div style="font-size: 13px; color: var(--primary-text);">
+    <div style="font-size: 13px; color: var(--primary-text)">
       - {{ "LABEL.STATUS" | translate }}:
       <b
         [ngStyle]="{
@@ -171,13 +171,56 @@
   <div class="assignment-question">
     {{ viewingMaterial.assignment?.question }}
   </div>
-  <app-text-editor (onChange)="assignmentContent = $event" #textEditor [htmlContent]="''"></app-text-editor>
+
+  @if(!answeredAssignment) {
+
+  <app-text-editor
+    (onChange)="assignmentContent = $event"
+    #textEditor
+    [htmlContent]="''"
+  ></app-text-editor>
 
   <div *ngIf="!isNoTimeLimit" class="countdown">
     {{ convertTimeToCountdown() }}
   </div>
 
-  <app-button [style]="{ width: '100%' }" type="primary" (click)="onSubmitAssignment()">{{
-    "BUTTON.SUBMIT" | translate
-  }}</app-button>
+  <app-button
+    [style]="{ width: '100%' }"
+    type="primary"
+    (click)="onSubmitAssignment()"
+    >{{ "BUTTON.SUBMIT" | translate }}</app-button
+  >
+  } @else {
+  <div class="info-title">{{ "LABEL.YOUR_RESULT" | translate }}</div>
+  <div class="quiz-infos">
+    <div>
+      -
+      {{
+        answeredAssignment.answerScore
+          ? ("LABEL.SCORE"
+            | translate : { value: answeredAssignment.answerScore })
+          : ("LABEL.UNMARK" | translate)
+      }}
+    </div>
+    <div>
+      -
+      {{
+        "SIGNATURE.MINUTES"
+          | translate : { value: answeredAssignment.totalTime }
+      }}
+    </div>
+  </div>
+  <div
+    style="margin-top: 12px"
+    class="editor-loader-wrapper"
+    [innerHTML]="answeredAssignment.answerContent"
+  ></div>
+
+  <app-button
+    [style]="{ width: '100%' }"
+    type="primary"
+    (click)="triggerFinish()"
+    >{{ "BUTTON.CONTINUE" | translate }}</app-button
+  >
+  }
 </div>

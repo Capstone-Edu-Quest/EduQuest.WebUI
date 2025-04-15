@@ -81,4 +81,5 @@ export const endPoints = {
 
   submitQuiz: 'course/quiz/attemt',
   submitAssignment: 'course/assignment/attemt',
+  getAssignment: 'course/assignment/attempt'
 };
