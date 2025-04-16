@@ -128,7 +128,7 @@
       <div class="reviews-number">
         {{
           "LABEL.REVIEWS_COUNT"
-            | translate : { value: courseDetails.totalReview }
+            | translate : { value: courseDetails.totalReview || 0 }
         }}
       </div>
     </div>

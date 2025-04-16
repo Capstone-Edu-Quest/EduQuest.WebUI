@@ -8,14 +8,14 @@
 <div class="stage-ctn" @fadeInOut *ngIf="!viewingMaterial">
   <div class="course-name">{{ courseDetails.title }}</div>
   <div class="current-stage">
-    {{ "LABEL.STAGE_COUNT" | translate : { value: currentLesson } }}:
-    {{ courseDetails.listLesson[currentLesson - 1].name }}
+    {{ "LABEL.STAGE_COUNT" | translate : { value: currentLesson + 1 } }}:
+    {{ courseDetails.listLesson[currentLesson].name }}
   </div>
 
   <div class="btn-ctn">
     <div
       class="btn prev"
-      *ngIf="currentLesson > 1"
+      *ngIf="currentLesson > 0"
       (click)="updateCurrentStage(-1)"
     >
       <fa-icon [icon]="prevIcon"></fa-icon>

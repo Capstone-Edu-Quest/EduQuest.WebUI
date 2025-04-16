@@ -39,7 +39,7 @@ export class CourseStageComponent implements OnInit {
   rows: any[] = [];
 
   totalLessons = 0;
-  currentLesson = 1;
+  currentLesson = 0;
 
   currentMaterials: IMaterialOverview[] = [];
 
@@ -82,7 +82,7 @@ export class CourseStageComponent implements OnInit {
 
   initMaterials() {
     this.currentMaterials =
-      this.courseDetails.listLesson[this.currentLesson - 1].materials;
+      this.courseDetails.listLesson[this.currentLesson].materials;
     this.totalLessons = this.courseDetails.listLesson.length;
 
     this.initRow();
