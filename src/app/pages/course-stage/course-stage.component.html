@@ -6,6 +6,32 @@
 ></app-studying-material>
 
 <div class="stage-ctn" @fadeInOut *ngIf="!viewingMaterial">
+
+  <div class="option">
+    <div class="option-item"></div>
+    <div class="option-item"></div>
+    <div class="option-item"></div>
+
+    <div
+      class="drop-down"
+      [ngStyle]="{
+        height: 11 + menu.length * 28 + 'px'
+      }"
+    >
+      <div
+        class="option"
+        *ngFor="let opt of menu; let i = index"
+        [ngStyle]="{
+          top: 5 + i * 28 + 'px'
+        }"
+        (click)="opt.action($event)"
+      >
+        <fa-icon *ngIf="opt.icon" [icon]="opt.icon"></fa-icon>
+        {{ opt.label | translate }}
+      </div>
+    </div>
+  </div>
+
   <div class="course-name">{{ courseDetails.title }}</div>
   <div class="current-stage">
     {{ "LABEL.STAGE_COUNT" | translate : { value: currentLesson + 1 } }}:
@@ -75,3 +101,11 @@
 
   <div class="blur-circle" data-aos="zoom-out"></div>
 </div>
+
+<ng-template #courseInfo>
+  <app-minify-course-info [courseDetails]="courseDetails"></app-minify-course-info>
+</ng-template>
+
+<ng-template #courseReviews>
+  <app-minify-course-review [courseDetails]="courseDetails"></app-minify-course-review>
+</ng-template>

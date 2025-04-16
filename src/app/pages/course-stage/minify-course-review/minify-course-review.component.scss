@@ -1,0 +1,49 @@
+.minify-review {
+  .title {
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 8px;
+  }
+
+  .no-review {
+    font-size: 11px;
+    text-align: center;
+    color: var(--secondary-text);
+  }
+
+  .stars-ctn {
+    display: flex;
+    gap: 8px;
+    color: var(--brand-light);
+    justify-content: center;
+    margin-bottom: 5px;
+    font-size: 18px;
+    cursor: pointer;
+  }
+
+  .review-input {
+    width: 100%;
+    padding: 8px;
+    outline: none;
+    box-sizing: border-box;
+    border-radius: 12px;
+    color: var(--primary-text) !important;
+    font-family: "Be Vietnam Pro", sans-serif !important;
+    background-color: var(--tertiary-bg);
+    margin-bottom: 4px;
+    resize: none;
+  }
+
+  .btn-ctn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    display: flex;
+    gap: 12px;
+    color: var(--secondary-text);
+
+    fa-icon {
+      cursor: pointer;
+    }
+  }
+}

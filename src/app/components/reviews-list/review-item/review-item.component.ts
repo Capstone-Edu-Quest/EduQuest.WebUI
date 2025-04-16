@@ -12,6 +12,7 @@ import { formatTime } from '@/src/app/core/utils/time.utils';
 })
 export class ReviewItemComponent implements OnInit {
   @Input('review') review!: IReview;
+  @Input('bg') bg: string = '';
 
   starsList: any[] = [];
 

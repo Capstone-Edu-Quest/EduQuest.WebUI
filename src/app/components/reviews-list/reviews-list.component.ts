@@ -7,7 +7,9 @@ import { IReview } from '../../shared/interfaces/course.interfaces';
   styleUrl: './reviews-list.component.scss',
 })
 export class ReviewsListComponent implements OnInit {
-  @Input('reviews') reviews!: IReview[]
+  @Input('reviews') reviews!: IReview[];
+  @Input('bg') bg: string = '';
+
   ngOnInit(): void { }
 
 }

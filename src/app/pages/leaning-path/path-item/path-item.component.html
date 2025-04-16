@@ -1,5 +1,5 @@
 <div class="path-item" (click)="onViewDetails()">
-<div class="option">
+  <div class="option">
     <div class="option-item"></div>
     <div class="option-item"></div>
     <div class="option-item"></div>
@@ -26,19 +26,21 @@
 
   <div class="item-name">{{ path.name }}</div>
   <div class="created-by">
-    {{ "LABEL.CREATED_BY" | translate : { value: path.createdBy.username} }}
+    {{ "LABEL.CREATED_BY" | translate : { value: path.createdBy.username } }}
   </div>
 
   <div class="others-info">
     <div>
-      {{ "LABEL.TOTAL_TIME_IN_HOUR" | translate : { hour: path.totalTime} }}
+      {{ "LABEL.TOTAL_TIME_IN_HOUR" | translate : { hour: path.totalTime } }}
     </div>
     <div>·</div>
     <div>
       {{ "LABEL.COURSES_COUNT" | translate : { value: path.totalCourses } }}
     </div>
   </div>
-  <div class="description">{{ path.description.trim() === '' ? '-' : path.description }}</div>
+  <div class="description">
+    {{ path.description.trim() === "" ? "-" : path.description }}
+  </div>
 
   <app-button
     type="primary"

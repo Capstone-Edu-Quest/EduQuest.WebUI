@@ -1,0 +1,57 @@
+<div class="minify-review">
+  <div class="title">{{ "LABEL.REVIEWS" | translate }}</div>
+
+  @if(!myReview || isEdit) {
+
+  <div class="stars-ctn">
+    <fa-icon
+      *ngFor="let starIcon of starsList; let i = index"
+      [icon]="starIcon"
+      (click)="onSelectStar(i)"
+    ></fa-icon>
+  </div>
+  <textarea
+    [(ngModel)]="feedbackContent"
+    class="review-input"
+    rows="3"
+  ></textarea>
+
+  <div *ngIf="isEdit" style="display: flex; gap: 8px">
+    <app-button *ngIf="isEdit" [ngStyle]="{ width: '50%' }" (click)="onCancel()">{{
+      "BUTTON.CANCEL" | translate
+    }}</app-button>
+    <app-button
+      [ngStyle]="{ width: '50%' }"
+      type="primary"
+      (click)="onUpdate()"
+      >{{ "BUTTON.UPDATE" | translate }}</app-button
+    >
+  </div>
+  <app-button
+    *ngIf="!isEdit"
+    [style]="{ width: '100%' }"
+    type="primary"
+    (click)="onFeedback()"
+    >{{ "BUTTON.SEND_REVIEW" | translate }}</app-button
+  >
+  } @else {
+  <div style="position: relative">
+    <app-review-item [review]="myReview" [bg]="'tertiary-bg'"></app-review-item>
+    <div class="btn-ctn">
+      <fa-icon [icon]="editIcon" (click)="isEdit = true"></fa-icon>
+      <fa-icon [icon]="deleteIcon" style="color: var(--alert)" (click)="onDelete()"></fa-icon>
+    </div>
+  </div>
+  }
+
+  <div class="divider"></div>
+
+  <div class="no-review" *ngIf="allReviews.length === 0">
+    {{ "LABEL.NO_REVIEW" | translate }}
+  </div>
+
+  <app-reviews-list
+    [reviews]="allReviews"
+    [bg]="'tertiary-bg'"
+  ></app-reviews-list>
+</div>

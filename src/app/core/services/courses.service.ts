@@ -11,6 +11,7 @@ import {
   IMaterialResponse,
   IMyCourseChartsStats,
   IReview,
+  IReviewParams,
   IReviewQuery,
   ISearchCourseParams,
   ISubmitAssignment,
@@ -87,6 +88,21 @@ export class CoursesService {
       (key) => `${key}=${query[key as keyof IReviewQuery]}`
     );
     return this.http.get<IReview[]>(endPoints.review + '?' + queries.join('&'));
+  }
+
+  onSendCourseReview(param: IReviewParams) {
+    return this.http.post<IReview>(endPoints.review, param);
+  }
+
+  onUpdateCourseReview(reviewId: string, param: IReviewParams) {
+    return this.http.update<IReview>(
+      endPoints.review + `?feedbackId=${reviewId}`,
+      param
+    );
+  }
+
+  onDeleteCourseReview(reviewId: string) {
+    return this.http.delete<any>(endPoints.review + `?feedbackId=${reviewId}`);
   }
 
   onGetMaterialIcon(materialType: materialType | MaterialTypeEnum) {
@@ -302,6 +318,9 @@ export class CoursesService {
   }
 
   onGetMyAssignment(assignmentId: string, lessonId: string) {
-    return this.http.get<IMarkedAssignment>(endPoints.getAssignment + `?assignmentId=${assignmentId}&lessonId=${lessonId}`);
+    return this.http.get<IMarkedAssignment>(
+      endPoints.getAssignment +
+        `?assignmentId=${assignmentId}&lessonId=${lessonId}`
+    );
   }
 }

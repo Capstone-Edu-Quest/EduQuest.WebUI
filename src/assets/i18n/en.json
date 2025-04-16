@@ -619,6 +619,9 @@
     "RESULT": "Result",
     "CORRECT": "Correct",
     "TOTAL_TIME": "Total time",
+    "VIEW_INFO": "View info",
+    "REFUND": "Refund",
+    "NO_REVIEW": "Found no review",
     "CERTIFICATE_TITLE": "This certificate above verifies that {{userName}} has successfully completed the {{courseName}} on {{issuedDate}} on Edu Quest. The certificate indicates the entire course was completed as validated by the student. The course duration represents the total video hours of the course at time of most recent completion."
   },
   "MESSAGE": {
@@ -677,9 +680,13 @@
     "PLEASE_FILL_IN_ALL_FIELDS": "Please fill in all fields",
     "COPIED_URL": "Copied url successfully",
     "PURSCHASED_SUCCESS": "Purchased successfully",
-    "PURSCHASE_FAILED": "Failed to purchase item"
+    "PURSCHASE_FAILED": "Failed to purchase item",
+    "FAILED_FEEDBACK": "Failed to feedback, please try again later",
+    "FEEDBACK_SUCCESS": "Sent feedback successfully"
   },
   "BUTTON": {
+    "UPDATE": "Update",
+    "SEND_REVIEW": "Send review",
     "PUBLISH_COURSE": "Publish Course",
     "START_QUIZ": "Start Quiz",
     "SUBMIT": "Submit",

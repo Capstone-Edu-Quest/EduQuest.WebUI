@@ -197,6 +197,8 @@ import { StudyingMaterialComponent } from './pages/course-stage/studying-materia
 import { UploadProgressComponent } from './components/upload-progress/upload-progress.component';
 import { CertificateComponent } from './components/certificate/certificate.component';
 import { CertificatePageComponent } from './pages/certificate-page/certificate-page.component';
+import { MinifyCourseInfoComponent } from './pages/course-stage/minify-course-info/minify-course-info.component';
+import { MinifyCourseReviewComponent } from './pages/course-stage/minify-course-review/minify-course-review.component';
 export const AppDeclarations = [
   AppComponent,
   NavbarComponent,
@@ -354,7 +356,9 @@ export const AppDeclarations = [
   ManagePasswordComponent,
 
   CertificatePageComponent,
-  StudyingMaterialComponent
+  StudyingMaterialComponent,
+  MinifyCourseInfoComponent,
+  MinifyCourseReviewComponent
 ];
 export const NGIcons = [
   EnterOutline,

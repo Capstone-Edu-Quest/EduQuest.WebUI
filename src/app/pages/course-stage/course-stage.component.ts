@@ -5,19 +5,25 @@ import {
   IMaterialOverview,
   IStageMission,
 } from '../../shared/interfaces/course.interfaces';
-import { Component, Input, type OnInit } from '@angular/core';
+import { AfterViewInit, Component, Input, TemplateRef, ViewChild, type OnInit } from '@angular/core';
 import {
   faCheck,
   faChevronLeft,
   faChevronRight,
   faClock,
+  faInfoCircle,
   faLock,
+  faPaperPlane,
+  faRotateLeft,
   faStar,
+  faTriangleExclamation,
 } from '@fortawesome/free-solid-svg-icons';
 import { MissionStatus } from '../../shared/enums/course.enum';
 import { fadeInOutAnimation } from '../../shared/constants/animations.constant';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesService } from '../../core/services/courses.service';
+import { copyToClipboard } from '../../core/utils/data.utils';
+import { ModalService } from '../../core/services/modal.service';
 
 @Component({
   selector: 'app-course-stage',
@@ -25,10 +31,15 @@ import { CoursesService } from '../../core/services/courses.service';
   styleUrl: './course-stage.component.scss',
   animations: [fadeInOutAnimation],
 })
-export class CourseStageComponent implements OnInit {
+export class CourseStageComponent implements OnInit, AfterViewInit {
   @Input('courseDetails') courseDetails!: ICourse;
 
+  @ViewChild('courseInfo') courseInfoRef!: TemplateRef<any>;
+  @ViewChild('courseReviews') courseReviewsRef!: TemplateRef<any>;
+
   viewingMaterial: ILearningMaterial | null = null;
+
+  menu: any[] = [];
 
   lockIcon = faLock;
   doneIcon = faCheck;
@@ -46,8 +57,47 @@ export class CourseStageComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private course: CoursesService,
-    private router: Router
+    private router: Router,
+    private modal: ModalService
   ) {}
+
+  ngAfterViewInit(): void {
+    this.menu = [
+      {
+        icon: faInfoCircle,
+        label: 'LABEL.VIEW_INFO',
+        action: (e: Event) => {
+          this.modal.updateModalContent(this.courseInfoRef)
+        },
+      },
+      {
+        icon: faStar,
+        label: 'LABEL.REVIEW',
+        action: (e: Event) => {
+          this.modal.updateModalContent(this.courseReviewsRef)
+        },
+      },
+      {
+        icon: faRotateLeft,
+        label: 'LABEL.REFUND',
+        action: (e: Event) => {},
+      },
+      {
+        icon: faPaperPlane,
+        label: 'LABEL.SHARE',
+        action: (e: Event) => copyToClipboard(window.location.href),
+      },
+      {
+        icon: faTriangleExclamation,
+        label: 'LABEL.REPORT',
+        action: (e: Event) => {},
+      },
+    ];
+
+    if (Number(this.courseDetails.progress) > 20) {
+      this.menu = this.menu.filter((m) => m.label !== 'LABEL.REFUND');
+    }
+  }
 
   ngOnInit(): void {
     for (let i = 0; i < this.courseDetails.listLesson.length; i++) {

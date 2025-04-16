@@ -460,3 +460,9 @@ export interface IMarkedAssignment {
   answerScore: number;
   answerContent: string;
 }
+
+export interface IReviewParams {
+  courseId: string;
+  comment: string;
+  rating: number
+}

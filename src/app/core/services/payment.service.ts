@@ -55,4 +55,8 @@ export class PaymentService {
         window.open(res.payload, '_blank');
       });
   }
+
+  onRefund(courseId: string) {
+    return this.http.post(endPoints.refund, {courseId})
+  }
 }

@@ -1,14 +1,21 @@
-<div class="review-item">
+<div
+  class="review-item"
+  [ngStyle]="{
+    background: bg ? 'var(--' + bg + ')' : 'var(--secondary-bg)'
+  }"
+>
   <div class="metadata" (click)="onViewProfile()">
     <img [src]="review.createdBy.avatarUrl" />
     <div class="info">
       <div class="name">{{ review.createdBy.username }}</div>
-      <div class="time">{{'SIGNATURE.DATE_FORMAT' | translate:getTime()}}</div>
+      <div class="time">
+        {{ "SIGNATURE.DATE_FORMAT" | translate : getTime() }}
+      </div>
     </div>
   </div>
 
   <div class="stars-ctn">
     <fa-icon *ngFor="let starIcon of starsList" [icon]="starIcon"></fa-icon>
   </div>
-  <div class="comment">{{review.comment}}</div>
+  <div class="comment">{{ review.comment }}</div>
 </div>

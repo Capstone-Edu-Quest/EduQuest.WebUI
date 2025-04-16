@@ -268,14 +268,12 @@ export class StudyingMaterialComponent implements OnInit {
     this.countdown = 40;
     this.countdownInterval = setInterval(() => {
       this.countdown--;
-      console.log(this.countdown);
 
       if (this.countdown === 0) {
         clearInterval(this.countdownInterval);
         this.user
           .updateUserLearningProgress(materialId, lessonId, null)
           .subscribe((res) => {
-            console.log('Update Progress: ', res);
             this.isFinished = true;
             this.triggerFinish();
           });

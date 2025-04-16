@@ -11,7 +11,7 @@ import {
 import { CouponService } from '../../core/services/coupon.service';
 import { CartService } from '../../core/services/cart.service';
 import { WishlistService } from '../../core/services/wishlist.service';
-import { BehaviorSubject, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import {
   faBookBookmark,
   faPlus,
