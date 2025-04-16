@@ -195,6 +195,8 @@ import { PlatformService } from './core/services/platform.service';
 import { PaymentService } from './core/services/payment.service';
 import { StudyingMaterialComponent } from './pages/course-stage/studying-material/studying-material.component';
 import { UploadProgressComponent } from './components/upload-progress/upload-progress.component';
+import { CertificateComponent } from './components/certificate/certificate.component';
+import { CertificatePageComponent } from './pages/certificate-page/certificate-page.component';
 export const AppDeclarations = [
   AppComponent,
   NavbarComponent,
@@ -230,6 +232,7 @@ export const AppDeclarations = [
   ReviewsListComponent,
   ReviewItemComponent,
   UploadProgressComponent,
+  CertificateComponent,
   // Home
   HomeComponent,
   HomeStatisticsComponent,
@@ -350,6 +353,7 @@ export const AppDeclarations = [
   PersonalSettingsComponent,
   ManagePasswordComponent,
 
+  CertificatePageComponent,
   StudyingMaterialComponent
 ];
 export const NGIcons = [

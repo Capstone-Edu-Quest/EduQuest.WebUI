@@ -1,0 +1,42 @@
+.certificate-ctn {
+  width: 100%;
+  padding: 0 5%;
+  box-sizing: border-box;
+  position: relative;
+
+  img {
+    width: 100%;
+  }
+
+  .name {
+    position: absolute;
+    top: 47%;
+    color: black;
+    font-weight: 600;
+    left: 38%;
+    font-size: 40px;
+    transform: translateX(-50%);
+  }
+
+  .course {
+    position: absolute;
+    top: 58%;
+    color: black;
+    left: 38%;
+    font-size: 18px;
+    transform: translateX(-50%);
+    font-weight: 400;
+  }
+
+  .certificate-sign {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    position: absolute;
+    bottom: 40px;
+    color: rgb(118, 118, 118);
+    font-weight: 400;
+    font-size: 9px;
+    left: 9%;
+  }
+}

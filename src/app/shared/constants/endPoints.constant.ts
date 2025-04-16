@@ -31,7 +31,7 @@ export const endPoints = {
   coupon: 'coupon',
   couponLearner: 'coupon/learner',
 
-  searchCertificate: 'certiciate/filter',
+  searchCertificate: 'certificate/filter',
   certificate: 'certificate',
 
   favoriteList: 'favoriteList',
@@ -81,5 +81,5 @@ export const endPoints = {
 
   submitQuiz: 'course/quiz/attemt',
   submitAssignment: 'course/assignment/attemt',
-  getAssignment: 'course/assignment/attempt'
+  getAssignment: 'course/assignment/attempt',
 };

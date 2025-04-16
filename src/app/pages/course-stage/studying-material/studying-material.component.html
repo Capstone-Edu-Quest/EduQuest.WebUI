@@ -19,6 +19,14 @@
 
   <div class="material-name">{{ viewingMaterial.title }}</div>
   <div class="material-description">{{ viewingMaterial.description }}</div>
+
+  <app-button
+    [style]="{ width: '100%' }"
+    type="primary"
+    (click)="onBack()"
+    *ngIf="isFinished"
+    >{{ "BUTTON.CONTINUE" | translate }}</app-button
+  >
 </div>
 
 <!-- Document -->
@@ -37,6 +45,14 @@
     class="editor-loader-wrapper"
     [innerHTML]="viewingMaterial.content"
   ></div>
+
+  <app-button
+    [style]="{ width: '100%' }"
+    type="primary"
+    (click)="onBack()"
+    *ngIf="isFinished"
+    >{{ "BUTTON.CONTINUE" | translate }}</app-button
+  >
 </div>
 
 <!-- Quiz -->

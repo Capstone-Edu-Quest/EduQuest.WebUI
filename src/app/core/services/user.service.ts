@@ -22,8 +22,11 @@ import { BaseReponse } from '../../shared/interfaces/https.interfaces';
 import { LoadingService } from './loading.service';
 import {
   AdminDashboardResponse,
+  ICertificateReq,
+  ICertificateRes,
   IPackageConfig,
 } from '../../shared/interfaces/others.interfaces';
+import { onConvertObjectToQueryParams } from '../utils/data.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -244,5 +247,10 @@ export class UserService {
 
         return res;
       });
+  }
+
+  getCertificate(param: ICertificateReq) {
+    const params = onConvertObjectToQueryParams(param)
+    return this.http.get<ICertificateRes[]>(endPoints.searchCertificate + params);
   }
 }

@@ -4,7 +4,7 @@
 <div class="navbar-noti">
   <div class="noti" *ngFor="let noti of notis">
     <div class="label">{{ noti.content | translate }}</div>
-    <div class="time" *ngIf="calculateTimeAgo(noti.time) as timeAgo">
+    <div class="time" *ngIf="calculateTimeAgo(noti.timestamp) as timeAgo">
       <i nz-icon nzType="clock-circle"></i>
       {{
         timeAgo === 0

@@ -1,0 +1,66 @@
+<div class="certificate-page">
+  <app-certificate [certificate]="certificate"></app-certificate>
+
+  <div *ngIf="certificate" class="info-ctn">
+    <div>
+      {{
+        "LABEL.CERTIFICATE_TITLE"
+          | translate : { courseName: certificate.course.title, userName: certificate.user.username, issuedDate: getFormattedTime(certificate.createdAt),}
+      }}
+    </div>
+
+    <div class="course" (click)="onViewCourse()">
+      <div class="image-wrapper">
+        <img [src]="certificate.course.photoUrl" />
+      </div>
+      <div class="course-info">
+        <div class="info">
+          <div class="course-name">
+            {{ certificate.course.title }}
+          </div>
+          <div class="description">{{ certificate.course.description }}</div>
+          <div class="feedback-ctn">
+            <div class="stars-number">{{ certificate.course.rating ?? 0 }}</div>
+            <div class="stars-ctn">
+              <fa-icon
+                *ngFor="let starIcon of starsList"
+                [icon]="starIcon"
+              ></fa-icon>
+            </div>
+            <div class="feedbacks-number">
+              ({{ (certificate.course.totalReview ?? 0).toLocaleString() }})
+            </div>
+          </div>
+          <div class="others-info">
+            <div class="time">
+              {{
+                "LABEL.MINUTES"
+                  | translate : { value: certificate.course.totalTime ?? 0 }
+              }}
+            </div>
+            <div>·</div>
+            <div class="lesson">
+              {{
+                "LABEL.TOTAL_LESSONS"
+                  | translate : { lesson: certificate.course.totalLesson ?? 0 }
+              }}
+            </div>
+          </div>
+        </div>
+        <div class="price">
+          <div class="final-price">
+            {{
+              "SIGNATURE.MONEY_VALUE"
+                | translate
+                  : {
+                      value: (
+                        certificate.course.price ?? 0 | currencyExchange
+                      ).toLocaleString()
+                    }
+            }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

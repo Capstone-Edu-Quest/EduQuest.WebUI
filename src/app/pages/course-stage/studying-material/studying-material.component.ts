@@ -50,6 +50,8 @@ export class StudyingMaterialComponent implements OnInit {
   assignmentContent: string = '';
   answeredAssignment: IMarkedAssignment | null = null;
 
+  isFinished: boolean = false;
+
   constructor(
     private router: Router,
     private CoursesService: CoursesService,
@@ -57,18 +59,21 @@ export class StudyingMaterialComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.checkIfFinishedMaterials();
+    this.checkIfFinishedAssignment();
+    this.trackDocumentProgress();
     this.isNoTimeLimit = false;
+    this.isFinished = false;
   }
 
   backIcon = faAngleLeft;
   circleIcon = faCircle;
 
   onBack() {
+    clearInterval(this.countdownInterval);
     this.router.navigate([], { queryParams: {} });
   }
 
-  checkIfFinishedMaterials() {
+  checkIfFinishedAssignment() {
     const materialId = this.viewingMaterial?.assignment?.id;
     let lessonId = null;
 
@@ -227,6 +232,7 @@ export class StudyingMaterialComponent implements OnInit {
   }
 
   trackVideoProgress(time: number) {
+    this.isFinished = true;
     if (this.viewingMaterial?.status === MissionStatus.DONE) return;
     if (time / this.videoDuration <= 0.8 || this.isUpdatedStatus) return;
 
@@ -237,9 +243,44 @@ export class StudyingMaterialComponent implements OnInit {
     this.user
       .updateUserLearningProgress(this.viewingMaterial.id, lessonId, null)
       .subscribe((res) => {
-        console.log('Update Progress: ', res);
         this.triggerFinish();
+        this.isFinished = true;
       });
+  }
+
+  trackDocumentProgress() {
+    this.isFinished = false;
+    const materialId = this.viewingMaterial?.id;
+    const lessonId = this.getLessonIdByMaterialId();
+
+    let arr: any[] = [];
+    this.courseDetails.listLesson.forEach((ls) => arr.push(...ls.materials));
+    const currMaterial = arr.find((m) => m.id === this.viewingMaterial?.id);
+
+    if (
+      currMaterial?.status === MissionStatus.DONE ||
+      (this.viewingMaterial?.type as any) !== 'Document' ||
+      !materialId ||
+      !lessonId
+    )
+      return;
+
+    this.countdown = 40;
+    this.countdownInterval = setInterval(() => {
+      this.countdown--;
+      console.log(this.countdown);
+
+      if (this.countdown === 0) {
+        clearInterval(this.countdownInterval);
+        this.user
+          .updateUserLearningProgress(materialId, lessonId, null)
+          .subscribe((res) => {
+            console.log('Update Progress: ', res);
+            this.isFinished = true;
+            this.triggerFinish();
+          });
+      }
+    }, 1000);
   }
 
   getLessonIdByMaterialId() {
@@ -308,5 +349,4 @@ export class StudyingMaterialComponent implements OnInit {
     const mId = this.viewingMaterial?.id;
     this.onFinish.emit(mId);
   }
-  
 }

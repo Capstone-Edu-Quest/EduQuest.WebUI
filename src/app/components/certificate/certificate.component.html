@@ -1,0 +1,17 @@
+<div class="certificate-ctn" *ngIf="certificate">
+  <img src="../../../assets/images/certificate.png" draggable="false" />
+
+  <div class="name">{{ certificate.user.username.toUpperCase() }}</div>
+  <div class="course">
+    for completed "<b>{{ certificate.course.title }}</b
+    >"
+  </div>
+
+  <div class="certificate-sign">
+    <div>ISSUED DATE: {{ formatIssuedDate(certificate.createdAt) }}</div>
+    <div>CERTIFICATE ID: {{ certificate.id }}</div>
+    <div>
+      CERTIFICATE URL: https://edu-quest-webui.vercel.app/c/{{ certificate.id }}
+    </div>
+  </div>
+</div>

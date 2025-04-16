@@ -20,7 +20,7 @@ import { Subscription } from 'rxjs';
 import { faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { CoursesService } from '../../../core/services/courses.service';
-import { ILCourseObject } from '@/src/app/shared/interfaces/learning-path.interfaces';
+
 @Component({
   selector: 'app-path-course-item',
   templateUrl: './path-course-item.component.html',
@@ -52,7 +52,6 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
     private wishlist: WishlistService,
     private router: Router,
     private coupon: CouponService,
-    private courseService: CoursesService
   ) {}
 
   ngOnInit() {

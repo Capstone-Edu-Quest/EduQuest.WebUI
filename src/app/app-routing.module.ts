@@ -57,6 +57,7 @@ import { SignupComponent } from './pages/auth/signup/signup.component';
 import { PersonalSettingsComponent } from './pages/personal-settings/personal-settings.component';
 import { ManagePasswordComponent } from './pages/personal-settings/manage-password/manage-password.component';
 import { ViewCourseScreenComponent } from './pages/view-course-screen/view-course-screen.component';
+import { CertificatePageComponent } from './pages/certificate-page/certificate-page.component';
 
 const routes: Routes = [
   {
@@ -250,6 +251,15 @@ const routes: Routes = [
     component: CartComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: { allowedRoles: [WebRole.LEARNER] },
+  },
+  {
+    path: 'c',
+    children: [
+      {
+        path: ':certificateId',
+        component: CertificatePageComponent
+      }
+    ]
   },
   {
     path: 'wishlist',

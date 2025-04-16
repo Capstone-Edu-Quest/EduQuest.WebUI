@@ -1,5 +1,7 @@
 import { TemplateRef } from '@angular/core';
 import { SubscribtionNameEnum } from '../enums/others.enum';
+import { ICourseOverview } from './course.interfaces';
+import { IUser } from './user.interfaces';
 
 export interface IMessage {
   id?: string;
@@ -13,7 +15,7 @@ export interface INotification {
   id?: string;
   receiverId: string;
   url: string;
-  time: string;
+  timestamp: string;
   content: string; // MESSAGE CODE
   value?: any[];
 }
@@ -209,4 +211,29 @@ export interface IUpdateShopItem {
     name: string;
     price: number;
   }[];
+}
+
+export interface ICertificateReq {
+  Id?: string;
+  UserId?: string;
+  CourseId?: string;
+}
+
+export interface ICertificateRes {
+  course: {
+    id: string;
+    title: string;
+    description: string;
+    isPublic: boolean;
+    photoUrl: string;
+    createdBy: string;
+    price?: number;
+    rating?: number;
+    totalLesson?: number;
+    totalTime?: number;
+    totalReview?: number;
+  };
+  user: IUser;
+  id: string;
+  createdAt: string
 }
