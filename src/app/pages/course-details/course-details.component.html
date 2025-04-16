@@ -12,14 +12,14 @@
       >
         ({{
           "LABEL.REVIEWS_COUNT"
-            | translate : { value: courseDetails.totalReview }
+            | translate : { value: courseDetails.totalReview || 0 }
         }})
       </a>
       <div>·</div>
       <div>
         {{
           "LABEL.LEANERS_COUNT"
-            | translate : { value: courseDetails.totalLearner }
+            | translate : { value: courseDetails.totalLearner || 0 }
         }}
       </div>
     </div>
@@ -85,7 +85,7 @@
         <i nz-icon nzType="{{ authorStatsIcon[2] }}"></i>
         {{
           "LABEL.TOTAL_REVIEWS_STATS"
-            | translate : { value: courseDetails.author.totalReview }
+            | translate : { value: courseDetails.author.totalReview || 0 }
         }}
       </div>
       <div class="stat">
@@ -260,7 +260,7 @@
         {{ "LABEL.NO_LEARNING_PATH" | translate }}
       </div>
       <div *ngFor="let path of myLearningPaths" (click)="onAddCourseTolearningPath(path.id)" style="display: flex; justify-content: space-between; align-items: center;">
-        <div style="font-size: 12px; cursor: pointer;">{{ path.name }} ({{'LABEL.COURSES_COUNT' | translate:{value: path.totalCourses} }})</div>
+        <div style="font-size: 12px; cursor: pointer;">{{ path?.name ?? '' }} ({{'LABEL.COURSES_COUNT' | translate:{value: path?.totalCourses ?? 0} }})</div>
         <i style="font-size: 10px; color: var(--secondary-text)" *ngIf="isCourseExistedInPath(path.id)">{{'LABEL.ADDED' | translate}}</i>
       </div>
     </div>
