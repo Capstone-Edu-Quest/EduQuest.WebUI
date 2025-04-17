@@ -23,7 +23,7 @@ export class AchievementCardComponent implements OnInit {
 
   ngOnInit() {
     if (this.achievement) {
-      const time = new Date(this.achievement.dueDate as string)
+      const time = new Date(this.achievement.completeDate as string)
         .toLocaleDateString()
         .split('/');
       this.rewardedTime = {
