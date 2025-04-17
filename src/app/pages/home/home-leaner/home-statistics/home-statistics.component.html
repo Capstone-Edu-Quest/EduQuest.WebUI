@@ -54,7 +54,23 @@
               {{ quest.quest | translate : quest.questValue }}
             </div>
           </div>
-          <div class="progress">{{ quest.current }}/{{ quest.max }}</div>
+          <div
+            *ngIf="quest?.isCompleted"
+            (click)="onClaimReward(quest.id)"
+            style="
+              text-align: center;
+              color: var(--brand-light);
+              cursor: pointer;
+            "
+          >
+            <fa-icon [icon]="starIcon"></fa-icon>
+            <div style="font-size: 10px; margin-top: 3px">
+              {{ "LABEL.CLAIM" | translate }}
+            </div>
+          </div>
+          <div *ngIf="!quest?.isCompleted" class="progress">
+            {{ quest.current }}/{{ quest.max }}
+          </div>
         </div>
       </div>
     </div>

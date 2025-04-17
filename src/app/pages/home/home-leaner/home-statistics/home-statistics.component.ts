@@ -11,6 +11,7 @@ import {
   faCoins,
   faPlus,
   faShop,
+  faStar,
 } from '@fortawesome/free-solid-svg-icons';
 import { ModalService } from '../../../../core/services/modal.service';
 import { Subscription } from 'rxjs';
@@ -18,6 +19,9 @@ import { IUser } from '../../../../shared/interfaces/user.interfaces';
 import { UserService } from '../../../../core/services/user.service';
 import { QuestsService } from '../../../../core/services/quests.service';
 import { QuestTypeEnum } from '@/src/app/shared/enums/others.enum';
+import { TranslateService } from '@ngx-translate/core';
+import { MessageService } from '@/src/app/core/services/message.service';
+import { IRewardedQuestRes } from '@/src/app/shared/interfaces/quests.interface';
 @Component({
   selector: 'app-home-statistics',
   templateUrl: './home-statistics.component.html',
@@ -38,6 +42,7 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
   addIcon = faPlus;
   shopIcon = faShop;
   boxIcon = faBoxOpen;
+  starIcon = faStar;
 
   statistics = [
     // {
@@ -62,7 +67,8 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
     },
   ];
   constructor(
-    private modal: ModalService,
+    private translate: TranslateService,
+    private message: MessageService,
     private userService: UserService,
     private quests: QuestsService
   ) {}
@@ -102,21 +108,75 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
       this.quests.userQuests$.subscribe((quests) => {
         this.dailyQuests = [];
         quests.forEach((quest) => {
-          if (quest.type === QuestTypeEnum.DAILY) {
+          if (quest.type === QuestTypeEnum.DAILY && !quest.isRewardClaimed) {
             let questValue = {};
             quest.questValue.forEach((q, idx) => {
               questValue = { ...questValue, [`${idx}`]: q };
             });
             this.dailyQuests.push({
+              id: quest.id,
               quest: this.quests.getMissionLabel(quest.questType),
               questValue,
               current: quest.currentPoint,
               max: quest.pointToComplete,
+              isCompleted: quest.isCompleted,
+              isRewardClaimed: quest.isRewardClaimed,
             });
           }
         });
       })
     );
+  }
+
+  parseQuestReward(r: IRewardedQuestRes): string {
+    return [
+      r.expAdded > 0 && `${r.expAdded} exp`,
+      r.goldAdded > 0 && `${r.goldAdded} gold`,
+      r.coupon && `Coupon: ${r.coupon}`,
+      r.boosterAdded && `Booster: ${r.boosterAdded}`,
+    ]
+      .filter(Boolean)
+      .join(', ');
+  }
+
+  onClaimReward(id: string) {
+    this.quests.onClaimQuest(id).subscribe((res) => {
+      if (!res?.payload) {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.FAILED_REWARD_QUEST')
+        );
+        return;
+      }
+
+      this.dailyQuests = this.dailyQuests.filter((q) => q.id !== id);
+      this.message.addMessage(
+        'success',
+        this.translate.instant('MESSAGE.SUCCESS_REWARD_QUEST', {
+          value: this.parseQuestReward(res.payload),
+        })
+      );
+
+      if (this.user) {
+        this.userService.updateUser({
+          ...this.user,
+          statistic: res.payload.statistic,
+          mascotItem: res.payload.mascotItem
+        });
+      }
+
+      this.quests.updateQuestsList(
+        this.quests.userQuests$.value.map((q) => {
+          if (q.id === id) {
+            return {
+              ...q,
+              isRewardClaimed: true,
+            };
+          }
+          return q;
+        })
+      );
+    });
   }
 
   ngOnDestroy() {

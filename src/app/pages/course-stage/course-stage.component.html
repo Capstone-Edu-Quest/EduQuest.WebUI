@@ -49,7 +49,7 @@
     </div>
     <div
       class="btn next"
-      *ngIf="currentLesson < totalLessons"
+      *ngIf="currentLesson < totalLessons - 1"
       (click)="updateCurrentStage(1)"
     >
       <div class="content">{{ "LABEL.NEXT_STAGE" | translate }}</div>

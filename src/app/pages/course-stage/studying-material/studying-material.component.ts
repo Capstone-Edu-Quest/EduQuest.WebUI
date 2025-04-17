@@ -345,6 +345,21 @@ export class StudyingMaterialComponent implements OnInit {
 
   triggerFinish() {
     const mId = this.viewingMaterial?.id;
+
+    this.countdown = 0;
+    this.isQuizStarted = false;
+    clearInterval(this.countdownInterval);
+    this.isNoTimeLimit = false;
+
+    this.videoDuration = 0;
+    this.isUpdatedStatus = false;
+
+    this.quizResult = null;
+
+    this.assignmentContent = '';
+    this.answeredAssignment = null;
+
+    this.isFinished = false;
     this.onFinish.emit(mId);
   }
 }

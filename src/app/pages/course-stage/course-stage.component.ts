@@ -5,7 +5,14 @@ import {
   IMaterialOverview,
   IStageMission,
 } from '../../shared/interfaces/course.interfaces';
-import { AfterViewInit, Component, Input, TemplateRef, ViewChild, type OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  Input,
+  TemplateRef,
+  ViewChild,
+  type OnInit,
+} from '@angular/core';
 import {
   faCheck,
   faChevronLeft,
@@ -24,6 +31,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { CoursesService } from '../../core/services/courses.service';
 import { copyToClipboard } from '../../core/utils/data.utils';
 import { ModalService } from '../../core/services/modal.service';
+import { UserService } from '../../core/services/user.service';
+import {
+  ICertificateReq,
+  ICertificateRes,
+} from '../../shared/interfaces/others.interfaces';
+import { MessageService } from '../../core/services/message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-course-stage',
@@ -58,7 +72,10 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private course: CoursesService,
     private router: Router,
-    private modal: ModalService
+    private modal: ModalService,
+    private user: UserService,
+    private message: MessageService,
+    private translate: TranslateService
   ) {}
 
   ngAfterViewInit(): void {
@@ -67,14 +84,14 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
         icon: faInfoCircle,
         label: 'LABEL.VIEW_INFO',
         action: (e: Event) => {
-          this.modal.updateModalContent(this.courseInfoRef)
+          this.modal.updateModalContent(this.courseInfoRef);
         },
       },
       {
         icon: faStar,
         label: 'LABEL.REVIEW',
         action: (e: Event) => {
-          this.modal.updateModalContent(this.courseReviewsRef)
+          this.modal.updateModalContent(this.courseReviewsRef);
         },
       },
       {
@@ -220,20 +237,22 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
           this.courseDetails.listLesson[i].materials[z].status =
             MissionStatus.DONE;
 
-          if (this.courseDetails.listLesson[i].materials[z + 1]?.id) {
+          if (this.courseDetails.listLesson[i]?.materials[z + 1]?.id) {
+            console.log(1);
             nextLessonIndex = i + 1;
             nextMaterialId =
-              this.courseDetails.listLesson[i].materials[z + 1]?.id;
+              this.courseDetails.listLesson[i]?.materials[z + 1]?.id;
             this.courseDetails.listLesson[i].materials[z + 1].status =
               MissionStatus.CURRENT;
             break;
           }
 
-          if (this.courseDetails.listLesson[i + 1]?.materials[0]?.id) {
-            nextLessonIndex = i + 2;
+          if (this.courseDetails.listLesson[i + 1]?.materials[z]?.id) {
+            console.log(2);
+            nextLessonIndex = i + 1;
             nextMaterialId =
-              this.courseDetails.listLesson[i + 1]?.materials[0]?.id;
-            this.courseDetails.listLesson[i + 1].materials[0].status =
+              this.courseDetails.listLesson[nextLessonIndex].materials[z]?.id;
+            this.courseDetails.listLesson[nextLessonIndex].materials[z].status =
               MissionStatus.CURRENT;
             break;
           }
@@ -242,7 +261,28 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
     }
 
     if (nextLessonIndex === -1 || !nextMaterialId) {
-      console.log('no next lesson');
+      this.viewingMaterial = null;
+      this.router.navigate([]);
+
+      if (!this.user.user$.value) return;
+
+      const params: ICertificateReq = {
+        CourseId: this.courseDetails.id,
+        UserId: this.user.user$.value.id,
+      };
+
+      this.user.getCertificate(params).subscribe((res) => {
+        this.message.addMessage(
+          'success',
+          this.translate.instant('MESSAGE.COMPLETED_COURSE')
+        );
+        if (res?.payload) {
+          this.router.navigate(['/c', res.payload[0].id]);
+        } else {
+          this.router.navigate([]);
+        }
+      });
+      console.log('no next lesson, finished course');
       return;
     }
 

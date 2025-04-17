@@ -14,12 +14,16 @@
     [(ngModel)]="feedbackContent"
     class="review-input"
     rows="3"
+    [placeholder]="'LABEL.REVIEWS' | translate"
   ></textarea>
 
   <div *ngIf="isEdit" style="display: flex; gap: 8px">
-    <app-button *ngIf="isEdit" [ngStyle]="{ width: '50%' }" (click)="onCancel()">{{
-      "BUTTON.CANCEL" | translate
-    }}</app-button>
+    <app-button
+      *ngIf="isEdit"
+      [ngStyle]="{ width: '50%' }"
+      (click)="onCancel()"
+      >{{ "BUTTON.CANCEL" | translate }}</app-button
+    >
     <app-button
       [ngStyle]="{ width: '50%' }"
       type="primary"
@@ -39,7 +43,11 @@
     <app-review-item [review]="myReview" [bg]="'tertiary-bg'"></app-review-item>
     <div class="btn-ctn">
       <fa-icon [icon]="editIcon" (click)="isEdit = true"></fa-icon>
-      <fa-icon [icon]="deleteIcon" style="color: var(--alert)" (click)="onDelete()"></fa-icon>
+      <fa-icon
+        [icon]="deleteIcon"
+        style="color: var(--alert)"
+        (click)="onDelete()"
+      ></fa-icon>
     </div>
   </div>
   }

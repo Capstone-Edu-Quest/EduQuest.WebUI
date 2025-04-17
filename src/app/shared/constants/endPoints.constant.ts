@@ -75,6 +75,7 @@ export const endPoints = {
 
   quest: 'quest',
   getQuestOfUser: 'quest/user',
+  rewardQuest: 'quest/learner/claim',
 
   checkout: 'payment/checkout',
   refund: 'payment/refund',

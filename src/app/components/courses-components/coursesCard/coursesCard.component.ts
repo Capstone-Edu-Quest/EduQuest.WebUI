@@ -1,4 +1,11 @@
-import { Component, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  Input,
+  OnDestroy,
+  OnInit,
+  ViewChild,
+} from '@angular/core';
 import {
   ICourse,
   ICourseCart,
@@ -11,6 +18,10 @@ import { Subscription } from 'rxjs';
 import { WishlistService } from '../../../core/services/wishlist.service';
 import { Router } from '@angular/router';
 import { CouponService } from '../../../core/services/coupon.service';
+import { UserService } from '@/src/app/core/services/user.service';
+import { ICertificateReq } from '@/src/app/shared/interfaces/others.interfaces';
+import { MessageService } from '@/src/app/core/services/message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-coursesCard',
@@ -36,7 +47,13 @@ export class CoursesCardComponent implements OnInit, OnDestroy {
 
   discountAmount: number = 0;
 
-  constructor(private cart: CartService, private wishlist: WishlistService, private router: Router, private coupon: CouponService) {}
+  constructor(
+    private cart: CartService,
+    private wishlist: WishlistService,
+    private router: Router,
+    private coupon: CouponService,
+    private user: UserService
+  ) {}
 
   ngOnInit() {
     this.initStars();
@@ -69,9 +86,11 @@ export class CoursesCardComponent implements OnInit, OnDestroy {
 
   listenToWishList() {
     this.subscription$.add(
-      this.wishlist.wishlist$.subscribe((wishlist: (ICourse | ICourseOverview)[]) => {
-        this.isInWishlist = wishlist.some((c) => c.id === this.course?.id);
-      })
+      this.wishlist.wishlist$.subscribe(
+        (wishlist: (ICourse | ICourseOverview)[]) => {
+          this.isInWishlist = wishlist.some((c) => c.id === this.course?.id);
+        }
+      )
     );
   }
 
@@ -85,7 +104,7 @@ export class CoursesCardComponent implements OnInit, OnDestroy {
 
   onAddToCart(event: Event) {
     event.stopPropagation();
-    if(this.isInCart) {
+    if (this.isInCart) {
       this.goToCart();
       return;
     }
@@ -109,11 +128,30 @@ export class CoursesCardComponent implements OnInit, OnDestroy {
 
   viewCourseDetails() {
     if (!this.course) return;
-    this.router.navigate([this.isStaffView ? '/courses-manage/explore' : '/courses', this.course.id]);
+    this.router.navigate([
+      this.isStaffView ? '/courses-manage/explore' : '/courses',
+      this.course.id,
+    ]);
   }
 
   round(val: number) {
-    return val.toFixed(2)
+    return val.toFixed(2);
+  }
+
+  onViewCertificate(event: Event) {
+    if (this.course?.progressPercentage === 100 && this.user.user$.value) {
+      event.stopPropagation();
+
+      const params: ICertificateReq = {
+        CourseId: this.course.id,
+        UserId: this.user.user$.value.id,
+      };
+
+      this.user.getCertificate(params).subscribe((res) => {
+        if (!res?.payload) return;
+        this.router.navigate(['/c', res.payload[0].id]);
+      });
+    }
   }
 
   ngOnDestroy(): void {

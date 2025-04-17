@@ -19,6 +19,8 @@ export class AchievementCardComponent implements OnInit {
     year: '',
   };
 
+  questValue = {};
+
   ngOnInit() {
     if (this.achievement) {
       const time = new Date(this.achievement.dueDate as string)
@@ -29,15 +31,16 @@ export class AchievementCardComponent implements OnInit {
         month: Number(time[1]) < 10 ? `0${time[1]}` : time[1],
         year: Number(time[2]) < 10 ? `0${time[2]}` : time[2],
       };
+
+      this.achievement.questValue?.forEach((q, idx) => {
+        this.questValue = { ...this.questValue, [`${idx}`]: q };
+      });
     }
   }
 
   getQuestLabel() {
     if (!this.achievement) return '';
-    
+
     return this.QuestsService.getMissionLabel(this.achievement.questType);
   }
-
-  // quest: this.quests.getMissionLabel(quest.questType),
-  //             questValue
 }

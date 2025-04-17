@@ -622,9 +622,14 @@
     "VIEW_INFO": "View info",
     "REFUND": "Refund",
     "NO_REVIEW": "Found no review",
+    "CLAIM": "Claim",
     "CERTIFICATE_TITLE": "This certificate above verifies that {{userName}} has successfully completed the {{courseName}} on {{issuedDate}} on Edu Quest. The certificate indicates the entire course was completed as validated by the student. The course duration represents the total video hours of the course at time of most recent completion."
   },
   "MESSAGE": {
+    "FAILED_REWARD_QUEST": "Failed to reward quest, please try again later",
+    "SUCCESS_REWARD_QUEST": "Successfully rewarded quest ({{value}})",
+    "COMPLETED_COURSE": "Congratulations, you have finished this course and rewarded a certificate",
+    "SUBMITTED_SUCCESSFULLY": "Submitted successfully",
     "ASSIGNED_SUCCESSFULLY": "Assigned successfully",
     "SENT_APPROVAL_SUCCESSFULLY": "Created approval request successfully, waiting for approval...",
     "INVALID_COUPON": "Invalid coupon",

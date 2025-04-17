@@ -9,7 +9,7 @@ import { IQuestOfUser } from '@/src/app/shared/interfaces/quests.interface';
 })
 export class AchievementsListComponent implements OnInit {
   @Input('achievements') achievements: IQuestOfUser[] = [];
-  @Input('appearPerRow') appearPerRow: number = 4;
+  @Input('appearPerRow') appearPerRow: number = 3;
   currentViewIndex: number = 0;
 
   constructor() {}

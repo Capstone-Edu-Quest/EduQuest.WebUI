@@ -23,7 +23,7 @@ export class HomeAchievementsComponent implements OnInit, OnDestroy {
   listenToQuest() {
     this.subscription$.add(
       this.quest.userQuests$.subscribe((quests) => {
-        this.achievements = quests.filter((q) => q.isCompleted);
+        this.achievements = quests.filter((q) => q.isRewardClaimed);
       })
     );
   }

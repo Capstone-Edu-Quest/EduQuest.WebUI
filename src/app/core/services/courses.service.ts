@@ -91,7 +91,7 @@ export class CoursesService {
   }
 
   onSendCourseReview(param: IReviewParams) {
-    return this.http.post<IReview>(endPoints.review, param);
+    return this.http.post<IReview>(endPoints.review + `?userId=${this.user.user$.value?.id}`, param);
   }
 
   onUpdateCourseReview(reviewId: string, param: IReviewParams) {
@@ -102,7 +102,7 @@ export class CoursesService {
   }
 
   onDeleteCourseReview(reviewId: string) {
-    return this.http.delete<any>(endPoints.review + `?feedbackId=${reviewId}`);
+    return this.http.delete<any>(endPoints.review + `?feedbackId=${reviewId}&userId=${this.user.user$.value?.id}`);
   }
 
   onGetMaterialIcon(materialType: materialType | MaterialTypeEnum) {

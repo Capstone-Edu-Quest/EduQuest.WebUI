@@ -175,7 +175,22 @@ export class MinifyCourseReviewComponent implements OnInit {
     this.courseService
       .onDeleteCourseReview(this.myReview?.id)
       .subscribe((res) => {
-        console.log(res);
+        if (!res?.payload) {
+          this.message.addMessage(
+            'error',
+            this.translate.instant('MESSAGE.DELETED_FAIL')
+          );
+          return;
+        }
+
+        this.message.addMessage(
+          'success',
+          this.translate.instant('MESSAGE.DELETED_SUCCESSFULLY')
+        );
+        this.myReview = null;
+        this.currentStars = 0;
+        this.feedbackContent = '';
+        this.initStars();
       });
   }
 }

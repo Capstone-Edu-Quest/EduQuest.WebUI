@@ -14,6 +14,7 @@ import {
   IQuest,
   IQuestOfUser,
   IQuestOfUserQuery,
+  IRewardedQuestRes,
 } from '../../shared/interfaces/quests.interface';
 import { UserService } from './user.service';
 import { WebRole } from '../../shared/enums/user.enum';
@@ -34,6 +35,10 @@ export class QuestsService {
 
   getQuestsForManage() {
     return this.http.get<IQuest[]>(endPoints.quest + '?pageNo=1&eachPage=100')
+  }
+
+  updateQuestsList(quests: IQuestOfUser[]) {
+    this.userQuests$.next(quests);
   }
 
   initUserQuest() {
@@ -73,6 +78,10 @@ export class QuestsService {
       default:
         return '';
     }
+  }
+
+  onClaimQuest(questId: string) {
+    return this.http.post<IRewardedQuestRes>(endPoints.rewardQuest + `?userQuestId=${questId}`, {})
   }
 
   getBoosterLabel(booster: BoosterEnum) {
