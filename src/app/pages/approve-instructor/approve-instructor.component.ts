@@ -16,6 +16,8 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { ModalService } from '../../core/services/modal.service';
 import { PlatformService } from '../../core/services/platform.service';
+import { TranslateService } from '@ngx-translate/core';
+import { MessageService } from '../../core/services/message.service';
 
 @Component({
   selector: 'app-approve-instructor',
@@ -36,7 +38,12 @@ export class ApproveInstructorComponent implements OnInit, AfterViewInit {
   rejectIcon = faClose;
   exploreIcon = faUpRightFromSquare;
 
-  constructor(private modal: ModalService, private platform: PlatformService) {}
+  constructor(
+    private modal: ModalService,
+    private platform: PlatformService,
+    private message: MessageService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
     this.initInstructorsList();
@@ -91,7 +98,19 @@ export class ApproveInstructorComponent implements OnInit, AfterViewInit {
     this.platform
       .onUpdateInstructorStatus(row.id, isAccept)
       .subscribe((res) => {
-        console.log(res);
+        if (!res?.payload) {
+          this.message.addMessage(
+            'error',
+            this.translate.instant('MESSAGE.UPDATED_FAIL')
+          );
+          return;
+        }
+
+        this.message.addMessage(
+          'success',
+          this.translate.instant('MESSAGE.UPDATED_SUCCESSFULLY')
+        );
+        this.initInstructorsList();
       });
   }
 }

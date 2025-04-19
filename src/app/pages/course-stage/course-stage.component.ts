@@ -32,10 +32,7 @@ import { CoursesService } from '../../core/services/courses.service';
 import { copyToClipboard } from '../../core/utils/data.utils';
 import { ModalService } from '../../core/services/modal.service';
 import { UserService } from '../../core/services/user.service';
-import {
-  ICertificateReq,
-  ICertificateRes,
-} from '../../shared/interfaces/others.interfaces';
+import { ICertificateReq } from '../../shared/interfaces/others.interfaces';
 import { MessageService } from '../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
 import { PaymentService } from '../../core/services/payment.service';
@@ -225,45 +222,49 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
     this.router.navigate([], { queryParams: { materialId: material.id } });
   }
 
-  onNextMaterial(currentMaterialId: string) {
+  onNextMaterial(isNext: boolean) {
+    const currentMaterialId = this.viewingMaterial?.id;
+    if (!currentMaterialId) return;
+
     let nextLessonIndex = -1,
       nextMaterialId = null;
 
-    for (let i = 0; i < this.courseDetails.listLesson.length; i++) {
-      for (
-        let z = 0;
-        z < this.courseDetails.listLesson[i].materials.length;
-        z++
-      ) {
-        const materials = this.courseDetails.listLesson[i].materials[z];
-        if (materials.id === currentMaterialId) {
-          this.courseDetails.listLesson[i].materials[z].status =
-            MissionStatus.DONE;
+    const currentLesson = this.courseDetails.listLesson[this.currentLesson];
+    const currentMaterialIndex = currentLesson.materials.findIndex(
+      (m) => m.id === currentMaterialId
+    );
 
-          if (this.courseDetails.listLesson[i]?.materials[z + 1]?.id) {
-            console.log(1);
-            nextLessonIndex = i + 1;
-            nextMaterialId =
-              this.courseDetails.listLesson[i]?.materials[z + 1]?.id;
-            this.courseDetails.listLesson[i].materials[z + 1].status =
-              MissionStatus.CURRENT;
-            break;
-          }
+    this.courseDetails.listLesson[this.currentLesson].materials[currentMaterialIndex].status = MissionStatus.DONE;
+    console.log(this.courseDetails.listLesson[this.currentLesson])
 
-          if (this.courseDetails.listLesson[i + 1]?.materials[z]?.id) {
-            console.log(2);
-            nextLessonIndex = i + 1;
-            nextMaterialId =
-              this.courseDetails.listLesson[nextLessonIndex].materials[z]?.id;
-            this.courseDetails.listLesson[nextLessonIndex].materials[z].status =
-              MissionStatus.CURRENT;
-            break;
-          }
+    // Last material in lesson
+    if (currentMaterialIndex === currentLesson.materials.length - 1) {
+      const nextLesson = this.courseDetails.listLesson[this.currentLesson + 1];
+      const nextMaterial = nextLesson?.materials[0];
+
+      if (nextLesson && nextMaterial) {
+        nextLessonIndex = nextLesson.index;
+        nextMaterialId = nextMaterial.id;
+
+        if (nextMaterial.status === MissionStatus.LOCKED) {
+          this.courseDetails.listLesson[
+            this.currentLesson + 1
+          ].materials[0].status = MissionStatus.CURRENT;
         }
+      } else {
+        nextLessonIndex = -1;
+        nextMaterialId = null;
+      }
+    } else {
+      nextLessonIndex = currentLesson.index;
+      nextMaterialId = currentLesson.materials[currentMaterialIndex + 1].id;
+
+      if (currentLesson.materials[currentMaterialIndex + 1].status === MissionStatus.LOCKED) {
+        currentLesson.materials[currentMaterialIndex + 1].status = MissionStatus.CURRENT;
       }
     }
 
-    if (nextLessonIndex === -1 || !nextMaterialId) {
+    if ((nextLessonIndex === -1 || !nextMaterialId) && isNext) {
       this.viewingMaterial = null;
       this.router.navigate([]);
 
@@ -285,13 +286,15 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
           this.router.navigate([]);
         }
       });
-      console.log('no next lesson, finished course');
       return;
     }
 
-    this.currentLesson = nextLessonIndex;
-    this.router.navigate([], { queryParams: { materialId: nextMaterialId } });
     this.initMaterials();
+    if (isNext) {
+      this.currentLesson = nextLessonIndex;
+      this.initMaterials();
+      this.router.navigate([], { queryParams: { materialId: nextMaterialId } });
+    }
   }
 
   onRefund() {

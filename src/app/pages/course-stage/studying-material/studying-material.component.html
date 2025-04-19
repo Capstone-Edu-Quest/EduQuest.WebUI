@@ -18,12 +18,12 @@
   ></app-video>
 
   <div class="material-name">{{ viewingMaterial.title }}</div>
-  <div class="material-description">{{ viewingMaterial.description }}</div>
+  <div class="material-description" style="margin-bottom: 15px">{{ viewingMaterial.description }}</div>
 
   <app-button
     [style]="{ width: '100%' }"
     type="primary"
-    (click)="onBack()"
+    (click)="triggerFinish()"
     *ngIf="isFinished"
     >{{ "BUTTON.CONTINUE" | translate }}</app-button
   >
@@ -49,7 +49,7 @@
   <app-button
     [style]="{ width: '100%' }"
     type="primary"
-    (click)="onBack()"
+    (click)="triggerFinish()"
     *ngIf="isFinished"
     >{{ "BUTTON.CONTINUE" | translate }}</app-button
   >
@@ -72,8 +72,9 @@
   <div class="quiz-infos">
     <div class="info-title">{{ "LABEL.RESULT" | translate }}:</div>
     <div style="color: var(--primary-text); font-size: 13px">
-      - {{ "LABEL.CORRECT" | translate }}: {{ quizResult.correctAnswers }}
-      ({{ quizResult.percentage }}%)
+      - {{ "LABEL.CORRECT" | translate }}: {{ quizResult.correctAnswers }} ({{
+        quizResult.percentage
+      }}%)
     </div>
     <div style="font-size: 13px; color: var(--primary-text)">
       - {{ "LABEL.STATUS" | translate }}:
@@ -92,10 +93,9 @@
       {{ "SIGNATURE.MINUTES" | translate : { value: quizResult.totalTime } }}
     </div>
     <app-button
-      (click)="onStartQuiz()"
+      (click)="quizResult.isPassed ? onTriggerFinishQuiz() : onStartQuiz()"
       [style]="{ width: '100%' }"
       type="primary"
-      (click)="onTriggerFinishQuiz()"
       >{{
         (!quizResult.isPassed ? "BUTTON.RETRY" : "BUTTON.CONTINUE") | translate
       }}</app-button

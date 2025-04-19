@@ -640,7 +640,8 @@
     "INSTRUCTOR_APPROVEL": "Instructors approvel",
     "INFORMATIONS": "Informations",
     "CHANGE_INFORMATIONS": "Change informations",
-    "BUY_COURSE_SUCCESSFULLY": "Purchased course '{{item}}' successfully"
+    "BUY_COURSE_SUCCESSFULLY": "Purchased course '{{item}}' successfully",
+    "BECOME_INSTRUCTOR_APPROVED": "Your instructor application have been approved"
   },
   "MESSAGE": {
     "INVALID_NAME": "Invalid name",

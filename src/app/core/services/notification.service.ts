@@ -54,7 +54,8 @@ export class NotificationService {
       Object.keys(notifications).forEach((key) => {
         notificationsList.push({
           id: key,
-          ...notifications[key]
+          ...notifications[key],
+          content: `LABEL.${notifications[key].content}`
         })
       })
 

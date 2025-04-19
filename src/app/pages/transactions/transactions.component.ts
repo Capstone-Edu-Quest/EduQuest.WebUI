@@ -97,7 +97,10 @@ export class TransactionsComponent implements OnInit, AfterViewInit {
           return;
         }
 
-        this.transactions = res.payload;
+        this.transactions = res.payload.sort(
+          (a, b) =>
+            new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        );
         this.isReady = true;
       });
   }

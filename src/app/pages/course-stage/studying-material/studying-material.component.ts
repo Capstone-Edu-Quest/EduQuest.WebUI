@@ -32,8 +32,8 @@ import { UserService } from '@/src/app/core/services/user.service';
 export class StudyingMaterialComponent implements OnInit {
   @Input('courseDetails') courseDetails!: ICourse;
   @Input('viewingMaterial') viewingMaterial: ILearningMaterial | null = null;
-  @Output('onFinish') onFinish: EventEmitter<string> =
-    new EventEmitter<string>();
+  @Output('onFinish') onFinish: EventEmitter<boolean> =
+    new EventEmitter<boolean>();
 
   quizAnswersId: { questionId: string; answerId: string }[] = [];
 
@@ -232,7 +232,6 @@ export class StudyingMaterialComponent implements OnInit {
   }
 
   trackVideoProgress(time: number) {
-    this.isFinished = true;
     if (this.viewingMaterial?.status === MissionStatus.DONE) return;
     if (time / this.videoDuration <= 0.8 || this.isUpdatedStatus) return;
 
@@ -243,13 +242,12 @@ export class StudyingMaterialComponent implements OnInit {
     this.user
       .updateUserLearningProgress(this.viewingMaterial.id, lessonId, null)
       .subscribe((res) => {
-        this.triggerFinish();
         this.isFinished = true;
+        this.onFinish.emit(false);
       });
   }
 
   trackDocumentProgress() {
-    this.isFinished = false;
     const materialId = this.viewingMaterial?.id;
     const lessonId = this.getLessonIdByMaterialId();
 
@@ -258,15 +256,15 @@ export class StudyingMaterialComponent implements OnInit {
     const currMaterial = arr.find((m) => m.id === this.viewingMaterial?.id);
 
     if (
-      currMaterial?.status === MissionStatus.DONE ||
       (this.viewingMaterial?.type as any) !== 'Document' ||
       !materialId ||
       !lessonId
     )
       return;
 
-    this.countdown = 40;
+    this.countdown = 30;
     this.countdownInterval = setInterval(() => {
+      console.log(this.countdown)
       this.countdown--;
 
       if (this.countdown === 0) {
@@ -275,7 +273,7 @@ export class StudyingMaterialComponent implements OnInit {
           .updateUserLearningProgress(materialId, lessonId, null)
           .subscribe((res) => {
             this.isFinished = true;
-            this.triggerFinish();
+            this.onFinish.emit(false);
           });
       }
     }, 1000);
@@ -326,7 +324,6 @@ export class StudyingMaterialComponent implements OnInit {
     this.CoursesService.onSubmitAssignment(result, lessonId).subscribe(
       (res) => {
         if (res?.payload) {
-          this.triggerFinish();
         }
       }
     );
@@ -344,8 +341,7 @@ export class StudyingMaterialComponent implements OnInit {
   }
 
   triggerFinish() {
-    const mId = this.viewingMaterial?.id;
-
+    this.isFinished = false;
     this.countdown = 0;
     this.isQuizStarted = false;
     clearInterval(this.countdownInterval);
@@ -360,6 +356,9 @@ export class StudyingMaterialComponent implements OnInit {
     this.answeredAssignment = null;
 
     this.isFinished = false;
-    this.onFinish.emit(mId);
+    this.onFinish.emit(true);
+
+    this.checkIfFinishedAssignment();
+    this.trackDocumentProgress();
   }
 }

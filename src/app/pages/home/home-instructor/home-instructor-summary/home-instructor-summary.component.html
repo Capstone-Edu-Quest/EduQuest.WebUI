@@ -6,7 +6,7 @@
     ></app-avatar-by-name>
     <div class="info">
       <div class="welcome-back text-gradient">
-        {{ "MESSAGE.WELCOME_BACK" | translate : { name: "Khang" } }}
+        {{ "MESSAGE.WELCOME_BACK" | translate : { name: user?.username || '' } }}
       </div>
       <div class="what-new">{{ "LABEL.WHATS_NEW_INSTRUCTOR" | translate }}</div>
     </div>
