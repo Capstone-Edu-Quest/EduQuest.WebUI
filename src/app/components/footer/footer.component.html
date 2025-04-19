@@ -6,7 +6,7 @@
         {{ "LABEL.BECOME_INSTRUCTOR_SUB" | translate }}
       </div>
     </div>
-    <app-button [type]="'primary'">{{
+    <app-button [type]="'primary'" (click)="becomeInstructor()">{{
       "BUTTON.START_TEACHING" | translate
     }}</app-button>
   </div>

@@ -1,9 +1,29 @@
-import { TransactionsStatusEnum } from "../enums/transactions.enum";
+import {
+  TransactionStatusEnum,
+  TransactionTypeEnum,
+} from '../enums/others.enum';
 
 export interface ITransaction {
-    id: string;
-    description: string;
-    time: string;
-    amount: number;
-    status: TransactionsStatusEnum;
+  transactionId: string;
+  userId: string;
+  totalAmount: number;
+  netAmount: number | null;
+  stripeFee: number | null;
+  status: TransactionStatusEnum;
+  type: TransactionTypeEnum;
+  paymentIntentId: string | null;
+  customerEmail: string | null;
+  customerName: string | null;
+  url: string | null;
+  createdAt: string; // ISO date string
+  updatedAt: string; // ISO date string
+  details: any[];
+}
+
+export interface ITransactionFilterParams {
+  TransactionId?: string;
+  UserId?: string;
+  CourseId?: string;
+  Status?: TransactionStatusEnum;
+  Type?: TransactionTypeEnum;
 }

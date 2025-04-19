@@ -44,3 +44,18 @@ export enum PaymentConfigEnum {
     PURCHASED_PRO_MONTHLY = 1,
     PURCHASED_PRO_YEARLY = 2
 }
+
+export enum TransactionStatusEnum{
+    PENDING = "pending",
+    COMPLETED = "completed",
+    FAILED = "failed",
+    EXPIRED = "expired",
+    CANCELLED = "canceled"
+}
+
+export enum TransactionTypeEnum {
+    CART = "checkoutcart",
+    REFUND = "refund",
+    SUBSCRIPTION = "proaccount",
+    TRANSFER = "transfer"
+}

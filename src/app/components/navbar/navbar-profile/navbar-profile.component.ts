@@ -133,7 +133,7 @@ export class NavbarProfileComponent implements OnInit, OnDestroy {
     },
     {
       name: 'LABEL.BECOME_AN_INSTRUCTOR',
-      action: () => this.router.navigate(['/create-course']),
+      action: () => this.becomeInstructor(),
     },
     {
       name: 'LABEL.PRICING',
@@ -233,6 +233,10 @@ export class NavbarProfileComponent implements OnInit, OnDestroy {
 
   onShowLanguageDialog() {
     this.modal.updateModalContent(this.languageTemplate);
+  }
+
+  becomeInstructor() {
+    this.router.navigate(['/become-instructor'])
   }
 
   ngOnDestroy(): void {

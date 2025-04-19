@@ -58,6 +58,7 @@ import { PersonalSettingsComponent } from './pages/personal-settings/personal-se
 import { ManagePasswordComponent } from './pages/personal-settings/manage-password/manage-password.component';
 import { ViewCourseScreenComponent } from './pages/view-course-screen/view-course-screen.component';
 import { CertificatePageComponent } from './pages/certificate-page/certificate-page.component';
+import { BecomeInstructorComponent } from './pages/become-instructor/become-instructor.component';
 
 const routes: Routes = [
   {
@@ -264,6 +265,12 @@ const routes: Routes = [
   {
     path: 'wishlist',
     component: WishlistComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.LEARNER] },
+  },
+  {
+    path: 'become-instructor',
+    component: BecomeInstructorComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: { allowedRoles: [WebRole.LEARNER] },
   },

@@ -2,18 +2,19 @@ import { Injectable } from '@angular/core';
 import { HttpService } from './http.service';
 import { endPoints } from '../../shared/constants/endPoints.constant';
 import {
+  IBecomeInstructorReq,
+  IInstructorApplyRes,
   IPlatformSettingsStats,
   IUpdateShopItem,
 } from '../../shared/interfaces/others.interfaces';
 import { BehaviorSubject } from 'rxjs';
-import {
-  IShopItem,
-  IShopItemEdit,
-} from '../../shared/interfaces/three.interfaces';
+import { IShopItemEdit } from '../../shared/interfaces/three.interfaces';
 import { ILevel } from '../../shared/interfaces/Platform.interface';
 import { UserService } from './user.service';
 import { MessageService } from './message.service';
 import { TranslateService } from '@ngx-translate/core';
+import { onConvertObjectToQueryParams } from '../utils/data.utils';
+import { ITransactionFilterParams } from '../../shared/interfaces/transactions.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -79,5 +80,20 @@ export class PlatformService {
 
   saveLevels(newLevels: ILevel[]) {
     return this.http.update(endPoints.level, newLevels);
+  }
+
+  getAppliedInstructor() {
+    return this.http.get<IInstructorApplyRes[]>(endPoints.getUserByStatus + '?Status=pending')
+  }
+
+  applyBecomeInstructor(param: IBecomeInstructorReq) {
+    const formData = new FormData();
+    Object.entries(param).forEach(([key, value]) => {
+      if (value !== undefined && value !== null) {
+        formData.append(key, value as any);
+      }
+    });
+
+    return this.http.upload(endPoints.applyInstructor, formData);
   }
 }

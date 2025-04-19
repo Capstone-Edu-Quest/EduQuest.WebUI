@@ -4,6 +4,8 @@ import { CouponService } from './coupon.service';
 import { HttpService } from './http.service';
 import { endPoints } from '../../shared/constants/endPoints.constant';
 import { PaymentConfigEnum } from '../../shared/enums/others.enum';
+import { ITransaction, ITransactionFilterParams } from '../../shared/interfaces/transactions.interfaces';
+import { onConvertObjectToQueryParams } from '../utils/data.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -57,6 +59,17 @@ export class PaymentService {
   }
 
   onRefund(courseId: string) {
-    return this.http.post(endPoints.refund, {courseId})
+    return this.http.post(endPoints.refund, { courseId });
+  }
+
+  filterTransaction(param: ITransactionFilterParams) {
+    const query = onConvertObjectToQueryParams(param);
+    return this.http.get<ITransaction[]>(endPoints.transactions + query);
+  }
+
+  getTransactionDetails(trId: string) {
+    return this.http.get(
+      endPoints.transactionDetails + `?transactionId=${trId}`
+    );
   }
 }

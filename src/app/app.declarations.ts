@@ -199,6 +199,7 @@ import { CertificateComponent } from './components/certificate/certificate.compo
 import { CertificatePageComponent } from './pages/certificate-page/certificate-page.component';
 import { MinifyCourseInfoComponent } from './pages/course-stage/minify-course-info/minify-course-info.component';
 import { MinifyCourseReviewComponent } from './pages/course-stage/minify-course-review/minify-course-review.component';
+import { BecomeInstructorComponent } from './pages/become-instructor/become-instructor.component';
 export const AppDeclarations = [
   AppComponent,
   NavbarComponent,
@@ -358,7 +359,8 @@ export const AppDeclarations = [
   CertificatePageComponent,
   StudyingMaterialComponent,
   MinifyCourseInfoComponent,
-  MinifyCourseReviewComponent
+  MinifyCourseReviewComponent,
+  BecomeInstructorComponent
 ];
 export const NGIcons = [
   EnterOutline,

@@ -1,5 +1,4 @@
 import { QuestsService } from './../../../core/services/quests.service';
-import { QuestMissionEnum } from './../../../shared/enums/others.enum';
 import { Component, Input, OnInit } from '@angular/core';
 import { IQuestOfUser } from '@/src/app/shared/interfaces/quests.interface';
 

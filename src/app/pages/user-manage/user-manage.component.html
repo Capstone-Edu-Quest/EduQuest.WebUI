@@ -20,6 +20,18 @@
     </div>
   </div>
 
+  <div style="margin-top: 30px">
+    <div style="margin-bottom: 8px; font-weight: 600; font-size: 13px">
+      {{ "LABEL.APPLIED_INSTRUCTOR" | translate }}
+    </div>
+    <app-table
+      *ngIf="isAppliedInsReady"
+      [columns]="appliedInstructorColumns"
+      [data]="appliedInstructor"
+      (onRowClick)="onViewInstructorRegisterInfo($event)"
+    ></app-table>
+  </div>
+
   <div class="users-list">
     <div class="search-ctn">
       <nz-input-group [nzSuffix]="suffixIconButton" style="width: 50%">
@@ -55,17 +67,49 @@
 </ng-template>
 
 <ng-template #roleManagement let-row="row">
-  <select class="role-manage" (click)="$event.stopPropagation()" >
-    <option *ngFor="let opt of roleOptions" [value]="opt.value" [attr.selected]="row.roleId === opt.value ? true : null">
+  <select class="role-manage" (click)="$event.stopPropagation()">
+    <option
+      *ngFor="let opt of roleOptions"
+      [value]="opt.value"
+      [attr.selected]="row.roleId === opt.value ? true : null"
+    >
       {{ opt.label | translate }}
     </option>
   </select>
 </ng-template>
 
-<!-- 
-    user list, search & filter (package, role) -> table (+Action, export csv)
-    user details page, view user profile page [last time, last study...] (+Action, +Action 2)
+<ng-template #assignToExpert let-row="row">
+  <select
+    style="
+      padding: 3px;
+      background: var(--quaternary-bg);
+      outline: none;
+      border: var(--quaternary-text);
+      border-radius: 5px;
+      color: var(--primary-text);
+      min-width: 120px;
+    "
+    (change)="onAssignExpert($event, row)"
+    [(ngModel)]="row.expertId"
+  >
+    <option></option>
+    <option *ngFor="let expert of expertsList" [value]="expert.id">
+      {{ expert.username }}
+    </option>
+  </select>
+</ng-template>
 
-    Action: Suspend, active user
-    Action 2: Edit info, modify package
- -->
+<ng-template #approval let-row="row">
+  <div class="ref-btns-ctn" style="display: flex; gap: 8px">
+    <fa-icon
+      (click)="onUpdateStatus($event, row, true)"
+      [icon]="acceptIcon"
+      style="color: var(--success); cursor: pointer"
+    ></fa-icon>
+    <fa-icon
+      (click)="onUpdateStatus($event, row, false)"
+      [icon]="rejectIcon"
+      style="color: var(--alert); cursor: pointer"
+    ></fa-icon>
+  </div>
+</ng-template>

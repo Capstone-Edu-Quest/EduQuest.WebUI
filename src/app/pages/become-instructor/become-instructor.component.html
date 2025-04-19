@@ -1,0 +1,79 @@
+<div class="become-instructor">
+  <div class="title text-gradient">
+    {{ "LABEL.REGISTER_INTRUCTOR" | translate }}
+  </div>
+
+  <div class="input-label">{{ "LABEL.HEADLINE" | translate }}</div>
+  <div class="input-label-sub">
+    {{ "LABEL.HEADLINE_SUB" | translate }}
+  </div>
+  <input
+    [(ngModel)]="instructorParam.Headline"
+    class="material-input material-description"
+    [placeholder]="'LABEL.HEADLINE' | translate"
+  />
+
+  <div class="input-label">{{ "LABEL.MATERIAL_DESCRIPTION" | translate }}</div>
+  <div class="input-label-sub">
+    {{ "LABEL.DESCRIPTION_SUB" | translate }}
+  </div>
+  <textarea
+    [(ngModel)]="instructorParam.Description"
+    class="material-input material-description"
+    [placeholder]="'LABEL.MATERIAL_DESCRIPTION' | translate"
+    rows="4"
+  ></textarea>
+
+  <div class="input-label">{{ "LABEL.PHONE" | translate }}</div>
+  <input
+    [(ngModel)]="instructorParam.Phone"
+    class="material-input material-description"
+    [placeholder]="'LABEL.PHONE' | translate"
+  />
+
+  <div class="input-label">{{ "LABEL.CERTIFICATES" | translate }}</div>
+  <div class="input-label-sub">
+    {{ "LABEL.MAX_FILE" | translate : { value: maxFiles } }}
+  </div>
+  <div class="files-list">
+    <div
+      class="file"
+      *ngFor="let file of instructorParam.CertificateFiles; let i = index"
+    >
+      {{ file.name }}
+      <fa-icon [icon]="deleteIcon" (click)="onRemoveFile(i)"></fa-icon>
+    </div>
+  </div>
+  <div class="image-wrapper">
+    <div
+      class="image-drop-zone"
+      [ngClass]="{
+        dragOver: isDragOverInput
+      }"
+      (click)="onClickAddFile()"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+      (drop)="onDrop($event)"
+    >
+      <div class="instruction">
+        <input
+          type="file"
+          (change)="onFileSelected($event)"
+          #fileInput
+          hidden
+          multiple
+        />
+        <fa-icon [icon]="fileIcon"></fa-icon>
+        <label
+          >{{ "LABEL.DROP_CERTIFICATE" | translate }} (.pdf, .jpeg, .png)</label
+        >
+      </div>
+    </div>
+  </div>
+
+  <app-button
+    type="primary"
+    (click)="onSubmit()"
+    >{{ "BUTTON.SUBMIT" | translate }}</app-button
+  >
+</div>

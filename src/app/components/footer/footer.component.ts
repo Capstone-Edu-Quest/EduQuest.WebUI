@@ -12,6 +12,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { IUser } from '../../shared/interfaces/user.interfaces';
 import { WebRole } from '../../shared/enums/user.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-footer',
@@ -42,7 +43,8 @@ export class FooterComponent implements OnInit, OnDestroy {
   constructor(
     private modal: ModalService,
     private translate: TranslateService,
-    private UserService: UserService
+    private UserService: UserService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -52,7 +54,7 @@ export class FooterComponent implements OnInit, OnDestroy {
       })
     );
 
-    // this.listenToUser();
+    this.listenToUser();
   }
 
   listenToUser() {
@@ -73,6 +75,10 @@ export class FooterComponent implements OnInit, OnDestroy {
 
   onShowLanguageDialog() {
     this.modal.updateModalContent(this.language);
+  }
+
+  becomeInstructor() {
+    this.router.navigate(['/become-instructor'])
   }
 
   ngOnDestroy(): void {

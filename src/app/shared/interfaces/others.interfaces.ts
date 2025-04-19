@@ -1,5 +1,5 @@
 import { TemplateRef } from '@angular/core';
-import { SubscribtionNameEnum } from '../enums/others.enum';
+import { SubscribtionNameEnum, TransactionStatusEnum, TransactionTypeEnum } from '../enums/others.enum';
 import { ICourseOverview } from './course.interfaces';
 import { IUser } from './user.interfaces';
 
@@ -237,3 +237,31 @@ export interface ICertificateRes {
   id: string;
   createdAt: string
 }
+
+export interface IBecomeInstructorReq {
+  UserId: string;
+  Headline: string;
+  Description: string;
+  Phone: string;
+  CertificateFiles: File[]
+}
+
+export interface IInstructorApplyRes {
+  id: string;
+  username: string;
+  email: string;
+  phone: string;
+  avatarUrl: string;
+  headline: string;
+  description: string;
+  roleId: string;
+  averageReviews: number;
+  totalReviews: number;
+  totalLearners: number;
+  courses: ICourseOverview[];
+  instructorCertificate: {
+    id: string;
+    certificateUrl: string;
+  }[];
+}
+

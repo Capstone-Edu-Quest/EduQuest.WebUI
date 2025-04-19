@@ -85,6 +85,7 @@ export const endPoints = {
   getAssignment: 'course/assignment/attempt',
 
   transactionDetails: 'transaction/transactionDetail',
+  transactions: 'transaction/filter',
 
   applyInstructor: 'user/becomeInstructor',
   approveInstructor: 'user/approveInstructor',

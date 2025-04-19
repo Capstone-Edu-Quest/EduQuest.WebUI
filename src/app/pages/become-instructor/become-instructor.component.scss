@@ -1,0 +1,150 @@
+.become-instructor {
+  padding: 40px 10vw;
+  box-sizing: border-box;
+
+  .title {
+    font-weight: 600;
+    font-size: 20px;
+  }
+
+  .input-label {
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 500;
+  }
+
+  .input-label-sub {
+    color: var(--secondary-text);
+  }
+
+  .material-input {
+    font-size: 13px;
+    margin-top: 4px;
+    width: 100%;
+    display: block;
+    background: var(--tertiary-bg);
+    border: none;
+    outline: none;
+    color: var(--primary-text);
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+
+    &.material-description {
+      resize: none;
+      font-size: 12px;
+    }
+  }
+
+  .image-wrapper {
+    margin-top: 15px;
+    margin-bottom: 40px;
+    // padding: 0 15%;
+    height: 20vw;
+    box-sizing: border-box;
+
+    .image-drop-zone {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border: 1px dashed var(--tertiary-text);
+      border-radius: 20px;
+      background: var(--secondary-bg);
+      cursor: pointer;
+      // overflow: hidden;
+
+      &.dragOver {
+        background: var(--tertiary-bg);
+      }
+
+      .instruction {
+        color: var(--primary-text);
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+
+        fa-icon {
+          font-size: 22px;
+        }
+
+        label {
+        }
+      }
+
+      .label-progress {
+        position: absolute;
+        top: calc(50% - 30px);
+        left: 50%;
+        transform: translateX(-50%);
+        font-weight: 500;
+      }
+
+      .progress {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 12px;
+        width: 70%;
+        height: 16px;
+        background: var(--brand-02);
+        overflow: hidden;
+
+        .running-progress {
+          height: 100%;
+          background: var(--brand);
+          border-radius: 12px;
+        }
+
+        .label-progress {
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          color: var(--primary-text);
+          font-size: 12px;
+          font-weight: 500;
+        }
+      }
+
+      .cancel-btn {
+        position: absolute;
+        top: calc(50% + 20px);
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .remove-image-btn {
+        position: absolute;
+        top: 12px;
+        right: 12px;
+      }
+    }
+  }
+
+  .files-list {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    margin: 8px 0;
+
+    .file {
+      color: var(--secondary-text);
+      display: flex;
+      gap: 8px;
+      align-items: center;
+
+      fa-icon {
+        color: var(--alert);
+        cursor: pointer;
+        font-size: 10px;
+      }
+    }
+  }
+}

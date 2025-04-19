@@ -1,36 +1,57 @@
-import { Component, type OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  TemplateRef,
+  ViewChild,
+  type OnInit,
+} from '@angular/core';
 import { TableColumn } from '../../shared/interfaces/others.interfaces';
 import { ITransaction } from '../../shared/interfaces/transactions.interfaces';
-import { TransactionsStatusEnum } from '../../shared/enums/transactions.enum';
+import {
+  TransactionStatusEnum,
+  TransactionTypeEnum,
+} from '../../shared/enums/others.enum';
+import { PaymentService } from '../../core/services/payment.service';
+import { UserService } from '../../core/services/user.service';
+import { MessageService } from '../../core/services/message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-transactions',
   templateUrl: './transactions.component.html',
   styleUrl: './transactions.component.scss',
 })
-export class TransactionsComponent implements OnInit {
+export class TransactionsComponent implements OnInit, AfterViewInit {
+  @ViewChild('proceedPayment') proceedPaymentRef!: TemplateRef<any>;
+
+  isReady: boolean = false;
+
   tableCols: TableColumn[] = [
     {
-      key: 'id',
+      key: 'transactionId',
       label: 'LABEL.ID',
+      style: () => ({
+        maxWidth: '30px',
+        overflow: 'hidden',
+        textOverflow: 'ellipsis',
+        whiteSpace: 'nowrap',
+      }),
     },
     {
-      key: 'description',
-      label: 'LABEL.DESCRIPTION',
+      key: 'type',
+      label: 'LABEL.TYPE',
+      translateLabel: (data: ITransaction) => this.onGetType(data.type),
     },
     {
-      key: 'time',
+      key: 'updatedAt',
       label: 'LABEL.TIME',
-      render: (val) => new Date(val.time).toLocaleString(),
+      render: (val) => new Date(val.createdAt).toLocaleString(),
     },
     {
       key: 'amount',
       label: 'LABEL.AMOUNT',
       isMoney: true,
-      render: (data: ITransaction) => `${Math.abs(data.amount)}`,
-      style: (data: ITransaction) => ({
-        color: data.amount < 0 ? 'var(--alert)' : 'var(--success)',
-      }),
+      render: (data: ITransaction) => `${Math.abs(data.totalAmount)}`,
     },
     {
       key: 'status',
@@ -40,42 +61,76 @@ export class TransactionsComponent implements OnInit {
     },
   ];
 
-  transactions: ITransaction[] = [
-    {
-      id: 'txn-001',
-      description: 'Payment for online course',
-      time: '2025-02-23T10:15:30Z',
-      amount: -120.5,
-      status: TransactionsStatusEnum.SUCCESS,
-    },
-    {
-      id: 'txn-003',
-      description: 'Subscription renewal for premium service',
-      time: '2025-02-21T09:45:00Z',
-      amount: -19.99,
-      status: TransactionsStatusEnum.PENDING,
-    },
-    {
-      id: 'txn-004',
-      description: 'Withdrawal to bank account',
-      time: '2025-02-20T17:10:15Z',
-      amount: 200.0,
-      status: TransactionsStatusEnum.FAILED,
-    },
-  ];
+  transactions: ITransaction[] = [];
 
-  onGetStatus(status: TransactionsStatusEnum, isGetColor?: boolean): string {
-    switch (status) {
-      case TransactionsStatusEnum.SUCCESS:
-        return isGetColor ? 'var(--success)' : 'LABEL.SUCCESS';
-      case TransactionsStatusEnum.PENDING:
+  ngOnInit(): void {
+    this.initTransactions();
+  }
+
+  ngAfterViewInit(): void {
+    this.tableCols.push({
+      key: 'action',
+      label: '',
+      elementRef: this.proceedPaymentRef,
+    });
+  }
+
+  constructor(
+    private payment: PaymentService,
+    private user: UserService,
+    private message: MessageService,
+    private translate: TranslateService
+  ) {}
+
+  initTransactions() {
+    if (!this.user.user$.value) return;
+
+    this.isReady = false;
+    this.payment
+      .filterTransaction({ UserId: this.user.user$.value.id })
+      .subscribe((res) => {
+        if (!res?.payload) {
+          this.message.addMessage(
+            'error',
+            this.translate.instant('MESSAGE.FAILED_TO_GET_TRANSACTION')
+          );
+          return;
+        }
+
+        this.transactions = res.payload;
+        this.isReady = true;
+      });
+  }
+
+  onGetType(type: TransactionTypeEnum) {
+    switch (type.toLowerCase()) {
+      case TransactionTypeEnum.CART:
+        return 'LABEL.COURSE_PURCHASED';
+      case TransactionTypeEnum.REFUND:
+        return 'LABEL.REFUND';
+      case TransactionTypeEnum.SUBSCRIPTION:
+        return 'LABEL.SUBSCRIPTION';
+      case TransactionTypeEnum.TRANSFER:
+        return 'LABEL.TRANSFER';
+      default:
+        return 'LABEL.OTHERS';
+    }
+  }
+
+  onGetStatus(status: TransactionStatusEnum, isGetColor?: boolean): string {
+    switch (status.toLowerCase()) {
+      case TransactionStatusEnum.CANCELLED:
+        return isGetColor ? 'var(--error)' : 'LABEL.CANCELLED';
+      case TransactionStatusEnum.PENDING:
         return isGetColor ? 'var(--warning)' : 'LABEL.PENDING';
-      case TransactionsStatusEnum.FAILED:
+      case TransactionStatusEnum.EXPIRED:
+        return isGetColor ? 'var(--tertiary-text)' : 'LABEL.EXPIRED';
+      case TransactionStatusEnum.FAILED:
         return isGetColor ? 'var(--alert)' : 'LABEL.FAILED';
+      case TransactionStatusEnum.COMPLETED:
+        return isGetColor ? 'var(--success)' : 'LABEL.SUCCESS';
       default:
         return 'LABEL.UNKNOWN';
     }
   }
-
-  ngOnInit(): void {}
 }

@@ -7,20 +7,23 @@ import {
   AfterViewInit,
   OnDestroy,
 } from '@angular/core';
+import { ILineChartDataSet } from '../../shared/interfaces/chart.interface';
 import {
-  ILineChartDataSet,
-  IPieChartDataSet,
-} from '../../shared/interfaces/chart.interface';
-import {
+  faCheck,
+  faClose,
   faUser,
   faUserPlus,
   faUsersRays,
 } from '@fortawesome/free-solid-svg-icons';
 import { IUser } from '../../shared/interfaces/user.interfaces';
-import { TableColumn } from '../../shared/interfaces/others.interfaces';
+import {
+  IInstructorApplyRes,
+  TableColumn,
+} from '../../shared/interfaces/others.interfaces';
 import { WebRole } from '../../shared/enums/user.enum';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { PlatformService } from '../../core/services/platform.service';
 
 @Component({
   selector: 'app-user-manage',
@@ -30,8 +33,16 @@ import { Subscription } from 'rxjs';
 export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('actionOnUser') actionRef!: TemplateRef<any>;
   @ViewChild('roleManagement') roleManagementRef!: TemplateRef<any>;
+  @ViewChild('assignToExpert') assignToExpertRef!: TemplateRef<any>;
+  @ViewChild('approval') approvalRef!: TemplateRef<any>;
 
   subscription$: Subscription = new Subscription();
+
+  acceptIcon = faCheck;
+  rejectIcon = faClose;
+
+  appliedInstructor: IInstructorApplyRes[] = [];
+  isAppliedInsReady: boolean = false;
 
   isAdminView: boolean = false;
 
@@ -79,6 +90,8 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     },
   ];
 
+  appliedInstructorColumns: TableColumn[] = [];
+
   usersTableColumns: TableColumn[] = [
     {
       label: 'LABEL.ID',
@@ -99,77 +112,22 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   columns: TableColumn[] = [];
-  usersTableData: IUser[] = [
-    // {
-    //   id: 'u1',
-    //   username: 'david_teacher',
-    //   email: 'david@example.com',
-    //   phone: '+1234567890',
-    //   avatarUrl: 'https://example.com/avatars/david.png',
-    //   roleId: WebRole.INSTRUCTOR,
-    //   status: 'active',
-    //   isPremium: false,
-    //   statistic: {
-    //     userId: 'u1',
-    //     maxExpLevel: 20000,
-    //     totalActiveDay: 180,
-    //     maxStudyStreakDay: 45,
-    //     lastLearningDay: '2025-03-02',
-    //     completedCourses: 15,
-    //     gold: 7000,
-    //     exp: 18000,
-    //     level: 18,
-    //     studyTime: 360, // hours
-    //     totalCourseCreated: 8,
-    //     totalLearner: 1500,
-    //     totalReview: 300,
-    //     totalCompletedCourses: 15,
-    //     currentStreak: 10,
-    //     longestStreak: 20,
-    //     lastActive: '2025-03-03T12:00:00Z',
-    //   },
-    //   lastActive: '2025-03-03T12:00:00Z',
-    //   mascotItem: ['owl', 'lion'],
-    // },
-    // {
-    //   id: 'u2',
-    //   username: 'emily_student',
-    //   email: 'emily@example.com',
-    //   phone: '+1987654321',
-    //   avatarUrl: 'https://example.com/avatars/emily.png',
-    //   roleId: WebRole.LEARNER,
-    //   status: 'active',
-    //   isPremium: false,
-    //   statistic: {
-    //     userId: 'u2',
-    //     maxExpLevel: 20000,
-    //     totalActiveDay: 90,
-    //     maxStudyStreakDay: 25,
-    //     lastLearningDay: '2025-03-03',
-    //     completedCourses: 5,
-    //     gold: 4000,
-    //     exp: 9000,
-    //     level: 12,
-    //     studyTime: 150,
-    //     totalCourseCreated: 0,
-    //     totalLearner: 0,
-    //     totalReview: 20,
-    //     totalCompletedCourses: 15,
-    //     currentStreak: 10,
-    //     longestStreak: 20,
-    //     lastActive: '2025-03-03T12:00:00Z',
-    //   },
-    //   lastActive: '2025-03-03T14:30:00Z',
-    //   mascotItem: ['rabbit', 'fox'],
-    // },
-  ];
+  usersTableData: IUser[] = [];
 
-  constructor(private UserService: UserService, private router: Router) {}
+  expertsList: IUser[] = [];
+
+  constructor(
+    private UserService: UserService,
+    private router: Router,
+    private platform: PlatformService,
+    private user: UserService
+  ) {}
 
   ngOnInit(): void {
-    console.log(this.usersTableData);
+    this.initInstructors();
     this.listenToUser();
     this.initRoleOptions();
+    this.initExperts();
   }
 
   ngAfterViewInit(): void {
@@ -185,8 +143,43 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     );
   }
 
+  initExperts() {
+    this.user.getUserByRoleId(WebRole.EXPERT).subscribe((res) => {
+      if (!res?.payload) return;
+      this.expertsList = res.payload;
+    });
+  }
+
+  initInstructors() {
+    this.platform.getAppliedInstructor().subscribe((res) => {
+      if (res?.payload) {
+        this.appliedInstructor = res.payload;
+      }
+
+      this.isAppliedInsReady = true;
+    });
+  }
+
   initColumns() {
     this.columns = [...this.usersTableColumns];
+    this.appliedInstructorColumns = [
+      {
+        label: 'LABEL.ID',
+        key: 'id',
+      },
+      {
+        label: 'LABEL.NAME',
+        key: 'username',
+      },
+      {
+        label: 'LABEL.EMAIL',
+        key: 'email',
+      },
+      {
+        label: 'LABEL.PHONE',
+        key: 'phone',
+      },
+    ];
 
     if (this.isAdminView) {
       this.columns.push({
@@ -209,6 +202,15 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
       key: 'action',
       elementRef: this.actionRef,
     });
+
+    this.appliedInstructorColumns.push({
+      label: '',
+      key: 'action',
+      elementRef:
+        (this.user.user$.value?.roleId as any) === WebRole.STAFF
+          ? this.assignToExpertRef
+          : this.approvalRef,
+    });
   }
 
   initRoleOptions() {
@@ -224,8 +226,10 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     });
 
     this.roleOptions = this.roleOptions.filter((r) => r.label !== '');
+  }
 
-    console.log(this.roleOptions);
+  onViewInstructorRegisterInfo(data: IInstructorApplyRes) {
+    console.log(data)
   }
 
   onGetRole(r: any) {
@@ -249,6 +253,10 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     e.stopPropagation();
     console.log('suspend', u);
   }
+
+  onAssignExpert(e: Event, row: IInstructorApplyRes) {}
+
+  onUpdateStatus(e: Event, row: IInstructorApplyRes, isAccept: boolean) {}
 
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();
