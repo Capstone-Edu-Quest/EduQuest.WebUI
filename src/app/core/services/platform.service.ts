@@ -83,7 +83,9 @@ export class PlatformService {
   }
 
   getAppliedInstructor() {
-    return this.http.get<IInstructorApplyRes[]>(endPoints.getUserByStatus + '?Status=pending')
+    return this.http.get<IInstructorApplyRes[]>(
+      endPoints.getUserByStatus + '?Status=pending'
+    );
   }
 
   applyBecomeInstructor(param: IBecomeInstructorReq) {
@@ -95,5 +97,22 @@ export class PlatformService {
     });
 
     return this.http.upload(endPoints.applyInstructor, formData);
+  }
+
+  getMyInstructorApplicant() {
+    return this.http.get<IInstructorApplyRes>(endPoints.getMyInsApplicant);
+  }
+
+  onUpdateInstructorStatus(UserId: string, isApprove: boolean) {
+    return this.http.post(endPoints.approveInstructor, { UserId, isApprove });
+  }
+
+  cancelInstructorRegistration() {
+    const params = {
+      userId: this.user.user$.value?.id,
+      isCanceled: true
+    }
+
+    return this.http.post(endPoints.cancelInstructorApplication, params)
   }
 }

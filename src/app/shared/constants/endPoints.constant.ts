@@ -89,5 +89,7 @@ export const endPoints = {
 
   applyInstructor: 'user/becomeInstructor',
   approveInstructor: 'user/approveInstructor',
-  getUserByStatus: 'user/status'
+  getUserByStatus: 'user/status',
+  getMyInsApplicant: 'user/myInstructorApplication',
+  cancelInstructorApplication: 'user/cancelInstructorApplication'
 };

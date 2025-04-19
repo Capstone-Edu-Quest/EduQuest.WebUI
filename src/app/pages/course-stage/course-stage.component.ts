@@ -38,6 +38,8 @@ import {
 } from '../../shared/interfaces/others.interfaces';
 import { MessageService } from '../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
+import { PaymentService } from '../../core/services/payment.service';
+import { ITransactionFilterParams } from '../../shared/interfaces/transactions.interfaces';
 
 @Component({
   selector: 'app-course-stage',
@@ -75,7 +77,8 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
     private modal: ModalService,
     private user: UserService,
     private message: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private payment: PaymentService
   ) {}
 
   ngAfterViewInit(): void {
@@ -97,7 +100,7 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
       {
         icon: faRotateLeft,
         label: 'LABEL.REFUND',
-        action: (e: Event) => {},
+        action: (e: Event) => this.onRefund(),
       },
       {
         icon: faPaperPlane,
@@ -289,5 +292,51 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
     this.currentLesson = nextLessonIndex;
     this.router.navigate([], { queryParams: { materialId: nextMaterialId } });
     this.initMaterials();
+  }
+
+  onRefund() {
+    const userId = this.user.user$.value?.id;
+
+    if (!this.courseDetails || !userId) return;
+    if (Number(this.courseDetails.progress) > 15) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.CAN_NOT_REFUND')
+      );
+      return;
+    }
+
+    const transactionParam: ITransactionFilterParams = {
+      UserId: userId,
+      CourseId: this.courseDetails.id,
+    };
+
+    this.payment.filterTransaction(transactionParam).subscribe((res) => {
+      if (!res?.payload || res?.payload?.length === 0) {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.FAILED_TO_REFUND')
+        );
+        return;
+      }
+
+      this.payment
+        .onRefund(res.payload[0].transactionId, this.courseDetails.id)
+        .subscribe((res) => {
+          if (!res?.payload) {
+            this.message.addMessage(
+              'error',
+              this.translate.instant('MESSAGE.FAILED_TO_REFUND')
+            );
+            return;
+          }
+
+          this.message.addMessage(
+            'success',
+            this.translate.instant('MESSAGE.REFUNDED_SUCCESSFULLY')
+          );
+          this.router.navigate(['/']);
+        });
+    });
   }
 }

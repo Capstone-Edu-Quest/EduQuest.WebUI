@@ -11,6 +11,7 @@ import { ILineChartDataSet } from '../../shared/interfaces/chart.interface';
 import {
   faCheck,
   faClose,
+  faUpRightFromSquare,
   faUser,
   faUserPlus,
   faUsersRays,
@@ -24,6 +25,7 @@ import { WebRole } from '../../shared/enums/user.enum';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PlatformService } from '../../core/services/platform.service';
+import { ModalService } from '../../core/services/modal.service';
 
 @Component({
   selector: 'app-user-manage',
@@ -35,14 +37,17 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('roleManagement') roleManagementRef!: TemplateRef<any>;
   @ViewChild('assignToExpert') assignToExpertRef!: TemplateRef<any>;
   @ViewChild('approval') approvalRef!: TemplateRef<any>;
+  @ViewChild('instructorDetails') instructorDetailsRef!: TemplateRef<any>;
 
   subscription$: Subscription = new Subscription();
 
   acceptIcon = faCheck;
   rejectIcon = faClose;
+  exploreIcon = faUpRightFromSquare;
 
   appliedInstructor: IInstructorApplyRes[] = [];
   isAppliedInsReady: boolean = false;
+  currentViewInstructor: IInstructorApplyRes | null = null;
 
   isAdminView: boolean = false;
 
@@ -120,7 +125,8 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     private UserService: UserService,
     private router: Router,
     private platform: PlatformService,
-    private user: UserService
+    private user: UserService,
+    private modal: ModalService
   ) {}
 
   ngOnInit(): void {
@@ -229,7 +235,8 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onViewInstructorRegisterInfo(data: IInstructorApplyRes) {
-    console.log(data)
+    this.currentViewInstructor = data;
+    this.modal.updateModalContent(this.instructorDetailsRef);
   }
 
   onGetRole(r: any) {
@@ -256,7 +263,17 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   onAssignExpert(e: Event, row: IInstructorApplyRes) {}
 
-  onUpdateStatus(e: Event, row: IInstructorApplyRes, isAccept: boolean) {}
+  onUpdateStatus(e: Event, row: IInstructorApplyRes, isAccept: boolean) {
+    this.platform
+      .onUpdateInstructorStatus(row.id, isAccept)
+      .subscribe((res) => {
+        console.log(res);
+      });
+  }
+
+  viewCertificate(url: string) {
+    window.open(url, '_blank');
+  }
 
   ngOnDestroy(): void {
     this.subscription$.unsubscribe();

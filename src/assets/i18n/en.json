@@ -634,9 +634,14 @@
     "MAX_FILE": "Maximum {{value}} files",
     "HEADLINE_SUB": "Short sentence describe what you are doing (may be where) (20 - 50 characters)",
     "DESCRIPTION_SUB": "Describe longer about your self to gather learners' trust (40 - 200 characters)",
-    "APPLIED_INSTRUCTOR": "Applied instructors"
+    "APPLIED_INSTRUCTOR": "Applied instructors",
+    "INSTRUCTOR_REGISTER_DETAILS": "Intructor registration details",
+    "CERTIFICATE_COUNT": "Certificate {{value}}"
   },
   "MESSAGE": {
+    "FAILED_TO_REFUND": "Failed to refund, please try again later",
+    "REFUNDED_SUCCESSFULLY": "Refunded successfully",
+    "CAN_NOT_REFUND": "Can not refund course because your progress over 15%",
     "ERROR_HEADLINE": "Headline must be between 20 and 50 characters.",
     "ERROR_DESCRIPTION": "Description must be between 40 and 200 characters.",
     "ERROR_PHONE": "Phone number is invalid.",
@@ -706,6 +711,9 @@
     "FEEDBACK_SUCCESS": "Sent feedback successfully"
   },
   "BUTTON": {
+    "CANCEL_APPLICATION": "Cancel registration",
+    "CANCEL_SUCCESSFULLY": "Cancel successfully",
+    "FAILED_CANCEL": "Failed to cancel, please try again later",
     "UPDATE": "Update",
     "SEND_REVIEW": "Send review",
     "PUBLISH_COURSE": "Publish Course",

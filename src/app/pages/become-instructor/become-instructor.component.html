@@ -8,34 +8,46 @@
     {{ "LABEL.HEADLINE_SUB" | translate }}
   </div>
   <input
+    *ngIf="!myApplicant"
     [(ngModel)]="instructorParam.Headline"
     class="material-input material-description"
     [placeholder]="'LABEL.HEADLINE' | translate"
   />
+  <div *ngIf="myApplicant" style="margin-top: 4px">
+    {{ myApplicant.headline }}
+  </div>
 
   <div class="input-label">{{ "LABEL.MATERIAL_DESCRIPTION" | translate }}</div>
   <div class="input-label-sub">
     {{ "LABEL.DESCRIPTION_SUB" | translate }}
   </div>
   <textarea
+    *ngIf="!myApplicant"
     [(ngModel)]="instructorParam.Description"
     class="material-input material-description"
     [placeholder]="'LABEL.MATERIAL_DESCRIPTION' | translate"
     rows="4"
   ></textarea>
+  <div *ngIf="myApplicant" style="margin-top: 4px">
+    {{ myApplicant.description }}
+  </div>
 
   <div class="input-label">{{ "LABEL.PHONE" | translate }}</div>
   <input
+    *ngIf="!myApplicant"
     [(ngModel)]="instructorParam.Phone"
     class="material-input material-description"
     [placeholder]="'LABEL.PHONE' | translate"
   />
+  <div *ngIf="myApplicant" style="margin-top: 4px">
+    {{ myApplicant.phone }}
+  </div>
 
   <div class="input-label">{{ "LABEL.CERTIFICATES" | translate }}</div>
   <div class="input-label-sub">
     {{ "LABEL.MAX_FILE" | translate : { value: maxFiles } }}
   </div>
-  <div class="files-list">
+  <div class="files-list" *ngIf="!myApplicant">
     <div
       class="file"
       *ngFor="let file of instructorParam.CertificateFiles; let i = index"
@@ -44,7 +56,7 @@
       <fa-icon [icon]="deleteIcon" (click)="onRemoveFile(i)"></fa-icon>
     </div>
   </div>
-  <div class="image-wrapper">
+  <div class="image-wrapper" *ngIf="!myApplicant">
     <div
       class="image-drop-zone"
       [ngClass]="{
@@ -70,10 +82,28 @@
       </div>
     </div>
   </div>
+  <div
+    style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 30px"
+    *ngIf="myApplicant"
+  >
+    <div
+      style="display: flex; gap: 4px; cursor: pointer; align-items: center"
+      *ngFor="
+        let certificate of myApplicant.instructorCertificate;
+        let i = index
+      "
+      (click)="viewCertificate(certificate.certificateUrl)"
+    >
+      {{ "LABEL.CERTIFICATE_COUNT" | translate : { value: i + 1 } }}
+      <fa-icon style="font-size: 10px" [icon]="exploreIcon"></fa-icon>
+    </div>
+  </div>
 
   <app-button
-    type="primary"
-    (click)="onSubmit()"
-    >{{ "BUTTON.SUBMIT" | translate }}</app-button
+    (click)="myApplicant ? onCancel() : onSubmit()"
+    [type]="myApplicant ? 'danger' : 'primary'"
+    >{{
+      (myApplicant ? "BUTTON.CANCEL_APPLICATION" : "BUTTON.SUBMIT") | translate
+    }}</app-button
   >
 </div>

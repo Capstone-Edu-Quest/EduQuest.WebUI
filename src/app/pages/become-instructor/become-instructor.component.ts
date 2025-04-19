@@ -1,8 +1,15 @@
 import { Component, ElementRef, ViewChild, type OnInit } from '@angular/core';
 import { MessageService } from '../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
-import { faFile, faTrash } from '@fortawesome/free-solid-svg-icons';
-import { IBecomeInstructorReq } from '../../shared/interfaces/others.interfaces';
+import {
+  faFile,
+  faTrash,
+  faUpRightFromSquare,
+} from '@fortawesome/free-solid-svg-icons';
+import {
+  IBecomeInstructorReq,
+  IInstructorApplyRes,
+} from '../../shared/interfaces/others.interfaces';
 import { PlatformService } from '../../core/services/platform.service';
 import { UserService } from '../../core/services/user.service';
 
@@ -15,6 +22,7 @@ export class BecomeInstructorComponent implements OnInit {
   @ViewChild('fileInput') fileInputRef!: ElementRef;
 
   acceptedFilesType = ['application/pdf', 'image/jpeg', 'image/png'];
+  myApplicant: IInstructorApplyRes | null = null;
 
   maxFiles: number = 5;
   isDragOverInput: boolean = false;
@@ -28,6 +36,7 @@ export class BecomeInstructorComponent implements OnInit {
 
   fileIcon = faFile;
   deleteIcon = faTrash;
+  exploreIcon = faUpRightFromSquare;
 
   constructor(
     private message: MessageService,
@@ -35,7 +44,15 @@ export class BecomeInstructorComponent implements OnInit {
     private platform: PlatformService,
     private user: UserService
   ) {}
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.initMyApplicant();
+  }
+
+  initMyApplicant() {
+    this.platform.getMyInstructorApplicant().subscribe((res) => {
+      this.myApplicant = res?.payload ?? null;
+    });
+  }
 
   onDragOver(event: DragEvent) {
     event.preventDefault();
@@ -67,6 +84,10 @@ export class BecomeInstructorComponent implements OnInit {
   onRemoveFile(index: number) {
     this.instructorParam.CertificateFiles =
       this.instructorParam.CertificateFiles.filter((_, i) => i !== index);
+  }
+
+  viewCertificate(url: string) {
+    window.open(url, '_blank');
   }
 
   async onHandleFile(files: FileList | undefined) {
@@ -140,12 +161,42 @@ export class BecomeInstructorComponent implements OnInit {
     this.platform
       .applyBecomeInstructor(this.instructorParam)
       .subscribe((res) => {
-        if(!res?.payload) {
-          this.message.addMessage('error', this.translate.instant("MESSAGE.FAILED_SUBMIT"))
+        if (!res?.payload) {
+          this.message.addMessage(
+            'error',
+            this.translate.instant('MESSAGE.FAILED_SUBMIT')
+          );
           return;
         }
-        this.message.addMessage('error', this.translate.instant("MESSAGE.SUBMITTED_SUCCESSFULLY"))
-        console.log(res);
+        this.message.addMessage(
+          'success',
+          this.translate.instant('MESSAGE.SUBMITTED_SUCCESSFULLY')
+        );
       });
+  }
+
+  onCancel() {
+    this.platform.cancelInstructorRegistration().subscribe((res) => {
+      if (!res?.payload) {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.FAILED_CANCEL')
+        );
+        return;
+      }
+
+      this.myApplicant = null;
+      this.instructorParam = {
+        UserId: '',
+        Headline: '',
+        Description: '',
+        Phone: '',
+        CertificateFiles: [],
+      };
+      this.message.addMessage(
+        'success',
+        this.translate.instant('MESSAGE.CANCEL_SUCCESSFULLY')
+      );
+    });
   }
 }

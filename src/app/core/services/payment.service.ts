@@ -58,8 +58,8 @@ export class PaymentService {
       });
   }
 
-  onRefund(courseId: string) {
-    return this.http.post(endPoints.refund, { courseId });
+  onRefund(transactionId: string, courseId: string) {
+    return this.http.post(endPoints.refund, { courseId, transactionId });
   }
 
   filterTransaction(param: ITransactionFilterParams) {
