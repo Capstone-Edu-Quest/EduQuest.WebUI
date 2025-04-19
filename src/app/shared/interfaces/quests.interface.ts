@@ -23,7 +23,7 @@ export interface IQuestOfUser extends IQuest {
   isRewardClaimed: boolean;
   pointToComplete: number;
   currentPoint: number;
-  completeDate: string;
+  completedDate: string;
 }
 
 export interface IQuestOfUserQuery {

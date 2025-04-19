@@ -3,7 +3,7 @@
 </div>
 <div class="navbar-noti">
   <div class="noti" *ngFor="let noti of notis">
-    <div class="label">{{ noti.content | translate }}</div>
+    <div class="label">{{ ('LABEL.' + noti.content) | translate:noti.value }}</div>
     <div class="time" *ngIf="calculateTimeAgo(noti.timestamp) as timeAgo">
       <i nz-icon nzType="clock-circle"></i>
       {{

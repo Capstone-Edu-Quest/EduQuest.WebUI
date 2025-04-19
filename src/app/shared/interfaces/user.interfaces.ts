@@ -17,6 +17,7 @@ export interface IUser {
   username: string;
   email: string;
   phone: string;
+  isPro: boolean;
   description: string | null;
   headline: string | null;
   avatarUrl: string;

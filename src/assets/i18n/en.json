@@ -639,7 +639,8 @@
     "CERTIFICATE_COUNT": "Certificate {{value}}",
     "INSTRUCTOR_APPROVEL": "Instructors approvel",
     "INFORMATIONS": "Informations",
-    "CHANGE_INFORMATIONS": "Change informations"
+    "CHANGE_INFORMATIONS": "Change informations",
+    "BUY_COURSE_SUCCESSFULLY": "Purchased course '{{item}}' successfully"
   },
   "MESSAGE": {
     "INVALID_NAME": "Invalid name",

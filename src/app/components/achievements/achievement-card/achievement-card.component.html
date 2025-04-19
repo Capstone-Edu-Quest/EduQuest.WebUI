@@ -6,7 +6,7 @@
   <div class="achievement-description">
     {{ getQuestLabel() | translate : questValue }}
   </div>
-  <div class="achievement-rewardedat">
+  <div class="achievement-rewardedat" *ngIf="achievement.completedDate">
     {{
       "LABEL.REWARDED_AT"
         | translate
