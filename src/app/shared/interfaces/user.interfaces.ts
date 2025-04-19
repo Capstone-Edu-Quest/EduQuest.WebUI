@@ -17,6 +17,8 @@ export interface IUser {
   username: string;
   email: string;
   phone: string;
+  description: string | null;
+  headline: string | null;
   avatarUrl: string;
   roleId: WebRole;
   status: string;
@@ -28,11 +30,9 @@ export interface IUser {
 }
 
 export interface IProfile extends IUser {
-  headline: string | null;
   totalLearners: number;
   totalReviews: Number;
   avarageReviews: number;
-  description: string | null;
   courses: ICourseOverview[];
   completedQuest: IQuestOfUser[];
   level: number | null;
@@ -87,4 +87,12 @@ export interface IUserStat extends IUser {
     { label: 'LABEL.TOTAL_REVIEWS_STATS'; value: number },
     { label: 'LABEL.AVERAGE_RATINGS_STATS'; value: number }
   ];
+}
+
+export interface IChangeInfoReq {
+  id: string;
+  username: string;
+  phone: string;
+  headline: string;
+  description: string;
 }

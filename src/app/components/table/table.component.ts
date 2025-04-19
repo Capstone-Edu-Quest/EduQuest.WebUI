@@ -7,7 +7,11 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { TableColumn } from '../../shared/interfaces/others.interfaces';
-import { faAngleLeft, faAngleRight, faSort } from '@fortawesome/free-solid-svg-icons';
+import {
+  faAngleLeft,
+  faAngleRight,
+  faSort,
+} from '@fortawesome/free-solid-svg-icons';
 import { Subscription } from 'rxjs';
 
 @Component({
@@ -199,8 +203,9 @@ export class TableComponent implements OnInit, OnDestroy {
     this.onRowClick.next(row);
   }
 
-  handleClick(col: TableColumn, row: any) {
+  handleClick(event: Event, col: TableColumn, row: any) {
     if (col.onClick) {
+      event.stopPropagation();
       col.onClick(row);
     }
   }

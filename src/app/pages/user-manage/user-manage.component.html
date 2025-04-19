@@ -90,28 +90,13 @@
       min-width: 120px;
     "
     (change)="onAssignExpert($event, row)"
-    [(ngModel)]="row.expertId"
+    [(ngModel)]="row.assignToExpertId"
   >
     <option></option>
     <option *ngFor="let expert of expertsList" [value]="expert.id">
       {{ expert.username }}
     </option>
   </select>
-</ng-template>
-
-<ng-template #approval let-row="row">
-  <div class="ref-btns-ctn" style="display: flex; gap: 8px">
-    <fa-icon
-      (click)="onUpdateStatus($event, row, true)"
-      [icon]="acceptIcon"
-      style="color: var(--success); cursor: pointer"
-    ></fa-icon>
-    <fa-icon
-      (click)="onUpdateStatus($event, row, false)"
-      [icon]="rejectIcon"
-      style="color: var(--alert); cursor: pointer"
-    ></fa-icon>
-  </div>
 </ng-template>
 
 <ng-template #instructorDetails>
@@ -177,7 +162,7 @@
   </div>
   <div style="display: flex; flex-direction: column; gap: 4px">
     <div
-      style="display: flex; gap: 4px; cursor: pointer; align-items: center;"
+      style="display: flex; gap: 4px; cursor: pointer; align-items: center"
       *ngFor="
         let certificate of currentViewInstructor?.instructorCertificate;
         let i = index

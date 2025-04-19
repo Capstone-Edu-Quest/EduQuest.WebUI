@@ -1,0 +1,55 @@
+<div class="signin-container">
+  <div>
+    <div class="title">{{ "LABEL.CHANGE_INFORMATIONS" | translate }}</div>
+  </div>
+
+  <div class="form-container">
+    <div>
+      <div>
+        {{ "LABEL.NAME" | translate }}
+        <span style="color: var(--alert)">*</span>
+      </div>
+      <input
+        placeholder="{{ 'LABEL.NAME' | translate }}"
+        [(ngModel)]="userInfo.username"
+      />
+    </div>
+
+    <div>
+      <div>
+        {{ "LABEL.PHONE" | translate }}
+        <span style="color: var(--alert)">*</span>
+      </div>
+      <input
+        placeholder="{{ 'LABEL.PHONE' | translate }}"
+        [(ngModel)]="userInfo.phone"
+      />
+    </div>
+
+    <div>
+      <div>{{ "LABEL.HEADLINE" | translate }}</div>
+      <input
+        placeholder="{{ 'LABEL.HEADLINE' | translate }}"
+        [(ngModel)]="userInfo.headline"
+      />
+    </div>
+
+    <div>
+      <div>{{ "LABEL.DESCRIPTION" | translate }}</div>
+      <textarea
+        style="resize: none; min-height: 100px"
+        placeholder="{{ 'LABEL.DESCRIPTION' | translate }}"
+        [(ngModel)]="userInfo.description"
+        row="4"
+      ></textarea>
+    </div>
+  </div>
+
+  <app-button
+    [ngStyle]="{ width: '400px' }"
+    [style]="{ width: '400px', borderColor: 'var(--brand)' }"
+    [type]="'primary'"
+    (click)="updateInfo()"
+    >{{ "BUTTON.UPDATE" | translate }}</app-button
+  >
+</div>

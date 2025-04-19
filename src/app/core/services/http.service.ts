@@ -154,13 +154,13 @@ export class HttpService {
 
   private handleUserError<TPayload>(payload: BaseReponse<TPayload>) {
     if (payload.isError) {
-      this.message.addMessage(
-        'error',
-        this.translate.instant(
-          `MESSAGE.${payload.message?.content}`,
-          payload.message?.values
-        )
-      );
+      // this.message.addMessage(
+      //   'error',
+      //   this.translate.instant(
+      //     `MESSAGE.${payload.message?.content}`,
+      //     payload.message?.values
+      //   )
+      // );
     }
     this.loading.removeLoading();
     return of(undefined);

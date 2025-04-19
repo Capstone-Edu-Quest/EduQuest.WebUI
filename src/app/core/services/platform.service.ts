@@ -13,8 +13,6 @@ import { ILevel } from '../../shared/interfaces/Platform.interface';
 import { UserService } from './user.service';
 import { MessageService } from './message.service';
 import { TranslateService } from '@ngx-translate/core';
-import { onConvertObjectToQueryParams } from '../utils/data.utils';
-import { ITransactionFilterParams } from '../../shared/interfaces/transactions.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -92,15 +90,26 @@ export class PlatformService {
     const formData = new FormData();
     Object.entries(param).forEach(([key, value]) => {
       if (value !== undefined && value !== null) {
-        formData.append(key, value as any);
+        if (key === 'CertificateFiles') {
+          (value ?? []).forEach((_v: any) => formData.append(key, _v as any));
+        } else {
+          formData.append(key, value as any);
+        }
       }
     });
 
-    return this.http.upload(endPoints.applyInstructor, formData);
+    return this.http.upload<IInstructorApplyRes>(
+      endPoints.applyInstructor,
+      formData
+    );
   }
 
   getMyInstructorApplicant() {
     return this.http.get<IInstructorApplyRes>(endPoints.getMyInsApplicant);
+  }
+
+  getAssignedInstructorApplicantToMe() {
+    return this.http.get<IInstructorApplyRes[]>(endPoints.instructorsListAssignedToMe + `?expertId=${this.user.user$.value?.id}`)
   }
 
   onUpdateInstructorStatus(UserId: string, isApprove: boolean) {
@@ -110,9 +119,31 @@ export class PlatformService {
   cancelInstructorRegistration() {
     const params = {
       userId: this.user.user$.value?.id,
-      isCanceled: true
-    }
+      isCanceled: true,
+    };
 
-    return this.http.post(endPoints.cancelInstructorApplication, params)
+    return this.http.post(endPoints.cancelInstructorApplication, params);
+  }
+
+  assignInstructorToExpert(instructorId: string, assignTo: string) {
+    this.http
+      .post(endPoints.assignInstructorToExpert, {
+        instructorId,
+        assignTo,
+      })
+      .subscribe((res) => {
+        if (!res?.payload) {
+          this.message.addMessage(
+            'error',
+            this.translate.instant('MESSAGE.ASSIGNED_FAIL')
+          );
+          return;
+        }
+
+        this.message.addMessage(
+          'success',
+          this.translate.instant('MESSAGE.ASSIGNED_SUCCESS')
+        );
+      });
   }
 }

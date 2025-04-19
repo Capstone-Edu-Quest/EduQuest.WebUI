@@ -1,0 +1,104 @@
+<div style="padding: 40px 8vw; box-sizing: border-box;">
+  <div style="margin-top: 30px">
+    <div style="margin-bottom: 8px; font-weight: 600; font-size: 18px" class="text-gradient">
+      {{ "LABEL.APPLIED_INSTRUCTOR" | translate }}
+    </div>
+    <app-table
+      *ngIf="isAppliedInsReady"
+      [columns]="appliedInstructorColumns"
+      [data]="appliedInstructor"
+      (onRowClick)="onViewInstructorRegisterInfo($event)"
+    ></app-table>
+  </div>
+</div>
+
+<ng-template #approval let-row="row">
+  <div class="ref-btns-ctn" style="display: flex; gap: 8px">
+    <fa-icon
+      (click)="onUpdateStatus($event, row, true)"
+      [icon]="acceptIcon"
+      style="color: var(--success); cursor: pointer"
+    ></fa-icon>
+    <fa-icon
+      (click)="onUpdateStatus($event, row, false)"
+      [icon]="rejectIcon"
+      style="color: var(--alert); cursor: pointer"
+    ></fa-icon>
+  </div>
+</ng-template>
+
+<ng-template #instructorDetails>
+  <div style="font-size: 16px; font-weight: 600">
+    {{ "LABEL.INSTRUCTOR_REGISTER_DETAILS" | translate }}
+  </div>
+
+  <div
+    style="
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 12px;
+      margin-bottom: 4px;
+      color: var(--secondary-text);
+    "
+  >
+    {{ "LABEL.NAME" | translate }}
+  </div>
+  <div style="font-size: 12px; font-weight: 400">
+    {{ currentViewInstructor?.username }}
+  </div>
+
+  <div
+    style="
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 12px;
+      margin-bottom: 4px;
+      color: var(--secondary-text);
+    "
+  >
+    {{ "LABEL.HEADLINE" | translate }}
+  </div>
+  <div style="font-size: 12px; font-weight: 400">
+    {{ currentViewInstructor?.headline }}
+  </div>
+
+  <div
+    style="
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 12px;
+      margin-bottom: 4px;
+      color: var(--secondary-text);
+    "
+  >
+    {{ "LABEL.DESCRIPTION" | translate }}
+  </div>
+  <div style="font-size: 12px; font-weight: 400">
+    {{ currentViewInstructor?.description }}
+  </div>
+
+  <div
+    style="
+      font-size: 14px;
+      font-weight: 600;
+      margin-top: 12px;
+      margin-bottom: 4px;
+      color: var(--secondary-text);
+    "
+  >
+    {{ "LABEL.CERTIFICATES" | translate }}
+  </div>
+  <div style="display: flex; flex-direction: column; gap: 4px">
+    <div
+      style="display: flex; gap: 4px; cursor: pointer; align-items: center"
+      *ngFor="
+        let certificate of currentViewInstructor?.instructorCertificate;
+        let i = index
+      "
+      (click)="viewCertificate(certificate.certificateUrl)"
+    >
+      {{ "LABEL.CERTIFICATE_COUNT" | translate : { value: i + 1 } }}
+      <fa-icon style="font-size: 10px" [icon]="exploreIcon"></fa-icon>
+    </div>
+  </div>
+</ng-template>

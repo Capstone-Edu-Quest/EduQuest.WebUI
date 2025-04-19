@@ -9,8 +9,6 @@ import {
 } from '@angular/core';
 import { ILineChartDataSet } from '../../shared/interfaces/chart.interface';
 import {
-  faCheck,
-  faClose,
   faUpRightFromSquare,
   faUser,
   faUserPlus,
@@ -36,13 +34,10 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('actionOnUser') actionRef!: TemplateRef<any>;
   @ViewChild('roleManagement') roleManagementRef!: TemplateRef<any>;
   @ViewChild('assignToExpert') assignToExpertRef!: TemplateRef<any>;
-  @ViewChild('approval') approvalRef!: TemplateRef<any>;
   @ViewChild('instructorDetails') instructorDetailsRef!: TemplateRef<any>;
 
   subscription$: Subscription = new Subscription();
 
-  acceptIcon = faCheck;
-  rejectIcon = faClose;
   exploreIcon = faUpRightFromSquare;
 
   appliedInstructor: IInstructorApplyRes[] = [];
@@ -212,10 +207,8 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.appliedInstructorColumns.push({
       label: '',
       key: 'action',
-      elementRef:
-        (this.user.user$.value?.roleId as any) === WebRole.STAFF
-          ? this.assignToExpertRef
-          : this.approvalRef,
+      onClick: () => {},
+      elementRef: this.assignToExpertRef,
     });
   }
 
@@ -261,14 +254,8 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     console.log('suspend', u);
   }
 
-  onAssignExpert(e: Event, row: IInstructorApplyRes) {}
-
-  onUpdateStatus(e: Event, row: IInstructorApplyRes, isAccept: boolean) {
-    this.platform
-      .onUpdateInstructorStatus(row.id, isAccept)
-      .subscribe((res) => {
-        console.log(res);
-      });
+  onAssignExpert(e: any, row: IInstructorApplyRes) {
+    this.platform.assignInstructorToExpert(row.id, e.target?.value);
   }
 
   viewCertificate(url: string) {

@@ -168,6 +168,8 @@ export class BecomeInstructorComponent implements OnInit {
           );
           return;
         }
+
+        this.myApplicant = res.payload;
         this.message.addMessage(
           'success',
           this.translate.instant('MESSAGE.SUBMITTED_SUCCESSFULLY')

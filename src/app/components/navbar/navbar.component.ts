@@ -5,7 +5,6 @@ import { TranslateService } from '@ngx-translate/core';
 import { Subscription } from 'rxjs';
 import { CartService } from '../../core/services/cart.service';
 import {
-  ICourse,
   ICourseCart,
   ICourseOverview,
 } from '../../shared/interfaces/course.interfaces';
@@ -107,6 +106,10 @@ export class NavbarComponent implements OnInit {
     {
       label: 'LABEL.LEARNING_PATH',
       routerLink: '/learning-path-manage',
+    },
+    {
+      label: 'LABEL.INSTRUCTOR_APPROVEL',
+      routerLink: '/approve-instructor',
     },
   ];
 

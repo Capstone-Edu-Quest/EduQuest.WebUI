@@ -636,9 +636,13 @@
     "DESCRIPTION_SUB": "Describe longer about your self to gather learners' trust (40 - 200 characters)",
     "APPLIED_INSTRUCTOR": "Applied instructors",
     "INSTRUCTOR_REGISTER_DETAILS": "Intructor registration details",
-    "CERTIFICATE_COUNT": "Certificate {{value}}"
+    "CERTIFICATE_COUNT": "Certificate {{value}}",
+    "INSTRUCTOR_APPROVEL": "Instructors approvel",
+    "INFORMATIONS": "Informations",
+    "CHANGE_INFORMATIONS": "Change informations"
   },
   "MESSAGE": {
+    "INVALID_NAME": "Invalid name",
     "FAILED_TO_REFUND": "Failed to refund, please try again later",
     "REFUNDED_SUCCESSFULLY": "Refunded successfully",
     "CAN_NOT_REFUND": "Can not refund course because your progress over 15%",
@@ -708,12 +712,17 @@
     "PURSCHASED_SUCCESS": "Purchased successfully",
     "PURSCHASE_FAILED": "Failed to purchase item",
     "FAILED_FEEDBACK": "Failed to feedback, please try again later",
-    "FEEDBACK_SUCCESS": "Sent feedback successfully"
+    "FEEDBACK_SUCCESS": "Sent feedback successfully",
+    "REGISTER_PROCESSING": "Edu Quest is processing your apllications, please wait a moments...",
+    "CANCEL_SUCCESSFULLY": "Cancel successfully",
+    "FAILED_CANCEL": "Failed to cancel, please try again later",
+    "ASSIGNED_FAIL": "Failed to assign, please try again later",
+    "ASSIGNED_SUCCESS": "Assigned successfully",
+    "UPDATED_FAIL": "Failed to update, please try again later"
   },
   "BUTTON": {
     "CANCEL_APPLICATION": "Cancel registration",
-    "CANCEL_SUCCESSFULLY": "Cancel successfully",
-    "FAILED_CANCEL": "Failed to cancel, please try again later",
+
     "UPDATE": "Update",
     "SEND_REVIEW": "Send review",
     "PUBLISH_COURSE": "Publish Course",

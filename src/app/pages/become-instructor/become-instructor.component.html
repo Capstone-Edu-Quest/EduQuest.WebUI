@@ -83,7 +83,7 @@
     </div>
   </div>
   <div
-    style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 30px"
+    style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 30px; margin-top: 8px"
     *ngIf="myApplicant"
   >
     <div
@@ -99,6 +99,8 @@
     </div>
   </div>
 
+
+  <div *ngIf="myApplicant" style="margin-bottom: 4px; color: var(--brand-light)">{{'MESSAGE.REGISTER_PROCESSING' | translate}}</div>
   <app-button
     (click)="myApplicant ? onCancel() : onSubmit()"
     [type]="myApplicant ? 'danger' : 'primary'"

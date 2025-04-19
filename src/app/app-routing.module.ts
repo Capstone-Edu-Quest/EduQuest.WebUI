@@ -59,6 +59,8 @@ import { ManagePasswordComponent } from './pages/personal-settings/manage-passwo
 import { ViewCourseScreenComponent } from './pages/view-course-screen/view-course-screen.component';
 import { CertificatePageComponent } from './pages/certificate-page/certificate-page.component';
 import { BecomeInstructorComponent } from './pages/become-instructor/become-instructor.component';
+import { ApproveInstructorComponent } from './pages/approve-instructor/approve-instructor.component';
+import { PersonalInfoComponent } from './pages/personal-settings/personal-info/personal-info.component';
 
 const routes: Routes = [
   {
@@ -258,9 +260,9 @@ const routes: Routes = [
     children: [
       {
         path: ':certificateId',
-        component: CertificatePageComponent
-      }
-    ]
+        component: CertificatePageComponent,
+      },
+    ],
   },
   {
     path: 'wishlist',
@@ -273,6 +275,12 @@ const routes: Routes = [
     component: BecomeInstructorComponent,
     canActivate: [AuthGuard, RoleGuard],
     data: { allowedRoles: [WebRole.LEARNER] },
+  },
+  {
+    path: 'approve-instructor',
+    component: ApproveInstructorComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.EXPERT] },
   },
   {
     path: 'profile',
@@ -488,8 +496,12 @@ const routes: Routes = [
         component: ManagePasswordComponent,
       },
       {
+        path: 'personal-info',
+        component: PersonalInfoComponent,
+      },
+      {
         path: '',
-        redirectTo: 'password',
+        redirectTo: 'personal-info',
         pathMatch: 'full',
       },
     ],

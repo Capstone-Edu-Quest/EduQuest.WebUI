@@ -1,5 +1,6 @@
 import { Injectable, Injector } from '@angular/core';
 import {
+  IChangeInfoReq,
   ILoginRes,
   IProfile,
   IUser,
@@ -250,7 +251,36 @@ export class UserService {
   }
 
   getCertificate(param: ICertificateReq) {
-    const params = onConvertObjectToQueryParams(param)
-    return this.http.get<ICertificateRes[]>(endPoints.searchCertificate + params);
+    const params = onConvertObjectToQueryParams(param);
+    return this.http.get<ICertificateRes[]>(
+      endPoints.searchCertificate + params
+    );
+  }
+
+  updateUserInfo(newInfo: IChangeInfoReq) {
+    this.http.update<IUser>(endPoints.user, newInfo).subscribe((res) => {
+      if (!res?.payload) {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.UPDATED_FAIL')
+        );
+        return;
+      }
+
+      this.message.addMessage(
+        'success',
+        this.translate.instant('MESSAGE.UPDATED_SUCCESSFULLY')
+      );
+
+      if (!this.user$.value) return;
+      const { username, headline, description, phone } = res.payload;
+      this.updateUser({
+        ...this.user$.value,
+        username,
+        headline,
+        description,
+        phone,
+      });
+    });
   }
 }
