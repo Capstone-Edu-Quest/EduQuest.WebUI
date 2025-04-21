@@ -93,7 +93,7 @@
       {{ "SIGNATURE.MINUTES" | translate : { value: quizResult.totalTime } }}
     </div>
     <app-button
-      (click)="quizResult.isPassed ? onTriggerFinishQuiz() : onStartQuiz()"
+      (click)="quizResult.isPassed ? onTriggerFinishQuiz() : onRetryQuiz()"
       [style]="{ width: '100%' }"
       type="primary"
       >{{
@@ -189,9 +189,8 @@
   @if(!answeredAssignment) {
 
   <app-text-editor
-    (onChange)="assignmentContent = $event"
     #textEditor
-    [htmlContent]="''"
+    [htmlContent]="assignmentContent"
   ></app-text-editor>
 
   <div *ngIf="!isNoTimeLimit" class="countdown">
@@ -210,7 +209,7 @@
     <div>
       -
       {{
-        answeredAssignment.answerScore
+        answeredAssignment.answerScore !== -1
           ? ("LABEL.SCORE"
             | translate : { value: answeredAssignment.answerScore })
           : ("LABEL.UNMARK" | translate)
@@ -220,7 +219,7 @@
       -
       {{
         "SIGNATURE.MINUTES"
-          | translate : { value: answeredAssignment.totalTime }
+          | translate : { value: answeredAssignment.toTalTime }
       }}
     </div>
   </div>

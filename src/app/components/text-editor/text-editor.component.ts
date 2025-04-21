@@ -1,4 +1,13 @@
-import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  Input,
+  OnChanges,
+  OnDestroy,
+  OnInit,
+  Output,
+  SimpleChanges,
+} from '@angular/core';
 import { TranslateService } from '@ngx-translate/core';
 import { Editor, Toolbar } from 'ngx-editor';
 import { Subscription } from 'rxjs';
@@ -31,8 +40,9 @@ export class TextEditorComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if(changes['htmlContent']) {
-      
+    if (changes['htmlContent']) {
+      console.log(changes['htmlContent'])
+      // this.onChange.emit(changes['htmlContent'] as string)
     }
   }
 

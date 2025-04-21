@@ -234,8 +234,9 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
       (m) => m.id === currentMaterialId
     );
 
-    this.courseDetails.listLesson[this.currentLesson].materials[currentMaterialIndex].status = MissionStatus.DONE;
-    console.log(this.courseDetails.listLesson[this.currentLesson])
+    this.courseDetails.listLesson[this.currentLesson].materials[
+      currentMaterialIndex
+    ].status = MissionStatus.DONE;
 
     // Last material in lesson
     if (currentMaterialIndex === currentLesson.materials.length - 1) {
@@ -259,8 +260,12 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
       nextLessonIndex = currentLesson.index;
       nextMaterialId = currentLesson.materials[currentMaterialIndex + 1].id;
 
-      if (currentLesson.materials[currentMaterialIndex + 1].status === MissionStatus.LOCKED) {
-        currentLesson.materials[currentMaterialIndex + 1].status = MissionStatus.CURRENT;
+      if (
+        currentLesson.materials[currentMaterialIndex + 1].status ===
+        MissionStatus.LOCKED
+      ) {
+        currentLesson.materials[currentMaterialIndex + 1].status =
+          MissionStatus.CURRENT;
       }
     }
 
@@ -294,6 +299,9 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
       this.currentLesson = nextLessonIndex;
       this.initMaterials();
       this.router.navigate([], { queryParams: { materialId: nextMaterialId } });
+      setTimeout(() => {
+        location.reload();
+      }, 1)
     }
   }
 

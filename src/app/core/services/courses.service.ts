@@ -305,7 +305,7 @@ export class CoursesService {
 
   onSubmitAssignment(data: ISubmitAssignment, lessonId: string) {
     return this.http
-      .post(endPoints.submitAssignment + `?lessonId=${lessonId}`, data)
+      .post<IMarkedAssignment>(endPoints.submitAssignment + `?lessonId=${lessonId}`, data)
       .pipe((res) => {
         if (res) {
           this.message.addMessage(

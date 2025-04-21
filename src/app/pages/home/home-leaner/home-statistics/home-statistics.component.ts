@@ -13,12 +13,10 @@ import {
   faShop,
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
-import { ModalService } from '../../../../core/services/modal.service';
 import { Subscription } from 'rxjs';
 import { IUser } from '../../../../shared/interfaces/user.interfaces';
 import { UserService } from '../../../../core/services/user.service';
 import { QuestsService } from '../../../../core/services/quests.service';
-import { QuestTypeEnum } from '@/src/app/shared/enums/others.enum';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from '@/src/app/core/services/message.service';
 import { IRewardedQuestRes } from '@/src/app/shared/interfaces/quests.interface';
@@ -108,7 +106,7 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
       this.quests.userQuests$.subscribe((quests) => {
         this.dailyQuests = [];
         quests.forEach((quest) => {
-          if (quest.type === QuestTypeEnum.DAILY && !quest.isRewardClaimed) {
+          if (!quest.isRewardClaimed) {
             let questValue = {};
             quest.questValue.forEach((q, idx) => {
               questValue = { ...questValue, [`${idx}`]: q };

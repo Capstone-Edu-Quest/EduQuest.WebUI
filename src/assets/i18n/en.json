@@ -641,7 +641,9 @@
     "INFORMATIONS": "Informations",
     "CHANGE_INFORMATIONS": "Change informations",
     "BUY_COURSE_SUCCESSFULLY": "Purchased course '{{item}}' successfully",
-    "BECOME_INSTRUCTOR_APPROVED": "Your instructor application have been approved"
+    "BECOME_INSTRUCTOR_APPROVED": "Your instructor application have been approved",
+    "YOUR_RESULT": "Your result",
+    "UNMARK": "Unmark"
   },
   "MESSAGE": {
     "INVALID_NAME": "Invalid name",

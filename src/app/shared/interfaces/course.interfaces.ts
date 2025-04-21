@@ -456,7 +456,7 @@ export interface ISubmitAssignment {
 
 export interface IMarkedAssignment {
   id: string;
-  totalTime: number;
+  toTalTime: number;
   answerScore: number;
   answerContent: string;
 }

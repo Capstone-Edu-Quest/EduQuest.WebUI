@@ -15,14 +15,18 @@ import {
 } from '@/src/app/shared/interfaces/course.interfaces';
 import {
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   Output,
+  ViewChild,
   type OnInit,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { faAngleLeft, faCircle } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '@/src/app/core/services/user.service';
+import { MessageService } from '@/src/app/core/services/message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-studying-material',
@@ -34,6 +38,8 @@ export class StudyingMaterialComponent implements OnInit {
   @Input('viewingMaterial') viewingMaterial: ILearningMaterial | null = null;
   @Output('onFinish') onFinish: EventEmitter<boolean> =
     new EventEmitter<boolean>();
+
+  @ViewChild('textEditor') textEditorRef!: ElementRef;
 
   quizAnswersId: { questionId: string; answerId: string }[] = [];
 
@@ -55,7 +61,9 @@ export class StudyingMaterialComponent implements OnInit {
   constructor(
     private router: Router,
     private CoursesService: CoursesService,
-    private user: UserService
+    private user: UserService,
+    private message: MessageService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -130,6 +138,10 @@ export class StudyingMaterialComponent implements OnInit {
       default:
         return 'Document';
     }
+  }
+
+  onRetryQuiz() {
+    location.reload()
   }
 
   onStartQuiz() {
@@ -264,7 +276,6 @@ export class StudyingMaterialComponent implements OnInit {
 
     this.countdown = 30;
     this.countdownInterval = setInterval(() => {
-      console.log(this.countdown)
       this.countdown--;
 
       if (this.countdown === 0) {
@@ -318,12 +329,17 @@ export class StudyingMaterialComponent implements OnInit {
             60
         )
       ),
-      answerContent: this.assignmentContent,
+      answerContent: (this.textEditorRef as any).htmlContent,
     };
 
     this.CoursesService.onSubmitAssignment(result, lessonId).subscribe(
       (res) => {
         if (res?.payload) {
+          this.answeredAssignment = res.payload;
+          this.message.addMessage(
+            'success',
+            this.translate.instant('MESSAGE.SUBMITTED_SUCCESSFULLY')
+          );
         }
       }
     );
@@ -341,24 +357,6 @@ export class StudyingMaterialComponent implements OnInit {
   }
 
   triggerFinish() {
-    this.isFinished = false;
-    this.countdown = 0;
-    this.isQuizStarted = false;
-    clearInterval(this.countdownInterval);
-    this.isNoTimeLimit = false;
-
-    this.videoDuration = 0;
-    this.isUpdatedStatus = false;
-
-    this.quizResult = null;
-
-    this.assignmentContent = '';
-    this.answeredAssignment = null;
-
-    this.isFinished = false;
     this.onFinish.emit(true);
-
-    this.checkIfFinishedAssignment();
-    this.trackDocumentProgress();
   }
 }
