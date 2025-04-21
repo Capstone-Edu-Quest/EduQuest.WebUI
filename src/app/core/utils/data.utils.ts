@@ -154,7 +154,7 @@ export const copyToClipboard = (text: string) => {
 };
 
 export const splitFileToChunks = (currentFile: File): IUploadingChunk[] => {
-  const fileChunkSize = 1024 * 25;
+  const fileChunkSize = 1048576; // 1mb
 
   const chunks: Blob[] = [];
   let currentPosition = 0,

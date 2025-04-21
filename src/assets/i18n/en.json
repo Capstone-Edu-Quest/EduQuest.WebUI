@@ -643,9 +643,14 @@
     "BUY_COURSE_SUCCESSFULLY": "Purchased course '{{item}}' successfully",
     "BECOME_INSTRUCTOR_APPROVED": "Your instructor application have been approved",
     "YOUR_RESULT": "Your result",
-    "UNMARK": "Unmark"
+    "UNMARK": "Unmark",
+    "UNMARK_ASSIGNMENTS": "Unmark assignments",
+    "PURCHASED_AMOUNT": "Purchased amount",
+    "ENROLLED_DATE": "Enrolled date",
+    "VIEW_CERTIFICATE": "View Certificate"
   },
   "MESSAGE": {
+    "SENT_OTP_SUCCESSFULLY": "Sent OTP to your email",
     "INVALID_NAME": "Invalid name",
     "FAILED_TO_REFUND": "Failed to refund, please try again later",
     "REFUNDED_SUCCESSFULLY": "Refunded successfully",

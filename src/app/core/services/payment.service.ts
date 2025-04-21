@@ -4,8 +4,12 @@ import { CouponService } from './coupon.service';
 import { HttpService } from './http.service';
 import { endPoints } from '../../shared/constants/endPoints.constant';
 import { PaymentConfigEnum } from '../../shared/enums/others.enum';
-import { ITransaction, ITransactionFilterParams } from '../../shared/interfaces/transactions.interfaces';
+import {
+  ITransaction,
+  ITransactionFilterParams,
+} from '../../shared/interfaces/transactions.interfaces';
 import { onConvertObjectToQueryParams } from '../utils/data.utils';
+import { UserService } from './user.service';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +18,8 @@ export class PaymentService {
   constructor(
     private cart: CartService,
     private coupon: CouponService,
-    private http: HttpService
+    private http: HttpService,
+    private user: UserService
   ) {}
 
   proceedCheckoutCart() {
@@ -71,5 +76,30 @@ export class PaymentService {
     return this.http.get(
       endPoints.transactionDetails + `?transactionId=${trId}`
     );
+  }
+
+  getConnectedAccount() {
+    if (!this.user.user$.value) return;
+    this.http
+      .get(
+        endPoints.getConnectedPaymentAccount +
+          `?userId=${this.user.user$.value.id}`
+      )
+      .subscribe((res) => {
+        if (!res?.payload) {
+          this.createStripeAccount();
+        }
+      });
+  }
+
+  createStripeAccount() {
+    if (!this.user.user$.value) return;
+    this.http
+      .post<string>(endPoints.createStripeAccount, {})
+      .subscribe((res) => {
+        if (!res?.payload) return;
+
+        window.open(res?.payload, "_blank");
+      });
   }
 }

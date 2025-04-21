@@ -10,10 +10,9 @@
     >{{ "BUTTON.PUBLISH_COURSE" | translate }}</app-button
   >
   } @case("Pending") {
-  <app-button
-    [style]="{ width: '100%', margin: '12px 0' }"
-    >{{ "LABEL.WAITING_FOR_APPROVAL" | translate }}</app-button
-  >
+  <app-button [style]="{ width: '100%', margin: '12px 0' }">{{
+    "LABEL.WAITING_FOR_APPROVAL" | translate
+  }}</app-button>
   } }
 
   <ng-container [ngTemplateOutlet]="dropdown"></ng-container>
@@ -168,4 +167,32 @@
     <div class="label">{{ "LABEL.THUMBNAIL" | translate }}</div>
     <img class="thumbnail" [src]="course.photoUrl" />
   </div>
+
+  <div class="section">
+    <div class="label" style="margin-bottom: 4px">
+      {{ "LABEL.LEARNERS" | translate }}
+    </div>
+    <app-table
+      *ngIf="isLearnersOverviewReady"
+      [data]="learnersOverview"
+      [columns]="learnersOverviewTableColumns"
+      (onRowClick)="onViewLearnerDetails($event.userId)"
+    ></app-table>
+  </div>
+</ng-template>
+
+<ng-template #viewCertificate let-row="row">
+  <a
+    [routerLink]="'/c/' + row.certificateId"
+    *ngIf="row.certificateId"
+    style="display: flex; align-items: center; gap: 4px"
+    >{{ "LABEL.VIEW_CERTIFICATE" | translate }}
+
+    <fa-icon [icon]="moreIcon"></fa-icon
+  ></a>
+</ng-template>
+
+
+<ng-template #viewLearnerDetailsModal>
+  <div>{{'LABEL.LEARNER_DETAILS' | translate}}</div>
 </ng-template>

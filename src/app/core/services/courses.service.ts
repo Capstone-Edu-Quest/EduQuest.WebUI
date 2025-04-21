@@ -5,6 +5,7 @@ import {
   ICourseApprovalStaff,
   ICourseCreate,
   ICourseInstructor,
+  ICourseLearnerOverview,
   ICourseOverview,
   ILearningMaterial,
   IMarkedAssignment,
@@ -91,7 +92,10 @@ export class CoursesService {
   }
 
   onSendCourseReview(param: IReviewParams) {
-    return this.http.post<IReview>(endPoints.review + `?userId=${this.user.user$.value?.id}`, param);
+    return this.http.post<IReview>(
+      endPoints.review + `?userId=${this.user.user$.value?.id}`,
+      param
+    );
   }
 
   onUpdateCourseReview(reviewId: string, param: IReviewParams) {
@@ -102,7 +106,10 @@ export class CoursesService {
   }
 
   onDeleteCourseReview(reviewId: string) {
-    return this.http.delete<any>(endPoints.review + `?feedbackId=${reviewId}&userId=${this.user.user$.value?.id}`);
+    return this.http.delete<any>(
+      endPoints.review +
+        `?feedbackId=${reviewId}&userId=${this.user.user$.value?.id}`
+    );
   }
 
   onGetMaterialIcon(materialType: materialType | MaterialTypeEnum) {
@@ -305,7 +312,10 @@ export class CoursesService {
 
   onSubmitAssignment(data: ISubmitAssignment, lessonId: string) {
     return this.http
-      .post<IMarkedAssignment>(endPoints.submitAssignment + `?lessonId=${lessonId}`, data)
+      .post<IMarkedAssignment>(
+        endPoints.submitAssignment + `?lessonId=${lessonId}`,
+        data
+      )
       .pipe((res) => {
         if (res) {
           this.message.addMessage(
@@ -321,6 +331,17 @@ export class CoursesService {
     return this.http.get<IMarkedAssignment>(
       endPoints.getAssignment +
         `?assignmentId=${assignmentId}&lessonId=${lessonId}`
+    );
+  }
+
+  getCourseLearnersOverview(courseId: string) {
+    return this.http.get<ICourseLearnerOverview[]>(endPoints.learnerOverview + `?courseId=${courseId}`);
+  }
+
+  getCourseLearnerDetails(courseId: string, userId: string) {
+    return this.http.get(
+      endPoints.learnerDetails +
+        onConvertObjectToQueryParams({ courseId, userId })
     );
   }
 }

@@ -109,7 +109,10 @@ export class PlatformService {
   }
 
   getAssignedInstructorApplicantToMe() {
-    return this.http.get<IInstructorApplyRes[]>(endPoints.instructorsListAssignedToMe + `?expertId=${this.user.user$.value?.id}`)
+    return this.http.get<IInstructorApplyRes[]>(
+      endPoints.instructorsListAssignedToMe +
+        `?expertId=${this.user.user$.value?.id}`
+    );
   }
 
   onUpdateInstructorStatus(UserId: string, isApprove: boolean) {
@@ -145,5 +148,13 @@ export class PlatformService {
           this.translate.instant('MESSAGE.ASSIGNED_SUCCESS')
         );
       });
+  }
+
+  getInstructorHomeStatistics() {
+    return this.http.get(endPoints.instructorHome);
+  }
+
+  getInstructorRevenueReport() {
+    return this.http.get(endPoints.instructorRevenueReport);
   }
 }

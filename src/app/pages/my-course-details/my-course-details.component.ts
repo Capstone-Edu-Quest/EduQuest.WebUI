@@ -1,8 +1,16 @@
-import { Component, OnDestroy, type OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  OnDestroy,
+  TemplateRef,
+  ViewChild,
+  type OnInit,
+} from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import {
   ICourseInstructor,
+  ICourseLearnerOverview,
   ICourseManageDetails,
   IReview,
   IReviewQuery,
@@ -12,6 +20,7 @@ import {
   faAngleRight,
   faCartShopping,
   faHeart,
+  faMarker,
   faPen,
   faStar,
   faTrash,
@@ -23,16 +32,49 @@ import { ILineChartDataSet } from '../../shared/interfaces/chart.interface';
 import { MessageService } from '../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
 import { InstructorCourseStatus } from '../../shared/enums/course.enum';
+import { TableColumn } from '../../shared/interfaces/others.interfaces';
+import { ModalService } from '../../core/services/modal.service';
 @Component({
   selector: 'app-my-course-details',
   templateUrl: './my-course-details.component.html',
   styleUrl: './my-course-details.component.scss',
 })
-export class MyCourseDetailsComponent implements OnInit, OnDestroy {
+export class MyCourseDetailsComponent
+  implements OnInit, OnDestroy, AfterViewInit
+{
+  @ViewChild('viewCertificate') viewCertificateRef!: TemplateRef<any>;
+  @ViewChild('viewLearnerDetailsModal')
+  viewLearnerDetailsModalRef!: TemplateRef<any>;
+
   subscription$: Subscription = new Subscription();
 
   moreIcon = faAngleRight;
   backIcon = faAngleLeft;
+
+  isLearnersOverviewReady: boolean = false;
+  learnersOverviewTableColumns: TableColumn[] = [
+    {
+      key: 'userName',
+      label: 'LABEL.NAME',
+    },
+    {
+      key: 'enrolledDate',
+      label: 'LABEL.ENROLLED_DATE',
+      render: (data: ICourseLearnerOverview) =>
+        new Date(data.enrolledDate).toLocaleDateString(),
+    },
+    {
+      key: 'purchasedAmount',
+      label: 'LABEL.PURCHASED_AMOUNT',
+      isMoney: true,
+    },
+    {
+      key: 'progress',
+      label: 'LABEL.PROGRESS',
+      render: (data: ICourseLearnerOverview) => `${data.progress.toFixed(2)}%`,
+    },
+  ];
+  learnersOverview: ICourseLearnerOverview[] = [];
 
   courseId!: string | null;
   course: ICourseInstructor | null = null;
@@ -75,6 +117,16 @@ export class MyCourseDetailsComponent implements OnInit, OnDestroy {
 
   pannelBtn = [
     {
+      icon: faMarker,
+      label: 'LABEL.UNMARK_ASSIGNMENTS',
+      action: (e: Event) =>
+        this.router.navigate([
+          'my-courses',
+          this.course?.id,
+          'unmark-assignment',
+        ]),
+    },
+    {
       icon: faPen,
       label: 'LABEL.EDIT',
       action: (e: Event) => this.onEdit(e),
@@ -84,16 +136,6 @@ export class MyCourseDetailsComponent implements OnInit, OnDestroy {
       label: 'LABEL.DELETE',
       action: (e: Event) => this.onDelete(e),
     },
-    // {
-    //   icon: faClone,
-    //   label: 'LABEL.CLONE',
-    //   action: (e: Event) => this.onClone(e),
-    // },
-    // {
-    //   icon: faShare,
-    //   label: 'LABEL.SHARE',
-    //   action: (e: Event) => this.onShare(e),
-    // },
   ];
 
   constructor(
@@ -101,13 +143,24 @@ export class MyCourseDetailsComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private courseService: CoursesService,
     private message: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private modal: ModalService
   ) {}
 
   ngOnInit(): void {
     this.listenToRoute();
     this.initCourse();
     this.initFeedbacks();
+    this.initLearnsOverview();
+  }
+
+  ngAfterViewInit(): void {
+    this.learnersOverviewTableColumns.push({
+      key: 'certificate',
+      label: '',
+      elementRef: this.viewCertificateRef,
+      onClick: () => {},
+    });
   }
 
   listenToRoute() {
@@ -180,6 +233,21 @@ export class MyCourseDetailsComponent implements OnInit, OnDestroy {
         this.chartLabels = [...labelsSet];
       });
     this.convertTime();
+  }
+
+  initLearnsOverview() {
+    this.isLearnersOverviewReady = false;
+    this.learnersOverview = [];
+
+    const courseId = this.route.snapshot.paramMap.get('courseId');
+    if (!courseId) return;
+
+    this.courseService.getCourseLearnersOverview(courseId).subscribe((res) => {
+      if (!res?.payload) return;
+
+      this.learnersOverview = res.payload;
+      this.isLearnersOverviewReady = true;
+    });
   }
 
   initFeedbacks() {
@@ -256,7 +324,15 @@ export class MyCourseDetailsComponent implements OnInit, OnDestroy {
   }
 
   round(val: number) {
-    return Math.ceil(val)
+    return Math.ceil(val);
+  }
+
+  onViewLearnerDetails(userId: string) {
+    if(!this.courseId) return;
+    this.courseService.getCourseLearnerDetails(this.courseId, userId).subscribe(res => {
+      console.log(res?.payload)
+      // this.modal.updateModalContent(this.viewLearnerDetailsModalRef)
+    })
   }
 
   ngOnDestroy(): void {

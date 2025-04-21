@@ -466,3 +466,12 @@ export interface IReviewParams {
   comment: string;
   rating: number
 }
+
+export interface ICourseLearnerOverview {
+  certificateId: string;
+  enrolledDate: string;
+  progress: number;
+  purchasedAmount: number;
+  userId: string;
+  userName: string;
+}

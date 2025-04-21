@@ -31,15 +31,15 @@ export class MyCourseChartsComponent implements OnInit {
   top3CoursesDataSet: IRadarChartDataSet[] = [
     {
       label: 'ReactJS',
-      data: [35, 120, 22], // Scores for each subject
+      data: [35, 120, 22],
     },
     {
       label: 'Typescript',
-      data: [70, 85, 44], // Scores for another student
+      data: [70, 85, 44],
     },
     {
       label: '.Net Fundamentals',
-      data: [80, 90, 55], // Scores for each subject
+      data: [80, 90, 55], // learner, 3 - 5 *, 1 - 3 *
     },
   ];
 
@@ -92,7 +92,6 @@ export class MyCourseChartsComponent implements OnInit {
         this.learnerStatisticsLabel.push(stat.status);
         this.leanerStatisticsData[0].data.push(Number(stat.count));
       });
-
     });
   }
 }

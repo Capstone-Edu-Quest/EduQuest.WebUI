@@ -8,6 +8,7 @@ import { ThemeService } from '../../../../core/services/theme.service';
 import { BaseChartDirective } from 'ng2-charts';
 import { TranslateService } from '@ngx-translate/core';
 import { IBarChartDataSet } from '../../../../shared/interfaces/chart.interface';
+import { PlatformService } from '@/src/app/core/services/platform.service';
 
 @Component({
   selector: 'app-home-ins-others',
@@ -19,6 +20,8 @@ export class HomeInsOthersComponent implements OnInit, OnDestroy {
 
   subscription$: Subscription = new Subscription();
   notis: INotification[] = [];
+
+  isChartReady: boolean = false;
 
   bellIcon = faBell;
 
@@ -39,11 +42,29 @@ export class HomeInsOthersComponent implements OnInit, OnDestroy {
 
   constructor(
     private notification: NotificationService,
-    private theme: ThemeService,
-    private translate: TranslateService
+    private platform: PlatformService
   ) {}
   ngOnInit(): void {
     this.listenToNotification();
+    this.initChart();
+  }
+
+  initChart() {
+    this.labels = [];
+    this.chartDataSet[0].data = [];
+    this.isChartReady = false;
+
+    this.platform.getInstructorHomeStatistics().subscribe((res) => {
+      if (!res?.payload) return;
+      const stat = res.payload as any;
+
+      (stat.topCourses ?? []).forEach((_c: any) => {
+        this.labels.push(_c.title);
+        this.chartDataSet[0].data.push(_c.learnerCount);
+      });
+
+      this.isChartReady = true;
+    });
   }
 
   listenToNotification() {

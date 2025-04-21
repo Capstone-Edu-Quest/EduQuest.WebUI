@@ -6,14 +6,12 @@ import { CartComponent } from './pages/cart/cart.component';
 import { WishlistComponent } from './pages/wishlist/wishlist.component';
 import { ProfileComponent } from './pages/profile/profile.component';
 import { AuthGuard } from './core/guards/auth.guards';
-import { CourseDetailsComponent } from './pages/course-details/course-details.component';
 import { ChatComponent } from './pages/chat/chat.component';
 import { ConversationMessageComponent } from './pages/chat/conversation-message/conversation-message.component';
 import { AboutComponent } from './pages/about/about.component';
 import { TermsComponent } from './pages/terms/terms.component';
 import { PrivacyComponent } from './pages/privacy/privacy.component';
 import { FoxItemsComponent } from './pages/fox-items/fox-items.component';
-import { CourseStageComponent } from './pages/course-stage/course-stage.component';
 import { LeaningPathComponent } from './pages/leaning-path/leaning-path.component';
 import { LearningPathDetailsComponent } from './pages/learning-path-details/learning-path-details.component';
 import { ShopItemsComponent } from './pages/shop-items/shop-items.component';
@@ -61,6 +59,7 @@ import { CertificatePageComponent } from './pages/certificate-page/certificate-p
 import { BecomeInstructorComponent } from './pages/become-instructor/become-instructor.component';
 import { ApproveInstructorComponent } from './pages/approve-instructor/approve-instructor.component';
 import { PersonalInfoComponent } from './pages/personal-settings/personal-info/personal-info.component';
+import { MyCoursesDetailsUnmarkAssiComponent } from './pages/my-course-details/my-courses-details-unmark-assi/my-courses-details-unmark-assi.component';
 
 const routes: Routes = [
   {
@@ -103,6 +102,7 @@ const routes: Routes = [
         path: '',
         component: MyCoursesComponent,
       },
+
       {
         path: 'add',
         component: MyCourseAddComponent,
@@ -110,6 +110,10 @@ const routes: Routes = [
       {
         path: ':courseId',
         children: [
+          {
+            path: 'unmark-assignment',
+            component: MyCoursesDetailsUnmarkAssiComponent,
+          },
           {
             path: 'edit',
             component: MyCourseAddComponent,

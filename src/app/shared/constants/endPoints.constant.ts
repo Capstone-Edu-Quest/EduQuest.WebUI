@@ -23,6 +23,9 @@ export const endPoints = {
   getCourseByStatus: 'course/status',
   submitCourse: 'course/submitCourse',
 
+  learnerOverview: 'course/learnerOverview',
+  learnerDetails: 'course/learnerDetail',
+
   material: 'material',
   getMaterialDetails: 'material/materialById',
   uploadVideo: 'material/uploadVideo',
@@ -67,7 +70,7 @@ export const endPoints = {
   webOverallStatistic: 'webStatistic/overall',
   platformSettingStatistic: 'webStatistic/platform/setting',
   adminHome: 'webStatistic/admin/home',
-
+  instructorHome: 'webStatistic/instructor/home',
   shopitem: 'shopItem',
   filterShopItem: 'shopItem/filter',
   equipItem: 'mascot/equip',
@@ -79,6 +82,10 @@ export const endPoints = {
 
   checkout: 'payment/checkout',
   refund: 'payment/refund',
+  getConnectedPaymentAccount: 'payment/connectedAccount',
+  createStripeAccount: 'payment/stripeExpress',
+
+  instructorRevenueReport: 'revenue/revenueReport',
 
   submitQuiz: 'course/quiz/attemt',
   submitAssignment: 'course/assignment/attemt',
@@ -93,5 +100,5 @@ export const endPoints = {
   getMyInsApplicant: 'user/myInstructorApplication',
   cancelInstructorApplication: 'user/cancelInstructorApplication',
   assignInstructorToExpert: 'user/assignIntructorToExpert',
-  instructorsListAssignedToMe: 'user/assignToExpert'
+  instructorsListAssignedToMe: 'user/assignToExpert',
 };

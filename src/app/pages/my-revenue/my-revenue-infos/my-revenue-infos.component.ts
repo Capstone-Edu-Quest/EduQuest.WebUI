@@ -7,6 +7,7 @@ import {
   faWallet,
 } from '@fortawesome/free-solid-svg-icons';
 import { getNumberOfDatesInMonth } from '../../../core/utils/time.utils';
+import { PlatformService } from '@/src/app/core/services/platform.service';
 
 @Component({
   selector: 'app-my-revenue-infos',
@@ -20,44 +21,64 @@ export class MyRevenueInfosComponent implements OnInit {
   walletIcon = faWallet;
   arrowRightIcon = faArrowRight;
 
-  datas = [
-    {
-      label: 'LABEL.TOTAL_REVENUE',
-      compareToLabel: 'LABEL.TOTAL_REVENUE_LAST_YEAR',
-      value: 1254,
-      lastValue: null,
-      // Formula (total this year/passed dates) / (total last year/last year dates)
-    },
-    {
-      label: 'LABEL.REVENUE_THIS_MONTH',
-      compareToLabel: 'LABEL.REVENUE_LAST_MONTH',
-      value: 221,
-      lastValue: 199,
-      // Formula (total this month/passed dates) / (total last month/last month dates)
-    },
-    {
-      label: 'LABEL.REVENUE_7_DAYS',
-      compareToLabel: 'LABEL.REVENUE_LAST_7_DAYS',
-      value: 25,
-      lastValue: 26,
-      // Formula (total this month/passed dates) / (total last month/last month dates)
-    },
-  ];
+  datas: any[] = [];
 
   percentagesValue: any = {};
 
+  constructor(private platform: PlatformService) {}
+
   ngOnInit(): void {
-    this.onInitPercentages();
+    this.initRevenueInfo();
+    // this.onInitPercentages();
+  }
+
+  initRevenueInfo() {
+    this.datas = [
+      {
+        label: 'LABEL.TOTAL_REVENUE',
+        compareToLabel: 'LABEL.TOTAL_REVENUE_LAST_YEAR',
+        value: 0,
+        changedPercent: 0,
+        // Formula (total this year/passed dates) / (total last year/last year dates)
+      },
+      {
+        label: 'LABEL.REVENUE_THIS_MONTH',
+        compareToLabel: 'LABEL.REVENUE_LAST_MONTH',
+        value: 0,
+        changedPercent: 0,
+        // Formula (total this month/passed dates) / (total last month/last month dates)
+      },
+      {
+        label: 'LABEL.REVENUE_7_DAYS',
+        compareToLabel: 'LABEL.REVENUE_LAST_7_DAYS',
+        value: 0,
+        changedPercent: 0,
+        // Formula (total this month/passed dates) / (total last month/last month dates)
+      },
+    ];
+    this.platform.getInstructorRevenueReport().subscribe((res) => {
+      if (!res?.payload) return;
+      const stat = res.payload as any;
+
+      this.datas[0].value = stat.totalRevenue;
+      this.datas[0].changedPercent = stat.totalRevenueChangePercent;
+
+      this.datas[1].value = stat.revenueThisMonth;
+      this.datas[1].changedPercent = stat.revenueThisMonthChangePercent;
+
+      this.datas[2].value = stat.revenue7Days;
+      this.datas[2].changedPercent = stat.revenue7DaysChangePercent;
+    });
   }
 
   onInitPercentages() {
-    this.datas.forEach((data) => {
-      this.percentagesValue[data.label] = this.calculatePercentages(
-        data.value,
-        data.lastValue,
-        data.label
-      ).toFixed(2);
-    });
+    // this.datas.forEach((data) => {
+    //   this.percentagesValue[data.label] = this.calculatePercentages(
+    //     data.value,
+    //     data.lastValue,
+    //     data.label
+    //   ).toFixed(2);
+    // });
   }
 
   calculatePercentages(
@@ -97,7 +118,7 @@ export class MyRevenueInfosComponent implements OnInit {
         thisVal = thisTime / currentDate;
         lastVal = lastTime / lastMonthDate;
         break;
-        
+
       case 'REVENUE_7_DAYS':
         break;
       default:

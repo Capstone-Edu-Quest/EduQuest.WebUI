@@ -17,14 +17,14 @@
         <div
           class="rate-value"
           [ngClass]="{
-            'rate-value--up': percentagesValue[revenueData.label] > 0,
-            'rate-value--down': percentagesValue[revenueData.label] < 0
+            'rate-value--up': revenueData.changedPercent > 0,
+            'rate-value--down': revenueData.changedPercent < 0
           }"
         >
           <fa-icon
-            [icon]="percentagesValue[revenueData.label] < 0 ? downIcon : upIcon"
+            [icon]="revenueData.changedPercent < 0 ? downIcon : upIcon"
           ></fa-icon>
-          {{ percentagesValue[revenueData.label] }}%
+          {{ revenueData.changedPercent }}%
         </div>
         <div class="rate-compare-to">
           ({{ revenueData.compareToLabel | translate }})

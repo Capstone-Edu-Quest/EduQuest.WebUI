@@ -88,7 +88,7 @@ export class PricingComponent implements OnInit, OnDestroy {
             ? this.packagePrice.Instructor[currentView]
             : this.packagePrice.Learner[currentView],
           packageTime: this.isViewMonthly ? 'LABEL.MONTHLY' : 'LABEL.YEARLY',
-          action: this.user.user$.value?.isPremium
+          action: this.user.user$.value?.isPro
             ? 'LABEL.APPLIED'
             : 'LABEL.UPGRADE',
           packageDescribe: 'LABEL.PREMIUM_PACKAGE_DESCRIBE_TEXT',

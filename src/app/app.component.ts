@@ -27,6 +27,7 @@ import { CoursesService } from './core/services/courses.service';
 import { IUser } from './shared/interfaces/user.interfaces';
 import { WebRole } from './shared/enums/user.enum';
 import { PlatformService } from './core/services/platform.service';
+import { PaymentService } from './core/services/payment.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -55,7 +56,8 @@ export class AppComponent implements OnInit, OnDestroy {
     private quests: QuestsService,
     private learningPath: LearningPathService,
     private course: CoursesService,
-    private platform: PlatformService
+    private platform: PlatformService,
+    private payment: PaymentService
   ) {}
 
   ngOnInit(): void {
@@ -108,6 +110,7 @@ export class AppComponent implements OnInit, OnDestroy {
         break;
       case WebRole.INSTRUCTOR:
         this.course.onInitMyMaterials();
+        this.payment.getConnectedAccount();
         break;
       case WebRole.ADMIN:
       case WebRole.STAFF:
