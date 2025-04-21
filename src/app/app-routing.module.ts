@@ -60,6 +60,7 @@ import { BecomeInstructorComponent } from './pages/become-instructor/become-inst
 import { ApproveInstructorComponent } from './pages/approve-instructor/approve-instructor.component';
 import { PersonalInfoComponent } from './pages/personal-settings/personal-info/personal-info.component';
 import { MyCoursesDetailsUnmarkAssiComponent } from './pages/my-course-details/my-courses-details-unmark-assi/my-courses-details-unmark-assi.component';
+import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component';
 
 const routes: Routes = [
   {
@@ -67,6 +68,12 @@ const routes: Routes = [
     canActivate: [RoleGuard],
     data: { blockedRoles: [WebRole.EXPERT], redirectUrl: ['/courses-manage'] },
     component: HomeComponent,
+  },
+  {
+    path: 'leaderboard',
+    canActivate: [RoleGuard],
+    data: { allowedRoles: [WebRole.LEARNER], redirectUrl: ['/'] },
+    component: LeaderboardComponent,
   },
   {
     path: 'courses',

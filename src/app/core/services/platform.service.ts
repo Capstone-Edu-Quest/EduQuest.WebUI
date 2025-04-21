@@ -4,6 +4,7 @@ import { endPoints } from '../../shared/constants/endPoints.constant';
 import {
   IBecomeInstructorReq,
   IInstructorApplyRes,
+  ILeaderboard,
   IPlatformSettingsStats,
   IUpdateShopItem,
 } from '../../shared/interfaces/others.interfaces';
@@ -156,5 +157,8 @@ export class PlatformService {
 
   getInstructorRevenueReport() {
     return this.http.get(endPoints.instructorRevenueReport);
+  }
+  getLeaderboard() {
+    return this.http.get<ILeaderboard[]>(endPoints.leaderboard);
   }
 }

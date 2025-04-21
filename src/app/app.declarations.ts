@@ -203,6 +203,7 @@ import { BecomeInstructorComponent } from './pages/become-instructor/become-inst
 import { ApproveInstructorComponent } from './pages/approve-instructor/approve-instructor.component';
 import { PersonalInfoComponent } from './pages/personal-settings/personal-info/personal-info.component';
 import { MyCoursesDetailsUnmarkAssiComponent } from './pages/my-course-details/my-courses-details-unmark-assi/my-courses-details-unmark-assi.component';
+import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -368,6 +369,7 @@ export const AppDeclarations = [
   ApproveInstructorComponent,
   PersonalInfoComponent,
   MyCoursesDetailsUnmarkAssiComponent,
+  LeaderboardComponent
 ];
 export const NGIcons = [
   EnterOutline,

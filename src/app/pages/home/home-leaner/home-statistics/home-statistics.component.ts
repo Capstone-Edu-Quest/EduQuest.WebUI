@@ -20,6 +20,7 @@ import { QuestsService } from '../../../../core/services/quests.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MessageService } from '@/src/app/core/services/message.service';
 import { IRewardedQuestRes } from '@/src/app/shared/interfaces/quests.interface';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-home-statistics',
   templateUrl: './home-statistics.component.html',
@@ -68,7 +69,8 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private message: MessageService,
     private userService: UserService,
-    private quests: QuestsService
+    private quests: QuestsService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -137,6 +139,14 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
       .join(', ');
   }
 
+  onHandleStatOnClick(statLabel: string) {
+    switch (statLabel) {
+      case 'LABEL.CURRENT_RANK':
+        this.router.navigate(['/leaderboard']);
+        break;
+    }
+  }
+
   onClaimReward(id: string) {
     this.quests.onClaimQuest(id).subscribe((res) => {
       if (!res?.payload) {
@@ -159,7 +169,7 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
         this.userService.updateUser({
           ...this.user,
           statistic: res.payload.statistic,
-          mascotItem: res.payload.mascotItem
+          mascotItem: res.payload.mascotItem,
         });
       }
 

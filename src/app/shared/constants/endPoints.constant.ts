@@ -60,6 +60,7 @@ export const endPoints = {
 
   userMetaStreak: 'userMeta/streak',
   userProgress: 'userMeta/userProgress',
+  leaderboard: 'userMeta/leaderboard',
 
   tag: 'tag',
   searchTag: 'tag/filter',

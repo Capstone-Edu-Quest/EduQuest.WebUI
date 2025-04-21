@@ -32,7 +32,12 @@
         </div>
 
         <!-- Statistics -->
-        <div class="quest" *ngFor="let stat of statistics">
+        <div
+          class="quest"
+          *ngFor="let stat of statistics"
+          [ngStyle]="{ cursor: 'pointer' }"
+          (click)="onHandleStatOnClick(stat.label)"
+        >
           <div class="info-wrapper">
             <i nz-icon nzType="{{ stat.icon }}"></i>
             <div class="info">{{ stat.label | translate }}</div>

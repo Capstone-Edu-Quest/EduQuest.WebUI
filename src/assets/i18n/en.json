@@ -647,7 +647,9 @@
     "UNMARK_ASSIGNMENTS": "Unmark assignments",
     "PURCHASED_AMOUNT": "Purchased amount",
     "ENROLLED_DATE": "Enrolled date",
-    "VIEW_CERTIFICATE": "View Certificate"
+    "VIEW_CERTIFICATE": "View Certificate",
+    "LEADERBOARD": "Leaderboard",
+    "LEADERBOARD_SUB": "Top learners have most learning time this year"
   },
   "MESSAGE": {
     "SENT_OTP_SUCCESSFULLY": "Sent OTP to your email",
