@@ -21,7 +21,7 @@ export class ViewCourseScreenComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.initCourse()
+    this.initCourse();
   }
 
   initCourse() {
@@ -31,8 +31,14 @@ export class ViewCourseScreenComponent implements OnInit {
     this.course.onGetCourse(id).subscribe((data) => {
       this.courseDetails = data?.payload ?? null;
 
-      if(!this.courseDetails) return;
-      this.courseDetails.listLesson.sort((a, b) => a.index - b.index)
+      if (this.courseDetails) {
+        this.courseDetails.totalTime = Math.round(
+          Number(this.courseDetails?.totalTime)
+        );
+      }
+
+      if (!this.courseDetails) return;
+      this.courseDetails.listLesson.sort((a, b) => a.index - b.index);
     });
   }
 }

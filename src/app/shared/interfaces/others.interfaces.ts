@@ -276,3 +276,10 @@ export interface ILeaderboard {
   score: number;
   rank: 1;
 }
+
+export interface ICourseRevenueResponse {
+  title: string;
+  totalRefund: number;
+  totalRevenue: number;
+  totalSales: number;
+}

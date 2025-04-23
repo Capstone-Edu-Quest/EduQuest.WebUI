@@ -8,6 +8,7 @@ import {
   ICourseLearnerOverview,
   ICourseOverview,
   ILearningMaterial,
+  IMarkAssignmentRequest,
   IMarkedAssignment,
   IMaterialResponse,
   IMyCourseChartsStats,
@@ -19,6 +20,8 @@ import {
   ISubmitQuizReq,
   ISubmittedQuestResponse,
   ITag,
+  IUnreviewAssignment,
+  IUnreviewAssignmentResponse,
   materialType,
 } from '../../shared/interfaces/course.interfaces';
 import {
@@ -39,6 +42,7 @@ import {
 import { Router } from '@angular/router';
 import { MessageService } from './message.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ICourseRevenueResponse } from '../../shared/interfaces/others.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -248,7 +252,7 @@ export class CoursesService {
   }
 
   updateMaterial(data: ILearningMaterial) {
-    this.http.update(endPoints.material, [data]).subscribe((res) => {
+    this.http.update(endPoints.material, data).subscribe((res) => {
       if (!res?.payload) return;
 
       this.onInitMyMaterials();
@@ -335,7 +339,9 @@ export class CoursesService {
   }
 
   getCourseLearnersOverview(courseId: string) {
-    return this.http.get<ICourseLearnerOverview[]>(endPoints.learnerOverview + `?courseId=${courseId}`);
+    return this.http.get<ICourseLearnerOverview[]>(
+      endPoints.learnerOverview + `?courseId=${courseId}`
+    );
   }
 
   getCourseLearnerDetails(courseId: string, userId: string) {
@@ -343,5 +349,23 @@ export class CoursesService {
       endPoints.learnerDetails +
         onConvertObjectToQueryParams({ courseId, userId })
     );
+  }
+
+  getUnreviewAssignment(courseId: string) {
+    return this.http.get<IUnreviewAssignmentResponse>(
+      endPoints.getUnreviewAssignment + `?courseId=${courseId}`
+    );
+  }
+
+  markAssignment(param: IMarkAssignmentRequest) {
+    return this.http.post(endPoints.markAssigment, param);
+  }
+
+  getMyCoursesRevenue() {
+    return this.http.get<ICourseRevenueResponse[]>(endPoints.courseRevenue);
+  }
+
+  getMyCourseChartRevenue() {
+    return this.http.get(endPoints.courseChartRevenue);
   }
 }

@@ -1,1 +1,76 @@
-<p>my-courses-details-unmark-assi works!</p>,
+<div class="unmarked">
+  <div class="title text-gradient">
+    {{ "LABEL.UNREVIEW_ASSIGNMENT" | translate }}
+  </div>
+
+  <div class="course-name">{{ unreviewAssignment?.courseName }}</div>
+
+  @if(unreviewAssignment && flattedAssignments.length > 0) {
+
+  <div class="header">
+    <div style="min-width: 24px">
+      <fa-icon
+        *ngIf="viewingAssignmentNumber > 0"
+        [icon]="leftIcon"
+        (click)="onChangeOrder(-1)"
+      ></fa-icon>
+    </div>
+    <div>
+      {{ viewingAssignmentNumber + 1 }} / {{ flattedAssignments.length }}
+    </div>
+    <div style="min-width: 24px">
+      <fa-icon
+        *ngIf="viewingAssignmentNumber < flattedAssignments.length - 1"
+        [icon]="rightIcon"
+        (click)="onChangeOrder(1)"
+      ></fa-icon>
+    </div>
+  </div>
+
+  <div class="lesson-name">
+    {{
+      "LABEL.STAGE_VALUE"
+        | translate : { value: (viewingAssignment?.lessonIndex || 0) + 1 }
+    }}: {{ viewingAssignment?.lessonName || "No name" }}
+  </div>
+
+  <div class="question">
+    <b>Question:</b> "{{ viewingAssignment?.question }}"
+  </div>
+  <div
+    class="editor-loader-wrapper"
+    [innerHTML]="viewingAssignment?.attemptInfo?.answerContent || ''"
+  ></div>
+
+  <div class="input-label">
+    {{ "LABEL.MARK" | translate }} <span style="color: var(--alert)">*</span>
+  </div>
+  <input
+    type="number"
+    class="material-input material-name"
+    [placeholder]="'LABEL.MARK' | translate"
+    [(ngModel)]="mark"
+  />
+
+  <div class="input-label">{{ "LABEL.COMMENT" | translate }}</div>
+  <input
+    class="material-input material-name"
+    [placeholder]="'LABEL.COMMENT' | translate"
+    [(ngModel)]="comment"
+  />
+  <app-button (click)="onMark()" type="primary">{{
+    "BUTTON.SUBMIT" | translate
+  }}</app-button>
+  } @else {
+  <div
+    style="
+      text-align: center;
+      color: var(--secondary-text);
+      font-style: italic;
+      margin-top: 12px;
+    "
+  >
+    {{ "LABEL.NO_UNREVIEW_ASSIGNMENT" | translate }}
+  </div>
+  }
+</div>

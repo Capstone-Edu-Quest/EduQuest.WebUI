@@ -1,5 +1,9 @@
 import { Component, type OnInit } from '@angular/core';
-import { TableColumn } from '../../../shared/interfaces/others.interfaces';
+import {
+  ICourseRevenueResponse,
+  TableColumn,
+} from '../../../shared/interfaces/others.interfaces';
+import { CoursesService } from '@/src/app/core/services/courses.service';
 
 @Component({
   selector: 'app-my-revenue-courses-break-down',
@@ -8,117 +12,32 @@ import { TableColumn } from '../../../shared/interfaces/others.interfaces';
 })
 export class MyRevenueCoursesBreakDownComponent implements OnInit {
   tableColumns: TableColumn[] = [
-    { key: 'courseName', label: 'LABEL.COURSE_NAME_REVENUE' },
-    { key: 'totalLeaners', label: 'LABEL.TOTAL_SALES'},
-    { key: 'totalRefund', label: 'LABEL.TOTAL_REFUNDS' },
+    { key: 'title', label: 'LABEL.COURSE_NAME_REVENUE' },
+    { key: 'totalSales', label: 'LABEL.TOTAL_SALES' },
+    { key: 'totalRevenue', label: 'LABEL.TOTAL_REFUNDS' },
     // revenue = Total - Refund
-    { key: 'totalRevenue', label: 'Total Revenue', translateLabel: 'LABEL.TOTAL_REVENUE', isMoney: true },
-  ];
-
-  tableData = [
     {
-      courseName: 'C# from Scratch',
-      totalLeaners: (8).toLocaleString(),
-      totalRevenue: 80,
-      totalRefund: 0
-    },
-    {
-      courseName: 'Mastering TypeScript',
-      totalLeaners: (1232).toLocaleString(),
-      totalRevenue: 11222,
-      totalRefund: 12,
-    },
-    {
-      courseName: 'C# from Scratch',
-      totalLeaners: (8).toLocaleString(),
-      totalRevenue: 80,
-      totalRefund: 0
-    },
-    {
-      courseName: 'Mastering TypeScript',
-      totalLeaners: (1232).toLocaleString(),
-      totalRevenue: 11222,
-      totalRefund: 12,
-    },
-    {
-      courseName: 'C# from Scratch',
-      totalLeaners: (8).toLocaleString(),
-      totalRevenue: 80,
-      totalRefund: 0
-    },
-    {
-      courseName: 'Mastering TypeScript',
-      totalLeaners: (1232).toLocaleString(),
-      totalRevenue: 11222,
-      totalRefund: 12,
-    },
-    {
-      courseName: 'C# from Scratch',
-      totalLeaners: (8).toLocaleString(),
-      totalRevenue: 80,
-      totalRefund: 0
-    },
-    {
-      courseName: 'Mastering TypeScript',
-      totalLeaners: (1232).toLocaleString(),
-      totalRevenue: 11222,
-      totalRefund: 12,
-    },
-    {
-      courseName: 'C# from Scratch',
-      totalLeaners: (8).toLocaleString(),
-      totalRevenue: 80,
-      totalRefund: 0
-    },
-    {
-      courseName: 'Mastering TypeScript',
-      totalLeaners: (1232).toLocaleString(),
-      totalRevenue: 11222,
-      totalRefund: 12,
-    },
-    {
-      courseName: 'C# from Scratch',
-      totalLeaners: (8).toLocaleString(),
-      totalRevenue: 80,
-      totalRefund: 0
-    },
-    {
-      courseName: 'Mastering TypeScript',
-      totalLeaners: (1232).toLocaleString(),
-      totalRevenue: 11222,
-      totalRefund: 12,
-    },
-    {
-      courseName: 'C# from Scratch',
-      totalLeaners: (8).toLocaleString(),
-      totalRevenue: 80,
-      totalRefund: 0
-    },
-    {
-      courseName: 'Mastering TypeScript',
-      totalLeaners: (1232).toLocaleString(),
-      totalRevenue: 11222,
-      totalRefund: 12,
-    },
-    {
-      courseName: 'C# from Scratch',
-      totalLeaners: (8).toLocaleString(),
-      totalRevenue: 80,
-      totalRefund: 0
-    },
-    {
-      courseName: 'Mastering TypeScript',
-      totalLeaners: (1232).toLocaleString(),
-      totalRevenue: 11222,
-      totalRefund: 12,
-    },
-    {
-      courseName: 'C# from Scratch',
-      totalLeaners: (8).toLocaleString(),
-      totalRevenue: 80,
-      totalRefund: 0
+      key: 'totalRevenue',
+      label: 'LABEL.TOTAL_REVENUE',
+      isMoney: true,
     },
   ];
 
-  ngOnInit(): void {}
+  isDataReady: boolean = false;
+
+  tableData: ICourseRevenueResponse[] = [];
+
+  constructor(private course: CoursesService) {}
+
+  ngOnInit(): void {
+    this.init();
+  }
+
+  init() {
+    this.isDataReady = false;
+    this.course.getMyCoursesRevenue().subscribe((res) => {
+      this.tableData = res?.payload ?? [];
+      this.isDataReady = true;
+    });
+  }
 }

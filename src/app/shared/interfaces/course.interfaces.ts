@@ -26,6 +26,7 @@ export interface ICourseOverview {
   price: number;
   discountPrice: number | null;
   rating: number;
+  totalLearners: number;
   totalLesson: number;
   totalTime: number;
   totalReview: number;
@@ -474,4 +475,54 @@ export interface ICourseLearnerOverview {
   purchasedAmount: number;
   userId: string;
   userName: string;
+}
+
+export interface IAssignmentAttemptAuthor {
+  id: string;
+  username: string;
+  avatarUrl: string;
+}
+
+export interface IAssignmentAttempt {
+  id: string;
+  assignmentId: string;
+  lessonId: string;
+  answerContent: string;
+  totalTime: number;
+  answerScore: number;
+  author: IAssignmentAttemptAuthor;
+}
+
+export interface IUnreviewAssignment {
+  id: string;
+  timeLimit: number;
+  lessonName: string;
+  lessonIndex: number;
+  question: string;
+  answerLanguage: string;
+  expectedAnswer: string;
+  attempts: IAssignmentAttempt[];
+}
+
+export interface IUnreviewAssignmentResponse {
+  courseId: string;
+  courseName: string;
+  assignments: IUnreviewAssignment[];
+}
+
+export interface IFlattedUnreviewAssignment {
+  id: string;
+  timeLimit: number;
+  lessonName: string;
+  lessonIndex: number;
+  question: string;
+  answerLanguage: string;
+  expectedAnswer: string;
+  attemptInfo: IAssignmentAttempt;
+}
+
+export interface IMarkAssignmentRequest {
+  assignmentAttemptId: string;
+  grade: number;
+  comment: string;
 }

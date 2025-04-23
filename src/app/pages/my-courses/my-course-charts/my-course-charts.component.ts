@@ -57,6 +57,8 @@ export class MyCourseChartsComponent implements OnInit {
       const { coursesEnroll, coursesReview, learnerStatus, topCourseInfo } =
         res.payload;
 
+      console.log(res.payload);
+
       this.totalCourseLeanersLabel = [];
       this.totalCourseLeanersDataSet = [
         {
@@ -77,7 +79,7 @@ export class MyCourseChartsComponent implements OnInit {
         },
       ];
       coursesReview.forEach((stat) => {
-        this.ratingsChartLabel.push(stat.time);
+        this.ratingsChartLabel.push((stat as any).rating);
         this.ratinsChartData[0].data.push(Number(stat.count));
       });
 

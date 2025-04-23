@@ -178,6 +178,8 @@
     "AVERAGE_RATINGS_STATS": "{{value}}",
     "STAGES": "Lessons",
     "STAGE_VALUE": "Lesson {{value}}",
+    "ASSIGNMENT_INFO": "Assignment informations",
+    "MARK": "Mark",
     "MINUTE": "{{value}} minutes",
     "COURSE_INCLUDED": "This course also included",
     "TOTAL_HOUR": "Total {{value}} hours",
@@ -649,9 +651,15 @@
     "ENROLLED_DATE": "Enrolled date",
     "VIEW_CERTIFICATE": "View Certificate",
     "LEADERBOARD": "Leaderboard",
-    "LEADERBOARD_SUB": "Top learners have most learning time this year"
+    "LEADERBOARD_SUB": "Top learners have most learning time this year",
+    "UNREVIEW_ASSIGNMENT": "Unreview assignments",
+    "COMMENT": "Comment",
+    "NO_UNREVIEW_ASSIGNMENT": "No unreview assignment found"
   },
   "MESSAGE": {
+    "FAILED_TO_MARK": "Failed to mark, pleas try again later",
+    "INVALID_MARK": "Invalid mark (0 - 10)",
+    "MARK_SUCCESS": "Marked successfully",
     "SENT_OTP_SUCCESSFULLY": "Sent OTP to your email",
     "INVALID_NAME": "Invalid name",
     "FAILED_TO_REFUND": "Failed to refund, please try again later",

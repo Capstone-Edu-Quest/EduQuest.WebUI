@@ -2,13 +2,7 @@
   <div class="label">{{ "LABEL.TRENDS_INSIGHTS" | translate }}</div>
   <div class="sub-label">{{ "LABEL.TRENDS_INSIGHTS_LABEL" | translate }}</div>
   <div class="card">
-    <canvas
-      baseChart
-      [data]="totalCourseLeanerChartData"
-      [options]="lineChartConfig"
-      type="line"
-    >
-    </canvas>
+    <app-line-chart *ngIf="chartIsReady" [labels]="lineChartsLabel" [dataSet]="dataSet"></app-line-chart>
   </div>
 </div>
 

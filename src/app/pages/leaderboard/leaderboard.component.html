@@ -9,7 +9,7 @@
       [ngClass]="'top-' + item.rank"
     >
       <img [src]="item.avatarUrl" />
-      <div class="name">{{ item.username }}</div>
+      <div class="name" (click)="onViewProfile(item.id)">{{ item.username }}</div>
       <div class="score">
         {{ "SIGNATURE.MINUTES" | translate : { value: item.score } }}
       </div>
@@ -22,7 +22,7 @@
     <div class="learner" *ngFor="let learner of leaderboards">
       <div class="rank">#{{ learner.rank }}</div>
       <img [src]="learner.avatarUrl" />
-      <div class="name">{{ learner.username }}</div>
+      <div class="name" (click)="onViewProfile(learner.id)">{{ learner.username }}</div>
       <div class="score">
         {{ "SIGNATURE.MINUTES" | translate : { value: learner.score } }}
       </div>

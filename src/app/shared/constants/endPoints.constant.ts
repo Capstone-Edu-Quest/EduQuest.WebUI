@@ -23,6 +23,9 @@ export const endPoints = {
   getCourseByStatus: 'course/status',
   submitCourse: 'course/submitCourse',
 
+  courseRevenue: 'revenue/courseRevenue',
+  courseChartRevenue: 'revenue/chartRevenue',
+
   learnerOverview: 'course/learnerOverview',
   learnerDetails: 'course/learnerDetail',
 
@@ -91,6 +94,8 @@ export const endPoints = {
   submitQuiz: 'course/quiz/attemt',
   submitAssignment: 'course/assignment/attemt',
   getAssignment: 'course/assignment/attempt',
+  getUnreviewAssignment: 'course/assignment/instructor/unreviewedAttempts',
+  markAssigment: '/course/assignment/review',
 
   transactionDetails: 'transaction/transactionDetail',
   transactions: 'transaction/filter',

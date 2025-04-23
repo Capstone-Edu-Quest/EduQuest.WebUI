@@ -25,6 +25,9 @@ export class MyRevenueInfosComponent implements OnInit {
 
   percentagesValue: any = {};
 
+  pendingAmount: number = 0;
+  availableAmount: number = 0;
+
   constructor(private platform: PlatformService) {}
 
   ngOnInit(): void {
@@ -60,14 +63,17 @@ export class MyRevenueInfosComponent implements OnInit {
       if (!res?.payload) return;
       const stat = res.payload as any;
 
-      this.datas[0].value = stat.totalRevenue;
-      this.datas[0].changedPercent = stat.totalRevenueChangePercent;
+      this.datas[0].value = stat?.totalRevenue;
+      this.datas[0].changedPercent = stat?.totalRevenueChangePercent;
 
-      this.datas[1].value = stat.revenueThisMonth;
-      this.datas[1].changedPercent = stat.revenueThisMonthChangePercent;
+      this.datas[1].value = stat?.revenueThisMonth;
+      this.datas[1].changedPercent = stat?.revenueThisMonthChangePercent;
 
-      this.datas[2].value = stat.revenue7Days;
-      this.datas[2].changedPercent = stat.revenue7DaysChangePercent;
+      this.datas[2].value = stat?.revenue7Days;
+      this.datas[2].changedPercent = stat?.revenue7DaysChangePercent;
+
+      this.pendingAmount = stat?.pendingBalance;
+      this.availableAmount = stat?.availableBalance;
     });
   }
 

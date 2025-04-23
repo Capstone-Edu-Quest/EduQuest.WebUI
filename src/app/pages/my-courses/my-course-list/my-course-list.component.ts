@@ -23,7 +23,7 @@ export class MyCourseListComponent implements OnInit {
     this.CoursesService.onGetCourseCreatedByMe().subscribe(res => {
       if(!res?.payload) return;
 
-      this.courses = res.payload
+      this.courses = res.payload.map(c => ({...c, totalTime: Math.round(c.totalTime)}));
     }) 
   }
 }

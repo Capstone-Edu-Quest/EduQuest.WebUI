@@ -19,7 +19,7 @@
     </div>
 
     <div class="feedback-ctn">
-      <div class="stars-number">{{ course.rating || 0 }}</div>
+      <div class="stars-number">{{ round(course.rating) || 0 }}</div>
       <div class="stars-ctn">
         <fa-icon *ngFor="let starIcon of starsList" [icon]="starIcon"></fa-icon>
       </div>

@@ -1,0 +1,79 @@
+.unmarked {
+  padding: 35px 10vw;
+  box-sizing: border-box;
+
+  .title {
+    font-weight: 600;
+    font-size: 22px;
+  }
+
+  .course-name {
+    font-size: 16px;
+    margin-top: 3px;
+    font-weight: 400;
+  }
+
+  .header {
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    fa-icon {
+      cursor: pointer;
+      font-size: 15px;
+    }
+  }
+
+  .lesson-name {
+    margin-top: 16px;
+    font-size: 13px;
+    font-weight: 400;
+    color: var(--secondary-text);
+  }
+
+  .question {
+    margin-top: 16px;
+    font-size: 15px;
+    font-style: italic;
+  }
+
+  .editor-loader-wrapper {
+    border: 1px solid var(--quaternary-text);
+    padding: 0 8px;
+    box-sizing: border-box;
+    border-radius: 8px;
+    margin-top: 8px;
+  }
+
+  b {
+    font-style: normal;
+  }
+
+  .input-label {
+    margin-top: 20px;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 2px;
+  }
+
+  .material-input {
+    font-size: 13px;
+    margin-top: 4px;
+    width: 100%;
+    display: block;
+    background: var(--tertiary-bg);
+    border: none;
+    outline: none;
+    color: var(--primary-text);
+    padding: 8px 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    margin-bottom: 18px;
+
+    &.material-description {
+      resize: none;
+      font-size: 12px;
+    }
+  }
+}

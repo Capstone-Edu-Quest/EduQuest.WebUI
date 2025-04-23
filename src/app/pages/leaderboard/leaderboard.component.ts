@@ -4,6 +4,7 @@ import {
   ILeaderboard,
   TableColumn,
 } from '../../shared/interfaces/others.interfaces';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-leaderboard',
@@ -14,7 +15,7 @@ export class LeaderboardComponent implements OnInit {
   leaderboards: ILeaderboard[] = [];
   top3: ILeaderboard[] = [];
 
-  constructor(private platform: PlatformService) {}
+  constructor(private platform: PlatformService, private router: Router) {}
 
   ngOnInit(): void {
     this.initLeaderboard();
@@ -25,7 +26,7 @@ export class LeaderboardComponent implements OnInit {
     this.platform.getLeaderboard().subscribe((res) => {
       if (!res?.payload) return;
 
-      this.leaderboards = res.payload.sort((a, b) => a.rank - b.rank);
+      this.leaderboards = res.payload.sort((a, b) => a.rank - b.rank).map(l => ({...l, score: Math.round(l.score)}));
 
       this.top3 = this.leaderboards.slice(0, 3);
       this.leaderboards = this.leaderboards.slice(3, this.leaderboards.length);
@@ -34,5 +35,9 @@ export class LeaderboardComponent implements OnInit {
       this.top3[0] = this.top3[1];
       this.top3[1] = temp;
     });
+  }
+
+  onViewProfile(userId: string) {
+    this.router.navigate(['/profile', userId])
   }
 }

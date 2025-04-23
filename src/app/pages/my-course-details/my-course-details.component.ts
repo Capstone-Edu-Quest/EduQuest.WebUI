@@ -144,7 +144,6 @@ export class MyCourseDetailsComponent
     private courseService: CoursesService,
     private message: MessageService,
     private translate: TranslateService,
-    private modal: ModalService
   ) {}
 
   ngOnInit(): void {
@@ -329,10 +328,10 @@ export class MyCourseDetailsComponent
 
   onViewLearnerDetails(userId: string) {
     if(!this.courseId) return;
-    this.courseService.getCourseLearnerDetails(this.courseId, userId).subscribe(res => {
-      console.log(res?.payload)
-      // this.modal.updateModalContent(this.viewLearnerDetailsModalRef)
-    })
+    // this.courseService.getCourseLearnerDetails(this.courseId, userId).subscribe(res => {
+    //   console.log(res?.payload)
+    //   this.modal.updateModalContent(this.viewLearnerDetailsModalRef)
+    // })
   }
 
   ngOnDestroy(): void {

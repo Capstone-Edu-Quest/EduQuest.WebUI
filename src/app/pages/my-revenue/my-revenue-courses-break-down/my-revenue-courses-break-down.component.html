@@ -1,5 +1,5 @@
 <div class="revenue-break-down">
   <div class="label">{{ "LABEL.COURSE_REVENUE" | translate }}</div>
   <div class="sub-label">{{ "LABEL.COURSE_REVENUE_SUB" | translate }}</div>
-  <app-table [columns]="tableColumns" [data]="tableData"></app-table>
+  <app-table *ngIf="isDataReady" [columns]="tableColumns" [data]="tableData"></app-table>
 </div>
