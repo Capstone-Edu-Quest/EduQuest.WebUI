@@ -31,6 +31,7 @@ export interface ICourseOverview {
   totalTime: number;
   totalReview: number;
   progressPercentage: number | null;
+  totalLearner?: number;
 }
 
 export interface ICourseApprovalStaff extends ICourseOverview {

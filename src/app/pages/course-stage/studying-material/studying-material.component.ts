@@ -141,7 +141,7 @@ export class StudyingMaterialComponent implements OnInit {
   }
 
   onRetryQuiz() {
-    location.reload()
+    location.reload();
   }
 
   onStartQuiz() {
@@ -244,6 +244,8 @@ export class StudyingMaterialComponent implements OnInit {
   }
 
   trackVideoProgress(time: number) {
+    this.isFinished = this.viewingMaterial?.status === 'Done';
+
     if (this.viewingMaterial?.status === MissionStatus.DONE) return;
     if (time / this.videoDuration <= 0.8 || this.isUpdatedStatus) return;
 
@@ -265,12 +267,13 @@ export class StudyingMaterialComponent implements OnInit {
 
     let arr: any[] = [];
     this.courseDetails.listLesson.forEach((ls) => arr.push(...ls.materials));
-    const currMaterial = arr.find((m) => m.id === this.viewingMaterial?.id);
+    this.isFinished = this.viewingMaterial?.status === 'Done';
 
     if (
       (this.viewingMaterial?.type as any) !== 'Document' ||
       !materialId ||
-      !lessonId
+      !lessonId ||
+      this.viewingMaterial?.status === 'Done'
     )
       return;
 

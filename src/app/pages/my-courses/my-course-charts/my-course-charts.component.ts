@@ -28,20 +28,7 @@ export class MyCourseChartsComponent implements OnInit {
   leanerStatisticsData: IPieChartDataSet[] = [];
 
   top3CoursesLabels: string[] = ['Leaners', 'Rating (3 - 5)', 'Rating (1 - 3)'];
-  top3CoursesDataSet: IRadarChartDataSet[] = [
-    {
-      label: 'ReactJS',
-      data: [35, 120, 22],
-    },
-    {
-      label: 'Typescript',
-      data: [70, 85, 44],
-    },
-    {
-      label: '.Net Fundamentals',
-      data: [80, 90, 55], // learner, 3 - 5 *, 1 - 3 *
-    },
-  ];
+  top3CoursesDataSet: IRadarChartDataSet[] = [];
 
   constructor(private course: CoursesService) {}
 
@@ -56,8 +43,6 @@ export class MyCourseChartsComponent implements OnInit {
 
       const { coursesEnroll, coursesReview, learnerStatus, topCourseInfo } =
         res.payload;
-
-      console.log(res.payload);
 
       this.totalCourseLeanersLabel = [];
       this.totalCourseLeanersDataSet = [
@@ -94,6 +79,8 @@ export class MyCourseChartsComponent implements OnInit {
         this.learnerStatisticsLabel.push(stat.status);
         this.leanerStatisticsData[0].data.push(Number(stat.count));
       });
+
+      this.top3CoursesDataSet = topCourseInfo.map((c: any) => ({label: c.title, data: c.data}))
     });
   }
 }
