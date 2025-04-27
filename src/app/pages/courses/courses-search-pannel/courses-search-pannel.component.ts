@@ -1,4 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { faX } from '@fortawesome/free-solid-svg-icons';
 import { CourseSortEnum } from 'src/app/shared/enums/course.enum';
 import { IFilterCourseOption } from 'src/app/shared/interfaces/course.interfaces';
 
@@ -10,9 +11,11 @@ import { IFilterCourseOption } from 'src/app/shared/interfaces/course.interfaces
 export class CoursesSearchPannelComponent implements OnInit {
   @Output() onChange: EventEmitter<IFilterCourseOption> = new EventEmitter();
 
-  sortBy: string = '';
-  ratingOpt: string = '';
-  selectedTags: string[] = ['DSA', "React", '.Net'];
+  clearIcon = faX;
+
+  sortBy: string | null = null;
+  ratingOpt: string | null = null;
+  TagListId: string[] = [];
 
   sortOptions = [
     {
@@ -31,28 +34,23 @@ export class CoursesSearchPannelComponent implements OnInit {
 
   starOptions = [
     {
-      value: '4.5',
-      translateValue: { value: '4.5' },
+      value: 4,
+      translateValue: { value: 4 },
       label: 'FILTER_STAR',
     },
     {
-      value: '4',
-      translateValue: { value: '4' },
+      value: 3,
+      translateValue: { value: 3 },
       label: 'FILTER_STAR',
     },
     {
-      value: '3.5',
-      translateValue: { value: '3.5' },
+      value: 2,
+      translateValue: { value: 2 },
       label: 'FILTER_STAR',
     },
     {
-      value: '3',
-      translateValue: { value: '3' },
-      label: 'FILTER_STAR',
-    },
-    {
-      value: '2.5',
-      translateValue: { value: '2.5' },
+      value: 1,
+      translateValue: { value: 2 },
       label: 'FILTER_STAR',
     },
   ];
@@ -71,9 +69,19 @@ export class CoursesSearchPannelComponent implements OnInit {
     }
 
     this.onChange.emit({
-      sort: Number(this.sortBy) as CourseSortEnum,
-      ratingOpt: this.ratingOpt,
-      selectedTags: this.selectedTags,
-    })
+      Sort: Number(this.sortBy) as CourseSortEnum,
+      Rating: Number(this.ratingOpt) as number,
+      TagListId: this.TagListId,
+    });
+  }
+
+  onClearSort() {
+    this.sortBy = null;
+    this.handleFilterChange('SORT', null);
+  }
+
+  onClearReview() {
+    this.sortBy = null;
+    this.handleFilterChange('RATING', null);
   }
 }

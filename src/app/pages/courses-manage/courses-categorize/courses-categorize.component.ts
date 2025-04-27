@@ -11,11 +11,13 @@ import {
   ICourseTagData,
   ISearchCourseParams,
   ITag,
-  ITagCount,
 } from '../../../shared/interfaces/course.interfaces';
 import { faAngleRight, faPen, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { fadeInOutAnimation } from '../../../shared/constants/animations.constant';
 import { CoursesService } from '@/src/app/core/services/courses.service';
+import { ModalService } from '@/src/app/core/services/modal.service';
+import { MessageService } from '@/src/app/core/services/message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-courses-categorize',
@@ -26,7 +28,10 @@ import { CoursesService } from '@/src/app/core/services/courses.service';
 export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
   @ViewChild('edit') editRef!: TemplateRef<any>;
   @ViewChild('initCourseByTag') initCourseByTagRef!: TemplateRef<any>;
+  @ViewChild('addTag') addTagRef!: TemplateRef<any>;
+
   searchText = '';
+  newTagName = '';
 
   editIcon = faPen;
   addIcon = faPlus;
@@ -65,9 +70,15 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
 
   coursesData: ICourseOverview[] = [];
 
-  isShowCourse: boolean = false
+  isInitTagFinished: boolean = false;
+  isShowCourse: boolean = false;
 
-  constructor(private CourseService: CoursesService) {}
+  constructor(
+    private CourseService: CoursesService,
+    private modal: ModalService,
+    private message: MessageService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
     this.onInitData();
@@ -82,11 +93,6 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
         elementRef: this.initCourseByTagRef,
       },
     ];
-    // this.courseTableColumns.push({
-    //   key: 'actions',
-    //   label: '',
-    //   elementRef: this.editRef,
-    // });
   }
 
   onEdit(e: Event, data: ICourseTagData, idx: number) {
@@ -95,9 +101,11 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
   }
 
   onInitData() {
+    this.isInitTagFinished = false;
     this.CourseService.onGetTags().subscribe((res) => {
       if (!res?.payload) return;
 
+      this.isInitTagFinished = true;
       this.tagsData = res.payload;
     });
   }
@@ -110,12 +118,38 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
     };
 
     this.isShowCourse = false;
-    this.CourseService.onSearchCourse(courseParams).subscribe(res => {
-      if(!res?.payload) return;
+    this.CourseService.onSearchCourse(courseParams).subscribe((res) => {
+      if (!res?.payload) return;
 
-      console.log(res.payload)
       this.coursesData = res.payload;
       this.isShowCourse = true;
-    })
+    });
+  }
+
+  showAddTagModal() {
+    this.modal.updateModalContent(this.addTagRef);
+  }
+
+  onSubmitAddTag() {
+    if (this.newTagName.trim().length === 0) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.MISSING_FIELDS')
+      );
+      return;
+    }
+
+    this.newTagName = this.newTagName.replace(/\s+/g, '_').replace('#', '');
+    this.CourseService.onAddTag(`${this.newTagName}`).subscribe((res) => {
+      if (res?.isError) return;
+
+      this.message.addMessage(
+        'success',
+        this.translate.instant('MESSAGE.CREATED_SUCCESSFULLY')
+      );
+      this.onInitData();
+      this.modal.updateModalContent(null);
+      this.newTagName = ''
+    });
   }
 }

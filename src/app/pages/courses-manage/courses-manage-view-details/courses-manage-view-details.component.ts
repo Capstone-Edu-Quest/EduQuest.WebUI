@@ -1,5 +1,5 @@
 import { UserService } from './../../../core/services/user.service';
-import { Component, type OnInit } from '@angular/core';
+import { Component, ElementRef, TemplateRef, ViewChild, type OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
   IAssignment,
@@ -11,16 +11,15 @@ import {
   ITableMaterialData,
   IVideo,
 } from '../../../shared/interfaces/course.interfaces';
-import { AssignmentLanguageEnum } from '../../../shared/enums/materials.enum';
 import {
   faAngleLeft,
   faAngleRight,
+  faBookmark,
   faCheck,
   faCheckCircle,
   faClose,
   faHashtag,
   faPlus,
-  faWarning,
 } from '@fortawesome/free-solid-svg-icons';
 import { Location } from '@angular/common';
 import { TableColumn } from '../../../shared/interfaces/others.interfaces';
@@ -30,6 +29,10 @@ import { WebRole } from '../../../shared/enums/user.enum';
 import { IUser } from '../../../shared/interfaces/user.interfaces';
 import { fadeInOutAnimation } from '../../../shared/constants/animations.constant';
 import { CoursesService } from '@/src/app/core/services/courses.service';
+import { ILearningPath, IModifyLearningPath } from '@/src/app/shared/interfaces/learning-path.interfaces';
+import { LearningPathService } from '@/src/app/core/services/learning-path.service';
+import { MessageService } from '@/src/app/core/services/message.service';
+import { ModalService } from '@/src/app/core/services/modal.service';
 
 @Component({
   selector: 'app-courses-manage-view-details',
@@ -38,6 +41,7 @@ import { CoursesService } from '@/src/app/core/services/courses.service';
   animations: [fadeInOutAnimation],
 })
 export class CoursesManageViewDetailsComponent implements OnInit {
+  @ViewChild('dropdownLearningPath') dropdownLearningPathRef!: TemplateRef<any>;
   subscription$: Subscription = new Subscription();
 
   backIcon = faAngleLeft;
@@ -48,6 +52,7 @@ export class CoursesManageViewDetailsComponent implements OnInit {
   user: IUser | null = null;
 
   exampleCourse: ICourseFullMetarialsView | null = null;
+  newLearningPathName: string = '';
 
   tableColumns: TableColumn[] = [
     {
@@ -69,6 +74,7 @@ export class CoursesManageViewDetailsComponent implements OnInit {
     {
       key: 'time',
       label: 'LABEL.TIME',
+      render: (item: ITableMaterialData) => Math.ceil(item.time)
     },
     // {
     //   key: 'view',
@@ -79,6 +85,8 @@ export class CoursesManageViewDetailsComponent implements OnInit {
   materialsData: ITableMaterialData[] = [];
 
   course: ICourse | null = null;
+
+  myLearningPaths: ILearningPath[] = [];
 
   approvalMenu = [
     {
@@ -99,14 +107,19 @@ export class CoursesManageViewDetailsComponent implements OnInit {
       label: 'LABEL.MODIFY_HASHTAG',
       action: (e: Event) => this.onModifyHashtag(e),
     },
+    {
+      icon: faBookmark,
+      label: 'LABEL.ADD_TO_LEARNING_PATH',
+      action: (e: Event) => this.onShowLearningPathList(),
+    },
   ];
 
   staffMenu = [
-    {
-      icon: faWarning,
-      label: 'LABEL.SUSPEND_COURSE',
-      action: (e: Event) => this.onSuspendCourse(e),
-    },
+    // {
+    //   icon: faWarning,
+    //   label: 'LABEL.SUSPEND_COURSE',
+    //   action: (e: Event) => this.onSuspendCourse(e),
+    // },
   ];
 
   menu: any[] = [];
@@ -116,11 +129,23 @@ export class CoursesManageViewDetailsComponent implements OnInit {
     private location: Location,
     private translate: TranslateService,
     private UserService: UserService,
-    private CourseService: CoursesService
+    private CourseService: CoursesService,
+    private learningPath : LearningPathService,
+    private message: MessageService,
+    private modal: ModalService
   ) {}
 
   ngOnInit(): void {
     this.initCourse();
+    this.listenToMyLearningPath();
+  }
+
+  listenToMyLearningPath() {
+    this.subscription$.add(
+      this.learningPath.myLearningPaths$.subscribe(
+        (l) => (this.myLearningPaths = l)
+      )
+    );
   }
 
   listenToUser() {
@@ -179,6 +204,10 @@ export class CoursesManageViewDetailsComponent implements OnInit {
         this.materialsData.push(materialData);
       });
     });
+  }
+
+  onShowLearningPathList() {
+    this.modal.updateModalContent(this.dropdownLearningPathRef);
   }
 
   onGetDataInfo(
@@ -261,6 +290,59 @@ export class CoursesManageViewDetailsComponent implements OnInit {
   onSuspendCourse(e: Event) {
     e.stopPropagation();
     console.log('Suspend Course');
+  }
+
+  onAddNewLearningPath() {
+    if (!this.course) return;
+
+    const newLearningPath: IModifyLearningPath = {
+      name: this.newLearningPathName,
+      description: '',
+      isPublic: false,
+      courses: [
+        {
+          courseId: this.course.id,
+          courseOrder: 0,
+        },
+      ],
+    };
+
+    this.learningPath.addNewLearningPath(newLearningPath);
+    this.newLearningPathName = '';
+  }
+
+  onAddCourseTolearningPath(pathId: string) {
+    if (!this.course) return;
+
+    const isCourseExisted = this.isCourseExistedInPath(pathId)
+
+    if (isCourseExisted) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.COURSE_EXISTED_LEARNINGPATH')
+      );
+      return;
+    }
+
+    this.learningPath.modifyCoursesToLearningPath(
+      pathId,
+      [this.course.id],
+      'add'
+    );
+  }
+
+  isCourseExistedInPath(pathId: string) {
+    const currentLearningPath = this.learningPath.myLearningPaths$.value.find(
+      (lp) => lp.id === pathId
+    );
+
+    if (!currentLearningPath) return;
+
+    const index = currentLearningPath.learningPathCourses.findIndex(
+      (c) => c.courseId === this.course?.id
+    );
+
+    return index !== -1;
   }
 
   onBack() {

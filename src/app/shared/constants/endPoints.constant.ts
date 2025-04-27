@@ -6,6 +6,8 @@ export const endPoints = {
   changePassword: 'auth/change-password',
   resetPassword: 'auth/reset-password',
   signout: 'auth/sign-out',
+  signUp: 'auth/sign-up',
+  optSignUp: 'auth/sign-up/validate',
 
   cart: 'cart',
   addToCart: 'cart/add-cartItem',
@@ -60,6 +62,8 @@ export const endPoints = {
   user: 'user',
   getProfile: 'user/profile',
   getUserByRoleId: 'user/byRoleId',
+  searchUser: 'user/search',
+  updateStatus: 'user/status',
 
   userMetaStreak: 'userMeta/streak',
   userProgress: 'userMeta/userProgress',

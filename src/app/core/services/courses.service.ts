@@ -247,6 +247,10 @@ export class CoursesService {
       });
   }
 
+  onAddTag(tagName: string) {
+    return this.http.post(endPoints.tag, { tagName })
+  }
+
   onGetTags() {
     return this.http.get<ITag[]>(endPoints.searchTag);
   }

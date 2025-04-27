@@ -25,6 +25,10 @@ export class LearningHeatmapComponent implements OnInit {
     this.initHeatmap();
   }
 
+  round(num: number) {
+    return Math.ceil(num)
+  }
+
   initFormattedValues() {
     this.learningData = [];
     this.user?.learningData.forEach((data) => {

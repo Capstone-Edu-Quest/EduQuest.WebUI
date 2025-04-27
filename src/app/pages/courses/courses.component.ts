@@ -22,9 +22,9 @@ export class CoursesComponent implements OnInit, OnDestroy {
   subscription$: Subscription = new Subscription();
   searchKeyword: string = '';
   otherFilters: IFilterCourseOption = {
-    sort: null,
-    ratingOpt: '',
-    selectedTags: [],
+    Sort: null,
+    Rating: null,
+    TagListId: [],
   };
 
   courses: ICourseOverview[] = [];
@@ -43,6 +43,7 @@ export class CoursesComponent implements OnInit, OnDestroy {
 
   handleFilterChange($e: IFilterCourseOption) {
     this.otherFilters = { ...$e };
+    this.handleSearch();
   }
 
   handleSearch() {
@@ -55,6 +56,15 @@ export class CoursesComponent implements OnInit, OnDestroy {
       eachPage: 10,
       isPublic: true,
     };
+
+    Object.entries(this.otherFilters).forEach(([key, value]) => {
+      if (
+        (Array.isArray(value) && value.length > 0) ||
+        (!Array.isArray(value) && value)
+      ) {
+        courseParams[key as keyof ISearchCourseParams] = value;
+      }
+    });
 
     this.course
       .onSearchCourse(courseParams)

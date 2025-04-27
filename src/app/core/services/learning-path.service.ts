@@ -27,12 +27,14 @@ export class LearningPathService {
   >([]);
 
   initMyLearningPath() {
-    this.http
-      .get<ILearningPath[]>(endPoints.myLearningPath)
-      .subscribe((res) => {
-        if (!res?.payload) return;
-        this.myLearningPaths$.next(res.payload);
-      });
+    this.getMyLearningPath().subscribe((res) => {
+      if (!res?.payload) return;
+      this.myLearningPaths$.next(res.payload);
+    });
+  }
+
+  getMyLearningPath() {
+    return this.http.get<ILearningPath[]>(endPoints.myLearningPath);
   }
 
   getPublicLearningPath() {
@@ -51,10 +53,7 @@ export class LearningPathService {
         ]);
         this.message.addMessage(
           'success',
-          this.translate.instant(
-            res.message?.content ?? '',
-            res.message?.values ?? {}
-          )
+          this.translate.instant('MESSAGE.CREATED_SUCCESSFULLY')
         );
       });
   }

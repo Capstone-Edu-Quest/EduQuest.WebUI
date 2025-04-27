@@ -465,7 +465,7 @@
     "LEARNER": "Leaner",
     "EXPERT": "Expert",
     "ADMIN": "Admin",
-    "SEARCH_USERS": "Search users (Enter to search)",
+    "SEARCH_USERS": "Search users by name (Enter to search)",
     "PHONE": "Phone",
     "LEVEL_EXP": "Level & Exp",
     "QUESTS": "Quests",
@@ -655,9 +655,16 @@
     "UNREVIEW_ASSIGNMENT": "Unreview assignments",
     "COMMENT": "Comment",
     "NO_UNREVIEW_ASSIGNMENT": "No unreview assignment found",
-    "ENROLLED": "Enrolled"
+    "ENROLLED": "Enrolled",
+    "RESET_SUCCESSFULLY": "Password reset successfully, please check your email for new password",
+    "ADD_TO_LEARNING_PATH": "Add to learning path",
+    "PASSWORD_NOT_MATCH": "Password not match",
+    "ENTER_TAG": "Enter tag name",
+    "CLEAR_FILTER": "Clear filter"
   },
   "MESSAGE": {
+    "EMAIL_EXISTED": "Email already existed",
+    "CREATE_ACCOUNT_SUCCESSFULLY": "Signup successfully, please signin to continue",
     "FAILED_TO_MARK": "Failed to mark, pleas try again later",
     "INVALID_MARK": "Invalid mark (0 - 10)",
     "MARK_SUCCESS": "Marked successfully",
@@ -738,11 +745,12 @@
     "FAILED_CANCEL": "Failed to cancel, please try again later",
     "ASSIGNED_FAIL": "Failed to assign, please try again later",
     "ASSIGNED_SUCCESS": "Assigned successfully",
-    "UPDATED_FAIL": "Failed to update, please try again later"
+    "UPDATED_FAIL": "Failed to update, please try again later",
+    "SUSPENDED_ACCOUNT": "Your account have been suspended"
   },
   "BUTTON": {
     "CANCEL_APPLICATION": "Cancel registration",
-
+    "UNBLOCK": "Unblock",
     "UPDATE": "Update",
     "SEND_REVIEW": "Send review",
     "PUBLISH_COURSE": "Publish Course",

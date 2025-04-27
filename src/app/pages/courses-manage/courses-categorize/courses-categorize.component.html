@@ -7,13 +7,13 @@
           {{ "LABEL.TAGS_SUB" | translate }}
         </div>
       </div>
-      <app-button>
+      <app-button (click)="showAddTagModal()">
         <fa-icon [icon]="addIcon" style="margin-right: 5px"></fa-icon
         >{{ "BUTTON.ADD_TAG" | translate }}</app-button
       >
     </div>
     <app-table
-      *ngIf="this.tagsData.length > 0"
+      *ngIf="this.tagsData.length > 0 && isInitTagFinished"
       [columns]="tagTableColumns"
       [data]="tagsData"
     ></app-table>
@@ -23,12 +23,27 @@
     <div class="label">{{ "LABEL.COURSES" | translate }}</div>
     <div class="sub-label">{{ "LABEL.COURSES_SUB" | translate }}</div>
 
-    <app-table *ngIf="isShowCourse" [columns]="courseTableColumns" [data]="coursesData"></app-table>
+    <app-table
+      *ngIf="isShowCourse"
+      [columns]="courseTableColumns"
+      [data]="coursesData"
+    ></app-table>
   </div>
 </div>
 
 <ng-template #initCourseByTag let-row="row" let-index="index">
-  <div style="cursor: pointer; display: flex; align-items: center; gap: 6px; color: var(--secondary-text); text-align: right; width: 100%" (click)="onConfirmSearchCourse(row)">
+  <div
+    style="
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      color: var(--secondary-text);
+      text-align: right;
+      width: 100%;
+    "
+    (click)="onConfirmSearchCourse(row)"
+  >
     {{ "LABEL.GET_COURSE_HAVE_THIS_TAG" | translate }}
     <fa-icon [icon]="rightIcon"></fa-icon>
   </div>
@@ -40,4 +55,18 @@
     (click)="onEdit($event, row, index)"
     [icon]="editIcon"
   ></fa-icon>
+</ng-template>
+
+<ng-template #addTag>
+  <div style="font-weight: 600; font-size: 16px">
+    {{ "BUTTON.ADD_TAG" | translate }}
+  </div>
+  <input
+    class="formated-input"
+    style="margin-top: 12px; margin-bottom: 12px; padding: 12px 8px; height: 35px; width: 100%"
+    [placeholder]="'LABEL.ENTER_TAG' | translate"
+    [(ngModel)]="newTagName"
+  />
+
+  <app-button type="primary" (click)="onSubmitAddTag()">{{ "BUTTON.SUBMIT" | translate }}</app-button>
 </ng-template>

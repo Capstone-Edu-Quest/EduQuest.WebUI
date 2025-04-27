@@ -97,3 +97,32 @@ export interface IChangeInfoReq {
   headline: string;
   description: string;
 }
+
+export interface ISignUpReq {
+  fullName: string;
+  email: string;
+  password: string;
+  confirmPassword: string;
+}
+
+export interface ISearchUserReq {
+  Username?: string;
+  Email?: string;
+  Phone?: string;
+}
+
+export interface ISearchUserRes {
+  id: string;
+  username: string;
+  email: string;
+  phone: string;
+  avatarUrl: string;
+  description: string;
+  expertName: string | null;
+  headline: string;
+  roleId: string;
+  status: string;
+  totalCourses: number;
+  totalLearners: number;
+  totalReviews: number;
+}

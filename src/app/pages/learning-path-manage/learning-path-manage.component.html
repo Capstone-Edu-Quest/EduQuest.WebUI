@@ -1,8 +1,31 @@
-<div class="manage-learning-path">
-  <div class="title text-gradient">{{ "LABEL.LEARNING_PATH" | translate }}</div>
+<div class="learning-path" @fadeInOutAnimation>
+  <div class="title text-gradient">{{ "LABEL.LEANING_PATH" | translate }}</div>
 
-  <div class="paths-ctn">
-    <app-path-item *ngFor="let path of demoLearningPaths" [path]="path" [isViewExpert]="true"></app-path-item>
+  <div class="tabs">
+    <div
+      class="tab"
+      [ngClass]="{
+        active: tab.value === currentViewTab
+      }"
+      (click)="onChangeTab(tab.value)"
+      *ngFor="let tab of tabs"
+    >
+      {{ tab.label | translate }}
+    </div>
+  </div>
+
+  <div class="paths-ctn" *ngIf="getLearningPathList() as learningPaths">
+    <div
+      *ngIf="learningPaths.length === 0"
+      style="color: var(--secondary-text); font-size: 12px"
+    >
+      {{ "LABEL.NO_LEARNING_PATH" | translate }}
+    </div>
+    <app-path-item
+      *ngFor="let path of learningPaths"
+      [path]="path"
+      [isViewExpert]="true"
+    ></app-path-item>
   </div>
 </div>
 

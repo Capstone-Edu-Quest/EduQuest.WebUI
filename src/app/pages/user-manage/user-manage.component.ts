@@ -14,12 +14,12 @@ import {
   faUserPlus,
   faUsersRays,
 } from '@fortawesome/free-solid-svg-icons';
-import { IUser } from '../../shared/interfaces/user.interfaces';
+import { ISearchUserRes, IUser } from '../../shared/interfaces/user.interfaces';
 import {
   IInstructorApplyRes,
   TableColumn,
 } from '../../shared/interfaces/others.interfaces';
-import { WebRole } from '../../shared/enums/user.enum';
+import { UserStatusEnum, WebRole } from '../../shared/enums/user.enum';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PlatformService } from '../../core/services/platform.service';
@@ -46,49 +46,32 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   isAdminView: boolean = false;
 
+  isChartReady: boolean = false;
+
   roleOptions: any[] = [];
 
   searchText: string = '';
 
-  statItems = [
+  statItems: any[] = [
     {
       label: 'LABEL.TOTAL_USERS',
-      value: 2123,
+      value: 0,
       icon: faUser,
     },
     {
       label: 'LABEL.MONTHLY_ACTIVE_USERS',
-      value: 1263,
+      value: 0,
       icon: faUsersRays,
     },
     {
       label: 'LABEL.NEW_USER_THIS_MONTH',
-      value: 532,
+      value: 0,
       icon: faUserPlus,
     },
   ];
 
-  graphLabels: string[] = [
-    'Oct 2024',
-    'Nov 2024',
-    'Dec 2024',
-    'Jan 2025',
-    'Feb 2025',
-  ];
-  graphData: ILineChartDataSet[] = [
-    {
-      label: 'LABEL.TOTAL_USERS',
-      data: [50, 75, 110, 120, 223],
-    },
-    {
-      label: 'LABEL.ACTIVE_USERS',
-      data: [22, 32, 50, 62, 50],
-    },
-    {
-      label: 'LABEL.PREMIUM_USERS',
-      data: [2, 4, 10, 6, 22],
-    },
-  ];
+  graphLabels: string[] = [];
+  graphData: ILineChartDataSet[] = [];
 
   appliedInstructorColumns: TableColumn[] = [];
 
@@ -112,9 +95,11 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
   ];
 
   columns: TableColumn[] = [];
-  usersTableData: IUser[] = [];
 
   expertsList: IUser[] = [];
+
+  isSearchUserDone: boolean = true;
+  usersList: ISearchUserRes[] = [];
 
   constructor(
     private UserService: UserService,
@@ -129,10 +114,70 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.listenToUser();
     this.initRoleOptions();
     this.initExperts();
+    this.initUsersStats();
+  }
+
+  initUsersStats() {
+    this.isChartReady = false;
+    this.user.getAdminDashboard().subscribe((res) => {
+      if (!res?.payload) return;
+      const { payload } = res;
+
+      console.log(payload.adminDasboardUsers.graphData);
+
+      this.statItems = [
+        {
+          label: 'LABEL.TOTAL_USERS',
+          value: payload.adminDasboardUsers.totalUsers,
+          icon: faUser,
+        },
+        {
+          label: 'LABEL.MONTHLY_ACTIVE_USERS',
+          value: payload.adminDasboardUsers.monthlyActiveUsers,
+          icon: faUsersRays,
+        },
+        {
+          label: 'LABEL.NEW_USER_THIS_MONTH',
+          value: payload.adminDasboardUsers.thisMonthNewUsers,
+          icon: faUserPlus,
+        },
+      ];
+
+      const sourceData = payload.adminDasboardUsers.graphData;
+      this.graphLabels = sourceData.map((item) => item.date);
+      this.graphData = [
+        {
+          label: 'LABEL.TOTAL_USERS',
+          data: sourceData.map((item) => item.totalUser),
+        },
+        {
+          label: 'LABEL.ACTIVE_USERS',
+          data: sourceData.map((item) => item.totalActiveUser),
+        },
+        {
+          label: 'LABEL.PREMIUM_USERS',
+          data: sourceData.map((item) => item.totalProUser),
+        },
+      ];
+
+      this.isChartReady = true;
+    });
+  }
+
+  handleSearchUser(e: KeyboardEvent) {
+    if (!this.searchText || e.key.toLowerCase() !== 'enter') return;
+
+    this.isSearchUserDone = false;
+    this.user
+      .onSearchUser({ Username: this.searchText.trim() })
+      .subscribe((res) => {
+        this.usersList = res?.payload?.users ?? [];
+        this.isSearchUserDone = true;
+      });
   }
 
   ngAfterViewInit(): void {
-    this.initColumns();
+    // this.initColumns();
   }
 
   listenToUser() {
@@ -195,7 +240,7 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
         key: 'role',
         isSwitchData: true,
         translateLabel: (data: IUser) =>
-          this.UserService.getRoleLabel(data.roleId),
+          this.UserService.getRoleLabel(Number(data.roleId)),
       });
     }
     this.columns.push({
@@ -242,16 +287,25 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.router.navigate(['/profile', u.id]);
   }
 
-  onConfirmSearch(e: KeyboardEvent) {}
-
   onWarn(e: Event, u: IUser) {
     e.stopPropagation();
     console.log('warn', u);
   }
 
-  onSuspend(e: Event, u: IUser) {
+  onSuspend(e: Event, u: ISearchUserRes) {
     e.stopPropagation();
-    console.log('suspend', u);
+
+    this.user
+      .updateUserStatus({
+        userId: u.id,
+        status:
+          u.status === UserStatusEnum.BLOCKED
+            ? UserStatusEnum.ACTIVE
+            : UserStatusEnum.BLOCKED,
+      })
+      .subscribe((res) => {
+        this.handleSearchUser({ key: 'enter' } as any);
+      });
   }
 
   onAssignExpert(e: any, row: IInstructorApplyRes) {

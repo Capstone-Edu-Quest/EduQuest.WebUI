@@ -342,9 +342,9 @@ export interface ITrendingCourse {
 }
 
 export interface IFilterCourseOption {
-  sort: CourseSortEnum | null;
-  ratingOpt: string;
-  selectedTags: string[];
+  Rating?: number | null;
+  Sort?: CourseSortEnum | null;
+  TagListId?: string[];
 }
 
 export interface ISearchCourseParams {

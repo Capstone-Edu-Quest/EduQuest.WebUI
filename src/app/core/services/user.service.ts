@@ -3,9 +3,12 @@ import {
   IChangeInfoReq,
   ILoginRes,
   IProfile,
+  ISearchUserReq,
+  ISearchUserRes,
+  ISignUpReq,
   IUser,
 } from '../../shared/interfaces/user.interfaces';
-import { WebRole } from '../../shared/enums/user.enum';
+import { UserStatusEnum, WebRole } from '../../shared/enums/user.enum';
 import { BehaviorSubject } from 'rxjs';
 import { MessageService } from './message.service';
 import { TranslateService } from '@ngx-translate/core';
@@ -63,6 +66,14 @@ export class UserService {
         return;
       }
 
+      if (res.payload.status === UserStatusEnum.BLOCKED) {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.SUSPENDED_ACCOUNT')
+        );
+        this.logout();
+        return;
+      }
       this.updateUser({ ...res.payload, roleId: Number(res.payload.roleId) });
     });
   }
@@ -153,6 +164,14 @@ export class UserService {
     const payload = response?.payload;
     if (!payload) return;
 
+    if (payload.userData.status === UserStatusEnum.BLOCKED) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.SUSPENDED_ACCOUNT')
+      );
+      return;
+    }
+
     this.updateUser({
       ...payload.userData,
       roleId: Number(payload.userData.roleId) as WebRole,
@@ -203,12 +222,14 @@ export class UserService {
     return this.http.get<IProfile>(endPoints.getProfile + `?userId=${userId}`);
   }
 
+  getAdminDashboard() {
+    return this.http.get<AdminDashboardResponse>(endPoints.adminHome);
+  }
+
   initAdminDashboards() {
-    this.http
-      .get<AdminDashboardResponse>(endPoints.adminHome)
-      .subscribe((res) => {
-        this.adminDashboard$.next(res?.payload ?? null);
-      });
+    this.getAdminDashboard().subscribe((res) => {
+      this.adminDashboard$.next(res?.payload ?? null);
+    });
   }
 
   getUserByRoleId(roleId: WebRole) {
@@ -282,5 +303,31 @@ export class UserService {
         phone,
       });
     });
+  }
+
+  onSignup(param: ISignUpReq) {
+    return this.http.post(endPoints.signUp, param);
+  }
+
+  validateSignupOtp({ email, otp }: { email: string; otp: string }) {
+    this.http.post(endPoints.optSignUp, { email, otp }).subscribe((res) => {
+      if (!res?.payload) return;
+
+      this.message.addMessage(
+        'success',
+        this.translate.instant('MESSAGE.CREATE_ACCOUNT_SUCCESSFULLY')
+      );
+      this.router.navigate(['/signin']);
+    });
+  }
+
+  onSearchUser(param: ISearchUserReq) {
+    return this.http.get<{ users: ISearchUserRes[] }>(
+      endPoints.searchUser + onConvertObjectToQueryParams(param)
+    );
+  }
+
+  updateUserStatus(data: { userId: string; status: UserStatusEnum }) {
+    return this.http.update(endPoints.updateStatus, data);
   }
 }

@@ -1,13 +1,20 @@
 <div class="search-pannel">
   <!-- Sort by -->
   <div class="section">
-    <div class="title">{{ "LABEL.SORT" | translate }}</div>
+    <div class="title">
+      {{ "LABEL.SORT" | translate }}
+    </div>
     <app-checkboxGroup
       [name]="'sort'"
       [options]="sortOptions"
-      [value]="sortBy"
+      [value]="sortBy ?? ''"
       (onChange)="handleFilterChange('SORT', $event)"
     ></app-checkboxGroup>
+
+    <div class="clear-filter" (click)="onClearSort()" *ngIf="sortBy">
+      <fa-icon [icon]="clearIcon"></fa-icon
+      >{{ "LABEL.CLEAR_FILTER" | translate }}
+    </div>
   </div>
 
   <div class="divider"></div>
@@ -19,9 +26,14 @@
       [showStar]="true"
       [name]="'rating'"
       [options]="starOptions"
-      [value]="ratingOpt"
+      [value]="ratingOpt ?? ''"
       (onChange)="handleFilterChange('RATING', $event)"
     ></app-checkboxGroup>
+
+    <div class="clear-filter" (click)="onClearReview()" *ngIf="ratingOpt">
+      <fa-icon [icon]="clearIcon"></fa-icon
+      >{{ "LABEL.CLEAR_FILTER" | translate }}
+    </div>
   </div>
 
   <!-- <div class="divider"></div>

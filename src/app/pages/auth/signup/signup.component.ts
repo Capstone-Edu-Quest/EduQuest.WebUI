@@ -4,6 +4,8 @@ import { UserService } from 'src/app/core/services/user.service';
 import { Router } from '@angular/router';
 import { MessageService } from '@/src/app/core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
+import { ISignUpReq } from '@/src/app/shared/interfaces/user.interfaces';
+import { validateEmail } from '@/src/app/core/utils/string.utils';
 
 @Component({
   selector: 'app-signup',
@@ -11,14 +13,14 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './signup.component.scss',
 })
 export class SignupComponent implements OnInit {
-  signUpInfo = {
-    name: '',
+  signUpInfo: ISignUpReq = {
+    fullName: '',
     email: '',
     password: '',
     confirmPassword: '',
   };
 
-  currentStep = 2;
+  currentStep = 1;
   otp: string[] = new Array(6).fill(null);
   resendTime: number = 0;
   resendOTPInterval: any;
@@ -45,7 +47,7 @@ export class SignupComponent implements OnInit {
   onContinue() {
     if (this.currentStep === 1) {
       if (
-        this.signUpInfo.name === '' ||
+        this.signUpInfo.fullName === '' ||
         this.signUpInfo.email === '' ||
         this.signUpInfo.password === '' ||
         this.signUpInfo.confirmPassword === ''
@@ -56,9 +58,24 @@ export class SignupComponent implements OnInit {
         );
         return;
       }
-      this.resendOTP();
-      this.currentStep = 2;
 
+      if (!validateEmail(this.signUpInfo.email)) {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.INVALID_EMAIL')
+        );
+        return;
+      }
+
+     if( this.signUpInfo.password !== this.signUpInfo.confirmPassword) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.PASSWORD_NOT_MATCH')
+      );
+      return;
+     }
+
+      this.resendOTP();
       return;
     }
 
@@ -71,7 +88,10 @@ export class SignupComponent implements OnInit {
         return;
       }
 
-      this.currentStep++;
+      this.UserService.validateSignupOtp({
+        email: this.signUpInfo.email,
+        otp: this.otp.join(''),
+      });
       return;
     }
   }
@@ -82,13 +102,18 @@ export class SignupComponent implements OnInit {
 
   resendOTP() {
     if (this.resendTime > 0) return;
-
-    this.resendTime = 60;
-    this.resendOTPInterval = setInterval(() => {
-      this.resendTime--;
-      if (this.resendTime <= 0) {
-        clearInterval(this.resendOTPInterval);
-      }
-    }, 1000);
+    
+    this.UserService.onSignup(this.signUpInfo).subscribe((res) => {
+      if (!res?.payload) return;
+      
+      this.currentStep = 2;
+      this.resendTime = 60;
+      this.resendOTPInterval = setInterval(() => {
+        this.resendTime--;
+        if (this.resendTime <= 0) {
+          clearInterval(this.resendOTPInterval);
+        }
+      }, 1000);
+    });
   }
 }

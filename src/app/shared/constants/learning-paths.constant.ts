@@ -12,10 +12,10 @@ export const learningPathModeTabs: IPathTab[] = [
     label: 'LABEL.PRIVATE_PATH',
     value: LearningPathModeEnum.PRIVATE,
   },
-  {
-    label: 'LABEL.ENROLLED_PATH',
-    value: 'enrolled',
-  }
+  // {
+  //   label: 'LABEL.ENROLLED_PATH',
+  //   value: 'enrolled',
+  // }
 ];
 
 export const learningPathSortValue = [

@@ -7,6 +7,10 @@
       margin-bottom: 8px;
       font-weight: 600;
       color: var(--brand-light);
+
+      display: flex;
+      gap: 8px;
+      align-items: center;
     }
   }
 
@@ -36,5 +40,14 @@
         transition: all 0.12s linear;
       }
     }
+  }
+
+  .clear-filter {
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--secondary-text);
+    cursor: pointer;
   }
 }

@@ -34,7 +34,7 @@ export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
     {
       icon: 'clock-circle',
       label: 'LABEL.TOTAL_LEARNING_TIME',
-      value: `${this.user?.statistics.totalLearningTime} minutes`,
+      value: `${Math.ceil(Number(this.user?.statistics.totalLearningTime))} minutes`,
     },
     {
       icon: 'book',
@@ -76,7 +76,7 @@ export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
       {
         icon: 'clock-circle',
         label: 'LABEL.TOTAL_LEARNING_TIME',
-        value: `${this.user?.statistics.totalLearningTime} minutes`,
+        value: `${Math.ceil(Number(this.user?.statistics.totalLearningTime))} minutes`,
       },
       {
         icon: 'book',

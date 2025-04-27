@@ -4,9 +4,9 @@
     <div class="title">{{ "LABEL.WELCOME_TO_EDUQUEST" | translate }}</div>
     <div class="subtitle">
       {{
-        currentStep === 1
+        (currentStep === 1
           ? "LABEL.SIGNUP_SUB"
-          : ("LABEL.FORGOT_PASSWORD_SUB_2" | translate)
+          : "LABEL.FORGOT_PASSWORD_SUB_2") | translate
       }}
     </div>
   </div>
@@ -15,7 +15,7 @@
     <input
       type="text"
       placeholder="{{ 'LABEL.NAME' | translate }}"
-      [(ngModel)]="signUpInfo.name"
+      [(ngModel)]="signUpInfo.fullName"
     />
     <input
       type="text"

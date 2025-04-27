@@ -16,6 +16,7 @@
       <app-line-chart
         [labels]="graphLabels"
         [dataSet]="graphData"
+        *ngIf="isChartReady"
       ></app-line-chart>
     </div>
   </div>
@@ -37,7 +38,7 @@
       <nz-input-group [nzSuffix]="suffixIconButton" style="width: 50%">
         <input
           [(ngModel)]="searchText"
-          (keydown)="onConfirmSearch($event)"
+          (keydown)="handleSearchUser($event)"
           nz-input
           placeholder="{{ 'LABEL.SEARCH_USERS' | translate }}"
         />
@@ -50,18 +51,22 @@
     <app-table
       (onRowClick)="onViewDetails($event)"
       [columns]="columns"
-      [data]="usersTableData"
+      [data]="usersList"
+      *ngIf="isSearchUserDone"
     ></app-table>
   </div>
 </div>
 
 <ng-template #actionOnUser let-row="row">
   <div style="display: flex; gap: 8px">
-    <app-button (click)="onWarn($event, row)">{{
+    <!-- <app-button (click)="onWarn($event, row)">{{
       "BUTTON.WARN" | translate
-    }}</app-button>
-    <app-button (click)="onSuspend($event, row)" type="danger">{{
+    }}</app-button> -->
+    <app-button  *ngIf="row.status === 'Active' || row.status === 'Pending'" (click)="onSuspend($event, row)" type="danger">{{
       "BUTTON.SUSPEND" | translate
+    }}</app-button>
+    <app-button  *ngIf="row.status === 'Blocked'" (click)="onSuspend($event, row)">{{
+      "BUTTON.UNBLOCK" | translate
     }}</app-button>
   </div>
 </ng-template>

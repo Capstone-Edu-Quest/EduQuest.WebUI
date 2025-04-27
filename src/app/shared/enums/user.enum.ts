@@ -6,3 +6,8 @@ export enum WebRole {
     EXPERT,
     STAFF
 }
+
+export enum UserStatusEnum {
+    ACTIVE = "Active",
+    BLOCKED = "Blocked"
+}
