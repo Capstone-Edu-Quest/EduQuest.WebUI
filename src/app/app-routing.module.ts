@@ -61,6 +61,7 @@ import { ApproveInstructorComponent } from './pages/approve-instructor/approve-i
 import { PersonalInfoComponent } from './pages/personal-settings/personal-info/personal-info.component';
 import { MyCoursesDetailsUnmarkAssiComponent } from './pages/my-course-details/my-courses-details-unmark-assi/my-courses-details-unmark-assi.component';
 import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component';
+import { MyLearningComponent } from './pages/my-learning/my-learning.component';
 
 const routes: Routes = [
   {
@@ -454,6 +455,14 @@ const routes: Routes = [
       allowedRoles: [WebRole.ADMIN],
     },
     component: PlatformLogsComponent,
+  },
+  {
+    path: 'my-learning',
+    canActivate: [RoleGuard, AuthGuard],
+    data: {
+      allowedRoles: [WebRole.LEARNER],
+    },
+    component: MyLearningComponent,
   },
   {
     path: 'signin',

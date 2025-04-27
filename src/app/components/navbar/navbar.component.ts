@@ -126,10 +126,10 @@ export class NavbarComponent implements OnInit {
       label: 'LABEL.USERS_MANAGE',
       routerLink: '/users-manage',
     },
-    {
-      label: 'LABEL.VIOLATION_MANAGE',
-      routerLink: '/violations-manage',
-    },
+    // {
+    //   label: 'LABEL.VIOLATION_MANAGE',
+    //   routerLink: '/violations-manage',
+    // },
     {
       label: 'LABEL.PLATFORM_SETTINGS',
       routerLink: '/platform-settings',

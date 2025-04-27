@@ -1,0 +1,10 @@
+<div class="my-learning" @fadeInOut>
+  <div class="title text-gradient">{{ "LABEL.MY_LEARNING" | translate }}</div>
+  <div class="no-course" *ngIf="courses.length === 0">{{ "LABEL.NO_COURSE" | translate }}</div>
+  <div class="courses-ctn">
+    <app-coursesCard
+      *ngFor="let course of courses"
+      [course]="course"
+    ></app-coursesCard>
+  </div>
+</div>

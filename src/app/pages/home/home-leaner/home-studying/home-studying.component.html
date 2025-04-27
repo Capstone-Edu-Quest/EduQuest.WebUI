@@ -1,9 +1,9 @@
 <div class="home-studying">
   <div class="header">
     <div class="title text-gradient">{{ "LABEL.STUDYING" | translate }}</div>
-    <!-- <a routerLink="/" class="view-more"
+    <a routerLink="/my-learning" class="view-more"
       >{{ "BUTTON.VIEW_ALL" | translate }} <i nz-icon nzType="right"></i
-    ></a> -->
+    ></a>
   </div>
   <div *ngIf="courses.length === 0" class="no-course">{{ "LABEL.NO_COURSE_TO_DISPLAY" | translate }}</div>
   <app-coursesList

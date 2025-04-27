@@ -31,7 +31,6 @@ export class LeaningPathComponent implements OnInit, OnDestroy {
   constructor(private learningPath: LearningPathService) {}
   ngOnInit(): void {
     this.listenToMylearningPath();
-    this.initPublicLearningPath();
   }
 
   listenToMylearningPath() {
@@ -49,6 +48,10 @@ export class LeaningPathComponent implements OnInit, OnDestroy {
     });
   }
 
+  initEnrolledLearningPath() {
+    
+  }
+
   getLearningPathList() {
     switch (this.currentViewTab) {
       case LearningPathModeEnum.PUBLIC:
@@ -57,6 +60,22 @@ export class LeaningPathComponent implements OnInit, OnDestroy {
         return this.myLearningPath;
       case 'enrolled':
         return this.enrolledLearningPath;
+      default:
+        return [];
+    }
+  }
+
+  onChangeTab(newTab: any) {
+    this.currentViewTab = newTab;
+    switch (this.currentViewTab) {
+      case LearningPathModeEnum.PUBLIC:
+        this.initPublicLearningPath();
+        return;
+      case LearningPathModeEnum.PRIVATE:
+        return;
+      case 'enrolled':
+        this.initEnrolledLearningPath();
+        return;
       default:
         return [];
     }

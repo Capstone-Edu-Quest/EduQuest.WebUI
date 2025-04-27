@@ -309,7 +309,7 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
     const userId = this.user.user$.value?.id;
 
     if (!this.courseDetails || !userId) return;
-    if (Number(this.courseDetails.progress) > 15) {
+    if (Number(this.courseDetails.progress) > 20) {
       this.message.addMessage(
         'error',
         this.translate.instant('MESSAGE.CAN_NOT_REFUND')

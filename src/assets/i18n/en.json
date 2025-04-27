@@ -348,8 +348,8 @@
     "REVENUE_LAST_7_DAYS": "Last 7 days",
     "PENDING_BALANCE": "Pending Balance",
     "PENDING_BALANCE_DESCRIPTION": "Earnings on hold to cover potential refunds",
-    "AVAILABLE_BALANCE": "Available Balance",
-    "AVAILABLE_BALANCE_DESCRIPTION": "Earnings that available for withdrawal",
+    "AVAILABLE_BALANCE": "NET Balance",
+    "AVAILABLE_BALANCE_DESCRIPTION": "NET value received from Edu Quest to your stripe account",
     "WITHDRAW_ACTION": "Proceed to withdraw",
     "COURSE_REVENUE": "Courses' Revenue",
     "COURSE_REVENUE_SUB": "All time revenue from your courses",
@@ -639,7 +639,7 @@
     "APPLIED_INSTRUCTOR": "Applied instructors",
     "INSTRUCTOR_REGISTER_DETAILS": "Intructor registration details",
     "CERTIFICATE_COUNT": "Certificate {{value}}",
-    "INSTRUCTOR_APPROVEL": "Instructors approvel",
+    "INSTRUCTOR_APPROVEL": "Instructors approval",
     "INFORMATIONS": "Informations",
     "CHANGE_INFORMATIONS": "Change informations",
     "BUY_COURSE_SUCCESSFULLY": "Purchased course '{{item}}' successfully",
@@ -654,7 +654,8 @@
     "LEADERBOARD_SUB": "Top learners have most learning time this year",
     "UNREVIEW_ASSIGNMENT": "Unreview assignments",
     "COMMENT": "Comment",
-    "NO_UNREVIEW_ASSIGNMENT": "No unreview assignment found"
+    "NO_UNREVIEW_ASSIGNMENT": "No unreview assignment found",
+    "ENROLLED": "Enrolled"
   },
   "MESSAGE": {
     "FAILED_TO_MARK": "Failed to mark, pleas try again later",

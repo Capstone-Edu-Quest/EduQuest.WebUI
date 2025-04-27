@@ -70,7 +70,8 @@ export class StudyingMaterialComponent implements OnInit {
     this.checkIfFinishedAssignment();
     this.trackDocumentProgress();
     this.isNoTimeLimit = false;
-    this.isFinished = false;
+    this.isFinished =
+      this.getCurrentMaterialOverview()?.status === MissionStatus.DONE;
   }
 
   backIcon = faAngleLeft;
@@ -81,8 +82,20 @@ export class StudyingMaterialComponent implements OnInit {
     this.router.navigate([], { queryParams: {} });
   }
 
+  getCurrentMaterialOverview() {
+    for (const lesson of this.courseDetails.listLesson) {
+      const material = lesson.materials.find(
+        (m) => m.id === this.viewingMaterial?.id
+      );
+      if (material) {
+        return material;
+      }
+    }
+    return null;
+  }
+
   checkIfFinishedAssignment() {
-    const materialId = this.viewingMaterial?.assignment?.id;
+    const assignmentId = this.viewingMaterial?.assignment?.id;
     let lessonId = null;
 
     this.courseDetails.listLesson.forEach((l) => {
@@ -94,9 +107,9 @@ export class StudyingMaterialComponent implements OnInit {
       }
     });
 
-    if (!materialId || !lessonId) return;
+    if (!assignmentId || !lessonId) return;
 
-    this.CoursesService.onGetMyAssignment(materialId, lessonId).subscribe(
+    this.CoursesService.onGetMyAssignment(assignmentId, lessonId).subscribe(
       (res) => {
         if (!res?.payload) {
           if (Number(this.viewingMaterial?.assignment?.timeLimit) > 0) {
@@ -244,13 +257,16 @@ export class StudyingMaterialComponent implements OnInit {
   }
 
   trackVideoProgress(time: number) {
-    this.isFinished = this.viewingMaterial?.status === 'Done';
-
     if (this.viewingMaterial?.status === MissionStatus.DONE) return;
-    if (time / this.videoDuration <= 0.8 || this.isUpdatedStatus) return;
+    if (
+      time / this.videoDuration <= 0.8 ||
+      this.isUpdatedStatus ||
+      this.isFinished
+    )
+      return;
 
     const lessonId = this.getLessonIdByMaterialId();
-    if (!lessonId || !this.viewingMaterial?.id) return;
+    if (!lessonId || !this.viewingMaterial?.id || this.isFinished) return;
 
     this.isUpdatedStatus = true;
     this.user
@@ -267,13 +283,12 @@ export class StudyingMaterialComponent implements OnInit {
 
     let arr: any[] = [];
     this.courseDetails.listLesson.forEach((ls) => arr.push(...ls.materials));
-    this.isFinished = this.viewingMaterial?.status === 'Done';
 
     if (
       (this.viewingMaterial?.type as any) !== 'Document' ||
       !materialId ||
       !lessonId ||
-      this.viewingMaterial?.status === 'Done'
+      this.isFinished
     )
       return;
 

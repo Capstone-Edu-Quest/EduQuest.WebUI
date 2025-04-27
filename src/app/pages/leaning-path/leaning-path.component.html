@@ -7,7 +7,7 @@
       [ngClass]="{
         active: tab.value === currentViewTab
       }"
-      (click)="currentViewTab = tab.value"
+      (click)="onChangeTab(tab.value)"
       *ngFor="let tab of tabs"
     >
       {{ tab.label | translate }}
