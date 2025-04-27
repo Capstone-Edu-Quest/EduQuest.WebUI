@@ -26,6 +26,8 @@ export class PaymentService {
     private translate: TranslateService
   ) {}
 
+  interval: any = null;
+
   proceedCheckoutCart() {
     const cartId = this.cart.cart$.value.id;
     const couponCode = this.coupon.inUseCoupon$.value?.code ?? null;
@@ -113,16 +115,17 @@ export class PaymentService {
   }
 
   redirectToStripeForm(url: string) {
+    clearInterval(this.interval);
     let countdown = 5;
     this.message.addMessage(
       'warn',
       this.translate.instant('MESSAGE.DO_NOT_HAVE_STRIPE')
     );
 
-    const interval = setInterval(() => {
+    this.interval = setInterval(() => {
       if (countdown === 0) {
         window.location.href = url;
-        clearInterval(interval);
+        clearInterval(this.interval);
         return;
       }
       this.message.addMessage(

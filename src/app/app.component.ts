@@ -110,7 +110,7 @@ export class AppComponent implements OnInit, OnDestroy {
         break;
       case WebRole.INSTRUCTOR:
         this.course.onInitMyMaterials();
-        // this.payment.getConnectedAccount();
+        this.payment.getConnectedAccount();
         break;
       case WebRole.ADMIN:
       case WebRole.STAFF:
