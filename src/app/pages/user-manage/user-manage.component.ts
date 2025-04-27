@@ -123,8 +123,6 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
       if (!res?.payload) return;
       const { payload } = res;
 
-      console.log(payload.adminDasboardUsers.graphData);
-
       this.statItems = [
         {
           label: 'LABEL.TOTAL_USERS',
@@ -243,6 +241,7 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
           this.UserService.getRoleLabel(Number(data.roleId)),
       });
     }
+
     this.columns.push({
       label: '',
       key: 'action',
@@ -264,7 +263,7 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
       if (isNaN(Number(WebRole[_k]))) {
         this.roleOptions.push({
           label: this.UserService.getRoleLabel(Number(_k)),
-          value: Number(_k),
+          value: Number(_k).toString()
         });
       }
     });

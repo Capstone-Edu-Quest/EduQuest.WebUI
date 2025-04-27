@@ -10,6 +10,8 @@ import {
 } from '../../shared/interfaces/transactions.interfaces';
 import { onConvertObjectToQueryParams } from '../utils/data.utils';
 import { UserService } from './user.service';
+import { MessageService } from './message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Injectable({
   providedIn: 'root',
@@ -19,7 +21,9 @@ export class PaymentService {
     private cart: CartService,
     private coupon: CouponService,
     private http: HttpService,
-    private user: UserService
+    private user: UserService,
+    private message: MessageService,
+    private translate: TranslateService
   ) {}
 
   proceedCheckoutCart() {
@@ -89,6 +93,10 @@ export class PaymentService {
         if (!res?.payload) {
           this.createStripeAccount();
         }
+
+        if ((res?.payload as any)?.status === 'Restricted') {
+          this.redirectToStripeForm((res?.payload as any).stripeAccountUrl);
+        }
       });
   }
 
@@ -99,7 +107,29 @@ export class PaymentService {
       .subscribe((res) => {
         if (!res?.payload) return;
 
-        window.open(res?.payload, "_blank");
+        const url = res.payload;
+        this.redirectToStripeForm(url);
       });
+  }
+
+  redirectToStripeForm(url: string) {
+    let countdown = 5;
+    this.message.addMessage(
+      'warn',
+      this.translate.instant('MESSAGE.DO_NOT_HAVE_STRIPE')
+    );
+
+    const interval = setInterval(() => {
+      if (countdown === 0) {
+        window.location.href = url;
+        clearInterval(interval);
+        return;
+      }
+      this.message.addMessage(
+        'warn',
+        this.translate.instant('MESSAGE.REDIRECT_IN', { value: countdown })
+      );
+      countdown--;
+    }, 1000);
   }
 }

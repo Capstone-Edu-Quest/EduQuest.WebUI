@@ -663,6 +663,8 @@
     "CLEAR_FILTER": "Clear filter"
   },
   "MESSAGE": {
+    "DO_NOT_HAVE_STRIPE": "You do not have any existed payment account, you will be redirect to the config site",
+    "REDIRECT_IN": "Redirect in {{value}}",
     "EMAIL_EXISTED": "Email already existed",
     "CREATE_ACCOUNT_SUCCESSFULLY": "Signup successfully, please signin to continue",
     "FAILED_TO_MARK": "Failed to mark, pleas try again later",
