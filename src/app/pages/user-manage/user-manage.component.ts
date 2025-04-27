@@ -24,6 +24,8 @@ import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PlatformService } from '../../core/services/platform.service';
 import { ModalService } from '../../core/services/modal.service';
+import { MessageService } from '../../core/services/message.service';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-user-manage',
@@ -106,7 +108,9 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     private router: Router,
     private platform: PlatformService,
     private user: UserService,
-    private modal: ModalService
+    private modal: ModalService,
+    private message: MessageService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -305,6 +309,14 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
       .subscribe((res) => {
         this.handleSearchUser({ key: 'enter' } as any);
       });
+  }
+
+  onChangeRole(e: any, user: ISearchUserRes) {
+    this.user.onSwitchUserRole({userId: user.id, roleId:e.target.value}).subscribe(res => {
+      if(res?.isError) return;
+
+      this.message.addMessage('success', this.translate.instant('MESSAGE.UPDATED_SUCCESSFULLY'))
+    })
   }
 
   onAssignExpert(e: any, row: IInstructorApplyRes) {

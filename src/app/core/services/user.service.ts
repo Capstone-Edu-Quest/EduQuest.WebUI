@@ -271,6 +271,10 @@ export class UserService {
       });
   }
 
+  onSwitchUserRole(data: { userId: string; roleId: WebRole }) {
+    return this.http.update(endPoints.switchRole, data);
+  }
+
   getCertificate(param: ICertificateReq) {
     const params = onConvertObjectToQueryParams(param);
     return this.http.get<ICertificateRes[]>(

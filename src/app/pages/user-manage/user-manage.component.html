@@ -72,7 +72,7 @@
 </ng-template>
 
 <ng-template #roleManagement let-row="row">
-  <select class="role-manage" (click)="$event.stopPropagation()">
+  <select class="role-manage" (click)="$event.stopPropagation()" (change)="onChangeRole($event, row)">
     <option
       *ngFor="let opt of roleOptions"
       [value]="opt.value"
