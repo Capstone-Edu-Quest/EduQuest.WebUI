@@ -179,7 +179,7 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    // this.initColumns();
+    this.initColumns();
   }
 
   listenToUser() {
