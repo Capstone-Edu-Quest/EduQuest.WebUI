@@ -101,6 +101,7 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
   expertsList: IUser[] = [];
 
   isSearchUserDone: boolean = true;
+  isInitColumns: boolean = false;
   usersList: ISearchUserRes[] = [];
 
   constructor(
@@ -179,7 +180,7 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    this.initColumns();
+    // this.initColumns();
   }
 
   listenToUser() {
@@ -209,6 +210,7 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   initColumns() {
+    this.isInitColumns = false;
     this.columns = [...this.usersTableColumns];
     this.appliedInstructorColumns = [
       {
@@ -258,6 +260,8 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
       onClick: () => {},
       elementRef: this.assignToExpertRef,
     });
+
+    this.isInitColumns = true;
   }
 
   initRoleOptions() {

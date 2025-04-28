@@ -26,7 +26,7 @@
       {{ "LABEL.APPLIED_INSTRUCTOR" | translate }}
     </div>
     <app-table
-      *ngIf="isAppliedInsReady"
+      *ngIf="isAppliedInsReady && isInitColumns"
       [columns]="appliedInstructorColumns"
       [data]="appliedInstructor"
       (onRowClick)="onViewInstructorRegisterInfo($event)"
