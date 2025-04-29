@@ -638,7 +638,8 @@
     "ADD_TO_LEARNING_PATH": "Thêm vào lộ trình học",
     "PASSWORD_NOT_MATCH": "Mật khẩu không khớp",
     "ENTER_TAG": "Nhập tên thẻ",
-    "CLEAR_FILTER": "Xóa bộ lọc"
+    "CLEAR_FILTER": "Xóa bộ lọc",
+    "NO_NOTIFICATION": "Không tìm thấy thông báo nào"
   },
   "MESSAGE": {
     "DO_NOT_HAVE_STRIPE": "Bạn chưa có tài khoản thanh toán, bạn sẽ được chuyển hướng đến trang cấu hình",

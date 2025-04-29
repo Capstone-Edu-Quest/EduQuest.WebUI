@@ -660,7 +660,8 @@
     "ADD_TO_LEARNING_PATH": "Add to learning path",
     "PASSWORD_NOT_MATCH": "Password not match",
     "ENTER_TAG": "Enter tag name",
-    "CLEAR_FILTER": "Clear filter"
+    "CLEAR_FILTER": "Clear filter",
+    "NO_NOTIFICATION": "No notification found"
   },
   "MESSAGE": {
     "DO_NOT_HAVE_STRIPE": "You do not have any existed payment account, you will be redirect to the config site",

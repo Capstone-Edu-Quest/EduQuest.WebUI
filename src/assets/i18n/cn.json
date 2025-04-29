@@ -639,7 +639,8 @@
     "ADD_TO_LEARNING_PATH": "添加到学习路径",
     "PASSWORD_NOT_MATCH": "密码不匹配",
     "ENTER_TAG": "输入标签名称",
-    "CLEAR_FILTER": "清除筛选条件"
+    "CLEAR_FILTER": "清除筛选条件",
+     "NO_NOTIFICATION": "未找到通知"
   },
   "MESSAGE": {
     "DO_NOT_HAVE_STRIPE": "您还没有支付账户，将跳转到配置页面",

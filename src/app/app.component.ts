@@ -89,9 +89,8 @@ export class AppComponent implements OnInit, OnDestroy {
   listenToUser() {
     this.subscription$.add(
       this.user.user$.subscribe((user) => {
-        clearTimeout(this.timeOut);
         if (user) {
-          this.timeOut = setTimeout(() => this.initUserData(user), 1000);
+          this.initUserData(user);
         } else {
           this.resetUserData();
         }
@@ -116,10 +115,14 @@ export class AppComponent implements OnInit, OnDestroy {
       case WebRole.STAFF:
         this.user.initAdminDashboards();
         this.platform.initPlatformStats();
+        break;
     }
 
-    this.notification.initNotifications();
-    this.chat.initChat();
+    clearTimeout(this.timeOut);
+    this.timeOut = setTimeout(() => {
+      this.notification.initNotifications();
+      this.chat.initChat();
+    }, 1000);
   }
 
   resetUserData() {

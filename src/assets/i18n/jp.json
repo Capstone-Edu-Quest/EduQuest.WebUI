@@ -652,7 +652,8 @@
     "ADD_TO_LEARNING_PATH": "学習パスに追加",
     "PASSWORD_NOT_MATCH": "パスワードが一致しません",
     "ENTER_TAG": "タグ名を入力",
-    "CLEAR_FILTER": "フィルターをクリア"
+    "CLEAR_FILTER": "フィルターをクリア",
+     "NO_NOTIFICATION": "通知が見つかりません"
   },
   "MESSAGE": {
     "DO_NOT_HAVE_STRIPE": "支払いアカウントが存在しません。設定ページにリダイレクトされます。",

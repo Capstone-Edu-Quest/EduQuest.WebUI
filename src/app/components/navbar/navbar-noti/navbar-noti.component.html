@@ -2,6 +2,7 @@
   <div class="title">{{ "LABEL.NOTIFICATIONS" | translate }}</div>
 </div>
 <div class="navbar-noti">
+  <div *ngIf="notis.length === 0" style="margin-top: 12px; text-align: center; font-size: 11px; color: var(--secondary-text)">{{'LABEL.NO_NOTIFICATION'}}</div>
   <div class="noti" *ngFor="let noti of notis">
     <div class="label">{{ noti.content | translate : noti.value }}</div>
     <div class="time" *ngIf="calculateTimeAgo(noti.timestamp) as timeAgo">
