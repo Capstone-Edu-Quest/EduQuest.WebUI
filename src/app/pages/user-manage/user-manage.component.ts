@@ -293,12 +293,6 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     // view profile page with more details
     this.router.navigate(['/profile', u.id]);
   }
-
-  onWarn(e: Event, u: IUser) {
-    e.stopPropagation();
-    console.log('warn', u);
-  }
-
   onSuspend(e: Event, u: ISearchUserRes) {
     e.stopPropagation();
 

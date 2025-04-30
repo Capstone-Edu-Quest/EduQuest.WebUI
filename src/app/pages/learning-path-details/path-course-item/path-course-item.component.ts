@@ -55,6 +55,7 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit() {
+    console.log(this.course)
     this.initStars();
 
     if (!this.isExpertView) {
@@ -140,6 +141,10 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
 
   goToCart() {
     this.router.navigate(['/cart']);
+  }
+
+  round(val: number) {
+    return val?.toFixed(2);
   }
 
   ngOnDestroy(): void {

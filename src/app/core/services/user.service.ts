@@ -39,6 +39,7 @@ export class UserService {
   user$: BehaviorSubject<IUser | null> = new BehaviorSubject<IUser | null>(
     null
   );
+  equippedItems$: BehaviorSubject<string[]> = new BehaviorSubject<string[]>([])
 
   adminDashboard$: BehaviorSubject<AdminDashboardResponse | null> =
     new BehaviorSubject<AdminDashboardResponse | null>(null);
@@ -78,8 +79,10 @@ export class UserService {
     });
   }
 
-  updateUser(user: IUser | null) {
-    this.user$.next(user);
+  updateUser(user: IUser | null, isQuietSync?: boolean) {
+    !isQuietSync && this.user$.next(user);
+    
+    this.equippedItems$.next(user?.equippedItems ?? [])
     this.storage.setToLocalStorage(
       localStorageEnum.USER_DATA,
       JSON.stringify(user)
@@ -264,7 +267,7 @@ export class UserService {
           );
         } else {
           currentUser.equippedItems = itemsName;
-          this.updateUser(currentUser);
+          this.updateUser(currentUser, true);
         }
 
         return res;

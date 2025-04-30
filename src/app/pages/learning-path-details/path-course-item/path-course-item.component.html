@@ -40,6 +40,7 @@
       </div>
 
       <div class="add-to-cart-group" *ngIf="!isEdit && !isExpertView">
+        @if(course.progressPercentage === null) {
         <app-button
           [ngStyle]="{ width: 'calc(100%)' }"
           [type]="'primary'"
@@ -57,6 +58,20 @@
           (click)="onAddToWishlist($event)"
           *ngIf="!isInCart"
         ></i>
+        } @else {
+        <div class="progress">
+          <div class="header">
+            <div class="label">{{ "LABEL.PROGRESS" | translate }}</div>
+          </div>
+          <div class="progress-bar-ctn">
+            <div class="percent">{{ round(course.progressPercentage) || 0 }}%</div>
+            <div
+              class="progress-bar text-gradient"
+              [ngStyle]="{ width: (course.progressPercentage || 0) + '%' }"
+            ></div>
+          </div>
+        </div>
+        }
       </div>
 
       <div class="add-to-cart-group" *ngIf="isEdit && !isExpertView">

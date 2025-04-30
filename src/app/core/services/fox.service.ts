@@ -50,23 +50,23 @@ export class FoxService {
   constructor(private user: UserService) {}
 
   initFox() {
-    this.user.user$.subscribe((user) => {
-      if (!user || user.roleId !== WebRole.LEARNER) {
+    this.user.equippedItems$.subscribe((items) => {
+      if (!this.user.user$.value || this.user.user$.value.roleId !== WebRole.LEARNER) {
         this.resetItems();
         this.isFoxInit = false;
       } else {
         if (this.isFoxInit) return;
         if (this.loadedCheck.foxIsLoaded) {
-          user.equippedItems.forEach((item) => {
+          items.forEach((item) => {
             this.equipItem(item);
           });
         } else {
-          user.equippedItems.forEach((item) => {
+          items.forEach((item) => {
             this.loadedCheck.waitingStack.push(() => this.equipItem(item));
           });
         }
 
-        this.isSyncedItemAfterInit = user.equippedItems.length === 0;
+        this.isSyncedItemAfterInit = items.length === 0;
         this.isFoxInit = true;
       }
     });

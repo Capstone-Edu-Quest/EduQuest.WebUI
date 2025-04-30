@@ -110,7 +110,6 @@ export class LeanerProfileInfoComponent implements OnInit, OnDestroy {
   onUpdateFoxItems() {
     setTimeout(() => {
       if (!this.user) return;
-      console.log(this.user.equippedItems)
       this.FoxService.tempEquipItem(this.user.equippedItems);
     }, 110);
   }

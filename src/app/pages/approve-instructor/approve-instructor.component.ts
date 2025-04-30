@@ -98,7 +98,7 @@ export class ApproveInstructorComponent implements OnInit, AfterViewInit {
     this.platform
       .onUpdateInstructorStatus(row.id, isAccept)
       .subscribe((res) => {
-        if (!res?.payload) {
+        if (res?.isError) {
           this.message.addMessage(
             'error',
             this.translate.instant('MESSAGE.UPDATED_FAIL')
