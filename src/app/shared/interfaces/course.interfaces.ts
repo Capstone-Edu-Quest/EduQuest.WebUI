@@ -34,6 +34,8 @@ export interface ICourseOverview {
   totalReview: number;
   progressPercentage: number | null;
   totalLearner?: number;
+  isOverDue?: boolean;
+  dueDate?: string | null;
 }
 
 export interface ICourseApprovalStaff extends ICourseOverview {
@@ -246,6 +248,14 @@ export interface ITag {
   name: string;
   type: TagTypeResponseEnum | TagTypeRequestEnum;
   courses?: number;
+}
+
+export interface ITagRequestParam {
+  page?: number;
+  eachPage?: number;
+  tagId?: string[];
+  name?: string;
+  type?: TagTypeRequestEnum;
 }
 
 export interface ITagCount extends ITag {

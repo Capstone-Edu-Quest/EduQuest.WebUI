@@ -8,6 +8,11 @@
   cursor: pointer;
   position: relative;
 
+  .deadline {
+    font-size: 11px;
+    color: var(--secondary-text);
+  }
+
   .blocked {
     position: absolute;
     z-index: 3;
@@ -28,7 +33,7 @@
 
       .warning-description {
         font-size: 13px;
-        font-weight: 600
+        font-weight: 600;
       }
 
       .sub-warning-description {
@@ -41,7 +46,7 @@
         font-size: 24px;
       }
     }
-    
+
     &::after {
       z-index: 1;
       width: 100%;
@@ -61,7 +66,7 @@
   }
 
   .image-wrapper {
-    min-height: 175px;
+    height: 200px;
     aspect-ratio: 16/9;
     overflow: hidden;
     display: flex;

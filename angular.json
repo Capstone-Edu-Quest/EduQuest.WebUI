@@ -32,7 +32,8 @@
               "src/app/shared/styles/prismtheme.css",
               "codemirror/lib/codemirror.css",
               "codemirror/theme/material.css",
-              "node_modules/codemirror/theme/dracula.css"
+              "node_modules/codemirror/theme/dracula.css",
+              "node_modules/@ng-select/ng-select/themes/default.theme.css"
             ],
             "scripts": [
               "node_modules/aos/dist/aos.js",

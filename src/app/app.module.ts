@@ -24,6 +24,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NgChartsModule } from 'ng2-charts';
 import { NgxEditorModule } from 'ngx-editor';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 // Factory function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -32,6 +33,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
 @NgModule({
   declarations: AppDeclarations,
   imports: [
+    NgSelectModule,
     CodemirrorModule,
     NgxEditorModule,
     NgChartsModule,

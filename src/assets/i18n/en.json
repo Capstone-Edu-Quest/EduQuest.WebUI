@@ -666,9 +666,13 @@
     "PATH_EXTEND_DEADLINE": "do you want to extend the course's deadline?",
     "SUBJECT": "Subject",
     "COURSE_LEVEL": "Level",
-    "COURSE_CATEGORY": "Course category"
+    "COURSE_CATEGORY": "Course category",
+    "TEACHING_SUBJECT": "Teaching subjects",
+    "COMPLETE_DUE_DO": "You should complete due to {{value}}",
+    "REMAINING": "Remaining {{value}}"
   },
   "MESSAGE": {
+    "AT_LEAST_1_SUBJECT": "You must teaching atleast 1 subject",
     "COURSE_MISSING_TAG": "Course must have category (Subject and Level)",
     "DO_NOT_HAVE_STRIPE": "You do not have any existed payment account, you will be redirect to the config site",
     "REDIRECT_IN": "Redirect in {{value}}",

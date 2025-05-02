@@ -20,6 +20,7 @@ import {
   ISubmitQuizReq,
   ISubmittedQuestResponse,
   ITag,
+  ITagRequestParam,
   IUnreviewAssignment,
   IUnreviewAssignmentResponse,
   materialType,
@@ -38,6 +39,8 @@ import { BehaviorSubject } from 'rxjs';
 import {
   InstructorCourseStatus,
   MaterialTypeEnum,
+  TagTypeRequestEnum,
+  TagTypeResponseEnum,
 } from '../../shared/enums/course.enum';
 import { Router } from '@angular/router';
 import { MessageService } from './message.service';
@@ -247,12 +250,14 @@ export class CoursesService {
       });
   }
 
-  onAddTag(tagName: string) {
-    return this.http.post(endPoints.tag, { tagName })
+  onAddTag(tag: { tagName: string; type: TagTypeRequestEnum }) {
+    return this.http.post(endPoints.tag, tag);
   }
 
-  onGetTags() {
-    return this.http.get<ITag[]>(endPoints.searchTag);
+  onGetTags(param?: ITagRequestParam) {
+    return this.http.get<ITag[]>(
+      endPoints.searchTag + onConvertObjectToQueryParams(param ?? {})
+    );
   }
 
   updateMaterial(data: ILearningMaterial) {
@@ -371,5 +376,19 @@ export class CoursesService {
 
   getMyCourseChartRevenue() {
     return this.http.get(endPoints.courseChartRevenue);
+  }
+
+  onGetTagTypeLabel(type: TagTypeRequestEnum | TagTypeResponseEnum) {
+    switch (type) {
+      case TagTypeRequestEnum.SUBJECT:
+      case TagTypeResponseEnum.SUBJECT:
+        return 'LABEL.SUBJECT';
+      case TagTypeRequestEnum.LEVEL:
+      case TagTypeResponseEnum.LEVEL:
+        return 'LABEL.COURSE_LEVEL';
+
+      default:
+        return '';
+    }
   }
 }

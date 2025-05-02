@@ -316,3 +316,42 @@ select option {
     background-color: var(--quaternary-bg) !important;
   }
 }
+
+.ng-select.ng-select-multiple
+  .ng-select-container
+  .ng-value-container
+  .ng-value {
+  background-color: var(--quaternary-bg) !important;
+  color: var(--primary-text) !important;
+
+  .ng-value-icon.left {
+    color: var(--alert) !important;
+    border-right-color: var(--quaternary-text) !important;
+
+    &:hover {
+      background-color: var(--quaternary-bg) !important;
+    }
+  }
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  background: var(--quaternary-bg) !important;
+  color: var(--primary-text) !important;
+}
+
+.ng-select-container {
+  background: var(--tertiary-bg) !important;
+  border: none !important;
+  border-radius: 8px !important;
+}
+
+.ng-dropdown-panel.ng-select-bottom {
+  border: 1px solid var(--quaternary-text) !important;
+}
+
+.ng-select.ng-select-multiple {
+  .ng-select-container .ng-value-container .ng-input > input {
+    color: var(--primary-text) !important;
+    background-color: transparent !important;
+  }
+}

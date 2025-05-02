@@ -43,6 +43,18 @@
     {{ myApplicant.phone }}
   </div>
 
+  <div class="input-label">{{ "LABEL.TEACHING_SUBJECT" | translate }}</div>
+  <ng-select
+  class="custom-select"
+    [items]="tags"
+    bindLabel="name"
+    bindValue="id"
+    [multiple]="true"
+    placeholder=""
+    [(ngModel)]="instructorParam.tag"
+  >
+  </ng-select>
+
   <div class="input-label">{{ "LABEL.CERTIFICATES" | translate }}</div>
   <div class="input-label-sub">
     {{ "LABEL.MAX_FILE" | translate : { value: maxFiles } }}
@@ -83,7 +95,13 @@
     </div>
   </div>
   <div
-    style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 30px; margin-top: 8px"
+    style="
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 30px;
+      margin-top: 8px;
+    "
     *ngIf="myApplicant"
   >
     <div
@@ -99,8 +117,12 @@
     </div>
   </div>
 
-
-  <div *ngIf="myApplicant" style="margin-bottom: 4px; color: var(--brand-light)">{{'MESSAGE.REGISTER_PROCESSING' | translate}}</div>
+  <div
+    *ngIf="myApplicant"
+    style="margin-bottom: 4px; color: var(--brand-light)"
+  >
+    {{ "MESSAGE.REGISTER_PROCESSING" | translate }}
+  </div>
   <app-button
     (click)="myApplicant ? onCancel() : onSubmit()"
     [type]="myApplicant ? 'danger' : 'primary'"

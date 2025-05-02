@@ -247,6 +247,7 @@ export interface IBecomeInstructorReq {
   Headline: string;
   Description: string;
   Phone: string;
+  tag: string[]
   CertificateFiles: File[];
 }
 

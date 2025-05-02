@@ -63,10 +63,31 @@
   </div>
   <input
     class="formated-input"
-    style="margin-top: 12px; margin-bottom: 12px; padding: 12px 8px; height: 35px; width: 100%"
+    style="
+      margin-top: 12px;
+      margin-bottom: 12px;
+      padding: 12px 8px;
+      height: 35px;
+      width: 100%;
+    "
     [placeholder]="'LABEL.ENTER_TAG' | translate"
-    [(ngModel)]="newTagName"
+    [(ngModel)]="newTag.tagName"
   />
 
-  <app-button type="primary" (click)="onSubmitAddTag()">{{ "BUTTON.SUBMIT" | translate }}</app-button>
+  <div style="font-weight: 600; font-size: 16px">
+    {{ "LABEL.TYPE" | translate }}
+  </div>
+  <select class="select-tag-type">
+    <option
+      *ngFor="let tag of tagList"
+      [value]="tag.id"
+      [attr.selected]="tag.id === newTag.type ? true : null"
+    >
+      {{ tag.label | translate }}
+    </option>
+  </select>
+
+  <app-button type="primary" (click)="onSubmitAddTag()">{{
+    "BUTTON.SUBMIT" | translate
+  }}</app-button>
 </ng-template>

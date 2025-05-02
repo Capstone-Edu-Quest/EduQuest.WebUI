@@ -644,9 +644,13 @@
     "PATH_EXTEND_DEADLINE": "Bạn có muốn gia hạn thời hạn của khóa học không?",
     "SUBJECT": "Môn học",
     "COURSE_LEVEL": "Cấp độ",
-    "COURSE_CATEGORY": "Danh mục khóa học"
+    "COURSE_CATEGORY": "Danh mục khóa học",
+    "TEACHING_SUBJECT": "Môn giảng dạy",
+    "COMPLETE_DUE_DO": "Bạn nên hoàn thành trước {{value}}",
+    "REMAINING": "Còn lại {{value}}"
   },
   "MESSAGE": {
+    "AT_LEAST_1_SUBJECT": "Bạn phải giảng dạy ít nhất 1 môn học",
     "COURSE_MISSING_TAG": "Khóa học phải có danh mục (Môn học và Cấp độ)",
     "DO_NOT_HAVE_STRIPE": "Bạn chưa có tài khoản thanh toán, bạn sẽ được chuyển hướng đến trang cấu hình",
     "REDIRECT_IN": "Chuyển hướng sau {{value}} giây",

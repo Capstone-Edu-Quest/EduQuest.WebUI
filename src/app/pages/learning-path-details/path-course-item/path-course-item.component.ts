@@ -17,9 +17,18 @@ import { WishlistService } from '../../../core/services/wishlist.service';
 import { Router } from '@angular/router';
 import { CouponService } from '../../../core/services/coupon.service';
 import { Subscription } from 'rxjs';
-import { faStar, faStarHalfStroke, faWarning } from '@fortawesome/free-solid-svg-icons';
+import {
+  faStar,
+  faStarHalfStroke,
+  faWarning,
+} from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { CoursesService } from '../../../core/services/courses.service';
+import {
+  formatRemainingTime,
+  formatTime,
+} from '@/src/app/core/utils/time.utils';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-path-course-item',
@@ -54,10 +63,10 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
     private wishlist: WishlistService,
     private router: Router,
     private coupon: CouponService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit() {
-    console.log(this.course)
     this.initStars();
 
     if (!this.isExpertView) {
@@ -115,7 +124,7 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
 
   handleRemoveCourse(e: Event) {
     e.stopPropagation();
-    
+
     if (!this.course) return;
     this.onRemoveCourse.emit(this.course);
   }
@@ -150,7 +159,16 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
   }
 
   stopEvent(e: Event) {
-    e.stopPropagation()
+    e.stopPropagation();
+  }
+
+  getDueDate() {
+    const dueTime = new Date(this.course?.dueDate || '');
+    const now = new Date().getTime();
+    return `${dueTime.toLocaleString()} (${this.translate.instant(
+      'LABEL.REMAINING',
+      { value: formatRemainingTime(dueTime.getTime() - now) }
+    )})`;
   }
 
   ngOnDestroy(): void {

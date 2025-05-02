@@ -657,10 +657,14 @@
     "PATH_EXCEED_DEADLINE": "この学習パスのコースの締切を過ぎました",
     "PATH_EXTEND_DEADLINE": "このコースの締切を延長しますか？",
     "SUBJECT": "科目",
-  "COURSE_LEVEL": "レベル",
-  "COURSE_CATEGORY": "コースカテゴリ"
+    "COURSE_LEVEL": "レベル",
+    "COURSE_CATEGORY": "コースカテゴリ",
+    "TEACHING_SUBJECT": "教科",
+    "COMPLETE_DUE_DO": "{{value}} までに完了してください",
+    "REMAINING": "残り {{value}}"
   },
   "MESSAGE": {
+    "AT_LEAST_1_SUBJECT": "少なくとも1つの教科を教える必要があります",
     "COURSE_MISSING_TAG": "コースにはカテゴリ（科目とレベル）が必要です",
     "DO_NOT_HAVE_STRIPE": "支払いアカウントが存在しません。設定ページにリダイレクトされます。",
     "REDIRECT_IN": "{{value}}秒後にリダイレクトされます",

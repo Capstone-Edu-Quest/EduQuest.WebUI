@@ -1,12 +1,21 @@
 <div class="course" *ngIf="course" #item (click)="viewCourseDetails()">
-
-  <div class="blocked" (click)="stopEvent($event)"> 
-   <div class="warning-ctn">
-    <fa-icon [icon]="warningIcon"></fa-icon>
-    <div class="warning-description">{{"LABEL.PATH_EXCEED_DEADLINE" | translate}}</div>
-    <div class="sub-warning-description">{{"LABEL.PATH_EXTEND_DEADLINE" | translate}}</div>
-    <app-button type="primary">{{'BUTTON.EXTEND_DEADLINE' | translate}}</app-button>
-   </div>
+  <div
+    class="blocked"
+    (click)="stopEvent($event)"
+    *ngIf="course.isOverDue && (course?.progressPercentage || 0) < 100"
+  >
+    <div class="warning-ctn">
+      <fa-icon [icon]="warningIcon"></fa-icon>
+      <div class="warning-description">
+        {{ "LABEL.PATH_EXCEED_DEADLINE" | translate }}
+      </div>
+      <div class="sub-warning-description">
+        {{ "LABEL.PATH_EXTEND_DEADLINE" | translate }}
+      </div>
+      <app-button type="primary">{{
+        "BUTTON.EXTEND_DEADLINE" | translate
+      }}</app-button>
+    </div>
   </div>
 
   <div class="image-wrapper">
@@ -74,7 +83,9 @@
             <div class="label">{{ "LABEL.PROGRESS" | translate }}</div>
           </div>
           <div class="progress-bar-ctn">
-            <div class="percent">{{ round(course.progressPercentage) || 0 }}%</div>
+            <div class="percent">
+              {{ round(course.progressPercentage) || 0 }}%
+            </div>
             <div
               class="progress-bar text-gradient"
               [ngStyle]="{ width: (course.progressPercentage || 0) + '%' }"
@@ -93,7 +104,11 @@
           >{{ "BUTTON.REMOVE" | translate }}</app-button
         >
       </div>
+      <div class="deadline">
+        {{ "LABEL.COMPLETE_DUE_DO" | translate : { value: getDueDate() } }}
+      </div>
     </div>
+
     <div class="price">
       <div class="final-price">
         {{

@@ -18,6 +18,7 @@ import { CoursesService } from '@/src/app/core/services/courses.service';
 import { ModalService } from '@/src/app/core/services/modal.service';
 import { MessageService } from '@/src/app/core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
+import { TagTypeRequestEnum } from '@/src/app/shared/enums/course.enum';
 
 @Component({
   selector: 'app-courses-categorize',
@@ -31,7 +32,21 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
   @ViewChild('addTag') addTagRef!: TemplateRef<any>;
 
   searchText = '';
-  newTagName = '';
+  newTag = {
+    tagName: '',
+    type: TagTypeRequestEnum.SUBJECT,
+  };
+
+  tagList = [
+    {
+      id: TagTypeRequestEnum.SUBJECT,
+      label: 'LABEL.SUBJECT',
+    },
+    {
+      id: TagTypeRequestEnum.LEVEL,
+      label: 'LABEL.COURSE_LEVEL',
+    },
+  ];
 
   editIcon = faPen;
   addIcon = faPlus;
@@ -42,6 +57,12 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
     {
       key: 'name',
       label: 'LABEL.TAGS',
+    },
+    {
+      key: 'type',
+      label: 'LABEL.TYPE',
+      translateLabel: (val: ITag) =>
+        this.CourseService.onGetTagTypeLabel(val.type),
     },
     {
       key: 'courses',
@@ -131,7 +152,7 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
   }
 
   onSubmitAddTag() {
-    if (this.newTagName.trim().length === 0) {
+    if (this.newTag.tagName.trim().length === 0) {
       this.message.addMessage(
         'error',
         this.translate.instant('MESSAGE.MISSING_FIELDS')
@@ -139,8 +160,8 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
       return;
     }
 
-    this.newTagName = this.newTagName.replace(/\s+/g, '_').replace('#', '');
-    this.CourseService.onAddTag(`${this.newTagName}`).subscribe((res) => {
+    this.newTag.tagName = this.newTag.tagName.replace(/\s+/g, '_');
+    this.CourseService.onAddTag(this.newTag).subscribe((res) => {
       if (res?.isError) return;
 
       this.message.addMessage(
@@ -149,7 +170,7 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
       );
       this.onInitData();
       this.modal.updateModalContent(null);
-      this.newTagName = ''
+      this.newTag.tagName = '';
     });
   }
 }

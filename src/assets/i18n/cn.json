@@ -645,9 +645,13 @@
     "PATH_EXTEND_DEADLINE": "您想延长该课程的截止日期吗？",
     "SUBJECT": "科目",
     "COURSE_LEVEL": "级别",
-    "COURSE_CATEGORY": "课程类别"
+    "COURSE_CATEGORY": "课程类别",
+    "TEACHING_SUBJECT": "教学科目",
+    "COMPLETE_DUE_DO": "你应该在 {{value}} 之前完成",
+    "REMAINING": "剩余 {{value}}"
   },
   "MESSAGE": {
+    "AT_LEAST_1_SUBJECT": "您必须至少教授一个科目",
     "COURSE_MISSING_TAG": "课程必须包含类别（科目和级别）",
     "DO_NOT_HAVE_STRIPE": "您还没有支付账户，将跳转到配置页面",
     "REDIRECT_IN": "{{value}}秒后跳转",

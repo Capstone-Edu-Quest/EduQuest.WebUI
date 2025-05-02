@@ -12,6 +12,9 @@ import {
 } from '../../shared/interfaces/others.interfaces';
 import { PlatformService } from '../../core/services/platform.service';
 import { UserService } from '../../core/services/user.service';
+import { CoursesService } from '../../core/services/courses.service';
+import { TagTypeRequestEnum } from '../../shared/enums/course.enum';
+import { ITag } from '../../shared/interfaces/course.interfaces';
 
 @Component({
   selector: 'app-become-instructor',
@@ -31,8 +34,12 @@ export class BecomeInstructorComponent implements OnInit {
     Headline: '',
     Description: '',
     Phone: '',
+    tag: [],
     CertificateFiles: [],
   };
+
+  tags: ITag[] = [];
+  selectedTags: ITag[] = [];
 
   fileIcon = faFile;
   deleteIcon = faTrash;
@@ -42,16 +49,24 @@ export class BecomeInstructorComponent implements OnInit {
     private message: MessageService,
     private translate: TranslateService,
     private platform: PlatformService,
-    private user: UserService
+    private user: UserService,
+    private course: CoursesService
   ) {}
   ngOnInit(): void {
     this.initMyApplicant();
+    this.initTags();
   }
 
   initMyApplicant() {
     this.platform.getMyInstructorApplicant().subscribe((res) => {
       this.myApplicant = res?.payload ?? null;
     });
+  }
+
+  initTags() {
+    this.course
+      .onGetTags({ type: TagTypeRequestEnum.SUBJECT })
+      .subscribe((res) => (this.tags = res?.payload ?? []));
   }
 
   onDragOver(event: DragEvent) {
@@ -147,6 +162,10 @@ export class BecomeInstructorComponent implements OnInit {
   }
 
   onSubmit() {
+    if(this.selectedTags.length === 0) {
+      this.message.addMessage('error', this.translate.instant('MESSAGE.AT_LEAST_1_SUBJECT'))
+      return;
+    }
     const errs = this.onValidate();
     if (errs.length > 0) {
       errs.forEach((err) =>
@@ -193,6 +212,7 @@ export class BecomeInstructorComponent implements OnInit {
         Headline: '',
         Description: '',
         Phone: '',
+        tag: [],
         CertificateFiles: [],
       };
       this.message.addMessage(
