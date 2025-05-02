@@ -40,6 +40,37 @@
     </div>
   </div>
 
+  <div class="input-label">{{ "LABEL.COURSE_CATEGORY" | translate }}</div>
+  <div class="category-wrapper">
+    <div class="category">
+      <div class="label">{{ "LABEL.SUBJECT" | translate }}</div>
+      <select (change)="onChangeTag($event)">
+        <option [value]="1" [attr.selected]="false"></option>
+        <option
+          *ngFor="let tag of getTagOptions(true)"
+          [value]="tag.id"
+          [attr.selected]="checkTagSelected(tag.id) ? true : null"
+        >
+          {{ tag.name }}
+        </option>
+      </select>
+    </div>
+
+    <div class="category">
+      <div class="label">{{ "LABEL.COURSE_LEVEL" | translate }}</div>
+      <select (change)="onChangeTag($event)">
+        <option [value]="1" [attr.selected]="false"></option>
+        <option
+          *ngFor="let tag of getTagOptions(false)"
+          [value]="tag.id"
+          [attr.selected]="checkTagSelected(tag.id) ? true : null"
+        >
+          {{ tag.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+
   <div class="input-label">{{ "LABEL.COURSE_NAME" | translate }}</div>
   <input
     class="course-input course-name"

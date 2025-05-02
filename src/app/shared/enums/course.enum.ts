@@ -22,3 +22,13 @@ export enum InstructorCourseStatus {
     PENDING = "Pending",
     PUBLIC = "Public"
 }
+
+export enum TagTypeRequestEnum {
+    SUBJECT = 1,
+    LEVEL
+}
+
+export enum TagTypeResponseEnum {
+    SUBJECT = "Subject",
+    LEVEL = "Level"
+}

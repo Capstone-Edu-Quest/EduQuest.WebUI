@@ -5,7 +5,6 @@ import {
   ViewChild,
   type OnInit,
   ElementRef,
-  TemplateRef,
 } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import {
@@ -22,9 +21,11 @@ import { IUser } from '../../shared/interfaces/user.interfaces';
 import {
   ICourseCreate,
   ILessonOverview,
+  ITag,
 } from '../../shared/interfaces/course.interfaces';
 import { Location } from '@angular/common';
 import { CoursesService } from '../../core/services/courses.service';
+import { TagTypeResponseEnum } from '../../shared/enums/course.enum';
 
 @Component({
   selector: 'app-my-course-add',
@@ -55,9 +56,11 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
     photoUrl: '',
     requirementList: [],
     lessonCourse: [],
+    tagIds: [],
   };
 
   fullLessons: ILessonOverview[] = [];
+  tagsList: ITag[] = [];
 
   constructor(
     private location: Location,
@@ -66,12 +69,13 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
     private translate: TranslateService,
     private ImageService: ImageService,
     private UserService: UserService,
-    private CourseService: CoursesService,
+    private CourseService: CoursesService
   ) {}
 
   ngOnInit(): void {
     this.initView();
     this.listenToUser();
+    this.initTags();
   }
 
   listenToUser() {
@@ -106,6 +110,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
           price: res.payload.price,
           photoUrl: res.payload.photoUrl,
           requirementList: res.payload.requirementList,
+          tagIds: res.payload.listTag.map((tag) => tag.id),
           lessonCourse: res.payload.listLesson.map((l) => {
             return {
               id: l.id,
@@ -122,6 +127,51 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
         );
       }
     );
+  }
+
+  initTags() {
+    this.CourseService.onGetTags().subscribe((res) => {
+      this.tagsList = res?.payload ?? [];
+    });
+  }
+
+  onChangeTag(e: any) {
+    const tagId = e.target?.value as string;
+    if (!tagId) return;
+
+    let currentTag: ITag | undefined;
+    const wantedIds = new Set(this.courseInfo.tagIds);
+
+    const infoMap = this.tagsList.reduce<Record<string, ITag>>((map, tag) => {
+      if (tag.id === tagId) {
+        currentTag = tag;
+      }
+      if (wantedIds.has(tag.id)) {
+        map[tag.id] = tag;
+      }
+      return map;
+    }, {});
+
+    const currentTagsList: ITag[] = this.courseInfo.tagIds.map((id) => {
+      return infoMap[id];
+    });
+
+    const finalTags = currentTagsList.filter(tag => tag.type !== currentTag?.type)
+    finalTags.push(currentTag as ITag)
+    
+    this.courseInfo.tagIds = finalTags.map(tag => tag.id)
+  }
+
+  getTagOptions(isSubject: boolean) {
+    return this.tagsList.filter((tag) =>
+      isSubject
+        ? tag.type === TagTypeResponseEnum.SUBJECT
+        : tag.type === TagTypeResponseEnum.LEVEL
+    );
+  }
+
+  checkTagSelected(tagId: string) {
+    return this.courseInfo.tagIds.includes(tagId);
   }
 
   onClickAddImage() {
@@ -199,6 +249,15 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
   }
 
   onValidateCourseInfo(course: any) {
+    console.log(course);
+    if (course.tagIds.length !== 2) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.COURSE_MISSING_TAG')
+      );
+      return;
+    }
+
     const courseKey = Object.keys(course).filter((k) => k !== 'photoUrl');
     if (course.image === '') {
       this.message.addMessage(
@@ -246,14 +305,14 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
   }
 
   onCreateCourse() {
-    if (!this.uploadedFile?.file)
-      return;
+    if (!this.uploadedFile?.file) return;
 
     this.ImageService.uploadImage(this.uploadedFile.file).subscribe((res) => {
       if (!res?.payload) return;
 
       this.courseInfo.photoUrl = res.payload.url;
 
+      if (!this.onValidateCourseInfo(this.courseInfo)) return;
       this.CourseService.createCourse(this.courseInfo);
     });
   }
@@ -272,6 +331,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
       }),
     };
 
+    if (!this.onValidateCourseInfo(this.courseInfo)) return;
     this.CourseService.updateCourse(this.courseInfo);
   }
 

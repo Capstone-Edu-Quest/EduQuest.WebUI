@@ -41,4 +41,30 @@
   <div class="description">
     {{ path.description.trim() === "" ? "-" : path.description }}
   </div>
+
+  <i
+    style="
+      color: var(--brand-light);
+      text-align: center;
+      padding: 12px 0;
+      box-sizing: border-box;
+      display: block;
+      width: 100%;
+    "
+    *ngIf="path.isEnrolled"
+  >
+    {{ "LABEL.ENROLLED" | translate }}
+  </i>
+  <app-button
+    type="primary"
+    (click)="onEnroll($event)"
+    [ngStyle]="{ width: '100%' }"
+    [style]="{
+      'margin-top': '8px',
+      width: '100%'
+    }"
+    *ngIf="!isViewExpert && !path.isEnrolled"
+  >
+    {{ "LABEL.ENROLL" | translate }}
+  </app-button>
 </div>

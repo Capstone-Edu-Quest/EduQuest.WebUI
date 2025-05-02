@@ -166,6 +166,7 @@ const routes: Routes = [
       },
       {
         path: 'categorize',
+        data: { allowedRoles: [WebRole.STAFF, WebRole.ADMIN] },
         component: CoursesCategorizeComponent,
       },
       {

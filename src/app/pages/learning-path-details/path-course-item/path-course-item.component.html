@@ -1,4 +1,14 @@
 <div class="course" *ngIf="course" #item (click)="viewCourseDetails()">
+
+  <div class="blocked" (click)="stopEvent($event)"> 
+   <div class="warning-ctn">
+    <fa-icon [icon]="warningIcon"></fa-icon>
+    <div class="warning-description">{{"LABEL.PATH_EXCEED_DEADLINE" | translate}}</div>
+    <div class="sub-warning-description">{{"LABEL.PATH_EXTEND_DEADLINE" | translate}}</div>
+    <app-button type="primary">{{'BUTTON.EXTEND_DEADLINE' | translate}}</app-button>
+   </div>
+  </div>
+
   <div class="image-wrapper">
     <img [src]="course.photoUrl" />
   </div>

@@ -126,3 +126,17 @@ export interface ISearchUserRes {
   totalLearners: number;
   totalReviews: number;
 }
+
+export interface IGetUserByRoleId {
+  id: string;
+  username: string;
+  email: string;
+  phone: string;
+  status: string;
+  headline: string | null;
+  description: string | null;
+  avatarUrl: string | null;
+  roleId: WebRole;
+  createdAt: string;
+  updatedAt: string;
+}

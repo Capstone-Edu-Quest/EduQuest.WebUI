@@ -22,7 +22,7 @@ import { Subscription } from 'rxjs';
 import { WebRole } from '../../../shared/enums/user.enum';
 import { CoursesService } from '@/src/app/core/services/courses.service';
 import { InstructorCourseStatus } from '@/src/app/shared/enums/course.enum';
-import { IUser } from '@/src/app/shared/interfaces/user.interfaces';
+import { IGetUserByRoleId, IUser } from '@/src/app/shared/interfaces/user.interfaces';
 import { TranslateService } from '@ngx-translate/core';
 
 @Component({
@@ -38,7 +38,7 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
   subscription$: Subscription = new Subscription();
   isLoaded: boolean = false;
 
-  expertsList: IUser[] = [];
+  expertsList: IGetUserByRoleId[] = [];
 
   courses: ICourseApprovalStaff[] = [];
 

@@ -17,7 +17,7 @@ import { WishlistService } from '../../../core/services/wishlist.service';
 import { Router } from '@angular/router';
 import { CouponService } from '../../../core/services/coupon.service';
 import { Subscription } from 'rxjs';
-import { faStar, faStarHalfStroke } from '@fortawesome/free-solid-svg-icons';
+import { faStar, faStarHalfStroke, faWarning } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
 import { CoursesService } from '../../../core/services/courses.service';
 
@@ -38,6 +38,8 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
   star = faStar;
   starNone = faStarRegular;
   starHalf = faStarHalfStroke;
+
+  warningIcon = faWarning;
 
   starsList: any[] = [];
 
@@ -145,6 +147,10 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
 
   round(val: number) {
     return val?.toFixed(2);
+  }
+
+  stopEvent(e: Event) {
+    e.stopPropagation()
   }
 
   ngOnDestroy(): void {

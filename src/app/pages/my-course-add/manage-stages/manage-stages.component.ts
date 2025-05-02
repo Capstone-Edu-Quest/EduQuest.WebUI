@@ -162,6 +162,10 @@ export class ManageStagesComponent implements OnInit {
     this.modal.updateModalContent(null);
   }
 
+  round(num: number) {
+    return Math.ceil(num)
+  }
+
   getOpacity(materialId: string) {
     return this.tempAddMaterial.findIndex(m => m.id === materialId) === -1 ? 1 : 0.5;
   }

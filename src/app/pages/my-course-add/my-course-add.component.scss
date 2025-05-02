@@ -3,6 +3,35 @@
   box-sizing: border-box;
   position: relative;
 
+  .category-wrapper {
+    display: flex;
+    gap: 12px;
+    margin-top: 8px;
+
+    .category {
+      min-width: 200px;
+
+      .label {
+        font-size: 13px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+
+      select {
+        background: var(--quaternary-bg);
+        border: none;
+        outline: none;
+        color: var(--primary-text);
+        font-size: 13px;
+        padding: 4px 8px;
+        border-radius: 4px;
+        box-sizing: border-box;
+        width: 100%;
+        cursor: pointer;
+      }
+    }
+  }
+
   .image-wrapper {
     // padding: 0 15%;
     box-sizing: border-box;

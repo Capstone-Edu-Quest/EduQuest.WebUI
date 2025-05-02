@@ -1,5 +1,11 @@
 import { Location } from '@angular/common';
-import { Component, OnDestroy, type OnInit } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  OnDestroy,
+  ViewChild,
+  type OnInit,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { ILearningMaterial } from '../../../../shared/interfaces/course.interfaces';
@@ -9,6 +15,8 @@ import { MessageService } from '../../../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
 import { MaterialTypeEnum } from '@/src/app/shared/enums/course.enum';
 import { CoursesService } from '@/src/app/core/services/courses.service';
+import { exportExcel, readExcelFile } from '@/src/app/core/utils/ExcelUtils';
+import { LoadingService } from '@/src/app/core/services/loading.service';
 
 @Component({
   selector: 'app-create-quiz',
@@ -16,6 +24,8 @@ import { CoursesService } from '@/src/app/core/services/courses.service';
   styleUrl: './create-quiz.component.scss',
 })
 export class CreateQuizComponent implements OnInit, OnDestroy {
+  @ViewChild('inputXLSX') inputXLSXRef!: ElementRef<any>;
+
   subscription$: Subscription = new Subscription();
 
   isEdit: boolean = false;
@@ -40,7 +50,8 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
     private location: Location,
     private message: MessageService,
     private translate: TranslateService,
-    private course: CoursesService
+    private course: CoursesService,
+    private loading: LoadingService
   ) {}
 
   ngOnInit(): void {
@@ -64,6 +75,50 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
       if (!res?.payload) return;
 
       this.material = res.payload;
+    });
+  }
+
+  onDownloadQuestionTemplate() {
+    const demoTemplate = [
+      {
+        question: 'Demo question',
+        correctAnswerNumber: 1,
+        answer1: 'Correct Answer',
+        answer2: 'Wrong answer',
+        answer3: 'Wrong Answer',
+        answer4: 'Wrong answer',
+      },
+    ];
+    exportExcel(demoTemplate, 'QuizAnswerTemplate', 'QuizAnswerTemplate');
+  }
+
+  onClickImport() {
+    this.inputXLSXRef?.nativeElement?.click();
+  }
+
+  async onFileSelected(e: any) {
+    const files: FileList = e.target.files;
+    const fileArray = Array.from(files);
+
+    const readQueue = fileArray.map((f: File) => readExcelFile(f));
+
+    const results = await Promise.all(readQueue);
+    const questionData = results.flatMap((json) => json);
+
+    questionData.forEach((importedData) => {
+      if (!this.material.quiz) return;
+      const { question, correctAnswerNumber, ...answers } = importedData;
+
+      this.material.quiz.questions.push({
+        questionTitle: question ?? '',
+        multipleAnswers: false,
+        answers: Object.entries(answers).map(([key, value], index) => {
+          return {
+            answerContent: (value as string) ?? '',
+            isCorrect: index === correctAnswerNumber - 1,
+          };
+        }),
+      });
     });
   }
 
@@ -127,7 +182,7 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
       return;
     }
 
-    console.log(this.material);
+    this.course.updateMaterial(this.material)
   }
 
   onCreate() {

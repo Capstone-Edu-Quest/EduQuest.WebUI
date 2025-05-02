@@ -3,6 +3,8 @@ import {
   InstructorCourseStatus,
   MaterialTypeEnum,
   MissionStatus,
+  TagTypeRequestEnum,
+  TagTypeResponseEnum,
 } from '../enums/course.enum';
 import { AssignmentLanguageEnum } from '../enums/materials.enum';
 
@@ -91,6 +93,7 @@ export interface ICourseCreate {
   description: string;
   photoUrl: string;
   price: number;
+  tagIds: string[];
   requirementList: string[];
   lessonCourse: ICourseCreateLesson[];
 }
@@ -241,6 +244,7 @@ export interface ICourseFullMetarialsView extends ICourse {
 export interface ITag {
   id: string;
   name: string;
+  type: TagTypeResponseEnum | TagTypeRequestEnum;
   courses?: number;
 }
 
@@ -466,7 +470,7 @@ export interface IMarkedAssignment {
 export interface IReviewParams {
   courseId: string;
   comment: string;
-  rating: number
+  rating: number;
 }
 
 export interface ICourseLearnerOverview {

@@ -46,3 +46,12 @@ export interface IModifyLearningPathCourse {
   courseOrder?: number;
   action?: 'add' | 'delete' | 'update';
 }
+
+export interface IGetMyLearningPathParam {
+  keyWord?: string;
+  isPublic?: boolean;
+  isEnrolled?: boolean;
+  createdByExpert?: boolean;
+  pageNo?: number;
+  eachPage?: number;
+}

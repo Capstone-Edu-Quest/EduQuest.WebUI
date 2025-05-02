@@ -49,7 +49,11 @@ export class LeaningPathComponent implements OnInit, OnDestroy {
   }
 
   initEnrolledLearningPath() {
-    
+    this.learningPath
+      .getMyLearningPath({ isEnrolled: true })
+      .subscribe((res) => {
+        this.enrolledLearningPath = res?.payload ?? [];
+      });
   }
 
   getLearningPathList() {

@@ -14,7 +14,7 @@ import {
   faUserPlus,
   faUsersRays,
 } from '@fortawesome/free-solid-svg-icons';
-import { ISearchUserRes, IUser } from '../../shared/interfaces/user.interfaces';
+import { IGetUserByRoleId, ISearchUserRes, IUser } from '../../shared/interfaces/user.interfaces';
 import {
   IInstructorApplyRes,
   TableColumn,
@@ -98,7 +98,7 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
 
   columns: TableColumn[] = [];
 
-  expertsList: IUser[] = [];
+  expertsList: IGetUserByRoleId[] = [];
 
   isSearchUserDone: boolean = true;
   isInitColumns: boolean = false;
@@ -180,7 +180,7 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   ngAfterViewInit(): void {
-    // this.initColumns();
+    this.initColumns();
   }
 
   listenToUser() {

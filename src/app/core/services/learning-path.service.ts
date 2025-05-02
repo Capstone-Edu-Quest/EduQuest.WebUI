@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import {
+  IGetMyLearningPathParam,
   ILearningPath,
   ILearningPathDetails,
   IModifyLearningPath,
@@ -10,6 +11,7 @@ import { endPoints } from '../../shared/constants/endPoints.constant';
 import { MessageService } from './message.service';
 import { TranslateService } from '@ngx-translate/core';
 import { Router } from '@angular/router';
+import { onConvertObjectToQueryParams } from '../utils/data.utils';
 
 @Injectable({
   providedIn: 'root',
@@ -33,8 +35,10 @@ export class LearningPathService {
     });
   }
 
-  getMyLearningPath() {
-    return this.http.get<ILearningPath[]>(endPoints.myLearningPath);
+  getMyLearningPath(param?: IGetMyLearningPathParam) {
+    return this.http.get<ILearningPath[]>(
+      endPoints.myLearningPath + onConvertObjectToQueryParams(param ?? {})
+    );
   }
 
   getPublicLearningPath() {

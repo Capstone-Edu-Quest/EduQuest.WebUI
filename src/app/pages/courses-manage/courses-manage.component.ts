@@ -32,19 +32,17 @@ export class CoursesManageComponent implements OnInit, OnDestroy {
 
     // if (userRoleId === WebRole.EXPERT) {
     // }
-    
+
     this.tabs.push({ label: 'LABEL.COUSRE_APPROVAL', link: 'approval' });
-    
-    if([WebRole.ADMIN, WebRole.STAFF].includes(userRoleId)) {
-      this.tabs.push({ label: 'LABEL.COUSRE_STATISTICS', link: 'statistics' });
+
+    if ([WebRole.ADMIN, WebRole.STAFF].includes(userRoleId)) {
+      this.tabs.push(
+        { label: 'LABEL.COUSRE_STATISTICS', link: 'statistics' },
+        { label: 'LABEL.COUSRE_CATEGORIZE', link: 'categorize' }
+      );
     }
 
-    this.tabs.push(
-      ...[
-        { label: 'LABEL.COUSRE_CATEGORIZE', link: 'categorize' },
-        { label: 'LABEL.COURSE_EXPLORE', link: 'explore' },
-      ]
-    );
+    this.tabs.push(...[{ label: 'LABEL.COURSE_EXPLORE', link: 'explore' }]);
   }
 
   ngOnDestroy(): void {

@@ -41,6 +41,20 @@
   <div class="input-label">
     {{ "LABEL.QUESTIONS" | translate }} ({{ material.quiz.questions.length }})
   </div>
+
+  <div style="display: flex; gap: 8px; margin-top: 5px">
+    <div style="width: 160px">
+      <app-button (click)="onClickImport()">{{
+        "BUTTON.IMPORT_FROM" | translate : { value: ".XLSX" }
+      }}</app-button>
+      <input [multiple]="true" type="file" accept=".xlsx" #inputXLSX hidden (change)="onFileSelected($event)" />
+    </div>
+    <div style="width: 160px">
+      <app-button (click)="onDownloadQuestionTemplate()">{{
+        "BUTTON.DOWNLOAD_TEMPLATE" | translate
+      }}</app-button>
+    </div>
+  </div>
   <div class="questions">
     <div
       class="question"

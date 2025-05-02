@@ -1,6 +1,7 @@
 import { Injectable, Injector } from '@angular/core';
 import {
   IChangeInfoReq,
+  IGetUserByRoleId,
   ILoginRes,
   IProfile,
   ISearchUserReq,
@@ -236,7 +237,7 @@ export class UserService {
   }
 
   getUserByRoleId(roleId: WebRole) {
-    return this.http.get<IUser[]>(
+    return this.http.get<IGetUserByRoleId[]>(
       endPoints.getUserByRoleId + `?roleId=${roleId}`
     );
   }
