@@ -1,7 +1,14 @@
+import { CoursesService } from '@/src/app/core/services/courses.service';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { faX } from '@fortawesome/free-solid-svg-icons';
-import { CourseSortEnum } from 'src/app/shared/enums/course.enum';
-import { IFilterCourseOption } from 'src/app/shared/interfaces/course.interfaces';
+import {
+  CourseSortEnum,
+  TagTypeRequestEnum,
+} from 'src/app/shared/enums/course.enum';
+import {
+  IFilterCourseOption,
+  ITag,
+} from 'src/app/shared/interfaces/course.interfaces';
 
 @Component({
   selector: 'app-courses-search-pannel',
@@ -15,7 +22,10 @@ export class CoursesSearchPannelComponent implements OnInit {
 
   sortBy: string | null = null;
   ratingOpt: string | null = null;
+  tags: ITag[] = [];
   TagListId: string[] = [];
+
+  changeTagTimeout: any;
 
   sortOptions = [
     {
@@ -55,8 +65,23 @@ export class CoursesSearchPannelComponent implements OnInit {
     },
   ];
 
-  constructor() {}
-  ngOnInit() {}
+  constructor(private course: CoursesService) {}
+
+  ngOnInit() {
+    this.initTags();
+  }
+
+  initTags() {
+    this.course
+      .onGetTags({ type: TagTypeRequestEnum.SUBJECT })
+      .subscribe((res) => (this.tags = res?.payload ?? []));
+  }
+
+  onChangeTag() {
+    this.changeTagTimeout = setTimeout(() => {
+      this.handleFilterChange('TAG', this.TagListId);
+    }, 500);
+  }
 
   handleFilterChange(key: string, val: any) {
     switch (key) {

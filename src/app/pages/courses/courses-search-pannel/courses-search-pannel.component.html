@@ -36,6 +36,23 @@
     </div>
   </div>
 
+  <div class="divider"></div>
+
+  <div class="section">
+    <div class="title">{{ "LABEL.COURSE_CATEGORY" | translate }}</div>
+    <ng-select
+      class="custom-select"
+      [items]="tags"
+      bindLabel="name"
+      bindValue="id"
+      [multiple]="true"
+      placeholder=""
+      (change)="onChangeTag()"
+      [(ngModel)]="TagListId"
+    >
+    </ng-select>
+  </div>
+
   <!-- <div class="divider"></div>
   <div class="section">
     <div class="title">{{ "LABEL.TAGS" | translate }}</div>
