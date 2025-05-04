@@ -11,7 +11,6 @@ import { Subscription } from 'rxjs';
 import {
   ICourseInstructor,
   ICourseLearnerOverview,
-  ICourseManageDetails,
   IReview,
   IReviewQuery,
 } from '../../shared/interfaces/course.interfaces';
@@ -143,7 +142,7 @@ export class MyCourseDetailsComponent
     private route: ActivatedRoute,
     private courseService: CoursesService,
     private message: MessageService,
-    private translate: TranslateService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -232,6 +231,10 @@ export class MyCourseDetailsComponent
         this.chartLabels = [...labelsSet];
       });
     this.convertTime();
+  }
+
+  getTags() {
+    return this.course?.listTag.map((t) => t.name).join(' ');
   }
 
   initLearnsOverview() {
@@ -327,7 +330,7 @@ export class MyCourseDetailsComponent
   }
 
   onViewLearnerDetails(userId: string) {
-    if(!this.courseId) return;
+    if (!this.courseId) return;
     // this.courseService.getCourseLearnerDetails(this.courseId, userId).subscribe(res => {
     //   console.log(res?.payload)
     //   this.modal.updateModalContent(this.viewLearnerDetailsModalRef)

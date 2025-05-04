@@ -83,7 +83,7 @@
   </select>
 </ng-template>
 
-<ng-template #assignToExpert let-row="row">
+<ng-template #assignToExpert let-row="row" let-index="index">
   <select
     style="
       padding: 3px;
@@ -98,7 +98,7 @@
     [(ngModel)]="row.assignToExpertId"
   >
     <option></option>
-    <option *ngFor="let expert of expertsList" [value]="expert.id">
+    <option *ngFor="let expert of sortedExpertsList[index]" [value]="expert.id">
       {{ expert.username }}
     </option>
   </select>
@@ -178,4 +178,8 @@
       <fa-icon style="font-size: 10px" [icon]="exploreIcon"></fa-icon>
     </div>
   </div>
+</ng-template>
+
+<ng-template #ViewDetailsUser>
+  <app-user-details [currentViewUser]="currentViewUser"></app-user-details>
 </ng-template>

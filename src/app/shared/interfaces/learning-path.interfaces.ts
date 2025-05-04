@@ -11,6 +11,8 @@ export interface ILearningPath {
   totalTime: number;
   totalCourses: number;
   createdByExpert: boolean;
+  enrollDate?: string;
+  totalEnroller: number;
   createdBy: {
     id: string;
     username: string;

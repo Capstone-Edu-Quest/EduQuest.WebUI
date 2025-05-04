@@ -1,5 +1,7 @@
 <div class="learning-path-details">
-  <div class="back" (click)="onBack()"><fa-icon [icon]="backIcon"></fa-icon>{{ "BUTTON.BACK" | translate }}</div>
+  <div class="back" (click)="onBack()">
+    <fa-icon [icon]="backIcon"></fa-icon>{{ "BUTTON.BACK" | translate }}
+  </div>
   @if(!isEdit) {
   <div class="name">{{ learningPathDetails?.name }}</div>
   <div class="description">{{ learningPathDetails?.description }}</div>
@@ -68,6 +70,16 @@
         }}</label
       >
       <fa-icon *ngIf="isEdit && !isExpertView" [icon]="swapIcon"></fa-icon>
+    </div>
+
+    <div class="info" *ngIf="learningPathDetails?.isEnrolled">
+      <fa-icon [icon]="authorIcon"></fa-icon>
+      <label>
+        {{
+          "LABEL.ENROLLED_AT"
+            | translate : { value: learningPathDetails?.enrollDate }
+        }}</label
+      >
     </div>
 
     <div class="btn-ctn" *ngIf="isEdit">

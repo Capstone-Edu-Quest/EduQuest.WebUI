@@ -4,7 +4,7 @@ import {
   TransactionStatusEnum,
   TransactionTypeEnum,
 } from '../enums/others.enum';
-import { ICourseOverview } from './course.interfaces';
+import { ICourseOverview, ITag } from './course.interfaces';
 import { IUser } from './user.interfaces';
 
 export interface IMessage {
@@ -247,7 +247,7 @@ export interface IBecomeInstructorReq {
   Headline: string;
   Description: string;
   Phone: string;
-  tag: string[]
+  Tag: string[]
   CertificateFiles: File[];
 }
 
@@ -268,6 +268,7 @@ export interface IInstructorApplyRes {
     id: string;
     certificateUrl: string;
   }[];
+  tags: {tagId: string, tagName: string}[]
 }
 
 export interface ILeaderboard {

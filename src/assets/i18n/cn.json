@@ -648,7 +648,10 @@
     "COURSE_CATEGORY": "课程类别",
     "TEACHING_SUBJECT": "教学科目",
     "COMPLETE_DUE_DO": "你应该在 {{value}} 之前完成",
-    "REMAINING": "剩余 {{value}}"
+    "REMAINING": "剩余 {{value}}",
+    "ENROLLED_AT": "已于 {{value}} 注册",
+    "TOTAL_ENROLLED": "{{value}} 人已注册",
+     "USER_INFO": "用户信息"
   },
   "MESSAGE": {
     "AT_LEAST_1_SUBJECT": "您必须至少教授一个科目",

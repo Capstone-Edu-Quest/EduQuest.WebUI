@@ -23,10 +23,8 @@ import {
   faWarning,
 } from '@fortawesome/free-solid-svg-icons';
 import { faStar as faStarRegular } from '@fortawesome/free-regular-svg-icons';
-import { CoursesService } from '../../../core/services/courses.service';
 import {
   formatRemainingTime,
-  formatTime,
 } from '@/src/app/core/utils/time.utils';
 import { TranslateService } from '@ngx-translate/core';
 
@@ -169,6 +167,10 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
       'LABEL.REMAINING',
       { value: formatRemainingTime(dueTime.getTime() - now) }
     )})`;
+  }
+
+  onViewCertificate() {
+    this.router.navigate(['/c', this.course?.certificateId])
   }
 
   ngOnDestroy(): void {

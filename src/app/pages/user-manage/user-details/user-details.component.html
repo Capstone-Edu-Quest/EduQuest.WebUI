@@ -1,0 +1,46 @@
+<div class="uinfo-title">{{ "LABEL.USER_INFO" | translate }}</div>
+<div class="user-details-ctn" *ngIf="currentViewUser">
+  <div class="info">
+    <div class="label">ID</div>
+    <div class="content">{{ currentViewUser.id || "-" }}</div>
+  </div>
+  <div class="info">
+    <div class="label">{{ "LABEL.NAME" | translate }}</div>
+    <div class="content">{{ currentViewUser.username || "-" }}</div>
+  </div>
+  <div class="info">
+    <div class="label">{{ "LABEL.EMAIL" | translate }}</div>
+    <div class="content">{{ currentViewUser.email || "-" }}</div>
+  </div>
+  <div class="info">
+    <div class="label">{{ "LABEL.PHONE" | translate }}</div>
+    <div class="content">{{ currentViewUser.phone || "-" }}</div>
+  </div>
+
+  <div class="info">
+    <div class="label">{{ "LABEL.SUBJECT" | translate }}</div>
+    <ng-select
+      class="custom-select"
+      [items]="tags"
+      bindLabel="name"
+      bindValue="id"
+      [multiple]="true"
+      placeholder=""
+      [(ngModel)]="selectedTags"
+      (change)="onChange()"
+    >
+    </ng-select>
+  </div>
+</div>
+
+<div
+  style="display: flex; gap: 8px; margin-top: 24px; justify-content: center"
+  *ngIf="isChanged"
+>
+  <app-button (click)="onCancel()" [style]="{ width: '200px' }">{{
+    "BUTTON.CANCEL" | translate
+  }}</app-button>
+  <app-button (click)="onSave()" [style]="{ width: '200px' }" type="primary">{{
+    "BUTTON.SAVE" | translate
+  }}</app-button>
+</div>

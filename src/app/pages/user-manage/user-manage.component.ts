@@ -14,7 +14,11 @@ import {
   faUserPlus,
   faUsersRays,
 } from '@fortawesome/free-solid-svg-icons';
-import { IGetUserByRoleId, ISearchUserRes, IUser } from '../../shared/interfaces/user.interfaces';
+import {
+  IGetUserByRoleId,
+  ISearchUserRes,
+  IUser,
+} from '../../shared/interfaces/user.interfaces';
 import {
   IInstructorApplyRes,
   TableColumn,
@@ -26,6 +30,10 @@ import { PlatformService } from '../../core/services/platform.service';
 import { ModalService } from '../../core/services/modal.service';
 import { MessageService } from '../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
+import { CoursesService } from '../../core/services/courses.service';
+import { TagTypeRequestEnum } from '../../shared/enums/course.enum';
+import { ITag } from '../../shared/interfaces/course.interfaces';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-user-manage',
@@ -37,6 +45,7 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('roleManagement') roleManagementRef!: TemplateRef<any>;
   @ViewChild('assignToExpert') assignToExpertRef!: TemplateRef<any>;
   @ViewChild('instructorDetails') instructorDetailsRef!: TemplateRef<any>;
+  @ViewChild('ViewDetailsUser') ViewDetailsUserRef!: TemplateRef<any>;
 
   subscription$: Subscription = new Subscription();
 
@@ -78,10 +87,10 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
   appliedInstructorColumns: TableColumn[] = [];
 
   usersTableColumns: TableColumn[] = [
-    {
-      label: 'LABEL.ID',
-      key: 'id',
-    },
+    // {
+    //   label: 'LABEL.ID',
+    //   key: 'id',
+    // },
     {
       label: 'LABEL.NAME',
       key: 'username',
@@ -99,10 +108,13 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
   columns: TableColumn[] = [];
 
   expertsList: IGetUserByRoleId[] = [];
+  sortedExpertsList: IGetUserByRoleId[][] = [];
 
   isSearchUserDone: boolean = true;
   isInitColumns: boolean = false;
   usersList: ISearchUserRes[] = [];
+
+  currentViewUser: ISearchUserRes | null = null;
 
   constructor(
     private UserService: UserService,
@@ -111,7 +123,8 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     private user: UserService,
     private modal: ModalService,
     private message: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private course: CoursesService
   ) {}
 
   ngOnInit(): void {
@@ -205,7 +218,32 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
         this.appliedInstructor = res.payload;
       }
 
+      this.initCorrespondingExpertList();
       this.isAppliedInsReady = true;
+    });
+  }
+
+  initCorrespondingExpertList() {
+    this.sortedExpertsList = [];
+    this.appliedInstructor.forEach((instructor) => {
+      const tagsMap = new Set(instructor.tags.map((tag) => tag.tagId));
+
+      const availableExperts: IGetUserByRoleId[] = cloneDeep(this.expertsList);
+
+      availableExperts.sort((a, b) => {
+        const aMatch = a.tags.some((tag) => tagsMap.has(tag.tagId));
+        const bMatch = b.tags.some((tag) => tagsMap.has(tag.tagId));
+        return Number(bMatch) - Number(aMatch);
+      });
+
+      const finalizeExpertList = availableExperts.map((expert) => {
+        const matchTag = expert.tags.find((tag) => tagsMap.has(tag.tagId));
+        return matchTag
+          ? { ...expert, username: `${expert.username} *` }
+          : expert;
+      });
+
+      this.sortedExpertsList.push(finalizeExpertList);
     });
   }
 
@@ -213,10 +251,10 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.isInitColumns = false;
     this.columns = [...this.usersTableColumns];
     this.appliedInstructorColumns = [
-      {
-        label: 'LABEL.ID',
-        key: 'id',
-      },
+      // {
+      //   label: 'LABEL.ID',
+      //   key: 'id',
+      // },
       {
         label: 'LABEL.NAME',
         key: 'username',
@@ -228,6 +266,12 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
       {
         label: 'LABEL.PHONE',
         key: 'phone',
+      },
+      {
+        label: 'LABEL.SUBJECT',
+        key: 'subject',
+        render: (value: IInstructorApplyRes) =>
+          value.tags?.map((t) => t.tagName).join(', ') || '-',
       },
     ];
 
@@ -271,7 +315,7 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
       if (isNaN(Number(WebRole[_k]))) {
         this.roleOptions.push({
           label: this.UserService.getRoleLabel(Number(_k)),
-          value: Number(_k).toString()
+          value: Number(_k).toString(),
         });
       }
     });
@@ -289,9 +333,9 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     return 2;
   }
 
-  onViewDetails(u: IUser) {
-    // view profile page with more details
-    this.router.navigate(['/profile', u.id]);
+  onViewDetails(u: ISearchUserRes) {
+    this.currentViewUser = u;
+    this.modal.updateModalContent(this.ViewDetailsUserRef);
   }
   onSuspend(e: Event, u: ISearchUserRes) {
     e.stopPropagation();
@@ -310,11 +354,16 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   onChangeRole(e: any, user: ISearchUserRes) {
-    this.user.onSwitchUserRole({userId: user.id, roleId:e.target.value}).subscribe(res => {
-      if(res?.isError) return;
+    this.user
+      .onSwitchUserRole({ userId: user.id, roleId: e.target.value })
+      .subscribe((res) => {
+        if (res?.isError) return;
 
-      this.message.addMessage('success', this.translate.instant('MESSAGE.UPDATED_SUCCESSFULLY'))
-    })
+        this.message.addMessage(
+          'success',
+          this.translate.instant('MESSAGE.UPDATED_SUCCESSFULLY')
+        );
+      });
   }
 
   onAssignExpert(e: any, row: IInstructorApplyRes) {

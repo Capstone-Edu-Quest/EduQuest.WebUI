@@ -37,6 +37,10 @@
     <div>
       {{ "LABEL.COURSES_COUNT" | translate : { value: path.totalCourses } }}
     </div>
+    <div>·</div>
+    <div>
+      {{ "LABEL.TOTAL_ENROLLED" | translate : { value: path.totalEnroller } }}
+    </div>
   </div>
   <div class="description">
     {{ path.description.trim() === "" ? "-" : path.description }}

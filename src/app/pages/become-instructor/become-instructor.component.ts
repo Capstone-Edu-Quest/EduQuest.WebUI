@@ -34,12 +34,11 @@ export class BecomeInstructorComponent implements OnInit {
     Headline: '',
     Description: '',
     Phone: '',
-    tag: [],
+    Tag: [],
     CertificateFiles: [],
   };
 
   tags: ITag[] = [];
-  selectedTags: ITag[] = [];
 
   fileIcon = faFile;
   deleteIcon = faTrash;
@@ -162,8 +161,11 @@ export class BecomeInstructorComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.selectedTags.length === 0) {
-      this.message.addMessage('error', this.translate.instant('MESSAGE.AT_LEAST_1_SUBJECT'))
+    if (this.instructorParam.Tag.length === 0) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.AT_LEAST_1_SUBJECT')
+      );
       return;
     }
     const errs = this.onValidate();
@@ -212,7 +214,7 @@ export class BecomeInstructorComponent implements OnInit {
         Headline: '',
         Description: '',
         Phone: '',
-        tag: [],
+        Tag: [],
         CertificateFiles: [],
       };
       this.message.addMessage(

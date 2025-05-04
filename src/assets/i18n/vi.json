@@ -647,7 +647,10 @@
     "COURSE_CATEGORY": "Danh mục khóa học",
     "TEACHING_SUBJECT": "Môn giảng dạy",
     "COMPLETE_DUE_DO": "Bạn nên hoàn thành trước {{value}}",
-    "REMAINING": "Còn lại {{value}}"
+    "REMAINING": "Còn lại {{value}}",
+    "ENROLLED_AT": "Bắt đầu lúc {{value}}",
+    "TOTAL_ENROLLED": "{{value}} lượt ghi danh",
+    "USER_INFO": "Thông tin người dùng"
   },
   "MESSAGE": {
     "AT_LEAST_1_SUBJECT": "Bạn phải giảng dạy ít nhất 1 môn học",

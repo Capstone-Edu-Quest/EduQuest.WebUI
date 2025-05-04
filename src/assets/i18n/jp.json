@@ -661,7 +661,10 @@
     "COURSE_CATEGORY": "コースカテゴリ",
     "TEACHING_SUBJECT": "教科",
     "COMPLETE_DUE_DO": "{{value}} までに完了してください",
-    "REMAINING": "残り {{value}}"
+    "REMAINING": "残り {{value}}",
+    "ENROLLED_AT": "{{value}} に登録済み",
+    "TOTAL_ENROLLED": "{{value}} 人が登録済み",
+     "USER_INFO": "ユーザー情報"
   },
   "MESSAGE": {
     "AT_LEAST_1_SUBJECT": "少なくとも1つの教科を教える必要があります",

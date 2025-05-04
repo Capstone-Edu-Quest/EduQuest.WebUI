@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
+import { EventEmitter, Injectable } from '@angular/core';
+import { BehaviorSubject, Subject } from 'rxjs';
 import {
   IGetMyLearningPathParam,
   ILearningPath,
@@ -156,17 +156,22 @@ export class LearningPathService {
   }
 
   onEnrollLearningPath(pathId: string) {
+    const subject = new Subject();
+
     this.http
       .post(endPoints.enrollLearningPath + `?learningPathId=${pathId}`, {})
       .subscribe((res) => {
         if (!res?.payload) return;
 
         this.router.navigate(['learning-path', pathId]);
+        subject.next(true);
         this.message.addMessage(
           'success',
           this.translate.instant('MESSAGE.ENROLLED_SUCCESSFULLY')
         );
       });
+
+    return subject;
   }
 
   getLearningPathDetails(pathId: string) {

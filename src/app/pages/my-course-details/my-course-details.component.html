@@ -34,6 +34,10 @@
           | translate : { value: course.price | currencyExchange }
       }}
     </div>
+    <div>·</div>
+    <div class="course-status">
+      {{ getTags() }}
+    </div>
   </div>
 
   <ng-container
@@ -192,7 +196,6 @@
   ></a>
 </ng-template>
 
-
 <ng-template #viewLearnerDetailsModal>
-  <div>{{'LABEL.LEARNER_DETAILS' | translate}}</div>
+  <div>{{ "LABEL.LEARNER_DETAILS" | translate }}</div>
 </ng-template>

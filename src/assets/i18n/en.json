@@ -669,7 +669,10 @@
     "COURSE_CATEGORY": "Course category",
     "TEACHING_SUBJECT": "Teaching subjects",
     "COMPLETE_DUE_DO": "You should complete due to {{value}}",
-    "REMAINING": "Remaining {{value}}"
+    "REMAINING": "Remaining {{value}}",
+    "ENROLLED_AT": "Enrolled at {{value}}",
+    "TOTAL_ENROLLED": "{{value}} enrolled",
+    "USER_INFO": "User informations"
   },
   "MESSAGE": {
     "AT_LEAST_1_SUBJECT": "You must teaching atleast 1 subject",

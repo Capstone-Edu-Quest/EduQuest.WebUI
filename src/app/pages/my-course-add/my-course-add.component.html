@@ -44,7 +44,7 @@
   <div class="category-wrapper">
     <div class="category">
       <div class="label">{{ "LABEL.SUBJECT" | translate }}</div>
-      <select (change)="onChangeTag($event)">
+      <select (change)="onChangeTag($event)" [disabled]="courseInfo.isPublic">
         <option [value]="1" [attr.selected]="false"></option>
         <option
           *ngFor="let tag of getTagOptions(true)"
@@ -58,7 +58,7 @@
 
     <div class="category">
       <div class="label">{{ "LABEL.COURSE_LEVEL" | translate }}</div>
-      <select (change)="onChangeTag($event)">
+      <select (change)="onChangeTag($event)" [disabled]="courseInfo.isPublic">
         <option [value]="1" [attr.selected]="false"></option>
         <option
           *ngFor="let tag of getTagOptions(false)"

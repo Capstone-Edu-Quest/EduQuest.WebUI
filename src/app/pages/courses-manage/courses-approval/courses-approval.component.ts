@@ -9,9 +9,9 @@ import {
 } from '@angular/core';
 import {
   ICourse,
-  ICourseApproval,
   ICourseApprovalStaff,
   ICourseOverview,
+  ITag,
 } from '../../../shared/interfaces/course.interfaces';
 import { TableColumn } from '../../../shared/interfaces/others.interfaces';
 import { Router } from '@angular/router';
@@ -22,8 +22,12 @@ import { Subscription } from 'rxjs';
 import { WebRole } from '../../../shared/enums/user.enum';
 import { CoursesService } from '@/src/app/core/services/courses.service';
 import { InstructorCourseStatus } from '@/src/app/shared/enums/course.enum';
-import { IGetUserByRoleId, IUser } from '@/src/app/shared/interfaces/user.interfaces';
+import {
+  IGetUserByRoleId,
+  IUser,
+} from '@/src/app/shared/interfaces/user.interfaces';
 import { TranslateService } from '@ngx-translate/core';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-courses-approval',
@@ -37,8 +41,10 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
 
   subscription$: Subscription = new Subscription();
   isLoaded: boolean = false;
+  isExpertListLoaded: boolean = true;
 
   expertsList: IGetUserByRoleId[] = [];
+  sortedExpertsList: IGetUserByRoleId[][] = [];
 
   courses: ICourseApprovalStaff[] = [];
 
@@ -68,6 +74,12 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
     {
       key: 'totalLesson',
       label: 'LABEL.STAGES',
+    },
+    {
+      key: 'category',
+      label: 'LABEL.COURSE_CATEGORY',
+      render: (course: ICourseApprovalStaff) =>
+        course.listTag.map((tag) => tag.name).join(' '),
     },
   ];
 
@@ -110,6 +122,30 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
     });
   }
 
+  initCorrespondingExpertList() {
+    this.sortedExpertsList = [];
+    this.courses.forEach((course) => {
+      const tagsMap = new Set(course.listTag.map((tag) => tag.id));
+
+      const availableExperts: IGetUserByRoleId[] = cloneDeep(this.expertsList);
+
+      availableExperts.sort((a, b) => {
+        const aMatch = a.tags.some((tag) => tagsMap.has(tag.tagId));
+        const bMatch = b.tags.some((tag) => tagsMap.has(tag.tagId));
+        return Number(bMatch) - Number(aMatch);
+      });
+
+      const finalizeExpertList = availableExperts.map((expert) => {
+        const matchTag = expert.tags.find((tag) => tagsMap.has(tag.tagId));
+        return matchTag
+          ? { ...expert, username: `${expert.username} *` }
+          : expert;
+      });
+
+      this.sortedExpertsList.push(finalizeExpertList);
+    });
+  }
+
   initCourses(): void {
     if (!this.user.user$.value) return;
     this.isLoaded = false;
@@ -127,9 +163,12 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
           this.isLoaded = true;
         });
 
+        this.isExpertListLoaded = false;
         this.user.getUserByRoleId(WebRole.EXPERT).subscribe((res) => {
           if (!res?.payload) return;
           this.expertsList = res.payload;
+          this.initCorrespondingExpertList();
+          this.isExpertListLoaded = true;
         });
         break;
       case WebRole.EXPERT:
@@ -152,9 +191,12 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
   onUpdateStatus(e: Event, data: ICourse, isApprove: boolean) {
     e.stopPropagation();
     this.CourseService.onApprove(data.id, isApprove).subscribe((res) => {
-      if(res?.isError || !res) return;
+      if (res?.isError || !res) return;
 
-      this.message.addMessage('success', this.translate.instant('MESSAGE.UPDATED_SUCCESSFULLY'));
+      this.message.addMessage(
+        'success',
+        this.translate.instant('MESSAGE.UPDATED_SUCCESSFULLY')
+      );
       this.initCourses();
     });
   }

@@ -21,6 +21,7 @@ export interface ICourseOverview {
   title: string;
   description: string;
   isPublic: boolean;
+  listTag: ITag[];
   status: InstructorCourseStatus;
   photoUrl: string;
   author: string;
@@ -36,6 +37,7 @@ export interface ICourseOverview {
   totalLearner?: number;
   isOverDue?: boolean;
   dueDate?: string | null;
+  certificateId?: string;
 }
 
 export interface ICourseApprovalStaff extends ICourseOverview {
@@ -98,6 +100,7 @@ export interface ICourseCreate {
   tagIds: string[];
   requirementList: string[];
   lessonCourse: ICourseCreateLesson[];
+  isPublic: boolean,
 }
 
 export interface ICourseCreateLesson {

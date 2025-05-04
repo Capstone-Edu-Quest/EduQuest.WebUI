@@ -1,0 +1,26 @@
+.uinfo-title {
+  font-size: 22px;
+  font-weight: 600px;
+  margin-bottom: 12px;
+
+}
+.user-details-ctn {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+
+  .info {
+    width: calc(50% - 8px);
+
+    .label {
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--brand-light);
+      margin-bottom: 4px;
+    }
+
+    .content {
+      font-size: 15px;
+    }
+  }
+}

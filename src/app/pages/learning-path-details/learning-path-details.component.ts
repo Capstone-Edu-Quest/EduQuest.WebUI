@@ -15,6 +15,7 @@ import {
   faGripVertical,
   faPen,
   faRetweet,
+  faRightToBracket,
   faShare,
   faTrash,
   faUser,
@@ -104,7 +105,12 @@ export class LearningPathDetailsComponent implements OnInit {
       this.route.parent?.routeConfig?.path === 'learning-path-manage';
   }
 
-  onEnroll() {}
+  onEnroll() {
+    if (!this.learningPathDetails) return;
+    this.LearningPathService.onEnrollLearningPath(
+      this.learningPathDetails.id
+    ).subscribe((res) => this.initPathDetails());
+  }
 
   initPathDetails() {
     const courseId = this.route.snapshot.paramMap.get('pathId');
@@ -117,6 +123,9 @@ export class LearningPathDetailsComponent implements OnInit {
         }
 
         this.learningPathDetails = res.payload;
+        this.learningPathDetails.enrollDate = new Date(
+          this.learningPathDetails.enrollDate || ''
+        ).toLocaleString();
         this.onInitMenu();
 
         if (this.route.snapshot.queryParams['edit']) {
@@ -139,12 +148,19 @@ export class LearningPathDetailsComponent implements OnInit {
 
     this.showingPannelBtn = [];
 
-    if (this.currentUser?.id !== this.learningPathDetails.createdBy.id) {
-      this.showingPannelBtn = [...this.commonMenu];
-      return;
+    if (!this.learningPathDetails.isEnrolled) {
+      this.showingPannelBtn.push({
+        icon: faRightToBracket,
+        label: 'LABEL.ENROLL',
+        action: () => this.onEnroll(),
+      });
     }
 
-    this.showingPannelBtn = [...this.manageMenu, ...this.commonMenu];
+    if (this.currentUser?.id === this.learningPathDetails.createdBy.id) {
+      this.showingPannelBtn.push(...this.manageMenu);
+    }
+
+    this.showingPannelBtn.push(...this.commonMenu);
   }
 
   onEdit() {
@@ -243,9 +259,13 @@ export class LearningPathDetailsComponent implements OnInit {
   }
 
   onShare() {
-    const url = window.location.host + '/learning-path/' + this.learningPathDetails?.id
+    const url =
+      window.location.host + '/learning-path/' + this.learningPathDetails?.id;
     copyToClipboard(url);
-    this.message.addMessage('success', this.translate.instant('MESSAGE.COPIED_URL'))
+    this.message.addMessage(
+      'success',
+      this.translate.instant('MESSAGE.COPIED_URL')
+    );
   }
 
   onDragStart(e: Event, course: ICourseOverview) {

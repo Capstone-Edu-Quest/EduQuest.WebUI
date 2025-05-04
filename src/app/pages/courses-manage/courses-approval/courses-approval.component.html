@@ -4,14 +4,14 @@
   </div>
 
   <app-table
-    *ngIf="isLoaded"
+    *ngIf="isLoaded && isExpertListLoaded"
     (onRowClick)="onViewDetails($event)"
     [data]="courses"
     [columns]="tableColumns"
   ></app-table>
 </div>
 
-<ng-template #buttons let-row="row">
+<ng-template #buttons let-row="row" let-index="index">
   <div class="ref-btns-ctn" *ngIf="!isStaffView">
     <fa-icon
       (click)="onUpdateStatus($event, row, true)"
@@ -42,7 +42,10 @@
       [(ngModel)]="row.expertId"
     >
       <option></option>
-      <option *ngFor="let expert of expertsList" [value]="expert.id">
+      <option
+        *ngFor="let expert of (sortedExpertsList[index] || [])"
+        [value]="expert.id"
+      >
         {{ expert.username }}
       </option>
     </select>

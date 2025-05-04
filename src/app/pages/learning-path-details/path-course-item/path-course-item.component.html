@@ -78,7 +78,7 @@
           *ngIf="!isInCart"
         ></i>
         } @else {
-        <div class="progress">
+        <div class="progress" *ngIf="(course?.progressPercentage || 0) < 100">
           <div class="header">
             <div class="label">{{ "LABEL.PROGRESS" | translate }}</div>
           </div>
@@ -92,7 +92,13 @@
             ></div>
           </div>
         </div>
+
         }
+      </div>
+      <div style="margin-top: 12px;">
+        <app-button type="primary" (click)="onViewCertificate()">{{
+          "BUTTON.VIEW_CERTIFICATE" | translate
+        }}</app-button>
       </div>
 
       <div class="add-to-cart-group" *ngIf="isEdit && !isExpertView">
@@ -104,7 +110,10 @@
           >{{ "BUTTON.REMOVE" | translate }}</app-button
         >
       </div>
-      <div class="deadline">
+      <div
+        class="deadline"
+        *ngIf="(course.progressPercentage || 0) < 100 && course?.dueDate"
+      >
         {{ "LABEL.COMPLETE_DUE_DO" | translate : { value: getDueDate() } }}
       </div>
     </div>

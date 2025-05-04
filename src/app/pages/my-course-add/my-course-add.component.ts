@@ -57,6 +57,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
     requirementList: [],
     lessonCourse: [],
     tagIds: [],
+    isPublic: false,
   };
 
   fullLessons: ILessonOverview[] = [];
@@ -111,6 +112,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
           photoUrl: res.payload.photoUrl,
           requirementList: res.payload.requirementList,
           tagIds: res.payload.listTag.map((tag) => tag.id),
+          isPublic: res.payload.isPublic,
           lessonCourse: res.payload.listLesson.map((l) => {
             return {
               id: l.id,
@@ -125,6 +127,8 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
         this.fullLessons = res.payload.listLesson.sort(
           (a, b) => a.index - b.index
         );
+
+        console.log(this.courseInfo)
       }
     );
   }
@@ -249,7 +253,6 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
   }
 
   onValidateCourseInfo(course: any) {
-    console.log(course);
     if (course.tagIds.length !== 2) {
       this.message.addMessage(
         'error',
@@ -288,17 +291,6 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
         );
         return;
       }
-
-      if (
-        Array.isArray(course[courseKey[i]]) &&
-        course[courseKey[i]].length === 0
-      ) {
-        this.message.addMessage(
-          'error',
-          this.translate.instant('MESSAGE.MISSING_FIELDS')
-        );
-        return;
-      }
     }
 
     return true;
@@ -311,8 +303,8 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
       if (!res?.payload) return;
 
       this.courseInfo.photoUrl = res.payload.url;
-
       if (!this.onValidateCourseInfo(this.courseInfo)) return;
+
       this.CourseService.createCourse(this.courseInfo);
     });
   }

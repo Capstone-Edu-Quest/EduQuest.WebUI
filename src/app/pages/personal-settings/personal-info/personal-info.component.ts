@@ -16,6 +16,7 @@ export class PersonalInfoComponent implements OnInit {
     description: '',
     headline: '',
     phone: '',
+    tags: [],
   };
 
   constructor(
@@ -38,6 +39,7 @@ export class PersonalInfoComponent implements OnInit {
       description: userData.description ?? '',
       headline: userData.headline ?? '',
       phone: userData.phone,
+      tags: userData.tags.map((t) => t.tagId),
     };
   }
 
@@ -58,7 +60,7 @@ export class PersonalInfoComponent implements OnInit {
       );
       return;
     }
-    
+
     this.user.updateUserInfo(this.userInfo);
   }
 }

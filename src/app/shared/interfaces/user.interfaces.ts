@@ -1,5 +1,5 @@
 import { WebRole } from '../enums/user.enum';
-import { ICourseOverview } from './course.interfaces';
+import { ICourseOverview, ITag } from './course.interfaces';
 import { IQuestOfUser } from './quests.interface';
 
 export interface ILoginRes {
@@ -28,6 +28,10 @@ export interface IUser {
   mascotItem: string[];
   equippedItems: string[];
   isPremium: boolean;
+  tags: {
+    tagId: string;
+    tagName: string;
+  }[];
 }
 
 export interface IProfile extends IUser {
@@ -96,6 +100,7 @@ export interface IChangeInfoReq {
   phone: string;
   headline: string;
   description: string;
+  tags: string[];
 }
 
 export interface ISignUpReq {
@@ -125,6 +130,7 @@ export interface ISearchUserRes {
   totalCourses: number;
   totalLearners: number;
   totalReviews: number;
+  tags: { tagId: string; tagName: string }[];
 }
 
 export interface IGetUserByRoleId {
@@ -139,4 +145,5 @@ export interface IGetUserByRoleId {
   roleId: WebRole;
   createdAt: string;
   updatedAt: string;
+  tags: { tagId: string; tagName: string }[];
 }
