@@ -27,6 +27,7 @@ import {
   formatRemainingTime,
 } from '@/src/app/core/utils/time.utils';
 import { TranslateService } from '@ngx-translate/core';
+import { LearningPathService } from '@/src/app/core/services/learning-path.service';
 
 @Component({
   selector: 'app-path-course-item',
@@ -34,11 +35,13 @@ import { TranslateService } from '@ngx-translate/core';
   styleUrl: './path-course-item.component.scss',
 })
 export class PathCourseItemComponent implements OnInit, OnDestroy {
+  @Input('pathId') pathId!: string;
   @Input('course') course: ICourseOverview | null = null;
   @Input('isEdit') isEdit!: boolean;
   @Input('isExpertView') isExpertView: boolean = false;
   @Output('onRemoveCourse') onRemoveCourse: EventEmitter<ICourseOverview> =
     new EventEmitter();
+  @Output('reinitLearningpath') reinitLearningpath: EventEmitter<any> = new EventEmitter();
 
   @ViewChild('item') item!: ElementRef;
 
@@ -61,7 +64,8 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
     private wishlist: WishlistService,
     private router: Router,
     private coupon: CouponService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private learningPath: LearningPathService
   ) {}
 
   ngOnInit() {
@@ -171,6 +175,15 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
 
   onViewCertificate() {
     this.router.navigate(['/c', this.course?.certificateId])
+  }
+
+  onReEnroll() {
+    if(!this.pathId) return;
+    this.learningPath.reEnrollLearningPath(this.pathId).subscribe(res => {
+      if(res?.isError) return;
+
+      this.reinitLearningpath.emit();
+    })
   }
 
   ngOnDestroy(): void {

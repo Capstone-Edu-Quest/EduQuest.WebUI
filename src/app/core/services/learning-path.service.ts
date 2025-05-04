@@ -179,4 +179,11 @@ export class LearningPathService {
       endPoints.learningPathDetails + `?learningPathId=${pathId}`
     );
   }
+
+  reEnrollLearningPath(pathId: string) {
+    return this.http.post(
+      endPoints.reEnrollLearningPath + `?learningPathId=${pathId}`,
+      {}
+    );
+  }
 }

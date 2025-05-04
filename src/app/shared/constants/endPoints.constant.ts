@@ -52,6 +52,7 @@ export const endPoints = {
   learningPathDetails: 'learningPath/detail',
   publicLearningPath: 'learningPath/public',
   enrollLearningPath: 'learningPath/enroll',
+  reEnrollLearningPath: 'learningPath/reEnroll',
 
   level: 'level',
   getLevel: 'level/filter',

@@ -1,10 +1,10 @@
-<div class="learning-path-details">
+<div class="learning-path-details" *ngIf="learningPathDetails">
   <div class="back" (click)="onBack()">
     <fa-icon [icon]="backIcon"></fa-icon>{{ "BUTTON.BACK" | translate }}
   </div>
   @if(!isEdit) {
-  <div class="name">{{ learningPathDetails?.name }}</div>
-  <div class="description">{{ learningPathDetails?.description }}</div>
+  <div class="name">{{ learningPathDetails.name }}</div>
+  <div class="description">{{ learningPathDetails.description }}</div>
   } @else {
   <input class="input-name" [(ngModel)]="tempEditMeta.name" />
   <input class="input-desc" [(ngModel)]="tempEditMeta.description" />
@@ -38,14 +38,14 @@
   <div class="info-ctn">
     <div class="info">
       <fa-icon [icon]="authorIcon"></fa-icon>
-      <label> {{ learningPathDetails?.createdBy?.username }}</label>
+      <label> {{ learningPathDetails.createdBy?.username }}</label>
     </div>
     <div class="info">
       <fa-icon [icon]="timeIcon"></fa-icon>
       <label>
         {{
           "LABEL.MINUTES"
-            | translate : { value: learningPathDetails?.totalTime }
+            | translate : { value: learningPathDetails.totalTime }
         }}</label
       >
     </div>
@@ -63,7 +63,7 @@
             ((
               isEdit && !isExpertView
                 ? tempEditMeta.isPublic
-                : learningPathDetails?.isPublic
+                : learningPathDetails.isPublic
             )
               ? "PUBLIC"
               : "PRIVATE") | translate
@@ -72,12 +72,12 @@
       <fa-icon *ngIf="isEdit && !isExpertView" [icon]="swapIcon"></fa-icon>
     </div>
 
-    <div class="info" *ngIf="learningPathDetails?.isEnrolled">
+    <div class="info" *ngIf="learningPathDetails.isEnrolled">
       <fa-icon [icon]="authorIcon"></fa-icon>
       <label>
         {{
           "LABEL.ENROLLED_AT"
-            | translate : { value: learningPathDetails?.enrollDate }
+            | translate : { value: learningPathDetails.enrollDate }
         }}</label
       >
     </div>
@@ -95,7 +95,7 @@
   <div class="courses-ctn">
     <div
       class="course-wrapper"
-      *ngFor="let course of tempCourseList || learningPathDetails?.courses"
+      *ngFor="let course of tempCourseList || learningPathDetails.courses"
       [attr.courseId]="course.id"
       [attr.draggable]="isEdit"
       (dragstart)="onDragStart($event, course)"
@@ -112,10 +112,12 @@
         [ngStyle]="{
           cursor: isEdit ? 'grab' : 'pointer'
         }"
+        [pathId]="learningPathDetails.id"
         [isEdit]="isEdit"
         [course]="course"
         [isExpertView]="isExpertView"
         (onRemoveCourse)="onRemoveCourse($event)"
+        (reinitLearningpath)="initPathDetails()"
       ></app-path-course-item>
     </div>
   </div>
