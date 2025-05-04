@@ -285,8 +285,8 @@ export class CoursesService {
     );
   }
 
-  onApprove(courseId: string, isApprove: boolean) {
-    return this.http.update(endPoints.approveCourse, { courseId, isApprove });
+  onApprove(courseId: string, isApprove: boolean, rejectedReason: string) {
+    return this.http.update(endPoints.approveCourse, { courseId, isApprove, rejectedReason });
   }
 
   onSubmitCourseForApproval(courseId: string) {

@@ -3,11 +3,21 @@
   <div class="last-updated"></div>
 
   @switch(course.status) { @case('Draft') {
+  <div
+    *ngIf="course.rejectedReason"
+    style="margin-top: 12px; color: var(--alert); font-size: 16px; font-weight: 600"
+  >
+    {{ "LABEL.REJECT_REASON" | translate }}
+  </div>
+  <div style="margin-top: 4px; font-size: 12px" *ngIf="course.rejectedReason">
+    {{ course.rejectedReason }}
+  </div>
+
   <app-button
     (click)="onPublishCourse()"
     [style]="{ width: '100%', margin: '12px 0' }"
     type="primary"
-    >{{ "BUTTON.PUBLISH_COURSE" | translate }}</app-button
+    >{{ (course.rejectedReason ? "BUTTON.REPUBLISH_COURSE" : "BUTTON.PUBLISH_COURSE") | translate }}</app-button
   >
   } @case("Pending") {
   <app-button [style]="{ width: '100%', margin: '12px 0' }">{{

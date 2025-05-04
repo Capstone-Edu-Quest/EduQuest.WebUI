@@ -209,6 +209,7 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.user.getUserByRoleId(WebRole.EXPERT).subscribe((res) => {
       if (!res?.payload) return;
       this.expertsList = res.payload;
+      this.initCorrespondingExpertList()
     });
   }
 

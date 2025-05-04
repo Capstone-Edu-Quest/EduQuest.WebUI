@@ -176,7 +176,7 @@ app-radar-chart {
   width: 100%;
 }
 
-input {
+input, textarea {
   background-color: var(--tertiary-bg) !important;
   // border: 1px solid var(--tertiary-text) !important;
   outline: none;

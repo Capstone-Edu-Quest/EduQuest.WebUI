@@ -28,6 +28,7 @@ import {
 } from '@/src/app/shared/interfaces/user.interfaces';
 import { TranslateService } from '@ngx-translate/core';
 import { cloneDeep } from 'lodash';
+import { ModalService } from '@/src/app/core/services/modal.service';
 
 @Component({
   selector: 'app-courses-approval',
@@ -38,6 +39,7 @@ import { cloneDeep } from 'lodash';
 export class CoursesApprovalComponent implements OnInit, AfterViewInit {
   @ViewChild('buttons') buttonsRef!: TemplateRef<any>;
   @ViewChild('SelectExpert') SelectExpertRef!: ElementRef<any>;
+  @ViewChild('rejectReason') rejectReasonRef!: TemplateRef<any>;
 
   subscription$: Subscription = new Subscription();
   isLoaded: boolean = false;
@@ -47,6 +49,9 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
   sortedExpertsList: IGetUserByRoleId[][] = [];
 
   courses: ICourseApprovalStaff[] = [];
+
+  inputRejectReason: string = '';
+  rejectingCourse: ICourse | null = null;
 
   tableColumns: TableColumn[] = [
     {
@@ -79,7 +84,7 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
       key: 'category',
       label: 'LABEL.COURSE_CATEGORY',
       render: (course: ICourseApprovalStaff) =>
-        course.listTag.map((tag) => tag.name).join(' '),
+        course.listTag?.map((tag) => tag.name).join(' ') ?? '-',
     },
   ];
 
@@ -94,7 +99,8 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
     private user: UserService,
     private CourseService: CoursesService,
     private message: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private modal: ModalService
   ) {}
 
   ngOnInit(): void {
@@ -180,17 +186,42 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
         });
         break;
     }
-
-    this.initTableData();
   }
 
   onViewDetails(course: ICourse): void {
     this.router.navigate(['/courses-manage/explore', course.id]);
   }
 
-  onUpdateStatus(e: Event, data: ICourse, isApprove: boolean) {
-    e.stopPropagation();
-    this.CourseService.onApprove(data.id, isApprove).subscribe((res) => {
+  onReject(event: any, row: ICourse) {
+    event.stopPropagation();
+    this.rejectingCourse = row;
+    this.inputRejectReason = '';
+    this.modal.updateModalContent(this.rejectReasonRef);
+  }
+
+  onCancel() {
+    this.rejectingCourse = null;
+    this.inputRejectReason = '';
+    this.modal.updateModalContent(null);
+  }
+
+  onUpdateStatus(e: Event, data: ICourse | null, isApprove: boolean) {
+     e.stopPropagation();
+    if (!data) return;
+
+    if (!isApprove && !this.inputRejectReason.trim()) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.REJECT_NEED_REASON')
+      );
+      return;
+    }
+   
+    this.CourseService.onApprove(
+      data.id,
+      isApprove,
+      this.inputRejectReason
+    ).subscribe((res) => {
       if (res?.isError || !res) return;
 
       this.message.addMessage(
@@ -204,8 +235,6 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
   stoppropa(e: Event) {
     e.stopPropagation();
   }
-
-  initTableData() {}
 
   onAssignExpert(e: any, row: ICourseOverview) {
     e.stopPropagation();
@@ -221,6 +250,7 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
         'success',
         this.translate.instant('MESSAGE.ASSIGNED_SUCCESSFULLY')
       );
+      this.onCancel()
     });
   }
 }

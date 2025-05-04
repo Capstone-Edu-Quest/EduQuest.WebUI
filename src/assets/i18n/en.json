@@ -672,7 +672,8 @@
     "REMAINING": "Remaining {{value}}",
     "ENROLLED_AT": "Enrolled at {{value}}",
     "TOTAL_ENROLLED": "{{value}} enrolled",
-    "USER_INFO": "User informations"
+    "USER_INFO": "User informations",
+    "REJECT_REASON": "Reject reason"
   },
   "MESSAGE": {
     "AT_LEAST_1_SUBJECT": "You must teaching atleast 1 subject",
@@ -834,6 +835,7 @@
     "ENROLLED_SUCCESSFULLY": "Enrolled Successfully"
   },
   "BUTTON": {
+    "REPUBLISH_COURSE": "Re-Publish course",
     "CANCEL_APPLICATION": "Cancel registration",
     "UNBLOCK": "Unblock",
     "UPDATE": "Update",

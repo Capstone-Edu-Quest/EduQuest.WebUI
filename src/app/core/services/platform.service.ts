@@ -116,7 +116,7 @@ export class PlatformService {
     );
   }
 
-  onUpdateInstructorStatus(UserId: string, isApprove: boolean) {
+  onUpdateInstructorStatus(UserId: string, isApprove: boolean, rejectedReason: string) {
     return this.http.post(endPoints.approveInstructor, { UserId, isApprove });
   }
 

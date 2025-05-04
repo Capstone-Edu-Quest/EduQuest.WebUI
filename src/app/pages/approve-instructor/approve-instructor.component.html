@@ -1,6 +1,9 @@
-<div style="padding: 40px 8vw; box-sizing: border-box;">
+<div style="padding: 40px 8vw; box-sizing: border-box">
   <div style="margin-top: 30px">
-    <div style="margin-bottom: 8px; font-weight: 600; font-size: 18px" class="text-gradient">
+    <div
+      style="margin-bottom: 8px; font-weight: 600; font-size: 18px"
+      class="text-gradient"
+    >
       {{ "LABEL.APPLIED_INSTRUCTOR" | translate }}
     </div>
     <app-table
@@ -20,7 +23,7 @@
       style="color: var(--success); cursor: pointer"
     ></fa-icon>
     <fa-icon
-      (click)="onUpdateStatus($event, row, false)"
+      (click)="onReject($event, row)"
       [icon]="rejectIcon"
       style="color: var(--alert); cursor: pointer"
     ></fa-icon>
@@ -100,5 +103,26 @@
       {{ "LABEL.CERTIFICATE_COUNT" | translate : { value: i + 1 } }}
       <fa-icon style="font-size: 10px" [icon]="exploreIcon"></fa-icon>
     </div>
+  </div>
+</ng-template>
+
+<ng-template #rejectReason>
+  <div style="font-weight: 600; margin-bottom: 8px; font-size: 15px">
+    {{ "LABEL.REJECT_REASON" | translate }}
+  </div>
+  <textarea class="formated-input" style="width: 100%; resize: none; padding: 6px 12px" row="7"  [(ngModel)]="inputRejectReason"></textarea>
+
+  <div
+    style="display: flex; gap: 8px; margin-top: 24px; justify-content: center"
+  >
+    <app-button (click)="onCancel()" [style]="{ width: '200px' }">{{
+      "BUTTON.CANCEL" | translate
+    }}</app-button>
+    <app-button
+      (click)="onUpdateStatus($event, rejectingInstructor, false)"
+      [style]="{ width: '200px' }"
+      type="primary"
+      >{{ "LABEL.REJECT" | translate }}</app-button
+    >
   </div>
 </ng-template>

@@ -664,7 +664,9 @@
     "REMAINING": "残り {{value}}",
     "ENROLLED_AT": "{{value}} に登録済み",
     "TOTAL_ENROLLED": "{{value}} 人が登録済み",
-     "USER_INFO": "ユーザー情報"
+    "USER_INFO": "ユーザー情報",
+    "REJECT_REASON": "却下理由",
+    "REPUBLISH_COURSE": "コースを再公開"
   },
   "MESSAGE": {
     "AT_LEAST_1_SUBJECT": "少なくとも1つの教科を教える必要があります",

@@ -27,12 +27,16 @@ import { MessageService } from '../../core/services/message.service';
 export class ApproveInstructorComponent implements OnInit, AfterViewInit {
   @ViewChild('approval') approvalRef!: TemplateRef<any>;
   @ViewChild('instructorDetails') instructorDetailsRef!: TemplateRef<any>;
+  @ViewChild('rejectReason') rejectReasonRef!: TemplateRef<any>;
 
   isAppliedInsReady: boolean = false;
   appliedInstructorColumns: TableColumn[] = [];
 
   appliedInstructor: IInstructorApplyRes[] = [];
   currentViewInstructor: IInstructorApplyRes | null = null;
+
+  rejectingInstructor: IInstructorApplyRes | null = null;
+  inputRejectReason: string = '';
 
   acceptIcon = faCheck;
   rejectIcon = faClose;
@@ -52,10 +56,6 @@ export class ApproveInstructorComponent implements OnInit, AfterViewInit {
   ngAfterViewInit(): void {
     this.appliedInstructorColumns = [
       {
-        label: 'LABEL.ID',
-        key: 'id',
-      },
-      {
         label: 'LABEL.NAME',
         key: 'username',
       },
@@ -66,6 +66,12 @@ export class ApproveInstructorComponent implements OnInit, AfterViewInit {
       {
         label: 'LABEL.PHONE',
         key: 'phone',
+      },
+      {
+        label: 'LABEL.SUBJECT',
+        key: 'subject',
+        render: (value: IInstructorApplyRes) =>
+          value.tags?.map((t) => t.tagName).join(', ') || '-',
       },
     ];
 
@@ -94,9 +100,31 @@ export class ApproveInstructorComponent implements OnInit, AfterViewInit {
     this.modal.updateModalContent(this.instructorDetailsRef);
   }
 
-  onUpdateStatus(e: Event, row: IInstructorApplyRes, isAccept: boolean) {
+  onReject(event: any, row: IInstructorApplyRes) {
+    this.rejectingInstructor = row;
+    this.inputRejectReason = '';
+    this.modal.updateModalContent(this.rejectReasonRef);
+  }
+
+  onCancel() {
+    this.rejectingInstructor = null;
+    this.inputRejectReason = '';
+    this.modal.updateModalContent(null);
+  }
+
+  onUpdateStatus(e: Event, row: IInstructorApplyRes | null, isAccept: boolean) {
+    if (!row) return;
+
+    if (!isAccept && !this.inputRejectReason.trim()) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.REJECT_NEED_REASON')
+      );
+      return;
+    }
+
     this.platform
-      .onUpdateInstructorStatus(row.id, isAccept)
+      .onUpdateInstructorStatus(row.id, isAccept, this.inputRejectReason)
       .subscribe((res) => {
         if (res?.isError) {
           this.message.addMessage(
@@ -110,6 +138,7 @@ export class ApproveInstructorComponent implements OnInit, AfterViewInit {
           'success',
           this.translate.instant('MESSAGE.UPDATED_SUCCESSFULLY')
         );
+        this.onCancel();
         this.initInstructorsList();
       });
   }

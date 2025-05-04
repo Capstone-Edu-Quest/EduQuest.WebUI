@@ -80,6 +80,7 @@ export interface ICourseInstructor extends ICourse {
   totalLesson: number;
   totalInCart: number;
   totalInWishList: number;
+  rejectedReason?: string;
   courseEnrollOverTime: { time: string; count: string }[];
   courseRatingOverTime: { time: string; count: string }[];
 }

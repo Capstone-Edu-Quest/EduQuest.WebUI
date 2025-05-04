@@ -19,11 +19,12 @@
       style="color: var(--success)"
     ></fa-icon>
     <fa-icon
-      (click)="onUpdateStatus($event, row, false)"
+      (click)="onReject($event, row)"
       [icon]="rejectIcon"
       style="color: var(--alert)"
     ></fa-icon>
   </div>
+
   <div class="assign-expert" *ngIf="isStaffView" (click)="stoppropa($event)">
     <!-- <i class="unset" *ngIf="!row.expert">{{ "LABEL.UNSET" | translate }}</i>
     <div class="expert-name" *ngIf="row.expert">{{ row.expert.name }}</div>
@@ -43,11 +44,37 @@
     >
       <option></option>
       <option
-        *ngFor="let expert of (sortedExpertsList[index] || [])"
+        *ngFor="let expert of sortedExpertsList[index] || []"
         [value]="expert.id"
       >
         {{ expert.username }}
       </option>
     </select>
+  </div>
+</ng-template>
+
+<ng-template #rejectReason>
+  <div style="font-weight: 600; margin-bottom: 8px; font-size: 15px">
+    {{ "LABEL.REJECT_REASON" | translate }}
+  </div>
+  <textarea
+    class="formated-input"
+    style="width: 100%; resize: none; padding: 6px 12px"
+    row="7"
+    [(ngModel)]="inputRejectReason"
+  ></textarea>
+
+  <div
+    style="display: flex; gap: 8px; margin-top: 24px; justify-content: center"
+  >
+    <app-button (click)="onCancel()" [style]="{ width: '200px' }">{{
+      "BUTTON.CANCEL" | translate
+    }}</app-button>
+    <app-button
+      (click)="onUpdateStatus($event, rejectingCourse, false)"
+      [style]="{ width: '200px' }"
+      type="primary"
+      >{{ "LABEL.REJECT" | translate }}</app-button
+    >
   </div>
 </ng-template>

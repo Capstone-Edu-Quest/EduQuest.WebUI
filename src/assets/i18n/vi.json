@@ -650,7 +650,9 @@
     "REMAINING": "Còn lại {{value}}",
     "ENROLLED_AT": "Bắt đầu lúc {{value}}",
     "TOTAL_ENROLLED": "{{value}} lượt ghi danh",
-    "USER_INFO": "Thông tin người dùng"
+    "USER_INFO": "Thông tin người dùng",
+    "REJECT_REASON": "Lý do từ chối",
+    "REPUBLISH_COURSE": "Xuất bản lại khóa học"
   },
   "MESSAGE": {
     "AT_LEAST_1_SUBJECT": "Bạn phải giảng dạy ít nhất 1 môn học",
