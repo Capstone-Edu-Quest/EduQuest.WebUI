@@ -26,6 +26,7 @@ export class ManageStagesComponent implements OnInit {
   @Input('stage') lesson: ILessonOverview | null = null;
   @Input('index') index: number = 0;
   @Input('exemptLessons') exemptLessons: ILessonOverview[] = [];
+  @Input('allowedToDeleteFrom') allowedToDeleteFrom: number = 0;
   @Output('onEdit') onEdit: EventEmitter<ILessonOverview | string> =
     new EventEmitter<ILessonOverview | string>();
 

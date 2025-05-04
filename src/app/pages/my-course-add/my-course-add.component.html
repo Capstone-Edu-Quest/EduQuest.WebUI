@@ -132,7 +132,7 @@
         trackBy: trackStageChange
       "
       [attr.stageId]="lesson.id"
-      [attr.draggable]="true"
+      [attr.draggable]="checkIsAllowDrag(i)"
       (dragstart)="onDragStageStart($event, lesson.id)"
       (dragover)="onDragStageOver($event)"
       (drop)="onDropStage($event)"
@@ -141,13 +141,14 @@
       }"
     >
       <div class="drag-point">
-        <fa-icon [icon]="dragIcon"></fa-icon>
+        <fa-icon [icon]="dragIcon" *ngIf="checkIsAllowDrag(i)"></fa-icon>
       </div>
       <app-manage-stages
         [index]="i"
         [stage]="lesson"
         (onEdit)="onEditLesson($event)"
         [exemptLessons]="fullLessons"
+        [allowedToDeleteFrom]="getAllowedToEditIndex(i)"
       ></app-manage-stages>
     </div>
     <div class="add-stage" (click)="onAddNewStage()">

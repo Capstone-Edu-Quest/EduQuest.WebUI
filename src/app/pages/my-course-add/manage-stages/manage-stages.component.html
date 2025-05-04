@@ -6,7 +6,7 @@
       <input
         (click)="onPreventProp($event)"
         (input)="onChangeName($event)"
-        [defaultValue]="lesson.name"
+        [value]="lesson.name"
       />
     </div>
     <div class="time">
@@ -14,7 +14,7 @@
       {{ "LABEL.MINUTE" | translate : { value: round(lesson.totalTime) } }}
     </div>
   </div>
-  <fa-icon [icon]="XIcon" (click)="onRemoveStage()"></fa-icon>
+  <fa-icon *ngIf="allowedToDeleteFrom !== -1" [icon]="XIcon" (click)="onRemoveStage()"></fa-icon>
 </div>
 
 <div class="stage-missions-ctn" *ngIf="isDropDown && lesson">
@@ -28,9 +28,12 @@
       <div class="right-ctn">
         <div class="mission-time">
           <i nz-icon nzType="clock-circle"></i>
-          {{ "LABEL.MINUTES" | translate : { value: round(material.duration) } }}
+          {{
+            "LABEL.MINUTES" | translate : { value: round(material.duration) }
+          }}
 
           <fa-icon
+            *ngIf="i >= allowedToDeleteFrom && allowedToDeleteFrom !== -1"
             (click)="onRemoveMaterial(material.id)"
             [icon]="XIcon"
           ></fa-icon>
@@ -38,7 +41,7 @@
       </div>
     </div>
   </div>
-  <div class="mission add">
+  <div class="mission add" *ngIf="allowedToDeleteFrom !== -1">
     <div
       style="display: flex; align-items: center; gap: 8px"
       (click)="onClickAddMaterial()"

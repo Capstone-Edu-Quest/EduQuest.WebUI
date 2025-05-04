@@ -26,6 +26,7 @@ import {
 import { Location } from '@angular/common';
 import { CoursesService } from '../../core/services/courses.service';
 import { TagTypeResponseEnum } from '../../shared/enums/course.enum';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-my-course-add',
@@ -63,6 +64,8 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
   fullLessons: ILessonOverview[] = [];
   tagsList: ITag[] = [];
 
+  oldLessonMaterials: string[][] = [];
+
   constructor(
     private location: Location,
     private route: ActivatedRoute,
@@ -99,6 +102,24 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
     );
   }
 
+  checkIsAllowDrag(index: number) {
+    if (this.courseInfo.isPublic) {
+      return index > this.oldLessonMaterials.length - 1;
+    }
+
+    return true;
+  }
+
+  getAllowedToEditIndex(index: number) {
+    if (!this.courseInfo.isPublic || index > this.oldLessonMaterials.length - 1 ) return 0;
+
+    if (index === this.oldLessonMaterials.length - 1) {
+      return this.oldLessonMaterials[index].length;
+    }
+
+    return -1;
+  }
+
   initCourse(courseId: string) {
     this.CourseService.onGetInstructorCourseDetails(courseId).subscribe(
       (res) => {
@@ -128,7 +149,11 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
           (a, b) => a.index - b.index
         );
 
-        console.log(this.courseInfo)
+        this.oldLessonMaterials = this.courseInfo.lessonCourse.map(
+          (c) => c.materialIds
+        );
+
+        console.log(this.oldLessonMaterials);
       }
     );
   }
@@ -160,10 +185,12 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
       return infoMap[id];
     });
 
-    const finalTags = currentTagsList.filter(tag => tag.type !== currentTag?.type)
-    finalTags.push(currentTag as ITag)
-    
-    this.courseInfo.tagIds = finalTags.map(tag => tag.id)
+    const finalTags = currentTagsList.filter(
+      (tag) => tag.type !== currentTag?.type
+    );
+    finalTags.push(currentTag as ITag);
+
+    this.courseInfo.tagIds = finalTags.map((tag) => tag.id);
   }
 
   getTagOptions(isSubject: boolean) {
@@ -369,6 +396,11 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
         (c) => c.id === droppedOnStageId
       );
 
+      if (!this.checkIsAllowDrag(dropIndx)) {
+        this.currentDragStageId = null;
+        return;
+      }
+
       const dragStage = this.fullLessons.find(
         (s) => s.id === this.currentDragStageId
       );
@@ -378,10 +410,12 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
       );
 
       this.fullLessons = [
-        ...this.fullLessons.slice(0, dropIndx),
-        dragStage as ILessonOverview,
-        ...this.fullLessons.slice(dropIndx),
+        ...cloneDeep(this.fullLessons.slice(0, dropIndx)),
+        cloneDeep(dragStage) as ILessonOverview,
+        ...cloneDeep(this.fullLessons.slice(dropIndx)),
       ];
+
+      console.log(this.fullLessons);
     }
 
     this.currentDragStageId = null;
