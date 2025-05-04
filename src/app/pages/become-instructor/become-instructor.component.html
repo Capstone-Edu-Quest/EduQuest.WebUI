@@ -44,8 +44,10 @@
   </div>
 
   <div class="input-label">{{ "LABEL.TEACHING_SUBJECT" | translate }}</div>
+  <div *ngIf="myApplicant">{{ getTag() }}</div>
   <ng-select
-  class="custom-select"
+    class="custom-select"
+    *ngIf="!myApplicant"
     [items]="tags"
     bindLabel="name"
     bindValue="id"
@@ -117,6 +119,24 @@
     </div>
   </div>
 
+  @if(rejectReason) {
+  <div
+    style="
+      margin-top: 12px;
+      color: var(--alert);
+      font-size: 16px;
+      font-weight: 600;
+    "
+  >
+    {{ "LABEL.REJECT_REASON" | translate }}
+  </div>
+  <div style="font-size: 12px; margin-bottom: 8px">{{ rejectReason }}</div>
+  <app-button
+    (click)="onCancel()"
+    [type]="'danger'"
+    >{{ "BUTTON.SUBMIT_NEW_APPLICATION" | translate }}</app-button
+  >
+  } @else {
   <div
     *ngIf="myApplicant"
     style="margin-bottom: 4px; color: var(--brand-light)"
@@ -130,5 +150,5 @@
       (myApplicant ? "BUTTON.CANCEL_APPLICATION" : "BUTTON.SUBMIT") | translate
     }}</app-button
   >
+  }
 </div>
-

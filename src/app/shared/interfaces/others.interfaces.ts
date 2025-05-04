@@ -268,7 +268,9 @@ export interface IInstructorApplyRes {
     id: string;
     certificateUrl: string;
   }[];
-  tags: {tagId: string, tagName: string}[]
+  tags: {tagId: string, tagName: string}[];
+  rejectedReason?: string | null;
+  status?: "Approved" | "Rejected" | "Pending";
 }
 
 export interface ILeaderboard {

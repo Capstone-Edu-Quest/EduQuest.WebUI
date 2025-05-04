@@ -38,6 +38,8 @@ export class BecomeInstructorComponent implements OnInit {
     CertificateFiles: [],
   };
 
+  rejectReason: string = '';
+
   tags: ITag[] = [];
 
   fileIcon = faFile;
@@ -59,6 +61,10 @@ export class BecomeInstructorComponent implements OnInit {
   initMyApplicant() {
     this.platform.getMyInstructorApplicant().subscribe((res) => {
       this.myApplicant = res?.payload ?? null;
+      this.rejectReason =
+        this.myApplicant?.status === 'Rejected'
+          ? this.myApplicant?.rejectedReason ?? '-'
+          : '';
     });
   }
 
@@ -191,11 +197,16 @@ export class BecomeInstructorComponent implements OnInit {
         }
 
         this.myApplicant = res.payload;
+        this.rejectReason = '';
         this.message.addMessage(
           'success',
           this.translate.instant('MESSAGE.SUBMITTED_SUCCESSFULLY')
         );
       });
+  }
+
+  getTag() {
+    return this.myApplicant?.tags.map((t) => t.tagName).join(', ');
   }
 
   onCancel() {
@@ -217,6 +228,8 @@ export class BecomeInstructorComponent implements OnInit {
         Tag: [],
         CertificateFiles: [],
       };
+
+      this.rejectReason = '';
       this.message.addMessage(
         'success',
         this.translate.instant('MESSAGE.CANCEL_SUCCESSFULLY')

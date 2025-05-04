@@ -835,6 +835,7 @@
     "ENROLLED_SUCCESSFULLY": "Enrolled Successfully"
   },
   "BUTTON": {
+    "SUBMIT_NEW_APPLICATION": "Submit new application",
     "REPUBLISH_COURSE": "Re-Publish course",
     "CANCEL_APPLICATION": "Cancel registration",
     "UNBLOCK": "Unblock",

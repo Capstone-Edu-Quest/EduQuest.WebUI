@@ -665,8 +665,7 @@
     "ENROLLED_AT": "{{value}} に登録済み",
     "TOTAL_ENROLLED": "{{value}} 人が登録済み",
     "USER_INFO": "ユーザー情報",
-    "REJECT_REASON": "却下理由",
-    "REPUBLISH_COURSE": "コースを再公開"
+    "REJECT_REASON": "却下理由"
   },
   "MESSAGE": {
     "AT_LEAST_1_SUBJECT": "少なくとも1つの教科を教える必要があります",
@@ -827,6 +826,8 @@
     "LEVEL_EXISTED": "このレベルはすでに存在します"
   },
   "BUTTON": {
+    "SUBMIT_NEW_APPLICATION": "新しい申請を提出",
+    "REPUBLISH_COURSE": "コースを再公開",
     "CANCEL_APPLICATION": "登録をキャンセル",
     "UNBLOCK": "ブロック解除",
     "UPDATE": "更新",

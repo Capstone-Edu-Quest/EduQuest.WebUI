@@ -651,9 +651,8 @@
     "REMAINING": "剩余 {{value}}",
     "ENROLLED_AT": "已于 {{value}} 注册",
     "TOTAL_ENROLLED": "{{value}} 人已注册",
-     "USER_INFO": "用户信息",
-     "REJECT_REASON": "拒绝原因",
-     "REPUBLISH_COURSE": "重新发布课程"
+    "USER_INFO": "用户信息",
+    "REJECT_REASON": "拒绝原因"
   },
   "MESSAGE": {
     "AT_LEAST_1_SUBJECT": "您必须至少教授一个科目",
@@ -815,6 +814,8 @@
     "ENROLLED_SUCCESSFULLY": "注册成功"
   },
   "BUTTON": {
+    "SUBMIT_NEW_APPLICATION": "提交新的申请",
+    "REPUBLISH_COURSE": "重新发布课程",
     "CANCEL_APPLICATION": "取消注册",
     "UNBLOCK": "解除封锁",
     "UPDATE": "更新",

@@ -117,7 +117,7 @@ export class PlatformService {
   }
 
   onUpdateInstructorStatus(UserId: string, isApprove: boolean, rejectedReason: string) {
-    return this.http.post(endPoints.approveInstructor, { UserId, isApprove });
+    return this.http.post(endPoints.approveInstructor, { UserId, isApprove, rejectedReason });
   }
 
   cancelInstructorRegistration() {

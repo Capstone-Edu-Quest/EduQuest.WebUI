@@ -651,8 +651,7 @@
     "ENROLLED_AT": "Bắt đầu lúc {{value}}",
     "TOTAL_ENROLLED": "{{value}} lượt ghi danh",
     "USER_INFO": "Thông tin người dùng",
-    "REJECT_REASON": "Lý do từ chối",
-    "REPUBLISH_COURSE": "Xuất bản lại khóa học"
+    "REJECT_REASON": "Lý do từ chối"
   },
   "MESSAGE": {
     "AT_LEAST_1_SUBJECT": "Bạn phải giảng dạy ít nhất 1 môn học",
@@ -814,6 +813,8 @@
     "ENROLLED_SUCCESSFULLY": "Đã đăng ký thành công"
   },
   "BUTTON": {
+    "SUBMIT_NEW_APPLICATION": "Gửi đơn đăng ký mới",
+    "REPUBLISH_COURSE": "Xuất bản lại khóa học",
     "CANCEL_APPLICATION": "Hủy đăng ký",
     "UNBLOCK": "Gỡ chặn",
     "UPDATE": "Cập nhật",
