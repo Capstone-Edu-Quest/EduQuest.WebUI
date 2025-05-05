@@ -67,13 +67,13 @@ export class SignupComponent implements OnInit {
         return;
       }
 
-     if( this.signUpInfo.password !== this.signUpInfo.confirmPassword) {
-      this.message.addMessage(
-        'error',
-        this.translate.instant('MESSAGE.PASSWORD_NOT_MATCH')
-      );
-      return;
-     }
+      if (this.signUpInfo.password !== this.signUpInfo.confirmPassword) {
+        this.message.addMessage(
+          'error',
+          this.translate.instant('MESSAGE.PASSWORD_NOT_MATCH')
+        );
+        return;
+      }
 
       this.resendOTP();
       return;
@@ -102,10 +102,10 @@ export class SignupComponent implements OnInit {
 
   resendOTP() {
     if (this.resendTime > 0) return;
-    
+
     this.UserService.onSignup(this.signUpInfo).subscribe((res) => {
-      if (!res?.payload) return;
-      
+      if (res?.isError) return;
+
       this.currentStep = 2;
       this.resendTime = 60;
       this.resendOTPInterval = setInterval(() => {

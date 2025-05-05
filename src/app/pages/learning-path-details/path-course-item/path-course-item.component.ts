@@ -28,6 +28,7 @@ import {
 } from '@/src/app/core/utils/time.utils';
 import { TranslateService } from '@ngx-translate/core';
 import { LearningPathService } from '@/src/app/core/services/learning-path.service';
+import { MessageService } from '@/src/app/core/services/message.service';
 
 @Component({
   selector: 'app-path-course-item',
@@ -65,7 +66,8 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
     private router: Router,
     private coupon: CouponService,
     private translate: TranslateService,
-    private learningPath: LearningPathService
+    private learningPath: LearningPathService,
+    private message: MessageService
   ) {}
 
   ngOnInit() {
@@ -183,6 +185,7 @@ export class PathCourseItemComponent implements OnInit, OnDestroy {
       if(res?.isError) return;
 
       this.reinitLearningpath.emit();
+      this.message.addMessage('success', this.translate.instant('MESSAGE.EXTENDED_DEADLINE_SUCCESSFULLY'))
     })
   }
 

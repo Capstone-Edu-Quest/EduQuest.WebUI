@@ -59,7 +59,7 @@
       </div>
 
       <div class="add-to-cart-group" *ngIf="!isEdit && !isExpertView">
-        @if(course.progressPercentage === null) {
+        @if(course.progressPercentage === null ) {
         <app-button
           [ngStyle]="{ width: 'calc(100%)' }"
           [type]="'primary'"
@@ -93,15 +93,15 @@
           </div>
         </div>
 
+        <div style="margin-top: 12px" *ngIf="course.progressPercentage === 100">
+          <app-button type="primary" (click)="onViewCertificate()">{{
+            "BUTTON.VIEW_CERTIFICATE" | translate
+          }}</app-button>
+        </div>
         }
       </div>
-      <div style="margin-top: 12px;">
-        <app-button type="primary" (click)="onViewCertificate()">{{
-          "BUTTON.VIEW_CERTIFICATE" | translate
-        }}</app-button>
-      </div>
 
-      <div class="add-to-cart-group" *ngIf="isEdit && !isExpertView">
+      <div class="add-to-cart-group" *ngIf="isEdit && !isExpertView && !isEdit">
         <app-button
           [ngStyle]="{ width: 'calc(100%)' }"
           [type]="'danger'"
@@ -112,9 +112,15 @@
       </div>
       <div
         class="deadline"
-        *ngIf="(course.progressPercentage || 0) < 100 && course?.dueDate"
+        style="margin-top: 8px"
+        *ngIf="
+          (course.progressPercentage || 0) < 100 && course?.dueDate && !isEdit
+        "
       >
-        {{ "LABEL.COMPLETE_DUE_DO" | translate : { value: getDueDate() } }}
+        {{
+          "LABEL.COMPLETE_DUE_DO"
+            | translate : { value: course.isOverDue ? "0" : getDueDate() }
+        }}
       </div>
     </div>
 

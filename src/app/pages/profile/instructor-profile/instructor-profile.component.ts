@@ -3,7 +3,11 @@ import { ICourseOverview } from '../../../shared/interfaces/course.interfaces';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import { UserService } from '../../../core/services/user.service';
 import { Subscription } from 'rxjs';
-import { IProfile, IUser, IUserStat } from '../../../shared/interfaces/user.interfaces';
+import {
+  IProfile,
+  IUser,
+  IUserStat,
+} from '../../../shared/interfaces/user.interfaces';
 import { Router } from '@angular/router';
 import { ChatService } from '../../../core/services/chat.service';
 import { IParticipant } from '@/src/app/shared/interfaces/others.interfaces';
@@ -18,12 +22,21 @@ export class InstructorProfileComponent implements OnInit, OnDestroy {
 
   subscription$: Subscription = new Subscription();
 
+  currentUser: IUser | null = null;
+
   sampleCourses: ICourseOverview[] = [];
   star = faStar;
 
   constructor(private chat: ChatService, private userService: UserService) {}
 
   ngOnInit() {
+    this.listenToUser();
+  }
+
+  listenToUser() {
+    this.subscription$.add(
+      this.userService.user$.subscribe((u) => (this.currentUser = u))
+    );
   }
 
   ngOnDestroy(): void {

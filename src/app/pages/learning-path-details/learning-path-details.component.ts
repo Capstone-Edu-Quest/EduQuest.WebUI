@@ -148,7 +148,7 @@ export class LearningPathDetailsComponent implements OnInit {
 
     this.showingPannelBtn = [];
 
-    if (!this.learningPathDetails.isEnrolled) {
+    if (!this.learningPathDetails.isEnrolled && !this.isExpertView) {
       this.showingPannelBtn.push({
         icon: faRightToBracket,
         label: 'LABEL.ENROLL',
@@ -184,7 +184,7 @@ export class LearningPathDetailsComponent implements OnInit {
   }
 
   onBack() {
-    this.location.back();
+    this.router.navigate(['/learning-path-manage']);
   }
 
   onRemoveCourse(course: ICourseOverview) {
@@ -235,9 +235,18 @@ export class LearningPathDetailsComponent implements OnInit {
       );
       this.isEdit = !this.isEdit;
       this.deletedCourseList = [];
-      this.tempCourseList = [];
+      this.tempCourseList = null;
+
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: {
+          isEdit: null,
+        },
+        queryParamsHandling: 'merge',
+      });
 
       this.onInitMenu();
+      this.initPathDetails();
     });
   }
 

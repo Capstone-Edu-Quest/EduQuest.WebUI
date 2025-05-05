@@ -38,7 +38,7 @@
   <div class="info-ctn">
     <div class="info">
       <fa-icon [icon]="authorIcon"></fa-icon>
-      <label> {{ learningPathDetails.createdBy?.username }}</label>
+      <label> {{ learningPathDetails.createdBy.username }}</label>
     </div>
     <div class="info">
       <fa-icon [icon]="timeIcon"></fa-icon>
@@ -52,7 +52,7 @@
     <div
       class="info"
       [ngClass]="{
-        edit: isEdit && !isExpertView
+        edit: isEdit
       }"
       (click)="onEditPrivacy()"
     >
@@ -61,7 +61,7 @@
         {{
           "LABEL." +
             ((
-              isEdit && !isExpertView
+              isEdit
                 ? tempEditMeta.isPublic
                 : learningPathDetails.isPublic
             )
@@ -69,10 +69,10 @@
               : "PRIVATE") | translate
         }}</label
       >
-      <fa-icon *ngIf="isEdit && !isExpertView" [icon]="swapIcon"></fa-icon>
+      <fa-icon *ngIf="isEdit" [icon]="swapIcon"></fa-icon>
     </div>
 
-    <div class="info" *ngIf="learningPathDetails.isEnrolled">
+    <div class="info" *ngIf="learningPathDetails.isEnrolled && !isEdit">
       <fa-icon [icon]="authorIcon"></fa-icon>
       <label>
         {{
