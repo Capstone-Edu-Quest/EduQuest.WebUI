@@ -27,6 +27,9 @@ export const endPoints = {
 
   courseRevenue: 'revenue/courseRevenue',
   courseChartRevenue: 'revenue/chartRevenue',
+  revenueInstructor: '/revenue/myRevenueTransaction',
+  revenueAdmin: '/revenue/adminRevenueTransaction',
+  revenueDetails: '/revenue/detailRevenueTransaction',
 
   learnerOverview: 'course/learnerOverview',
   learnerDetails: 'course/learnerDetail',

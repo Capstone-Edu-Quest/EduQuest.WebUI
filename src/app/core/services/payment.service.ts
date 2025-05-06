@@ -12,6 +12,7 @@ import { onConvertObjectToQueryParams } from '../utils/data.utils';
 import { UserService } from './user.service';
 import { MessageService } from './message.service';
 import { TranslateService } from '@ngx-translate/core';
+import { IGetRevenue, IGetRevenueItem } from '../../shared/interfaces/others.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -134,5 +135,14 @@ export class PaymentService {
       );
       countdown--;
     }, 1000);
+  }
+
+  getRevenueTable({ isAdmin, ...otherParam }: IGetRevenue) {
+    let url = endPoints.revenueInstructor;
+    if (isAdmin) {
+      url = endPoints.revenueAdmin;
+    }
+
+    return this.http.get<IGetRevenueItem[]>(url + onConvertObjectToQueryParams(otherParam));
   }
 }

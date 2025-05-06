@@ -41,6 +41,7 @@
     "lodash": "^4.17.21",
     "ng-zorro-antd": "^17.4.1",
     "ng2-charts": "^3.1.2",
+    "ngx-bootstrap": "^19.0.2",
     "ngx-editor": "^17.5.4",
     "ngx-prism": "^0.0.1",
     "prismjs": "^1.29.0",

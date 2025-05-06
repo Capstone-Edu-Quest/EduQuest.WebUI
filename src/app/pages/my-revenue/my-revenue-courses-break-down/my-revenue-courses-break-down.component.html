@@ -1,5 +1,25 @@
 <div class="revenue-break-down">
   <div class="label">{{ "LABEL.COURSE_REVENUE" | translate }}</div>
   <div class="sub-label">{{ "LABEL.COURSE_REVENUE_SUB" | translate }}</div>
-  <app-table *ngIf="isDataReady" [columns]="tableColumns" [data]="tableData"></app-table>
+  <div>
+    <div
+      style="
+        display: flex;
+        justify-content: center;
+        gap: 12px;
+        margin-bottom: 8px;
+        align-items: center;
+      "
+    >
+      <input type="text" bsDatepicker [(ngModel)]="from" placeholder="from" />
+      <fa-icon [icon]="arrowRight"></fa-icon>
+      <input type="text" bsDatepicker [(ngModel)]="to" placeholder="to" />
+      <app-button (click)="onSearch()">Search</app-button>
+    </div>
+  </div>
+  <app-table
+    *ngIf="isDataReady"
+    [columns]="tableColumns"
+    [data]="tableData"
+  ></app-table>
 </div>

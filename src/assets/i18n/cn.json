@@ -652,7 +652,10 @@
     "ENROLLED_AT": "已于 {{value}} 注册",
     "TOTAL_ENROLLED": "{{value}} 人已注册",
     "USER_INFO": "用户信息",
-    "REJECT_REASON": "拒绝原因"
+    "REJECT_REASON": "拒绝原因",
+    "PAYMENT_FEE": "支付手续费",
+    "COMMISSION_FEE": "佣金费用",
+    "NET_VALUE": "净值"
   },
   "MESSAGE": {
     "AT_LEAST_1_SUBJECT": "您必须至少教授一个科目",

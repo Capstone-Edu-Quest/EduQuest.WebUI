@@ -651,7 +651,10 @@
     "ENROLLED_AT": "Bắt đầu lúc {{value}}",
     "TOTAL_ENROLLED": "{{value}} lượt ghi danh",
     "USER_INFO": "Thông tin người dùng",
-    "REJECT_REASON": "Lý do từ chối"
+    "REJECT_REASON": "Lý do từ chối",
+    "PAYMENT_FEE": "Phí thanh toán",
+    "COMMISSION_FEE": "Phí hoa hồng",
+    "NET_VALUE": "Giá trị ròng"
   },
   "MESSAGE": {
     "AT_LEAST_1_SUBJECT": "Bạn phải giảng dạy ít nhất 1 môn học",

@@ -673,7 +673,10 @@
     "ENROLLED_AT": "Enrolled at {{value}}",
     "TOTAL_ENROLLED": "{{value}} enrolled",
     "USER_INFO": "User informations",
-    "REJECT_REASON": "Reject reason"
+    "REJECT_REASON": "Reject reason",
+    "PAYMENT_FEE": "Payment fee",
+    "COMISSION_FEE": "Commission fee",
+    "NET_VALUE": "NET value"
   },
   "MESSAGE": {
     "AT_LEAST_1_SUBJECT": "You must teaching atleast 1 subject",

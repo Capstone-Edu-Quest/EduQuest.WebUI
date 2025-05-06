@@ -247,7 +247,7 @@ export interface IBecomeInstructorReq {
   Headline: string;
   Description: string;
   Phone: string;
-  Tag: string[]
+  Tag: string[];
   CertificateFiles: File[];
 }
 
@@ -268,9 +268,9 @@ export interface IInstructorApplyRes {
     id: string;
     certificateUrl: string;
   }[];
-  tags: {tagId: string, tagName: string}[];
+  tags: { tagId: string; tagName: string }[];
   rejectedReason?: string | null;
-  status?: "Approved" | "Rejected" | "Pending";
+  status?: 'Approved' | 'Rejected' | 'Pending';
 }
 
 export interface ILeaderboard {
@@ -286,4 +286,26 @@ export interface ICourseRevenueResponse {
   totalRefund: number;
   totalRevenue: number;
   totalSales: number;
+}
+
+export interface IGetRevenue {
+  dateFrom?: string;
+  dateTo?: string;
+  isAdmin?: boolean;
+  type?: TransactionTypeEnum;
+}
+
+export interface IGetRevenueItem {
+  id: string;
+  amount: number;
+  instructorShare: number | null;
+  isReceive: boolean;
+  itemId: string;
+  netAmount: number | null;
+  receiveDate: string | null;
+  stripeFee: number | null;
+  systemShare: number | null;
+  title: string;
+  transactionId: string;
+  updatedAt: string;
 }

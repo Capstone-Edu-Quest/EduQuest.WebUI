@@ -25,6 +25,7 @@ import { NgChartsModule } from 'ng2-charts';
 import { NgxEditorModule } from 'ngx-editor';
 import { CodemirrorModule } from '@ctrl/ngx-codemirror';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 // Factory function for TranslateHttpLoader
 export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
@@ -33,6 +34,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateLoader {
 @NgModule({
   declarations: AppDeclarations,
   imports: [
+    BsDatepickerModule.forRoot(),
     NgSelectModule,
     CodemirrorModule,
     NgxEditorModule,
