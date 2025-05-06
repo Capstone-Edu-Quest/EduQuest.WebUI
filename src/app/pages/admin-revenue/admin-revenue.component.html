@@ -1,0 +1,24 @@
+<div class="ctn">
+  <div class="title text-gradient">{{ "LABEL.REVENUE" | translate }}</div>
+
+  <div
+    style="
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 8px;
+      align-items: center;
+    "
+  >
+    <input type="text" bsDatepicker [(ngModel)]="from" placeholder="from" />
+    <fa-icon [icon]="arrowRight"></fa-icon>
+    <input type="text" bsDatepicker [(ngModel)]="to" placeholder="to" />
+    <app-button (click)="onSearch()">Search</app-button>
+  </div>
+
+  <app-table
+    *ngIf="isDataReady"
+    [columns]="tableColumns"
+    [data]="tableData"
+  ></app-table>
+</div>

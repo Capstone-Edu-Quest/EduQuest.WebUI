@@ -83,6 +83,7 @@ export class ForgotPasswordComponent implements OnInit {
         if(!res || res.isError) return;
 
         this.message.addMessage('success', this.translate.instant('MESSAGE.' + res?.message?.content));
+        this.router.navigate(['/signin'])
         this.currentStep++;
       });
 

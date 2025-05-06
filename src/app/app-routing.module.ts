@@ -62,6 +62,7 @@ import { PersonalInfoComponent } from './pages/personal-settings/personal-info/p
 import { MyCoursesDetailsUnmarkAssiComponent } from './pages/my-course-details/my-courses-details-unmark-assi/my-courses-details-unmark-assi.component';
 import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component';
 import { MyLearningComponent } from './pages/my-learning/my-learning.component';
+import { AdminRevenueComponent } from './pages/admin-revenue/admin-revenue.component';
 
 const routes: Routes = [
   {
@@ -506,6 +507,14 @@ const routes: Routes = [
       ],
     },
     component: SignupComponent,
+  },
+  {
+    path: 'platform-revenue',
+    canActivate: [RoleGuard],
+    data: {
+      allowedRoles: [WebRole.ADMIN],
+    },
+    component: AdminRevenueComponent,
   },
   {
     path: 'settings',

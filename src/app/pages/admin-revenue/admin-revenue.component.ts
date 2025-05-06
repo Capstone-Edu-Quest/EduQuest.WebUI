@@ -1,24 +1,21 @@
 import { Component, type OnInit } from '@angular/core';
 import {
-  ICourseRevenueResponse,
   IGetRevenueItem,
   TableColumn,
-} from '../../../shared/interfaces/others.interfaces';
-import { CoursesService } from '@/src/app/core/services/courses.service';
-import { PaymentService } from '@/src/app/core/services/payment.service';
-import { formatTime } from '@/src/app/core/utils/time.utils';
+} from '../../shared/interfaces/others.interfaces';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
+import { PaymentService } from '../../core/services/payment.service';
 
 @Component({
-  selector: 'app-my-revenue-courses-break-down',
-  templateUrl: './my-revenue-courses-break-down.component.html',
-  styleUrl: './my-revenue-courses-break-down.component.scss',
+  selector: 'app-admin-revenue',
+  templateUrl: './admin-revenue.component.html',
+  styleUrl: './admin-revenue.component.scss',
 })
-export class MyRevenueCoursesBreakDownComponent implements OnInit {
+export class AdminRevenueComponent implements OnInit {
   tableColumns: TableColumn[] = [
     {
-      key: 'title',
-      label: 'LABEL.COURSE',
+      key: 'type',
+      label: 'LABEL.TYPE',
     },
     {
       key: 'time',
@@ -49,6 +46,11 @@ export class MyRevenueCoursesBreakDownComponent implements OnInit {
       isMoney: true,
       customClass: () => 'green',
     },
+    {
+      key: 'receive',
+      label: 'LABEL.RECEIVED',
+      render: (val: any) => (val?.isReceive ? '✔' : ''),
+    },
   ];
 
   isDataReady: boolean = false;
@@ -78,9 +80,11 @@ export class MyRevenueCoursesBreakDownComponent implements OnInit {
       query.dateTo = new Date(this.to).toISOString();
     }
 
-    this.payment.getRevenueTable(query).subscribe((res) => {
-      this.tableData = res?.payload ?? [];
-      this.isDataReady = true;
-    });
+    this.payment
+      .getRevenueTable({ ...query, isAdmin: true })
+      .subscribe((res) => {
+        this.tableData = res?.payload ?? [];
+        this.isDataReady = true;
+      });
   }
 }

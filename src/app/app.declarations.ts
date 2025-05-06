@@ -206,6 +206,7 @@ import { MyCoursesDetailsUnmarkAssiComponent } from './pages/my-course-details/m
 import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component';
 import { MyLearningComponent } from './pages/my-learning/my-learning.component';
 import { UserDetailsComponent } from './pages/user-manage/user-details/user-details.component';
+import { AdminRevenueComponent } from './pages/admin-revenue/admin-revenue.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -373,7 +374,8 @@ export const AppDeclarations = [
   MyCoursesDetailsUnmarkAssiComponent,
   LeaderboardComponent,
   MyLearningComponent,
-  UserDetailsComponent
+  UserDetailsComponent,
+  AdminRevenueComponent
 ];
 export const NGIcons = [
   EnterOutline,

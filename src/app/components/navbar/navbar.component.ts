@@ -149,9 +149,13 @@ export class NavbarComponent implements OnInit {
       label: 'LABEL.PLATFORM_SETTINGS',
       routerLink: '/platform-settings',
     },
+    // {
+    //   label: 'LABEL.LOGS',
+    //   routerLink: '/logs',
+    // },
     {
-      label: 'LABEL.LOGS',
-      routerLink: '/logs',
+      label: 'LABEL.REVENUE',
+      routerLink: '/platform-revenue',
     },
   ];
 

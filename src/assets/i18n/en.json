@@ -348,7 +348,7 @@
     "REVENUE_LAST_7_DAYS": "Last 7 days",
     "PENDING_BALANCE": "Pending Balance",
     "PENDING_BALANCE_DESCRIPTION": "Earnings on hold to cover potential refunds",
-    "AVAILABLE_BALANCE": "NET Balance",
+    "AVAILABLE_BALANCE": "Deposited to your Stripe",
     "AVAILABLE_BALANCE_DESCRIPTION": "NET value received from Edu Quest to your stripe account",
     "WITHDRAW_ACTION": "Proceed to withdraw",
     "COURSE_REVENUE": "Courses' Revenue",
@@ -676,7 +676,8 @@
     "REJECT_REASON": "Reject reason",
     "PAYMENT_FEE": "Payment fee",
     "COMISSION_FEE": "Commission fee",
-    "NET_VALUE": "NET value"
+    "NET_VALUE": "NET value",
+    "RECEIVED": "Received"
   },
   "MESSAGE": {
     "AT_LEAST_1_SUBJECT": "You must teaching atleast 1 subject",
