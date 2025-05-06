@@ -5,6 +5,8 @@ import {
 } from '../../shared/interfaces/others.interfaces';
 import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { PaymentService } from '../../core/services/payment.service';
+import { ILineChartDataSet } from '../../shared/interfaces/chart.interface';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-admin-revenue',
@@ -14,8 +16,16 @@ import { PaymentService } from '../../core/services/payment.service';
 export class AdminRevenueComponent implements OnInit {
   tableColumns: TableColumn[] = [
     {
+      key: 'id',
+      label: 'ID',
+    },
+    {
       key: 'type',
       label: 'LABEL.TYPE',
+    },
+    {
+      key: 'learnerName',
+      label: 'LABEL.USER',
     },
     {
       key: 'time',
@@ -64,7 +74,36 @@ export class AdminRevenueComponent implements OnInit {
   from: string | null = null;
   to: string | null = null;
 
-  constructor(private payment: PaymentService) {}
+  lineChartsLabel: string[] = [
+    'May 2024',
+    'Jun 2024',
+    'Jul 2024',
+    'Aug 2024',
+    'Sep 2024',
+  ];
+  dataSet: ILineChartDataSet[] = [
+    {
+      label: this.translate.instant('LABEL.TOTAL'),
+      data: [170, 65, 780, 232, 522],
+    },
+    {
+      label: this.translate.instant('LABEL.COURSE'),
+      data: [21, 42, 93, 74, 25, 68],
+    },
+    {
+      label: this.translate.instant('LABEL.PACKAGES'),
+      data: [9, 7, 12, 50, 5, 12],
+    },
+    {
+      label: this.translate.instant('LABEL.PLATFORM_REVENUE'),
+      data: [15, 24, 32, 45, 52, 61],
+    },
+  ];
+
+  constructor(
+    private payment: PaymentService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
     this.onSearch();

@@ -170,9 +170,9 @@ export class TableComponent implements OnInit, OnDestroy {
     let value = null;
 
     if (column.render) {
-      value = column.render(row);
+      value = column?.render(row);
     } else {
-      value = row[column.key];
+      value = row[column?.key];
     }
 
     if (typeof value === 'object') {

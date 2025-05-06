@@ -65,6 +65,7 @@ export interface TableColumn {
   elementRef?: TemplateRef<any>;
   customClass?: (val: any) => string | string;
   isSwitchData?: boolean;
+  width?: number
 }
 
 export interface IChunkFile {

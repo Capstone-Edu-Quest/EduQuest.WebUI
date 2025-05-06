@@ -1,6 +1,5 @@
 <div class="ctn">
   <div class="title text-gradient">{{ "LABEL.REVENUE" | translate }}</div>
-
   <div
     style="
       display: flex;
@@ -14,11 +13,17 @@
     <fa-icon [icon]="arrowRight"></fa-icon>
     <input type="text" bsDatepicker [(ngModel)]="to" placeholder="to" />
     <app-button (click)="onSearch()">Search</app-button>
-  </div>`
+  </div>
 
   <app-table
     *ngIf="isDataReady"
     [columns]="tableColumns"
     [data]="tableData"
   ></app-table>
+
+  <div style="margin-bottom: 8px; font-size: 15px; font-weight: 600">{{ "LABEL.PLATFORM_CASH_FLOW" | translate }}</div>
+  <app-line-chart
+    [labels]="lineChartsLabel"
+    [dataSet]="dataSet"
+  ></app-line-chart>
 </div>

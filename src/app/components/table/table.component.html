@@ -18,7 +18,11 @@
             >
           </div>
           <div class="filter-items" *ngIf="col.isSwitchData">
-            <div class="item" *ngFor="let it of onGetCurrentKeyValues(col)" [ngClass]="{selected: onGetCurrentKeyLabel(col) === it}"></div>
+            <div
+              class="item"
+              *ngFor="let it of onGetCurrentKeyValues(col)"
+              [ngClass]="{ selected: onGetCurrentKeyLabel(col) === it }"
+            ></div>
           </div>
         </th>
       </tr>

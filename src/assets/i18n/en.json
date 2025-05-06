@@ -680,7 +680,10 @@
     "RECEIVED": "Received",
     "SYSTEM_KEEP": "System keep",
     "TARGET_RECEIVED": "User",
-    "INSTRUCTOR_RECEIVED": "Instructor received"
+    "INSTRUCTOR_RECEIVED": "Instructor received",
+    "PLATFORM_CASH_FLOW": "Platform's cash flow",
+    "PACKAGES": "Packages",
+    "PLATFORM_REVENUE": "Platform NET revenue"
   },
   "MESSAGE": {
     "LEARNING_PATH_OVERDUE": "Learning path {{learning_path}} overdue",
