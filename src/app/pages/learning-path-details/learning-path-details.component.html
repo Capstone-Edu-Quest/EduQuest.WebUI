@@ -44,8 +44,7 @@
       <fa-icon [icon]="timeIcon"></fa-icon>
       <label>
         {{
-          "LABEL.MINUTES"
-            | translate : { value: learningPathDetails.totalTime }
+          "LABEL.MINUTES" | translate : { value: learningPathDetails.totalTime }
         }}</label
       >
     </div>
@@ -60,11 +59,7 @@
       <label>
         {{
           "LABEL." +
-            ((
-              isEdit
-                ? tempEditMeta.isPublic
-                : learningPathDetails.isPublic
-            )
+            ((isEdit ? tempEditMeta.isPublic : learningPathDetails.isPublic)
               ? "PUBLIC"
               : "PRIVATE") | translate
         }}</label
@@ -120,5 +115,84 @@
         (reinitLearningpath)="initPathDetails()"
       ></app-path-course-item>
     </div>
+
+    <div class="add_new_course" *ngIf="!isEdit" (click)="showSearchCourse()">
+      <fa-icon [icon]="addIcon"></fa-icon>
+      <div>{{ "LABEL.ADD_NEW_COURSE" | translate }}</div>
+    </div>
   </div>
 </div>
+
+<ng-template #searchCourse>
+  <div style="font-size: 16px; font-weight: 600; margin-bottom: 8px">
+    {{ "LABEL.COURSES" | translate }}
+  </div>
+  <div style="display: flex">
+    <nz-input-group [nzSuffix]="suffixIconButton" style="width: 100%">
+      <input
+        [(ngModel)]="searchKeyword"
+        (keydown)="onKeydownSearch($event)"
+        nz-input
+        placeholder="{{ 'MESSAGE.SEARCH_COURSE' | translate }}"
+      />
+    </nz-input-group>
+  </div>
+
+  <div
+    style="
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-top: 8px;
+      max-height: 440px;
+      overflow-y: scroll;
+    "
+  >
+    <div class="course-item-lesson" *ngFor="let course of courses" (click)="onSelectCourse(course.id)">
+      <div class="image-wrapper">
+        <fa-icon *ngIf="isCourseExisted(course.id)" class="check-icon" [icon]="checkIcon"></fa-icon>
+        <img [src]="course.photoUrl" />
+      </div>
+      <div class="course-info">
+        <div class="info">
+          <div class="course-name">
+            {{ course.title }}
+          </div>
+          <div class="description">{{ course.description }}</div>
+          <div class="author">{{ course.author }}</div>
+          <div class="feedback-ctn">
+            <div class="stars-number">
+              {{ round(course.rating) }}
+              <fa-icon
+                style="color: var(--brand-light); font-size: 11px"
+                [icon]="starIcon"
+              ></fa-icon>
+            </div>
+            <div class="feedbacks-number">
+              ({{ course.totalReview.toLocaleString() }})
+            </div>
+          </div>
+          <div class="others-info">
+            <div class="time">
+              {{
+                "LABEL.TOTAL_TIME_IN_HOUR"
+                  | translate : { hour: course.totalTime }
+              }}
+            </div>
+            <div>·</div>
+            <div class="lesson">
+              {{
+                "LABEL.TOTAL_LESSONS"
+                  | translate : { lesson: course.totalLesson }
+              }}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #suffixIconButton>
+  <i nz-icon nzType="search" style="color: var(--secondary-text)"></i>
+</ng-template>

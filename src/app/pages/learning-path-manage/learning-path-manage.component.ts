@@ -66,7 +66,7 @@ export class LearningPathManageComponent implements OnInit {
         this.initPublicLearningPath();
         return;
       case LearningPathModeEnum.PRIVATE:
-        this.initMylearningPath();
+        // this.initMylearningPath();
         return;
       case 'enrolled':
         this.initEnrolledLearningPath();

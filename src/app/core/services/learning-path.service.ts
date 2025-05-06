@@ -90,6 +90,7 @@ export class LearningPathService {
     courseIds: string[],
     action: 'add' | 'delete'
   ) {
+    const isSuccess = new Subject();
     this.http
       .update<ILearningPath>(
         endPoints.learningPath + `?learningPathId=${pathId}`,
@@ -102,6 +103,8 @@ export class LearningPathService {
         }
       )
       .subscribe((res) => {
+        isSuccess.next(!!res?.payload);
+
         if (!res?.payload) return;
 
         const paths = [...this.myLearningPaths$.value];
@@ -115,6 +118,8 @@ export class LearningPathService {
           this.translate.instant('MESSAGE.ADDED_SUCCESSFULLY')
         );
       });
+
+    return isSuccess;
   }
 
   cloneLearningPath(pathId: string) {

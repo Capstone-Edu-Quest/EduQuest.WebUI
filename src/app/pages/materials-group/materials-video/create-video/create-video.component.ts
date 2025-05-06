@@ -50,6 +50,7 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   };
 
   user: IUser | null = null;
+  isCreating: boolean = false;
 
   isEdit: boolean = false;
   isDragOverImgInput: boolean = false;
@@ -264,10 +265,13 @@ export class CreateVideoComponent implements OnInit, OnDestroy {
   }
 
   onCreate() {
-    if (!this.onValidate() || !this.uploadedFile) return;
+    if (!this.onValidate() || !this.uploadedFile || this.isCreating) return;
 
+    this.isCreating = true;
     console.log('call create')
     this.VideoService.uploadVideo(this.uploadedFile.file).subscribe((url) => {
+
+      this.isCreating = false;
       if (!this.material.video) return;
       console.log(url)
       this.material.video.urlMaterial = url;

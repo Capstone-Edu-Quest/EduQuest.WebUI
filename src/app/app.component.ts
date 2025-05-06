@@ -116,6 +116,9 @@ export class AppComponent implements OnInit, OnDestroy {
         this.user.initAdminDashboards();
         this.platform.initPlatformStats();
         break;
+      case WebRole.EXPERT:
+        this.learningPath.initMyLearningPath();
+        break;
     }
 
     clearTimeout(this.timeOut);

@@ -292,7 +292,7 @@ export class StudyingMaterialComponent implements OnInit {
     )
       return;
 
-    this.countdown = 30;
+    this.countdown = 10;
     this.countdownInterval = setInterval(() => {
       this.countdown--;
 

@@ -12,6 +12,8 @@ export const lightTheme = {
   '--brand-01': 'rgba(249, 117, 22, 0.1)',
   '--brand-02': 'rgba(249, 117, 22, 0.2)',
   '--brand-05': 'rgba(249, 117, 22, 0.5)',
+  '--mask': 'rgba(0, 0, 0, 0.05)',
+  '--mask-hover': 'rgba(0, 0, 0, 0.1)',
 
   '--brand-light': '#cf9467',
   '--brand-hover': '#FF8805',

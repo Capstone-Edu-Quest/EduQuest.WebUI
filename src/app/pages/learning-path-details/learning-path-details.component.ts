@@ -1,5 +1,5 @@
 import { LearningPathService } from './../../core/services/learning-path.service';
-import { Component, type OnInit } from '@angular/core';
+import { Component, TemplateRef, ViewChild, type OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import {
   ILCourseObject,
@@ -9,14 +9,17 @@ import {
 } from '../../shared/interfaces/learning-path.interfaces';
 import {
   faAngleLeft,
+  faCheck,
   faClock,
   faClone,
   faEarth,
   faGripVertical,
   faPen,
+  faPlus,
   faRetweet,
   faRightToBracket,
   faShare,
+  faStar,
   faTrash,
   faUser,
 } from '@fortawesome/free-solid-svg-icons';
@@ -27,7 +30,12 @@ import { IUser } from '../../shared/interfaces/user.interfaces';
 import { MessageService } from '../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
 import { copyToClipboard } from '../../core/utils/data.utils';
-import { ICourseOverview } from '../../shared/interfaces/course.interfaces';
+import {
+  ICourseOverview,
+  ISearchCourseParams,
+} from '../../shared/interfaces/course.interfaces';
+import { CoursesService } from '../../core/services/courses.service';
+import { ModalService } from '../../core/services/modal.service';
 
 @Component({
   selector: 'app-learning-path-details',
@@ -35,6 +43,8 @@ import { ICourseOverview } from '../../shared/interfaces/course.interfaces';
   styleUrl: './learning-path-details.component.scss',
 })
 export class LearningPathDetailsComponent implements OnInit {
+  @ViewChild('searchCourse') searchCourseRef!: TemplateRef<any>;
+
   subscription$: Subscription = new Subscription();
 
   currentUser: IUser | null = null;
@@ -46,6 +56,9 @@ export class LearningPathDetailsComponent implements OnInit {
   dragIcon = faGripVertical;
   swapIcon = faRetweet;
   backIcon = faAngleLeft;
+  addIcon = faPlus;
+  starIcon = faStar;
+  checkIcon = faCheck;
 
   isEdit: boolean = false;
   isExpertView: boolean = false;
@@ -87,14 +100,18 @@ export class LearningPathDetailsComponent implements OnInit {
 
   showingPannelBtn: any[] = [];
 
+  searchKeyword: string = '';
+  courses: ICourseOverview[] = [];
+
   constructor(
     private route: ActivatedRoute,
-    private location: Location,
+    private modal: ModalService,
     private LearningPathService: LearningPathService,
     private user: UserService,
     private router: Router,
     private message: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private CourseService: CoursesService
   ) {}
 
   ngOnInit(): void {
@@ -184,7 +201,9 @@ export class LearningPathDetailsComponent implements OnInit {
   }
 
   onBack() {
-    this.router.navigate(['/learning-path-manage']);
+    this.router.navigate([
+      this.isExpertView ? '/learning-path-manage' : 'learning-path',
+    ]);
   }
 
   onRemoveCourse(course: ICourseOverview) {
@@ -312,5 +331,54 @@ export class LearningPathDetailsComponent implements OnInit {
 
     // console.log(this.tempCourseList, droppedOnCourseId);
     this.currentDragCourse = null;
+  }
+
+  isCourseExisted(courseId: string) {
+    return this.learningPathDetails?.courses.some((c) => c.id === courseId);
+  }
+
+  showSearchCourse() {
+    this.modal.updateModalContent(this.searchCourseRef);
+  }
+
+  onKeydownSearch(e: any) {
+    if (e.key !== 'Enter' || !this.searchKeyword.trim()) return;
+    this.handleSearch();
+  }
+
+  handleSearch() {
+    const courseParams: ISearchCourseParams = {
+      KeywordName: encodeURIComponent(this.searchKeyword),
+      isPublic: true,
+    };
+    this.CourseService.onSearchCourse(courseParams).subscribe((res) => {
+      this.courses = res?.payload ?? [];
+    });
+  }
+
+  onSelectCourse(courseId: string) {
+    if (!this.learningPathDetails) return;
+
+    const isCourseExisted = this.isCourseExisted(courseId);
+
+    if (isCourseExisted) {
+      this.message.addMessage(
+        'error',
+        this.translate.instant('MESSAGE.COURSE_EXISTED_LEARNINGPATH')
+      );
+      return;
+    }
+
+    this.LearningPathService.modifyCoursesToLearningPath(
+      this.learningPathDetails.id,
+      [courseId],
+      'add'
+    ).subscribe((res) => {
+      this.initPathDetails();
+    });
+  }
+
+  round(num: number) {
+    return num.toFixed(1);
   }
 }

@@ -683,6 +683,7 @@
     "INSTRUCTOR_RECEIVED": "Instructor received"
   },
   "MESSAGE": {
+    "LEARNING_PATH_OVERDUE": "Learning path {{learning_path}} overdue",
     "AT_LEAST_1_SUBJECT": "You must teaching atleast 1 subject",
     "COURSE_MISSING_TAG": "Course must have category (Subject and Level)",
     "DO_NOT_HAVE_STRIPE": "You do not have any existed payment account, you will be redirect to the config site",
