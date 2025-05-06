@@ -36,15 +36,17 @@ export class AdminRevenueComponent implements OnInit {
     },
     {
       key: 'systemShare',
-      label: 'LABEL.COMISSION_FEE',
+      label: 'LABEL.SYSTEM_KEEP',
       isMoney: true,
-      customClass: () => 'red',
     },
     {
       key: 'instructorShare',
-      label: 'LABEL.NET_VALUE',
+      label: 'LABEL.TARGET_RECEIVED',
       isMoney: true,
-      customClass: () => 'green',
+    },
+    {
+      key: 'instructorName',
+      label: 'LABEL.TARGET_RECEIVED'
     },
     {
       key: 'receive',

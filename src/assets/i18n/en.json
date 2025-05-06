@@ -677,7 +677,9 @@
     "PAYMENT_FEE": "Payment fee",
     "COMISSION_FEE": "Commission fee",
     "NET_VALUE": "NET value",
-    "RECEIVED": "Received"
+    "RECEIVED": "Received",
+    "SYSTEM_KEEP": "System keep",
+    "TARGET_RECEIVED": "User"
   },
   "MESSAGE": {
     "AT_LEAST_1_SUBJECT": "You must teaching atleast 1 subject",

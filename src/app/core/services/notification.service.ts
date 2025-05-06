@@ -55,7 +55,7 @@ export class NotificationService {
         notificationsList.push({
           id: key,
           ...notifications[key],
-          content: `LABEL.${notifications[key].content}`
+          content: `MESSAGE.${notifications[key].content}`
         })
       })
 
