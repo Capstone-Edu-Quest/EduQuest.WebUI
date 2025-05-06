@@ -679,7 +679,8 @@
     "NET_VALUE": "NET value",
     "RECEIVED": "Received",
     "SYSTEM_KEEP": "System keep",
-    "TARGET_RECEIVED": "User"
+    "TARGET_RECEIVED": "User",
+    "INSTRUCTOR_RECEIVED": "Instructor received"
   },
   "MESSAGE": {
     "AT_LEAST_1_SUBJECT": "You must teaching atleast 1 subject",

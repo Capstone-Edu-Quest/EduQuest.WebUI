@@ -40,13 +40,13 @@ export class AdminRevenueComponent implements OnInit {
       isMoney: true,
     },
     {
-      key: 'instructorShare',
-      label: 'LABEL.TARGET_RECEIVED',
-      isMoney: true,
+      key: 'instructorName',
+      label: 'LABEL.INSTRUCTOR',
     },
     {
-      key: 'instructorName',
-      label: 'LABEL.TARGET_RECEIVED'
+      key: 'instructorShare',
+      label: 'LABEL.INSTRUCTOR_RECEIVED',
+      isMoney: true,
     },
     {
       key: 'receive',
