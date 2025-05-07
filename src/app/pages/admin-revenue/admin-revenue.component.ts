@@ -66,7 +66,7 @@ export class AdminRevenueComponent implements OnInit {
         val?.isReceive ? 'LABEL.RECEIVED' : '',
     },
     {
-      key: 'receive',
+      key: 'refund',
       label: '',
       translateLabel: (val: IGetRevenueItem) =>
         val?.isRefund ? 'LABEL.REFUNDED' : '',

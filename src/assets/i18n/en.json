@@ -632,6 +632,7 @@
     "CANCELLED": "Cancelled",
     "COMPLETE_PAYMENT": "Complete payment",
     "CANCEL_SUCCESS": "Canceled successfully",
+    "REFUNDED": "Refunded",
     "REGISTER_INTRUCTOR": "Register to become Instructor",
     "HEADLINE": "Headline",
     "DROP_CERTIFICATE": "Drop your certificates here",
