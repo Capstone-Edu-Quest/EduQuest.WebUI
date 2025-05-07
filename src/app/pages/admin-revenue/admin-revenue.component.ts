@@ -131,30 +131,72 @@ export class AdminRevenueComponent implements OnInit {
   }
 
   onInitChart() {
-    this.lineChartsLabel = this.lineChartsLabel.map((label) => {
-      const date = new Date(label);
-      return date.toLocaleString('default', { month: 'long' });
-    });
+    const currentYear = new Date().getFullYear();
+    const fromDate = this.from ? new Date(this.from) : new Date(currentYear, 0, 1); // Start from Jan 1, current year
+    const toDate = this.to ? new Date(this.to) : new Date(); // Until now
+
+    this.lineChartsLabel = [];
+    for (let date = new Date(fromDate); date <= toDate; date.setMonth(date.getMonth() + 1)) {
+      const month = date.toLocaleString('en-US', { month: 'short' });
+      this.lineChartsLabel.push(month.toUpperCase() + ' ' + date.getFullYear());
+    }
 
     this.dataSet = [
       {
         label: this.translate.instant('LABEL.TOTAL'),
-        data: this.tableData.map((item) => item.amount),
+        data: this.lineChartsLabel.map((label) => {
+          const [monthStr, yearStr] = label.split(' ');
+          const monthIndex = new Date(Date.parse(monthStr + " 1, 2021")).getMonth();
+          const year = parseInt(yearStr, 10);
+          const monthData = this.tableData.filter((item) => {
+            const itemDate = new Date(item.receiveDate || item.updatedAt);
+            return itemDate.getMonth() === monthIndex && itemDate.getFullYear() === year;
+          });
+          return monthData.length ? monthData.reduce((sum, item) => sum + item.amount, 0) : 0;
+        }),
       },
       {
         label: this.translate.instant('LABEL.COURSE'),
-        data: this.tableData.filter((item) => item.type === "Course").map((item) => item.amount),
+        data: this.lineChartsLabel.map((label) => {
+          const [monthStr, yearStr] = label.split(' ');
+          const monthIndex = new Date(Date.parse(monthStr + " 1, 2021")).getMonth();
+          const year = parseInt(yearStr, 10);
+          const monthData = this.tableData.filter((item) => {
+            const itemDate = new Date(item.receiveDate || item.updatedAt);
+            return itemDate.getMonth() === monthIndex && itemDate.getFullYear() === year && item.type === "Course";
+          });
+          return monthData.length ? monthData.reduce((sum, item) => sum + item.amount, 0) : 0;
+        }),
       },
       {
         label: this.translate.instant('LABEL.PACKAGES'),
-        data: this.tableData.filter((item) => item.type === 'Package').map((item) => item.amount),
+        data: this.lineChartsLabel.map((label) => {
+          const [monthStr, yearStr] = label.split(' ');
+          const monthIndex = new Date(Date.parse(monthStr + " 1, 2021")).getMonth();
+          const year = parseInt(yearStr, 10);
+          const monthData = this.tableData.filter((item) => {
+            const itemDate = new Date(item.receiveDate || item.updatedAt);
+            return itemDate.getMonth() === monthIndex && itemDate.getFullYear() === year && item.type === 'Package';
+          });
+          return monthData.length ? monthData.reduce((sum, item) => sum + item.amount, 0) : 0;
+        }),
       },
       {
         label: this.translate.instant('LABEL.PLATFORM_REVENUE'),
-        data: this.tableData.map((item) => item.amount - (item.instructorShare || 0) - (item.stripeFee || 0)),
+        data: this.lineChartsLabel.map((label) => {
+          const [monthStr, yearStr] = label.split(' ');
+          const monthIndex = new Date(Date.parse(monthStr + " 1, 2021")).getMonth();
+          const year = parseInt(yearStr, 10);
+          const monthData = this.tableData.filter((item) => {
+            const itemDate = new Date(item.receiveDate || item.updatedAt);
+            return itemDate.getMonth() === monthIndex && itemDate.getFullYear() === year;
+          });
+          return monthData.length ? monthData.reduce((sum, item) => sum + (item.amount - (item.instructorShare || 0) - (item.stripeFee || 0)), 0) : 0;
+        }),
       },
     ];
 
     this.isDataReady = true;
+    console.log(this.dataSet);
   }
 }
