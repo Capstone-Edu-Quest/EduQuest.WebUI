@@ -65,7 +65,7 @@ export class FooterComponent implements OnInit, OnDestroy {
 
         if (
           !user ||
-          [WebRole.INSTRUCTOR, WebRole.LEARNER].includes(user.roleId)
+          [WebRole.INSTRUCTOR].includes(user.roleId)
         ) {
           this.defaultTabs.push(...this.normalUserTabs);
         }
