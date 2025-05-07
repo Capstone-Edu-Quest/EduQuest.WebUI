@@ -22,7 +22,18 @@ export class CourseManageExploreComponent implements OnInit {
 
   constructor(private CourseService: CoursesService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    const courseParams: ISearchCourseParams = {
+      KeywordName: '',
+      pageNo: 1,
+      eachPage: 5,
+    };
+    this.CourseService.onSearchCourse(courseParams).subscribe((res) => {
+      if (!res?.payload) return;
+
+      this.courses = res.payload;
+    });
+  }
 
   onConfirmSearchCourse(e: KeyboardEvent) {
     if (e.key !== 'Enter' || !this.searchText.trim()) return;

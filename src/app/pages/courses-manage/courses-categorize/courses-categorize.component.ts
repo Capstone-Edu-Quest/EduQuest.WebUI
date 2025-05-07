@@ -79,12 +79,27 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
       key: 'description',
       label: 'LABEL.DESCRIPTION',
     },
-    // {
-    //   key: 'tags',
-    //   label: 'LABEL.TAGS',
-    //   render: (data: ICourseTagData) =>
-    //     data.tags.map((tag) => `#${tag.name}`).join(' '),
-    // },
+    {
+      key: 'totalLesson',
+      label: 'LABEL.STAGES',
+    },
+    {
+      key: 'totalTime',
+      label: 'LABEL.TOTAL_TIME',
+      translateLabel: (val: number) =>
+        `LABEL.MINUTES`,
+    },
+    {
+      key: 'rating',
+      label: 'LABEL.RATING',
+      render: (data: ICourseOverview) => data.rating ?? 0,
+    },
+    {
+      key: 'tags',
+      label: 'LABEL.TAGS',
+      render: (data: ICourseOverview) =>
+        data.listTag?.map((tag) => `${tag.name}`).join(' ') || '-',
+    },
   ];
 
   tagsData: ITag[] = [];
@@ -103,6 +118,19 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.onInitData();
+
+    const courseParams: ISearchCourseParams = {
+      pageNo: 1,
+      eachPage: 5,
+    };
+
+    this.isShowCourse = false;
+    this.CourseService.onSearchCourse(courseParams).subscribe((res) => {
+      if (!res?.payload) return;
+
+      this.coursesData = res.payload;
+      this.isShowCourse = true;
+    });
   }
 
   ngAfterViewInit(): void {

@@ -133,6 +133,18 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.initRoleOptions();
     this.initExperts();
     this.initUsersStats();
+
+    const excludeRoles = [WebRole.ADMIN];
+    if (this.user.user$.value?.roleId === WebRole.ADMIN) {
+      excludeRoles.push(WebRole.STAFF);
+    }
+    this.isSearchUserDone = false;
+    this.user.onSearchUser({ Username: '' }).subscribe((res) => {
+      this.usersList = (res?.payload?.users ?? []).filter((u) =>
+        excludeRoles.includes(Number(u.roleId))
+      );
+      this.isSearchUserDone = true;
+    });
   }
 
   initUsersStats() {
@@ -183,13 +195,17 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
   handleSearchUser(e: KeyboardEvent) {
     if (!this.searchText || e.key.toLowerCase() !== 'enter') return;
 
+    const excludeRoles = [WebRole.ADMIN];
+    if (this.user.user$.value?.roleId === WebRole.ADMIN) {
+      excludeRoles.push(WebRole.STAFF);
+    }
     this.isSearchUserDone = false;
-    this.user
-      .onSearchUser({ Username: this.searchText.trim() })
-      .subscribe((res) => {
-        this.usersList = res?.payload?.users ?? [];
-        this.isSearchUserDone = true;
-      });
+    this.user.onSearchUser({ Username: '' }).subscribe((res) => {
+      this.usersList = (res?.payload?.users ?? []).filter((u) =>
+        excludeRoles.includes(Number(u.roleId))
+      );
+      this.isSearchUserDone = true;
+    });
   }
 
   ngAfterViewInit(): void {
@@ -209,7 +225,7 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     this.user.getUserByRoleId(WebRole.EXPERT).subscribe((res) => {
       if (!res?.payload) return;
       this.expertsList = res.payload;
-      this.initCorrespondingExpertList()
+      this.initCorrespondingExpertList();
     });
   }
 

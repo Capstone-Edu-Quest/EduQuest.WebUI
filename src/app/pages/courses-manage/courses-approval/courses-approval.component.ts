@@ -11,7 +11,6 @@ import {
   ICourse,
   ICourseApprovalStaff,
   ICourseOverview,
-  ITag,
 } from '../../../shared/interfaces/course.interfaces';
 import { TableColumn } from '../../../shared/interfaces/others.interfaces';
 import { Router } from '@angular/router';
@@ -24,7 +23,6 @@ import { CoursesService } from '@/src/app/core/services/courses.service';
 import { InstructorCourseStatus } from '@/src/app/shared/enums/course.enum';
 import {
   IGetUserByRoleId,
-  IUser,
 } from '@/src/app/shared/interfaces/user.interfaces';
 import { TranslateService } from '@ngx-translate/core';
 import { cloneDeep } from 'lodash';
@@ -149,6 +147,7 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
       });
 
       this.sortedExpertsList.push(finalizeExpertList);
+      this.isExpertListLoaded = true;
     });
   }
 
@@ -160,6 +159,7 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
 
     switch (this.user.user$.value.roleId) {
       case WebRole.STAFF:
+        this.isExpertListLoaded = false;
         this.CourseService.onGetCourseByStatus(
           InstructorCourseStatus.PENDING
         ).subscribe((res) => {
@@ -169,12 +169,10 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
           this.isLoaded = true;
         });
 
-        this.isExpertListLoaded = false;
         this.user.getUserByRoleId(WebRole.EXPERT).subscribe((res) => {
           if (!res?.payload) return;
           this.expertsList = res.payload;
           this.initCorrespondingExpertList();
-          this.isExpertListLoaded = true;
         });
         break;
       case WebRole.EXPERT:

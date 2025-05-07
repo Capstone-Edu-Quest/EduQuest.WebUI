@@ -74,6 +74,8 @@ export class CoursesManageViewDetailsComponent implements OnInit {
     {
       key: 'time',
       label: 'LABEL.TIME',
+      translateLabel: (val: number) =>
+        `LABEL.MINUTES`,
       render: (item: ITableMaterialData) => Math.ceil(item.time)
     },
     // {
@@ -102,11 +104,11 @@ export class CoursesManageViewDetailsComponent implements OnInit {
   ];
 
   modifyMenu = [
-    {
-      icon: faHashtag,
-      label: 'LABEL.MODIFY_HASHTAG',
-      action: (e: Event) => this.onModifyHashtag(e),
-    },
+    // {
+    //   icon: faHashtag,
+    //   label: 'LABEL.MODIFY_HASHTAG',
+    //   action: (e: Event) => this.onModifyHashtag(e),
+    // },
     {
       icon: faBookmark,
       label: 'LABEL.ADD_TO_LEARNING_PATH',

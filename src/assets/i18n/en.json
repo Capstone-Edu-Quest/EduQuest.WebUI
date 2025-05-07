@@ -387,6 +387,7 @@
     "FAILED": "Failed",
     "OVER_PERCENTAGES": "Over or equals {{value}}% to pass",
     "MAX_MINUTE": "Maximum {{value}} minutes",
+    "MINUTE_SINGLE": "minute",
     "PASS_PERCENTAGES": "Passing Percentages",
     "PASS_PERCENTAGES_SUB": "The correct percentages that leaner need to pass the quiz",
     "TIME_LIMIT": "Time Limit (minutes)",
