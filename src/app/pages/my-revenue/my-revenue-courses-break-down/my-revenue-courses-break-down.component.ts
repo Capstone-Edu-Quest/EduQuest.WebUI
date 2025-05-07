@@ -50,6 +50,12 @@ export class MyRevenueCoursesBreakDownComponent implements OnInit {
       customClass: () => 'green',
     },
     {
+      key: 'instructorShare',
+      label: '',
+      customClass: () => 'green',
+      translateLabel: (val: IGetRevenueItem) => (val?.isReceive ? 'LABEL.RECEIVED' : ''),
+    },
+    {
       key: 'isRefund',
       label: '',
       translateLabel: (val: IGetRevenueItem) => (val?.isRefund ? 'LABEL.REFUNDED' : ''),
