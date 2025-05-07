@@ -48,7 +48,7 @@ export class ShopItemsComponent implements OnInit, OnDestroy {
       this.items = data.payload.map((item) => ({
         ...item,
         isOwned: this.user?.mascotItem?.includes(item.name) ?? false,
-      }));
+      })).sort((a, b) => a.isOwned ? 1 : b.isOwned ? -1 : 0);
     });
   }
 

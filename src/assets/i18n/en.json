@@ -687,6 +687,7 @@
     "NO_DATA": "No data to display"
   },
   "MESSAGE": {
+    "PLEASE_ADD_LESSON": "You need to add at least 1 lesson and 1 material",
     "LEARNING_PATH_OVERDUE": "Learning path {{learning_path}} overdue",
     "AT_LEAST_1_SUBJECT": "You must teaching atleast 1 subject",
     "COURSE_MISSING_TAG": "Course must have category (Subject and Level)",
@@ -819,7 +820,7 @@
     "YOU ARE NOT OWNER OF THIS MATERIAL": "You are not owned this material",
     "ALREADY_IN_COURSE": "You Already enrolled in to this course",
     "CHECK_OUT_SUCCESSFULLY": "Checkout successfully",
-    "BUY_COURSE_SUCCESSFULLY": "Purchased course successfully",
+    "BUY_COURSE_SUCCESSFULLY": "Purchased course {{item}} successfully",
     "BUY_COURSE_FAILED": "Purchased course failed",
     "YOUR_MONEY_WAS_TRANSFERED_FROM_THE_PLATFORM": "Transfer money from platform to you",
     "REFUND_SUCCESSFULLY": "Refund successfully",

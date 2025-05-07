@@ -35,7 +35,7 @@
             <div class="time">
               {{
                 "LABEL.MINUTES"
-                  | translate : { value: certificate.course.totalTime ?? 0 }
+                  | translate : { value: round(certificate.course.totalTime ?? 0) }
               }}
             </div>
             <div>·</div>

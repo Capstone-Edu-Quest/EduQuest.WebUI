@@ -59,4 +59,8 @@ export class CertificatePageComponent implements OnInit {
   onViewCourse() {
     this.router.navigate(['/courses', this.certificate?.course?.id])
   }
+
+  round(val: number) {
+    return Math.ceil(val);
+  }
 }

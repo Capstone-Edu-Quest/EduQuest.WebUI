@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { NotificationService } from '../../../core/services/notification.service';
 import { INotification } from '../../../shared/interfaces/others.interfaces';
 import { Subscription } from 'rxjs';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-navbar-noti',
   templateUrl: './navbar-noti.component.html',
@@ -12,7 +12,7 @@ export class NavbarNotiComponent implements OnInit, OnDestroy {
   notis: INotification[] = [];
   subscription$: Subscription = new Subscription();
 
-  constructor(private notification: NotificationService) {}
+  constructor(private notification: NotificationService, private router: Router) {}
 
   ngOnInit() {
     this.listenToNotification();
@@ -36,6 +36,10 @@ export class NavbarNotiComponent implements OnInit, OnDestroy {
     const diffMinutes = Math.floor(diffMs / (1000 * 60));
 
     return Math.floor(diffMinutes / 60);
+  }
+
+  onNavigate(url: string) {
+    this.router.navigate([url]);
   }
 
   ngOnDestroy(): void {

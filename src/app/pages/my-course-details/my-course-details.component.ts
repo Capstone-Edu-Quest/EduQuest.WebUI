@@ -309,6 +309,11 @@ export class MyCourseDetailsComponent
   onPublishCourse() {
     if (!this.course) return;
 
+    if(this.course.listLesson.length === 0 || this.course.listLesson.some(l => l.materials.length === 0)) {
+      this.message.addMessage('error', this.translate.instant('MESSAGE.PLEASE_ADD_LESSON'));
+      return;
+    }
+
     this.courseService
       .onSubmitCourseForApproval(this.course.id)
       .subscribe((res) => {

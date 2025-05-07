@@ -47,34 +47,39 @@
       </div>
 
       <!-- Daily quest -->
-      <div class="section-container">
+      <div
+        class="section-container"
+      >
         <div class="section-label">{{ "LABEL.QUESTS" | translate }}</div>
         <i class="no-quest" *ngIf="dailyQuests.length === 0">{{
           "LABEL.NO_DAILY_QUESTS" | translate
         }}</i>
-        <div class="quest" *ngFor="let quest of dailyQuests">
-          <div class="info-wrapper">
-            <i nz-icon nzType="aim"></i>
-            <div class="info">
-              {{ quest.quest | translate : quest.questValue }}
+
+        <div style="max-height: 190px; overflow-y: auto; display: flex; flex-direction: column; gap: 0px; padding-right: 4px;">
+          <div class="quest" *ngFor="let quest of dailyQuests">
+            <div class="info-wrapper">
+              <i nz-icon nzType="aim"></i>
+              <div class="info">
+                {{ quest.quest | translate : quest.questValue }}
+              </div>
             </div>
-          </div>
-          <div
-            *ngIf="quest?.isCompleted"
-            (click)="onClaimReward(quest.id)"
-            style="
-              text-align: center;
-              color: var(--brand-light);
-              cursor: pointer;
-            "
-          >
-            <fa-icon [icon]="starIcon"></fa-icon>
-            <div style="font-size: 10px; margin-top: 3px">
-              {{ "LABEL.CLAIM" | translate }}
+            <div
+              *ngIf="quest?.isCompleted"
+              (click)="onClaimReward(quest.id)"
+              style="
+                text-align: center;
+                color: var(--brand-light);
+                cursor: pointer;
+              "
+            >
+              <fa-icon [icon]="starIcon"></fa-icon>
+              <div style="font-size: 10px; margin-top: 3px">
+                {{ "LABEL.CLAIM" | translate }}
+              </div>
             </div>
-          </div>
-          <div *ngIf="!quest?.isCompleted" class="progress">
-            {{ quest.current }}/{{ quest.max }}
+            <div *ngIf="!quest?.isCompleted" class="progress">
+              {{ quest.current }}/{{ quest.max }}
+            </div>
           </div>
         </div>
       </div>

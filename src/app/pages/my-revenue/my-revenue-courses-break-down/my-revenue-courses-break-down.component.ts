@@ -50,7 +50,7 @@ export class MyRevenueCoursesBreakDownComponent implements OnInit {
       customClass: () => 'green',
     },
     {
-      key: 'isRefunded',
+      key: 'isRefund',
       label: 'LABEL.REFUNDED',
       render: (val: IGetRevenueItem) => (val?.isRefund ? '✔' : ''),
     },

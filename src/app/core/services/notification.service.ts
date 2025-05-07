@@ -59,7 +59,7 @@ export class NotificationService {
         })
       })
 
-      this.notification$.next(notificationsList);
+      this.notification$.next(notificationsList.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()));
       this.loading.removeLoading();
     }, (error) => {
       console.error('Error fetching real-time notifications:', error);

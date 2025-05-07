@@ -43,8 +43,8 @@
     {{ myApplicant.phone }}
   </div>
 
-  <div class="input-label">{{ "LABEL.TEACHING_SUBJECT" | translate }}</div>
-  <div *ngIf="myApplicant">{{ getTag() }}</div>
+  <div class="input-label" style="margin-bottom: 6px">{{ "LABEL.TEACHING_SUBJECT" | translate }}</div>
+  <div *ngIf="myApplicant" style="margin-bottom: 4px">{{ getTag() }}</div>
   <ng-select
     class="custom-select"
     *ngIf="!myApplicant"
