@@ -24,7 +24,7 @@ export class StorageService {
 
   setCookie(key: TokenEnum, value: string | null) {
     document.cookie = value
-      ? `${key}=${value}; path=/`
+      ? `${key}=${value}; path=/;`
       : `${key}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/`;
   }
 

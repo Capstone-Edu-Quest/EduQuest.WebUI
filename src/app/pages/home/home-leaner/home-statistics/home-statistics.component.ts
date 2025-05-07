@@ -132,7 +132,7 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
     return [
       r.expAdded > 0 && `${r.expAdded} exp`,
       r.goldAdded > 0 && `${r.goldAdded} gold`,
-      r.coupon && `Coupon: ${r.coupon}`,
+      // r.coupon && `Coupon: ${r.coupon}`,
       r.boosterAdded && `Booster: ${r.boosterAdded}`,
     ]
       .filter(Boolean)
