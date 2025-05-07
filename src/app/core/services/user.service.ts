@@ -330,7 +330,7 @@ export class UserService {
   }
 
   onSearchUser(param: ISearchUserReq) {
-    return this.http.get<{ users: ISearchUserRes[] }>(
+    return this.http.get<ISearchUserRes[]>(
       endPoints.searchUser + onConvertObjectToQueryParams(param)
     );
   }

@@ -140,8 +140,8 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
     }
     this.isSearchUserDone = false;
     this.user.onSearchUser({ Username: '' }).subscribe((res) => {
-      this.usersList = (res?.payload?.users ?? []).filter((u) =>
-        excludeRoles.includes(Number(u.roleId))
+      this.usersList = (res?.payload ?? []).filter((u) =>
+        !excludeRoles.includes(Number(u.roleId))
       );
       this.isSearchUserDone = true;
     });
@@ -200,9 +200,9 @@ export class UserManageComponent implements OnInit, AfterViewInit, OnDestroy {
       excludeRoles.push(WebRole.STAFF);
     }
     this.isSearchUserDone = false;
-    this.user.onSearchUser({ Username: '' }).subscribe((res) => {
-      this.usersList = (res?.payload?.users ?? []).filter((u) =>
-        excludeRoles.includes(Number(u.roleId))
+    this.user.onSearchUser({ Username: this.searchText }).subscribe((res) => {
+      this.usersList = (res?.payload ?? []).filter((u) =>
+        !excludeRoles.includes(Number(u.roleId))
       );
       this.isSearchUserDone = true;
     });
