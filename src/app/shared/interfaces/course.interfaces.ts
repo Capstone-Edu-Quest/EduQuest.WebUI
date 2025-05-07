@@ -377,6 +377,7 @@ export interface ISearchCourseParams {
   Sort?: CourseSortEnum;
   pageNo?: number;
   eachPage?: number;
+  isStudying?: boolean;
 }
 
 export interface IReviewQuery {

@@ -21,13 +21,14 @@ export class HomeSuggestedComponent implements OnInit {
 
   initCoursesList() {
     const course$ = this.CoursesService.onSearchCourse({
-      pageNo: 2,
-      eachPage: 10,
+      pageNo: 1,
+      eachPage: 40,
       isPublic: true,
+      isStudying: false,
     });
     course$.subscribe((res) => {
       if (!res || !res?.payload) return;
-      this.courses = res.payload.filter((c) => c.progressPercentage === null);
+      this.courses = res.payload;
     });
   }
 }
