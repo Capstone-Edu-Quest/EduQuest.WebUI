@@ -9,7 +9,7 @@
   </div>
   <div class="course-scroller">
     <i
-      *ngIf="sampleCourses.length > 3"
+      *ngIf="user.recentCourses.length > 2"
       nz-icon
       nzType="left"
       (click)="updateViewIndex(-1)"
@@ -36,7 +36,7 @@
       </div>
     </div>
     <i
-      *ngIf="sampleCourses.length > 3"
+      *ngIf="user.recentCourses.length > 2"
       nz-icon
       nzType="right"
       (click)="updateViewIndex(1)"

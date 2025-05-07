@@ -13,7 +13,6 @@ export class LeanerCoursesComponent implements OnInit {
   @Input('user') user: IProfile | null = null;
 
   currentViewIndex: number = 0;
-  sampleCourses: ICourse[] = []
 
   constructor(private router: Router) {}
 
@@ -21,13 +20,13 @@ export class LeanerCoursesComponent implements OnInit {
   }
 
   updateViewIndex(value: number) {
-    if (this.sampleCourses.length <= 2) return;
+    if (Number(this.user?.recentCourses.length) <= 2) return;
 
     const tempIdx = this.currentViewIndex + value;
     this.currentViewIndex =
       tempIdx < 0
-        ? this.sampleCourses.length - 2
-        : tempIdx > this.sampleCourses.length - 2
+        ? Number(this.user?.recentCourses.length) - 2
+        : tempIdx > Number(this.user?.recentCourses.length) - 2
         ? 0
         : tempIdx;
   }
