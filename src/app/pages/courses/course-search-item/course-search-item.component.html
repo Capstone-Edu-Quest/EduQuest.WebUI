@@ -10,7 +10,7 @@
       <div class="description">{{ course.description }}</div>
       <div class="author">{{ course.author }}</div>
       <div class="feedback-ctn">
-        <div class="stars-number">{{ course.rating }}</div>
+        <div class="stars-number">{{ round(course.rating) }}</div>
         <div class="stars-ctn">
           <fa-icon
             *ngFor="let starIcon of starsList"

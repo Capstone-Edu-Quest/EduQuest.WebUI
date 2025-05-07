@@ -91,6 +91,10 @@ export class CourseSearchItemComponent implements OnInit, OnDestroy {
     this.router.navigate(['/courses', this.course.id]);
   }
 
+  round(val: number) {
+    return val.toFixed(1)
+  }
+
   onAddToCart(event: Event) {
     event.stopPropagation();
 
