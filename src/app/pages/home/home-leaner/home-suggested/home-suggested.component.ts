@@ -11,8 +11,6 @@ import {
   styleUrls: ['./home-suggested.component.scss'],
 })
 export class HomeSuggestedComponent implements OnInit {
-  sampleCourses: ICourseOverview[] = [];
-
   courses: ICourseOverview[] = [];
 
   constructor(private CoursesService: CoursesService) {}
@@ -23,7 +21,7 @@ export class HomeSuggestedComponent implements OnInit {
 
   initCoursesList() {
     const course$ = this.CoursesService.onSearchCourse({
-      pageNo: 1,
+      pageNo: 2,
       eachPage: 10,
       isPublic: true,
     });
