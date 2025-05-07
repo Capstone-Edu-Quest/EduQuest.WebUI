@@ -91,7 +91,7 @@ export class PlatformService {
     const formData = new FormData();
     Object.entries(param).forEach(([key, value]) => {
       if (value !== undefined && value !== null) {
-        if (key === 'CertificateFiles') {
+        if (Array.isArray(value)) {
           (value ?? []).forEach((_v: any) => formData.append(key, _v as any));
         } else {
           formData.append(key, value as any);
