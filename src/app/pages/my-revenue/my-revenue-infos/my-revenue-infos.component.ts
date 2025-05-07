@@ -72,8 +72,8 @@ export class MyRevenueInfosComponent implements OnInit {
       this.datas[2].value = stat?.revenue7Days;
       this.datas[2].changedPercent = stat?.revenue7DaysChangePercent;
 
-      this.pendingAmount = stat?.pendingBalance;
-      this.availableAmount = stat?.availableBalance;
+      this.pendingAmount = Math.max(stat?.pendingBalance, 0);
+      this.availableAmount = Math.max(stat?.availableBalance, 0);
     });
   }
 

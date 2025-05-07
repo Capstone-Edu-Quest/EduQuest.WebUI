@@ -5,7 +5,7 @@
       <i
         nz-icon
         nzType="fire"
-        *ngIf="user?.statistic?.currentStreak ?? 0 >= 5"
+        *ngIf="(user?.statistic?.currentStreak ?? 0) >= 5"
       ></i>
     </div>
 
@@ -55,7 +55,7 @@
           "LABEL.NO_DAILY_QUESTS" | translate
         }}</i>
 
-        <div style="max-height: 190px; overflow-y: auto; display: flex; flex-direction: column; gap: 0px; padding-right: 4px;">
+        <div style="max-height: 195px; overflow-y: auto; display: flex; flex-direction: column; gap: 0px; padding-right: 4px;">
           <div class="quest" *ngFor="let quest of dailyQuests">
             <div class="info-wrapper">
               <i nz-icon nzType="aim"></i>
@@ -87,7 +87,7 @@
   </div>
 
   <!-- Fox -->
-  <div class="section-container fox">
+  <div class="section-container fox" style="height: 240px">
     <app-fox-3d></app-fox-3d>
     <div class="pannel-ctn">
       <div class="gold-ctn">

@@ -59,11 +59,11 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
       icon: 'trophy',
       value: 'loading...',
     },
-    {
-      label: 'LABEL.BOOSTER',
-      icon: 'thunderbolt',
-      value: 'loading...',
-    },
+    // {
+    //   label: 'LABEL.BOOSTER',
+    //   icon: 'thunderbolt',
+    //   value: 'loading...',
+    // },
   ];
   constructor(
     private translate: TranslateService,
@@ -90,14 +90,14 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
             icon: 'trophy',
             value: `#${user.statistic.rank}`,
           },
-          {
-            label: 'LABEL.BOOSTER',
-            icon: 'thunderbolt',
-            value: `${Math.max(
-              user.statistic.booster.boostGold,
-              user.statistic.booster.boostExp
-            )}%`,
-          },
+          // {
+          //   label: 'LABEL.BOOSTER',
+          //   icon: 'thunderbolt',
+          //   value: `${Math.max(
+          //     user.statistic.booster.boostGold,
+          //     user.statistic.booster.boostExp
+          //   )}%`,
+          // },
         ];
       })
     );

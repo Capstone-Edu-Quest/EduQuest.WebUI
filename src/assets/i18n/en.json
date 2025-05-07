@@ -631,7 +631,6 @@
     "OTHERS": "Others",
     "CANCELLED": "Cancelled",
     "COMPLETE_PAYMENT": "Complete payment",
-    "CANCEL_SUCCESS": "Canceled successfully",
     "REFUNDED": "Refunded",
     "REGISTER_INTRUCTOR": "Register to become Instructor",
     "HEADLINE": "Headline",
@@ -849,7 +848,8 @@
     "DESCRIPTION_REQUIRED": "Description is required",
     "FIELD_REQUIRED": "Field is required",
     "LEVEL_EXISTED": "Level existed",
-    "ENROLLED_SUCCESSFULLY": "Enrolled Successfully"
+    "ENROLLED_SUCCESSFULLY": "Enrolled Successfully",
+    "CANCEL_SUCCESS": "Canceled successfully"
   },
   "BUTTON": {
     "SUBMIT_NEW_APPLICATION": "Submit new application",
