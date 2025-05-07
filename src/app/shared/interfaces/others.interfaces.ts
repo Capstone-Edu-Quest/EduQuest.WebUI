@@ -310,4 +310,5 @@ export interface IGetRevenueItem {
   title: string;
   transactionId: string;
   updatedAt: string;
+  isRefund: boolean;
 }

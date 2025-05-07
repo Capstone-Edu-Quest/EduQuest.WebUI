@@ -49,6 +49,11 @@ export class MyRevenueCoursesBreakDownComponent implements OnInit {
       isMoney: true,
       customClass: () => 'green',
     },
+    {
+      key: 'isRefunded',
+      label: 'LABEL.REFUNDED',
+      render: (val: IGetRevenueItem) => (val?.isRefund ? '✔' : ''),
+    },
   ];
 
   isDataReady: boolean = false;

@@ -683,7 +683,8 @@
     "INSTRUCTOR_RECEIVED": "Instructor received",
     "PLATFORM_CASH_FLOW": "Platform's cash flow",
     "PACKAGES": "Packages",
-    "PLATFORM_REVENUE": "Platform NET revenue"
+    "PLATFORM_REVENUE": "Platform NET revenue",
+    "NO_DATA": "No data to display"
   },
   "MESSAGE": {
     "LEARNING_PATH_OVERDUE": "Learning path {{learning_path}} overdue",

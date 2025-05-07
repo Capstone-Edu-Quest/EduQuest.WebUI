@@ -64,6 +64,11 @@ export class AdminRevenueComponent implements OnInit {
       label: 'LABEL.RECEIVED',
       render: (val: any) => (val?.isReceive ? '✔' : ''),
     },
+    {
+      key: 'receive',
+      label: 'LABEL.RECEIVED',
+      render: (val: any) => (val?.isRefund ? '✔' : ''),
+    },
   ];
 
   isDataReady: boolean = false;

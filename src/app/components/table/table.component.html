@@ -28,6 +28,12 @@
       </tr>
     </thead>
     <tbody>
+      <tr *ngIf="onGetDataRow().length === 0">
+        <td [attr.colspan]="columns.length" style="text-align: center; color: var(--secondary-text)">
+          {{ "LABEL.NO_DATA" | translate }}
+        </td>
+      </tr>
+      
       <tr
         *ngFor="let row of onGetDataRow(); let idx = index"
         (click)="handleRowClick(row)"
