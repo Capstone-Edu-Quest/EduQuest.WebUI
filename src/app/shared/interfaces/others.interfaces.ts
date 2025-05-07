@@ -299,6 +299,7 @@ export interface IGetRevenue {
 export interface IGetRevenueItem {
   id: string;
   amount: number;
+  type: string;
   instructorShare: number | null;
   isReceive: boolean;
   itemId: string;

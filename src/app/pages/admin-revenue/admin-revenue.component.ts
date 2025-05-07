@@ -7,6 +7,7 @@ import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
 import { PaymentService } from '../../core/services/payment.service';
 import { ILineChartDataSet } from '../../shared/interfaces/chart.interface';
 import { TranslateService } from '@ngx-translate/core';
+import { TransactionTypeEnum } from '../../shared/enums/others.enum';
 
 @Component({
   selector: 'app-admin-revenue',
@@ -125,7 +126,35 @@ export class AdminRevenueComponent implements OnInit {
       .getRevenueTable({ ...query, isAdmin: true })
       .subscribe((res) => {
         this.tableData = res?.payload ?? [];
-        this.isDataReady = true;
+        this.onInitChart();
       });
+  }
+
+  onInitChart() {
+    this.lineChartsLabel = this.lineChartsLabel.map((label) => {
+      const date = new Date(label);
+      return date.toLocaleString('default', { month: 'long' });
+    });
+
+    this.dataSet = [
+      {
+        label: this.translate.instant('LABEL.TOTAL'),
+        data: this.tableData.map((item) => item.amount),
+      },
+      {
+        label: this.translate.instant('LABEL.COURSE'),
+        data: this.tableData.filter((item) => item.type === "Course").map((item) => item.amount),
+      },
+      {
+        label: this.translate.instant('LABEL.PACKAGES'),
+        data: this.tableData.filter((item) => item.type === 'Package').map((item) => item.amount),
+      },
+      {
+        label: this.translate.instant('LABEL.PLATFORM_REVENUE'),
+        data: this.tableData.map((item) => item.amount - (item.instructorShare || 0) - (item.stripeFee || 0)),
+      },
+    ];
+
+    this.isDataReady = true;
   }
 }

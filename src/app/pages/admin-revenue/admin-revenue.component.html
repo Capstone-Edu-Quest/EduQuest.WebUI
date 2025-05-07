@@ -21,8 +21,11 @@
     [data]="tableData"
   ></app-table>
 
-  <div style="margin-bottom: 8px; font-size: 15px; font-weight: 600">{{ "LABEL.PLATFORM_CASH_FLOW" | translate }}</div>
+  <div style="margin-bottom: 8px; font-size: 15px; font-weight: 600">
+    {{ "LABEL.PLATFORM_CASH_FLOW" | translate }}
+  </div>
   <app-line-chart
+    *ngIf="isDataReady"
     [labels]="lineChartsLabel"
     [dataSet]="dataSet"
   ></app-line-chart>
