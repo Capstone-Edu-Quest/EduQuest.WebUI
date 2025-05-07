@@ -143,7 +143,7 @@ export class ChatService {
       return;
     }
 
-    this.loading.addLoading();
+    // this.loading.addLoading();
     this.messageRefs.forEach((ref) => {
       off(ref);
     });
@@ -167,7 +167,7 @@ export class ChatService {
       (snapshot) => {
         if (!snapshot.exists()) {
           this.messages$.next([]); // Clear messages if none exist
-          this.loading.removeLoading();
+          // this.loading.removeLoading();
           return;
         }
 
@@ -183,7 +183,7 @@ export class ChatService {
         );
 
         this.messages$.next(messagesList); // Update messages in real-time
-        this.loading.removeLoading();
+        // this.loading.removeLoading();
       },
       (error) => {
         console.error('Error fetching real-time messages:', error);

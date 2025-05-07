@@ -8,7 +8,13 @@
 </div>
 
 <ng-template #proceedPayment let-row="row">
-  <a *ngIf="row?.url" href="{{ row?.url ?? '' }}" target="_blank">{{
-    "LABEL.COMPLETE_PAYMENT" | translate
-  }}</a>
+  <div *ngIf="row?.url" style="display: flex; gap: 12px">
+    <div style="color: var(--alert); cursor: pointer; text-decoration: underline;" (click)="onCancel(row)">
+      {{ "LABEL.CANCEL_ORDER" | translate }}
+    </div>
+
+    <a href="{{ row?.url ?? '' }}" target="_blank">{{
+      "LABEL.COMPLETE_PAYMENT" | translate
+    }}</a>
+  </div>
 </ng-template>

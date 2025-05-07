@@ -39,7 +39,7 @@ export class NotificationService {
     const notificationsRef = ref(this.realTimeNotificationDB, `notifications/${userId}`);
     this.notificationRefs.push(notificationsRef);
     
-    this.loading.addLoading();
+    // this.loading.addLoading();
 
     onValue(notificationsRef, (snapshot) => {
       if (!snapshot.exists()) {
@@ -60,10 +60,10 @@ export class NotificationService {
       })
 
       this.notification$.next(notificationsList.sort((a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()));
-      this.loading.removeLoading();
+      // this.loading.removeLoading();
     }, (error) => {
       console.error('Error fetching real-time notifications:', error);
-      this.loading.removeLoading();
+      // this.loading.removeLoading();
     });
     
   }

@@ -96,6 +96,7 @@ export const endPoints = {
   refund: 'payment/refund',
   getConnectedPaymentAccount: 'payment/connectedAccount',
   createStripeAccount: 'payment/stripeExpress',
+  cancelPayment: 'payment/cancelPayment',
 
   instructorRevenueReport: 'revenue/revenueReport',
 

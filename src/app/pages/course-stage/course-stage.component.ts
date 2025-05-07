@@ -14,6 +14,7 @@ import {
   type OnInit,
 } from '@angular/core';
 import {
+  faCertificate,
   faCheck,
   faChevronLeft,
   faChevronRight,
@@ -22,6 +23,7 @@ import {
   faLock,
   faPaperPlane,
   faRotateLeft,
+  faStamp,
   faStar,
   faTriangleExclamation,
 } from '@fortawesome/free-solid-svg-icons';
@@ -104,15 +106,20 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
         label: 'LABEL.SHARE',
         action: (e: Event) => copyToClipboard(window.location.href),
       },
-      {
-        icon: faTriangleExclamation,
-        label: 'LABEL.REPORT',
-        action: (e: Event) => {},
-      },
     ];
 
     if (Number(this.courseDetails.progress) > 20) {
       this.menu = this.menu.filter((m) => m.label !== 'LABEL.REFUND');
+    }
+
+    if (Number(this.courseDetails.progress) === 100) {
+      this.menu.push({
+        icon: faCertificate,
+        label: 'LABEL.VIEW_CERTIFICATE',
+        action: (e: Event) => {
+          this.router.navigate(['/c', this.courseDetails.certificateId]);
+        },
+      });
     }
   }
 
@@ -301,7 +308,7 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
       this.router.navigate([], { queryParams: { materialId: nextMaterialId } });
       setTimeout(() => {
         location.reload();
-      }, 1)
+      }, 1);
     }
   }
 

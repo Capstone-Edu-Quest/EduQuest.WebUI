@@ -51,8 +51,8 @@ export class MyRevenueCoursesBreakDownComponent implements OnInit {
     },
     {
       key: 'isRefund',
-      label: 'LABEL.REFUNDED',
-      render: (val: IGetRevenueItem) => (val?.isRefund ? '✔' : ''),
+      label: '',
+      translateLabel: (val: IGetRevenueItem) => (val?.isRefund ? 'LABEL.REFUNDED' : ''),
     },
   ];
 

@@ -61,13 +61,16 @@ export class AdminRevenueComponent implements OnInit {
     },
     {
       key: 'receive',
-      label: 'LABEL.RECEIVED',
-      render: (val: any) => (val?.isReceive ? '✔' : ''),
+      label: '',
+      translateLabel: (val: IGetRevenueItem) =>
+        val?.isReceive ? 'LABEL.RECEIVED' : '',
     },
     {
       key: 'receive',
-      label: 'LABEL.RECEIVED',
-      render: (val: any) => (val?.isRefund ? '✔' : ''),
+      label: '',
+      translateLabel: (val: IGetRevenueItem) =>
+        val?.isRefund ? 'LABEL.REFUNDED' : '',
+      customClass: () => 'red',
     },
   ];
 
@@ -137,11 +140,17 @@ export class AdminRevenueComponent implements OnInit {
 
   onInitChart() {
     const currentYear = new Date().getFullYear();
-    const fromDate = this.from ? new Date(this.from) : new Date(currentYear, 0, 1); // Start from Jan 1, current year
+    const fromDate = this.from
+      ? new Date(this.from)
+      : new Date(currentYear, 0, 1); // Start from Jan 1, current year
     const toDate = this.to ? new Date(this.to) : new Date(); // Until now
 
     this.lineChartsLabel = [];
-    for (let date = new Date(fromDate); date <= toDate; date.setMonth(date.getMonth() + 1)) {
+    for (
+      let date = new Date(fromDate);
+      date <= toDate;
+      date.setMonth(date.getMonth() + 1)
+    ) {
       const month = date.toLocaleString('en-US', { month: 'short' });
       this.lineChartsLabel.push(month.toUpperCase() + ' ' + date.getFullYear());
     }
@@ -151,52 +160,89 @@ export class AdminRevenueComponent implements OnInit {
         label: this.translate.instant('LABEL.TOTAL'),
         data: this.lineChartsLabel.map((label) => {
           const [monthStr, yearStr] = label.split(' ');
-          const monthIndex = new Date(Date.parse(monthStr + " 1, 2021")).getMonth();
+          const monthIndex = new Date(
+            Date.parse(monthStr + ' 1, 2021')
+          ).getMonth();
           const year = parseInt(yearStr, 10);
           const monthData = this.tableData.filter((item) => {
             const itemDate = new Date(item.receiveDate || item.updatedAt);
-            return itemDate.getMonth() === monthIndex && itemDate.getFullYear() === year;
+            return (
+              itemDate.getMonth() === monthIndex &&
+              itemDate.getFullYear() === year
+            );
           });
-          return monthData.length ? monthData.reduce((sum, item) => sum + item.amount, 0) : 0;
+          return monthData.length
+            ? monthData.reduce((sum, item) => sum + item.amount, 0)
+            : 0;
         }),
       },
       {
         label: this.translate.instant('LABEL.COURSE'),
         data: this.lineChartsLabel.map((label) => {
           const [monthStr, yearStr] = label.split(' ');
-          const monthIndex = new Date(Date.parse(monthStr + " 1, 2021")).getMonth();
+          const monthIndex = new Date(
+            Date.parse(monthStr + ' 1, 2021')
+          ).getMonth();
           const year = parseInt(yearStr, 10);
           const monthData = this.tableData.filter((item) => {
             const itemDate = new Date(item.receiveDate || item.updatedAt);
-            return itemDate.getMonth() === monthIndex && itemDate.getFullYear() === year && item.type === "Course";
+            return (
+              itemDate.getMonth() === monthIndex &&
+              itemDate.getFullYear() === year &&
+              item.type === 'Course'
+            );
           });
-          return monthData.length ? monthData.reduce((sum, item) => sum + item.amount, 0) : 0;
+          return monthData.length
+            ? monthData.reduce((sum, item) => sum + item.amount, 0)
+            : 0;
         }),
       },
       {
         label: this.translate.instant('LABEL.PACKAGES'),
         data: this.lineChartsLabel.map((label) => {
           const [monthStr, yearStr] = label.split(' ');
-          const monthIndex = new Date(Date.parse(monthStr + " 1, 2021")).getMonth();
+          const monthIndex = new Date(
+            Date.parse(monthStr + ' 1, 2021')
+          ).getMonth();
           const year = parseInt(yearStr, 10);
           const monthData = this.tableData.filter((item) => {
             const itemDate = new Date(item.receiveDate || item.updatedAt);
-            return itemDate.getMonth() === monthIndex && itemDate.getFullYear() === year && item.type === 'Package';
+            return (
+              itemDate.getMonth() === monthIndex &&
+              itemDate.getFullYear() === year &&
+              item.type === 'Package'
+            );
           });
-          return monthData.length ? monthData.reduce((sum, item) => sum + item.amount, 0) : 0;
+          return monthData.length
+            ? monthData.reduce((sum, item) => sum + item.amount, 0)
+            : 0;
         }),
       },
       {
         label: this.translate.instant('LABEL.PLATFORM_REVENUE'),
         data: this.lineChartsLabel.map((label) => {
           const [monthStr, yearStr] = label.split(' ');
-          const monthIndex = new Date(Date.parse(monthStr + " 1, 2021")).getMonth();
+          const monthIndex = new Date(
+            Date.parse(monthStr + ' 1, 2021')
+          ).getMonth();
           const year = parseInt(yearStr, 10);
           const monthData = this.tableData.filter((item) => {
             const itemDate = new Date(item.receiveDate || item.updatedAt);
-            return itemDate.getMonth() === monthIndex && itemDate.getFullYear() === year;
+            return (
+              itemDate.getMonth() === monthIndex &&
+              itemDate.getFullYear() === year
+            );
           });
-          return monthData.length ? monthData.reduce((sum, item) => sum + (item.amount - (item.instructorShare || 0) - (item.stripeFee || 0)), 0) : 0;
+          return monthData.length
+            ? monthData.reduce(
+                (sum, item) =>
+                  sum +
+                  (item.amount -
+                    (item.instructorShare || 0) -
+                    (item.stripeFee || 0)),
+                0
+              )
+            : 0;
         }),
       },
     ];

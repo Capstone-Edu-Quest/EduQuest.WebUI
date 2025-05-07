@@ -120,6 +120,21 @@ export class TransactionsComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onProceedPayment(row: ITransaction) {
+    if (!row?.url) return;
+
+    window.open(row.url, '_blank');
+  }
+
+  onCancel(row: ITransaction) {
+    this.payment.cancelPayment().subscribe((res) => {
+      if(res?.isError) return;
+
+      this.message.addMessage('success', this.translate.instant('MESSAGE.CANCEL_SUCCESS'));
+      this.initTransactions();
+    });
+  }
+
   onGetStatus(status: TransactionStatusEnum, isGetColor?: boolean): string {
     switch (status.toLowerCase()) {
       case TransactionStatusEnum.CANCELLED:

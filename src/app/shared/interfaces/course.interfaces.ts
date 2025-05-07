@@ -47,6 +47,7 @@ export interface ICourseApprovalStaff extends ICourseOverview {
 
 export interface ICourse {
   id: string;
+  certificateId: string;
   title: string;
   description: string;
   photoUrl: string;

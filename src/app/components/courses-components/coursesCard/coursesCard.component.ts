@@ -135,7 +135,7 @@ export class CoursesCardComponent implements OnInit, OnDestroy {
   }
 
   round(val: number) {
-    return val.toFixed(2);
+    return val.toFixed(1);
   }
 
   onViewCertificate(event: Event) {
