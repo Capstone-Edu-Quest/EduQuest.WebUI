@@ -130,11 +130,11 @@ export class MyCourseDetailsComponent
       label: 'LABEL.EDIT',
       action: (e: Event) => this.onEdit(e),
     },
-    {
-      icon: faTrash,
-      label: 'LABEL.DELETE',
-      action: (e: Event) => this.onDelete(e),
-    },
+    // {
+    //   icon: faTrash,
+    //   label: 'LABEL.DELETE',
+    //   action: (e: Event) => this.onDelete(e),
+    // },
   ];
 
   constructor(
@@ -283,6 +283,7 @@ export class MyCourseDetailsComponent
 
   onDelete(e: Event) {
     e.stopPropagation();
+    this.courseService
   }
 
   onViewMoreFeedbacks() {
