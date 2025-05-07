@@ -1,3 +1,4 @@
+import { ITableMaterialData } from './../../../shared/interfaces/course.interfaces';
 import {
   Component,
   ViewChild,
@@ -19,6 +20,7 @@ import { ModalService } from '@/src/app/core/services/modal.service';
 import { MessageService } from '@/src/app/core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
 import { TagTypeRequestEnum } from '@/src/app/shared/enums/course.enum';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-courses-categorize',
@@ -113,7 +115,8 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
     private CourseService: CoursesService,
     private modal: ModalService,
     private message: MessageService,
-    private translate: TranslateService
+    private translate: TranslateService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -157,6 +160,10 @@ export class CoursesCategorizeComponent implements OnInit, AfterViewInit {
       this.isInitTagFinished = true;
       this.tagsData = res.payload;
     });
+  }
+
+  onViewCourseDetails(course: any) {
+    this.router.navigate([`/courses-manage/explore/${course.id}`]);
   }
 
   onConfirmSearchCourse(tag: ITag): void {

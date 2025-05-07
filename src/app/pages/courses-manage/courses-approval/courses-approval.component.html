@@ -4,7 +4,7 @@
   </div>
 
   <app-table
-    *ngIf="isLoaded && isExpertListLoaded"
+    *ngIf="isLoaded"
     (onRowClick)="onViewDetails($event)"
     [data]="courses"
     [columns]="tableColumns"

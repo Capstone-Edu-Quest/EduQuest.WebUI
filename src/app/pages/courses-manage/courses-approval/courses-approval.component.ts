@@ -21,9 +21,7 @@ import { Subscription } from 'rxjs';
 import { WebRole } from '../../../shared/enums/user.enum';
 import { CoursesService } from '@/src/app/core/services/courses.service';
 import { InstructorCourseStatus } from '@/src/app/shared/enums/course.enum';
-import {
-  IGetUserByRoleId,
-} from '@/src/app/shared/interfaces/user.interfaces';
+import { IGetUserByRoleId } from '@/src/app/shared/interfaces/user.interfaces';
 import { TranslateService } from '@ngx-translate/core';
 import { cloneDeep } from 'lodash';
 import { ModalService } from '@/src/app/core/services/modal.service';
@@ -147,7 +145,6 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
       });
 
       this.sortedExpertsList.push(finalizeExpertList);
-      this.isExpertListLoaded = true;
     });
   }
 
@@ -167,13 +164,16 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
 
           this.courses = res.payload;
           this.isLoaded = true;
+
+          this.user.getUserByRoleId(WebRole.EXPERT).subscribe((res) => {
+            if (!res?.payload) return;
+            this.expertsList = res.payload;
+            this.initCorrespondingExpertList();
+            
+            this.isLoaded = true;
+          });
         });
 
-        this.user.getUserByRoleId(WebRole.EXPERT).subscribe((res) => {
-          if (!res?.payload) return;
-          this.expertsList = res.payload;
-          this.initCorrespondingExpertList();
-        });
         break;
       case WebRole.EXPERT:
         this.CourseService.onGetCourseAssignedToMe().subscribe((res) => {
@@ -204,7 +204,7 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
   }
 
   onUpdateStatus(e: Event, data: ICourse | null, isApprove: boolean) {
-     e.stopPropagation();
+    e.stopPropagation();
     if (!data) return;
 
     if (!isApprove && !this.inputRejectReason.trim()) {
@@ -214,7 +214,7 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
       );
       return;
     }
-   
+
     this.CourseService.onApprove(
       data.id,
       isApprove,
@@ -248,7 +248,7 @@ export class CoursesApprovalComponent implements OnInit, AfterViewInit {
         'success',
         this.translate.instant('MESSAGE.ASSIGNED_SUCCESSFULLY')
       );
-      this.onCancel()
+      this.onCancel();
     });
   }
 }

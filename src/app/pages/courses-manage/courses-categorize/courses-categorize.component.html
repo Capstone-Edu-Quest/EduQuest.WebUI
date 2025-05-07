@@ -27,6 +27,7 @@
       *ngIf="isShowCourse"
       [columns]="courseTableColumns"
       [data]="coursesData"
+      (onRowClick)="onViewCourseDetails($event)"
     ></app-table>
   </div>
 </div>

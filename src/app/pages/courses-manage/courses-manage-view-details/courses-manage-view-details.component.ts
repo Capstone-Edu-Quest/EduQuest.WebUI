@@ -58,6 +58,7 @@ export class CoursesManageViewDetailsComponent implements OnInit {
     {
       key: 'lesson',
       label: 'LABEL.STAGES',
+      render: (item: ITableMaterialData) => item.lesson + 1
     },
     {
       key: 'name',
