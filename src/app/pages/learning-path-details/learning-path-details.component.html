@@ -116,7 +116,7 @@
       ></app-path-course-item>
     </div>
 
-    <div class="add_new_course" *ngIf="!isEdit" (click)="showSearchCourse()">
+    <div class="add_new_course" *ngIf="!isEdit && isMyPath" (click)="showSearchCourse()">
       <fa-icon [icon]="addIcon"></fa-icon>
       <div>{{ "LABEL.ADD_NEW_COURSE" | translate }}</div>
     </div>

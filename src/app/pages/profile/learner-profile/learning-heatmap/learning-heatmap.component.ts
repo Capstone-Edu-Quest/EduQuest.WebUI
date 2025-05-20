@@ -99,18 +99,18 @@ export class LearningHeatmapComponent implements OnInit {
 
   onGetColorByTime(minute: number) {
     // 0 - 30
-    if (minute < 15) return {};
+    // if (minute < 15) return {};
 
     // 30 - 59
-    if (minute < 30) {
+    if (minute < 5) {
       return { background: 'var(--brand-02)' };
     }
 
-    if (minute < 50) {
+    if (minute < 10) {
       return { background: 'var(--brand-05)' };
     }
 
-    if (minute < 70) {
+    if (minute < 20) {
       return { background: 'var(--brand)' };
     }
 

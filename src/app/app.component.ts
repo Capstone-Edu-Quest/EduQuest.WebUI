@@ -66,7 +66,7 @@ export class AppComponent implements OnInit, OnDestroy {
     this.ThemeService.onInitTheme();
     this.onInitLanguage();
     this.initAOS();
-    this.firebase.init();
+    // this.firebase.init();
     this.listenToUser();
   }
 
@@ -121,11 +121,11 @@ export class AppComponent implements OnInit, OnDestroy {
         break;
     }
 
-    clearTimeout(this.timeOut);
-    this.timeOut = setTimeout(() => {
-      this.notification.initNotifications();
-      this.chat.initChat();
-    }, 1000);
+    // clearTimeout(this.timeOut);
+    // this.timeOut = setTimeout(() => {
+    //   this.notification.initNotifications();
+    //   this.chat.initChat();
+    // }, 1000);
   }
 
   resetUserData() {

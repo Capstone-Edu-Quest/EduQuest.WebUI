@@ -62,6 +62,7 @@ export class LearningPathDetailsComponent implements OnInit {
 
   isEdit: boolean = false;
   isExpertView: boolean = false;
+  isMyPath: boolean = false;
 
   currentDragCourse: ICourseOverview | null = null;
   tempCourseList: ICourseOverview[] | null = null;
@@ -143,6 +144,7 @@ export class LearningPathDetailsComponent implements OnInit {
         this.learningPathDetails.enrollDate = new Date(
           this.learningPathDetails.enrollDate || ''
         ).toLocaleString();
+        this.isMyPath = this.currentUser?.id === this.learningPathDetails?.createdBy.id;
         this.onInitMenu();
 
         if (this.route.snapshot.queryParams['edit']) {

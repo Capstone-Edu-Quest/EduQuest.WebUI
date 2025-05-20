@@ -50,33 +50,33 @@ export class NavbarComponent implements OnInit {
       badge: 0,
       dropDown: this.cartDropdown,
     },
-    {
-      icon: 'bell',
-      routerLink: 'notification',
-      badge: 0,
-      dropdown: this.notificationDropdown,
-    },
-    {
-      icon: 'message',
-      routerLink: 'chat',
-      badge: 0,
-      dropdown: this.messageDropdown,
-    },
+    // {
+    //   icon: 'bell',
+    //   routerLink: 'notification',
+    //   badge: 0,
+    //   dropdown: this.notificationDropdown,
+    // },
+    // {
+    //   icon: 'message',
+    //   routerLink: 'chat',
+    //   badge: 0,
+    //   dropdown: this.messageDropdown,
+    // },
   ];
 
   instructorItems = [
-    {
-      icon: 'bell',
-      routerLink: 'notification',
-      badge: 0,
-      dropdown: this.notificationDropdown,
-    },
-    {
-      icon: 'message',
-      routerLink: 'chat',
-      badge: 0,
-      dropdown: this.messageDropdown,
-    },
+    // {
+    //   icon: 'bell',
+    //   routerLink: 'notification',
+    //   badge: 0,
+    //   dropdown: this.notificationDropdown,
+    // },
+    // {
+    //   icon: 'message',
+    //   routerLink: 'chat',
+    //   badge: 0,
+    //   dropdown: this.messageDropdown,
+    // },
   ];
 
   instructorsNavItems = [
@@ -183,8 +183,8 @@ export class NavbarComponent implements OnInit {
     this.listenCartItems();
     this.listenWishlistItems();
     this.listenToUser();
-    this.listenToChat();
-    this.listenToNotification();
+    // this.listenToChat();
+    // this.listenToNotification();
     this.subscription$.add(
       this.route.queryParams.subscribe((params) => {
         this.searchText = params['keyword']
