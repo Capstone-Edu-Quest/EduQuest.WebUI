@@ -145,7 +145,7 @@
     <div class="question">{{ i + 1 }}. {{ question.questionTitle }}</div>
     <div
       class="answer"
-      *ngFor="let answer of question.answers; let z = index"
+      *ngFor="let answer of question.options; let z = index"
       (click)="onSelectAnswer(question.id, answer.id)"
     >
       <fa-icon

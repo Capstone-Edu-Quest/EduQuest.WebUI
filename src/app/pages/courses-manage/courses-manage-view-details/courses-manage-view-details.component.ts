@@ -195,7 +195,7 @@ export class CoursesManageViewDetailsComponent implements OnInit {
     if (!this.course) return;
 
     this.course.listLesson.forEach((lesson) => {
-      lesson.materials.forEach((material) => {
+      lesson.contents.forEach((material) => {
         const materialData: ITableMaterialData = {
           name: material.title,
           lesson: lesson.index,

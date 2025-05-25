@@ -207,6 +207,7 @@ import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component'
 import { MyLearningComponent } from './pages/my-learning/my-learning.component';
 import { UserDetailsComponent } from './pages/user-manage/user-details/user-details.component';
 import { AdminRevenueComponent } from './pages/admin-revenue/admin-revenue.component';
+import { Chest3dComponent } from './components/chest-3d/chest-3d.component';
 
 export const AppDeclarations = [
   AppComponent,
@@ -375,7 +376,8 @@ export const AppDeclarations = [
   LeaderboardComponent,
   MyLearningComponent,
   UserDetailsComponent,
-  AdminRevenueComponent
+  AdminRevenueComponent,
+  Chest3dComponent
 ];
 export const NGIcons = [
   EnterOutline,

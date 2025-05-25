@@ -102,7 +102,6 @@ export default class Character {
   updateFoxSizeLevel(level: number) {
     const levelConfig =
       foxLevelConfigs[level - 1] ?? foxLevelConfigs[foxLevelConfigs.length - 1];
-    console.log(levelConfig);
     this.fox.scale.set(levelConfig, levelConfig, levelConfig);
   }
 

@@ -32,6 +32,7 @@ import {
   IPackageConfig,
 } from '../../shared/interfaces/others.interfaces';
 import { onConvertObjectToQueryParams } from '../utils/data.utils';
+import { IUpdatedMaterialProgress } from '../../shared/interfaces/course.interfaces';
 
 @Injectable({
   providedIn: 'root',
@@ -243,12 +244,12 @@ export class UserService {
   }
 
   updateUserLearningProgress(
-    materialId: string,
+    ContentId: string,
     lessonId: string,
     time: number | null
   ) {
-    return this.http.update(endPoints.userProgress, {
-      materialId,
+    return this.http.update<IUpdatedMaterialProgress>(endPoints.userProgress, {
+      ContentId,
       lessonId,
       time,
     });

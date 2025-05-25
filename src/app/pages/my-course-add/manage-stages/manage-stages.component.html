@@ -18,7 +18,7 @@
 </div>
 
 <div class="stage-missions-ctn" *ngIf="isDropDown && lesson">
-  <div class="mission" *ngFor="let material of lesson.materials; let i = index">
+  <div class="mission" *ngFor="let material of lesson.contents; let i = index">
     <div style="display: flex; justify-content: space-between; width: 100%">
       <div class="mission-info">
         <fa-icon [icon]="onGetIcon(material.type)"></fa-icon>

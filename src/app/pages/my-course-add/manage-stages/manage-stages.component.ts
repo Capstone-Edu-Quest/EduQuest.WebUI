@@ -63,10 +63,10 @@ export class ManageStagesComponent implements OnInit {
   onRemoveMaterial(materialId: string) {
     if (!this.lesson) return;
 
-    const newMaterials = this.lesson.materials.filter(
+    const newMaterials = this.lesson.contents.filter(
       (m) => m.id !== materialId
     );
-    this.onEdit.emit({ ...this.lesson, materials: newMaterials });
+    this.onEdit.emit({ ...this.lesson, contents: newMaterials });
   }
 
   onAddMaterials(material: any) {
@@ -119,7 +119,7 @@ export class ManageStagesComponent implements OnInit {
   }
 
   filterBySearch() {
-    const ids = this.exemptLessons.flatMap((l) => l.materials).map(m => m.id);
+    const ids = this.exemptLessons.flatMap((l) => l.contents).map(m => m.id);
     const filterList = this.materialsList
       .filter((m) =>
         m.title.toUpperCase().includes(this.searchText.toUpperCase())
@@ -154,8 +154,8 @@ export class ManageStagesComponent implements OnInit {
 
     this.onEdit.emit({
       ...this.lesson,
-      materials: [
-        ...this.lesson.materials,
+      contents: [
+        ...this.lesson.contents,
         ...newMaterials,
       ] as IMaterialOverview[],
     });

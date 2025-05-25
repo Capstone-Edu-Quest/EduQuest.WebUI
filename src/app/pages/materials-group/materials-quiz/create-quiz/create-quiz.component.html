@@ -72,7 +72,7 @@
       <!-- Answers container -->
       <div class="answers">
         <!-- Each Answer -->
-        <div class="answer" *ngFor="let a of q.answers; let z = index">
+        <div class="answer" *ngFor="let a of q.options; let z = index">
           <!-- Icon check -> set correct state -->
           <fa-icon
             [ngClass]="{
@@ -84,7 +84,7 @@
           ></fa-icon>
           <!-- Answer -->
           <div class="id">{{ getQuestionAlphabet(z) }}.</div>
-          <input [(ngModel)]="q.answers[z].answerContent" />
+          <input [(ngModel)]="q.options[z].answerContent" />
           <!-- Remove answer btn -->
           <fa-icon
             class="remove"

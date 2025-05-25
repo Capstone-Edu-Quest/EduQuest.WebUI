@@ -9,6 +9,7 @@ import {
   ICourse,
   ILearningMaterial,
   IMarkedAssignment,
+  IShardAndLevel,
   ISubmitAssignment,
   ISubmitQuizReq,
   ISubmittedQuestResponse,
@@ -36,6 +37,9 @@ import { TranslateService } from '@ngx-translate/core';
 export class StudyingMaterialComponent implements OnInit {
   @Input('courseDetails') courseDetails!: ICourse;
   @Input('viewingMaterial') viewingMaterial: ILearningMaterial | null = null;
+  @Output('onHandleShardAndLevelAnimation')
+  onHandleShardAndLevelAnimation: EventEmitter<IShardAndLevel> =
+    new EventEmitter<IShardAndLevel>();
   @Output('onFinish') onFinish: EventEmitter<boolean> =
     new EventEmitter<boolean>();
 
@@ -84,7 +88,7 @@ export class StudyingMaterialComponent implements OnInit {
 
   getCurrentMaterialOverview() {
     for (const lesson of this.courseDetails.listLesson) {
-      const material = lesson.materials.find(
+      const material = lesson.contents.find(
         (m) => m.id === this.viewingMaterial?.id
       );
       if (material) {
@@ -99,7 +103,7 @@ export class StudyingMaterialComponent implements OnInit {
     let lessonId = null;
 
     this.courseDetails.listLesson.forEach((l) => {
-      const index = l.materials.findIndex(
+      const index = l.contents.findIndex(
         (m) => m.id === this.viewingMaterial?.id
       );
       if (index !== -1) {
@@ -221,7 +225,7 @@ export class StudyingMaterialComponent implements OnInit {
     let lessonId = null;
 
     this.courseDetails.listLesson.forEach((l) => {
-      const index = l.materials.findIndex(
+      const index = l.contents.findIndex(
         (m) => m.id === this.viewingMaterial?.id
       );
       if (index !== -1) {
@@ -272,6 +276,20 @@ export class StudyingMaterialComponent implements OnInit {
     this.user
       .updateUserLearningProgress(this.viewingMaterial.id, lessonId, null)
       .subscribe((res) => {
+        if (!res) {
+          this.message.addMessage(
+            'error',
+            this.translate.instant('MESSAGE.FAIL_UPDATE_PROGRESS')
+          );
+          return;
+        }
+
+        const { addedItemShard, itemShards, levelInfo } = res as any;
+        this.onHandleShardAndLevelAnimation.emit({
+          addedItemShard,
+          itemShards,
+          levelInfo,
+        });
         this.isFinished = true;
         this.onFinish.emit(false);
       });
@@ -282,7 +300,7 @@ export class StudyingMaterialComponent implements OnInit {
     const lessonId = this.getLessonIdByMaterialId();
 
     let arr: any[] = [];
-    this.courseDetails.listLesson.forEach((ls) => arr.push(...ls.materials));
+    this.courseDetails.listLesson.forEach((ls) => arr.push(...ls.contents));
 
     if (
       (this.viewingMaterial?.type as any) !== 'Document' ||
@@ -301,6 +319,21 @@ export class StudyingMaterialComponent implements OnInit {
         this.user
           .updateUserLearningProgress(materialId, lessonId, null)
           .subscribe((res) => {
+            if (!res) {
+              this.message.addMessage(
+                'error',
+                this.translate.instant('MESSAGE.FAIL_UPDATE_PROGRESS')
+              );
+              return;
+            }
+            
+            const { addedItemShard, itemShards, levelInfo } = res as any;
+            this.onHandleShardAndLevelAnimation.emit({
+              addedItemShard,
+              itemShards,
+              levelInfo,
+            });
+            
             this.isFinished = true;
             this.onFinish.emit(false);
           });
@@ -311,7 +344,7 @@ export class StudyingMaterialComponent implements OnInit {
   getLessonIdByMaterialId() {
     let lessonId = null;
     this.courseDetails.listLesson.forEach((l) => {
-      const index = l.materials.findIndex(
+      const index = l.contents.findIndex(
         (m) => m.id === this.viewingMaterial?.id
       );
       if (index !== -1) {
@@ -328,7 +361,7 @@ export class StudyingMaterialComponent implements OnInit {
     let lessonId = null;
 
     this.courseDetails.listLesson.forEach((l) => {
-      const index = l.materials.findIndex(
+      const index = l.contents.findIndex(
         (m) => m.id === this.viewingMaterial?.id
       );
       if (index !== -1) {

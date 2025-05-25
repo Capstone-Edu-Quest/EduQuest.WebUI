@@ -207,7 +207,7 @@ export class CoursesService {
 
   getMaterialById(materialId: string) {
     return this.http.get<ILearningMaterial>(
-      endPoints.getMaterialDetails + `?materialId=${materialId}`
+      endPoints.getMaterialDetails + `?lessonContentId=${materialId}`
     );
   }
 

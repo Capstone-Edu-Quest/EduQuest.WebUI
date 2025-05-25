@@ -3,6 +3,7 @@ import {
   ILearningMaterial,
   IMaterial,
   IMaterialOverview,
+  IShardAndLevel,
   IStageMission,
 } from '../../shared/interfaces/course.interfaces';
 import {
@@ -67,6 +68,11 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
   totalLessons = 0;
   currentLesson = 0;
 
+  isShowChest = false;
+
+  isShowAddedExp = false;
+  addedExp = 0;
+
   currentMaterials: IMaterialOverview[] = [];
 
   constructor(
@@ -123,9 +129,16 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  onAddExp() {
+    setTimeout(() => {
+      this.addedExp = 20;
+    }, 1000);
+  }
+
   ngOnInit(): void {
+    this.onAddExp();
     for (let i = 0; i < this.courseDetails.listLesson.length; i++) {
-      const currentLesson = this.courseDetails.listLesson[i].materials.some(
+      const currentLesson = this.courseDetails.listLesson[i].contents.some(
         (m) => m.status === MissionStatus.CURRENT
       );
 
@@ -148,7 +161,6 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
           this.viewingMaterial = null;
           return;
         }
-
         this.viewingMaterial = res.payload;
       });
     });
@@ -156,7 +168,7 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
 
   initMaterials() {
     this.currentMaterials =
-      this.courseDetails.listLesson[this.currentLesson].materials;
+      this.courseDetails.listLesson[this.currentLesson].contents;
     this.totalLessons = this.courseDetails.listLesson.length;
 
     this.initRow();
@@ -237,18 +249,18 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
       nextMaterialId = null;
 
     const currentLesson = this.courseDetails.listLesson[this.currentLesson];
-    const currentMaterialIndex = currentLesson.materials.findIndex(
+    const currentMaterialIndex = currentLesson.contents.findIndex(
       (m) => m.id === currentMaterialId
     );
 
-    this.courseDetails.listLesson[this.currentLesson].materials[
+    this.courseDetails.listLesson[this.currentLesson].contents[
       currentMaterialIndex
     ].status = MissionStatus.DONE;
 
     // Last material in lesson
-    if (currentMaterialIndex === currentLesson.materials.length - 1) {
+    if (currentMaterialIndex === currentLesson.contents.length - 1) {
       const nextLesson = this.courseDetails.listLesson[this.currentLesson + 1];
-      const nextMaterial = nextLesson?.materials[0];
+      const nextMaterial = nextLesson?.contents[0];
 
       if (nextLesson && nextMaterial) {
         nextLessonIndex = nextLesson.index;
@@ -257,7 +269,7 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
         if (nextMaterial.status === MissionStatus.LOCKED) {
           this.courseDetails.listLesson[
             this.currentLesson + 1
-          ].materials[0].status = MissionStatus.CURRENT;
+          ].contents[0].status = MissionStatus.CURRENT;
         }
       } else {
         nextLessonIndex = -1;
@@ -265,13 +277,13 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
       }
     } else {
       nextLessonIndex = currentLesson.index;
-      nextMaterialId = currentLesson.materials[currentMaterialIndex + 1].id;
+      nextMaterialId = currentLesson.contents[currentMaterialIndex + 1].id;
 
       if (
-        currentLesson.materials[currentMaterialIndex + 1].status ===
+        currentLesson.contents[currentMaterialIndex + 1].status ===
         MissionStatus.LOCKED
       ) {
-        currentLesson.materials[currentMaterialIndex + 1].status =
+        currentLesson.contents[currentMaterialIndex + 1].status =
           MissionStatus.CURRENT;
       }
     }
@@ -356,5 +368,9 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
           this.router.navigate(['/']);
         });
     });
+  }
+
+  onHandleShardAndLevelAnimation(data: IShardAndLevel) {
+    console.log(data);
   }
 }

@@ -112,7 +112,7 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
       this.material.quiz.questions.push({
         questionTitle: question ?? '',
         multipleAnswers: false,
-        answers: Object.entries(answers).map(([key, value], index) => {
+        options: Object.entries(answers).map(([key, value], index) => {
           return {
             answerContent: (value as string) ?? '',
             isCorrect: index === correctAnswerNumber - 1,
@@ -127,7 +127,7 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
     this.material.quiz.questions.push({
       questionTitle: '',
       multipleAnswers: false,
-      answers: [
+      options: [
         {
           answerContent: '',
           isCorrect: false,
@@ -149,7 +149,7 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
   onSetCorrectAnswer(questionIndex: number, answerIndex: number) {
     if (!this.material.quiz) return;
 
-    this.material.quiz.questions[questionIndex].answers.forEach(
+    this.material.quiz.questions[questionIndex].options.forEach(
       (answer, idx) => {
         answer.isCorrect = idx === answerIndex;
       }
@@ -162,7 +162,7 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
 
   onAddAnswer(questionIndex: number) {
     if (!this.material.quiz) return;
-    this.material.quiz.questions[questionIndex].answers.push({
+    this.material.quiz.questions[questionIndex].options.push({
       answerContent: '',
       isCorrect: false,
     });
@@ -170,7 +170,7 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
 
   onRemoveAnswer(questionIndex: number, answerIndex: number) {
     if (!this.material.quiz) return;
-    this.material.quiz.questions[questionIndex].answers.splice(answerIndex, 1);
+    this.material.quiz.questions[questionIndex].options.splice(answerIndex, 1);
   }
 
   onCancel() {
@@ -237,7 +237,7 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
     for (let i = 0; i < this.material.quiz.questions.length; i++) {
       const q = this.material.quiz.questions[i];
 
-      if (q.answers.length < 2) {
+      if (q.options.length < 2) {
         this.message.addMessage(
           'error',
           this.translate.instant('MESSAGE.NEED_ALEAST_ANSWERS', { value: 2 })
@@ -254,8 +254,8 @@ export class CreateQuizComponent implements OnInit, OnDestroy {
         return;
       }
 
-      for (let j = 0; j < q.answers.length; j++) {
-        const a = q.answers[j];
+      for (let j = 0; j < q.options.length; j++) {
+        const a = q.options[j];
         if (a.answerContent.trim() === '') {
           this.message.addMessage(
             'error',

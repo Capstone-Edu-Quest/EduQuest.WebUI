@@ -102,7 +102,7 @@ export interface ICourseCreate {
   tagIds: string[];
   requirementList: string[];
   lessonCourse: ICourseCreateLesson[];
-  isPublic: boolean,
+  isPublic: boolean;
 }
 
 export interface ICourseCreateLesson {
@@ -325,7 +325,7 @@ export interface ILessonOverview {
   index: number;
   name: string;
   totalTime: number;
-  materials: IMaterialOverview[];
+  contents: IMaterialOverview[];
 }
 
 export interface IMaterialOverview {
@@ -437,7 +437,7 @@ interface questions {
   id?: string;
   questionTitle: string;
   multipleAnswers: boolean;
-  answers: answers[];
+  options: answers[];
 }
 
 interface answers {
@@ -546,4 +546,30 @@ export interface IMarkAssignmentRequest {
   assignmentAttemptId: string;
   grade: number;
   comment: string;
+}
+
+export interface IUpdatedMaterialProgress {
+  id: string;
+  userId: string;
+  courseId: string;
+  isActive: boolean;
+  currentLessonId: string;
+  currentContentIndex: number;
+  totalTime: number;
+  progressPercentage: number;
+  addedItemShard: number | null;
+  itemShards: {};
+  levelInfo: {
+    newLevel: number | null;
+    expAdded: number;
+  };
+}
+
+export interface IShardAndLevel {
+  addedItemShard: number | null;
+  itemShards: {};
+  levelInfo: {
+    newLevel: number | null;
+    expAdded: number;
+  };
 }

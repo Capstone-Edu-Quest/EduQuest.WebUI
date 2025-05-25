@@ -34,8 +34,8 @@ export const endPoints = {
   learnerOverview: 'course/learnerOverview',
   learnerDetails: 'course/learnerDetail',
 
-  material: 'material',
-  getMaterialDetails: 'material/materialById',
+  material: 'lessonContent',
+  getMaterialDetails: 'lessonContent/byId',
   uploadVideo: 'material/uploadVideo',
   uploadImage: 'material/uploadImage',
 
