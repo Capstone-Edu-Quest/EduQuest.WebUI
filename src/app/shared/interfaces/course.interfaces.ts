@@ -110,7 +110,10 @@ export interface ICourseCreateLesson {
   id: string;
   name: string;
   description: string;
-  contentIds: string[];
+  contentIds: {
+    type: MaterialTypeEnum;
+    id: string;
+  }[];
 }
 
 export interface ICourseUpdate extends ICourseCreate {

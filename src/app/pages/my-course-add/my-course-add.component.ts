@@ -140,7 +140,10 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
               name: l.name,
               index: l.index,
               description: '',
-              contentIds: l.contents.map((m) => m.id),
+              contentIds: l.contents.map((m) => ({
+                type: m.type,
+                id: m.id
+              } as any)),
             };
           }),
         };
@@ -150,10 +153,13 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
         );
 
         this.oldLessonMaterials = this.courseInfo.lessonCourse.map(
-          (c) => c.contentIds
+          (c) => ({
+            type: c.contentIds[0].type,
+            id: c.contentIds[0].id
+          } as any)
         );
 
-        console.log(this.oldLessonMaterials);
+        console.log(this.oldLessonMaterials, this.courseInfo);
       }
     );
   }
@@ -345,8 +351,13 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
           name: lesson.name,
           index,
           description: '',
-          contentIds: lesson.contents.map((material) => material.id),
-        };
+          contentIds: lesson.contents.map((material) => (
+            {
+              type: material.type,
+              id: material.id
+            }
+          )),
+        } as any;
       }),
     };
 

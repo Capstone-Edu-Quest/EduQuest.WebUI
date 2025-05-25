@@ -284,7 +284,7 @@ export class StudyingMaterialComponent implements OnInit {
           return;
         }
 
-        const { addedItemShard, itemShards, levelInfo } = res as any;
+        const { addedItemShard, itemShards, levelInfo } = res.payload as any;
         this.onHandleShardAndLevelAnimation.emit({
           addedItemShard,
           itemShards,
@@ -327,7 +327,9 @@ export class StudyingMaterialComponent implements OnInit {
               return;
             }
             
-            const { addedItemShard, itemShards, levelInfo } = res as any;
+            console.log(res)
+            const { addedItemShard, itemShards, levelInfo } = res.payload as any;
+
             this.onHandleShardAndLevelAnimation.emit({
               addedItemShard,
               itemShards,
