@@ -1,9 +1,9 @@
 <div class="instructor-profile" *ngIf="user">
   <div class="left">
     <app-avatar-by-name [name]="user.username" [size]="'200px'" />
-    <app-button (click)="onSendMessage()" *ngIf="currentUser && user.id !== currentUser?.id">{{
+    <!-- <app-button (click)="onSendMessage()" *ngIf="currentUser && user.id !== currentUser?.id">{{
       "BUTTON.SEND_MESSAGE" | translate
-    }}</app-button>
+    }}</app-button> -->
   </div>
 
   <div class="right">
