@@ -107,7 +107,7 @@ export class HttpService {
           }
           return of(response); // Continue the observable chain
         }),
-        catchError((error) => of(this.handleHttpError(error?.error))), // Handle error and return undefined
+        catchError((error) => of(this.handleHttpError(error))), // Handle error and return undefined
         finalize(() => {
           this.loading.removeLoading();
         })
@@ -153,7 +153,7 @@ export class HttpService {
   }
 
   private handleUserError<TPayload>(payload: BaseReponse<TPayload>) {
-    if (payload.isError && payload.errors.statusCode !== 404) {
+    if (payload.isError) {
       this.message.addMessage(
         'error',
         this.translate.instant(

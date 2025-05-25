@@ -1,52 +1,52 @@
 export const lightTheme = {
-  '--backdrop': '#F7F7F7',
-  '--background': '#FFFFFF',
-  '--primary-bg': '#FDF4F1',
-  '--secondary-bg': '#F6ECE9',
-  '--tertiary-bg': '#FFECE6',
-  '--quaternary-bg': '#FFCBA4',
-  '--quaternary-bg-04': 'rgba(249, 117, 22, 0.1)',
-  '--quaternary-bg-015': 'rgba(249, 117, 22, 0.05)',
-
   '--brand': '#F97316',
-  '--brand-01': 'rgba(249, 117, 22, 0.1)',
-  '--brand-02': 'rgba(249, 117, 22, 0.2)',
-  '--brand-05': 'rgba(249, 117, 22, 0.5)',
-  '--mask': 'rgba(0, 0, 0, 0.05)',
-  '--mask-hover': 'rgba(0, 0, 0, 0.1)',
+  '--brand-01': 'rgba(249, 115, 22, 0.08)',
+  '--brand-02': 'rgba(249, 115, 22, 0.16)',
+  '--brand-05': 'rgba(249, 115, 22, 0.5)',
+  '--brand-hover': '#FF7C1A',
+  '--brand-focused': '#d6742b',
+  '--brand-light': '#e89351',
 
-  '--brand-light': '#cf9467',
-  '--brand-hover': '#FF8805',
-  '--brand-focused': '#F44900',
-  '--disabled-text': '#ded0c5',
+  '--background': '#FFFCFA',
+  '--backdrop': '#F8F6F4',
+  '--primary-bg': '#FFF5EF',
+  '--secondary-bg': '#FFEFE7',
+  '--tertiary-bg': '#FFE5D7',
+  '--quaternary-bg': '#FFD7BA',
+  '--quaternary-bg-04': 'rgba(255, 183, 133, 0.08)',
+  '--quaternary-bg-015': 'rgba(255, 183, 133, 0.03)',
 
-  '--primary-text': ' #20232A',
-  '--secondary-text': ' #4F5B6E',
-  '--tertiary-text': ' #6D7686',
-  '--quaternary-text': ' #9CA3AF',
+  '--mask': 'rgba(10, 10, 10, 0.03)',
+  '--mask-hover': 'rgba(10, 10, 10, 0.06)',
+  '--disabled-text': '#C8BEB5',
 
-  '--success': '#65f098',
-  '--warning': '#fac873',
-  '--alert': '#f07575',
-  '--error': '#d44a4a',
-  '--info': '#618ff2',
+  '--primary-text': '#1E1E1E',
+  '--secondary-text': '#3E3E3E',
+  '--tertiary-text': '#686868',
+  '--quaternary-text': '#A6A6A6',
 
-  '--stage-surface-current': '#fab27a',
-  '--stage-body-current': '#e8ae82',
-  '--stage-surface-locked': '#d4d4d4',
-  '--stage-body-locked': '#ababab',
-  '--stage-surface-done': '#65e602',
-  '--stage-body-done': '#55c402',
-  '--stage-shadow': '#6b6b6b',
+  '--success': '#42C48A',
+  '--warning': '#FFD160',
+  '--alert': '#F57F7F',
+  '--error': '#D64545',
+  '--info': '#5F9FF8',
 
-  '--pie-chart-warm': '#FF8805', // Vibrant Orange (Brand Hover)
-  '--pie-chart-soft-peach': '#EBAA60', // Soft Peach (Balanced warmth)
-  '--pie-chart-muted-amber': '#F29955', // Warm Amber (Stage Surface Current)
-  '--pie-chart-warm-copper': '#D57149', // Muted Copper (Rich earthy tone)
-  '--pie-chart-earthy-brown': '#A56A54', // Earthy Brown (Softened depth)
-  '--pie-chart-muted-teal': '#6B8578', // Muted Teal (Gentle contrast)
-  '--pie-chart-soft-cyan-teal': '#4D7272', // Soft Cyan-Teal (Subtle cooling)
-  '--pie-chart-gentle-blue-gray': '#456789', // Gentle Blue-Gray (Soothing touch)
-  '--pie-chart-muted-gray': '#5E646E', // Muted Gray (Neutral anchor)
-  '--pie-chart-desaturated-lavender': '#84787E', // Desaturated Lavender (Soft pastel balance)
+  '--stage-surface-current': '#FFC89A',
+  '--stage-body-current': '#FFB178',
+  '--stage-surface-locked': '#E5E5E5',
+  '--stage-body-locked': '#C1C1C1',
+  '--stage-surface-done': '#A2E635',
+  '--stage-body-done': '#84D028',
+  '--stage-shadow': '#CCC5BD',
+
+  '--pie-chart-warm': '#FF7C1A',
+  '--pie-chart-soft-peach': '#FFD2B2',
+  '--pie-chart-muted-amber': '#F3A763',
+  '--pie-chart-warm-copper': '#CD7B4C',
+  '--pie-chart-earthy-brown': '#A6674D',
+  '--pie-chart-muted-teal': '#7B9C92',
+  '--pie-chart-soft-cyan-teal': '#5D8982',
+  '--pie-chart-gentle-blue-gray': '#6D8591',
+  '--pie-chart-muted-gray': '#999999',
+  '--pie-chart-desaturated-lavender': '#C2B4C3',
 };

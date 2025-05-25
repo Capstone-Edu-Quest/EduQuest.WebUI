@@ -12,12 +12,12 @@ import { BehaviorSubject } from 'rxjs';
 export class ThemeService {
   public readonly themes = [
     {
-      key: ThemeEnum.DARK,
-      theme: darkTheme,
-    },
-    {
       key: ThemeEnum.LIGHT,
       theme: lightTheme,
+    },
+    {
+      key: ThemeEnum.DARK,
+      theme: darkTheme,
     },
   ];
 
