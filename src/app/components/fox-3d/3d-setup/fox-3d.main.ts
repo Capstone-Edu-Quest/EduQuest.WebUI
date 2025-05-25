@@ -38,6 +38,10 @@ export default class Fox3DMain {
     const environment = new Enviroment(this.scene);
   }
 
+  updateFoxSizeLevel(level: number) {
+    this.character.updateFoxSizeLevel(level);
+  }
+
   update(delta: number) {
     this.character?.update(delta);
   }

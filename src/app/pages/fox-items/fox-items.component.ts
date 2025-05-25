@@ -60,7 +60,7 @@ export class FoxItemsComponent implements OnInit, OnDestroy {
   }
 
   changeItem(itemId: string | undefined) {
-    if (!itemId || !this.allowedItemsId.includes(itemId)) return;
+    if (!itemId ) return;
 
     this.FoxService.equipItem(itemId);
   }

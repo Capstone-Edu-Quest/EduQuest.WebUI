@@ -3,6 +3,8 @@ import {
   IEquipmentPosition,
 } from '../../../shared/interfaces/three.interfaces';
 
+export const foxLevelConfigs = [0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1, 1.1, 1.2];
+
 export enum bonePosition {
   foxName = 'metarig',
   head = 'Head',
@@ -174,7 +176,7 @@ export const FoxItems: IEquipmentItem[] = [
     position: 'leftHand',
     translation: { x: 0, y: 0, z: 0 },
     scale: { x: 0.7, y: 0.7, z: 0.7 },
-    rotation: { x: Math.PI/2, y: 0, z: 0.6 },
+    rotation: { x: Math.PI / 2, y: 0, z: 0.6 },
   },
   {
     id: 'goblin-shield',

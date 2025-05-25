@@ -1,3 +1,4 @@
+import { UserService } from './../../core/services/user.service';
 import { FoxService } from './../../core/services/fox.service';
 import {
   Component,
@@ -10,6 +11,7 @@ import * as THREE from 'three';
 import Fox3DMain from './3d-setup/fox-3d.main';
 import { GUI } from 'dat.gui';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import { foxLevelConfigs } from './3d-setup/fox-3d.config';
 
 @Component({
   selector: 'app-fox-3d',
@@ -26,7 +28,7 @@ export class Fox3dComponent implements OnInit, OnDestroy {
   pendingItemsId: string[] = [];
   currentLoading: any[] = [];
 
-  constructor(private FoxService: FoxService) {}
+  constructor(private FoxService: FoxService, private UserService: UserService) {}
 
   ngOnInit() {
     const triggerTimeout = setTimeout(() => {
@@ -50,6 +52,11 @@ export class Fox3dComponent implements OnInit, OnDestroy {
         this.pendingItemsId.push(currentItem[key]?.id as string);
       }
     });
+  }
+
+  handleFoxLoaded(isDestroy?: boolean) {
+    this.FoxService.triggerFoxLoaded(isDestroy);
+    this.fox.updateFoxSizeLevel(this.UserService.user$?.value?.statistic?.level ?? 1);
   }
 
   addLoadingModel(f: Function) {
@@ -130,7 +137,7 @@ export class Fox3dComponent implements OnInit, OnDestroy {
       this.renderer,
       this.FoxService.syncItem,
       this.pendingItemsId,
-      this.FoxService.triggerFoxLoaded.bind(this.FoxService),
+      this.handleFoxLoaded.bind(this),
       () => this.addLoadingModel
     );
     await this.fox.init();

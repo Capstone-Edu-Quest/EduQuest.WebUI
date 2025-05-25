@@ -21,6 +21,7 @@ import {
   FoxItems,
   bonePosition,
   defaultEquipmentSlot,
+  foxLevelConfigs,
   grassData,
   grassStonePositions,
   stoneData,
@@ -98,6 +99,13 @@ export default class Character {
     }
   }
 
+  updateFoxSizeLevel(level: number) {
+    const levelConfig =
+      foxLevelConfigs[level - 1] ?? foxLevelConfigs[foxLevelConfigs.length - 1];
+    console.log(levelConfig);
+    this.fox.scale.set(levelConfig, levelConfig, levelConfig);
+  }
+
   async init() {
     this.loadingElement = document.getElementById(
       'three-loading'
@@ -109,6 +117,7 @@ export default class Character {
       this.mixer.clipAction(gltf.animations[0]).play();
 
       this.fox.position.set(0, 0.2, 0);
+      this.fox.scale.set(0, 0, 0);
       this.scene.add(this.fox);
 
       this.updateLoading();
