@@ -110,7 +110,7 @@ export interface ICourseCreateLesson {
   id: string;
   name: string;
   description: string;
-  materialIds: string[];
+  contentIds: string[];
 }
 
 export interface ICourseUpdate extends ICourseCreate {
@@ -121,7 +121,7 @@ export interface ICourseUpdate extends ICourseCreate {
 export interface IModifyStage {
   name: string;
   description: string;
-  materialsId: string[];
+  contentIds: string[];
 }
 
 export interface ICourseTagData {

@@ -140,7 +140,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
               name: l.name,
               index: l.index,
               description: '',
-              materialIds: l.contents.map((m) => m.id),
+              contentIds: l.contents.map((m) => m.id),
             };
           }),
         };
@@ -150,7 +150,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
         );
 
         this.oldLessonMaterials = this.courseInfo.lessonCourse.map(
-          (c) => c.materialIds
+          (c) => c.contentIds
         );
 
         console.log(this.oldLessonMaterials);
@@ -345,7 +345,7 @@ export class MyCourseAddComponent implements OnInit, OnDestroy {
           name: lesson.name,
           index,
           description: '',
-          materialIds: lesson.contents.map((material) => material.id),
+          contentIds: lesson.contents.map((material) => material.id),
         };
       }),
     };
