@@ -252,6 +252,15 @@ export class StudyingMaterialComponent implements OnInit {
         }
 
         this.quizResult = res.payload;
+        if (res.payload.isPassed) {
+          const { addedItemShard, itemShards, levelInfo } = res.payload as any;
+
+          this.onHandleShardAndLevelAnimation.emit({
+            addedItemShard,
+            itemShards,
+            levelInfo,
+          });
+        }
       }
     );
   }
@@ -326,16 +335,16 @@ export class StudyingMaterialComponent implements OnInit {
               );
               return;
             }
-            
-            console.log(res)
-            const { addedItemShard, itemShards, levelInfo } = res.payload as any;
+
+            const { addedItemShard, itemShards, levelInfo } =
+              res.payload as any;
 
             this.onHandleShardAndLevelAnimation.emit({
               addedItemShard,
               itemShards,
               levelInfo,
             });
-            
+
             this.isFinished = true;
             this.onFinish.emit(false);
           });
@@ -393,6 +402,14 @@ export class StudyingMaterialComponent implements OnInit {
             'success',
             this.translate.instant('MESSAGE.SUBMITTED_SUCCESSFULLY')
           );
+
+          const { addedItemShard, itemShards, levelInfo } = res.payload as any;
+
+          this.onHandleShardAndLevelAnimation.emit({
+            addedItemShard,
+            itemShards,
+            levelInfo,
+          });
         }
       }
     );
