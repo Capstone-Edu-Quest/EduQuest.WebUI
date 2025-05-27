@@ -1,22 +1,70 @@
 <div class="animated" *ngIf="isShowChest">
-  <app-chest-3d (onFinished)="isShowChest = false"></app-chest-3d>
+  <app-chest-3d (onFinished)="onFinishChest()"></app-chest-3d>
+</div>
+
+<div
+  class="reward-screen animated level-ctn"
+  *ngIf="showRewardScreen === 'shard'"
+>
+  <div class="title" data-aos="fade-up">
+    {{ "LABEL.CONGRATULATION" | translate }}
+  </div>
+  <div class="description" data-aos="fade-up" data-aos-delay="100">
+    {{ "LABEL.REWARD_LESSON_PEICES" | translate }}
+  </div>
+
+  <div
+    style="
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-bottom: 20px;
+      font-size: 14px;
+    "
+    data-aos="fade-up"
+    data-aos-delay="200"
+  >
+    + {{ addedShard }}
+    <app-shard [shardName]="courseDetails.listTag[0].name"></app-shard>
+    {{ courseDetails.listTag[0].name }} shards
+  </div>
+
+  <div style="width: 400px" data-aos="fade-up" data-aos-delay="500">
+    <app-button type="primary" (click)="onHandleDoneShard()">{{
+      "BUTTON.CONTINUE" | translate
+    }}</app-button>
+  </div>
 </div>
 
 <div class="animated level-ctn" *ngIf="isShowAddedExp">
-  <div class="title" data-aos="fade-up">{{ "LABEL.CONGRATULATION" | translate }}</div>
+  <div class="title" data-aos="fade-up">
+    {{ "LABEL.CONGRATULATION" | translate }}
+  </div>
   <div class="description" data-aos="fade-up" data-aos-delay="100">
     {{ "LABEL.YOU_HAVE_COMPLETED_THE_LESSON_MATERIAL" | translate }}
   </div>
 
   <div class="progress" data-aos="fade" data-aos-delay="400">
     <div class="progress-bar-ctn">
-      <div class="level">{{ "LABEL.LEVEL" | translate : { level: 1 } }}</div>
+      <div class="level">
+        {{ "LABEL.LEVEL" | translate : { level: userInfo?.statistic?.level } }}
+      </div>
       <div
         class="progress-bar text-gradient"
-        [ngStyle]="{ width: 30 + addedExp + '%' }"
+        [ngStyle]="{ width: userInfo?.statistic?.exp + '%' }"
       ></div>
     </div>
-    <div class="exp-gain">+ 30 Exp</div>
+    <div class="exp-gain">+ {{ addedExp }} Exp</div>
+  </div>
+
+  <div
+    style="width: 400px; margin-top: 30px"
+    data-aos="fade-up"
+    data-aos-delay="500"
+  >
+    <app-button type="primary" (click)="onHandleDoneExp()">{{
+      "BUTTON.CONTINUE" | translate
+    }}</app-button>
   </div>
 </div>
 

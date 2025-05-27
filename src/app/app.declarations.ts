@@ -208,7 +208,7 @@ import { MyLearningComponent } from './pages/my-learning/my-learning.component';
 import { UserDetailsComponent } from './pages/user-manage/user-details/user-details.component';
 import { AdminRevenueComponent } from './pages/admin-revenue/admin-revenue.component';
 import { Chest3dComponent } from './components/chest-3d/chest-3d.component';
-
+import { ShardComponent } from './components/shard/shard.component';
 export const AppDeclarations = [
   AppComponent,
   NavbarComponent,
@@ -377,7 +377,8 @@ export const AppDeclarations = [
   MyLearningComponent,
   UserDetailsComponent,
   AdminRevenueComponent,
-  Chest3dComponent
+  Chest3dComponent,
+  ShardComponent
 ];
 export const NGIcons = [
   EnterOutline,

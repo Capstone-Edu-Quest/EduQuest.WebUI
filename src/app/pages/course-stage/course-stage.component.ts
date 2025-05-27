@@ -1,10 +1,8 @@
 import {
   ICourse,
   ILearningMaterial,
-  IMaterial,
   IMaterialOverview,
   IShardAndLevel,
-  IStageMission,
 } from '../../shared/interfaces/course.interfaces';
 import {
   AfterViewInit,
@@ -40,6 +38,7 @@ import { MessageService } from '../../core/services/message.service';
 import { TranslateService } from '@ngx-translate/core';
 import { PaymentService } from '../../core/services/payment.service';
 import { ITransactionFilterParams } from '../../shared/interfaces/transactions.interfaces';
+import { IUser } from '../../shared/interfaces/user.interfaces';
 
 @Component({
   selector: 'app-course-stage',
@@ -74,6 +73,11 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
   addedExp = 0;
 
   currentMaterials: IMaterialOverview[] = [];
+  fnQueue: Function[] = [];
+  userInfo: IUser | null = null;
+
+  showRewardScreen: null | 'level' | 'shard' = null;
+  addedShard = 4;
 
   constructor(
     private route: ActivatedRoute,
@@ -129,14 +133,7 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onAddExp() {
-    setTimeout(() => {
-      this.addedExp = 20;
-    }, 1000);
-  }
-
   ngOnInit(): void {
-    this.onAddExp();
     for (let i = 0; i < this.courseDetails.listLesson.length; i++) {
       const currentLesson = this.courseDetails.listLesson[i].contents.some(
         (m) => m.status === MissionStatus.CURRENT
@@ -163,6 +160,10 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
         }
         this.viewingMaterial = res.payload;
       });
+    });
+
+    this.user.user$.subscribe((user) => {
+      this.userInfo = user;
     });
   }
 
@@ -371,6 +372,81 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
   }
 
   onHandleShardAndLevelAnimation(data: IShardAndLevel) {
-    console.log(data);
+    if (data.levelInfo) {
+      this.fnQueue.push(() => {
+        this.onHandleRewardLevel({
+          expAdded: data.levelInfo.expAdded,
+          newLevel: data.levelInfo.newLevel ?? (null as any),
+        });
+      });
+    }
+
+    if (data.addedItemShard) {
+      this.fnQueue.push(() => {
+        this.onHandleRewardShard(data.addedItemShard);
+      });
+    }
+
+    this.onHandleQueue();
+  }
+
+  onHandleRewardLevel({
+    expAdded,
+    newLevel,
+  }: {
+    expAdded: number;
+    newLevel: number | null;
+  }) {
+    console.log(expAdded, newLevel);
+
+    if (expAdded > 0) {
+      this.isShowAddedExp = true;
+      setTimeout(() => {
+        // this.isShowAddedExp = false;
+        if (!this.userInfo) return;
+        this.user.updateUser(
+          {
+            ...this.userInfo,
+            statistic: {
+              ...(this.userInfo?.statistic ?? {}),
+              exp: Number(this.userInfo?.statistic?.exp) + expAdded,
+            },
+          },
+          true
+        );
+        this.addedExp = expAdded;
+      }, 500);
+    }
+  }
+
+  onHandleRewardShard(addedItemShard: number | null) {
+    if (addedItemShard) {
+      this.isShowChest = true;
+      this.addedShard = addedItemShard;
+    }
+  }
+
+  onHandleQueue() {
+    if (this.fnQueue.length > 0) {
+      this.fnQueue.shift()?.();
+    }
+  }
+
+  onHandleDoneExp() {
+    this.isShowAddedExp = false;
+    this.addedExp = 0;
+    this.onHandleQueue();
+  }
+
+  onHandleDoneShard() {
+    this.isShowChest = false;
+    this.showRewardScreen = null;
+    this.addedShard = 0;
+    this.onHandleQueue();
+  }
+
+  onFinishChest() {
+    this.isShowChest = false;
+    this.showRewardScreen = 'shard';
   }
 }

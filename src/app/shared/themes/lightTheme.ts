@@ -18,7 +18,7 @@ export const lightTheme = {
 
   '--mask': 'rgba(10, 10, 10, 0.03)',
   '--mask-hover': 'rgba(10, 10, 10, 0.06)',
-  '--mask-bg': '#bababa50',
+  '--mask-bg': '#bababa90',
   '--disabled-text': '#C8BEB5',
 
   '--primary-text': '#1E1E1E',

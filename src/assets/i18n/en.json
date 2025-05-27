@@ -689,7 +689,8 @@
     "PLATFORM_REVENUE": "Platform NET revenue",
     "NO_DATA": "No data to display",
     "CONGRATULATION": "Congratulation",
-    "YOU_HAVE_COMPLETED_THE_LESSON_MATERIAL": "you have completed the lesson's material"
+    "YOU_HAVE_COMPLETED_THE_LESSON_MATERIAL": "you have completed the lesson's material",
+    "REWARD_LESSON_PEICES": "You have completed a lesson and received"
   },
   "MESSAGE": {
     "FAILED_UPDATE_PROGRESS": "Failed to update progress",

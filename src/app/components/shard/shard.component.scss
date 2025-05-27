@@ -1,0 +1,24 @@
+.shard {
+    width: 25px;
+    height: 25px;
+    background-color: var(--stage-surface-current);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: rotate(45deg);
+    border: 2px solid var(--stage-body-current);
+
+    .name {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--primary-text);
+        transform: rotate(-45deg);
+    }
+
+    fa-icon {
+        font-size: 14px;
+        color: var(--primary-text);
+        transform: rotate(-45deg);
+    }
+}
