@@ -63,11 +63,12 @@ export class ShopSettingsComponent implements OnInit {
 
   onHandleChangeTag(e: any, item: IShopItemEdit) {
     const tagId = e.target.value;
+
     const tagName = this.tags.find((tag) => tag.id === tagId)?.name || '';
 
     this.tempItems = this.tempItems.map((_item) => {
       if (_item.name === item.name) {
-        _item.tag = { tagId, tagName };
+        _item.tag = !tagId ? null : { tagId, tagName };
       }
 
       return _item;
