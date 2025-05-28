@@ -37,8 +37,11 @@ export class PlatformService {
       });
   }
 
-  getShopItems() {
-    return this.http.get<IShopItemEdit[]>(endPoints.filterShopItem);
+  getShopItems(isGold?: boolean) {
+    return this.http.get<IShopItemEdit[]>(
+      endPoints.filterShopItem +
+        (isGold !== undefined ? `?isGold=${isGold}` : '')
+    );
   }
 
   updateShopItems(data: IUpdateShopItem) {
@@ -116,8 +119,16 @@ export class PlatformService {
     );
   }
 
-  onUpdateInstructorStatus(UserId: string, isApprove: boolean, rejectedReason: string) {
-    return this.http.post(endPoints.approveInstructor, { UserId, isApprove, rejectedReason });
+  onUpdateInstructorStatus(
+    UserId: string,
+    isApprove: boolean,
+    rejectedReason: string
+  ) {
+    return this.http.post(endPoints.approveInstructor, {
+      UserId,
+      isApprove,
+      rejectedReason,
+    });
   }
 
   cancelInstructorRegistration() {

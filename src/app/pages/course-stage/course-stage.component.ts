@@ -77,7 +77,7 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
   userInfo: IUser | null = null;
 
   showRewardScreen: null | 'level' | 'shard' = null;
-  addedShard = 4;
+  addedShard = 0;
 
   constructor(
     private route: ActivatedRoute,
@@ -383,7 +383,7 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
 
     if (data.addedItemShard) {
       this.fnQueue.push(() => {
-        this.onHandleRewardShard(data.addedItemShard);
+        this.onHandleRewardShard(data.addedItemShard, data.itemShards);
       });
     }
 
@@ -397,8 +397,6 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
     expAdded: number;
     newLevel: number | null;
   }) {
-    console.log(expAdded, newLevel);
-
     if (expAdded > 0) {
       this.isShowAddedExp = true;
       setTimeout(() => {
@@ -410,6 +408,7 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
             statistic: {
               ...(this.userInfo?.statistic ?? {}),
               exp: Number(this.userInfo?.statistic?.exp) + expAdded,
+              level: newLevel ?? (this.userInfo?.statistic?.exp as any),
             },
           },
           true
@@ -419,7 +418,7 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
     }
   }
 
-  onHandleRewardShard(addedItemShard: number | null) {
+  onHandleRewardShard(addedItemShard: number | null, allShards: { [key: string]: number }) {
     if (addedItemShard) {
       this.isShowChest = true;
       this.addedShard = addedItemShard;

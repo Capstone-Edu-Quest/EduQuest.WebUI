@@ -26,10 +26,12 @@ import {
 })
 export class ShardComponent implements OnInit {
   @Input() shardName: string = '';
+  @Input() customSize: number = 25;
+  
   ngOnInit(): void {}
 
   getShardName() {
-    return this.shardName[0].toLocaleUpperCase();
+    return this.shardName[0]?.toLocaleUpperCase();
   }
 
   getShardIcon() {

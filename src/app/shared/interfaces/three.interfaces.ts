@@ -33,6 +33,7 @@ export interface IShopItem {
   id: string;
   name: string;
   price: number;
+  tag?: null | {tagId: string, tagName: string};
   isOwned: boolean;
 }
 

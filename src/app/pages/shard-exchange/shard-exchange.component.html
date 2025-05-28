@@ -1,0 +1,34 @@
+<div class="shop-items">
+  <div class="header">
+    <div class="title text-gradient">{{ "LABEL.SHOP_SHARD" | translate }}</div>
+
+    <div class="shards-list">
+      <div *ngFor="let shard of shardsList" class="gold-ctn">
+        <app-shard [shardName]="shard[0]" [customSize]="15"></app-shard>
+        <div class="number">{{ shard[1] }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="items-list">
+    <div class="item" *ngFor="let item of items">
+        <div class="img-wrapper">
+          <img [src]="thumbnailPath + item.name + '.png'" />
+        </div>
+        <div class="item-name">
+          {{ "SHOP_ITEMS." + item.name.toUpperCase() | translate }}
+        </div>
+        <div class="price">
+          <!-- <fa-icon [icon]="coinIcon"></fa-icon> -->
+          <div class="number">{{ item.price }}</div>
+        </div>
+  
+        <div class="owned" *ngIf="item.isOwned">
+          {{ "LABEL.PURCHASED" | translate }}
+        </div>
+        <!-- <button class="buy-btn" *ngIf="!item.isOwned" (click)="onPurchase(item.name)">
+          {{ "BUTTON.PURCHASE" | translate }}
+        </button> -->
+      </div>
+  </div>
+</div>

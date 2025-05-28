@@ -32,6 +32,9 @@ export interface IUser {
     tagId: string;
     tagName: string;
   }[];
+  itemShards: {
+    [key: string]: number;
+  };
 }
 
 export interface IProfile extends IUser {

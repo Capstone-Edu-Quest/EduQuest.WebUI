@@ -1,0 +1,47 @@
+import { ChangeDetectionStrategy, Component, type OnInit } from '@angular/core';
+import { UserService } from '../../core/services/user.service';
+import { PlatformService } from '../../core/services/platform.service';
+import { IShopItem } from '../../shared/interfaces/three.interfaces';
+import { folderPath } from '../../shared/constants/path.constant';
+import { IUser } from '../../shared/interfaces/user.interfaces';
+@Component({
+  selector: 'app-shard-exchange',
+  templateUrl: './shard-exchange.component.html',
+  styleUrl: './shard-exchange.component.scss',
+})
+export class ShardExchangeComponent implements OnInit {
+  shardsList: [string, number][] = [];
+
+  thumbnailPath = folderPath.itemThumbnail;
+
+  items: IShopItem[] = [];
+  userInfo: IUser | null = null;
+
+  constructor(private user: UserService, private platform: PlatformService) {}
+
+  ngOnInit(): void {
+    this.listenToUser();
+    this.initItems();
+  }
+
+  listenToUser() {
+    this.user.user$.subscribe((user) => {
+      this.userInfo = user;
+      this.shardsList = Object.entries(user?.itemShards ?? {});
+      this.initItems();
+    });
+  }
+
+  initItems() {
+    this.platform.getShopItems(false).subscribe((data) => {
+      if (!data?.payload) return;
+
+      this.items = data.payload
+        .map((item) => ({
+          ...item,
+          isOwned: this.userInfo?.mascotItem?.includes(item.name) ?? false,
+        }))
+        .sort((a, b) => (a.isOwned ? 1 : b.isOwned ? -1 : 0));
+    });
+  }
+}

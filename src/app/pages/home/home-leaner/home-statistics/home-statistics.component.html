@@ -47,15 +47,22 @@
       </div>
 
       <!-- Daily quest -->
-      <div
-        class="section-container"
-      >
+      <div class="section-container">
         <div class="section-label">{{ "LABEL.QUESTS" | translate }}</div>
         <i class="no-quest" *ngIf="dailyQuests.length === 0">{{
           "LABEL.NO_DAILY_QUESTS" | translate
         }}</i>
 
-        <div style="max-height: 195px; overflow-y: auto; display: flex; flex-direction: column; gap: 0px; padding-right: 4px;">
+        <div
+          style="
+            max-height: 195px;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 0px;
+            padding-right: 4px;
+          "
+        >
           <div class="quest" *ngFor="let quest of dailyQuests">
             <div class="info-wrapper">
               <i nz-icon nzType="aim"></i>
@@ -100,6 +107,10 @@
         <fa-icon class="shop" [icon]="shopIcon"></fa-icon>
       </a>
 
+      <a routerLink="shard-exchange">
+        <fa-icon class="shop" [icon]="exchangeIcon"></fa-icon>
+      </a>
+      
       <a routerLink="items">
         <fa-icon class="shop" [icon]="boxIcon"></fa-icon>
       </a>

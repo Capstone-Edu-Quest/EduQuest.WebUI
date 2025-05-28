@@ -42,7 +42,7 @@ export class ShopItemsComponent implements OnInit, OnDestroy {
   }
 
   initItems() {
-    this.platform.getShopItems().subscribe((data) => {
+    this.platform.getShopItems(true).subscribe((data) => {
       if (!data?.payload) return;
 
       this.items = data.payload.map((item) => ({

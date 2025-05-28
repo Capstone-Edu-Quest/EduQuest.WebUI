@@ -16,7 +16,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { PlatformService } from '@/src/app/core/services/platform.service';
 import { v4 } from 'uuid';
 import { IUpdateShopItem } from '@/src/app/shared/interfaces/others.interfaces';
-
+import { CoursesService } from '@/src/app/core/services/courses.service';
+import { ITag } from '@/src/app/shared/interfaces/course.interfaces';
+import { TagTypeRequestEnum } from '@/src/app/shared/enums/course.enum';
 @Component({
   selector: 'app-shop-settings',
   templateUrl: './shop-settings.component.html',
@@ -44,15 +46,32 @@ export class ShopSettingsComponent implements OnInit {
 
   deleteItems: string[] = [];
 
+  tags: ITag[] = [];
+
   constructor(
     private modal: ModalService,
     private message: MessageService,
     private translate: TranslateService,
-    private platform: PlatformService
+    private platform: PlatformService,
+    private courseService: CoursesService
   ) {}
 
   ngOnInit(): void {
     this.onInitItems();
+    this.onInitTags();
+  }
+
+  onHandleChangeTag(e: any, item: IShopItemEdit) {
+    const tagId = e.target.value;
+    const tagName = this.tags.find((tag) => tag.id === tagId)?.name || '';
+
+    this.tempItems = this.tempItems.map((_item) => {
+      if (_item.name === item.name) {
+        _item.tag = { tagId, tagName };
+      }
+
+      return _item;
+    });
   }
 
   onInitItems() {
@@ -61,6 +80,16 @@ export class ShopSettingsComponent implements OnInit {
 
       this.items = res.payload;
     });
+  }
+
+  onInitTags() {
+    this.courseService
+      .onGetTags({ type: TagTypeRequestEnum.SUBJECT })
+      .subscribe((res) => {
+        if (!res?.payload) return;
+
+        this.tags = res.payload;
+      });
   }
 
   onAdd() {
@@ -134,7 +163,11 @@ export class ShopSettingsComponent implements OnInit {
     this.isEdit = false;
 
     const updatedData: IUpdateShopItem = {
-      items: this.items.map((item) => ({ name: item.name, price: item.price })),
+      items: this.items.map((item) => ({
+        name: item.name,
+        price: item.price,
+        tagId: item.tag?.tagId || null,
+      })),
     };
 
     this.platform.updateShopItems(updatedData).subscribe((res) => {

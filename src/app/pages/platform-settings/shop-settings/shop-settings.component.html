@@ -23,9 +23,29 @@
         {{ "SHOP_ITEMS." + item.name.toUpperCase() | translate }}
       </div>
       <div class="price">
-        <fa-icon [icon]="coinIcon"></fa-icon>
+        <fa-icon [icon]="coinIcon" *ngIf="!isEdit && !item.tag"></fa-icon>
+        <app-shard
+          *ngIf="!isEdit && item.tag"
+          [customSize]="12"
+          [shardName]="item.tag.tagName || ''"
+        ></app-shard>
+        <select *ngIf="isEdit" (change)="onHandleChangeTag($event, item)">
+          <option
+            *ngFor="let tag of tags"
+            [value]="tag.id"
+            [selected]="item.tag?.tagId === tag.id"
+          >
+            {{ tag.name }}
+          </option>
+          <option value="">{{ "LABEL.GOLD" | translate }}</option>
+        </select>
         <div class="number" *ngIf="!isEdit">{{ item.price }}</div>
-        <input *ngIf="isEdit" [(ngModel)]="item.price" type="number" class="formated-input"/>
+        <input
+          *ngIf="isEdit"
+          [(ngModel)]="item.price"
+          type="number"
+          class="formated-input"
+        />
       </div>
 
       <fa-icon
@@ -92,7 +112,11 @@
   </div>
 
   <div class="add-items-btn-ctn">
-    <app-button (click)="onCancelAdd()">{{'BUTTON.CANCEL' | translate}}</app-button>
-    <app-button (click)="onConfirmAdd()" type="primary">{{'BUTTON.ADD' | translate}}</app-button>
+    <app-button (click)="onCancelAdd()">{{
+      "BUTTON.CANCEL" | translate
+    }}</app-button>
+    <app-button (click)="onConfirmAdd()" type="primary">{{
+      "BUTTON.ADD" | translate
+    }}</app-button>
   </div>
 </ng-template>

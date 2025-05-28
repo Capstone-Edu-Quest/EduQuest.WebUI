@@ -690,7 +690,8 @@
     "NO_DATA": "No data to display",
     "CONGRATULATION": "Congratulation",
     "YOU_HAVE_COMPLETED_THE_LESSON_MATERIAL": "you have completed the lesson's material",
-    "REWARD_LESSON_PEICES": "You have completed a lesson and received"
+    "REWARD_LESSON_PEICES": "You have completed a lesson and received",
+    "SHOP_SHARD": "Exchange shards"
   },
   "MESSAGE": {
     "FAILED_UPDATE_PROGRESS": "Failed to update progress",

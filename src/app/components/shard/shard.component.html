@@ -1,4 +1,4 @@
-<div class="shard">
+<div class="shard" [ngStyle]="{ 'width': customSize + 'px', 'height': customSize + 'px' }">
   <!-- <div class="name">{{ getShardName() }}</div> -->
-   <fa-icon [icon]="getShardIcon()"></fa-icon>
+   <fa-icon [icon]="getShardIcon()" [ngStyle]="{ 'font-size': customSize * 0.7 + 'px' }"></fa-icon>
 </div>

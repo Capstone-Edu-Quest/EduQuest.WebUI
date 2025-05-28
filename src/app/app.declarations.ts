@@ -209,6 +209,7 @@ import { UserDetailsComponent } from './pages/user-manage/user-details/user-deta
 import { AdminRevenueComponent } from './pages/admin-revenue/admin-revenue.component';
 import { Chest3dComponent } from './components/chest-3d/chest-3d.component';
 import { ShardComponent } from './components/shard/shard.component';
+import { ShardExchangeComponent } from './pages/shard-exchange/shard-exchange.component';
 export const AppDeclarations = [
   AppComponent,
   NavbarComponent,
@@ -378,7 +379,8 @@ export const AppDeclarations = [
   UserDetailsComponent,
   AdminRevenueComponent,
   Chest3dComponent,
-  ShardComponent
+  ShardComponent,
+  ShardExchangeComponent
 ];
 export const NGIcons = [
   EnterOutline,

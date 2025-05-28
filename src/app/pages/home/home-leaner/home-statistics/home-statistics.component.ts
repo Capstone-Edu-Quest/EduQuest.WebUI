@@ -9,7 +9,9 @@ import {
   faBoxOpen,
   faCertificate,
   faCoins,
+  faExchangeAlt,
   faPlus,
+  faPuzzlePiece,
   faShop,
   faStar,
 } from '@fortawesome/free-solid-svg-icons';
@@ -42,6 +44,7 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
   shopIcon = faShop;
   boxIcon = faBoxOpen;
   starIcon = faStar;
+  exchangeIcon = faPuzzlePiece;
 
   statistics = [
     // {

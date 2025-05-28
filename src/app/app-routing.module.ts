@@ -63,6 +63,7 @@ import { MyCoursesDetailsUnmarkAssiComponent } from './pages/my-course-details/m
 import { LeaderboardComponent } from './pages/leaderboard/leaderboard.component';
 import { MyLearningComponent } from './pages/my-learning/my-learning.component';
 import { AdminRevenueComponent } from './pages/admin-revenue/admin-revenue.component';
+import { ShardExchangeComponent } from './pages/shard-exchange/shard-exchange.component';
 
 const routes: Routes = [
   {
@@ -535,6 +536,12 @@ const routes: Routes = [
         pathMatch: 'full',
       },
     ],
+  },
+  {
+    path: 'shard-exchange',
+    component: ShardExchangeComponent,
+    canActivate: [AuthGuard, RoleGuard],
+    data: { allowedRoles: [WebRole.LEARNER] },
   },
 ];
 
