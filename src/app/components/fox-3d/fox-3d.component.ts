@@ -37,6 +37,14 @@ export class Fox3dComponent implements OnInit, OnDestroy {
       this.listenToItemEquip();
       clearTimeout(triggerTimeout);
     }, 100);
+
+    this.listenToUser();
+  }
+
+  listenToUser() {
+    this.UserService.user$.subscribe((user) => {
+      this.fox.updateFoxSizeLevel(user?.statistic?.level ?? 1);
+    });
   }
 
   listenToItemEquip() {

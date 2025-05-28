@@ -106,6 +106,18 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
     );
   }
 
+  onUpdateLevel(value: number) {
+    if (!this.user) return;
+
+    this.userService.updateUser({
+      ...this.user,
+      statistic: {
+        ...this.user?.statistic,
+        level: this.user?.statistic.level + value,
+      },
+    });
+  }
+
   listenToQuests() {
     this.subscription$.add(
       this.quests.userQuests$.subscribe((quests) => {

@@ -114,6 +114,9 @@
       <a routerLink="items">
         <fa-icon class="shop" [icon]="boxIcon"></fa-icon>
       </a>
+
+      <button (click)="onUpdateLevel(1)">+</button>
+      <button (click)="onUpdateLevel(-1)">-</button>
     </div>
 
     <div class="level">
