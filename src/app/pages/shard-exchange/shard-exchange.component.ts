@@ -44,4 +44,23 @@ export class ShardExchangeComponent implements OnInit {
         .sort((a, b) => (a.isOwned ? 1 : b.isOwned ? -1 : 0));
     });
   }
+
+  onPurchase(itemName: string) {
+    const request$ = this.platform.purchaseShopItems(itemName);
+    if (!request$) return;
+
+    request$.subscribe((res) => {
+      if (!res) {
+        return;
+      }
+      
+      this.items = this.items.map((item) => {
+        if (item.name === itemName) {
+          return { ...item, isOwned: true };
+        }
+
+        return item;
+      });
+    });
+  }
 }

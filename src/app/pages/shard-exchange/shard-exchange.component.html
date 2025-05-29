@@ -12,23 +12,31 @@
 
   <div class="items-list">
     <div class="item" *ngFor="let item of items">
-        <div class="img-wrapper">
-          <img [src]="thumbnailPath + item.name + '.png'" />
-        </div>
-        <div class="item-name">
-          {{ "SHOP_ITEMS." + item.name.toUpperCase() | translate }}
-        </div>
-        <div class="price">
-          <!-- <fa-icon [icon]="coinIcon"></fa-icon> -->
-          <div class="number">{{ item.price }}</div>
-        </div>
-  
-        <div class="owned" *ngIf="item.isOwned">
-          {{ "LABEL.PURCHASED" | translate }}
-        </div>
-        <!-- <button class="buy-btn" *ngIf="!item.isOwned" (click)="onPurchase(item.name)">
-          {{ "BUTTON.PURCHASE" | translate }}
-        </button> -->
+      <div class="img-wrapper">
+        <img [src]="thumbnailPath + item.name + '.png'" />
       </div>
+      <div class="item-name">
+        {{ "SHOP_ITEMS." + item.name.toUpperCase() | translate }}
+      </div>
+      <div class="price">
+        <app-shard
+          *ngIf="item.tag"
+          [customSize]="12"
+          [shardName]="item.tag.tagName || ''"
+        ></app-shard>
+        <div class="number">{{ item.price }}</div>
+      </div>
+
+      <div class="owned" *ngIf="item.isOwned">
+        {{ "LABEL.PURCHASED" | translate }}
+      </div>
+      <button
+        class="buy-btn"
+        *ngIf="!item.isOwned"
+        (click)="onPurchase(item.name)"
+      >
+        {{ "BUTTON.PURCHASE" | translate }}
+      </button>
+    </div>
   </div>
 </div>
