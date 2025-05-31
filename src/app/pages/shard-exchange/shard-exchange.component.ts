@@ -4,6 +4,8 @@ import { PlatformService } from '../../core/services/platform.service';
 import { IShopItem } from '../../shared/interfaces/three.interfaces';
 import { folderPath } from '../../shared/constants/path.constant';
 import { IUser } from '../../shared/interfaces/user.interfaces';
+import { MessageService } from '../../core/services/message.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-shard-exchange',
   templateUrl: './shard-exchange.component.html',
@@ -17,7 +19,12 @@ export class ShardExchangeComponent implements OnInit {
   items: IShopItem[] = [];
   userInfo: IUser | null = null;
 
-  constructor(private user: UserService, private platform: PlatformService) {}
+  constructor(
+    private user: UserService,
+    private platform: PlatformService,
+    private message: MessageService,
+    private translate: TranslateService
+  ) {}
 
   ngOnInit(): void {
     this.listenToUser();
@@ -50,10 +57,23 @@ export class ShardExchangeComponent implements OnInit {
     if (!request$) return;
 
     request$.subscribe((res) => {
-      if (!res) {
+      if (!res?.payload) {
         return;
       }
-      
+
+      this.message.addMessage(
+        'success',
+        this.translate.instant('MESSAGE.PURSCHASED_SUCCESS')
+      );
+
+      (this.userInfo as any).mascotItem = [
+        ...((this.userInfo as any).mascotItem ?? []),
+        itemName,
+      ];
+      (this.userInfo as any).itemShards = (res.payload as any).itemShards ?? {};
+
+      this.user.updateUser(this.userInfo);
+
       this.items = this.items.map((item) => {
         if (item.name === itemName) {
           return { ...item, isOwned: true };

@@ -57,21 +57,6 @@ export class PlatformService {
     return this.http
       .post(endPoints.purchaseItem, { userId, name: itemName })
       .pipe((res) => {
-        if (!res) {
-          this.message.addMessage(
-            'error',
-            this.translate.instant('MESSAGE.PURSCHASE_FAILED')
-          );
-        } else {
-          this.message.addMessage(
-            'success',
-            this.translate.instant('MESSAGE.PURSCHASED_SUCCESS')
-          );
-
-          currentUser.mascotItem = [...currentUser.mascotItem, itemName];
-          this.user.updateUser(currentUser);
-        }
-
         return res;
       });
   }

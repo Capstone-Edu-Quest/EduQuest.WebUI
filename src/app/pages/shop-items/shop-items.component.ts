@@ -6,6 +6,8 @@ import { IUser } from '../../shared/interfaces/user.interfaces';
 import { Subscription } from 'rxjs';
 import { UserService } from '../../core/services/user.service';
 import { PlatformService } from '../../core/services/platform.service';
+import { MessageService } from '../../core/services/message.service';
+import { TranslateService } from '@ngx-translate/core';
 @Component({
   selector: 'app-shop-items',
   templateUrl: './shop-items.component.html',
@@ -25,7 +27,9 @@ export class ShopItemsComponent implements OnInit, OnDestroy {
 
   constructor(
     private userService: UserService,
-    private platform: PlatformService
+    private platform: PlatformService,
+    private message: MessageService,
+    private translate: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -45,10 +49,12 @@ export class ShopItemsComponent implements OnInit, OnDestroy {
     this.platform.getShopItems(true).subscribe((data) => {
       if (!data?.payload) return;
 
-      this.items = data.payload.map((item) => ({
-        ...item,
-        isOwned: this.user?.mascotItem?.includes(item.name) ?? false,
-      })).sort((a, b) => a.isOwned ? 1 : b.isOwned ? -1 : 0);
+      this.items = data.payload
+        .map((item) => ({
+          ...item,
+          isOwned: this.user?.mascotItem?.includes(item.name) ?? false,
+        }))
+        .sort((a, b) => (a.isOwned ? 1 : b.isOwned ? -1 : 0));
     });
   }
 
@@ -57,10 +63,24 @@ export class ShopItemsComponent implements OnInit, OnDestroy {
     if (!request$) return;
 
     request$.subscribe((res) => {
-      if (!res) {
+      if (!res?.payload) {
         return;
       }
+
+      this.message.addMessage(
+        'success',
+        this.translate.instant('MESSAGE.PURSCHASED_SUCCESS')
+      );
+
+      (this.user as any).mascotItem = [
+        ...((this.user as any).mascotItem ?? []),
+        itemName,
+      ];
       
+      (this.user as any).statistic.gold = (res.payload as any).gold ?? 0;
+
+      this.userService.updateUser(this.user);
+
       this.items = this.items.map((item) => {
         if (item.name === itemName) {
           return { ...item, isOwned: true };
