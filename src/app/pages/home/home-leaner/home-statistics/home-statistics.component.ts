@@ -32,6 +32,7 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
   subscription$: Subscription = new Subscription();
 
   user: IUser | null = null;
+  shardsList: [string, number][] = [];
 
   currentStreak = 15; // days
   numTest = 1;
@@ -85,6 +86,7 @@ export class HomeStatisticsComponent implements OnInit, OnDestroy {
     this.subscription$.add(
       this.userService.user$.subscribe((user) => {
         this.user = user;
+        this.shardsList = Object.entries(user?.itemShards ?? {});
 
         if (!user) return;
         this.statistics = [

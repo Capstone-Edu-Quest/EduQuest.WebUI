@@ -39,7 +39,7 @@ export default class Fox3DMain {
   }
 
   updateFoxSizeLevel(level: number) {
-    this.character.updateFoxSizeLevel(level);
+    this.character?.updateFoxSizeLevel(level);
   }
 
   update(delta: number) {

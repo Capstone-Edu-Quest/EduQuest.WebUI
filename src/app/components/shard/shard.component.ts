@@ -17,6 +17,7 @@ import {
   faFlag,
   faStar,
   faSquareRootAlt,
+  faCode,
 } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
@@ -27,7 +28,7 @@ import {
 export class ShardComponent implements OnInit {
   @Input() shardName: string = '';
   @Input() customSize: number = 25;
-  
+
   ngOnInit(): void {}
 
   getShardName() {
@@ -56,6 +57,8 @@ export class ShardComponent implements OnInit {
         return faMicrochip;
       case 'japanese':
         return faFlag;
+      case 'programming':
+        return faCode;
       default:
         return faStar;
     }

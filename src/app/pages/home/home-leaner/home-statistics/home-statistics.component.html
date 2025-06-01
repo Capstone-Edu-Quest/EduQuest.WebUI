@@ -97,6 +97,13 @@
   <div class="section-container fox" style="height: 240px">
     <app-fox-3d></app-fox-3d>
     <div class="pannel-ctn">
+      <div style="display: flex; gap: 3px; align-items: center">
+        <div class="gold-ctn" *ngFor="let shard of shardsList">
+          <app-shard [shardName]="shard[0]" [customSize]="8"></app-shard>
+          <div class="number">{{ shard[1] }}</div>
+        </div>
+      </div>
+
       <div class="gold-ctn">
         <fa-icon [icon]="coinIcon"></fa-icon>
         <div class="number">{{ user?.statistic?.gold ?? 0 }}</div>
@@ -110,13 +117,13 @@
       <a routerLink="shard-exchange">
         <fa-icon class="shop" [icon]="exchangeIcon"></fa-icon>
       </a>
-      
+
       <a routerLink="items">
         <fa-icon class="shop" [icon]="boxIcon"></fa-icon>
       </a>
 
-      <button (click)="onUpdateLevel(1)">+</button>
-      <button (click)="onUpdateLevel(-1)">-</button>
+      <!-- <button (click)="onUpdateLevel(1)">+</button>
+      <button (click)="onUpdateLevel(-1)">-</button> -->
     </div>
 
     <div class="level">

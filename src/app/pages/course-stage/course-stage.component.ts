@@ -39,6 +39,7 @@ import { TranslateService } from '@ngx-translate/core';
 import { PaymentService } from '../../core/services/payment.service';
 import { ITransactionFilterParams } from '../../shared/interfaces/transactions.interfaces';
 import { IUser } from '../../shared/interfaces/user.interfaces';
+import { cloneDeep } from 'lodash';
 
 @Component({
   selector: 'app-course-stage',
@@ -377,6 +378,8 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
         this.onHandleRewardLevel({
           expAdded: data.levelInfo.expAdded,
           newLevel: data.levelInfo.newLevel ?? (null as any),
+          newLevelMaxExp:
+            (data.levelInfo as any).newLevelMaxExp ?? (null as any),
         });
       });
     }
@@ -393,36 +396,51 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
   onHandleRewardLevel({
     expAdded,
     newLevel,
+    newLevelMaxExp,
   }: {
     expAdded: number;
     newLevel: number | null;
+    newLevelMaxExp: number | null;
   }) {
     if (expAdded > 0) {
-      this.isShowAddedExp = true;
       setTimeout(() => {
         // this.isShowAddedExp = false;
         if (!this.userInfo) return;
-        this.user.updateUser(
-          {
-            ...this.userInfo,
-            statistic: {
-              ...(this.userInfo?.statistic ?? {}),
-              exp: Number(this.userInfo?.statistic?.exp) + expAdded,
-              level: newLevel ?? (this.userInfo?.statistic?.exp as any),
-            },
-          },
-          true
-        );
+        const newUInfo = cloneDeep(this.userInfo);
+        newUInfo.statistic.exp = Number(newUInfo.statistic.exp) + expAdded;
+        newUInfo.statistic.level = newLevel ?? (newUInfo.statistic.level as any);
+        newUInfo.statistic.maxExpLevel =
+          newLevelMaxExp ?? (newUInfo.statistic.maxExpLevel as any);
+
+        console.log(newUInfo)
+
+        this.user.updateUser(newUInfo, true);
+
+        this.isShowAddedExp = true;
         this.addedExp = expAdded;
       }, 500);
     }
   }
 
-  onHandleRewardShard(addedItemShard: number | null, allShards: { [key: string]: number }) {
+  onHandleRewardShard(
+    addedItemShard: number | null,
+    allShards: { [key: string]: number }
+  ) {
     if (addedItemShard) {
       this.isShowChest = true;
       this.addedShard = addedItemShard;
     }
+
+    if (allShards && this.userInfo) {
+      this.userInfo.itemShards = allShards;
+      this.user.updateUser(this.userInfo);
+    }
+  }
+
+  onGetShardName() {
+    return (
+      this.courseDetails.listTag.find((t) => t.type === 'Subject')?.name || ''
+    );
   }
 
   onHandleQueue() {

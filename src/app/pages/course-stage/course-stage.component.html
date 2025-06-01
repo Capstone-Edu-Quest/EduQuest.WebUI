@@ -25,8 +25,8 @@
     data-aos-delay="200"
   >
     + {{ addedShard }}
-    <app-shard [shardName]="courseDetails.listTag[0].name"></app-shard>
-    {{ courseDetails.listTag[0].name }} shards
+    <app-shard [shardName]="onGetShardName() || ''"></app-shard>
+    {{ onGetShardName() }} shards
   </div>
 
   <div style="width: 400px" data-aos="fade-up" data-aos-delay="500">
@@ -47,11 +47,11 @@
   <div class="progress" data-aos="fade" data-aos-delay="400">
     <div class="progress-bar-ctn">
       <div class="level">
-        {{ "LABEL.LEVEL" | translate : { level: userInfo?.statistic?.level } }}
+        {{ "LABEL.LEVEL" | translate : { level: userInfo?.statistic?.level ?? 0 } }}
       </div>
       <div
         class="progress-bar text-gradient"
-        [ngStyle]="{ width: userInfo?.statistic?.exp + '%' }"
+        [ngStyle]="{ width: (userInfo?.statistic?.exp ?? 0) / (userInfo?.statistic?.maxExpLevel ?? 1) * 100 + '%' }"
       ></div>
     </div>
     <div class="exp-gain">+ {{ addedExp }} Exp</div>
