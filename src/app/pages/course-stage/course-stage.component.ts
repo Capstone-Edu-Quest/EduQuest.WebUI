@@ -407,14 +407,15 @@ export class CourseStageComponent implements OnInit, AfterViewInit {
         // this.isShowAddedExp = false;
         if (!this.userInfo) return;
         const newUInfo = cloneDeep(this.userInfo);
-        newUInfo.statistic.exp = Number(newUInfo.statistic.exp) + expAdded;
-        newUInfo.statistic.level = newLevel ?? (newUInfo.statistic.level as any);
+        newUInfo.statistic.exp = newLevel
+          ? expAdded - newUInfo.statistic.maxExpLevel - newUInfo.statistic.exp
+          : Number(newUInfo.statistic.exp) + expAdded;
+        newUInfo.statistic.level =
+          newLevel ?? (newUInfo.statistic.level as any);
         newUInfo.statistic.maxExpLevel =
           newLevelMaxExp ?? (newUInfo.statistic.maxExpLevel as any);
 
-        console.log(newUInfo)
-
-        this.user.updateUser(newUInfo, true);
+        this.user.updateUser(newUInfo);
 
         this.isShowAddedExp = true;
         this.addedExp = expAdded;
